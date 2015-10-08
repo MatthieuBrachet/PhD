@@ -6,6 +6,8 @@ foo.txt
 *.log
 *.pdf
 *.synctex.gz
+# Ignorer les videos .avi
+*.avi
 # à l'exception de foo.html qui est maintenu à la main
 !foo.html
 # Ignorer les objets et les archives
