@@ -1,6 +1,3 @@
-# Les ligne commençant par '#' sont des commentaires.
-# Ignorer tous les fichiers nommés foo.txt
-foo.txt
 # Ignorer tous les générés par latex
 *.aux
 *.nav
@@ -10,7 +7,10 @@ foo.txt
 *.log
 *.pdf
 *.synctex.gz
-# à l'exception de foo.html qui est maintenu à la main
-!foo.html
+# exception des fichiers permettant les compilations
+# ??? a reflechir
+# note : les exceptions commencent par !
+# voir site :
+# https://alexgirard.com/git-book/intermediaire/git-ignore/
 # Ignorer les objets et les archives
 *.[oa]
