@@ -3,6 +3,9 @@
 foo.txt
 # Ignorer tous les générés par latex
 *.aux
+*.nav
+*.out
+*.snm
 *.toc
 *.log
 *.pdf
