@@ -45,15 +45,14 @@ qquiv = 0;
 %    save_graph = 0 : ne pas enregistrer
 save_graph = 1;
 %
-%% *** Benchmarks data ****************************************************
+%% ************************************************************************
 
-%% 
- n=35;
+%% Benchmarks data
+ n=10;
  nn=n+2;
- cfl=0.05;
+ cfl=0.9;
  itestop=10000;
 
-%% ************************************************************************
  
  if coef == 0
  % test de Williamson
@@ -148,7 +147,7 @@ if film==1
     set(gca, 'nextplot','replacechildren', 'Visible','off');
     %% film data
     nFrames = 20; % frame per second
-    aviobj = avifile(['./video/' date 'CSapprox_test' num2str(coef) '.avi'], 'fps',10);
+    aviobj = avifile(['CSapprox_test' num2str(coef) '.avi'], 'fps',10);
 end
 
 
@@ -429,21 +428,21 @@ figure(35);
 plot_cs5(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe);colorbar;
 title('solution exacte')
 if save_graph==1
-    print('-dpng', ['./results/' date '_solexacte_test_' num2str(coef) '.png'])
+    print('-dpng', ['./results/solexacte_test_' num2str(coef) '_'  date '.png'])
 end
  
 figure(37);
 plot_cs5(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);colorbar;
 title('solution approchee - RK4')
 if save_graph==1
-    print('-dpng', ['./results/' date '_solapprochee_test_' num2str(coef) '.png'])
+    print('-dpng', ['./results/solapprochee_test_' num2str(coef) '_'  date '.png'])
 end
 
 figure(39);
 plot_cs5(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI);colorbar;
 title('erreur algébrique - RK4')
 if save_graph==1
-    print('-dpng', ['./results/' date '_erreur_test_' num2str(coef) '.png'])
+    print('-dpng', ['./results/erreur_test_' num2str(coef) '_'  date '.png'])
 end
   
 figure(1);
@@ -453,7 +452,7 @@ plot(xdays,erinfty,'k.');
 legend('norme 1','norme 2','norme infinie')
 title('erreur globale - RK4')
 if save_graph==1
-    print('-dpng', ['./results/' date '_normerreur_test_' num2str(coef) '.png'])
+    print('-dpng', ['./results/normerreur_test_' num2str(coef) '_'  date '.png'])
 end
 
 format shortE
@@ -465,19 +464,18 @@ if save_graph==1
     fid = fopen('./results/TEST_SAVE.txt','a');
     %écrit dans ce fichier, fid est sa reference pour matlab
     fprintf(fid,'%s\n',['date : ', date]);
+    fprintf(fid,'%s\n',['oclock : ', clock]);
     fprintf(fid,'%s\n','******************************');
     fprintf(fid,'%s\n',['test : ', num2str(coef)]);
-    fprintf(fid,'%s\n','------- numerical data -------');
+    fprintf(fid,'%s\n','----- data -----');
     fprintf(fid,'%s\n',['number of points : ', num2str(n)] );
     fprintf(fid,'%s\n',['time step        : ', num2str(ddt)] );
     fprintf(fid,'%s\n',['cfl              : ', num2str(cfl)] );
-    fprintf(fid,'%s\n','----- mathematical data ------');
+    fprintf(fid,'%s\n','******************************');
     fprintf(fid,'%s\n',['angle in degree  : ', num2str(alphad*180/pi)] );
     fprintf(fid,'%s\n','******************************');
     fprintf(fid,'%s\n','  ');
     fprintf(fid,'%s\n','  ');
-    fprintf(fid,'%s\n','  ');
-    fprintf(fid,'%s\n','  ');
     %n'oublie pas de fermer le fichier sinon tu ne peux pas le lire
-    fclose(fid);
+    fclose(fid)
 end

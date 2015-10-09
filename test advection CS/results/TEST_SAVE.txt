@@ -1,0 +1,14 @@
+date : 09-Oct-2015
+******************************
+test : 2
+------- numerical data -------
+number of points : 5
+time step        : 38880
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 45
+******************************
+  
+  
+  
+  
