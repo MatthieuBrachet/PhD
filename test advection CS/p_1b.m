@@ -43,7 +43,7 @@ film = 0;
 qquiv = 0;
 % si save_graph = 1 : enregistrer les graphiques
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 0;
+save_graph = 1;
 %
 %% ************************************************************************
 
@@ -73,7 +73,7 @@ save_graph = 0;
  % test de Nair et Jablonowski
  alphad=pi/4; 
  
- lambda0 = pi/2;
+ lambda0 = 3*pi/2;
  teta0 = 0;
  lambda_p=pi;                                                              % position du pole nord à t=0, i.e. position du vortex nord à t=0
  teta_p=pi/2 - alphad;

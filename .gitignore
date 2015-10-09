@@ -1,4 +1,4 @@
-# Ignorer tous les générés par latex
+# Ignorer 
 *.aux
 *.nav
 *.out
