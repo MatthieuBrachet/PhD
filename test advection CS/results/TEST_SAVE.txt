@@ -1,12 +1,88 @@
-date : 09-Oct-2015
+date : 10-Oct-2015
 ******************************
 test : 2
 ------- numerical data -------
-number of points : 5
-time step        : 38880
-cfl              : 0.9
+number of points : 20
+time step        : 8640
+cfl              : 0.7
 ----- mathematical data ------
 angle in degree  : 45
+******************************
+max(er_1)        : 0.011735
+max(er_2)        : 0.028767
+max(er_infty)    : 0.13497
+******************************
+  
+  
+  
+  
+date : 10-Oct-2015
+******************************
+test : 2
+------- numerical data -------
+number of points : 30
+time step        : 5852.9032
+cfl              : 0.7
+----- mathematical data ------
+angle in degree  : 45
+******************************
+max(er_1)        : 0.0058183
+max(er_2)        : 0.017732
+max(er_infty)    : 0.087902
+******************************
+  
+  
+  
+  
+date : 10-Oct-2015
+******************************
+test : 2
+------- numerical data -------
+number of points : 40
+time step        : 4425.3659
+cfl              : 0.7
+----- mathematical data ------
+angle in degree  : 45
+******************************
+max(er_1)        : 0.0027609
+max(er_2)        : 0.0097386
+max(er_infty)    : 0.054808
+******************************
+  
+  
+  
+  
+date : 10-Oct-2015
+******************************
+test : 2
+------- numerical data -------
+number of points : 50
+time step        : 3557.6471
+cfl              : 0.7
+----- mathematical data ------
+angle in degree  : 45
+******************************
+max(er_1)        : 0.001276
+max(er_2)        : 0.005016
+max(er_infty)    : 0.032035
+******************************
+  
+  
+  
+  
+date : 11-Oct-2015
+******************************
+test : 2
+------- numerical data -------
+number of points : 60
+time step        : 2974.4262
+cfl              : 0.7
+----- mathematical data ------
+angle in degree  : 45
+******************************
+max(er_1)        : 0.00062957
+max(er_2)        : 0.0026157
+max(er_infty)    : 0.018218
 ******************************
   
   

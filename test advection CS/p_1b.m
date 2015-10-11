@@ -48,9 +48,9 @@ save_graph = 1;
 %% *** Benchmarks data ****************************************************
 
 %% 
- n=35;
+ n=80;
  nn=n+2;
- cfl=0.05;
+ cfl=0.7;
  itestop=10000;
 
 %% ************************************************************************
@@ -457,8 +457,8 @@ if save_graph==1
 end
 
 format shortE
-disp('erreur relative L2 : ')
-max(er2)
+disp('erreur relative L2 / L1 / L_infty: ')
+[max(er2) max(er1) max(erinfty)] 
 
 if save_graph==1
     %ouvre un fichier ou le créé
@@ -473,6 +473,10 @@ if save_graph==1
     fprintf(fid,'%s\n',['cfl              : ', num2str(cfl)] );
     fprintf(fid,'%s\n','----- mathematical data ------');
     fprintf(fid,'%s\n',['angle in degree  : ', num2str(alphad*180/pi)] );
+    fprintf(fid,'%s\n','******************************');
+    fprintf(fid,'%s\n',['max(er_1)        : ', num2str(max(er1))] );
+    fprintf(fid,'%s\n',['max(er_2)        : ', num2str(max(er2))] );
+    fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty))] );
     fprintf(fid,'%s\n','******************************');
     fprintf(fid,'%s\n','  ');
     fprintf(fid,'%s\n','  ');
