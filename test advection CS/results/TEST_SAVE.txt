@@ -166,3 +166,60 @@ CPU time (sec.)  : 0.00058082
   
   
   
+date : 13-Oct-2015
+******************************
+test : 3
+------- numerical data -------
+number of points : 30
+time step        : 7525.1613
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 0
+******************************
+max(er_1)        : 0.15852
+max(er_2)        : 0.3285
+max(er_infty)    : 0.83371
+******************************
+CPU time (sec.)  : 0.83371
+date : 13-Oct-2015
+******************************
+test : 3
+------- numerical data -------
+number of points : 30
+time step        : 7525.1613
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 0
+******************************
+max(er_1)        : 0.15852
+max(er_2)        : 0.3285
+max(er_infty)    : 0.83371
+******************************
+CPU time (sec.)  : 0.83371
+ordre du filtre  : 10
+******************************
+  
+  
+  
+  
+date : 13-Oct-2015
+******************************
+test : 2
+------- numerical data -------
+number of points : 30
+time step        : 7525.1613
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 0
+******************************
+max(er_1)        : 0.03034
+max(er_2)        : 0.062516
+max(er_infty)    : 0.20706
+******************************
+CPU time (sec.)  : 0.20706
+ordre du filtre  : 10
+******************************
+  
+  
+  
+  

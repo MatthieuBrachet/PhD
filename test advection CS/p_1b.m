@@ -3,33 +3,23 @@
 % authors : Matthieu Brachet
 %           Jean-Pierre Croisille
 % ----------------------------------
-% RK4 + Filtrage à l'ordre 10
+% RK4 + Filtrage
 clear all; clc; close all;
 %% construction des variables globales
 global n nn;
-global radius;
-global dxi;
-global x_fI y_fI z_fI;
-global x_fII y_fII z_fII;
-global x_fIII y_fIII z_fIII;
-global x_fIV y_fIV z_fIV;
-global x_fV y_fV z_fV;
-global x_fVI y_fVI z_fVI;
+global radius u0 dxi;
+global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII;
+global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI;
 global ite aaa bbb itestop
-global u0
 global coef opt_ftr
 % test de Williamson
-global alphad
-global tetac lambdac
+global alphad tetac lambdac
 % test de Nair et Machenhauer
-global gamma rho0
-global teta_p lambda_p
+global gamma rho0 teta_p lambda_p
 % test de Nair et Jablonowski
 global teta0 lambda0
 % test de Nair et Lauritzen
-global lambdac1 tetac1
-global lambdac2 tetac2
-
+global lambdac1 tetac1 lambdac2 tetac2
 %% *** OPTIONS ************************************************************
 %
 % si coef = 0, test 1 de Williamson (solid body rotation on the sphere)
@@ -37,48 +27,45 @@ global lambdac2 tetac2
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 0;
+coef = 2;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;
 % si qquiv = 1 : tracer le champ de vecteurs
 %    qquiv = 0 : ne pas tracer
 qquiv = 0;
-% si save_graph = 1 : enregistrer les graphiques et les données dans results.txt
+% si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
 save_graph = 0;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
-opt_ftr = 4;
-%
+opt_ftr = 10;
+% snapshot = 0 : pas de snapshot
+%          = 1 : snapshot ( n must be (2^n)-1 )
+snapshot = 1;
 %% *** Benchmarks data ****************************************************
-
-%% 
- n=30;
+ n=31;
  nn=n+2;
- cfl=0.9;
- ndaymax=3;
-
+ cfl=0.8;
+ ndaymax=36;
 %% ************************************************************************
  
  if coef == 0
  % test de Williamson
- alphad=pi/2;  
+ alphad=0;  
  lambdac=3*pi/2;                                                           % longitude BUMP
  tetac=0;                                                                  % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;
-
  elseif coef == 1
  % test de Nair et Machenhauer
  lambda_p=3*pi/4;                                                            % position du pole nord, i.e. position du vortex nord
  teta_p=-pi/4;
  rho0=3;
  gamma=5;
- 
  elseif coef == 2
  % test de Nair et Jablonowski
- alphad=3*pi/4; 
+ alphad=0; 
  
  lambda0 = 3*pi/2;
  teta0 = 0;
@@ -86,19 +73,16 @@ opt_ftr = 4;
  teta_p=pi/2 - alphad;
  rho0=3;
  gamma=5;
- 
  elseif coef == 3
- % test de salesak
- alphad=pi/4;                                                                 % latitude BUMP
+ % test de Nair, Lauritzen
+ alphad=0;                                                                 % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;
  
- lambdac1=0;
+ lambdac1=3*pi/2;
  tetac1=0;
- lambdac2=pi;
+ lambdac2=pi/2;
  tetac2=0;
- 
- 
  end
  
  
@@ -451,7 +435,6 @@ end
 time_res=cputime-tstart;
 %% graphiques
 
-
 figure(35);
 plot_cs5(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe);colorbar;
 title('solution exacte')
@@ -506,7 +489,7 @@ if save_graph==1
     fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty))] );
     fprintf(fid,'%s\n','******************************');
     fprintf(fid,'%s\n',['CPU time (sec.)  : ', num2str(max(erinfty))] );
-    fprintf(fid,'%s\n',['ordre du filtre  : ', num2str(opt_frt)] );
+    fprintf(fid,'%s\n',['ordre du filtre  : ', num2str(opt_ftr)] );
     fprintf(fid,'%s\n','******************************');
     fprintf(fid,'%s\n','  ');
     fprintf(fid,'%s\n','  ');
@@ -515,3 +498,22 @@ if save_graph==1
     %n'oublie pas de fermer le fichier sinon tu ne peux pas le lire
     fclose(fid);
 end
+
+[ x,f ] = coupe_eq(funfI,funfII,funfIII,funfIV);
+[ xe,fe ] = coupe_eq(funfIe,funfIIe,funfIIIe,funfIVe);
+figure(10)
+plot(x,f,xe,fe)
+legend('solution approchee','solution exacte')
+xlabel('equateur')
+title('coupe de la solution le long de l''equateur')
+if save_graph==1
+    print('-dpng', ['./results/' date '_coupefaceI_equateur_test_' num2str(coef) '.png'])
+end
+
+figure(11)
+plot_cs7(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe)
+if save_graph==1
+    print('-dpng', ['./results/' date '_snapshot_test_' num2str(coef) '.png'])
+end
+
+
