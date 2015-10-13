@@ -16,42 +16,48 @@ global x_fIV y_fIV z_fIV;
 global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
 global ite aaa bbb itestop
-global coef u0
-
+global u0
+global coef opt_ftr
 % test de Williamson
 global alphad
 global tetac lambdac
-
 % test de Nair et Machenhauer
 global gamma rho0
 global teta_p lambda_p
-
 % test de Nair et Jablonowski
 global teta0 lambda0
+% test de Nair et Lauritzen
+global lambdac1 tetac1
+global lambdac2 tetac2
+
 %% *** OPTIONS ************************************************************
 %
 % si coef = 0, test 1 de Williamson (solid body rotation on the sphere)
 %    coef = 1, test de Nair et Machenhauer  (deformational flow test - 
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
-coef = 2;
+%    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
+coef = 0;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;
 % si qquiv = 1 : tracer le champ de vecteurs
 %    qquiv = 0 : ne pas tracer
 qquiv = 0;
-% si save_graph = 1 : enregistrer les graphiques
+% si save_graph = 1 : enregistrer les graphiques et les données dans results.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 1;
+save_graph = 0;
+% option de filtre : opt_ftr = ordre souhaité pour le filtre
+% opt = 0 (sans filtre), 2, 4, 6, 8, 10
+opt_ftr = 4;
 %
 %% *** Benchmarks data ****************************************************
 
 %% 
- n=80;
+ n=30;
  nn=n+2;
- cfl=0.7;
- itestop=10000;
+ cfl=0.9;
+ ndaymax=3;
 
 %% ************************************************************************
  
@@ -72,7 +78,7 @@ save_graph = 1;
  
  elseif coef == 2
  % test de Nair et Jablonowski
- alphad=pi/4; 
+ alphad=3*pi/4; 
  
  lambda0 = 3*pi/2;
  teta0 = 0;
@@ -81,10 +87,31 @@ save_graph = 1;
  rho0=3;
  gamma=5;
  
+ elseif coef == 3
+ % test de salesak
+ alphad=pi/4;                                                                 % latitude BUMP
+ lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
+ teta_p=pi/2 - alphad;
+ 
+ lambdac1=0;
+ tetac1=0;
+ lambdac2=pi;
+ tetac2=0;
+ 
+ 
  end
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 %% données du problème
+itestop=10000;
+tstart=cputime;
 mod_1b
-ndaymax=12;
 tmax=24*3600*ndaymax;
 ddt=cfl*radius*dxi/u0;
 itemax=floor(tmax/ddt);
@@ -421,7 +448,7 @@ end
  [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=...
     nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
 
-
+time_res=cputime-tstart;
 %% graphiques
 
 
@@ -477,6 +504,9 @@ if save_graph==1
     fprintf(fid,'%s\n',['max(er_1)        : ', num2str(max(er1))] );
     fprintf(fid,'%s\n',['max(er_2)        : ', num2str(max(er2))] );
     fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty))] );
+    fprintf(fid,'%s\n','******************************');
+    fprintf(fid,'%s\n',['CPU time (sec.)  : ', num2str(max(erinfty))] );
+    fprintf(fid,'%s\n',['ordre du filtre  : ', num2str(opt_frt)] );
     fprintf(fid,'%s\n','******************************');
     fprintf(fid,'%s\n','  ');
     fprintf(fid,'%s\n','  ');

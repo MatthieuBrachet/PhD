@@ -8,6 +8,9 @@ global tetac lambdac
 global gamma rho0
 % test de Nair et Jablonowski
 global teta0 lambda0
+% test de Salesak
+global lambda1 teta1
+global lambda2 teta2
 
 if coef == 0
     [n1, n2] = size(x);
@@ -85,6 +88,43 @@ elseif coef == 2
     V=u0*(3*sqrt(3)/2)*sech(rho).^2.*tanh(rho);
     logi=(rho~=0);
     wr=V./(radius.*rho).*logi;
-    v=1-tanh((rho./gamma).*sin(lambdas_prime - wr*t));  
+    v=1-tanh((rho./gamma).*sin(lambdas_prime - wr*t)); 
+    
+elseif coef == 3
+    
+    [n1, n2] = size(x);
+    v=zeros(n1,n2);
+    h0=1000;         % hauteur BUMP
+    RR=radius/3;         % parametre BUMP +- rayon du bump
+    omega0=(2*pi)/(12*24*3600);    % vitesse angulaire du BUMP en RD/sec
+    u0=radius*omega0;                  % module de la vitesse du BUMP a la 
+                                   % surface de la terre en m/s; 
+    % passage dans le repère en rotation
+    Pa=zeros(3,3);Pai=zeros(3,3);
+    Pa=[cos(alphad),0,-sin(alphad);0,1,0;sin(alphad),0,cos(alphad)];
+    Pai=inv(Pa);
+    % rotatin due au mouvement
+    Rmt=zeros(3,3);
+    Rmt=[cos(-omega0*t),-sin(-omega0*t),0;...
+      sin(-omega0*t),cos(-omega0*t),0;
+      0,0,1];
+    % application sur les coordonnées
+    xx=zeros(3,n1,n2);
+    xx(1,1:n1,1:n2)=x;xx(2,1:n1,1:n2)=y;xx(3,1:n1,1:n2)=z;
+    xxt=zeros(3,n1,n2);
+    for i=1:n1,
+        for j=1:n2,
+            xxt(1:3,i,j)=Pa*Rmt*Pai*xx(1:3,i,j);
+        end
+    end
+    xt=zeros(n1,n2);yt=zeros(n1,n2);zt=zeros(n1,n2);
+    xt=squeeze(xxt(1,1:n1,1:n2));
+    yt=squeeze(xxt(2,1:n1,1:n2));
+    zt=squeeze(xxt(3,1:n1,1:n2));
+    [lambdat,tetat,~]=cart2sph(xt,yt,zt);
+    v=zalesak(lambdat, tetat);
+    
+    
+    
 end
 end

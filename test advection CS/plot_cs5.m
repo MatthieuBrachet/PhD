@@ -5,18 +5,6 @@ global test
 global u0 radius
 global lambda0 teta0
 
-% %% centre du vortex
-% if test == 2
-%     ws=u0/radius;
-%     [lambda0_prime,teta0_prime ] = rotated_coord( lambda0, teta0 );
-%     lambdac_prime=lambda0_prime+ws*t;
-%     tetac_prime=teta0_prime;
-%     [lambdac,tetac ] = unrotated_coord( lambdac_prime, tetac_prime );
-%     [x_view,y_view,z_view]=sph2cat(lambdac,tetac,radius);
-% else
-%     [x_view,y_view,z_view]=sph2cart(-pi/4,pi/4,radius);
-% end
-
 %% tracé de la courbe
 r=radius;
 %
@@ -96,4 +84,7 @@ text(0,0,-r,'S','Color','g','FontSize',15);
 axis equal;
 axis([-radius radius -radius radius -radius radius]);
 colorbar;
+
+
+
 

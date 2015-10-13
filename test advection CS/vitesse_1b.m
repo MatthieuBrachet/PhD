@@ -275,5 +275,100 @@ elseif coef == 2
     [vitx_IV  , vity_IV  , vitz_IV ] = nair_jablonowski(x_fIV ,y_fIV  ,z_fIV ,t);
     [vitx_V   , vity_V   , vitz_V  ] = nair_jablonowski(x_fV  ,y_fV   ,z_fV  ,t);
     [vitx_VI  , vity_VI  , vitz_VI ] = nair_jablonowski(x_fVI ,y_fVI  ,z_fVI ,t);
+    
+elseif coef == 3
+    
+%% slotted cylinder - test de zalesak
+
+% --------------- FACE I---------------------
+[lambda,teta,radius1]=cart2sph(x_fI,y_fI,z_fI);
+elambda_x = -sin(lambda);
+elambda_y =  cos(lambda);
+elambda_z=0;
+eteta_x = -sin(teta).*cos(lambda);
+eteta_y = -sin(teta).*sin(lambda);
+eteta_z =  cos(teta);
+%
+ulambda=u0*(cos(alphad)*cos(teta)+sin(alphad)*sin(teta).*cos(lambda));
+vteta= -u0*sin(alphad)*sin(lambda);
+%
+vitx_I=ulambda.*elambda_x + vteta.*eteta_x;
+vity_I=ulambda.*elambda_y + vteta.*eteta_y;
+vitz_I=ulambda.*elambda_z + vteta.*eteta_z;
+% --------------- FACE II---------------------
+[lambda,teta,radius1]=cart2sph(x_fII,y_fII,z_fII);
+elambda_x = -sin(lambda);
+elambda_y =  cos(lambda);
+elambda_z=0;
+eteta_x = -sin(teta).*cos(lambda);
+eteta_y = -sin(teta).*sin(lambda);
+eteta_z =  cos(teta);
+%
+ulambda=u0*(cos(alphad)*cos(teta)+sin(alphad)*sin(teta).*cos(lambda));
+vteta= -u0*sin(alphad)*sin(lambda);
+%
+vitx_II=ulambda.*elambda_x + vteta.*eteta_x;
+vity_II=ulambda.*elambda_y + vteta.*eteta_y;
+vitz_II=ulambda.*elambda_z + vteta.*eteta_z;
+% --------------- FACE III---------------------
+[lambda,teta,radius1]=cart2sph(x_fIII,y_fIII,z_fIII);
+elambda_x = -sin(lambda);
+elambda_y =  cos(lambda);
+elambda_z=0;
+eteta_x = -sin(teta).*cos(lambda);
+eteta_y = -sin(teta).*sin(lambda);
+eteta_z =  cos(teta);
+%
+ulambda=u0*(cos(alphad)*cos(teta)+sin(alphad)*sin(teta).*cos(lambda));
+vteta= -u0*sin(alphad)*sin(lambda);
+%
+vitx_III=ulambda.*elambda_x + vteta.*eteta_x;
+vity_III=ulambda.*elambda_y + vteta.*eteta_y;
+vitz_III=ulambda.*elambda_z + vteta.*eteta_z;
+% --------------- FACE IV---------------------
+[lambda,teta,radius1]=cart2sph(x_fIV,y_fIV,z_fIV);
+elambda_x = -sin(lambda);
+elambda_y =  cos(lambda);
+elambda_z=0;
+eteta_x = -sin(teta).*cos(lambda);
+eteta_y = -sin(teta).*sin(lambda);
+eteta_z =  cos(teta);
+%
+ulambda=u0*(cos(alphad)*cos(teta)+sin(alphad)*sin(teta).*cos(lambda));
+vteta= -u0*sin(alphad)*sin(lambda);
+%
+vitx_IV=ulambda.*elambda_x + vteta.*eteta_x;
+vity_IV=ulambda.*elambda_y + vteta.*eteta_y;
+vitz_IV=ulambda.*elambda_z + vteta.*eteta_z;
+% --------------- FACE V---------------------
+[lambda,teta,radius1]=cart2sph(x_fV,y_fV,z_fV);
+elambda_x = -sin(lambda);
+elambda_y =  cos(lambda);
+elambda_z=0;
+eteta_x = -sin(teta).*cos(lambda);
+eteta_y = -sin(teta).*sin(lambda);
+eteta_z =  cos(teta);
+%
+ulambda=u0*(cos(alphad)*cos(teta)+sin(alphad)*sin(teta).*cos(lambda));
+vteta= -u0*sin(alphad)*sin(lambda);
+%
+vitx_V=ulambda.*elambda_x + vteta.*eteta_x;
+vity_V=ulambda.*elambda_y + vteta.*eteta_y;
+vitz_V=ulambda.*elambda_z + vteta.*eteta_z;
+% --------------- FACE VI---------------------
+[lambda,teta,radius1]=cart2sph(x_fVI,y_fVI,z_fVI);
+elambda_x = -sin(lambda);
+elambda_y =  cos(lambda);
+elambda_z=0;
+eteta_x = -sin(teta).*cos(lambda);
+eteta_y = -sin(teta).*sin(lambda);
+eteta_z =  cos(teta);
+%
+ulambda=u0*(cos(alphad)*cos(teta)+sin(alphad)*sin(teta).*cos(lambda));
+vteta= -u0*sin(alphad)*sin(lambda);
+%
+vitx_VI=ulambda.*elambda_x + vteta.*eteta_x;
+vity_VI=ulambda.*elambda_y + vteta.*eteta_y;
+vitz_VI=ulambda.*elambda_z + vteta.*eteta_z;
 
 end

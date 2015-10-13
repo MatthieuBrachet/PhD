@@ -88,3 +88,81 @@ max(er_infty)    : 0.018218
   
   
   
+date : 11-Oct-2015
+******************************
+test : 2
+------- numerical data -------
+number of points : 80
+time step        : 2240
+cfl              : 0.7
+----- mathematical data ------
+angle in degree  : 45
+******************************
+max(er_1)        : 0.00019603
+max(er_2)        : 0.00083722
+max(er_infty)    : 0.0060931
+******************************
+  
+  
+  
+  
+date : 11-Oct-2015
+******************************
+test : 2
+------- numerical data -------
+number of points : 30
+time step        : 7525.1613
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 45
+******************************
+max(er_1)        : 0.0060834
+max(er_2)        : 0.018682
+max(er_infty)    : 0.091805
+******************************
+CPU time (sec.)  : 0.091805
+******************************
+  
+  
+  
+  
+date : 11-Oct-2015
+******************************
+test : 2
+------- numerical data -------
+number of points : 100
+time step        : 1796.4356
+cfl              : 0.7
+----- mathematical data ------
+angle in degree  : 45
+******************************
+max(er_1)        : 8.0399e-05
+max(er_2)        : 0.00034524
+max(er_infty)    : 0.0026514
+******************************
+CPU time (sec.)  : 0.0026514
+******************************
+  
+  
+  
+  
+date : 12-Oct-2015
+******************************
+test : 2
+------- numerical data -------
+number of points : 150
+time step        : 1201.5894
+cfl              : 0.7
+----- mathematical data ------
+angle in degree  : 45
+******************************
+max(er_1)        : 1.5656e-05
+max(er_2)        : 6.9199e-05
+max(er_infty)    : 0.00058082
+******************************
+CPU time (sec.)  : 0.00058082
+******************************
+  
+  
+  
+  

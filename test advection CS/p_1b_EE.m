@@ -320,25 +320,22 @@ end
 figure(35);
 plot_cs5(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe);colorbar;
 title('solution exacte')
-print('-dpng', ['solexacte_test' num2str(coef) '.png'])
+
  
 figure(37);
 plot_cs5(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);colorbar;
 title('solution approchee - EE')
-print('-dpng', ['solapprochee_test' num2str(coef) '.png'])
 
 figure(39);
 plot_cs5(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI);colorbar;
 title('erreur algébrique - EE')
-print('-dpng', ['erreur_test' num2str(coef) '.png'])
-  
+
 figure(1);
 plot(xdays,er1,'k-');hold on;grid;
 plot(xdays,er2,'k--');hold on;
 plot(xdays,erinfty,'k.');
 legend('norme 1','norme 2','norme infinie')
 title('erreur globale - EE')
-print('-dpng', ['normerreur_test' num2str(coef) '.png'])
   
 figure(2);
 plot(xdays,ermax,'k-');hold on;grid;
@@ -349,3 +346,5 @@ title('erreur relative - EE')
 format shortE
 disp('erreur relative L2 : ')
 max(er2)
+
+data_save(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe)
