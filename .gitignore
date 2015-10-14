@@ -8,6 +8,8 @@
 *.pdf
 *.synctex.gz
 *~
+*.avi
+*.png
 # exception des fichiers permettant les compilations
 # ??? a reflechir
 # note : les exceptions commencent par !

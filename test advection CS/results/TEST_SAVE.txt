@@ -181,6 +181,10 @@ max(er_2)        : 0.3285
 max(er_infty)    : 0.83371
 ******************************
 CPU time (sec.)  : 0.83371
+
+
+
+
 date : 13-Oct-2015
 ******************************
 test : 3
@@ -217,6 +221,111 @@ max(er_2)        : 0.062516
 max(er_infty)    : 0.20706
 ******************************
 CPU time (sec.)  : 0.20706
+ordre du filtre  : 10
+******************************
+  
+  
+  
+  
+date : 14-Oct-2015
+******************************
+test : 2
+------- numerical data -------
+number of points : 60
+time step        : 3399.3443
+cfl              : 0.8
+----- mathematical data ------
+angle in degree  : 0
+******************************
+max(er_1)        : 0.008877
+max(er_2)        : 0.02806
+max(er_infty)    : 0.13378
+******************************
+CPU time (sec.)  : 0.13378
+ordre du filtre  : 10
+******************************
+  
+  
+  
+  
+date : 14-Oct-2015
+******************************
+test : 3
+------- numerical data -------
+number of points : 60
+time step        : 3399.3443
+cfl              : 0.8
+----- mathematical data ------
+angle in degree  : 0
+******************************
+max(er_1)        : 0.11446
+max(er_2)        : 0.25923
+max(er_infty)    : 0.8346
+******************************
+CPU time (sec.)  : 0.8346
+ordre du filtre  : 10
+******************************
+  
+  
+  
+  
+date : 14-Oct-2015
+******************************
+test : 3
+------- numerical data -------
+number of points : 63
+time step        : 3240
+cfl              : 0.8
+----- mathematical data ------
+angle in degree  : 0
+******************************
+max(er_1)        : 0.088677
+max(er_2)        : 0.22123
+max(er_infty)    : 0.81712
+******************************
+CPU time (sec.)  : 0.81712
+ordre du filtre  : 10
+******************************
+  
+  
+  
+  
+date : 14-Oct-2015
+******************************
+test : 2
+------- numerical data -------
+number of points : 40
+time step        : 5689.7561
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 135
+******************************
+max(er_1)        : 0.0032077
+max(er_2)        : 0.011222
+max(er_infty)    : 0.061606
+******************************
+CPU time (sec.)  : 0.061606
+ordre du filtre  : 10
+******************************
+  
+  
+  
+  
+date : 14-Oct-2015
+******************************
+test : 2
+------- numerical data -------
+number of points : 40
+time step        : 5689.7561
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 135
+******************************
+max(er_1)        : 0.0032077
+max(er_2)        : 0.011222
+max(er_infty)    : 0.061606
+******************************
+CPU time (sec.)  : 0.061606
 ordre du filtre  : 10
 ******************************
   

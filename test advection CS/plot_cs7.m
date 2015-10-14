@@ -179,7 +179,7 @@ for j=1:(nn+1)/2 % LOOP ON THE eta OF FACE V
 end
 lam_VI_qI=zeros(nn,(nn+1)/2);
 the_VI_qI=zeros(nn,(nn+1)/2);
-for j=1:(nn+1)/2, %     QUADRANT I DE FACE VI
+for j=1:(nn+1)/2, 
 %     etawk=eta(nn-j+1); % JPC
     etawk=eta(j+(nn+1)/2-1); 
     for i=1:nn % FORMULES FACE VI
@@ -190,9 +190,9 @@ for j=1:(nn+1)/2, %     QUADRANT I DE FACE VI
          [lam_VI_qI(i,j),the_VI_qI(i,j),rrwk] = cart2sph(xx_wk1,yy_wk1,zz_wk1);
     end
 end
-% lam_VI_qI(1:nn,(nn+1)/2)=lam_VI_qI(1:nn,1);% RECTIFICATION LONGITUDE POUR
+% lam_VI_qI(1:nn,(nn+1)/2)=lam_VI_qI(1:nn,1);
 % LE POLE NORD % JPC
-lam_VI_qI(1:nn,1)=lam_VI_qI(1:nn,(nn+1)/2);% RECTIFICATION LONGITUDE POUR LE POLE NORD
+lam_VI_qI(1:nn,1)=lam_VI_qI(1:nn,(nn+1)/2);
 %max(lam_VI_qI)
 %surf(lam_VI_qI,the_VI_qI,funfVIsI(nn:-1:1,:));hold on;
 % % 2 TRACES POUR L'ORIGINE DES LAMBDA
@@ -212,18 +212,17 @@ lam_VI_qI(1:nn,1)=lam_VI_qI(1:nn,(nn+1)/2);% RECTIFICATION LONGITUDE POUR LE POL
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 % QUADRANT III OF FACE VI ; REVOIR ADRESSAGE: PAS CLAIR
 funfVIsIII=zeros(nn,(nn+1)/2);
-for j=1:(nn+1)/2, % LOOP ON THE eta OF FACE VI
+for j=1:(nn+1)/2,
     alfaspline(1:nn)=alfa(1:nn,j);
     funspline(1:nn)=funfVIe(1:nn,j);
     ppspline=spline(alfaspline,funspline);
-  %  funfVIsIII(1:nn,j)=ppval(ppspline,alfa1(1:nn,j)); % JPC
     funfVIsIII(1:nn,j)=ppval(ppspline,alfa1(nn:-1:1,j));
 end
 lam_VI_qIII=zeros(nn,(nn+1)/2);
 the_VI_qIII=zeros(nn,(nn+1)/2);
-for j=1:(nn+1)/2, %     QUADRANT III DE FACE VI
+for j=1:(nn+1)/2, 
     etawk=eta(nn-j+1);
-    for i=1:nn % FORMULES FACE VI
+    for i=1:nn 
          alfawk=alfa1(nn-i+1,nn-j+1);
          xx_wk1 = cos(alfawk)*sin(etawk);
          yy_wk1 = sin(alfawk);   
@@ -231,14 +230,13 @@ for j=1:(nn+1)/2, %     QUADRANT III DE FACE VI
          [lam_VI_qIII(i,j),the_VI_qIII(i,j),rrwk] = cart2sph(xx_wk1,yy_wk1,zz_wk1);
     end
 end
-lam_VI_qIII(1:nn,(nn+1)/2)=lam_VI_qIII(1:nn,1);% RECTIFICATION LONGITUDE POUR LE POLE SUD
+lam_VI_qIII(1:nn,(nn+1)/2)=lam_VI_qIII(1:nn,1);
 surf(lam_VI_qIII+pi,the_VI_qIII,funfVIsIII);
 hold on;axis([lmin lmax temin temax umin umax]);
-% break;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     QUADRANT II DE FACE VI
 funfVIsII=zeros((nn+1)/2,nn); % 
-for i=(nn+1)/2:-1:1, % LOOP ON THE xi OF FACE VI
+for i=(nn+1)/2:-1:1, 
     betaspline(1:nn)=beta(i+(nn-1)/2,1:nn);
     funspline(1:nn)=funfVIe(i+(nn-1)/2,1:nn);
     ppspline=spline(betaspline,funspline);
@@ -246,23 +244,23 @@ for i=(nn+1)/2:-1:1, % LOOP ON THE xi OF FACE VI
 end
 lam_VI_qII=zeros(nn,(nn+1)/2);
 the_VI_qII=zeros(nn,(nn+1)/2);
-for j=1:(nn+1)/2, %     QUADRANT II DE FACE VI
+for j=1:(nn+1)/2, 
     xiwk=xi(nn-j+1);
-    for i=1:nn % FORMULES FACE VI
-         betawk = betacr(j,i); % CONTROLLER
+    for i=1:nn 
+         betawk = betacr(j,i);
          xx_wk1 = sin(betawk);
          yy_wk1 = -cos(betawk)*sin(-xiwk);   
          zz_wk1 = -cos(betawk)*cos(-xiwk);
          [lam_VI_qII(i,j),the_VI_qII(i,j),rrwk] = cart2sph(xx_wk1,yy_wk1,zz_wk1);
     end
 end
-lam_VI_qII(1:nn,(nn+1)/2)=lam_VI_qII(1:nn,1);% RECTIFICATION LONGITUDE POUR LE POLE NORD
+lam_VI_qII(1:nn,(nn+1)/2)=lam_VI_qII(1:nn,1);
 funfVIsII1=funfVIsII((nn+1)/2:-1:1,nn:-1:1)';
 surf(lam_VI_qII,the_VI_qII,funfVIsII1);hold on;axis([lmin lmax temin temax umin umax]);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     QUADRANT IV DE FACE VI
 funfVIsIV=zeros((nn+1)/2,nn); % 
-for i=1:(nn+1)/2, % LOOP ON THE xi OF FACE VI
+for i=1:(nn+1)/2,
     betaspline(1:nn)=beta(i,1:nn);
     funspline(1:nn)=funfVIe(i,1:nn);
     ppspline=spline(betaspline,funspline);
@@ -270,9 +268,9 @@ for i=1:(nn+1)/2, % LOOP ON THE xi OF FACE VI
 end
 lam_VI_qIV=zeros(nn,(nn+1)/2);
 the_VI_qIV=zeros(nn,(nn+1)/2);
-for j=1:(nn+1)/2, %  QUADRANT IV DE FACE VI
+for j=1:(nn+1)/2,
     xiwk=xi((nn+1)/2-j+1);
-    for i=1:nn % FORMULES FACE VI
+    for i=1:nn 
          betawk = betacr((nn+1)/2-j+1,nn-i+1); % CONTROLLER
          xx_wk1 = sin(betawk);
          yy_wk1 = -cos(betawk)*sin(-xiwk);   
@@ -286,10 +284,9 @@ lam_VI_qIV1=lam_VI_qIV+(2*pi)*(lam_VI_qIV<0);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 surf(lam_VI_qIV1,the_VI_qIV,funfVIsIV1);hold on;axis([lmin lmax temin temax umin umax]);
 view(3);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ************************************************************************
 % TRACE DES FRONTIERES DES PATCHS DE LA CUBED SPHERE GRID
 % DESSIN DE TYPE CYLINDRIQUE ====
-%plot3(lam_Ia(1,:),the_Ia(1,:),funfIea(1,:)+0.01,'k','LineWidth',1.5); hold on;
 plot3(lam_Ia((nn+1)/2,:),the_Ia((nn+1)/2,:),funfIea(1,:)+0.01,'k','LineWidth',1.25); hold on;
 plot3(lam_Ia(:,1),the_Ia(:,1),funfIea(:,1)+0.01,'k','LineWidth',1.25); hold on;
 plot3(lam_Ia(:,nn),the_Ia(:,nn),funfIea(:,nn)+0.01,'k','LineWidth',1.25); hold on;
@@ -310,59 +307,5 @@ plot3(lam_IV(:,1),the_IV(:,1),funfIVe(:,1)+0.01,'k','LineWidth',1.25); hold on;
 plot3(lam_IV(:,nn),the_IV(:,nn),funfIVe(:,nn)+0.01,'k','LineWidth',1.25); hold on;
 %
 plot3(lam_Ib(1,:),the_Ib(1,:),funfIeb(1,:)+0.01,'k','LineWidth',1.25); hold on;
-%plot3(lam_Ib((nn+1)/2,:),the_Ib((nn+1)/2,:),funfIeb(1,:)+0.01,'k','LineWidth',1.5); hold on;
 plot3(lam_Ib(:,1),the_Ib(:,1),funfIeb(:,1)+0.01,'k','LineWidth',1.25); hold on;
 plot3(lam_Ib(:,nn),the_Ib(:,nn),funfIeb(:,nn)+0.01,'k','LineWidth',1.25); hold on;
-%
-%axis([0 2*pi -pi/2 pi/2 0 1000]);
-%plot(lam_I(1,nn:-1:1),the_I(1,nn:-1:1),'-.k','LineWidth',1); hold on;
-%plot(lam_I(nn,:),the_I(nn,:),'-.k','LineWidth',3); hold on;
-% aaa=lam_I(1,:)
-% bbb=the_I(1,:)
-% 
-% 
-% 
-%  [lam_I,the_I,rwk]=cart2sph(x_fI,y_fI,z_fI);
-%  [lam_II,the_II,rwk]=cart2sph(x_fII,y_fII,z_fII);
-%  [lam_III,the_III,rwk]=cart2sph(x_fIII,y_fIII,z_fIII);
-%  [lam_IV,the_IV,rwk]=cart2sph(x_fIV,y_fIV,z_fIV);
-%  [lam_V,the_V,rwk]=cart2sph(x_fV,y_fV,z_fV);
-%  [lam_VI,the_VI,rwk]=cart2sph(x_fVI,y_fVI,z_fVI);
-%  plot(lam_I(1,:),the_I(1,:),'LineWidth',2,'MarkerEdgeColor','k'); hold on;
-% % 
-% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% lam_g=[lam_VI_a,lam_Ia,lam_V_a;
-%     lam_VI_qII,lam_II,lam_V_qII;
-%     lam_VI_qIII+pi,lam_III,lam_V_qIII+pi;
-%     lam_VI_qIV1,lam_IV,lam_V_qIV1;
-%     lam_VI_b,lam_Ib,lam_V_b];
-% the_g=[the_VI_a,the_Ia,the_V_a;
-%     the_VI_qII,the_II,the_V_qII;
-%     the_VI_qIII,the_III,the_V_qIII;
-%     the_VI_qIV,the_IV,the_V_qIV;
-%     the_VI_b,the_Ib,the_V_b];
-% plot(lam_g(nn,:),the_g(nn,:),'LineWidth',2,'MarkerEdgeColor','k'); hold on;
-% size(lam_g(nn,:))
-% fun_g=[funfVIa,funfIea,funfVa;
-%        funfVIsII1,funfIIe,funfVsII1;
-%        funfVIsIII,funfIIIe,funfVsIII;
-%        funfVIsIV1,funfIVe,funfVsIV1;
-%        funfVIb,funfIeb,funfVb];
-   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-shading interp;
-set(gca, 'CLim', [umin, umax]);
-colorbar;
-view(2);
-% lam_III(1:nn,1)'
-% (lam_V_qI(1:nn,1)+pi)'
-% funfIIIe(1:nn,(nn+1)/2)'
-% funfVsIII(1:nn,1)'
-% lam_V_====
-% funfIIIe(1:nn,1)'
-% funfVIsIII(1:nn,(nn+1)/2)'
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% FIN TRACE FACE VI  %%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
- % axis square;

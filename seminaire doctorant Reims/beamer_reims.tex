@@ -267,25 +267,30 @@ Dans ce système de coordonnées $M$ est donné par :
 \begin{itemize}
 \item $\alpha$ abscisse curviligne le long du grand cercle "horizontal".
 
-\item $\eta$ angle longitudinal.
-
 \item $\beta$ abscisse curviligne le long du grand cercle "vertical".
 
-\item $\xi$ angle latitudinal.
+\item $\xi$ angle equatiorial partant du centre du patch.
+
+\item $\eta$ angle latitudinal partant du centre du patch.
 \end{itemize}
 \end{column}
 \end{columns}
+
+\begin{exampleblock}{}
+Création d'un maillage régulier pour $\xi$ et $\eta$
+\end{exampleblock}
+
 \end{frame}
 
 
 \begin{frame}{Calcul du gradient sphèrique}
 Gradient :
-$$\nabla_s u = \dfrac{\partial u}{\partial \xi}_{|\eta} g^\xi + \dfrac{\partial u}{\partial \eta}_{|\xi} g^\eta $$
+$$\nabla_T u = \dfrac{\partial u}{\partial \xi}_{|\eta} g^\xi + \dfrac{\partial u}{\partial \eta}_{|\xi} g^\eta $$
 
 $\rightarrow$ $\dfrac{\partial u}{\partial \xi}_{|\eta}$ et $\dfrac{\partial u}{\partial \eta}_{|\xi}$ : pas le long des grands cercles. Exprimer dans $(\alpha, \beta)$.
 \pause
 \begin{block}{Gradient sur la CS}
-$$\nabla_s u = \frac{\partial u}{\partial \alpha}_{|\eta} \left( \cos \eta \dfrac{1+ \tan^2 \xi}{1 + \cos^2 \eta \tan^2 \xi} \right) g^\xi + \frac{\partial u}{\partial \beta}_{|\xi} \left( \cos \xi \dfrac{1+ \tan^2 \eta}{1 + \cos^2 \xi \tan^2 \eta} \right) g^\eta $$
+$$\nabla_T u = \frac{\partial u}{\partial \alpha}_{|\eta} \left( \cos \eta \dfrac{1+ \tan^2 \xi}{1 + \cos^2 \eta \tan^2 \xi} \right) g^\xi + \frac{\partial u}{\partial \beta}_{|\xi} \left( \cos \xi \dfrac{1+ \tan^2 \eta}{1 + \cos^2 \xi \tan^2 \eta} \right) g^\eta $$
 \end{block}
 \pause
 $\rightarrow$ Évaluer $\dfrac{\partial u}{\partial \alpha}_{|\eta}$ et $\dfrac{\partial u}{\partial \beta}_{|\xi}$ en chaque point du maillage.
@@ -403,7 +408,10 @@ h(\mathbf{x},t=0) & = & h_0 ( \mathbf{x} )
 \item En temps : méthode RK4 (ordre 4 et explicite) avec filtrage en espace des hautes fréquences (ordre 10).
 \end{itemize}
 \end{block}
+
 \end{frame}
+
+% ***
 
 \begin{frame}{Test 1 : BUMP en rotation}
 \begin{columns}
@@ -427,8 +435,9 @@ Idée :
 \end{columns}
 \end{frame}
 
+% ***
 
-\begin{frame}{Test 2 : Vortex stationnaire}
+\begin{frame}{Test 2 : Vortex stationnaire (Nair et Machenhauer - 2001}
 \begin{columns}
 \column{0.45\textwidth}
 Idée :
@@ -449,6 +458,31 @@ Idée :
 \end{columns}
 \end{frame}
 
+% ***
+
+\begin{frame}{Test 3 : Vortex instationnaire (Nair et Jablonowski - 2007)}
+\begin{columns}
+\column{0.45\textwidth}
+Idée :
+
+Combiner les deux tests précédents : test de déformation et de déplacement.
+\begin{itemize}
+
+\item $\mathbf{c}$ et $h_0$ donnés et issus des tests 1 et 2,
+
+\item Formation d'une "tempête" (vortex) se déplacant le long d'un cercle sur la sphère.
+\end{itemize}
+
+
+\column{0.45\textwidth}
+
+\begin{figure}
+\href{run:CSapprox_test2.avi}{\includegraphics[scale=0.25]{14-Oct-2015_normerreur_test_2.png}} 
+\caption{Test 3 : Vortex instationnaire - 40 mailles par face - CFL=0.9}
+\end{figure}
+\end{columns}
+\end{frame}
+
 
 % ********************************************************************************
 \section{Conclusion et perspectives}
@@ -465,6 +499,7 @@ Idée :
 
 \begin{block}{Avenir...}
 \begin{itemize}
+\item Etude sur les harmoniques sphériques,
 
 \item Accélération du calcul,
 
@@ -477,6 +512,42 @@ Idée :
 
 % ********************************************************************************
 
+\begin{frame}
+\frametitle{Bibliographie}
+
+\begin{thebibliography}{9}
+        
+
+\scriptsize{
+
+\bibitem{Lele}
+         Sanjiva K. Lele
+         \emph{: Compact Finite Difference Schemes with spectral-like resolution}.
+         1991.
+
+\bibitem{Croisille}
+         J.-P. Croisille
+         \emph{: Hermitian compact interpolation on the cubed-sphere grid}.
+         2013.
+
+\bibitem{Nair Jablonowski}
+         Ramachandran D. Nair et Christiane Jablonowski
+         \emph{: Moving Vortices on the Sphere : A test case for Horizontal Advection Problems}.
+         1991.
+
+\bibitem{Redonnet}
+         Stéphane Redonnet
+         \emph{: Simulation de la propagation acoustique en présence d'écoulements quelconques et de structures solides par résolution numérique des équations d'Euler}.
+         Thèse, 2001.
+    
+    }     
+         
+         
+         
+\end{thebibliography}
+\end{frame}
+
+% ********************************************************************************
 \begin{frame}
 \begin{center}
 Merci de votre attention :)

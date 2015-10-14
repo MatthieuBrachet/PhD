@@ -21,7 +21,6 @@ global teta0 lambda0
 % test de Nair et Lauritzen
 global lambdac1 tetac1 lambdac2 tetac2
 %% *** OPTIONS ************************************************************
-%
 % si coef = 0, test 1 de Williamson (solid body rotation on the sphere)
 %    coef = 1, test de Nair et Machenhauer  (deformational flow test - 
 %                                                    stationnary vortex)
@@ -36,18 +35,18 @@ film = 0;
 qquiv = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 0;
+save_graph = 1;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
 opt_ftr = 10;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
-snapshot = 1;
+snapshot = 0;
 %% *** Benchmarks data ****************************************************
- n=31;
+ n=40;
  nn=n+2;
- cfl=0.8;
- ndaymax=36;
+ cfl=0.9;
+ ndaymax=12;
 %% ************************************************************************
  
  if coef == 0
@@ -59,14 +58,13 @@ snapshot = 1;
  teta_p=pi/2 - alphad;
  elseif coef == 1
  % test de Nair et Machenhauer
- lambda_p=3*pi/4;                                                            % position du pole nord, i.e. position du vortex nord
- teta_p=-pi/4;
+ lambda_p=0;                                                            % position du pole nord, i.e. position du vortex nord
+ teta_p=0;
  rho0=3;
  gamma=5;
  elseif coef == 2
  % test de Nair et Jablonowski
- alphad=0; 
- 
+ alphad=3*pi/4; 
  lambda0 = 3*pi/2;
  teta0 = 0;
  lambda_p=pi;                                                              % position du pole nord à t=0, i.e. position du vortex nord à t=0
@@ -84,14 +82,7 @@ snapshot = 1;
  lambdac2=pi/2;
  tetac2=0;
  end
- 
- 
- 
- 
- 
- 
- 
- 
+
 %% données du problème
 itestop=10000;
 tstart=cputime;
@@ -504,14 +495,14 @@ end
 figure(10)
 plot(x,f,xe,fe)
 legend('solution approchee','solution exacte')
-xlabel('equateur')
+xlabel('equateur - face II')
 title('coupe de la solution le long de l''equateur')
 if save_graph==1
     print('-dpng', ['./results/' date '_coupefaceI_equateur_test_' num2str(coef) '.png'])
 end
 
 figure(11)
-plot_cs7(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe)
+plot_cs7(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
 if save_graph==1
     print('-dpng', ['./results/' date '_snapshot_test_' num2str(coef) '.png'])
 end
