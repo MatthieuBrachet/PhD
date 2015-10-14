@@ -4,8 +4,8 @@ global lambdac1 tetac1
 global lambdac2 tetac2
 % calcul de la solution au temps t
 RR=radius/3;
-rdt1=radius*acos(sin(tetac1)*sin(teta)+cos(tetac1)*(cos(teta).*cos(lambda-lambdac1)));
-rdt2=radius*acos(sin(tetac2)*sin(teta)+cos(tetac2)*(cos(teta).*cos(lambda-lambdac2)));
+rdt1=radius.*acos(sin(tetac1).*sin(teta)+cos(tetac1).*(cos(teta).*cos(lambda-lambdac1)));
+rdt2=radius.*acos(sin(tetac2).*sin(teta)+cos(tetac2).*(cos(teta).*cos(lambda-lambdac2)));
 [n1,n2]=size(lambda);
 % !!!! revoir le bloc 1 !!!!
 for i=1:n1
@@ -22,5 +22,4 @@ for i=1:n1
             v(i,j) = 0.1;
         end
     end
-end
 end

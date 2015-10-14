@@ -26,7 +26,7 @@ global lambdac1 tetac1 lambdac2 tetac2
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 2;
+coef = 3;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;
@@ -35,18 +35,18 @@ film = 0;
 qquiv = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 1;
+save_graph = 0;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
-opt_ftr = 10;
+opt_ftr = 4;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
 snapshot = 0;
 %% *** Benchmarks data ****************************************************
- n=40;
+ n=30;
  nn=n+2;
  cfl=0.9;
- ndaymax=12;
+ ndaymax=6;
 %% ************************************************************************
  
  if coef == 0
@@ -77,7 +77,7 @@ snapshot = 0;
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;
  
- lambdac1=3*pi/2;
+ lambdac1=-pi/2;
  tetac1=0;
  lambdac2=pi/2;
  tetac2=0;
