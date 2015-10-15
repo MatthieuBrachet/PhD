@@ -38,15 +38,15 @@ qquiv = 0;
 save_graph = 0;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
-opt_ftr = 4;
+opt_ftr = 10;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
 snapshot = 0;
 %% *** Benchmarks data ****************************************************
- n=30;
+ n=63;
  nn=n+2;
  cfl=0.9;
- ndaymax=6;
+ ndaymax=36;
 %% ************************************************************************
  
  if coef == 0
@@ -73,7 +73,7 @@ snapshot = 0;
  gamma=5;
  elseif coef == 3
  % test de Nair, Lauritzen
- alphad=0;                                                                 % latitude BUMP
+ alphad=3*pi/4;                                                                 % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;
  

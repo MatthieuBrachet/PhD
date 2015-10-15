@@ -483,6 +483,34 @@ Combiner les deux tests précédents : test de déformation et de déplacement.
 \end{columns}
 \end{frame}
 
+\begin{frame}
+
+Observation de l'erreur relative :
+
+$$e_2^n = max_{\text{face}} \dfrac{ \| h^n_{i,j} - h(\mathbf{x}_{i,j}, t^n ) \|_2 }{\| h(\mathbf{x}_{i,j}, t^n ) \|_2}$$
+
+\begin{figure}
+\begin{tabular}{ccc}
+Nombre de points par face & $max_n |e_2^n|$ & estimation de l'ordre \\
+\hline
+\hline
+$41$ & $9.7386 (-2)$ & - \\
+\hline 
+$51$ & $5.0160 (-2)$ & $3.0399$ \\
+\hline
+$61$ & $2.6157 (-3)$ & $3.6365$ \\
+\hline
+$81$ & $8.3722 (-4)$ & $4.0173$ \\
+\hline
+$101$ & $3.4524 (-4)$ & $4.0143$\\
+\hline
+$151$ & $6.9199 (-5)$ & $3.9966$
+\end{tabular}
+\caption{Analyse de convergence du test 3 - $cfl = 0.7$}
+\end{figure}
+
+\end{frame}
+
 
 % ********************************************************************************
 \section{Conclusion et perspectives}
@@ -500,8 +528,6 @@ Combiner les deux tests précédents : test de déformation et de déplacement.
 \begin{block}{Avenir...}
 \begin{itemize}
 \item Etude sur les harmoniques sphériques,
-
-\item Accélération du calcul,
 
 \item Mise en place d'un zoom LDC,
 
@@ -539,6 +565,11 @@ Combiner les deux tests précédents : test de déformation et de déplacement.
          Stéphane Redonnet
          \emph{: Simulation de la propagation acoustique en présence d'écoulements quelconques et de structures solides par résolution numérique des équations d'Euler}.
          Thèse, 2001.
+         
+\bibitem{Williamson}
+         David L. Williamson, John B. Drake, James J. Hack, Rüdiger Jakob et Paul N.Swarztrauber
+         \emph{: A strandard test set for Numerical Approximations to the Shallow Water Equations in Spherical Geometry}.
+         1994.
     
     }     
          
