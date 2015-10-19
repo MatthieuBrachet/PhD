@@ -26,7 +26,7 @@ global lambdac1 tetac1 lambdac2 tetac2
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 3;
+coef = 2;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;
@@ -35,18 +35,21 @@ film = 0;
 qquiv = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 0;
+save_graph = 1;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
 opt_ftr = 10;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
 snapshot = 0;
+% coupe = 0 : pas de coupe le long de l'équateur de la face 1
+%         1 : coupe.
+coupe = 1;
 %% *** Benchmarks data ****************************************************
  n=63;
  nn=n+2;
- cfl=0.9;
- ndaymax=36;
+ cfl=0.7;
+ ndaymax=24;
 %% ************************************************************************
  
  if coef == 0
@@ -461,6 +464,10 @@ format shortE
 disp('erreur relative L2 / L1 / L_infty: ')
 [max(er2) max(er1) max(erinfty)] 
 
+
+
+
+
 if save_graph==1
     %ouvre un fichier ou le créé
     fid = fopen('./results/TEST_SAVE.txt','a');
@@ -489,22 +496,30 @@ if save_graph==1
     %n'oublie pas de fermer le fichier sinon tu ne peux pas le lire
     fclose(fid);
 end
-
-[ x,f ] = coupe_eq(funfI,funfII,funfIII,funfIV);
-[ xe,fe ] = coupe_eq(funfIe,funfIIe,funfIIIe,funfIVe);
-figure(10)
-plot(x,f,xe,fe)
-legend('solution approchee','solution exacte')
-xlabel('equateur - face II')
-title('coupe de la solution le long de l''equateur')
-if save_graph==1
-    print('-dpng', ['./results/' date '_coupefaceI_equateur_test_' num2str(coef) '.png'])
+if coupe == 1
+    [ x,f ] = coupe_eq(funfI,funfII,funfIII,funfIV);
+    n=120;
+    nn=n+2;
+    mod_1b
+    funfIe=fun4_b(x_fI,y_fI,z_fI,time);
+    funfIIe=fun4_b(x_fII,y_fII,z_fII,time);
+    funfIIIe=fun4_b(x_fIII,y_fIII,z_fIII,time);
+    funfIVe=fun4_b(x_fIV,y_fIV,z_fIV,time);
+    [ xe,fe ] = coupe_eq(funfIe,funfIIe,funfIIIe,funfIVe);
+    figure(10)
+    plot(x,f,'o',xe,fe,'-')
+    legend('solution approchee','solution exacte')
+    xlabel('equateur - face II')
+    title('coupe de la solution le long de l''equateur')
+    if save_graph==1
+        print('-dpng', ['./results/' date '_coupefaceI_equateur_test_' num2str(coef) '.png'])
+    end
 end
-
-figure(11)
-plot_cs7(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
-if save_graph==1
-    print('-dpng', ['./results/' date '_snapshot_test_' num2str(coef) '.png'])
+if snapshot == 1
+    figure(11)
+    plot_cs7(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
+    grid minor
+    if save_graph==1
+        print('-dpng', ['./results/' date '_snapshot_test_' num2str(coef) '.png'])
+    end
 end
-
-
