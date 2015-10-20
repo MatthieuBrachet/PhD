@@ -35,21 +35,21 @@ film = 0;
 qquiv = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 1;
+save_graph = 0;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
 opt_ftr = 10;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
-snapshot = 0;
+snapshot = 1;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 1
 %         1 : coupe.
 coupe = 1;
 %% *** Benchmarks data ****************************************************
- n=63;
+ n=15;
  nn=n+2;
  cfl=0.7;
- ndaymax=24;
+ ndaymax=6;
 %% ************************************************************************
  
  if coef == 0
@@ -496,9 +496,19 @@ if save_graph==1
     %n'oublie pas de fermer le fichier sinon tu ne peux pas le lire
     fclose(fid);
 end
+
+if snapshot == 1
+    figure(11)
+    plot_cs7(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
+    grid minor
+    if save_graph==1
+        print('-dpng', ['./results/' date '_snapshot_test_' num2str(coef) '.png'])
+    end
+end
+
 if coupe == 1
     [ x,f ] = coupe_eq(funfI,funfII,funfIII,funfIV);
-    n=120;
+    n=500;
     nn=n+2;
     mod_1b
     funfIe=fun4_b(x_fI,y_fI,z_fI,time);
@@ -513,13 +523,5 @@ if coupe == 1
     title('coupe de la solution le long de l''equateur')
     if save_graph==1
         print('-dpng', ['./results/' date '_coupefaceI_equateur_test_' num2str(coef) '.png'])
-    end
-end
-if snapshot == 1
-    figure(11)
-    plot_cs7(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
-    grid minor
-    if save_graph==1
-        print('-dpng', ['./results/' date '_snapshot_test_' num2str(coef) '.png'])
     end
 end

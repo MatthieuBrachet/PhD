@@ -8,9 +8,6 @@ function [pmm] = legendre(m,l,x)
 % inspired by W. H. Press and al. in 1992
 %
 % ********************************************
-if (m<0) || (m>1) || (abs(x)>1)
-    disp('Bad argument in routine legendre');
-end
 pmm=1;
 if (m>=0)
     somx2=sqrt((1-x).*(1+x));
