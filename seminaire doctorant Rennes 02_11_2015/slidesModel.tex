@@ -1,0 +1,182 @@
+
+
+
+\begin{frame}{Domain definition}
+
+
+
+%In the following section, we consider the problem on a domain 
+$\Omega(t)=\{ (x,z) \in \mathbb{R}^{2} \quad | \quad 0 \leq  x \leq 1, \quad b(x,t) \leq z \leq 1 \}$  
+%with $b(x,t)$ 
+%the bottom topography, as shown in figure \ref{notations} and we denote the velocity 
+%$\mathbf{u}(x,z,t)=(v(x,z,t),w(x,z,t))^T$, and the pressure $p(x,z,t)$.\\
+%The figure \ref{notations} shows the domain $\Omega(t)$.
+
+\begin{figure}[h!]\center
+\input{freesurface}
+%\caption{Definition of the domain}
+\label{notations}
+\end{figure}
+%
+% $\Gamma(t)=\Gamma_{in}(t)\cup\Gamma_{out}(t)\cup\Gamma_{s}\cup\Gamma_{b}(t)$ with
+%$\Gamma_{in}(t)=\{0\} \times [b(0,t),1 ]$
+%$\Gamma_{out}(t)=\{1\} \times [b(1,t),1]$
+%$\Gamma_{s}=[0,1] \times \{1\}$
+%$\Gamma_{b}(t)=\{(x,z) \in \mathbb{R}^{2} / z=b(x,t) , x \in [0,1]\}$
+
+\end{frame}
+
+
+\begin{frame}{A first simple model}
+\begin{itemize}
+\item Steady or Unsteady Stokes equations
++ Exner equation:
+\end{itemize}
+
+
+%\begin{itemize}
+%\item Steady or unsteady Stokes
+\begin{empheq}[left={\empheqlbrace}]{alignat=2}
+  \textcolor{gray}{  \frac{\partial \mathbf{u}}{\partial t}} - \mu  \triangle \mathbf{u} + \nabla{p} &= 0 &&\hbox{ on } \Omega(t)  \\
+    \text{div}\left(\mathbf{u}\right) &= 0 &&\hbox{ on } \Omega(t) \\
+    \frac{\partial b_z}{\partial t}+\frac{\partial Q_s}{\partial x}&=0 
+\end{empheq}
+
+  
+\begin{itemize}
+
+\item Mixed Dirichlet/Neumann/slip boundary condition :
+  \begin{empheq}[left={\empheqlbrace}]{alignat=2}
+    \mathbf{u} 
+    &= \mathbf{g}_1 
+    && \text{ on } \Gamma_{s} \nonumber \\
+    p\mathbf{n} - \mu\frac{\partial\mathbf{u}}{\partial \mathbf{n}} 
+    &= \mathbf{g}_2 
+    && \text{ on } \Gamma_{in}(t)\cup\Gamma_{out}(t) \\
+{   \mathbf{u}\cdot\mathbf{n}} 
+ &  = 
+ { 0}  
+ &&  \text{ on } \textcolor{red}{\Gamma_{b}(t)} \\
+  { p\mathbf{n} - \mu\frac{\partial\mathbf{u}_\tau}{\partial\mathbf{n}}} 
+   & {=\mathbf{g}_3}  
+   && 
+   \text{ on }
+   \textcolor{red}{ \Gamma_{b}(t) }
+  \end{empheq}
+  
+\end{itemize}
+
+\end{frame}
+
+%% \begin{frame}{Results: Validation for the resolution of Stokes (Feel ++)}
+
+%% \begin{columns}
+
+%% \column{0.5\textwidth}
+
+%% \begin{itemize}
+%% \item  Bercovier-Engelman solution:
+%% \end{itemize}
+
+%% \begin{eqnarray*}
+%% \mathbf{u}&=&
+%% \begin{pmatrix}
+%%     -256y(y-1)(2y-1)x^2(x-1)^2\\
+%%     256x(x-1)(2x-1)y^2(y-1)^2
+%%   \end{pmatrix}\\
+%%     p &=&(x-0.5)(y-0.5)
+%% \end{eqnarray*}
+
+
+%% \begin{itemize}
+%% \item With a source term $\mathbf{f}=-\mu \bigtriangleup(\mathbf{u}) + \nabla p$
+%% \item Dirichlet boundary conditions 
+%% \end{itemize}
+
+
+
+
+
+%% \column{0.2\textwidth}
+
+
+%% \begin{figure}
+
+%% \includegraphics[scale=0.15]{../Images/vBE_dirichlet}
+
+%% \caption{Exact solution $ \mathbf{u}$ }
+
+%% \end{figure}
+
+
+
+%% \end{columns}
+
+
+
+
+
+
+%% \end{frame}
+
+%% \begin{frame}{Results: Validation for the resolution of Stokes (Feel ++)}
+
+%% \begin{columns}
+
+%% \column{0.4\textwidth}
+
+%% \begin{figure}
+
+%% \includegraphics[scale=0.2]{../Images/vBE_dirichlet}
+
+%% \caption{Numerical solution - Velocity field}
+
+%% \end{figure}
+
+%% \column{0.5\textwidth}
+
+%% \begin{figure}
+%% \includegraphics[scale=0.2]{v_errL2}
+%% \caption{L2- Error}
+%% \end{figure}
+
+%% \end{columns}
+
+%% \end{frame}
+
+\begin{frame}{Results: Boundary interface and coupling}
+
+
+
+\begin{columns}
+\column{0.5\textwidth}
+\begin{itemize}
+\item Model : Steady Stokes + Exner 
+\item Description of the test case
+
+\begin{itemize}
+\item $\Gamma_{in}(t)\cup \Gamma_{out}(t)$ : Dirichlet
+\item $ \Gamma_s$ : Dirichlet 
+\item Initial bottom : $$ \hat{b}(\hat{x},0)=A\cos(2\pi \hat{x})e^{-\hat{x}^2}$$
+\end{itemize}
+\end{itemize}
+\column{0.5\textwidth}
+\begin{figure}
+\href{run:test.avi}{\includegraphics[scale=0.15]{testCaseIM}} 
+\caption{Test case }
+\end{figure}
+\end{columns}
+
+
+\end{frame}
+
+
+\begin{frame}{Results: Boundary interface and coupling}
+
+
+\begin{figure}
+\href{run:test2.avi}{\includegraphics[scale=0.5]{testCaseIM}} 
+\caption{Test case }
+\end{figure}
+\end{frame}
+

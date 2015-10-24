@@ -1,0 +1,212 @@
+\documentclass[notes]{beamer}
+\usetheme{Madrid}
+\usepackage{etex}
+
+% Try the class options [notes], [notes=only], [trans], [handout],
+% [red], [compress], [draft], [class=article] and see what happens!
+
+% For a green structure color use:
+%\colorlet{structure}{green!50!black}
+
+\mode<article> % only for the article version
+{
+  \usepackage{beamerbasearticle}
+  \usepackage{fullpage}
+  \usepackage{hyperref}
+}
+
+\beamertemplateshadingbackground{white!50}{white!50}
+
+%\usepackage{beamerthemeshadow}
+\definecolor{gris25}{gray}{0.75}
+
+
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+%\usepackage{amsmath,amssymb}
+\usepackage[latin1]{inputenc}
+\usepackage{colortbl}
+%\usepackage[french]{babel}
+\usepackage{lmodern}
+
+\usepackage[T1]{fontenc}
+\usefonttheme{professionalfonts}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+%\usepackage{pgfplots,pgfplotstable}
+
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{empheq}
+\usepackage{algorithm,algorithmic}
+\usepackage{multimedia}
+\usepackage{media9}
+%\usepackage{movie15}
+\usepackage{animate}
+\usepackage[font=Times,timeinterval=10]{tdclock}
+
+\usepackage{algorithm,algorithmic}
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\small,
+  language=C++,
+  frame=single,
+  keywordstyle=\color{magenta}\bfseries,
+  commentstyle=\color{green}\itshape,
+  stringstyle=\color{blue},
+  showstringspaces=false,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4,
+  rangeprefix={\/\/\ [},
+    rangesuffix={]},
+  includerangemarker=false
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{blue}{rgb}{0,0,1}
+\newcommand{\blue}{\color{blue}}
+\newcommand{\red}{\color{red}}
+\newcommand{\green}{\color{green}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{times}
+
+% Use some nice templates
+\beamertemplatetransparentcovereddynamic
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{palette quaternary}%
+      \insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt plus1filll}
+    \end{beamercolorbox}%
+  }
+}
+%\addtobeamertemplate{footline}{\insertframenumber/\inserttotalframenumber}
+
+\title[Hydromorpho project]
+{Hydromorpho: A coupled model for unsteady Stokes/Exner equations and numerical results with Feel++ library}
+\author[R. Hild]{ N. A\"issiouene, T. Amtout, M. Brachet, E. Frenod \\ \underline{R. Hild}, A. Rousseau, S. Salmon}
+
+%\code{E-mail:}
+\institute[CEMRACS2015]{CEMRACS 2015 - CIRM MARSEILLE}
+
+%Hattiesburg, Southern Miss, May 02, 2008}
+% \subject{Analyse et Contrôles des%
+%Systèmes}
+\date{\mbox{~}}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \maketitle
+  \initclock
+\end{frame}
+\date{\tdtime}
+
+\begin{frame}{Plan}
+  \tableofcontents
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :  INTRO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\input{intro}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :  MODEL
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Model}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% SUBSECTION :  MODEL
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{A simple Coupled Model Stokes/Exner}
+\input{slidesModel}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% SUBSECTION :  ALE
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{slideALE}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% SUBSECTION :  Model with ALE
+%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Coupled Model Stokes/Exner}
+\input{slidesModelCoupled}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :  ALGO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{slidesDisc}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :  RESULTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{slidesResults}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :  CONCLUSION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Conclusions}
+\begin{frame}{Conclusion}
+%\begin{columns}
+
+%\column{0.5\textwidth}
+\begin{block}{To conclude}
+\begin{itemize}
+\item Adapt a general Fluid Structure interaction framework to the particular problem Exner/Stokes
+\item Use a library Feel++ to implement the problem
+\end{itemize}
+\end{block}
+
+%\column{0.5\textwidth}
+\begin{block}{Outlook}
+\begin{itemize}
+\item Theoretical analysis of the coupled model 
+\item Have a free surface on the top
+\item Compare results with existing models (SW +Exner)
+\end{itemize}
+\end{block}
+
+%\end{columns}
+
+\end{frame}
+
+\begin{frame}
+  \centering
+  %% \begin{columns}
+  %%   \begin{column}{0.35\textwidth}
+  %%     \centering
+  %%     \animategraphics[autoplay,loop,scale=0.5]{6}{vahine-}{0}{3}
+  %%   \end{column}
+  %%   \begin{column}{0.3\textwidth}
+  %%     \begin{center}
+        Thank you  :) !  
+  %%     \end{center}
+  %%   \end{column}
+  %%   \begin{column}{0.35\textwidth}
+  %%     \centering
+  %%     \animategraphics[autoplay,loop,scale=0.5]{6}{vahine-}{0}{3}
+  %%   \end{column}
+  %% \end{columns}
+  %% \includemovie{}{0.5\textheight}{maree.avi}
+  %% \movie{%[loop,autostart]{
+  %%   \includegraphics[height=0.5\textheight]{test_maree}
+  %% }{maree.avi}
+\end{frame}
+
+\end{document}
+

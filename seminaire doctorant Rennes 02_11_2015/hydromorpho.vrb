@@ -1,0 +1,20 @@
+\frametitle{Implementation in \textsc {Feel++}}
+Solving the harmonic extension :
+  \begin{lstlisting}
+    auto Vh = Pchv<1>( mesh );
+    auto d = Vh->element();
+    auto dd = Vh->element();
+    auto a = form2( _trial=Vh, _test=Vh );
+    auto l = form1( _test=Vh );
+    a = integrate( _range=elements(mesh),
+                   _expr=inner(grad(d), gradt(dd) ) );
+    a += on( _range=boundaryfaces(mesh,"b"), _rhs=l,
+             _element=d, _expr=idv(b) );
+    a += on( _range=boundaryfaces(mesh,"s"), _rhs=l,
+             _element=d, _expr=zero<Dim,1>() );
+    a.solve( _rhs=l, _solution=d );
+  \end{lstlisting}
+  Then to apply the ALE map and its inverse :
+  \begin{lstlisting}
+    meshMove( mesh, d );
+  \end{lstlisting}

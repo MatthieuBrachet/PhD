@@ -10,6 +10,8 @@
 *~
 *.avi
 *.png
+*.jpg
+*.png
 # exception des fichiers permettant les compilations
 # ??? a reflechir
 # note : les exceptions commencent par !

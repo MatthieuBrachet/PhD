@@ -1,0 +1,42 @@
+\begin{frame}{Exner}
+  \begin{block}{The sediment transport is modelized by Exner equation :}
+    \begin{equation}
+      \frac{\partial b_z}{\partial t}+\frac{\partial Q_s}{\partial x}=0
+    \end{equation}
+  \end{block}
+  The solid transport discharge formula $Q_s$ depends on the hydrodynamical variables.
+  Several expressions for this formula have been proposed.
+
+  \begin{block}{Grass formula (1981):}
+    \begin{equation}
+      Q_s = \alpha u | u |^{3/2}
+    \end{equation}
+  \end{block}
+with $\alpha$ an empirically determined constant.\\~\\
+
+Other formula for the solid transport discharge: Meyer-Peter and Muller, Van Rijn's, Einstein, Nielson, Fernandez-Luque, ... 
+
+\end{frame}
+
+\begin{frame}{Shallow Water}
+  \begin{block}{The fluid is modelized by Shallow-Water (Saint-Venant) equations :}
+    \begin{align*}
+      \frac{\partial H}{\partial t}+\frac{\partial Q}{\partial x} &= 0 \\
+      \frac{\partial Q}{\partial t} +\frac{\partial}{\partial x}\left(  \frac{Q^2}{H} + g\frac{H^2}{2}\right) &= -gH\frac{\partial b_z} {\partial x} - \frac{\tau}{\rho}
+    \end{align*}
+  \end{block}
+  with:
+  \begin{itemize}
+  \item
+    $\tau$ the shear stress at the bottom
+  \item
+    $\rho$ the density of the fluid
+  \item
+    $H$ the water height
+  \item
+    $Q=H\bar{u}$ the flux
+  \item
+    $\bar{u}$ the flow supposed independant of the vertical dimension.
+  \end{itemize}
+\end{frame}
+

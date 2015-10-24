@@ -26,7 +26,7 @@ global lambdac1 tetac1 lambdac2 tetac2
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 2;
+coef = 0;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;
@@ -41,15 +41,15 @@ save_graph = 0;
 opt_ftr = 10;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
-snapshot = 1;
+snapshot = 0;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 1
 %         1 : coupe.
 coupe = 1;
 %% *** Benchmarks data ****************************************************
- n=15;
+ n=40;
  nn=n+2;
  cfl=0.7;
- ndaymax=6;
+ ndaymax=12;
 %% ************************************************************************
  
  if coef == 0
@@ -365,7 +365,7 @@ ermin(ite)=min(min([funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,
 if film==1
     figure(100);
     title('solution exacte')
-    plot_cs5(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe);
+    plot_cs5(n,nn,funfIe-funfI,funfIIe-funfII,funfIIIe-funfIII,funfIVe-funfIV,funfVe-funfV,funfVIe-funfVI);
     colorbar;
  
     aviobj = addframe(aviobj, getframe(gca));
@@ -417,8 +417,6 @@ end
  errIV_38=max(max(abs(err_fIV)));
  errV_38=max(max(abs(err_fV)));
  errVI_38=max(max(abs(err_fVI)));
- disp('erreur algebrique infty : ')
- err_38=max([errI_38,errII_38,errIII_38,errIV_38,errV_38,errVI_38])
  
  str='infty';
   [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=...

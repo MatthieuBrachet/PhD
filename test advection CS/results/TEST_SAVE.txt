@@ -395,3 +395,24 @@ ordre du filtre  : 10
   
   
   
+date : 24-Oct-2015
+******************************
+test : 3
+------- numerical data -------
+number of points : 40
+time step        : 4425.3659
+cfl              : 0.7
+----- mathematical data ------
+angle in degree  : 135
+******************************
+max(er_1)        : 0.14364
+max(er_2)        : 0.31467
+max(er_infty)    : 0.75323
+******************************
+CPU time (sec.)  : 0.75323
+ordre du filtre  : 10
+******************************
+  
+  
+  
+  

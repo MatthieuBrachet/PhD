@@ -1,0 +1,170 @@
+   
+\begin{frame}{Sediment transport or bedload transport - model  }
+
+\begin{itemize}
+\item The usual Saint-Venant + Exner model [ Felix Maria Exner  1920-1925 ]
+\begin{eqnarray*}
+\frac{\partial H}{\partial t}+\frac{\partial H\bar{u}}{\partial x} &=& 0 \\
+\frac{\partial H\bar{u}}{\partial t}
++\frac{\partial}{\partial x}\left(  H\bar{u}^2 + g\frac{H^2}{2}\right)&=&-gH\frac{\partial z_b}{\partial x} - \frac{\tau}{\rho} \\
+\frac{\partial z_b}{\partial x}+\frac{\partial Q_s}{\partial x}&=&0
+\end{eqnarray*}
+
+with
+\item $\tau$ is the shear stress at the bottom and $\rho$ is the density of the fluid.
+ \begin{eqnarray*}
+\tau = \rho g H \frac{(H\bar{u})^2 }{H^2K_s^2 R_h^{4/3}} \quad,\quad R_h=\frac{lH}{l+2H}\quad,\quad l:\hbox{lenght of the chanel}
+\end{eqnarray*}
+
+\item Closure relation : solid transport discharge $Q_s$ defined by many laws. \\
+Example : Grass formula (1981):the bedload sediment transport
+begins automatically when the fluid
+starts to move:
+ \begin{eqnarray}
+Q_s = \alpha \bar{u} | \bar{u} |^{m-1}
+\end{eqnarray}
+
+with $\alpha$  usually obtained from experimental data, and $0<m<4$.
+
+\item Other formula for the solid transport discharge: Meyer-Peter and Muller, Van Rijn's, Einstein, Nielson, Fernandez-Luque, ... 
+
+
+
+\end{itemize}
+
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                    Conclusion and outlook
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+   
+\begin{frame}{Sediment transport}
+
+\textbf{Recent models}
+
+\begin{itemize}
+
+\item Relaxation scheme for Saint-Venant-Exner model [E.Audusse,J.S.-M., cemracs 2011]:
+
+\begin{itemize}
+\item The hydrostatic pressure and the solid transport law $Q_s$ are relaxed 
+\item Eigenvalue of the hyperbolic system are easier to compute. Solution to Riemann solver easy to compute then the Riemann solver.
+\end{itemize}
+
+
+\item Class of model SV + Exner including arbitrarily sloping sediment beds and associated energy [E.D. Fernandez-Nieto, T.Morales de Luna, 2015] 
+
+\begin{itemize}
+\item derived from 3D Navier-Stokes system : asymptotic analysis 
+\item has an energy balance 
+\item uses methods for hyperbolic system
+\end{itemize}
+
+\end{itemize}
+
+\textbf{Numerical method}: Two main approaches: Coupled / decoupled
+
+
+\begin{itemize}
+
+\item Ex: EDF (TELEMAC) fractional time step : solving separately the shallow water system during a time step
+for a topography $z_b$, and after updating the topography using the Exner equation for the same time step.
+Problem: For some situations, it occurs stabilities.
+
+\item Ex: coupled method with Godunov scheme:
+
+\item Ex: Relaxation scheme: coupled model with Riemann solver.
+
+\end{itemize}
+
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                    Conclusion and outlook
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+   
+\begin{frame}{Sediment transport - methods}
+
+Details on the Godunov scheme [E. Audusse, Ph. Ung]:
+\begin{itemize}
+\item Rewriting the model under the quasilinear form:
+\end{itemize}
+
+\begin{eqnarray}
+\partial X_t + A(X)\partial_x X = S(X)
+\end{eqnarray}
+
+with :
+\begin{eqnarray}
+X=\left(\begin{array}{ccc}
+H\\H\bar{u}\\z_b
+\end{array}\right)
+,
+S=\left(\begin{array}{ccc}
+0\\H\partial_x z_b \\0
+\end{array}\right)
+\end{eqnarray}
+
+
+A is the Jacobian matrix of $F=\left( \begin{array}{ccc}
+G\bar{u}\\H\bar{u}^2+g\frac{H^2}{2}\\Q_s
+\end{array}\right)$
+
+\begin{itemize}
+\item  Solve a local Riemann problem at each time step.
+\end{itemize}
+
+
+
+\end{frame}
+
+
+%
+
+   
+%\begin{frame}{Sediment transport using fluid structure interaction - Model with stokes ? }
+%
+%\begin{itemize}
+%
+%\item Equation for the fluid
+%Find $ \mathbf{ v} $ and $p  $   such that
+%\begin{eqnarray}
+%- \mu  \triangle \mathbf{v} + \nabla{p} &=& F(t)  \hbox{ on } \Omega(t) \label{stokes momentum} \\
+%\hbox{div}\left(\mathbf{v}\right) &=&0 \label{stokes divu}\\
+%\mathbf{\mathbf{v}}|_{\Gamma_{in}\cup \Gamma_{out} \cup \Gamma_{b}}&=&0 \\
+%\mathbf{v}|_{\Gamma_{s}}&=&(1,0)^T \label{stokes BC0}
+%\end{eqnarray}
+%
+%with $F(t)$  a forcing term that will allow to modeling the flow. 
+%\\ We denote by $ \Gamma = \Gamma_{in}\cup\Gamma_{out}\cup \Gamma_{b} \cup \Gamma_s$ the boundary of $\Omega$.
+%
+%
+%\item Equation for the bottom
+%\begin{eqnarray}
+%\mathbf{v} \cdot \mathbf{n_b}=0 \\
+%\mathbf{v}_{\tau} + \beta \frac{\partial \mathbf{v}_{\tau}}{\partial \mathbf{n}_b} = 0
+%\end{eqnarray}
+%
+%\end{itemize}
+%
+%
+%
+%\end{frame}
+
+\begin{frame}{Objectives}
+\begin{itemize}
+\item Stokes with Feel++
+\item Stokes with boundary conditions $ b(x,t)$ fixed
+\item Add ALE method to make the mesh moving
+\item Coupled the model with the Exner equation
+\end{itemize}
+\end{frame}

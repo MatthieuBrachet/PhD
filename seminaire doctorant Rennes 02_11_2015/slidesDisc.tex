@@ -1,0 +1,97 @@
+\section{Numerical Methods}
+\subsection{Discretization}
+
+\begin{frame}{Discretization}
+  \begin{block}{Finite Element Method}
+    Let $\Omega_h(t)$ (resp $\widehat{\Omega}_h$) be a discretization of $\Omega(t)$ (resp $\widehat{\Omega}$) and $\mathcal{T}_h$ (resp $\widehat{\mathcal{T}}_h$) a partition of it. We use $t_n = t_0+n\Delta t$ and write $v^n=v(t_n)$.\\
+    We approximate a field $v\in V_h$ by $v_h=\sum_{i=1}^N v_i\varphi_i$ where $\varphi_i$ are the basis of $V_{h,k}^d=\left\{ v \in \mathcal{C}^0 \left( \overline{\Omega} \right) \text{ s.t. } v_{|K} \in  \mathbb{P}_k^d \text{ for all } K \in \mathcal{T}_h  \right\}$
+  \end{block}
+  \begin{itemize}
+  \item
+    Taking $\widehat{b}_z\in V_{h,1}^1$, and using an integration by parts, the variational formulation for Exner reads : $\forall \phi\in V_{h,1}^1$
+    \begin{equation*}
+      \frac{\partial }{\partial t} \int_{\hat{\gamma}_b} \hat{b}_z(\hat{x},t)\phi(\hat{x}) \; d\hat{x}
+      = \int_{\hat{\gamma}_b}  \hat{Q}(\hat{x},t) \phi'(\hat{x}) \; d\hat{x}
+      + \left[  \hat{Q}(\hat{x},t) \phi(\hat{x} )\right]_{\hat{\gamma}_b}
+    \end{equation*}
+  \item
+    For the displacement, the variational formulation is :\\
+    Find $\widehat{\mathbf{d}}\in \mathbf{D}_h = \{ \mathbf{v}\in V_{h,1}^2\text{ s.t. } \mathbf{v}=0\text{ on } \Gamma_s, \mathbf{v}=\widehat{b}_z \text{ on } \Gamma_b \}$, such that
+    \begin{equation*}
+      \int_{\widehat{\Omega}} \nabla\widehat{\mathbf{d}} : \nabla\bm{\psi} = 0 \quad \forall \bm{\psi}\in \mathbf{D}_h
+    \end{equation*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Discretization}
+  \begin{itemize}
+  \item
+    For Stokes, we use Taylor-Hood elements :\\
+    Find $\mathbf{u}\in V_{h,2}^2$ and $p\in V_{h,1}^1$ such that : $\forall \bm{\varphi}\in V_{h,2}^2, \forall \phi\in V_{h,1}^1$
+  \begin{equation*}
+    \left\{
+    \begin{aligned}
+      \int_\Omega \frac{1}{\Delta t}\mathbf{u}^{n+1}_h\cdot\bm{\varphi}_h
+      + a(\mathbf{u}^{n+1}_h,\bm{\varphi}_h) + b\left(\bm{\varphi}_h,p^{n+1}_h\right) 
+      &=\int_\Omega \frac{1}{\Delta t}\mathbf{u}^n_h\cdot\bm{\varphi}_h\\
+      b(\mathbf{u}^{n+1}_h,\phi_h) &= 0
+    \end{aligned}
+    \right.
+  \end{equation*}
+  with
+  \begin{align*}
+    a_1\left(\mathbf{u},\mathbf{v}\right) =& \int_{\Omega(t)} \mu \nabla \mathbf{u} : \nabla \mathbf{v}
+    & a_2\left(\mathbf{u},\mathbf{v}\right) =&  - \int_\Omega \mathbf{w}\cdot\nabla\mathbf{u}\cdot\mathbf{v}\\
+    a_3\left(\mathbf{u},\mathbf{v}\right) =& \int_{\Gamma_b} \frac{1}{\epsilon}(\mathbf{u}\cdot\mathbf{n})(\mathbf{v}\cdot\mathbf{n})
+    & b\left( \mathbf{u} , q \right) =&\int_{\Omega(t)} q\; \hbox{div} (\mathbf{u})
+  \end{align*}
+  \begin{equation*}
+    a\left(\mathbf{u},\mathbf{v}\right) = a_1\left(\mathbf{u},\mathbf{v}\right) + a_2\left(\mathbf{u},\mathbf{v}\right) + a_3\left(\mathbf{u},\mathbf{v}\right)
+  \end{equation*}
+  \end{itemize}
+\end{frame}
+
+\subsection{Implementation}
+
+\begin{frame}[fragile]{Algorithm}
+  \begin{figure}
+    \begin{center}
+      \begin{tikzpicture}
+        \uncover<1-5>{\node[rounded corners=3pt,draw,fill=block body.bg,align=center] (f) at (-3,4) {$\mathbf{u}^n = $ \textbf{Stokes}$(\mathbf{w})$\\ in $\Omega(t)$};}
+        \uncover<2-5>{\node[rounded corners=3pt,draw,fill=block body.bg,align=center] (b) at (3,4) {$\widehat{b}_z = $ \textbf{Exner}$(\widehat{\mathbf{u}})$\\ in $\widehat{\gamma}_b$};}
+        \uncover<2-5>{\node (ua) at (0,4.5) {$\widehat{\mathbf{u}} = \mathbf{u}\circ\mathcal{A}^t$};}
+        \uncover<3-5>{\node[rounded corners=3pt,draw,fill=block body.bg,align=center] (d) at (3,0) {$\widehat{\mathbf{d}} = $ \textbf{Extension}$(\widehat{b}_z)$\\ in $\widehat{\Omega}$};}
+        \uncover<4-5>{\node[rounded corners=3pt,draw,fill=block body.bg,align=center] (w) at (-3,0) {$\widehat{\mathbf{w}} = $ \textbf{Derivation}$(\widehat{\mathbf{d}})$\\ in $\widehat{\Omega}$};}
+        
+        \uncover<2-5>{\draw[->,thick,>=latex] (f) to[bend left] (b);}
+        \uncover<3-5>{\draw[->,thick,>=latex] (b) to[bend left] (d);}
+        \uncover<4-5>{\draw[->,thick,>=latex] (d) to[bend left] (w);}
+        \uncover<5-5>{\draw[->,thick,>=latex] (w) to[bend left] (f);}
+        \uncover<5-5>{\node (wa) at (-2.2,2) {${\mathbf{w}} = \widehat{\mathbf{w}}\circ(\mathcal{A}^t)^{-1}$};}
+      \end{tikzpicture}
+    \end{center}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Implementation in \textsc{Feel++}}
+  Solving the harmonic extension :
+  \begin{lstlisting}
+    auto Vh = Pchv<1>( mesh );
+    auto d = Vh->element();
+    auto dd = Vh->element();
+    auto a = form2( _trial=Vh, _test=Vh );
+    auto l = form1( _test=Vh );
+    a = integrate( _range=elements(mesh),
+                   _expr=inner(grad(d), gradt(dd) ) );
+    a += on( _range=boundaryfaces(mesh,"b"), _rhs=l,
+             _element=d, _expr=idv(b) );
+    a += on( _range=boundaryfaces(mesh,"s"), _rhs=l,
+             _element=d, _expr=zero<Dim,1>() );
+    a.solve( _rhs=l, _solution=d );
+  \end{lstlisting}
+  Then to apply the ALE map and its inverse :
+  \begin{lstlisting}
+    meshMove( mesh, d );
+  \end{lstlisting}
+\end{frame}
+

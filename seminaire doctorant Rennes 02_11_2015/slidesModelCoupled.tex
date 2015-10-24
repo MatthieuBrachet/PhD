@@ -1,0 +1,125 @@
+
+
+
+
+\begin{frame}[fragile]{Coupled model with ALE}
+\begin{figure}
+  \begin{center}
+    \begin{tikzpicture}
+      \node[rounded corners=3pt,draw,fill=block body.bg,align=center] (b) at (-3,4) {Bottom equation defined\\ in a reference 1D domain\\ $\widehat{\gamma}_b=[0,1]$};
+      \node[rounded corners=3pt,draw,fill=block body.bg,align=center] (d) at (3,4) {Equations of the deformation\\ in the reference 2D domain\\ $ \widehat{\Omega}=[0,1]\times[0,1]$};
+      \node[rounded corners=3pt,draw,fill=block body.bg,align=center] (w) at (3,0) {Velocity\\ in the reference 2D domain\\ $ \widehat{\Omega}=[0,1]\times[0,1]$};
+      \node[rounded corners=3pt,draw,fill=block body.bg,align=center] (f) at (-3,0) {Fluid equation in\\ the current domain\\ $\Omega(t)$};
+      
+      \draw[->,thick,>=latex] (b) to[bend left] (d);
+      \draw[->,thick,>=latex] (d) to[bend left] (w);
+      \draw[->,thick,>=latex] (w) to[bend left] (f);
+      \draw[->,thick,>=latex] (f) to[bend left] (b);
+    \end{tikzpicture}
+  \end{center}
+\end{figure}
+\end{frame}
+
+%
+\begin{frame}{Bottom equation}
+
+\begin{itemize}
+
+  
+ \item Exner equation defined in $ \hat{\gamma}_b =[0,1]$
+\begin{eqnarray}
+ \frac{\partial \hat{b}_z(x,t)}{\partial t}+\frac{\partial \hat{Q}(\hat{x},t)}{\partial \hat{x}}&=&0 \quad \forall  \hat{x} \in \gamma_b, t>0\\ 
+ \hat{b}_z(\hat{x},0)&=&{\hat{b}_{z,0}}(\hat{x})
+ \end{eqnarray}
+
+\item Sediment law $ \hat{Q}$  written in the reference domain :
+ 
+
+ \begin{eqnarray}
+\hat{Q}(\hat{x},t) 
+&=&
+Q\left(\mathcal{A}^t\left((\hat{x},0)^T\right),t\right)\quad \forall\hat{x} \in \hat{\gamma}_b\\
+&=& 
+\alpha \left(u_\tau \circ \mathcal{A}^t \left(({\hat{x},0})^T\right) \right)^{3/2} 
+ \end{eqnarray}
+
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{ALE Equation} 
+
+
+\begin{itemize}
+\item Harmonic extension:
+
+\begin{empheq}[left={\empheqlbrace}]{alignat=2}
+-\bigtriangleup \mathbf{\hat{d}}_\delta 
+&=\;&
+ 0  \quad \hbox{ on }&\hat{ \Omega} \\
+\mathbf{\hat{d}}_\delta 
+&=\;& 
+0 \quad \hbox{ on }& {\hat{\Gamma}}_s \\
+\frac{\partial \mathbf{\hat{d}}_\delta}{\partial \mathbf{n}}
+&=\;&
+ 0 \quad \hbox{ on }& {\hat{\Gamma}}_{in}\cup \hat{{\Gamma}}_{out}\\
+\mathbf{\hat{d}}_\delta  
+&=\;& (0,\hat{b}_z(\hat{x},t))^T \quad \hbox{ on }& \hat{\Gamma}_b
+\end{empheq}
+
+
+\item $ \Gamma_s$ : fixed.
+\item $ \Gamma_{in}, \Gamma_{out}$ : vertical displacement.
+\item $ \Gamma_b$ : Displacement given by $ \hat{b}(\hat{x},t)$.
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}{Computation of w}
+
+\begin{itemize}
+\item $\mathbf{\hat{w}}$: velocity of the displacement
+\begin{eqnarray}
+\hat{\mathbf{w}} = \frac{\partial \mathbf{\hat{d}}(\mathbf{\hat{x}},t)}{\partial t}
+\end{eqnarray}
+\item ALE transformation $ \rightsquigarrow$ velocity $\mathbf{w}$ in the domain $ \Omega(t)$:
+\begin{eqnarray}
+\mathbf{w}(\mathbf{x},t)= \mathbf{\hat{w}}\left((\mathcal{A}^t)^{-1}(\mathbf{x}),t\right)
+\end{eqnarray}
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Fluid equation}
+
+\begin{itemize}
+
+\item Instationary Stokes + Lagrangian derivative
+ 
+\begin{empheq}[left={\empheqlbrace}]{alignat=2}
+\frac{\mathcal{D}\mathbf{u}}{\mathcal{D}t}
+-\mathbf{w}\cdot \nabla \mathbf{u}
+-\mu \bigtriangleup \mathbf{u}+\nabla p 
+&=\;&
+ 0 \quad\hbox{on } & \Omega(t)  \\
+\hbox{div}(\mathbf{u}) 
+&=\;&
+ 0 \quad \hbox{on }& \Omega(t) \\
++\hbox{\textbf{BC}} 
+\end{empheq}
+
+\item Boundary condition: 
+\begin{itemize}
+\item Neumann or Dirichlet on $ \Gamma_{in}(t), \Gamma_{out}(t), \Gamma_{s}$
+\item Slip boundary condition on the interface 
+$ \Gamma_b(t)$
+\end{itemize}
+
+
+\end{itemize}
+
+\end{frame}
+
