@@ -1,0 +1,104 @@
+\section{Variational Form}
+\subsection{Goal}
+
+\begin{frame}{Goal}
+In this numerical project, we want to use Finite Element Method.
+
+$\rightarrow$ Why?
+\begin{itemize}
+\item Quick to implement in FEEL++,
+\item easy to parallelize,
+\item easy for complicated geometry.
+\end{itemize}
+
+$\rightarrow$ We need to use the variational form of all the PDE :
+\begin{itemize}
+\item Exner equation in ALE,
+\item Harmonic extension,
+\item Unsteady Stokes equation with ALE modifications.
+\end{itemize}
+\end{frame}
+
+
+
+\subsection{Exner Equation}
+
+\begin{frame}{Exner Equation}
+Multiplying by $\phi \in L^2 \left( \hat{\gamma}_b \right)$ the Exner equation :
+
+$$\dfrac{\partial \hat{b}_z}{\partial t} + \dfrac{\partial \hat{Q}}{\partial \hat{x}} = 0$$
+
+and move the space derivative on the test map by integration by parts.
+
+For all $\phi$ in $L^2 \left( \hat{\gamma}_b \right)$,
+\begin{eqnarray}
+  \frac{\partial }{\partial t}
+  \int_{\hat{\gamma}_b} \hat{b}_z(\hat{x},t)\phi(\hat{x}) \; d\hat{x}
+  =\int_{\hat{\gamma}_b}  \hat{Q}(\hat{x},t) \phi'(\hat{x}) \; d\hat{x}
+  +
+  \left[  \hat{Q}(\hat{x},t) \phi(\hat{x} )\right]_{\hat{\gamma}_b}
+\end{eqnarray}
+for all $\hat{x} \in \hat{\gamma}_b$.
+
+(Same process one the harmonic equation)
+\end{frame}
+
+
+
+\subsection{Unsteady Stokes Equation}
+
+\begin{frame}{Unsteady Stokes Equation}
+For the steady Stokes equation :
+$$
+\left\{
+\begin{array}{rcl}
+- \mu \Delta u + \nabla p & = & 0 \\
+div(u) & = & 0 
+\end{array}
+\right. $$
+the variational form is for all $v_1 \in V_1$ and $v_2 \in V_2$ :
+$$
+\left\{
+\begin{array}{rcl}
+ \mu a(u,v_1) + b(p,v_1) & = & 0 \\
+b(v_2,u) & = & 0 
+\end{array}
+\right. $$
+where $a(u,v) = \int_{\Omega} \nabla u : \nabla v$ and $b(p,v)=\int_{\Omega} p div(v)$.
+\end{frame}
+
+\begin{frame}
+Be careful, $V_1$ and $V_2$ must satisfy the "inf-sup" condition :
+\begin{block}{"inf-sup" condition}
+$$\exists \beta > 0 \text{ s.t. } sup_{v \in V_1 -\{0\}} \dfrac{b(v,q)}{\| v \|_{V_1}} \geq \beta \| q \|_{V_2}$$
+for all $q \in V_2$
+\end{block}
+In the following, we are working in spaces which satisfy this condition.
+\end{frame}
+
+\begin{frame}
+  The variational form of this problem is :
+    Find $\mathbf{u}\in \mathbf{V}$ and $p\in Q$ such that : $\forall \bm{\varphi}\in \mathbf{V}, \forall \phi\in Q$
+  \begin{equation*}
+    \left\{
+    \begin{aligned}
+      \dfrac{d}{dt}\int_\Omega \mathbf{u}\cdot\bm{\varphi}
+      + a(\mathbf{u},\bm{\varphi}) + b\left(\bm{\varphi},p\right) 
+      &=0\\
+      b(\mathbf{u},\phi) &= 0
+    \end{aligned}
+    \right.
+  \end{equation*}
+  with
+  \begin{align*}
+    a_1\left(\mathbf{u},\mathbf{v}\right) =& \int_{\Omega(t)} \mu \nabla \mathbf{u} : \nabla \mathbf{v}
+    & a_2\left(\mathbf{u},\mathbf{v}\right) =&  - \int_\Omega \mathbf{w}\cdot\nabla\mathbf{u}\cdot\mathbf{v}\\
+    a_3\left(\mathbf{u},\mathbf{v}\right) =& \int_{\Gamma_b} \frac{1}{\epsilon}(\mathbf{u}\cdot\mathbf{n})(\mathbf{v}\cdot\mathbf{n})
+    & b\left( \mathbf{u} , q \right) =&\int_{\Omega(t)} q\; \hbox{div} (\mathbf{u})
+  \end{align*}
+  \begin{equation*}
+    a\left(\mathbf{u},\mathbf{v}\right) = a_1\left(\mathbf{u},\mathbf{v}\right) + a_2\left(\mathbf{u},\mathbf{v}\right) + a_3\left(\mathbf{u},\mathbf{v}\right)
+  \end{equation*}
+\end{frame}
+
+

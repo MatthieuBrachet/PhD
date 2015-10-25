@@ -1,3 +1,19 @@
+\begin{frame}
+\begin{columns}
+\column{0.45\textwidth}
+\begin{figure}
+\includegraphics[height=3cm]{nucleaire.jpg}
+\caption{Nuclear Power Plant along the Loire}
+\end{figure}
+\column{0.45\textwidth}
+\begin{itemize}
+\item Cooling nuclear plant,
+\item Waterway,
+\item Dam gestion.
+\end{itemize}
+\end{columns}
+\end{frame}
+
 \begin{frame}{Exner}
   \begin{block}{The sediment transport is modelized by Exner equation :}
     \begin{equation}
@@ -40,3 +56,19 @@ Other formula for the solid transport discharge: Meyer-Peter and Muller, Van Rij
   \end{itemize}
 \end{frame}
 
+\begin{frame}
+\begin{block}{First CEMRACS works :}
+E. Audisse and al., Sediment transport modelling : relaxation schemes for Saint-Venant/Exner and three layer models. 2012. ESAIM Proceeding.
+\end{block}
+
+\begin{alertblock}{Problem :}
+\begin{itemize}
+\item develop a code to solve the morphodynamical problem,
+\item bring out the influence of depth
+\end{itemize}
+\end{alertblock}
+
+\begin{exampleblock}{How :}
+Develop a solver in C++/FEEL++ to solve Navier-Stokes/Exner Equations.
+\end{exampleblock}
+\end{frame}

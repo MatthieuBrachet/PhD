@@ -1,41 +1,22 @@
 \documentclass[notes]{beamer}
 \usetheme{Madrid}
 \usepackage{etex}
-
-% Try the class options [notes], [notes=only], [trans], [handout],
-% [red], [compress], [draft], [class=article] and see what happens!
-
-% For a green structure color use:
-%\colorlet{structure}{green!50!black}
-
-\mode<article> % only for the article version
+\mode<article>
 {
   \usepackage{beamerbasearticle}
   \usepackage{fullpage}
   \usepackage{hyperref}
 }
-
 \beamertemplateshadingbackground{white!50}{white!50}
-
-%\usepackage{beamerthemeshadow}
 \definecolor{gris25}{gray}{0.75}
-
-
 \usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
-%\usepackage{amsmath,amssymb}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage{colortbl}
-%\usepackage[french]{babel}
 \usepackage{lmodern}
-
 \usepackage[T1]{fontenc}
 \usefonttheme{professionalfonts}
-
 \usepackage{graphicx}
 \usepackage{tikz}
-%\usepackage{pgfplots,pgfplotstable}
-
-
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -44,10 +25,8 @@
 \usepackage{algorithm,algorithmic}
 \usepackage{multimedia}
 \usepackage{media9}
-%\usepackage{movie15}
 \usepackage{animate}
 \usepackage[font=Times,timeinterval=10]{tdclock}
-
 \usepackage{algorithm,algorithmic}
 \usepackage{listings}
 \lstset{
@@ -65,18 +44,11 @@
     rangesuffix={]},
   includerangemarker=false
 }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \definecolor{blue}{rgb}{0,0,1}
 \newcommand{\blue}{\color{blue}}
 \newcommand{\red}{\color{red}}
 \newcommand{\green}{\color{green}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\usepackage{times}
-
-% Use some nice templates
 \beamertemplatetransparentcovereddynamic
-
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{headline}{%
   \leavevmode%
@@ -86,24 +58,12 @@
     \end{beamercolorbox}%
   }
 }
-%\addtobeamertemplate{footline}{\insertframenumber/\inserttotalframenumber}
-
 \title[Hydromorpho project]
-{Hydromorpho: A coupled model for unsteady Stokes/Exner equations and numerical results with Feel++ library}
-\author[R. Hild]{ N. A\"issiouene, T. Amtout, M. Brachet, E. Frenod \\ \underline{R. Hild}, A. Rousseau, S. Salmon}
-
-%\code{E-mail:}
+{Hydromorpho: Dune displacement on a fluid bottom. A couples model for unsteady Stokes/Exner equations and numerical results with Feel++ library}
+\author[M. Brachet]{ N. A\"issiouene, T. Amtout, \underline{M. Brachet}, E. Frenod \\ R. Hild, C. Prud'homme, A. Rousseau, S. Salmon}
 \institute[CEMRACS2015]{CEMRACS 2015 - CIRM MARSEILLE}
-
-%Hattiesburg, Southern Miss, May 02, 2008}
-% \subject{Analyse et Contrôles des%
-%Systèmes}
 \date{\mbox{~}}
-
 \begin{document}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}
   \maketitle
   \initclock
@@ -114,12 +74,15 @@
   \tableofcontents
 \end{frame}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION :  INTRO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 \input{intro}
+
+\begin{frame}{Plan}
+  \tableofcontents
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION :  MODEL
@@ -145,16 +108,35 @@
 \subsection{Coupled Model Stokes/Exner}
 \input{slidesModelCoupled}
 
+\begin{frame}{Plan}
+  \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :  FORMULATION VARIATIONNELLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{varform}
+
+\begin{frame}{Plan}
+  \tableofcontents
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION :  ALGO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{slidesDisc}
 
+\begin{frame}{Plan}
+  \tableofcontents
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION :  RESULTS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{slidesResults}
+
+\begin{frame}{Plan}
+  \tableofcontents
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION :  CONCLUSION
@@ -186,7 +168,8 @@
 \end{frame}
 
 \begin{frame}
-  \centering
+\centering
+  \begin{center}
   %% \begin{columns}
   %%   \begin{column}{0.35\textwidth}
   %%     \centering
@@ -206,6 +189,7 @@
   %% \movie{%[loop,autostart]{
   %%   \includegraphics[height=0.5\textheight]{test_maree}
   %% }{maree.avi}
+  \end{center}
 \end{frame}
 
 \end{document}

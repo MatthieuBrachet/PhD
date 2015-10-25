@@ -26,10 +26,10 @@ global lambdac1 tetac1 lambdac2 tetac2
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 0;
+coef = 3;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
-film = 0;
+film = 1;
 % si qquiv = 1 : tracer le champ de vecteurs
 %    qquiv = 0 : ne pas tracer
 qquiv = 0;
@@ -44,7 +44,7 @@ opt_ftr = 10;
 snapshot = 0;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 1
 %         1 : coupe.
-coupe = 1;
+coupe = 0;
 %% *** Benchmarks data ****************************************************
  n=40;
  nn=n+2;
@@ -365,7 +365,7 @@ ermin(ite)=min(min([funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,
 if film==1
     figure(100);
     title('solution exacte')
-    plot_cs5(n,nn,funfIe-funfI,funfIIe-funfII,funfIIIe-funfIII,funfIVe-funfIV,funfVe-funfV,funfVIe-funfVI);
+    plot_cs5(n,nn,funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,funfV-funfVe,funfVI-funfVIe);
     colorbar;
  
     aviobj = addframe(aviobj, getframe(gca));
