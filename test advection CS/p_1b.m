@@ -26,10 +26,10 @@ global lambdac1 tetac1 lambdac2 tetac2
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 3;
+coef = 2;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
-film = 1;
+film = 0;
 % si qquiv = 1 : tracer le champ de vecteurs
 %    qquiv = 0 : ne pas tracer
 qquiv = 0;
@@ -46,7 +46,7 @@ snapshot = 0;
 %         1 : coupe.
 coupe = 0;
 %% *** Benchmarks data ****************************************************
- n=40;
+ n=200;
  nn=n+2;
  cfl=0.7;
  ndaymax=12;
@@ -158,7 +158,7 @@ end
 
 
 %% Boucles RK 4 avec filtrage
-
+xdays(1)=0;
 for ite=1:itemax
 clc; [ite itemax]
 
@@ -365,8 +365,7 @@ ermin(ite)=min(min([funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,
 if film==1
     figure(100);
     title('solution exacte')
-    plot_cs5(n,nn,funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,funfV-funfVe,funfVI-funfVIe);
-    colorbar;
+    plot_cs5(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
  
     aviobj = addframe(aviobj, getframe(gca));
 end
@@ -427,6 +426,15 @@ end
 time_res=cputime-tstart;
 %% graphiques
 
+if snapshot == 1
+    figure(11)
+    plot_cs7(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
+    grid minor
+    if save_graph==1
+        print('-dpng', ['./results/' date '_snapshot_test_' num2str(coef) '.png'])
+    end
+end
+
 figure(35);
 plot_cs5(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe);colorbar;
 title('solution exacte')
@@ -462,10 +470,6 @@ format shortE
 disp('erreur relative L2 / L1 / L_infty: ')
 [max(er2) max(er1) max(erinfty)] 
 
-
-
-
-
 if save_graph==1
     %ouvre un fichier ou le créé
     fid = fopen('./results/TEST_SAVE.txt','a');
@@ -489,19 +493,8 @@ if save_graph==1
     fprintf(fid,'%s\n','******************************');
     fprintf(fid,'%s\n','  ');
     fprintf(fid,'%s\n','  ');
-    fprintf(fid,'%s\n','  ');
-    fprintf(fid,'%s\n','  ');
     %n'oublie pas de fermer le fichier sinon tu ne peux pas le lire
     fclose(fid);
-end
-
-if snapshot == 1
-    figure(11)
-    plot_cs7(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
-    grid minor
-    if save_graph==1
-        print('-dpng', ['./results/' date '_snapshot_test_' num2str(coef) '.png'])
-    end
 end
 
 if coupe == 1

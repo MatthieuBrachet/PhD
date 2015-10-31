@@ -202,11 +202,11 @@ Dans ce système de coordonnées $M$ est donné par :
 \begin{itemize}
 \item $\alpha$ abscisse curviligne le long du grand cercle "horizontal".
 
-\item $\eta$ angle longitudinal.
+\item $\eta$ angle longitudinal pour le panel I.
 
 \item $\beta$ abscisse curviligne le long du grand cercle "vertical".
 
-\item $\xi$ angle latitudinal.
+\item $\xi$ angle latitudinal pour le panel I.
 \end{itemize}
 \end{column}
 \end{columns}
@@ -214,10 +214,12 @@ Dans ce système de coordonnées $M$ est donné par :
 
 \subsection{Gradient sphérique}
 \begin{frame}{Calcul du gradient sphèrique}
-Gradient :
+Définition naturelle du gradient :
 $$\nabla_s u = \dfrac{\partial u}{\partial \xi}_{|\eta} g^\xi + \dfrac{\partial u}{\partial \eta}_{|\xi} g^\eta $$
 
 $\rightarrow$ $\dfrac{\partial u}{\partial \xi}_{|\eta}$ et $\dfrac{\partial u}{\partial \eta}_{|\xi}$ : pas le long des grands cercles. Exprimer dans $(\alpha, \beta)$.
+
+$\rightarrow$ $g^\xi$ et $g^\eta$ vecteurs contravariants obtenus par inversion du tenseur métrique.
 \pause
 
 \begin{block}{Gradient sur la CS}
@@ -246,6 +248,77 @@ $$\dfrac{u(x+h)-u(x-h)}{2h} = \dfrac{1}{6} \left[ u'(x-h) + 4 u'(x) + u'(x+h) \r
 \end{block}
 
 $\rightarrow$ Résolution d'un système linéaire sur chaque grand cercle.
+\end{frame}
+
+% ***
+
+\subsection{Solveur Rapide}
+\begin{frame}{Solveur Rapide}
+\begin{block}{Schéma compact}
+\begin{itemize}
+\item $U' = \left[ u'_1, \hdots ,u'_N \right]^T \approx \left[ u'(x_1), \hdots ,u'(x_N) \right]^T$
+
+\item $U' = \left[ u_1, \hdots ,u_N \right]^T$
+\end{itemize}
+
+\pause
+
+Alors :
+$$\dfrac{1}{2h}\begin{pmatrix}
+0 & 1 &   &   & -1 \\ 
+-1 & 0 & 1 & (0) &   \\ 
+  & \ddots & \ddots & \ddots &   \\ 
+  & (0) & -1 & 0 & 1 \\ 
+1 &   &   & -1 & 0
+\end{pmatrix} U = \dfrac{1}{6} \begin{pmatrix}
+4 & 1 &   &   & 1 \\ 
+1 & 4 & 1 & (0) &   \\ 
+  & \ddots & \ddots & \ddots &   \\ 
+  & (0) & 1 & 4 & 1 \\ 
+1 &   &   & 1 & 4
+\end{pmatrix} U'$$
+\end{block}
+\pause
+$\rightarrow$ Résolution d'un système linéaire sur chaque grand cercle.
+\end{frame}
+
+\begin{frame}
+Résolution d'un système "quasi" tridiagonal en : 
+$$\dfrac{1}{6} \begin{pmatrix}
+4 & 1 &   &   & 1 \\ 
+1 & 4 & 1 & (0) &   \\ 
+  & \ddots & \ddots & \ddots &   \\ 
+  & (0) & 1 & 4 & 1 \\ 
+1 &   &   & 1 & 4
+\end{pmatrix}$$
+
+Utilisation de la formule de Shermann-Morisson-Woodbury :
+
+\begin{block}{Formule de Shermann-Morisson-Woodbury :}
+Soit $N \geq 1$. Supposons que $A\text{, }B \in \mathcal{M}_N \left( \mathbb{R} \right)$ soient deux matrices inversibles telles que :
+$$A = B + RS^T$$
+avec $R$ et $S \in \mathcal{M}_{N,n} \left( \mathbb{R} \right)$. Alors :
+
+$$A^{-1} = B^{-1} - B^{-1}R\left( I + S^T B^{-1} R\right)^{-1} S^T B^{-1}$$
+\end{block}
+\end{frame}
+
+\begin{frame}{Solveur Rapide}
+Alors pour résoudre $Ax=b$ où A est la matrice précédente :
+
+\begin{enumerate}
+\item Calcul de $V_1=B^{-1}b$ grâce à l'algorithme de Thomas,
+
+\item $V_2 = S^T V_1$,
+
+\item Calcul de $V_3 = \left( I + S^T B^{-1} R \right)^{-1} V_2$ (système $2 \times 2$ dans notre cas),
+
+\item $V_4 = R V_3$,
+
+\item Calcul de $V_5 = B^{-1} V_4$ par l'algorithme de Thomas,
+
+\item Solution : $x = V_1 - V_5$.
+\end{enumerate}
 \end{frame}
 
 % ***
@@ -330,7 +403,7 @@ h(\mathbf{x},t=0) & = & h_0 ( \mathbf{x} )
 
 \pause
 \begin{block}{Condition Courant–Friedrichs–Lewy (1928)}
-Pour que le calcul soit stable, il suffit que :
+Pour que le schéma soit stable, il suffit que :
 $$cfl := \dfrac{\|c\|_{\infty} \times \Delta t}{\Delta x} \leq 1$$
 \end{block}
 
@@ -367,7 +440,7 @@ f_5 = f_{-5}
 \end{pmatrix} $$
 
 \begin{block}{Remarque}
-Convolution discréte par une gaussienne.
+Convolution discréte par une fonction adaptée.
 \end{block}
 \end{frame}
 
@@ -483,7 +556,7 @@ Estimation de l'ordre de convergence sur le test 3 :
 
 \begin{figure}
 \begin{tabular}{ccc}
-Nombre de maille par coté de face & $max_n |e_2^n|$ & estimation de l'ordre \\
+Nombre de mailles par coté de face & $max_n |e_2^n|$ & estimation de l'ordre \\
 \hline
 \hline
 $40$ & $9.7386 (-2)$ & - \\

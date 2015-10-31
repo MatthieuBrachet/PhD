@@ -5,13 +5,11 @@ global x_fIII y_fIII z_fIII;
 global x_fIV y_fIV z_fIV;
 global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
-global radius;
-global xi eta dxi deta xx yy delta deltab dga;
+global xi eta
 global alfa beta;
-global alfacr betacr;
+global betacr;
 global alfa1;
-global alfag betag;
- %
+ % axis
  % DESSIN DE TYPE CYLINDRIQUE 
  [lam_I,the_I,rwk]=cart2sph(x_fI,y_fI,z_fI);
  [lam_II,the_II,rwk]=cart2sph(x_fII,y_fII,z_fII);
@@ -44,7 +42,8 @@ funfIeb=funfIe(1:(nn+1)/2,1:nn);
 % axis manual;
 lmin=0;lmax=2*pi;temin=-pi/2;temax=pi/2;
 % umin=0; umax=1000;
-umin=-3; umax=3;
+umin=min(min([funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe]));
+umax=max(max([funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe]));
 axis([lmin lmax temin temax umin umax]);
 %
 surf(lam_Ia,the_Ia,funfIea);hold on;axis([lmin lmax temin temax umin umax]);
@@ -179,7 +178,7 @@ for j=1:(nn+1)/2 % LOOP ON THE eta OF FACE V
 end
 lam_VI_qI=zeros(nn,(nn+1)/2);
 the_VI_qI=zeros(nn,(nn+1)/2);
-for j=1:(nn+1)/2, 
+for j=1:(nn+1)/2, %     QUADRANT I DE FACE VI
 %     etawk=eta(nn-j+1); % JPC
     etawk=eta(j+(nn+1)/2-1); 
     for i=1:nn % FORMULES FACE VI
@@ -190,9 +189,9 @@ for j=1:(nn+1)/2,
          [lam_VI_qI(i,j),the_VI_qI(i,j),rrwk] = cart2sph(xx_wk1,yy_wk1,zz_wk1);
     end
 end
-% lam_VI_qI(1:nn,(nn+1)/2)=lam_VI_qI(1:nn,1);
+% lam_VI_qI(1:nn,(nn+1)/2)=lam_VI_qI(1:nn,1);% RECTIFICATION LONGITUDE POUR
 % LE POLE NORD % JPC
-lam_VI_qI(1:nn,1)=lam_VI_qI(1:nn,(nn+1)/2);
+lam_VI_qI(1:nn,1)=lam_VI_qI(1:nn,(nn+1)/2);% RECTIFICATION LONGITUDE POUR LE POLE NORD
 %max(lam_VI_qI)
 %surf(lam_VI_qI,the_VI_qI,funfVIsI(nn:-1:1,:));hold on;
 % % 2 TRACES POUR L'ORIGINE DES LAMBDA
@@ -212,17 +211,18 @@ lam_VI_qI(1:nn,1)=lam_VI_qI(1:nn,(nn+1)/2);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 % QUADRANT III OF FACE VI ; REVOIR ADRESSAGE: PAS CLAIR
 funfVIsIII=zeros(nn,(nn+1)/2);
-for j=1:(nn+1)/2,
+for j=1:(nn+1)/2, % LOOP ON THE eta OF FACE VI
     alfaspline(1:nn)=alfa(1:nn,j);
     funspline(1:nn)=funfVIe(1:nn,j);
     ppspline=spline(alfaspline,funspline);
+  %  funfVIsIII(1:nn,j)=ppval(ppspline,alfa1(1:nn,j)); % JPC
     funfVIsIII(1:nn,j)=ppval(ppspline,alfa1(nn:-1:1,j));
 end
 lam_VI_qIII=zeros(nn,(nn+1)/2);
 the_VI_qIII=zeros(nn,(nn+1)/2);
-for j=1:(nn+1)/2, 
+for j=1:(nn+1)/2, %     QUADRANT III DE FACE VI
     etawk=eta(nn-j+1);
-    for i=1:nn 
+    for i=1:nn % FORMULES FACE VI
          alfawk=alfa1(nn-i+1,nn-j+1);
          xx_wk1 = cos(alfawk)*sin(etawk);
          yy_wk1 = sin(alfawk);   
@@ -230,13 +230,14 @@ for j=1:(nn+1)/2,
          [lam_VI_qIII(i,j),the_VI_qIII(i,j),rrwk] = cart2sph(xx_wk1,yy_wk1,zz_wk1);
     end
 end
-lam_VI_qIII(1:nn,(nn+1)/2)=lam_VI_qIII(1:nn,1);
+lam_VI_qIII(1:nn,(nn+1)/2)=lam_VI_qIII(1:nn,1);% RECTIFICATION LONGITUDE POUR LE POLE SUD
 surf(lam_VI_qIII+pi,the_VI_qIII,funfVIsIII);
 hold on;axis([lmin lmax temin temax umin umax]);
+% break;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     QUADRANT II DE FACE VI
 funfVIsII=zeros((nn+1)/2,nn); % 
-for i=(nn+1)/2:-1:1, 
+for i=(nn+1)/2:-1:1, % LOOP ON THE xi OF FACE VI
     betaspline(1:nn)=beta(i+(nn-1)/2,1:nn);
     funspline(1:nn)=funfVIe(i+(nn-1)/2,1:nn);
     ppspline=spline(betaspline,funspline);
@@ -244,23 +245,23 @@ for i=(nn+1)/2:-1:1,
 end
 lam_VI_qII=zeros(nn,(nn+1)/2);
 the_VI_qII=zeros(nn,(nn+1)/2);
-for j=1:(nn+1)/2, 
+for j=1:(nn+1)/2, %     QUADRANT II DE FACE VI
     xiwk=xi(nn-j+1);
-    for i=1:nn 
-         betawk = betacr(j,i);
+    for i=1:nn % FORMULES FACE VI
+         betawk = betacr(j,i); % CONTROLLER
          xx_wk1 = sin(betawk);
          yy_wk1 = -cos(betawk)*sin(-xiwk);   
          zz_wk1 = -cos(betawk)*cos(-xiwk);
          [lam_VI_qII(i,j),the_VI_qII(i,j),rrwk] = cart2sph(xx_wk1,yy_wk1,zz_wk1);
     end
 end
-lam_VI_qII(1:nn,(nn+1)/2)=lam_VI_qII(1:nn,1);
+lam_VI_qII(1:nn,(nn+1)/2)=lam_VI_qII(1:nn,1);% RECTIFICATION LONGITUDE POUR LE POLE NORD
 funfVIsII1=funfVIsII((nn+1)/2:-1:1,nn:-1:1)';
 surf(lam_VI_qII,the_VI_qII,funfVIsII1);hold on;axis([lmin lmax temin temax umin umax]);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     QUADRANT IV DE FACE VI
 funfVIsIV=zeros((nn+1)/2,nn); % 
-for i=1:(nn+1)/2,
+for i=1:(nn+1)/2, % LOOP ON THE xi OF FACE VI
     betaspline(1:nn)=beta(i,1:nn);
     funspline(1:nn)=funfVIe(i,1:nn);
     ppspline=spline(betaspline,funspline);
@@ -268,9 +269,9 @@ for i=1:(nn+1)/2,
 end
 lam_VI_qIV=zeros(nn,(nn+1)/2);
 the_VI_qIV=zeros(nn,(nn+1)/2);
-for j=1:(nn+1)/2,
+for j=1:(nn+1)/2, %  QUADRANT IV DE FACE VI
     xiwk=xi((nn+1)/2-j+1);
-    for i=1:nn 
+    for i=1:nn % FORMULES FACE VI
          betawk = betacr((nn+1)/2-j+1,nn-i+1); % CONTROLLER
          xx_wk1 = sin(betawk);
          yy_wk1 = -cos(betawk)*sin(-xiwk);   
@@ -284,9 +285,10 @@ lam_VI_qIV1=lam_VI_qIV+(2*pi)*(lam_VI_qIV<0);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 surf(lam_VI_qIV1,the_VI_qIV,funfVIsIV1);hold on;axis([lmin lmax temin temax umin umax]);
 view(3);
-%% ************************************************************************
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TRACE DES FRONTIERES DES PATCHS DE LA CUBED SPHERE GRID
 % DESSIN DE TYPE CYLINDRIQUE ====
+%plot3(lam_Ia(1,:),the_Ia(1,:),funfIea(1,:)+0.01,'k','LineWidth',1.5); hold on;
 plot3(lam_Ia((nn+1)/2,:),the_Ia((nn+1)/2,:),funfIea(1,:)+0.01,'k','LineWidth',1.25); hold on;
 plot3(lam_Ia(:,1),the_Ia(:,1),funfIea(:,1)+0.01,'k','LineWidth',1.25); hold on;
 plot3(lam_Ia(:,nn),the_Ia(:,nn),funfIea(:,nn)+0.01,'k','LineWidth',1.25); hold on;
@@ -309,3 +311,8 @@ plot3(lam_IV(:,nn),the_IV(:,nn),funfIVe(:,nn)+0.01,'k','LineWidth',1.25); hold o
 plot3(lam_Ib(1,:),the_Ib(1,:),funfIeb(1,:)+0.01,'k','LineWidth',1.25); hold on;
 plot3(lam_Ib(:,1),the_Ib(:,1),funfIeb(:,1)+0.01,'k','LineWidth',1.25); hold on;
 plot3(lam_Ib(:,nn),the_Ib(:,nn),funfIeb(:,nn)+0.01,'k','LineWidth',1.25); hold on;
+
+shading interp;
+set(gca, 'CLim', [umin, umax]);
+colorbar;
+view(2);
