@@ -416,3 +416,22 @@ ordre du filtre  : 10
   
   
   
+date : 02-Nov-2015
+******************************
+test : 2
+------- numerical data -------
+number of points : 200
+time step        : 902.6866
+cfl              : 0.7
+----- mathematical data ------
+angle in degree  : 135
+******************************
+max(er_1)        : 4.9434e-06
+max(er_2)        : 2.211e-05
+max(er_infty)    : 0.00019144
+******************************
+CPU time (sec.)  : 0.00019144
+ordre du filtre  : 10
+******************************
+  
+  

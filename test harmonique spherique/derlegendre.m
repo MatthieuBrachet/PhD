@@ -1,6 +1,6 @@
-function [pmm] = legendre(m,l,x)
+function [dpmm] = derlegendre(m,l,z)
 % ********************************************
-% Legendre Polynomial
+% Derivative of Legendre Polynomial
 %
 % Author :
 %     - Matthieu Brachet
@@ -10,25 +10,26 @@ function [pmm] = legendre(m,l,x)
 % ********************************************
 pmm=1;
 if (m>=0)
-    somx2=sqrt((1-x).*(1+x));
     fact=1;
     for i=1:m
-        pmm=fact.*somx2.*pmm;
         fact=fact+2;
     end
+    dpmm=m.*fact.*z.*(1-z.^2).^(m/2-1);
     if (l == m)
-        pmm=pmm;
+        dpmm=dpmm;
     else
-        pmmp1=x.*(2*m+1).*pmm;
+        pmm=legendre(m,m,z);
+        pmmp1=dpmm;
         if (l == m+1)
-            pmm=pmmp1;
+            dpmm=(2*m+1)*pmm+z.*(2*m+1).*dpmm;
         else
             for ll=m+2:l
-                pll=(x.*(2*ll-1).*pmmp1-(ll+m-1).*pmm)./(ll-m);
-                pmm=pmmp1;
+                pmm=legendre(m,ll,z);
+                pll=((2*ll-1)*pmm+z.*(2*l-1).*dpmm-(ll+m-1)*pmmp1)/(ll-m);
+                dpmm=pmmp1;
                 pmmp1=pll;
             end
-            pmm=pll;
+            dpmm=pll;
         end
     end
 end
