@@ -433,5 +433,86 @@ max(er_infty)    : 0.00019144
 CPU time (sec.)  : 0.00019144
 ordre du filtre  : 10
 ******************************
+
+****************************************************** début de rédaction *** 04-nov-2015 ***
+
+date : 04-Nov-2015
+date : 736272.4281
+******************************
+test : 2
+------- numerical data -------
+number of points : 31
+time step        : 5670
+cfl              : 0.7
+----- mathematical data ------
+angle in degree  : 135
+******************************
+max(er_1)        : 3.0309e-05
+max(er_2)        : 0.00013571
+max(er_infty)    : 0.0011231
+******************************
+ndaymax          : 3
+ordre du filtre  : 10
+******************************
+  
+  
+date : 04-Nov-2015
+date : 736272.4321
+******************************
+test : 2
+------- numerical data -------
+number of points : 31
+time step        : 5670
+cfl              : 0.7
+----- mathematical data ------
+angle in degree  : 135
+******************************
+max(er_1)        : 0.00048538
+max(er_2)        : 0.0021554
+max(er_infty)    : 0.015788
+******************************
+ndaymax          : 6
+ordre du filtre  : 10
+******************************
+  
+  
+date : 04-Nov-2015
+date : 736272.438
+******************************
+test : 2
+------- numerical data -------
+number of points : 31
+time step        : 5670
+cfl              : 0.7
+----- mathematical data ------
+angle in degree  : 135
+******************************
+max(er_1)        : 0.001928
+max(er_2)        : 0.0070706
+max(er_infty)    : 0.043708
+******************************
+ndaymax          : 9
+ordre du filtre  : 10
+******************************
+  
+  
+date : 04-Nov-2015
+date : 736272.4445
+******************************
+test : 2
+------- numerical data -------
+number of points : 31
+time step        : 5670
+cfl              : 0.7
+----- mathematical data ------
+angle in degree  : 135
+******************************
+max(er_1)        : 0.0054015
+max(er_2)        : 0.016695
+max(er_infty)    : 0.083945
+******************************
+ndaymax          : 12
+ordre du filtre  : 10
+******************************
   
   

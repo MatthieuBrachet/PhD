@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper]{article}
+\documentclass[10pt,a4paper]{amsart}
 \usepackage[utf8]{inputenc}
 \usepackage[francais]{babel}
 \usepackage[T1]{fontenc}
@@ -6,13 +6,12 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
-\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage[colorlinks=true,urlcolor=blue]{hyperref}
 \usepackage{tikz}
 
 \graphicspath{{../Images/}}
 
-\title{Schémas hermitiens sur la Cube-Sphère - Vortex Instationnaire}
+\title{Schémas hermitiens sur la Cube-Sphère}
 \author{Matthieu Brachet}
 
 
@@ -23,26 +22,28 @@
 
 \tableofcontents
 
-\section*{Introduction}
-
+\input{intro}
 
 % *********** contenu **********
+% *** calcul du gradient
 
-% *** schéma numérique utilisé
-\input{}
 
-% *** test pour nair and Jablonowski et Nair and Machenhauer.
-% analyse de convergence?
+% *** schéma numérique
 
-\input{}
 
-% *** test pour les harmoniques sphériques. Réfléchir a un moyen de faire un graphe.
-\input{}
+% *** tests numériques
+
+
+% *** conservation de la masse
 
 
 % ********** conclusion ********
 
-\section*{Conclusion}
+\section{Conclusion}
 
+
+
+\bibliographystyle{plain}
+\bibliography{biblio}
 
 \end{document}

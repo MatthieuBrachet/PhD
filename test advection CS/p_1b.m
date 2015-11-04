@@ -41,15 +41,15 @@ save_graph = 1;
 opt_ftr = 10;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
-snapshot = 0;
+snapshot = 1;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 1
 %         1 : coupe.
-coupe = 1;
+coupe = 0;
 %% *** Benchmarks data ****************************************************
- n=200;
+ n=31;
  nn=n+2;
  cfl=0.7;
- ndaymax=12;
+ ndaymax=0;
 %% ************************************************************************
  
  if coef == 0
@@ -424,6 +424,7 @@ end
     nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
 
 time_res=cputime-tstart;
+ref=now;
 %% graphiques
 
 if snapshot == 1
@@ -431,7 +432,7 @@ if snapshot == 1
     plot_cs7(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
     grid minor
     if save_graph==1
-        print('-dpng', ['./results/' date '_snapshot_test_' num2str(coef) '.png'])
+        print('-dpng', ['./results/' date 'ref_' num2str(ref) '_snapshot_test_' num2str(coef) '_nday_' num2str(ndaymax) '.png'])
     end
 end
 
@@ -439,21 +440,21 @@ figure(35);
 plot_cs5(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe);colorbar;
 title('solution exacte')
 if save_graph==1
-    print('-dpng', ['./results/' date '_solexacte_test_' num2str(coef) '.png'])
+    print('-dpng', ['./results/' date 'ref_' num2str(ref) '_solexacte_test_' num2str(coef) '.png'])
 end
  
 figure(37);
 plot_cs5(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);colorbar;
 title('solution approchee - RK4')
 if save_graph==1
-    print('-dpng', ['./results/' date '_solapprochee_test_' num2str(coef) '.png'])
+    print('-dpng', ['./results/' date 'ref_' num2str(ref) '_solapprochee_test_' num2str(coef) '.png'])
 end
 
 figure(39);
 plot_cs5(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI);colorbar;
 title('erreur algébrique - RK4')
 if save_graph==1
-    print('-dpng', ['./results/' date '_erreur_test_' num2str(coef) '.png'])
+    print('-dpng', ['./results/' date 'ref_' num2str(ref) '_erreur_test_' num2str(coef) '.png'])
 end
   
 figure(1);
@@ -463,7 +464,7 @@ plot(xdays,erinfty,'k.');
 legend('norme 1','norme 2','norme infinie')
 title('erreur globale - RK4')
 if save_graph==1
-    print('-dpng', ['./results/' date '_normerreur_test_' num2str(coef) '.png'])
+    print('-dpng', ['./results/' date 'ref_' num2str(ref) '_normerreur_test_' num2str(coef) '.png'])
 end
 
 format shortE
@@ -475,6 +476,7 @@ if save_graph==1
     fid = fopen('./results/TEST_SAVE.txt','a');
     %écrit dans ce fichier, fid est sa reference pour matlab
     fprintf(fid,'%s\n',['date : ', date]);
+    fprintf(fid,'%s\n',['date : ', num2str(ref)]);
     fprintf(fid,'%s\n','******************************');
     fprintf(fid,'%s\n',['test : ', num2str(coef)]);
     fprintf(fid,'%s\n','------- numerical data -------');
@@ -488,7 +490,7 @@ if save_graph==1
     fprintf(fid,'%s\n',['max(er_2)        : ', num2str(max(er2))] );
     fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty))] );
     fprintf(fid,'%s\n','******************************');
-    fprintf(fid,'%s\n',['CPU time (sec.)  : ', num2str(max(erinfty))] );
+    fprintf(fid,'%s\n',['ndaymax          : ', num2str(ndaymax)] );
     fprintf(fid,'%s\n',['ordre du filtre  : ', num2str(opt_ftr)] );
     fprintf(fid,'%s\n','******************************');
     fprintf(fid,'%s\n','  ');
@@ -509,10 +511,11 @@ if coupe == 1
     [ xe,fe ] = coupe_eq(funfIe,funfIIe,funfIIIe,funfIVe);
     figure(10)
     plot(x,f,'o',xe,fe,'-')
+    grid on;
     legend('solution approchee','solution exacte')
     xlabel('equateur - face II')
     title('coupe de la solution le long de l''equateur')
     if save_graph==1
-        print('-dpng', ['./results/' date '_coupefaceI_equateur_test_' num2str(coef) '.png'])
+        print('-dpng', ['./results/' date 'ref_' num2str(ref) '_coupefaceI_equateur_test_' num2str(coef) '.png'])
     end
 end

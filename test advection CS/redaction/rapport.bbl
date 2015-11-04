@@ -1,0 +1,31 @@
+\begin{thebibliography}{1}
+
+\bibitem{Croisille2013}
+Jean-Pierre Croisille.
+\newblock Hermitian compact interpolation on the cubed-sphere grid.
+\newblock {\em Jour. Sci. Comp.}, 57, 2013.
+
+\bibitem{Kageyama2004}
+Akira Kageyama and Tetsuya Sato.
+\newblock “yin-yang grid”: An overset grid in spherical geometry.
+\newblock {\em Geochemistry, Geophysics, Geosystems}, 5(9):n/a--n/a, 2004.
+\newblock Q09005.
+
+\bibitem{Lele1992}
+Sanjiva~K. Lele.
+\newblock Compact finite-difference schemes with spectral-like resolution.
+\newblock {\em J. Comput. Phys.}, 103, 1992.
+
+\bibitem{Sadourny1972}
+Robert Sadourny.
+\newblock Conservative finite-difference approximations of the primitive
+  equations on quasi-uniform spherical grids.
+\newblock {\em Monthly Weather Review}, 100:136--144, 1972.
+
+\bibitem{Sadourny1968}
+Robert Sadourny, Akio Arakawa, and Yale Mintz.
+\newblock Integration of the nondivergent barotropic vorticity equation with an
+  icosahedral-hexagonal grid for the sphere.
+\newblock {\em Monthly Weather Review}, 96(6):351--356, 1968.
+
+\end{thebibliography}

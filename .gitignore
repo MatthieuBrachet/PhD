@@ -1,4 +1,7 @@
 # Ignorer 
+*.bbl
+*.blg
+*.dvi
 *.aux
 *.nav
 *.out

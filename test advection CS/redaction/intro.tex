@@ -1,0 +1,12 @@
+\section{Introduction}
+
+La représentation de données et la résolution numérique d'équations aux dérivée partielles sur la sphère est important pour de nombreux problèmes liés à la physique. Les applications de ce type de problème sont nombreuses. On pensera facilement aux problèmes liés à la climatologie mais aussi à l'étude du champ gravitationnel ou encore à l'imagerie médicale ou l'astronomie.
+
+Le maillage ``naturel'' sur la sphère est le maillage basé sur les coordonnées latitude-longitude. L'inconvénient d'utiliser ce maillage est la présence de singularités : les poles Nord et Sud possèdent en effet une infinité de coordonnées.
+
+Ces dernières années se sont développées un ensemble de méthodes pour résoudre ce problème et calculer les opérateurs différentiels classiques sur la sphère. On pensera en particulier au maillage Ying-Yang étudié par Akira Kageyama et Tetsuya Sato en 2004 \cite{Kageyama2004} où l'idée générale est de combiner deux grilles partielles longitude-latitude de manière à ne pas traiter directement les p\^oles. D'autres méthodes existent, en 1968, Robert Sadourny, Akio Arakawa et Yale Mintz présentent une méthode de différences finies sur une grille icosahedrale \cite{Sadourny1968} par exemple.
+Le maillage ``cube-sphere'' a été introduit en 1972 par Robert Sadourny \cite{Sadourny1972}. L'idée est de construire un maillage sur un cube et de le projeter sur une sphère. En 2013, J.-P. Croisille s'inspire de ce travail pour développer une méthode de calcul pour le gradient sur une sphère à l'aide schémas compacts hermitiens \cite{Croisille2013}.
+
+L'objectif du présent travail est de simplifier la méthode \cite{Croisille2013} et de la tester sur différents tests classiques. On souhaite en effet évaluer le gradient sur notre maillage à l'aide de schémas en compacts hermitiens \cite{Lele1992}. On souhaite ainsi obtenir une méthode  précise pour évaluer le gradient, un ordre 4 étant espéré. Les données manquantes seront obtenues par interpolation gr\^ace à un spline cubique. 
+
+Le travail se décompose en trois parties. Nous commencerons par expliquer la formule de gradient sphérique utilisée puis nous verrons comment le calcul numérique est effectué. Enfin, nous détaillerons les tests numériques utilisés et observerons les résultats obtenus par notre méthode. Dans une quatrième partie, la question de la conservation de la masse sera posée et nous finirons par conclure en cinquième partie.
