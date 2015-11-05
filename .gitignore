@@ -15,6 +15,10 @@
 *.png
 *.jpg
 *.png
+
+
+!./test advection CS/redaction/Images/*.png
+
 # exception des fichiers permettant les compilations
 # ??? a reflechir
 # note : les exceptions commencent par !
