@@ -1,0 +1,21 @@
+\section{Gradient sphérique}
+
+L'objectif de cette partie est d'expliquer comment sera calculé le gradient sphérique.
+
+\subsection{Maillage de la sphère}
+
+Soit une sphère de centre $O = (0,0,0)^T$ et de rayon $R > 0$. 
+
+On définit $N$ le p\^ole de Nord de cette sphère, c'est à dire le point de coordonnées $(0,0,R)^T$ et $S = (0,0,-R)^T$ le p\^ole Sud. Soit $C^{(1)}_0$ le cercle de centre $O$, de rayon $R$ et passant par les points $N$ et $S$. De la m\^eme manière, on peut définir un cercle $C^{(2)}_0$ de centre $O$, de rayon $R$ et passant par un p\^ole Est $E = (0,R,0)^T$ et un p\^ole Ouest $W = (0,-R,0)^T$. On remarque directement que ces deux cercles se coupent en $F = (R,0,0)^T$ et $B=(-R,0,0)^T$.
+
+On peut considérer un premier système de coordonnées sur la sphère longitude-latitude $(\xi, \eta)$. Ce système admet $N$ et $S$ comme p\^oles Nord et Sud et est centré sur $F$\footnote{\textit{i.e.} c'est à dire que le point $F$ admet $(0,0)$ pour coordonnées dans ce système.}.
+Nous construisons un ensemble de cercles $C^{(1)}_i$. Le cercle $C^{(1)}_i$ est obtenu par rotation de $C^{(1)}_0$ autour de l'axe $(EW)$ et d'angle compris entre $\pi/2$ et $-\pi/4$. De la m\^eme manière, on peut construire un ensemble $C^{(2)}_j$ de cercles obtenus par rotation de $C^{(2)}_0$ autour de l'axe $(EW)$ et d'angle dans $\left[ -\pi/4, \pi/4 \right]$.
+
+Ainsi, on peut définir le panel I comme l'ensemble des points obtenus comme l'intersection d'un cercle $C^{(1)}_i$ avec un cercle $C^{(2)}_j$. Un point $\mathbf{x}=(x,y,z)^T \in C^{(1)}_i \cap C^{(2)}_j$du panel I peut etre déterminé de plusieurs manières. On peut utiliser le système $(\alpha, \beta)$ où $\alpha$ (resp. $\beta$) est l'absisse curviligne séparant $\mathbf{x}$ de $C^{(1)}_0$ le long de $C^{(2)}_j$(resp. $\mathbf{x}$ de $C^{(2)}_0$le long de $C^{(1)}_i$).
+
+Un autre choix de coordonnées possible est $(\xi, \eta)$ la longitude et la latitude du point $\mathbf{x}$ admetant $N$ et $S$ comme p\^oles Nord et Sud et tels que $C^{(1)}_0$ et $C^{(2)}_0$ forment les cercles de référence du repère\footnote{Les équivalents de l'équateur et du méridien de Grennwitch.}.
+
+
+
+
+\subsection{Gradient}

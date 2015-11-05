@@ -412,14 +412,4 @@ uwk_IV=grad_IV(1:nn,1:nn,3);uwk_V=grad_V(1:nn,1:nn,3);uwk_VI=grad_VI(1:nn,1:nn,3
     ds_1b(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
 
 
-
-%% securité : conserver uniquement la partie reelle
-grad_I=real(grad_I);
-grad_II=real(grad_II);
-grad_III=real(grad_III);
-grad_IV=real(grad_IV);
-grad_V=real(grad_V);
-grad_VI=real(grad_VI);
-
-
 end

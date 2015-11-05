@@ -1,0 +1,60 @@
+\section{Benchmarks}
+
+\subsection{Test de Nair et Machenhauer}
+
+\subsection{Test de Nair et Jablonowski}
+
+\begin{figure}[H]
+\includegraphics[scale=0.3]{04-Nov-2015ref_7362724687_snapshot_test_2_nday_0.png}
+\includegraphics[scale=0.3]{04-Nov-2015ref_7362724281_snapshot_test_2_nday_3.png}
+
+\includegraphics[scale=0.3]{04-Nov-2015ref_7362724321_snapshot_test_2_nday_6.png}
+\includegraphics[scale=0.3]{04-Nov-2015ref_736272438_snapshot_test_2_nday_9.png}
+
+\includegraphics[scale=0.3]{04-Nov-2015ref_7362724445_snapshot_test_2_nday_12.png}
+\caption{Projection de la solution approchée au bout de 0, 3, 6, 9 et 12 jours pour le test de Nair et Jablonowski \cite{Nair2008}. $N=31$; $CFL = 0.7$; $\alpha = 3 \pi / 4$}
+\label{SNAPSHOT}
+\end{figure}
+
+
+
+\begin{figure}[H]
+\includegraphics[scale=0.3]{05-Nov-2015ref_7362736695_normerreur_test_2.png}
+%\includegraphics[scale=0.3]{.png}
+\label{erreur}
+\caption{courbe d'erreur $N=35$; $cfl=0.05$; $\alpha = \pi / 4$ (gauche) et $\alpha = 0$ (droite) pour le test de Nair et Jablonowski \cite{Nair2008}}
+\end{figure}
+
+
+
+\begin{figure}[H]
+%\includegraphics[scale=0.3]{.png}
+%\includegraphics[scale=0.3]{.png}
+\label{erreur}
+\caption{courbe d'erreur $N=35$; $cfl=0.5$; $\alpha = \pi / 4$ (gauche) et $\alpha = 0$ (droite) pour le test de Nair et Jablonowski \cite{Nair2008}}
+\end{figure}
+
+
+
+\begin{figure}
+\begin{tabular}{c||cc|cc|cc}
+$N$ & $max_n |e_1^n|$ & ordre  & $max_n |e_2^n|$ & ordre  & $max_n |e_{\infty}^n|$ & ordre \\
+\hline
+\hline
+$40$ & $2.7609 (-3)$ & -  & $9.7386 (-3)$ & - & $5.4808 (-2)$  & - \\
+\hline 
+$50$ & $1.276 (-3)$ & $3.5364$ & $5.0160 (-3)$ & $3.0399$ & $3.2035 (-2)$ & $2.4605$ \\
+\hline
+$60$ & $6.2957 (-4)$ & $3.9456$ & $2.6157 (-3)$ & $3.6365$ & $1.8218 (-2)$ & $3.1523$ \\
+\hline
+$80$ & $1.9603 (-4) $ & $4.1145$ & $8.3722 (-4)$ & $4.0173$ & $6.0931 (-3)$ & $3.8623$ \\
+\hline
+$100$ & $8.0399 (-5)$ & $4.0389$ & $3.4524 (-4)$ & $4.0143$ & $2.6514 (-3)$ & $3.7706$\\
+\hline
+$150$ & $1.5656 (-5)$ & $4.0684$ & $6.9199 (-5)$ & $3.9966$ & $5.8082 (-4)$ & $3.7756$
+\end{tabular}
+\caption{Analyse de convergence de Nair et Jablonowski \cite{Nair2008} ; $cfl = 0.7$ ; $\alpha = \pi /4$}
+\end{figure}
+
+
+\subsection{Test sur les harmoniques sphériques}

@@ -41,15 +41,15 @@ save_graph = 1;
 opt_ftr = 10;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
-snapshot = 1;
+snapshot = 0;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 1
 %         1 : coupe.
 coupe = 0;
 %% *** Benchmarks data ****************************************************
- n=31;
+ n=35;
  nn=n+2;
- cfl=0.7;
- ndaymax=0;
+ cfl=0.05;
+ ndaymax=12;
 %% ************************************************************************
  
  if coef == 0
@@ -67,7 +67,7 @@ coupe = 0;
  gamma=5;
  elseif coef == 2
  % test de Nair et Jablonowski
- alphad=3*pi/4; 
+ alphad=0; 
  lambda0 = 3*pi/2;
  teta0 = 0;
  lambda_p=pi;                                                              % position du pole nord à t=0, i.e. position du vortex nord à t=0
@@ -76,7 +76,7 @@ coupe = 0;
  gamma=5;
  elseif coef == 3
  % test de Nair, Lauritzen
- alphad=3*pi/4;                                                                 % latitude BUMP
+ alphad=0;                                                                 % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;
  
@@ -424,7 +424,7 @@ end
     nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
 
 time_res=cputime-tstart;
-ref=now;
+ref=floor(10000*now);
 %% graphiques
 
 if snapshot == 1

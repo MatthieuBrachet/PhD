@@ -16,6 +16,12 @@ Sanjiva~K. Lele.
 \newblock Compact finite-difference schemes with spectral-like resolution.
 \newblock {\em J. Comput. Phys.}, 103, 1992.
 
+\bibitem{Nair2008}
+Ramachandran~D. Nair and Christiane Jablonowski.
+\newblock Moving vortices on the sphere : a test case for horizontal advection
+  problems.
+\newblock {\em Monthly Weather Review}, 136, 2008.
+
 \bibitem{Sadourny1972}
 Robert Sadourny.
 \newblock Conservative finite-difference approximations of the primitive
