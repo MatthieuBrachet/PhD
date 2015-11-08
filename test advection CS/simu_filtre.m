@@ -13,7 +13,7 @@ global radius u0 dxi;
 global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII;
 global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI;
 global ite itestop
-global coef opt_ftr
+global coef opt_ftr ftr
 % test de Williamson
 global alphad tetac lambdac
 % test de Nair et Machenhauer
@@ -31,12 +31,12 @@ global lambdac1 tetac1 lambdac2 tetac2
 coef = 2;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 0;
+save_graph = 1;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 1
 %         1 : coupe.
 coupe = 1;
 %% *** Benchmarks data ****************************************************
- n=15;
+ n=40;
  nn=n+2;
  cfl=0.9;
  ndaymax=12;
@@ -78,7 +78,6 @@ coupe = 1;
 
 %% données du problème
 itestop=10000;
-tstart=cputime;
 mod_1b
 tmax=24*3600*ndaymax;
 ddt=cfl*radius*dxi/u0;
@@ -188,9 +187,9 @@ str='2';
 er2_10(ite)=nrmger/nrmge;
 % en norme infinie
 str='infty';
-[nrmerI,nrmerII,nrmerIII,nrmerIV,nrmerV,nrmerVI,nrmger]=...
+[~,~,~,~,~,~,nrmger]=...
     nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-[nrmeI,nrmeII,nrmeIII,nrmeIV,nrmeV,nrmeVI,nrmge]=...
+[~,~,~,~,~,~,nrmge]=...
     nrm_1b(funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe,n,nn,str);
 erinfty_10(ite)=nrmger/nrmge;
 
@@ -226,9 +225,9 @@ str='2';
 er2_6(ite)=nrmger/nrmge;
 % en norme infinie
 str='infty';
-[nrmerI,nrmerII,nrmerIII,nrmerIV,nrmerV,nrmerVI,nrmger]=...
+[~,~,~,~,~,~,nrmger]=...
     nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-[nrmeI,nrmeII,nrmeIII,nrmeIV,nrmeV,nrmeVI,nrmge]=...
+[~,~,~,~,~,~,nrmge]=...
     nrm_1b(funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe,n,nn,str);
 erinfty_6(ite)=nrmger/nrmge;
 
@@ -238,7 +237,7 @@ erinfty_6(ite)=nrmger/nrmge;
 opt_ftr=2;
 [ ftr ] = filtre( na , opt_ftr );
 [funfInew, funfIInew, funfIIInew, funfIVnew, funfVnew, funfVInew] = iteration(funfI2, funfII2,funfIII2,funfIV2,funfV2,funfVI2,ddt,time);
-funfI6=funfInew;funfII6=funfIInew;funfIII6=funfIIInew;
+funfI2=funfInew;funfII2=funfIInew;funfIII2=funfIIInew;
 funfIV2=funfIVnew;funfV2=funfVnew;funfVI2=funfVInew;
 % erreur mesurée
 err_fI=funfI2-funfIe;
@@ -270,9 +269,6 @@ str='infty';
     nrm_1b(funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe,n,nn,str);
 erinfty_2(ite)=nrmger/nrmge;
 
-
-
-
 %% mise à jour du temps
 time=time+ddt;
 end
@@ -302,7 +298,7 @@ legend('filtre = 10', 'filtre = 6','filtre = 2')
 title('erreur en norme infinie')
 
 if save_graph==1
-    print('-dpng', ['./results/' date 'ref_' num2str(ref) '_normerreur_test_' num2str(coef) '.png'])
+    print('-dpng', ['./results_ftr/' date 'ref_' num2str(ref) '_normerreur_test_' num2str(coef) '.png'])
 end
 
 if save_graph==1
@@ -320,9 +316,18 @@ if save_graph==1
     fprintf(fid,'%s\n','----- mathematical data ------');
     fprintf(fid,'%s\n',['angle in degree  : ', num2str(alphad*180/pi)] );
     fprintf(fid,'%s\n','******************************');
-    fprintf(fid,'%s\n',['max(er_1)        : ', num2str(max(er1))] );
-    fprintf(fid,'%s\n',['max(er_2)        : ', num2str(max(er2))] );
-    fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty))] );
+    fprintf(fid,'%s\n',['*** filtre ordre 10 ' ]);
+    fprintf(fid,'%s\n',['max(er_1)        : ', num2str(max(er1_10))] );
+    fprintf(fid,'%s\n',['max(er_2)        : ', num2str(max(er2_10))] );
+    fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty_10))] );
+    fprintf(fid,'%s\n',['*** filtre ordre 6 ' ]);
+    fprintf(fid,'%s\n',['max(er_1)        : ', num2str(max(er1_6))] );
+    fprintf(fid,'%s\n',['max(er_2)        : ', num2str(max(er2_6))] );
+    fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty_6))] );
+    fprintf(fid,'%s\n',['*** filtre ordre 2 ' ]);
+    fprintf(fid,'%s\n',['max(er_1)        : ', num2str(max(er1_2))] );
+    fprintf(fid,'%s\n',['max(er_2)        : ', num2str(max(er2_2))] );
+    fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty_2))] );
     fprintf(fid,'%s\n','******************************');
     fprintf(fid,'%s\n',['ndaymax          : ', num2str(ndaymax)] );
     fprintf(fid,'%s\n','******************************');
@@ -346,15 +351,15 @@ if coupe == 1
     [ xe,fe ] = coupe_eq(funfIe,funfIIe,funfIIIe,funfIVe);
     
     figure(10)
-    plot(x,f_10,'o'); hold on;
-    plot(x,f_6,'x'); hold on;
-    plot(x,f_2,'^'); hold on;
-    plot(xe,fe,'-')
+    plot(x,f_10,'bo'); hold on;
+    plot(x,f_6,'rx'); hold on;
+    plot(x,f_2,'m^'); hold on;
+    plot(xe,fe,'k-')
     grid on;
-    legend('solution approchee - filtre ordre 10','solution approchee - filtre ordre 6','solution exacte')
+    legend('solution approchee - filtre ordre 10','solution approchee - filtre ordre 6','solution approchee - filtre ordre 2','solution exacte')
     xlabel('equateur - face II')
     title('coupe de la solution le long de l''equateur')
     if save_graph==1
-        print('-dpng', ['./results/' date 'ref_' num2str(ref) '_coupefaceI_equateur_test_' num2str(coef) '.png'])
+        print('-dpng', ['./results_ftr/' date 'ref_' num2str(ref) '_coupefaceI_equateur_test_' num2str(coef) '.png'])
     end
 end
