@@ -38,13 +38,13 @@ qquiv = 0;
 save_graph = 1;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
-opt_ftr = 10;
+opt_ftr = 0;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
 snapshot = 0;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 1
 %         1 : coupe.
-coupe = 0;
+coupe = 1;
 %% *** Benchmarks data ****************************************************
  n=35;
  nn=n+2;
