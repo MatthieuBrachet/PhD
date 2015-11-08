@@ -48,7 +48,7 @@ coupe = 0;
 %% *** Benchmarks data ****************************************************
  n=35;
  nn=n+2;
- cfl=0.05;
+ cfl=0.5;
  ndaymax=12;
 %% ************************************************************************
  
@@ -76,7 +76,7 @@ coupe = 0;
  gamma=5;
  elseif coef == 3
  % test de Nair, Lauritzen
- alphad=0;                                                                 % latitude BUMP
+ alphad=pi/4;                                                                 % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;
  

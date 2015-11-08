@@ -98,3 +98,63 @@ ordre du filtre  : 10
 ******************************
   
   
+date : 05-Nov-2015
+date : 7362737739
+******************************
+test : 2
+------- numerical data -------
+number of points : 35
+time step        : 360
+cfl              : 0.05
+----- mathematical data ------
+angle in degree  : 0
+******************************
+max(er_1)        : 0.0077181
+max(er_2)        : 0.021256
+max(er_infty)    : 0.098536
+******************************
+ndaymax          : 12
+ordre du filtre  : 10
+******************************
+  
+  
+date : 05-Nov-2015
+date : 7362739505
+******************************
+test : 2
+------- numerical data -------
+number of points : 35
+time step        : 3600
+cfl              : 0.5
+----- mathematical data ------
+angle in degree  : 0
+******************************
+max(er_1)        : 0.0044977
+max(er_2)        : 0.014276
+max(er_infty)    : 0.077966
+******************************
+ndaymax          : 12
+ordre du filtre  : 10
+******************************
+  
+  
+date : 06-Nov-2015
+date : 7362745425
+******************************
+test : 2
+------- numerical data -------
+number of points : 35
+time step        : 3600
+cfl              : 0.5
+----- mathematical data ------
+angle in degree  : 0
+******************************
+max(er_1)        : 0.0044977
+max(er_2)        : 0.014276
+max(er_infty)    : 0.077966
+******************************
+ndaymax          : 12
+ordre du filtre  : 10
+******************************
+  
+  
