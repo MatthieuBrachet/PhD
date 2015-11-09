@@ -8,12 +8,9 @@ clc; clear all; close all;
 % RK4 + Filtrage
 clear all; clc; close all;
 %% construction des variables globales
-global n nn;
-global radius u0 dxi;
-global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII;
-global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI;
-global ite itestop
-global coef opt_ftr ftr
+global n nn radius u0 dxi;
+global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI;
+global ite itestop coef opt_ftr ftr
 % test de Williamson
 global alphad tetac lambdac
 % test de Nair et Machenhauer
@@ -28,7 +25,7 @@ global lambdac1 tetac1 lambdac2 tetac2
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 2;
+coef = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
 save_graph = 1;
@@ -40,19 +37,23 @@ coupe = 1;
  nn=n+2;
  cfl=0.9;
  ndaymax=12;
+%% *** filtres choisis ****************************************************
+ftra=10;
+ftrb=2;
+ftrc=0;
 %% ************************************************************************
- opt_ftr=10;
+opt_ftr=10;
  if coef == 0
  % test de Williamson
  alphad=0;  
- lambdac=3*pi/2;                                                           % longitude BUMP
- tetac=0;                                                                  % latitude BUMP
+ lambdac=0;                                                           % longitude BUMP
+ tetac=3*pi/2;                                                                  % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;
  elseif coef == 1
  % test de Nair et Machenhauer
  lambda_p=0;                                                            % position du pole nord, i.e. position du vortex nord
- teta_p=0;
+ teta_p=3*pi/2;
  rho0=3;
  gamma=5;
  elseif coef == 2
@@ -66,7 +67,7 @@ coupe = 1;
  gamma=5;
  elseif coef == 3
  % test de Nair, Lauritzen
- alphad=pi/4;                                                                 % latitude BUMP
+ alphad=3*pi/4;                                                                 % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;
  
@@ -118,15 +119,15 @@ tinit=0.;
 [funfIII10]=fun4_b(x_fIII,y_fIII,z_fIII,tinit); [funfIV10]=fun4_b(x_fIV,y_fIV,z_fIV,tinit);
 [funfV10]=fun4_b(x_fV,y_fV,z_fV,tinit); [funfVI10]=fun4_b(x_fVI,y_fVI,z_fVI,tinit);
 
+% initial condition filtre = 8
+[funfI8]=fun4_b(x_fI,y_fI,z_fI,tinit); [funfII8]=fun4_b(x_fII,y_fII,z_fII,tinit);
+[funfIII8]=fun4_b(x_fIII,y_fIII,z_fIII,tinit); [funfIV8]=fun4_b(x_fIV,y_fIV,z_fIV,tinit);
+[funfV8]=fun4_b(x_fV,y_fV,z_fV,tinit); [funfVI8]=fun4_b(x_fVI,y_fVI,z_fVI,tinit);
+
 % initial condition filtre = 6
 [funfI6]=fun4_b(x_fI,y_fI,z_fI,tinit); [funfII6]=fun4_b(x_fII,y_fII,z_fII,tinit);
 [funfIII6]=fun4_b(x_fIII,y_fIII,z_fIII,tinit); [funfIV6]=fun4_b(x_fIV,y_fIV,z_fIV,tinit);
 [funfV6]=fun4_b(x_fV,y_fV,z_fV,tinit); [funfVI6]=fun4_b(x_fVI,y_fVI,z_fVI,tinit);
-
-% initial condition filtre = 2
-[funfI2]=fun4_b(x_fI,y_fI,z_fI,tinit); [funfII2]=fun4_b(x_fII,y_fII,z_fII,tinit);
-[funfIII2]=fun4_b(x_fIII,y_fIII,z_fIII,tinit); [funfIV2]=fun4_b(x_fIV,y_fIV,z_fIV,tinit);
-[funfV2]=fun4_b(x_fV,y_fV,z_fV,tinit); [funfVI2]=fun4_b(x_fVI,y_fVI,z_fVI,tinit);
 
 time=tinit;
 
@@ -157,8 +158,8 @@ funfVIe=fun4_b(x_fVI,y_fVI,z_fVI,time);
 
 %% *** ITERATIONS *********************************************************
 
-%% filtre ordre 10
-opt_ftr=10;
+%% filtre ordre a
+opt_ftr=ftra;
 [ ftr ] = filtre( na , opt_ftr );
 [funfInew, funfIInew, funfIIInew, funfIVnew, funfVnew, funfVInew] = iteration(funfI10, funfII10,funfIII10,funfIV10,funfV10,funfVI10,ddt,time);
 funfI10=funfInew;funfII10=funfIInew;funfIII10=funfIIInew;
@@ -193,10 +194,49 @@ str='infty';
     nrm_1b(funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe,n,nn,str);
 erinfty_10(ite)=nrmger/nrmge;
 
+% *************************************************************************
+
+%% filtre ordre b
+opt_ftr=ftrb;
+[ ftr ] = filtre( na , opt_ftr );
+[funfInew, funfIInew, funfIIInew, funfIVnew, funfVnew, funfVInew] = iteration(funfI8, funfII8,funfIII8,funfIV8,funfV8,funfVI8,ddt,time);
+funfI8=funfInew;funfII8=funfIInew;funfIII8=funfIIInew;
+funfIV8=funfIVnew;funfV8=funfVnew;funfVI8=funfVInew;
+% erreur mesurée
+err_fI=funfI8-funfIe;
+err_fII=funfII8-funfIIe;
+err_fIII=funfIII8-funfIIIe;
+err_fIV=funfIV8-funfIVe;
+err_fV=funfV8-funfVe;
+err_fVI=funfVI8-funfVIe;
+%% calcul d'erreur
+% en norme 1
+str='1';
+[~,~,~,~,~,~,nrmger]=...
+    nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
+[~,~,~,~,~,~,nrmge]=...
+    nrm_1b(funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe,n,nn,str);
+er1_8(ite)=nrmger/nrmge;
+% en norme 2
+str='2';
+[~,~,~,~,~,~,nrmger]=...
+    nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
+[~,~,~,~,~,~,nrmge]=...
+    nrm_1b(funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe,n,nn,str);
+er2_8(ite)=nrmger/nrmge;
+% en norme infinie
+str='infty';
+[~,~,~,~,~,~,nrmger]=...
+    nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
+[~,~,~,~,~,~,nrmge]=...
+    nrm_1b(funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe,n,nn,str);
+erinfty_8(ite)=nrmger/nrmge;
+
+
 %% ************************************************************************
 
-%% filtre ordre 6
-opt_ftr=6;
+%% filtre ordre c
+opt_ftr=ftrc;
 [ ftr ] = filtre( na , opt_ftr );
 [funfInew, funfIInew, funfIIInew, funfIVnew, funfVnew, funfVInew] = iteration(funfI6, funfII6,funfIII6,funfIV6,funfV6,funfVI6,ddt,time);
 funfI6=funfInew;funfII6=funfIInew;funfIII6=funfIIInew;
@@ -233,41 +273,6 @@ erinfty_6(ite)=nrmger/nrmge;
 
 %% ************************************************************************
 
-%% filtre ordre 2
-opt_ftr=2;
-[ ftr ] = filtre( na , opt_ftr );
-[funfInew, funfIInew, funfIIInew, funfIVnew, funfVnew, funfVInew] = iteration(funfI2, funfII2,funfIII2,funfIV2,funfV2,funfVI2,ddt,time);
-funfI2=funfInew;funfII2=funfIInew;funfIII2=funfIIInew;
-funfIV2=funfIVnew;funfV2=funfVnew;funfVI2=funfVInew;
-% erreur mesurée
-err_fI=funfI2-funfIe;
-err_fII=funfII2-funfIIe;
-err_fIII=funfIII2-funfIIIe;
-err_fIV=funfIV2-funfIVe;
-err_fV=funfV2-funfVe;
-err_fVI=funfVI2-funfVIe;
-%% calcul d'erreur
-% en norme 1
-str='1';
-[~,~,~,~,~,~,nrmger]=...
-    nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-[~,~,~,~,~,~,nrmge]=...
-    nrm_1b(funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe,n,nn,str);
-er1_2(ite)=nrmger/nrmge;
-% en norme 2
-str='2';
-[~,~,~,~,~,~,nrmger]=...
-    nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-[~,~,~,~,~,~,nrmge]=...
-    nrm_1b(funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe,n,nn,str);
-er2_2(ite)=nrmger/nrmge;
-% en norme infinie
-str='infty';
-[nrmerI,nrmerII,nrmerIII,nrmerIV,nrmerV,nrmerVI,nrmger]=...
-    nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-[nrmeI,nrmeII,nrmeIII,nrmeIV,nrmeV,nrmeVI,nrmge]=...
-    nrm_1b(funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe,n,nn,str);
-erinfty_2(ite)=nrmger/nrmge;
 
 %% mise à jour du temps
 time=time+ddt;
@@ -277,24 +282,24 @@ ref=floor(10000*now);
 %% graphiques  
 figure(1);
 subplot(131)
-plot(xdays,er1_10,'-');hold on;grid on;
-plot(xdays,er1_6,'.'); hold on
-plot(xdays,er1_2,'--'); hold on;
-legend('filtre = 10', 'filtre = 6', 'filtre = 2')
+plot(xdays,er1_10,'r-');hold on;grid on;
+plot(xdays,er1_8,'g-');hold on;
+plot(xdays,er1_6,'b.'); hold on
+legend(['filtre', num2str(ftra)],['filtre ', num2str(ftrb)],['filtre ', num2str(ftrc)]);
 title('erreur en norme 1')
 
 subplot(132)
-plot(xdays,er2_10,'-');hold on;grid on;
-plot(xdays,er2_6,'.'); hold on
-plot(xdays,er2_2,'.'); hold on
-legend('filtre = 10', 'filtre = 6','filtre = 2')
+plot(xdays,er2_10,'r-');hold on;grid on;
+plot(xdays,er2_8,'g-');hold on;
+plot(xdays,er2_6,'b.'); hold on
+legend(['filtre', num2str(ftra)],['filtre ', num2str(ftrb)],['filtre ', num2str(ftrc)]);
 title('erreur en norme 2')
 
 subplot(133)
-plot(xdays,erinfty_10,'-');hold on;grid on;
-plot(xdays,erinfty_6,'.'); hold on
-plot(xdays,erinfty_2,'.'); hold on
-legend('filtre = 10', 'filtre = 6','filtre = 2')
+plot(xdays,erinfty_10,'r-');hold on;grid on;
+plot(xdays,erinfty_8,'g-');hold on;
+plot(xdays,erinfty_6,'b.'); hold on
+legend(['filtre', num2str(ftra)],['filtre ', num2str(ftrb)],['filtre ', num2str(ftrc)])
 title('erreur en norme infinie')
 
 if save_graph==1
@@ -316,21 +321,23 @@ if save_graph==1
     fprintf(fid,'%s\n','----- mathematical data ------');
     fprintf(fid,'%s\n',['angle in degree  : ', num2str(alphad*180/pi)] );
     fprintf(fid,'%s\n','******************************');
-    fprintf(fid,'%s\n',['*** filtre ordre 10 ' ]);
+    fprintf(fid,'%s\n',['*** filtre ordre ', num2str(ftra) ]);
     fprintf(fid,'%s\n',['max(er_1)        : ', num2str(max(er1_10))] );
     fprintf(fid,'%s\n',['max(er_2)        : ', num2str(max(er2_10))] );
     fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty_10))] );
-    fprintf(fid,'%s\n',['*** filtre ordre 6 ' ]);
+    fprintf(fid,'%s\n',['*** filtre ordre ', num2str(ftrb) ]);
+    fprintf(fid,'%s\n',['max(er_1)        : ', num2str(max(er1_8))] );
+    fprintf(fid,'%s\n',['max(er_2)        : ', num2str(max(er2_8))] );
+    fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty_8))] );
+    fprintf(fid,'%s\n',['*** filtre ordre ', num2str(ftrc) ]);
     fprintf(fid,'%s\n',['max(er_1)        : ', num2str(max(er1_6))] );
     fprintf(fid,'%s\n',['max(er_2)        : ', num2str(max(er2_6))] );
     fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty_6))] );
-    fprintf(fid,'%s\n',['*** filtre ordre 2 ' ]);
-    fprintf(fid,'%s\n',['max(er_1)        : ', num2str(max(er1_2))] );
-    fprintf(fid,'%s\n',['max(er_2)        : ', num2str(max(er2_2))] );
-    fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty_2))] );
     fprintf(fid,'%s\n','******************************');
     fprintf(fid,'%s\n',['ndaymax          : ', num2str(ndaymax)] );
     fprintf(fid,'%s\n','******************************');
+    fprintf(fid,'%s\n','  ');
+    fprintf(fid,'%s\n','  ');
     fprintf(fid,'%s\n','  ');
     fprintf(fid,'%s\n','  ');
     %n'oublie pas de fermer le fichier sinon tu ne peux pas le lire
@@ -339,8 +346,8 @@ end
 
 if coupe == 1
     [ ~,f_10 ] = coupe_eq(funfI10,funfII10,funfIII10,funfIV10);
-    [ ~,f_6 ] = coupe_eq(funfI6,funfII6,funfIII6,funfIV6);
-    [ x,f_2 ] = coupe_eq(funfI2,funfII2,funfIII2,funfIV2);
+    [ ~,f_8 ] = coupe_eq(funfI8,funfII8,funfIII8,funfIV8);
+    [ x,f_6 ] = coupe_eq(funfI6,funfII6,funfIII6,funfIV6);
     n=500;
     nn=n+2;
     mod_1b
@@ -352,11 +359,11 @@ if coupe == 1
     
     figure(10)
     plot(x,f_10,'bo'); hold on;
+    plot(x,f_8,'gd');hold on
     plot(x,f_6,'rx'); hold on;
-    plot(x,f_2,'m^'); hold on;
     plot(xe,fe,'k-')
     grid on;
-    legend('solution approchee - filtre ordre 10','solution approchee - filtre ordre 6','solution approchee - filtre ordre 2','solution exacte')
+    legend(['filtre ', num2str(ftra)],['filtre ', num2str(ftrb)],['filtre ', num2str(ftrc)],'solution exacte')
     xlabel('equateur - face II')
     title('coupe de la solution le long de l''equateur')
     if save_graph==1

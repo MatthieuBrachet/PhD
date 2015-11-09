@@ -35,7 +35,7 @@ film = 0;
 qquiv = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 1;
+save_graph = 0;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
 opt_ftr = 0;
@@ -55,14 +55,14 @@ coupe = 1;
  if coef == 0
  % test de Williamson
  alphad=0;  
- lambdac=3*pi/2;                                                           % longitude BUMP
- tetac=0;                                                                  % latitude BUMP
+ lambdac=0;                                                           % longitude BUMP
+ tetac=3*pi/2;                                                                  % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;
  elseif coef == 1
  % test de Nair et Machenhauer
  lambda_p=0;                                                            % position du pole nord, i.e. position du vortex nord
- teta_p=0;
+ teta_p=3*pi/2;
  rho0=3;
  gamma=5;
  elseif coef == 2
@@ -76,7 +76,7 @@ coupe = 1;
  gamma=5;
  elseif coef == 3
  % test de Nair, Lauritzen
- alphad=pi/4;                                                                 % latitude BUMP
+ alphad=3*pi/4;                                                                 % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;
  
