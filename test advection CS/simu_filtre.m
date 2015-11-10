@@ -33,21 +33,21 @@ save_graph = 1;
 %         1 : coupe.
 coupe = 1;
 %% *** Benchmarks data ****************************************************
- n=40;
+ n=35;
  nn=n+2;
- cfl=0.9;
+ cfl=0.5;
  ndaymax=12;
 %% *** filtres choisis ****************************************************
 ftra=10;
-ftrb=2;
-ftrc=0;
+ftrb=4;
+ftrc=2;
 %% ************************************************************************
 opt_ftr=10;
  if coef == 0
  % test de Williamson
- alphad=0;  
- lambdac=0;                                                           % longitude BUMP
- tetac=3*pi/2;                                                                  % latitude BUMP
+ alphad=pi/4;  
+ lambdac=pi/2;                                                           % longitude BUMP
+ tetac=0;                                                                  % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;
  elseif coef == 1

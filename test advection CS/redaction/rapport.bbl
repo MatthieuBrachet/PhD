@@ -16,11 +16,22 @@ Sanjiva~K. Lele.
 \newblock Compact finite-difference schemes with spectral-like resolution.
 \newblock {\em J. Comput. Phys.}, 103, 1992.
 
+\bibitem{Nair1999}
+Ramachandran~D. Nair, J.~C\^oté, and A.~Staniforth.
+\newblock Cascade interpolation for semi-lagrangian advection over the sphere.
+\newblock {\em Q. J. R. Meteorol. Soc}, 125, 1999.
+
 \bibitem{Nair2008}
 Ramachandran~D. Nair and Christiane Jablonowski.
 \newblock Moving vortices on the sphere : a test case for horizontal advection
   problems.
 \newblock {\em Monthly Weather Review}, 136, 2008.
+
+\bibitem{Nair2001}
+Ramachandran~D. Nair and Bennert Machenhauer.
+\newblock The mass-conservative cell-integrated semi-lagragian advection scheme
+  on the sphere.
+\newblock {\em Monthly Weather Review}, 130, 2002.
 
 \bibitem{Sadourny1972}
 Robert Sadourny.
@@ -33,5 +44,12 @@ Robert Sadourny, Akio Arakawa, and Yale Mintz.
 \newblock Integration of the nondivergent barotropic vorticity equation with an
   icosahedral-hexagonal grid for the sphere.
 \newblock {\em Monthly Weather Review}, 96(6):351--356, 1968.
+
+\bibitem{Williamson1994}
+Davis~L. Williamson, John~B. Drake, James~J. Hack, Rudiger Jakob, and Paul~N.
+  Swarztrauber.
+\newblock A strandard test set for numerical approximations to the shallow
+  water equation in spherical geometry.
+\newblock {\em Journal of Computational Physics}, 102:211--224, 1994.
 
 \end{thebibliography}

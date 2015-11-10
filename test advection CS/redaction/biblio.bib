@@ -1,6 +1,5 @@
 @article{Croisille2013,
 author = {Croisille, Jean-Pierre},
-abstract = {The Cube-Sphere grid is a spherical grid made of six quasi-cartesian square-like patches. It is originally introduced in [ref]. We extend to this grid the design of high-order finite-difference compact operator [ref, ref]. The present work is limitated to the design of the fourth-order accurate spherical gradient. The treatment at the interface of the six patches relies on a specific interpolation system which is based on using great circles in an essential way. the main interest of the approach is a fully symmetric treatment of the sphere. We numerically demonstrate the accuracy of the approximate gradient on several test problems, including the cosine-bell test case of Williamson et al. [ref] and a deformational test-case reported in [ref].},
 journal = {Jour. Sci. Comp.},
 volume = {57},
 page = {193-212},
@@ -33,79 +32,33 @@ page = {16-42},
 year = {1992}
 }
 
+
+@article{Nair1999,
+author = {Nair, Ramachandran D. and C\^oté, J. and Staniforth, A. },
+title = {Cascade interpolation for semi-Lagrangian advection over the sphere},
+journal = {Q. J. R. Meteorol. Soc},
+volume = {125},
+page = {1445-1468},
+year = {1999}
+}
+
+@article{Nair2001,
+author = {Nair, Ramachandran D. and Machenhauer, Bennert},
+title = {The Mass-Conservative Cell-Integrated Semi-Lagragian Advection Scheme on the Sphere},
+journal = {Monthly Weather Review},
+volume = {130},
+page = {649-667},
+year = {2002}
+}
+
 @article{Nair2008,
 author = {Nair, Ramachandran D. and Jablonowski, Christiane},
 title = {Moving Vortices on the sphere : a test case for horizontal advection problems},
-abstract = {A mass-conservative cell-integrated semi-Lagrangian (CISL) scheme is presented and tested for 2D transport
-on the sphere. The total mass is conserved exactly and the mass of each individual grid cell is conserved in
-general. The scheme is based on a general scheme developed by Machenhauer and Olk that has increased cost
-effectiveness without loss of accuracy, compared to the CISL scheme of Rancˇ ic ́. A regular latitude–longitude
-grid is used on the sphere and upstream trajectories from the corner points of the regular grid cells (the Eulerian
-cells) define the corner points of the departure cells. The sides in these so-called Lagrangian cells are generally
-defined as straight lines in a $( \lambda , \mu )$ plane, where $\lambda$ is the longitude and $\mu$ is the sine of the latitude. The mass
-distribution within each Eulerian grid cell is defined by quasi-biparabolic functions, which are used to integrate
-analytically the mass in each Lagrangian computational cell. The auxiliary computational cells are polygons
-with each side parallel to the coordinate axis. Also, the computational cells have the same area as the Lagrangian
-cells they approximate. They were introduced in order to simplify the analytical integrals of mass. Near the
-poles, the east and west sides of certain Lagrangian cells cannot be approximated by straight lines in the $( \lambda , \mu )$
-plane, and are instead represented by straight lines in polar tangent plane coordinates. Each of the latitudinal
-belts of Lagrangian cells in the polar caps are split up into several latitudinal belts of subcells, which can be
-approximated by computational cells as in the case of cells closer to the equator. One latitudinal belt in each
-hemisphere, which encloses the Eulerian pole (singular belt), is treated in a special way. First the total mass in
-the singular belt is determined and then it is redistributed among the cells in the belt using weights determined
-by a traditional SL scheme at the midpoints of the cells. By this procedure the total mass is still conserved
-while the conservation is only approximately maintained for the individual cells in the singular belt. These
-special treatments in the polar caps fit well into the general structure of the code and can be implemented with
-minor modifications in the code used for the rest of the sphere.
-Compared to two other conservative advection schemes implemented on the sphere the CISL scheme used
-here was found to be competitive in terms of accuracy for the same resolution. In addition the CISL scheme
-has the advantage over these schemes that it is applicable for Courant numbers larger than one. In plane geometry
-the scheme of Rancˇic ́ had an overhead factor of 2.5 in CPU time compared to a traditional bicubic semi-
-Lagrangian scheme. This factor is reduced to 1.1 for the Machenhauer and Olk scheme on the plane while on
-the sphere the factor is found to be 1.28 for the present scheme. This overhead seems to be a reasonable price
-to pay for increased accuracy and exact mass conservation.},
 journal = {Monthly Weather Review},
 volume = {136},
 page = {699-711},
 doi = {10.1175/2007MWR2105.1},
 year = {2008}
-}
-
-@article{Nair2001,
-authors = {Nair, Ramachandran D. and Machenhauer, Bennert},
-title = {The Mass-Conservative Cell-Integrated Semi-Lagragian Advection Scheme on the Sphere},
-abstract = {A mass-conservative cell-integrated semi-Lagrangian (CISL) scheme is presented and tested for 2D transport
-on the sphere. The total mass is conserved exactly and the mass of each individual grid cell is conserved in
-general. The scheme is based on a general scheme developed by Machenhauer and Olk that has increased cost
-effectiveness without loss of accuracy, compared to the CISL scheme of Rancˇ ic ́. A regular latitude–longitude
-grid is used on the sphere and upstream trajectories from the corner points of the regular grid cells (the Eulerian
-cells) define the corner points of the departure cells. The sides in these so-called Lagrangian cells are generally
-defined as straight lines in a $( \lambda , \mu )$ plane, where $\lambda$ is the longitude and $\mu$ is the sine of the latitude. The mass
-distribution within each Eulerian grid cell is defined by quasi-biparabolic functions, which are used to integrate
-analytically the mass in each Lagrangian computational cell. The auxiliary computational cells are polygons
-with each side parallel to the coordinate axis. Also, the computational cells have the same area as the Lagrangian
-cells they approximate. They were introduced in order to simplify the analytical integrals of mass. Near the
-poles, the east and west sides of certain Lagrangian cells cannot be approximated by straight lines in the $( \lambda , \mu )$
-plane, and are instead represented by straight lines in polar tangent plane coordinates. Each of the latitudinal
-belts of Lagrangian cells in the polar caps are split up into several latitudinal belts of subcells, which can be
-approximated by computational cells as in the case of cells closer to the equator. One latitudinal belt in each
-hemisphere, which encloses the Eulerian pole (singular belt), is treated in a special way. First the total mass in
-the singular belt is determined and then it is redistributed among the cells in the belt using weights determined
-by a traditional SL scheme at the midpoints of the cells. By this procedure the total mass is still conserved
-while the conservation is only approximately maintained for the individual cells in the singular belt. These
-special treatments in the polar caps fit well into the general structure of the code and can be implemented with
-minor modifications in the code used for the rest of the sphere.
-Compared to two other conservative advection schemes implemented on the sphere the CISL scheme used
-here was found to be competitive in terms of accuracy for the same resolution. In addition the CISL scheme
-has the advantage over these schemes that it is applicable for Courant numbers larger than one. In plane geometry
-the scheme of Rancić had an overhead factor of 2.5 in CPU time compared to a traditional bicubic semi-
-Lagrangian scheme. This factor is reduced to 1.1 for the Machenhauer and Olk scheme on the plane while on
-the sphere the factor is found to be 1.28 for the present scheme. This overhead seems to be a reasonable price
-to pay for increased accuracy and exact mass conservation.},
-journal = {Monthly Weather Review},
-volume = {130},
-page = {649-667},
-year = {2002}
 }
 
 @article {Sadourny1968,
@@ -125,4 +78,13 @@ journal = {Monthly Weather Review},
 volume = {100},
 pages = {136-144},
 year = {1972},
+}
+
+@article {Williamson1994,
+author = {Williamson, Davis L. and Drake, John B. and Hack, James J. and Jakob, Rudiger and Swarztrauber, Paul N.},
+title = {A strandard test set for numerical approximations to the shallow water equation in spherical geometry},
+journal = {Journal of Computational Physics},
+volume = {102},
+pages = {211-224},
+year = {1994},
 }

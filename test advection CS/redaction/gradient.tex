@@ -9,7 +9,7 @@ Soit une sphère de centre $O = (0,0,0)^T$ et de rayon $R > 0$.
 On définit $N$ le p\^ole de Nord de cette sphère, c'est à dire le point de coordonnées $(0,0,R)^T$ et $S = (0,0,-R)^T$ le p\^ole Sud. Soit $C^{(1)}_0$ le cercle de centre $O$, de rayon $R$ et passant par les points $N$ et $S$. De la m\^eme manière, on peut définir un cercle $C^{(2)}_0$ de centre $O$, de rayon $R$ et passant par un p\^ole Est $E = (0,R,0)^T$ et un p\^ole Ouest $W = (0,-R,0)^T$. On remarque directement que ces deux cercles se coupent en $F = (R,0,0)^T$ et $B=(-R,0,0)^T$.
 
 On peut considérer un premier système de coordonnées sur la sphère longitude-latitude $(\xi, \eta)$. Ce système admet $N$ et $S$ comme p\^oles Nord et Sud et est centré sur $F$\footnote{Le point $F$ admet $(0,0)$ pour coordonnées dans ce système.}.
-Nous construisons un ensemble de cercles $\left( C^{(1)}_{\xi} \right)_{\xi}$. Le cercle $C^{(1)}_{\xi}$ est obtenu par rotation de $C^{(1)}_0$ autour de l'axe $(EW)$ et d'angle $\xi$ compris entre $\pi/2$ et $-\pi/4$. De la m\^eme manière, on peut construire les cercles $C^{(2)}_{\eta}$ obtenus par rotation de $C^{(2)}_0$ autour de l'axe $(EW)$ et d'angle dans $ \eta \in \left[ -\pi/4, \pi/4 \right]$.
+Nous construisons un ensemble de cercles $\left( C^{(1)}_{\xi} \right)_{\xi}$. Le cercle $C^{(1)}_{\xi}$ est obtenu par rotation de $C^{(1)}_0$ autour de l'axe $(EW)$ et d'angle $\xi$ compris entre $\pi/4$ et $-\pi/4$. De la m\^eme manière, on peut construire les cercles $C^{(2)}_{\eta}$ obtenus par rotation de $C^{(2)}_0$ autour de l'axe $(EW)$ et d'angle dans $ \eta \in \left[ -\pi/4, \pi/4 \right]$.
 
 Ainsi, on peut définir le panel I comme l'ensemble des points obtenus comme l'intersection d'un cercle $C^{(1)}_{\xi}$ avec un cercle $C^{(2)}_{\eta}$. Un point $\mathbf{x}=(x,y,z)^T \in C^{(1)}_{\xi} \cap C^{(2)}_{\eta}$ du panel I peut etre déterminé de plusieurs manières. On peut utiliser le système $(\alpha, \beta)$ où $\alpha$ (resp. $\beta$) est l'absisse curviligne séparant $\mathbf{x}$ de $C^{(1)}_0$ le long de $C^{(2)}_j$(resp. $\mathbf{x}$ de $C^{(2)}_0$le long de $C^{(1)}_i$).
 
@@ -46,7 +46,7 @@ Nous obtenons ainsi un système de coordonnées pour le panel I centré sur $F$.
 Le maillage se construit de façon naturelle pour $-N/2 \leq i,j \leq N/2$ en ne considérant que les cercles $C^{(1)}_{i \Delta \xi}$ et $C^{(2)}_{j \Delta \eta}$ notés abusivements respectivement $C^{(1)}_i$ et $C^{(2)}_j$ avec :
 
 \begin{equation}
-\Delta \xi = \Delta \eta = \dfrac{\pi}{2 ( N+1 )}. 
+\Delta \xi = \Delta \eta = \dfrac{\pi}{2  N }. 
 \end{equation}
 
 On remarque alors que le maillage est régulier pour les coordonnées $(\xi, \eta)$ mais absolument pas pour $(\alpha, \beta)$ qui serait pourtant adapté à un travail en différences finies (maillage cartésien).

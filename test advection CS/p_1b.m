@@ -35,10 +35,10 @@ film = 0;
 qquiv = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 0;
+save_graph = 1;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
-opt_ftr = 0;
+opt_ftr = 10;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
 snapshot = 0;
@@ -67,7 +67,7 @@ coupe = 1;
  gamma=5;
  elseif coef == 2
  % test de Nair et Jablonowski
- alphad=0; 
+ alphad=pi/4; 
  lambda0 = 3*pi/2;
  teta0 = 0;
  lambda_p=pi;                                                              % position du pole nord à t=0, i.e. position du vortex nord à t=0

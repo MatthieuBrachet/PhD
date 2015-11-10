@@ -1,8 +1,69 @@
 \section{Benchmarks}
 
-\subsection{Test de Nair et Machenhauer}
+***** INTRODUIRE LES DIFFERENTS SYSTEMES DE COORDONNEES *****
+
+\section{Vortex Stationnaire}
+
+L'idée de ce test est de former deux tourbillons diamétralements opposés à des positions données sur la surface de la sphère, il s'agit donc d'un test de déformation sans déplacement. Ce dernier est proposé dans un article de Nair R. et al. en 2001 \cite{Nair2001} et ainsi qu'un second \cite{Nair1999}.
+La solution exacte est donnée directement sur la surface de la sphère :
+
+\begin{equation}
+\phi ( \lambda' , \theta', t ) = 1 - \tanh \left[ \dfrac{\rho}{\gamma} \sin ( \lambda' - \omega_r t ) \right]
+\label{NM_exacte}
+\end{equation}
+
+où $( \lambda' , \theta' )$ correspond au système latitude longitude autour de l'axe $(N'S')$ et $t>0$ est la variable de temps. Cette fonction $\psi$ est strictement positive et infiniement dérivable. $\gamma$ est une constante fixée déterminant la raideur de la solution (nous avons choisit $\gamma = 5$). De plus $\rho = \rho_0 \cos ( \theta' )$ avec $\rho_0$ une constante choisie égale à $3$.
+
+Si $v_0 = 2 \pi R / T$ où $T$ est le temps total (ici $12$ jours) on peut définir la vitesse tangentielle mise à l'échelle :
+
+\begin{equation}
+V = v_0 \dfrac{3 \sqrt{3} }{2} sech^2 ( \rho ) tanh ( \rho )
+\end{equation} 
+
+Cependant, dans ce cas, la vitesse angulaire varie avec la distance la séparant du centre du vortex. $\omega_r$ est donné par la formule suivante :
+
+\begin{equation}
+   \omega_r ( \theta' ) = \left\{ 
+   \begin{array}{ll}
+      V/( R \rho ) & \text{ si } \rho \neq 0 \\
+      0 & \text{ sinon }
+   \end{array}
+   \right.
+\label{vitesse_angulaire}
+\end{equation}
+
+Cette solution exacte au problème permet aussi de donner la condition initiale. De plus, pour que le problème soit complètement posé, on doit fixer $\mathbf{c} = ( c_{\lambda, r} , c_{\theta, r})^T$ dans la base $(\lambda, \theta)$ : 
+
+\begin{equation}
+c_{\lambda, r} = R \omega_r ( \theta' ) \left[ \sin \theta_p \cos \theta - \cos \theta_p \cos ( \lambda - \lambda_p ) \sin \theta \right]
+\label{vitesse_lambda_mach}
+\end{equation}
+\begin{equation}
+c_{\theta, r} = R \omega_r ( \theta' ) \left[ \cos \theta_p \sin ( \lambda - \lambda_p ) \right]
+\label{vitesse_theta_mach}
+\end{equation}
+
+$P = ( \lambda_P, \theta_P)$ étant la position de l'un des tourbillons. On remarque que dans ce test, les vitesses de $\mathbf{c}$ données par \eqref{vitesse_lambda_mach} et \eqref{vitesse_theta_mach}.
 
 \subsection{Test de Nair et Jablonowski}
+
+Le test construit par Nair R. D. et Jablonowski C. dans \cite{Nair2008} combine à la fois le test de déformation de Nair R. D. et Machenhauer B. \cite{Nair2001} évoqué ci-dessus et celui du corps solide en rotation présent dans \cite{Nair1999} ou dans \cite{Williamson1994}. De plus, ce test a déjà été présenté dans un article précédent \cite{Croisille2013}. 
+
+L'idée du test du corps solide en rotation est de déplacer sans déformer une fonction autour de la sphère. Dans ce cas, on a $\mathbf{c} = \left( c_{\lambda, s}, c_{\theta, s} \right)^T$ donné par :
+
+\begin{equation}
+c_{\lambda, r} = R \omega_s \left( \sin \theta_p \cos \theta - \cos \theta_p \cos ( \lambda - \lambda_p ) \sin \theta \right)
+\label{vitesse_lambda_bump}
+\end{equation}
+\begin{equation}
+c_{\theta, r} = - R \omega_s \cos \theta_p \sin ( \lambda - \lambda_p )
+\label{vitesse_theta_bump}
+\end{equation}
+
+où $\omega_s = v_0 / R = 2 \pi / T $ et $( \lambda_p, \theta_p$ )  est la position de $P$ un point de la sphère tel que $(OP)$ définisse un axe autour duquel doit tourner la condition initiale.
+
+L'objectif ici est de faire tourner autour de la sphère un vortex similaire à celui de \ref{Nair2001}.
+
 
 \begin{figure}[H]
 \includegraphics[scale=0.3]{04-Nov-2015ref_7362724687_snapshot_test_2_nday_0.png}
@@ -28,7 +89,7 @@
 
 
 \begin{figure}[H]
-%\includegraphics[scale=0.3]{.png}
+\includegraphics[scale=0.3]{09-Nov-2015ref_7362776620_normerreur_test_2.png}
 \includegraphics[scale=0.3]{06-Nov-2015ref_7362745425_normerreur_test_2.png}
 \label{erreur_cfl=0.5}
 \caption{courbe d'erreur $N=35$; $cfl=0.5$; $\alpha = \pi / 4$ (gauche) et $\alpha = 0$ (droite) pour le test de Nair et Jablonowski \cite{Nair2008}}

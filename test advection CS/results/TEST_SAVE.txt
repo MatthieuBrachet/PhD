@@ -258,3 +258,43 @@ ordre du filtre  : 0
 ******************************
   
   
+date : 09-Nov-2015
+date : 7362776501
+******************************
+test : 2
+------- numerical data -------
+number of points : 35
+time step        : 3600
+cfl              : 0.5
+----- mathematical data ------
+angle in degree  : 0
+******************************
+max(er_1)        : 0.0044977
+max(er_2)        : 0.014276
+max(er_infty)    : 0.077966
+******************************
+ndaymax          : 12
+ordre du filtre  : 10
+******************************
+  
+  
+date : 09-Nov-2015
+date : 7362776620
+******************************
+test : 2
+------- numerical data -------
+number of points : 35
+time step        : 3600
+cfl              : 0.5
+----- mathematical data ------
+angle in degree  : 45
+******************************
+max(er_1)        : 0.004034
+max(er_2)        : 0.012836
+max(er_infty)    : 0.071544
+******************************
+ndaymax          : 12
+ordre du filtre  : 10
+******************************
+  
+  
