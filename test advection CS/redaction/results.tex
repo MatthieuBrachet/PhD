@@ -17,7 +17,8 @@ où $( \lambda' , \theta' )$ correspond au système latitude longitude autour de
 Si $v_0 = 2 \pi R / T$ où $T$ est le temps total (ici $12$ jours) on peut définir la vitesse tangentielle mise à l'échelle :
 
 \begin{equation}
-V = v_0 \dfrac{3 \sqrt{3} }{2} sech^2 ( \rho ) tanh ( \rho )
+  V = v_0 \dfrac{3 \sqrt{3} }{2} sech^2 ( \rho ) tanh ( \rho )
+  \label{vitesse_tangentielle}
 \end{equation} 
 
 Cependant, dans ce cas, la vitesse angulaire varie avec la distance la séparant du centre du vortex. $\omega_r$ est donné par la formule suivante :
@@ -33,6 +34,7 @@ Cependant, dans ce cas, la vitesse angulaire varie avec la distance la séparant
 \end{equation}
 
 Cette solution exacte au problème permet aussi de donner la condition initiale. De plus, pour que le problème soit complètement posé, on doit fixer $\mathbf{c} = ( c_{\lambda, r} , c_{\theta, r})^T$ dans la base $(\lambda, \theta)$ : 
+
 
 \begin{equation}
 c_{\lambda, r} = R \omega_r ( \theta' ) \left[ \sin \theta_p \cos \theta - \cos \theta_p \cos ( \lambda - \lambda_p ) \sin \theta \right]
@@ -52,17 +54,59 @@ Le test construit par Nair R. D. et Jablonowski C. dans \cite{Nair2008} combine 
 L'idée du test du corps solide en rotation est de déplacer sans déformer une fonction autour de la sphère. Dans ce cas, on a $\mathbf{c} = \left( c_{\lambda, s}, c_{\theta, s} \right)^T$ donné par :
 
 \begin{equation}
-c_{\lambda, r} = R \omega_s \left( \sin \theta_p \cos \theta - \cos \theta_p \cos ( \lambda - \lambda_p ) \sin \theta \right)
+c_{\lambda, s} = R \omega_s \left( \sin \theta_p \cos \theta - \cos \theta_p \cos ( \lambda - \lambda_p ) \sin \theta \right)
 \label{vitesse_lambda_bump}
 \end{equation}
 \begin{equation}
-c_{\theta, r} = - R \omega_s \cos \theta_p \sin ( \lambda - \lambda_p )
+c_{\theta, s} = - R \omega_s \cos \theta_p \sin ( \lambda - \lambda_p )
 \label{vitesse_theta_bump}
 \end{equation}
 
 où $\omega_s = v_0 / R = 2 \pi / T $ et $( \lambda_p, \theta_p$ )  est la position de $P$ un point de la sphère tel que $(OP)$ définisse un axe autour duquel doit tourner la condition initiale.
 
-L'objectif ici est de faire tourner autour de la sphère un vortex similaire à celui de \ref{Nair2001}.
+L'objectif ici est de faire tourner un vortex autour de la sphère. La position du centre de ce vortex varie ainsi a cours du temps. Si cette dernière est notée $( \lambda_c (t), \theta_c (t))$, alors la vitesse de formation du vortex est :
+
+\begin{equation}
+c_{\lambda, r}(t) = R \omega_r ( \theta' ) \left[ \sin \theta_c (t) \cos \theta - \cos \theta_c (t) \cos ( \lambda - \lambda_c (t) ) \sin \theta \right]
+\label{vitesse_lambda_vortex}
+\end{equation}
+\begin{equation}
+c_{\theta, r}(t) = R \omega_r ( \theta' ) \left[ \cos \theta_c (t) \sin ( \lambda - \lambda_c (t) ) \right]
+\label{vitesse_theta_vortex}
+\end{equation}
+
+Avec $\theta'$ donné par les coordonnées pivotées sur la sphère de p\^ole Nord $ ( \lambda_c (t), \theta_c (t) )$ ainsi que les formules \eqref{vitesse_tangentielle} et \eqref{vitesse_angulaire}.
+
+La position du vortex est donnée dans les coordonnées $( \lambda', \theta')$ pivotées sur l'axe de rotation du vortex par : $\lambda_c ' (t) = \lambda' _0 + \omega_s t $ et $\theta_c ' (t) = \theta_0 '$ avec $\lambda_0$ et $\theta_0$ la position initiale du vortex.
+
+Dans ce contexte, on peut obtenir $\mathbf{c} = ( c_{\lambda}, c_{\theta} )^T $ par :
+
+\begin{equation}
+  \left\{
+  \begin{array}{rcl}
+    c_{\lambda} & = & c_{\lambda,s} + c_{\lambda,r} (t) \\
+    c_{\theta} & = & c_{\theta,s} + c_{\theta,r} (t)
+  \end{array}
+  \right.
+\end{equation}
+
+La condition initiale étant donnée par la formule TBA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \begin{figure}[H]
