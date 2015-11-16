@@ -3,7 +3,6 @@
 % authors : Matthieu Brachet
 %           Jean-Pierre Croisille
 % ----------------------------------
-% RK4 + Filtrage
 clear all; clc; close all;
 %% construction des variables globales
 global n nn;
@@ -26,13 +25,10 @@ global lambdac1 tetac1 lambdac2 tetac2
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 2;
+coef = 1;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;
-% si qquiv = 1 : tracer le champ de vecteurs
-%    qquiv = 0 : ne pas tracer
-qquiv = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
 save_graph = 1;
@@ -41,17 +37,16 @@ save_graph = 1;
 opt_ftr = 10;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
-snapshot = 0;
-% coupe = 0 : pas de coupe le long de l'équateur de la face 1
+snapshot = 1;
+% coupe = 0 : pas de coupe le long de l'équateur de la face 2
 %         1 : coupe.
-coupe = 1;
+coupe = 0;
 %% *** Benchmarks data ****************************************************
- n=35;
+ n=31;
  nn=n+2;
- cfl=0.5;
+ cfl=0.9;
  ndaymax=12;
 %% ************************************************************************
- 
  if coef == 0
  % test de Williamson
  alphad=0;  
@@ -62,7 +57,7 @@ coupe = 1;
  elseif coef == 1
  % test de Nair et Machenhauer
  lambda_p=0;                                                            % position du pole nord, i.e. position du vortex nord
- teta_p=3*pi/2;
+ teta_p=0;
  rho0=3;
  gamma=5;
  elseif coef == 2
@@ -85,7 +80,6 @@ coupe = 1;
  lambdac2=pi/2;
  tetac2=0;
  end
-
 %% données du problème
 itestop=10000;
 tstart=cputime;
@@ -368,13 +362,6 @@ if film==1
     plot_cs5(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
  
     aviobj = addframe(aviobj, getframe(gca));
-end
-
-if qquiv == 1
-    figure(40)
-    plot_quiver(nn,vitx_I,vitx_II, vitx_III, vitx_IV, vitx_V, vitx_VI, ...
-        vity_I,vity_II, vity_III, vity_IV, vity_V, vity_VI, ...
-        vitz_I,vitz_II, vitz_III, vitz_IV, vitz_V, vitz_VI, time);
 end
 
 end
