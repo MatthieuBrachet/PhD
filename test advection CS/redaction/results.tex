@@ -12,7 +12,7 @@ La solution exacte est donnée directement sur la surface de la sphère :
 \label{NM_exacte}
 \end{equation}
 
-où $( \lambda' , \theta' )$ correspond au système latitude longitude autour de l'axe $(N'S')$ et $t>0$ est la variable de temps. Cette fonction $\psi$ est strictement positive et infiniement dérivable. $\gamma$ est une constante fixée déterminant la raideur de la solution (nous avons choisit $\gamma = 5$). De plus $\rho = \rho_0 \cos ( \theta' )$ avec $\rho_0$ une constante choisie égale à $3$.
+où $( \lambda' , \theta' )$ correspond au système latitude longitude autour de l'axe $(PO)$ (on aura en général $P$ de coordonnées $(\pi , \pi / 2 - \alpha )$ et $t>0$ est la variable de temps. Cette fonction $\psi$ est strictement positive et infiniement dérivable. $\gamma$ est une constante fixée déterminant la raideur de la solution (nous avons choisit $\gamma = 5$). De plus $\rho = \rho_0 \cos ( \theta' )$ avec $\rho_0$ une constante choisie égale à $3$.
 
 Si $v_0 = 2 \pi R / T$ où $T$ est le temps total (ici $12$ jours) on peut définir la vitesse tangentielle mise à l'échelle :
 
@@ -49,7 +49,7 @@ $P = ( \lambda_P, \theta_P)$ étant la position de l'un des tourbillons. On rema
 
 \subsection{Test de Nair et Jablonowski}
 
-Le test construit par Nair R. D. et Jablonowski C. dans \cite{Nair2008} combine à la fois le test de déformation de Nair R. D. et Machenhauer B. \cite{Nair2001} évoqué ci-dessus et celui du corps solide en rotation présent dans \cite{Nair1999} ou dans \cite{Williamson1994}. De plus, ce test a déjà été présenté dans un article précédent \cite{Croisille2013}. 
+Le test construit par Nair R. D. et Jablonowski C. dans \cite{Nair2008} combine à la fois le test de déformation de Nair R. D. et Machenhauer B. \cite{Nair2001} évoqué ci-dessus et celui du corps solide en rotation présent dans \cite{Williamson1994}. Le test du corps solide a déjà été présenté dans un article précédent \cite{Croisille2013}. 
 
 L'idée du test du corps solide en rotation est de déplacer sans déformer une fonction autour de la sphère. Dans ce cas, on a $\mathbf{c} = \left( c_{\lambda, s}, c_{\theta, s} \right)^T$ donné par :
 
@@ -90,7 +90,25 @@ Dans ce contexte, on peut obtenir $\mathbf{c} = ( c_{\lambda}, c_{\theta} )^T $ 
   \right.
 \end{equation}
 
-La condition initiale étant donnée par la formule TBA...
+La solution exacte est calculée par le processus suivant :
+
+\begin{itemize}
+\item Calcul de $( \lambda' , \theta' )$ les coordonnées pivotées sur la sphère de p\^ole Nord $(\lambda_P, \theta_P ) = ( \pi, \pi/2 - \alpha )$.
+
+\item Déplacer les coordonnées sur la position du centre :
+  \begin{equation}
+    ( \lambda _s ', \theta_s ' ) = ( \lambda' - \omega_s t, \theta' - 0)
+  \end{equation}
+  et revenir dans le système de coordonnées standart : $( \lambda_s , \theta_s )$.
+
+\item Générérer le vortex avec $( \lambda, \theta ) = (\lambda_s ,  \theta_s )$ à partir de la formule \eqref{NM_exacte}.
+  
+  
+
+
+
+\end{itemize}
+
 
 
 
