@@ -1,0 +1,79 @@
+\section{Gradient sphérique}
+
+L'objectif de cette partie est d'expliquer comment sera calculé le gradient sphérique.
+
+\subsection{Cube-Sphere}
+
+Soit une sphère de centre $O = (0,0,0)^T$ et de rayon $R > 0$. 
+
+On définit $N$ le p\^ole de Nord de cette sphère, c'est à dire le point de coordonnées $(0,0,R)^T$ et $S = (0,0,-R)^T$ le p\^ole Sud. Soit $C^{(1)}_0$ le cercle de centre $O$, de rayon $R$ et passant par les points $N$ et $S$. De la m\^eme manière, on peut définir un cercle $C^{(2)}_0$ de centre $O$, de rayon $R$ et passant par un p\^ole Est $E = (0,R,0)^T$ et un p\^ole Ouest $W = (0,-R,0)^T$. On remarque directement que ces deux cercles se coupent en $F = (R,0,0)^T$ et $B=(-R,0,0)^T$.
+
+On peut considérer un premier système de coordonnées sur la sphère longitude-latitude $(\xi, \eta)$. Ce système admet $N$ et $S$ comme p\^oles Nord et Sud et est centré sur $F$\footnote{Le point $F$ admet $(0,0)$ pour coordonnées dans ce système.}.
+Nous construisons un ensemble de cercles $\left( C^{(1)}_{\xi} \right)_{\xi}$. Le cercle $C^{(1)}_{\xi}$ est obtenu par rotation de $C^{(1)}_0$ autour de l'axe $(EW)$ et d'angle $\xi$ compris entre $\pi/4$ et $-\pi/4$. De la m\^eme manière, on peut construire les cercles $C^{(2)}_{\eta}$ obtenus par rotation de $C^{(2)}_0$ autour de l'axe $(EW)$ et d'angle dans $ \eta \in \left[ -\pi/4, \pi/4 \right]$.
+
+Ainsi, on peut définir le panel I comme l'ensemble des points obtenus comme l'intersection d'un cercle $C^{(1)}_{\xi}$ avec un cercle $C^{(2)}_{\eta}$. Un point $\mathbf{x}=(x,y,z)^T \in C^{(1)}_{\xi} \cap C^{(2)}_{\eta}$ du panel I peut etre déterminé de plusieurs manières. On peut utiliser le système $(\alpha, \beta)$ où $\alpha$ (resp. $\beta$) est l'absisse curviligne séparant $\mathbf{x}$ de $C^{(1)}_0$ le long de $C^{(2)}_j$(resp. $\mathbf{x}$ de $C^{(2)}_0$le long de $C^{(1)}_i$).
+
+Un autre choix de coordonnées possible est $(\xi, \eta)$ la longitude et la latitude du point $\mathbf{x}$ admetant $N$ et $S$ comme p\^oles Nord et Sud et tels que $C^{(1)}_0$ et $C^{(2)}_0$ forment les cercles de référence du repère\footnote{Les équivalents de l'équateur et du méridien de Greenwitch.}. Le lien entre les différents systèmes de coordonnées peut être fait grâce à différentes formules (voir \cite{Croisille2013} pour plus de détails).
+
+On pose $X = \tan ( \xi )$ et $Y = \tan ( \eta )$. Comme $\mathbf{x}$ est un point de la sphère, on a les égalités suivantes sur le panel I:
+
+\begin{equation}
+\left\{
+\begin{array}{rcl}
+  X &=& \frac{y}{x} \\
+  Y &=& \frac{z}{x} \\
+  R^2 &=& x^2 + y^2 + z^2
+\end{array}
+\right.
+\label{coordgno}
+\end{equation}
+
+De plus, on a les formules suivantes liant $( \alpha, \beta)$ et $( \xi, \eta )$ :
+
+\begin{equation}
+\left\{
+\begin{array}{rcccl}
+  x &=& R \cos ( \alpha ) \cos ( \eta ) &=& R \cos ( \beta ) \cos ( - \xi ) \\
+  y &=& R \sin ( \alpha ) &=& - R \cos ( \beta ) \sin ( - \xi ) \\
+  z &=& R \cos ( \alpha ) \sin ( \eta ) &=& R \sin ( \beta )
+\end{array}
+\right.
+\label{coord}
+\end{equation}
+
+Nous obtenons ainsi un système de coordonnées pour le panel I centré sur $F$. Par symétrie et en suivant des raisonnements analogues, on peut construires des systèmes de coordonnées équivalents sur le panel II centré sur $W$, le panel III centré sur $B$, le panel IV centré sur $E$ ainsi que sur les panels V et VI respectivement centrés sur $N$ et $S$.
+
+Le maillage se construit de façon naturelle pour $-N/2 \leq i,j \leq N/2$ en ne considérant que les cercles $C^{(1)}_{i \Delta \xi}$ et $C^{(2)}_{j \Delta \eta}$ notés abusivements respectivement $C^{(1)}_i$ et $C^{(2)}_j$ avec :
+
+\begin{equation}
+\Delta \xi = \Delta \eta = \dfrac{\pi}{2  N }. 
+\end{equation}
+
+On remarque alors que le maillage est régulier pour les coordonnées $(\xi, \eta)$ mais absolument pas pour $(\alpha, \beta)$ qui serait pourtant adapté à un travail en différences finies (maillage cartésien).
+
+\subsection{Gradient}
+
+Une fois le maillage construit, pour résoudre l'équation d'advection pour tout $\mathbf{x}$ sur la surface de la sphère et pour tout $t \leq 0$ 
+
+\begin{equation}
+  \left\{
+  \begin{array}{rcl}
+    \dfrac{\partial h}{\partial t} + \mathbf{c} \cdot \nabla h & = & 0 \\
+    h(t=0, \mathbf{x}) & = & h_0(\mathbf{x})  
+  \end{array}
+  \right.
+  \label{advection}
+\end{equation}
+
+il est important de savoir évaluer $\nabla h$ en tout point de la sphère.
+
+******************************************************************************************************************************
+
+
+\subsection{Filtrage des hautes fréquences}
+
+
+
+
+
+
