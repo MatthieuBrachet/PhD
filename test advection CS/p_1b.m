@@ -37,14 +37,14 @@ save_graph = 1;
 opt_ftr = 10;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
-snapshot = 1;
+snapshot = 0;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 2
 %         1 : coupe.
 coupe = 0;
 %% *** Benchmarks data ****************************************************
- n=31;
+ n=35;
  nn=n+2;
- cfl=0.9;
+ cfl=0.05;
  ndaymax=12;
 %% ************************************************************************
  if coef == 0
@@ -74,7 +74,6 @@ coupe = 0;
  alphad=3*pi/4;                                                                 % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;
- 
  lambdac1=-pi/2;
  tetac1=0;
  lambdac2=pi/2;
@@ -459,30 +458,27 @@ disp('erreur relative L2 / L1 / L_infty: ')
 [max(er2) max(er1) max(erinfty)] 
 
 if save_graph==1
-    %ouvre un fichier ou le créé
     fid = fopen('./results/TEST_SAVE.txt','a');
-    %écrit dans ce fichier, fid est sa reference pour matlab
     fprintf(fid,'%s\n',['date : ', date]);
     fprintf(fid,'%s\n',['date : ', num2str(ref)]);
-    fprintf(fid,'%s\n','******************************');
+    fprintf(fid,'%s\n','***********************************');
     fprintf(fid,'%s\n',['test : ', num2str(coef)]);
-    fprintf(fid,'%s\n','------- numerical data -------');
-    fprintf(fid,'%s\n',['number of points : ', num2str(n)] );
-    fprintf(fid,'%s\n',['time step        : ', num2str(ddt)] );
-    fprintf(fid,'%s\n',['cfl              : ', num2str(cfl)] );
-    fprintf(fid,'%s\n','----- mathematical data ------');
-    fprintf(fid,'%s\n',['angle in degree  : ', num2str(alphad*180/pi)] );
-    fprintf(fid,'%s\n','******************************');
-    fprintf(fid,'%s\n',['max(er_1)        : ', num2str(max(er1))] );
-    fprintf(fid,'%s\n',['max(er_2)        : ', num2str(max(er2))] );
-    fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty))] );
-    fprintf(fid,'%s\n','******************************');
-    fprintf(fid,'%s\n',['ndaymax          : ', num2str(ndaymax)] );
-    fprintf(fid,'%s\n',['ordre du filtre  : ', num2str(opt_ftr)] );
-    fprintf(fid,'%s\n','******************************');
+    fprintf(fid,'%s\n','---------- numerical data ---------');
+    fprintf(fid,'%s\n',['number of points  : ', num2str(n)] );
+    fprintf(fid,'%s\n',['time step         : ', num2str(ddt)] );
+    fprintf(fid,'%s\n',['cfl               : ', num2str(cfl)] );
+    fprintf(fid,'%s\n',['ordre du filtre   : ', num2str(opt_ftr)] );
+    fprintf(fid,'%s\n','-------- mathematical data --------');
+    fprintf(fid,'%s\n',['ndaymax           : ', num2str(ndaymax)] );
+    fprintf(fid,'%s\n',['angle in degree   : ', num2str(alphad*180/pi)] );
+    fprintf(fid,'%s\n',['(lambdap,thetap)  : (', num2str(lambda_p*180/pi),',',num2str(teta_p*180/pi),')']);
+    fprintf(fid,'%s\n','***********************************');
+    fprintf(fid,'%s\n',['max(er_1)         : ', num2str(max(er1))] );
+    fprintf(fid,'%s\n',['max(er_2)         : ', num2str(max(er2))] );
+    fprintf(fid,'%s\n',['max(er_infty)     : ', num2str(max(erinfty))] );
+    fprintf(fid,'%s\n','***********************************');
     fprintf(fid,'%s\n','  ');
     fprintf(fid,'%s\n','  ');
-    %n'oublie pas de fermer le fichier sinon tu ne peux pas le lire
     fclose(fid);
 end
 
@@ -500,7 +496,7 @@ if coupe == 1
     plot(x,f,'o',xe,fe,'-')
     grid on;
     legend('solution approchee','solution exacte')
-    xlabel('equateur - face II')
+    xlabel('equateur - face I')
     title('coupe de la solution le long de l''equateur')
     if save_graph==1
         print('-dpng', ['./results/' date 'ref_' num2str(ref) '_coupefaceI_equateur_test_' num2str(coef) '.png'])

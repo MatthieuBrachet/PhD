@@ -95,10 +95,10 @@
 using a compact scheme}
 
 \author{}
-%\address{\dag Universit\'e de Lorraine, D\'epartement de Math\'ematiques, F-57045 Metz, France\\
-%\ddag C.N.R.S., Institut Elie Cartan de Lorraine, UMR 7502, F-57045 Metz, France}
-%\email{jean-pierre.croisille@univ-lorraine.fr}
-\date{November 17, 2015}
+%%\address{\dag Universit\'e de Lorraine, D\'epartement de Math\'ematiques, F-57045 Metz, France\\
+%%\ddag C.N.R.S., Institut Elie Cartan de Lorraine, UMR 7502, F-57045 Metz, France}
+%%\email{jean-pierre.croisille@univ-lorraine.fr}
+\date{December 01, 2015}
 \maketitle
 
 \begin{abstract}
@@ -270,9 +270,9 @@ consistency relation
 \nabla^H_{T,h} u(\bar{\bs})=\nabla_{T} u(\bar{\bs})+O(\Delta \xi^4)+O(\Delta \eta^4).
 \eeq
 The Hermitian approximation (\ref{eq:87.4}) is the basis of our approximate gradient on the Cubed-Sphere.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Approximate gradient on the Cubed-Sphere}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Approximate gradient on the Cubed-Sphere}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 The Cubed Sphere is a grid of the sphere. This grid and variants were introduced by
 various authors. A systematic
 presentation was given in
@@ -317,15 +317,15 @@ The choice of these points is detailed in \cite{Croisille-10, Croisille-12}
 and we refer to these two references for more details.
 Even if no mathematical proof is avauilable yet, 
 numerical evidence show a consistency close to $4$.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}
-   \def\svgwidth{0.4 \textwidth}
-\input{drawing13.pdf_tex}
-\caption{The points of a typical panel of the Cubed-Sphere are classified in three categories:
-(i) Circles correspond to {\sl internal} points; (ii) Squares correspond to {\sl edge} points ;
-(iii) Pentagons correspond to {\sl corner} points}
-\label{fig:1}
-\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{figure}
+%   \def\svgwidth{0.4 \textwidth}
+%\input{drawing13.pdf_tex}
+%\caption{The points of a typical panel of the Cubed-Sphere are classified in three categories:
+%(i) Circles correspond to {\sl internal} points; (ii) Squares correspond to {\sl edge} points ;
+%(iii) Pentagons correspond to {\sl corner} points}
+%\label{fig:1}
+%\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Centered compact scheme with artificial dissipation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -552,7 +552,7 @@ K=\left[\begin{array}{ccccc}
 0&\dots&-1&0&1\\
 1&\dots&0&-1&0
 \end{array}\right].
-\eeq
+\end{equation}
 
 Let $[\bu],[\bx] \in \Bbb R^{N}$ be the vector data
 corresponding to $(u_i)_{1 \leq i\leq 4N}$ and  $(x_i)_{1 \leq i\leq 4N}$, respectively.
@@ -573,6 +573,97 @@ $[u_{\alpha}] \in \Bbb R^{4N}$ in (\ref{eq:12.87}) are given by
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+
+
+
+
+\begin{figure}[H]
+\includegraphics[scale=0.3]{01-Dec-2015ref_7362994679_snapshot_test_1_nday_0.png}
+\includegraphics[scale=0.3]{01-Dec-2015ref_7362994694_snapshot_test_1_nday_3.png}
+
+\includegraphics[scale=0.3]{01-Dec-2015ref_7362994721_snapshot_test_1_nday_6.png}
+\includegraphics[scale=0.3]{01-Dec-2015ref_7362994773_snapshot_test_1_nday_9.png}
+
+\includegraphics[scale=0.3]{01-Dec-2015ref_7362994827_snapshot_test_1_nday_12.png}
+\caption{Projection de la solution approchée au bout de 0, 3, 6, 9 et 12 jours pour le test de Nair et Machenhauer \cite{TBA}. $N=31$; $CFL = 0.7$; $(\lambda_p, \theta_p) = (\pi/4,\pi/4)$}
+\label{SNAPSHOT}
+\end{figure}
+
+
+
+\begin{figure}[H]
+\includegraphics[scale=0.3]{01-Dec-2015ref_7362996526_normerreur_test_1.png}
+\includegraphics[scale=0.3]{01-Dec-2015ref_7362994773_normerreur_test_1.png}
+\label{erreur_cfl=0.5}
+\caption{courbe d'erreur $N=35$; $cfl=0.5$; $(\lambda_P, \theta_P) = (0,0)$ (gauche) et $(\lambda_P, \theta_P) = (\pi/4,\pi/4)$ (droite) pour le test de Nair et Machenhauer \cite{TBA}}
+\end{figure}
+
+
+
+%\begin{figure}[H]
+%\includegraphics[scale=0.3]{01-Dec-2015ref_7362776620_normerreur_test_2.png}
+%\includegraphics[scale=0.3]{01-Dec-2015ref_7362745425_normerreur_test_2.png}
+%\label{erreur_cfl=0.5}
+%\caption{courbe d'erreur $N=35$; $cfl=0.05$; $(\lambda_P, \theta_P) = (0,0)$ (gauche) et $(\lambda_P, \theta_P) = (\pi/4,\pi/4)$ (droite) pour le test de Nair et Machenhauer \cite{TBA}}
+%\end{figure}
+
+
+
+\begin{figure}
+\begin{tabular}{c||cc|cc|cc}
+$N$ & $max_n |e_1^n|$ & order  & $max_n |e_2^n|$ & order  & $max_n |e_{\infty}^n|$ & order \\
+\hline
+\hline
+$40$ & $8.5139 (-4)$ & -  & $3.6312 (-3)$ & - & $2.2124 (-2)$  & - \\
+\hline 
+$50$ & $2.8785 (-4)$ & $4.9687$ & $1.3338 (-3)$ & $4.5888$ & $8.7387 (-3)$ & $4.2561$ \\
+\hline
+$60$ & $1.0498 (-4)$ & $5.6335$ & $5.0056 (-4)$ & $5.4737$ & $3.5278 (-3)$ & $5.0662$ \\
+\hline
+$80$ & $2.0144 (-5) $ & $5.8216$ & $9.4818 (-5)$ & $5.8671$ & $7.3279 (-4)$ & $5.5420$ \\
+\hline
+$100$ & $6.996 (-6)$ & $4.7925$ & $3.2964 (-5)$ & $4.7879$ & $2.6738 (-4)$ & $4.5687$\\
+\hline
+$150$ & $1.0231 (-6)$ & $4.7804$ & $5.1609 (-6)$ & $4.6109$ & $5.3299 (-5)$ & $4.0102$
+\end{tabular}
+\caption{Analyse de convergence pour le test de Nair et Machenhauer \cite{TBA}. $N=31$; $CFL = 0.7$; $(\lambda_p, \theta_p) = (0,0)$}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \begin{figure}[H]
 \includegraphics[scale=0.3]{04-Nov-2015ref_7362724687_snapshot_test_2_nday_0.png}
 \includegraphics[scale=0.3]{04-Nov-2015ref_7362724281_snapshot_test_2_nday_3.png}
@@ -590,7 +681,7 @@ $[u_{\alpha}] \in \Bbb R^{4N}$ in (\ref{eq:12.87}) are given by
 \begin{figure}[H]
 \includegraphics[scale=0.3]{05-Nov-2015ref_7362736695_normerreur_test_2.png}
 \includegraphics[scale=0.3]{05-Nov-2015ref_7362737739_normerreur_test_2.png}
-\label{erreur_cfl=0.05}
+\label{erreur_cfl=0.07}
 \caption{courbe d'erreur $N=35$; $cfl=0.05$; $\alpha = \pi / 4$ (gauche) et $\alpha = 0$ (droite) pour le test de Nair et Jablonowski \cite{Nair-Jablonowski}}
 \end{figure}
 
@@ -599,7 +690,7 @@ $[u_{\alpha}] \in \Bbb R^{4N}$ in (\ref{eq:12.87}) are given by
 \begin{figure}[H]
 \includegraphics[scale=0.3]{09-Nov-2015ref_7362776620_normerreur_test_2.png}
 \includegraphics[scale=0.3]{06-Nov-2015ref_7362745425_normerreur_test_2.png}
-\label{erreur_cfl=0.5}
+\label{erreur_cfl=0.7}
 \caption{courbe d'erreur $N=35$; $cfl=0.5$; $\alpha = \pi / 4$ (gauche) et $\alpha = 0$ (droite) pour le test de Nair et Jablonowski \cite{Nair-Jablonowski}}
 \end{figure}
 
@@ -607,7 +698,7 @@ $[u_{\alpha}] \in \Bbb R^{4N}$ in (\ref{eq:12.87}) are given by
 
 \begin{figure}
 \begin{tabular}{c||cc|cc|cc}
-$N$ & $max_n |e_1^n|$ & ordre  & $max_n |e_2^n|$ & ordre  & $max_n |e_{\infty}^n|$ & ordre \\
+$N$ & $max_n |e_1^n|$ & order  & $max_n |e_2^n|$ & order  & $max_n |e_{\infty}^n|$ & order \\
 \hline
 \hline
 $40$ & $2.7609 (-3)$ & -  & $9.7386 (-3)$ & - & $5.4808 (-2)$  & - \\

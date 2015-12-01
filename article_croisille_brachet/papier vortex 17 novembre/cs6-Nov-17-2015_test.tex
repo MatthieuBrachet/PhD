@@ -1,0 +1,633 @@
+%% LyX 1.6.9 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[oneside,english]{amsart}
+%\documentclass[oneside,english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{epsfig}
+\usepackage{color}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\graphicspath{{./Images/}}
+%usepackage[dvips]{color}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\setlength{\textheight}{210mm}
+\setlength{\textwidth}{154mm}
+%\setlength{\headsep}{0mm}
+%\setlength{\hoffset}{0mm}
+\setlength{\oddsidemargin}{-0mm}
+\setlength{\evensidemargin}{-0mm}
+%\setlength{\topmargin}{30mm}
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newcommand{\cal}{\mathcal}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\sinc{\mathop{\rm sinc}\nolimits}  
+\def\cal{\mathop{\rm cal}\nolimits}  
+\def\ex{\mathop{\rm ex}\nolimits}  
+\def\atan{\mathop{\rm atan}\nolimits}  
+\def\div{\mathop{\rm div}\nolimits}  
+\def\days{\mathop{\rm days}\nolimits}  
+\def\CFL{\mathop{\rm CFL}\nolimit}
+\def\Re{\mathop{\rm Re}\nolimits}  
+\newcommand{\bgrad}{\mbox{\boldmath$\nabla$}}
+\newcommand{\bnabla}{\mbox{\boldmath$\nabla$}}
+\newcommand{\bF}{\mbox{\boldmath$F$}}
+\newcommand{\bM}{\mbox{\boldmath$M$}}
+\newcommand{\bg}{\mbox{\boldmath$g$}}
+\newcommand{\bq}{\mbox{\boldmath$q$}}
+\newcommand{\bx}{\mbox{\boldmath$x$}}
+\newcommand{\bc}{\mbox{\boldmath$c$}}
+\newcommand{\be}{\mbox{\boldmath$e$}}
+\newcommand{\bn}{\mbox{\boldmath$n$}}
+\newcommand{\bu}{\mbox{\boldmath$u$}}
+\newcommand{\bs}{\mbox{\boldmath$s$}}
+\newcommand{\bi}{\mbox{\boldmath$i$}}
+\newcommand{\bj}{\mbox{\boldmath$j$}}
+\newcommand{\bk}{\mbox{\boldmath$k$}}
+\newcommand{\bvarphi}{\mbox{\boldmath$\varphi$}}
+\newcommand{\bomega}{\mbox{\boldmath$\omega$}}
+\newcommand{\bpsi}{\mbox{\boldmath$\psi$}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ** PERSONAL NEWTHEOREMS
+%\newtheorem{prop}{Proposition}[chapter]
+%\newtheorem{prop}{Proposition}[section]
+%\newtheorem{prop}[thm]{Proposition}
+%\newtheorem{proposition}{Proposition}[section]
+%\newtheorem{thm}{Theorem}[section]
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{theorem}{Theorem}[chapter]
+%\newtheorem{algo}{Algorithm}
+\newtheorem{thm}{Theorem}[section]
+%\newtheorem{thm}{Th\'eor\`eme}[chapter]
+\theoremstyle{definition}
+\newtheorem{defi}[thm]{Definition}
+%\newtheorem{coro}[thm]{Corollaire}
+%\newtheorem{lemma}[thm]{Lemme}
+%\newtheorem{claim}[thm]{Claim}
+%\newtheorem{example}[thm]{Exemple}
+%\newtheorem{formula}[thm]{Formule}
+\theoremstyle{remark}
+\newtheorem{remark}[thm]{Remark}
+%\newtheorem{prop}[thm]{Proposition}
+%\newtheorem{fig}[thm]{chapter}
+%\newtheorem{acknowledgement}{Acknoledgement}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+%% A simple dot to overcome graphicx limitations
+\newcommand{\lyxdot}{.}
+
+
+\makeatother
+
+\usepackage{babel}
+
+\begin{document}
+%
+\title{Numerical simulation of vortex propagation problems on the Cubed-Sphere 
+using a compact scheme}
+%
+%\author{}
+%%\address{\dag Universit\'e de Lorraine, D\'epartement de Math\'ematiques, F-57045 Metz, France\\
+%%\ddag C.N.R.S., Institut Elie Cartan de Lorraine, UMR 7502, F-57045 Metz, France}
+%%\email{jean-pierre.croisille@univ-lorraine.fr}
+%\date{November 17, 2015}
+%\maketitle
+%
+%\begin{abstract}
+%
+%{\sl Keywords: Cubed-Sphere grid - finite difference scheme - Hermitian compact perator}
+%
+%\end{abstract}
+%
+%\section{Introduction}
+%\label{sec:1}
+%In \cite{Croisille-10,Croisille-12} a numerical scheme
+%for PDE's problems on the sphere was introduced.
+%It used the Cubed-Sphere grid. This grid is 
+%a structured grid, with a grid shape in one-to-one 
+%concordance to a 
+%Cartesian grid of each of the six faces of a cube.
+%The scheme is based on the so-called compact scheme approach.
+%The approximate gradient that is used
+%is related to the data by a three-point compact relation.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Fourth order accurate spherical gradient}
+%\label{sec:1}
+%\subsection{Hermitian approach to partial derivatives on the sphere}
+%\label{sec:2.1}
+%In this section we present the principle
+%behind the calculation of the high-order accurate
+%approximate spherical gradient, as introduced in \cite{Croisille-10, Croisille-12}.
+%Consider a given function $ \bs \in \Bbb S^2 \mapsto u(\bs)$ on the unit sphere
+%and a point $\bar{\bs}$ where an approximate value of the tangential gradient
+%$\nabla_T u(\bar{\bs})$ is required.
+%Consider a point $\bs_0$ close to $\bar{\bs}$ and two orthogonal great circles
+%$C_1$ and $C_2$ intersecting at $\bs_0$. 
+%Denote by $\xi$ and $\eta$ the angles along $C_1$ and $C_2$ respectively.
+%The angles $(\xi,\eta)$ form a local coordinate system 
+%whose $\bs_0(0,0)$ is the center. 
+%The tangential gradient $\nabla_T u(\bar{\bs})$  is given by:
+%\beq
+%\label{eq:87.1}
+%\nabla_T u(\bar{\bs})=
+%\Big(
+%\partial_\xi u(\bar{\bs})
+%\Big)
+%g^\xi(\bar{\bs})
+%+
+%\Big(
+%\partial_\eta u(\bar{\bs})
+%\Big)
+%g^\eta(\bar{\bs}).
+%\eeq
+%In (\ref{eq:87.1}), $(g^\xi(\bs),g^\eta(\bs))$
+%denotes the dual basis of the basis 
+%$(g_\xi(\bs),g_\eta(\bs))$ where
+%\beq
+%\label{eq:32.19}
+%g_\xi(\bs)=\frac{\partial \bs}{\partial \xi},\;\;\;
+%g_\eta(\bs)=\frac{\partial \bs}{\partial \eta}.
+%\eeq
+%Consider next the iso-$\eta$ curve passing through $\bar{\bs}$.
+%This curve is locally defined as a function of the $\xi$ parameter as:
+%\beq
+% \xi \in (\bar{\xi}-\varepsilon, \bar{\xi}+\varepsilon)
+% \mapsto \bs(\xi,\bar{\eta}), \;\;\; \varepsilon >0.
+%\eeq
+%Due to the orthogonality of the circles $C_1$ and $C_2$, this curve
+%is also an arc of great circle. We call $\bar{C}$ this great circle.
+%We define a discrete grid of $\bar{C}$ 
+%using the points with coordinates $\bs_i(i\Delta \xi,\bar{\eta})$. The value
+%$\Delta \xi >0 $ is the constant step defined by
+%\beq
+%\Delta \xi = \frac{\pi}{2N}
+%\eeq 
+%and $N>0$ is an integer.
+%Assume for the moment that the point $\bar{\bs}$ belongs to this grid and that 
+%$\bar{\bs}=\bs_i$ for some integer $i$.  A simple way 
+%to approximate $\nabla_T u(\bar{\bs})$
+%is obtained by approximating in (\ref{eq:87.1}) 
+%the partial derivatives
+%$\partial_\xi u(\bs_i)$ and $\partial_\eta u(\bs_i)$.
+%Consider first $\partial_\xi u(\bar{\bs})$.
+%Since $\bar{\bs}=\bs_i$, using 
+%the standard centered divided difference we have;
+%\beq
+%\label{eq:75.10}
+%\partial_\xi u(\bs_i) \simeq 
+%\frac{u(\bs_{i+1})- 
+%u(\bs_{i-1})}{2 \Delta \xi}.
+%\eeq
+%The divided difference in the right-hand-side is denoted by $\delta_\xi u_i$.
+%Proceeding in the same manner in the $\eta$ direction, we set up
+%a grid on the circle $\bar{C}^\prime$:
+%the iso-$xi$ great circle through by $\bar{\bs}$ receives 
+%a grid with step size $\Delta \eta = \Delta_\xi$. The points
+%along this grid are numbered with index $j$ and we
+%call ${\bs}=\bs^\prime_j$. The value
+%$\partial_\eta u (\bar{s})$ is approximated by:
+%\beq
+%\label{eq:75.11}
+%\partial_\eta u(\bar{\bs}) \simeq 
+%\delta_\eta u^\prime_j = \frac{u(\bs^\prime_{j+1})- 
+%u(\bs^\prime_{j-1})}{2 \Delta \eta}.
+%\eeq
+%A first candidate for the approximate value to $\nabla_T u(\bar{\bs})$ is therefore:
+%\beq
+%\label{eq:87.2}
+%\nabla_{T,h} u(\bar{\bs})=
+%\left(\delta_\xi u_i\right)
+%g^\xi(\bar{\bs})
+%+
+%\left(\delta_\eta u^\prime_j \right)
+%g^\eta(\bar{\bs}).
+%\eeq
+%The vector $\nabla_{T,h} u(\bar{\bs})$ is obviously a second order 
+%approximation to $\nabla_T u(\bar{\bs})$.
+%A siomple way to go beyond second order
+%is to modifiy $\delta_\xi u_i$ using instead
+%the Hermitian derivative $\delta^H_\xi u_i$.
+%It is defined in terms of $\delta_\xi u_i$ by the relation
+%\beq
+%\label{eq:73.10}
+%\frac{1}{6} \delta_\xi^H u_{i-1}
+%+\frac{2}{3} \delta_\xi^H u_i
+%+\frac{1}{6} \delta_\xi^H u_{i+1}
+%= 
+%\delta_\xi u_i.
+%\eeq
+%The relation (\ref{eq:73.10}) defines implictely
+%$ \delta_\xi^H u_i$ as a perturbation of 
+%$\delta_\xi u_i$ since it can be expressed as:
+%\beq
+%\label{eq:73.14}
+%\delta_\xi^H u_i
+%= 
+%\delta_\xi u_i -\frac{\Delta^2\xi}{6} \delta^2_\xi \delta^H_\xi u_i
+%\eeq
+%The difference with (\ref{eq:75.10}) 
+%is that (\ref{eq:73.10}) involves values of $u$ along 
+%the full on $\bar{C}$ and not only the two neighboor values 
+%at $i\pm 1$.
+%Solving (\ref{eq:73.10}) provides $\delta^H u_i$.
+%This values satisfies the fourth-order consistency relation
+%\beq
+%\label{eq:34.18}
+%\delta^H_\xi u_i=
+%\partial_\xi u(\bar{\bs})+ O(\Delta \xi^4)
+%\eeq
+%Proceeding in the same way along the $\eta-$ direction gives 
+%the approximation
+%\beq
+%\label{eq:34.19}
+%\delta^H_\eta u^\prime_j=
+%\partial_\eta u(\bar{\bs})+ O(\Delta \xi^4)
+%\eeq
+%The Hermitian approximate gradient at the point $\bar{\bs}$ 
+%is therefore:
+%\beq
+%\label{eq:87.2}
+%\nabla^H_{T,h} u(\bar{\bs})=
+%\left(\delta^H_\xi u_i\right)
+%g^\xi(\bar{\bs})
+%+
+%\left(\delta^H_\eta u^\prime_j\right)
+%g^\eta(\bar{\bs})
+%\eeq
+%It results from (\ref{eq:34.18}-\ref{eq:34.19}) that
+%$\nabla^H_{T,h} u(\bar{\bs})$ satisfies the fourth order
+%consistency relation
+%\beq
+%\label{eq:87.4}
+%\nabla^H_{T,h} u(\bar{\bs})=\nabla_{T} u(\bar{\bs})+O(\Delta \xi^4)+O(\Delta \eta^4).
+%\eeq
+%The Hermitian approximation (\ref{eq:87.4}) is the basis of our approximate gradient on the Cubed-Sphere.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Approximate gradient on the Cubed-Sphere}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%The Cubed Sphere is a grid of the sphere. This grid and variants were introduced by
+%various authors. A systematic
+%presentation was given in
+%\cite{Ronchi-Iacono-Paolucci}.
+%This grid has been widely used for numerical climatology.
+%The Cubed-Sphere is composed of six panels with
+%label $(k)=(I), (II), (II), (IV), (V)$ and $(VI)$. Each panel matches
+%the face of the cube, in which the sphere
+%is embedded. Each panel
+%supports a Cartesian grid of size $N\times N$.
+%It is equipped with a 
+%coordinate system $(\xi,\eta)$.
+%As in the preceding section,
+%$\xi$ and $\eta$ are angles along a couple of orthogonal great circles
+%intersecting at the center of the panel.
+%A typical panel and the associated grid is represented
+%on Fig. \ref{fig:1}.
+%The  grid points are called $\bs_{i,j}^{(k)}$ with $ (I) \leq (k) \leq (VI)$ and
+%$ -N/2 \leq i,j \leq N/2$. 
+%In panel $(k)$ and for all fixed $j$, the points  $ i \mapsto \bs_{i,j}$ are 
+%located along a great circle. This essential property of the Cubed-Sphere
+%permits to follow the idea presented in Section \ref{sec:2.1}: 
+%the calculation of an approximate gradient at $\bs^{(k)}_{i,j}$
+%by mean of Hermitian derivatives.
+%The approximate gradient
+%$\nabla_{T,h} u^{(k)}_{i,j}$ is given by
+%\beq
+%\label{eq:85.13}
+%\nabla_{T,h} u^{(k)}_{i,j}=
+%u_{\xi,i,j}^{(k)} \bg^{\xi, (k)}_{i,j} 
+%+
+%u_{\eta,i,j}^{(k)} \bg^{\eta, (k)}_{i,j} 
+%\eeq
+%As in the preceding section, the values $ u_{\xi,i,j}^{(k)}$ and $u_{\eta,i,j}^{(k)}$
+%are Hermitian approximation of the partial derivatives $\partial_\xi u(\bs^{(k)}_{i,j})$ and
+%$\partial_\eta u(\bs^{(k)}_{i,j})$. The calculation of 
+%these Hermitian derivatives are
+%based on a set of data located along two great circles called $\bar{C}_{i,j}$ and $\bar{C}^\prime_{i,j}$.
+%The data alomg $\bar{C}_{i,j}$ and $\bar{C}^\prime_{i,j}$
+%are of course based on specific points of the Cubed-Sphere.
+%The choice of these points is detailed in \cite{Croisille-10, Croisille-12}
+%and we refer to these two references for more details.
+%Even if no mathematical proof is avauilable yet, 
+%numerical evidence show a consistency close to $4$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{figure}
+%   \def\svgwidth{0.4 \textwidth}
+%\input{drawing13.pdf}
+%\caption{The points of a typical panel of the Cubed-Sphere are classified in three categories:
+%(i) Circles correspond to {\sl internal} points; (ii) Squares correspond to {\sl edge} points ;
+%(iii) Pentagons correspond to {\sl corner} points}
+%\label{fig:1}
+%\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Centered compact scheme with artificial dissipation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Tenth order hyperviscosity}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Two vortex test-cases}
+%We consider the linear advection equation
+%on the sphere:
+%\beq
+%\label{eq:34.10}
+%\partial_t \phi(\bx,t) + \c(\bx,t).\nabla_T \phi(\bx,t)=0
+%\eeq
+%In (\ref{eq:34.10}), $(\bx,t) \mapsto \bc(\bc,t)$ is the velocity.
+%The simplest equation of this kind is the solid body 
+%rotation problem, \cite{Williamson}. Numerical results 
+%with the scheme (\ref{})
+%have been shown in 
+%\cite{Croisille-10}. 
+%Here we consider two more challenging test cases
+%corresponding to the propagation of a vortex
+%which involves a roll-up effect, and which is much difficult
+%to simulate than a simple transport.
+%The setup of these two cases have
+%been given in \cite{Nair-Machenhauer, Nair-Jablonowski}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Deformational stationary spherical vortex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\label{sec:4.1}
+%In this case, two vortices located
+%on opposite points of the sphere are considered.
+%These points are called $P$ (for North) and $P^\prime$ (for South).
+%The point $P$ has coordinates $(\lambda_P,\theta_P)$ in the reference
+%longitude-latitude coodinates.
+%The evolution of the two vortices is static and consists in a roll-up
+%which let appear finer and finer structure as time evolves.
+%The solution is given by
+%\begin{equation}
+%%\label{eq:45.19}
+%\phi ( \lambda' , \theta', t ) 
+%= 
+%1 - \tanh \left[ \dfrac{\rho}{\gamma} \sin ( \lambda' - \omega_r t ) \right]
+%\label{NM_exacte}
+%\end{equation}
+%In (\ref{NM_exacte}) the longitude-latitude coordinate system 
+%$(\lambda^\prime,\theta^\prime)$ is associated to 
+%the axis $P  P^\prime$.
+%The function $\phi$ is regular and postitive. The constant $\gamma$
+%determines the stenght of the gradient of $\phi$. The value of $\rho_0$ 
+%is a reference distance to the center of the vortex.
+%We denote $T$ the total time of observation and $v_0 = 2 \pi R / T$ ($R$=radius)
+%a reference velocity. The value of the velocity in (\ref{eq:34.10}) is given by
+%\begin{equation}
+%V = v_0 \dfrac{3 \sqrt{3} }{2} sech^2 ( \rho ) tanh ( \rho )
+%\end{equation} 
+%In (\ref{NM_exacte}) the value of the angular velocity $\omega_r$ 
+%is expressed in terms of $V$ by:
+%\begin{equation}
+%   \omega_r ( \theta' ) = \left\{ 
+%   \begin{array}{ll}
+%      V/( R \rho ) & \text{ if } \rho \neq 0 \\
+%      0 & \text{ else }
+%   \end{array}
+%   \right.
+%\label{vitesse_angulaire}
+%\end{equation}
+%The advection velocity $\bc(\bx,t)$ is now given by its coordinates
+%$c_\lambda, c_\theta$ by
+%\begin{equation}
+%c_{\lambda, r} = R \omega_r ( \theta' ) \left[ \sin \theta_p \cos \theta - \cos \theta_p \cos ( \lambda - \lambda_p ) \sin \theta \right]
+%\label{vitesse_lambda_mach}
+%\end{equation}
+%\begin{equation}
+%c_{\theta, r} = R \omega_r ( \theta' ) \left[ \cos \theta_p \sin ( \lambda - \lambda_p ) \right]
+%\label{vitesse_theta_mach}
+%\end{equation}
+%
+%
+%%L'idée de ce test est de former deux tourbillons diamétralements opposés à des positions données sur la surface de la sphère, il s'agit donc d'un test de déformation sans déplacement. Ce dernier est proposé dans un article de Nair R. et al. en 2001 \cite{Nair2001} et ainsi qu'un second \cite{Nair1999}.
+%%La solution exacte est donnée directement sur la surface de la sphère :
+%
+%%où $( \lambda' , \theta' )$ correspond au système latitude longitude autour de l'axe $(N'S')$ et $t>0$ est la variable de temps. 
+%
+%%Cette fonction $\psi$ est strictement positive et infiniement dérivable. $\gamma$ est une constante fixée déterminant la raideur de la solution (nous avons choisit $\gamma = 5$). De plus $\rho = \rho_0 \cos ( \theta' )$ avec $\rho_0$ une constante choisie égale à $3$.
+%
+%%Si $v_0 = 2 \pi R / T$ o
+%
+%%ù $T$ est le temps total (ici $12$ jours) on peut définir la vitesse tangentielle mise à l'échelle :
+%
+%%\begin{equation}
+%%V = v_0 \dfrac{3 \sqrt{3} }{2} sech^2 ( \rho ) tanh ( \rho )
+%%\end{equation} 
+%
+%%Cependant, dans ce cas, la vitesse angulaire varie avec la distance la séparant du centre du vortex. $\omega_r$ est donné par la formule suivante :
+%
+%
+%%Cette solution exacte au problème permet aussi de donner la condition initiale. De plus, pour que le problème soit complètement posé, on doit fixer $\mathbf{c} = ( c_{\lambda, r} , c_{\theta, r})^T$ dans la base $(\lambda, \theta)$ : 
+%
+%%\begin{equation}
+%%c_{\lambda, r} = R \omega_r ( \theta' ) \left[ \sin \theta_p \cos \theta - \cos \theta_p \cos ( \lambda - \lambda_p ) \sin \theta \right]
+%%\label{vitesse_lambda_mach}
+%%\end{equation}
+%%\begin{equation}
+%%c_{\theta, r} = R \omega_r ( \theta' ) \left[ \cos \theta_p \sin ( \lambda - \lambda_p ) \right]
+%%\label{vitesse_theta_mach}
+%%\end{equation}
+%
+%%$P = ( \lambda_P, \theta_P)$ étant la position de l'un des tourbillons. On remarque que dans ce test, les vitesses de $\mathbf{c}$ données par \eqref{vitesse_lambda_mach} et \eqref{vitesse_theta_mach}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Deformational moving spherical vortex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%In \cite{Nair-Jablonowski} a modification of the stationary vortex problem of
+%Section \ref{sec:4.1} was suggested. It combines 
+%both the deformational roll-up effect 
+%with the solid body rotation.
+%This test case is more relevant from the phenomenological point of view. 
+%At the nuemrical level, the interest 
+%is that the analytical solution is still available. 
+%The advection velocity $\bc(\bx,t)$ in (\ref{eq:34.10}) is
+%obtained as the sum
+%\beq
+%\bc=\bc_s +\bc_r
+%\eeq
+%where $\bc_s$ is a solid rotation vlocity and 
+%$\bc_r$ is a static vlocity.
+%The solid velocity is given by
+%\begin{equation}
+%c_{\lambda, r} = R \omega_s \left( \sin \theta_p \cos \theta - \cos \theta_p \cos ( \lambda - \lambda_p ) \sin \theta \right)
+%\label{vitesse_lambda_bump}
+%\end{equation}
+%\begin{equation}
+%c_{\theta, r} = - R \omega_s \cos \theta_p \sin ( \lambda - \lambda_p )
+%\label{vitesse_theta_bump}
+%\end{equation}
+%where
+%
+%$\omega_s = v_0 / R = 2 \pi / T $ and $( \lambda_p, \theta_p$ )  
+%is the coordinates of the point $P$.
+%
+%
+%%est la position de $P$ un point de la sphère tel que $(OP)$ définisse un axe autour duquel doit tourner la condition initiale.
+%
+%%L'objectif ici est de faire tourner autour de la sphère un vortex similaire à celui de \ref{Nair2001}.
+%
+%%combine à la fois le test de déformation de Nair R. D. et Machenhauer B. \cite{Nair2001} évoqué ci-dessus et celui du corps solide en rotation présent dans \cite{Nair1999} ou dans \cite{Williamson1994}. De plus, ce test a déjà été présenté dans un article précédent \cite{Croisille2013}. 
+%
+%%Le test construit par Nair R. D. et Jablonowski C. dans 
+%
+%
+%
+%%L'idée du test du corps solide en rotation est de déplacer sans déformer une fonction autour de la sphère. Dans ce cas, on a $\mathbf{c} = \left( c_{\lambda, s}, c_{\theta, s} \right)^T$ donné par :
+%
+%%\begin{equation}
+%%c_{\lambda, r} = R \omega_s \left( \sin \theta_p \cos \theta - \cos \theta_p \cos ( \lambda - \lambda_p ) \sin \theta \right)
+%%\label{vitesse_lambda_bump}
+%%\end{equation}
+%%\begin{equation}
+%%c_{\theta, r} = - R \omega_s \cos \theta_p \sin ( \lambda - \lambda_p )
+%%\label{vitesse_theta_bump}
+%%\end{equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Periodic Hermitian derivative}
+%\label{sec:7.3}
+%In the sequel we make intensive use
+%of the so-called {\sl three point} Hermitian derivative.
+%For data $u_j$ located on the grid  $x_j=j \Delta x$,
+%the approximation $u_{x,j}\simeq u^\prime(x_j)$ is implicitely defined
+%by the relation
+%\beq
+%\label{eq:832.19}
+%\frac{1}{6}u_{x,j-1}+\frac{2}{3}u_{x,j}+\frac{1}{6}u_{x,j+1}=\frac{u_{j+1}-u_{j-1}}{2h}, \;\;\; j \in \Bbb Z.
+%\eeq
+%This approximation is fourth-order accurate and has a small truncation error: the leading term is given by
+%\beq
+%\label{eq:83.21}
+%u_{t,j} = u^{\prime}(t_{j})-\frac{h^{4}}{180}u^{(5)}(t_{j})+O(h^{6}),
+%\;\;  0 \leq j \leq N-1.
+%\eeq
+%Compact approximations of this kind were 
+%introduced earlier \cite{Collatz, Lele}. 
+%Typical applications include wave propagation \cite{Tam-Webb, Gaitonde-Shang-Young,Harari-Turkel} and incompressible
+%flow simulations \cite{BenArtzi-Croisille-Fishelov-4, Bruger-Gustafsson-Lotstedt-Nilsson}.
+%
+%Here we use the approximate derivative (\ref{eq:832.19}) in the following context: 
+%suppose given a great circle $C^{(2)}_j$ (see Section \ref{sec:2.11}) with
+%curvilinear abscissa  $\alpha \in [0, 2 \pi[$. Let
+%$\alpha_i$ be a periodic grid on $C^{(2)}_j$, with $ 0 \leq i \leq 4N$,
+%(the size is $4N$, only to conform with the notation in the Section \ref{sec:2.2}).
+%The value $\alpha_i$ is defined by $\alpha_i=\varphi(t_i)$, where
+%$t \in [0,1]\mapsto \varphi(t)$, an increasing function (the parameter $t$ stands for a dummy argument).
+%The grid $t_i$ is regular with $t_i=i \Delta t$, $ 0 \leq i \leq 4 N$. 
+%Using the chain rule:
+%\begin{equation}
+%u^{\prime}(\varphi(t))=\frac{(u\circ\varphi)^{\prime}(t)}{\varphi^{\prime}(t)}, \quad 0<t<1.
+%\label{eq:34.67}
+%\end{equation}
+%Therefore the fourth-order approximation of
+%$u^\prime(\alpha_i)$ is 
+%\begin{equation}
+%u^\prime(\alpha_i) \simeq {u}_{\alpha,i}=\frac{(u\circ \varphi)_{t,i}}{\varphi_{t,i}},\;\; 1\leq i\leq 4N,
+%\label{eq:12.87}
+%\end{equation}
+%where $(u\circ \varphi)_{t,i}$ and $\varphi_{t,i}$ stand for the Hermitian derivatives (\ref{eq:832.19})
+%at point $t_i$ of $t \mapsto u\circ \varphi(t)$ and of $ t \mapsto \varphi(t)$, respectively.
+%Moving towards the practical calculation,
+%we consider the periodic matrices $P,K \in \Bbb M_{4N}(\Bbb R)$, 
+%\begin{equation}
+%\label{eq:55.12}
+%P=
+%\left[\begin{array}{ccccc}
+%4&1&0&\dots&1\\
+%1&4&1&\dots&0\\
+%\vdots&\vdots&\vdots&\dots&\vdots\\
+%0&\dots&1&4&1\\
+%1&\dots&0&1&4
+%\end{array}\right]
+%\eeq
+%and
+%\beq
+%\label{(4.19)}
+%K=\left[\begin{array}{ccccc}
+%0&1&0&\dots&-1\\
+%-1&0&1&\dots&0\\
+%\vdots&\vdots&\vdots&\dots&\vdots\\
+%0&\dots&-1&0&1\\
+%1&\dots&0&-1&0
+%\end{array}\right].
+%\eeq
+%
+%Let $[\bu],[\bx] \in \Bbb R^{N}$ be the vector data
+%corresponding to $(u_i)_{1 \leq i\leq 4N}$ and  $(x_i)_{1 \leq i\leq 4N}$, respectively.
+%Then the vectors $[\bu_x], [\bx_t] \in \Bbb R^{N}$ are solutions of the two linear systems
+%\beq
+%P [\bu_t]= 3K [\bu],\;\;\; P [\bx_t]= 3K [\bx]. 
+%\label{eq:87.21}
+%\eeq
+%The components of the vector
+%$[u_{\alpha}] \in \Bbb R^{4N}$ in (\ref{eq:12.87}) are given by
+%\beq
+%\label{eq:11.54}
+%\bar u_{\alpha,i}= \frac{u_{t,i}}{x_{t,i}}, \;\;\; 0 \leq i\leq 4N,\;\;\;
+%\bar u_{\alpha,i}=u^\prime(\alpha_i)+O(h^4).
+%\eeq
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Numerical results}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%\begin{figure}[H]
+%\includegraphics[scale=0.3]{04-Nov-2015ref_7362724687_snapshot_test_2_nday_0.png}
+%\includegraphics[scale=0.3]{04-Nov-2015ref_7362724281_snapshot_test_2_nday_3.png}
+%
+%\includegraphics[scale=0.3]{04-Nov-2015ref_7362724321_snapshot_test_2_nday_6.png}
+%\includegraphics[scale=0.3]{04-Nov-2015ref_736272438_snapshot_test_2_nday_9.png}
+%
+%\includegraphics[scale=0.3]{04-Nov-2015ref_7362724445_snapshot_test_2_nday_12.png}
+%\caption{Projection de la solution approchée au bout de 0, 3, 6, 9 et 12 jours pour le test de Nair et Jablonowski \cite{Nair-Jablonowski}. $N=31$; $CFL = 0.7$; $\alpha = 3 \pi / 4$}
+%\label{SNAPSHOT}
+%\end{figure}
+%
+%
+%
+%\begin{figure}[H]
+%\includegraphics[scale=0.3]{05-Nov-2015ref_7362736695_normerreur_test_2.png}
+%\includegraphics[scale=0.3]{05-Nov-2015ref_7362737739_normerreur_test_2.png}
+%\label{erreur_cfl=0.05}
+%\caption{courbe d'erreur $N=35$; $cfl=0.05$; $\alpha = \pi / 4$ (gauche) et $\alpha = 0$ (droite) pour le test de Nair et Jablonowski \cite{Nair-Jablonowski}}
+%\end{figure}
+%
+%
+%
+%\begin{figure}[H]
+%\includegraphics[scale=0.3]{09-Nov-2015ref_7362776620_normerreur_test_2.png}
+%\includegraphics[scale=0.3]{06-Nov-2015ref_7362745425_normerreur_test_2.png}
+%\label{erreur_cfl=0.5}
+%\caption{courbe d'erreur $N=35$; $cfl=0.5$; $\alpha = \pi / 4$ (gauche) et $\alpha = 0$ (droite) pour le test de Nair et Jablonowski \cite{Nair-Jablonowski}}
+%\end{figure}
+%
+%
+%
+%\begin{figure}
+%\begin{tabular}{c||cc|cc|cc}
+%$N$ & $max_n |e_1^n|$ & ordre  & $max_n |e_2^n|$ & ordre  & $max_n |e_{\infty}^n|$ & ordre \\
+%\hline
+%\hline
+%$40$ & $2.7609 (-3)$ & -  & $9.7386 (-3)$ & - & $5.4808 (-2)$  & - \\
+%\hline 
+%$50$ & $1.276 (-3)$ & $3.5364$ & $5.0160 (-3)$ & $3.0399$ & $3.2035 (-2)$ & $2.4605$ \\
+%\hline
+%$60$ & $6.2957 (-4)$ & $3.9456$ & $2.6157 (-3)$ & $3.6365$ & $1.8218 (-2)$ & $3.1523$ \\
+%\hline
+%$80$ & $1.9603 (-4) $ & $4.1145$ & $8.3722 (-4)$ & $4.0173$ & $6.0931 (-3)$ & $3.8623$ \\
+%\hline
+%$100$ & $8.0399 (-5)$ & $4.0389$ & $3.4524 (-4)$ & $4.0143$ & $2.6514 (-3)$ & $3.7706$\\
+%\hline
+%$150$ & $1.5656 (-5)$ & $4.0684$ & $6.9199 (-5)$ & $3.9966$ & $5.8082 (-4)$ & $3.7756$
+%\end{tabular}
+%\caption{Analyse de convergence de Nair et Jablonowski \cite{Nair-Jablonowski} ; $cfl = 0.7$ ; $\alpha = \pi /4$}
+%\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Test sur les harmoniques sphériques}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\bibliographystyle{plain}
+%\bibliography{../BIB/bibox_4apr11_no_issue}
+\end{document}
