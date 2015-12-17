@@ -23,6 +23,11 @@ global ftr;
 global opt_ftr;
 
 
+% unzip('http://math.boisestate.edu/~wright/montestigliano/rbfsphere.zip');
+% addpath(fullfile(cd,'rbfsphere'),fullfile(cd,'rbfsphere/rbfqr'));
+% addpath(fullfile(cd,'rbfsphere/kdtree'),fullfile(cd,'rbfsphere/data'));
+% savepath
+
 %% global mm na nb;
 mm=((nn-1)/2)+1;
 na=4*(nn-1);

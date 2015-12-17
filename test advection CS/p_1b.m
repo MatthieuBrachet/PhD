@@ -25,52 +25,57 @@ global lambdac1 tetac1 lambdac2 tetac2
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 1;
+coef = 2;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 1;
+save_graph = 0;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
 opt_ftr = 10;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
-snapshot = 0;
+snapshot = 1;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 2
 %         1 : coupe.
 coupe = 0;
+% sauvegarde = 1 : sauvegarde toutes les données
+%            = 0 : ne les sauvegarde pas (utiliser load('namefile') pour
+%            recharger les données).
+sauvegarde = 0;
 %% *** Benchmarks data ****************************************************
- n=35;
+ n=31;
  nn=n+2;
- cfl=0.05;
- ndaymax=12;
+ cfl=0.9;
+ ndaymax=6;
+ err=0.8;
 %% ************************************************************************
  if coef == 0
- % test de Williamson
+ %% test de Williamson
  alphad=0;  
  lambdac=0;                                                           % longitude BUMP
  tetac=3*pi/2;                                                                  % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;
  elseif coef == 1
- % test de Nair et Machenhauer
- lambda_p=0;                                                            % position du pole nord, i.e. position du vortex nord
- teta_p=0;
+ %% test de Nair et Machenhauer
+ lambda_p=pi/4;                                                            % position du pole nord, i.e. position du vortex nord
+ teta_p=-pi/4;
  rho0=3;
  gamma=5;
  elseif coef == 2
- % test de Nair et Jablonowski
- alphad=pi/4; 
- lambda0 = 3*pi/2;
+ %% test de Nair et Jablonowski
+ alphad=3*pi/4; 
+ lambda0 = pi/2;
  teta0 = 0;
  lambda_p=pi;                                                              % position du pole nord à t=0, i.e. position du vortex nord à t=0
  teta_p=pi/2 - alphad;
  rho0=3;
  gamma=5;
  elseif coef == 3
- % test de Nair, Lauritzen
+ %% test de Nair et Lauritzen
  alphad=3*pi/4;                                                                 % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;
@@ -142,11 +147,9 @@ kk0_VI=zeros(nn,nn);kk1_VI=zeros(nn,nn);kk2_VI=zeros(nn,nn);kk3_VI=zeros(nn,nn);
 time=tinit;
 
 if film==1
-    figure, set(gcf, 'Color','white')
-    set(gca, 'nextplot','replacechildren', 'Visible','off');
-    %% film data
-    nFrames = 20; % frame per second
-    aviobj = avifile(['./video/' date 'CSapprox_test' num2str(coef) '.avi'], 'fps',10);
+    nFrames = itemax;
+    mov(1:nFrames) = struct('cdata', [],'colormap', []);
+    set(gca,'nextplot','replacechildren');
 end
 
 
@@ -357,24 +360,38 @@ ermin(ite)=min(min([funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,
 %% Figure pour film
 if film==1
     figure(100);
-    title('solution exacte')
-    plot_cs5(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
- 
-    aviobj = addframe(aviobj, getframe(gca));
+    title(['days : ', num2str(xdays(ite))])
+    %plot_cs11(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
+    plot_cs12(n,nn,funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,funfV-funfVe,funfVI-funfVIe,err);
+    
+    mov(ite) = getframe(gcf);
 end
 
 end
+ref=floor(10000*now);
 if film == 1
-    close(gcf)
-    aviobj = close(aviobj);
+    mkdir(['./video-' date ])
+    movie2avi(mov, ['./video-' date '/ref_' num2str(ref) '_test_' num2str(coef) '.avi'], 'compression', 'None');
+    
+    fid = fopen('AA_VIDEO_SAVE.txt','a');
+    fprintf(fid,'%s\n',['date : ', date]);
+    fprintf(fid,'%s\n',['ref. : ', num2str(ref)]);
+    fprintf(fid,'%s\n','***********************************');
+    fprintf(fid,'%s\n',['test : ', num2str(coef)]);
+    fprintf(fid,'%s\n','---------- numerical data ---------');
+    fprintf(fid,'%s\n',['number of points  : ', num2str(n)] );
+    fprintf(fid,'%s\n',['time step         : ', num2str(ddt)] );
+    fprintf(fid,'%s\n',['cfl               : ', num2str(cfl)] );
+    fprintf(fid,'%s\n',['ordre du filtre   : ', num2str(opt_ftr)] );
+    fprintf(fid,'%s\n','-------- mathematical data --------');
+    fprintf(fid,'%s\n',['ndaymax           : ', num2str(ndaymax)] );
+    fprintf(fid,'%s\n',['angle in degree   : ', num2str(alphad*180/pi)] );
+    fprintf(fid,'%s\n',['(lambdap,thetap)  : (', num2str(lambda_p*180/pi),',',num2str(teta_p*180/pi),')']);
+    fprintf(fid,'%s\n','***********************************');
+    fprintf(fid,'%s\n','  ');
+    fprintf(fid,'%s\n','  ');
+    fclose(fid);
 end
-
-
-
-
-
-
-
 
 %% solution au temps final
 
@@ -410,76 +427,79 @@ end
     nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
 
 time_res=cputime-tstart;
-ref=floor(10000*now);
 %% graphiques
+
+if sauvegarde == 1
+    mkdir(['./results-' date ])
+    save(['./results-' date '/ref_' num2str(ref) '_erreurdata_test_' num2str(coef) '.mat'],'funfI','funfII','funfIII','funfIV','funfV','funfVI','er1','er2','erinfty')
+end
 
 if snapshot == 1
     figure(11)
-    plot_cs7(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
-    grid minor
-    if save_graph==1
-        print('-dpng', ['./results/' date 'ref_' num2str(ref) '_snapshot_test_' num2str(coef) '_nday_' num2str(ndaymax) '.png'])
-    end
+    plot_cs10(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
+    print('-dpng', ['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef) '_nday_' num2str(ndaymax) '.png'])
+    savefig(['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef)]);
 end
 
 figure(35);
-plot_cs5(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe);colorbar;
-title('solution exacte')
+plot_cs11(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe);
+title('exact solution')
 if save_graph==1
-    print('-dpng', ['./results/' date 'ref_' num2str(ref) '_solexacte_test_' num2str(coef) '.png'])
+    print('-dpng', ['./results-' date '/ref_' num2str(ref) '_solexacte_test_' num2str(coef) '.png'])
+    savefig(['./results-' date '/ref_' num2str(ref) '_solexacte_test_' num2str(coef)]);
 end
  
 figure(37);
-plot_cs5(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);colorbar;
-title('solution approchee - RK4')
+plot_cs11(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
+title('approximate solution - RK4')
 if save_graph==1
-    print('-dpng', ['./results/' date 'ref_' num2str(ref) '_solapprochee_test_' num2str(coef) '.png'])
+    print('-dpng', ['./results-' date '/ref_' num2str(ref) '_solapprochee_test_' num2str(coef) '.png'])
+    savefig(['./results-' date '/ref_' num2str(ref) '_solapprochee_test_' num2str(coef)]);
 end
 
 figure(39);
-plot_cs5(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI);colorbar;
-title('erreur algébrique - RK4')
+plot_cs11(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI);colorbar;
+title('relative error - RK4')
 if save_graph==1
-    print('-dpng', ['./results/' date 'ref_' num2str(ref) '_erreur_test_' num2str(coef) '.png'])
+    print('-dpng', ['./results-' date '/ref_' num2str(ref) '_erreur_test_' num2str(coef) '.png'])
+    savefig(['./results-' date '/ref_' num2str(ref) '_erreur_test_' num2str(coef)]);
 end
   
 figure(1);
 plot(xdays,er1,'k-');hold on;grid;
 plot(xdays,er2,'k--');hold on;
-plot(xdays,erinfty,'k.');
-legend('norme 1','norme 2','norme infinie')
-title('erreur globale - RK4')
+plot(xdays,erinfty,'k.-');
+legend('norm 1','norm 2','norm infinity')
+title('relative error - RK4')
 if save_graph==1
-    print('-dpng', ['./results/' date 'ref_' num2str(ref) '_normerreur_test_' num2str(coef) '.png'])
+    print('-dpng', ['./results-' date '/ref_' num2str(ref) '_normerreur_test_' num2str(coef) '.png'])
+    savefig(['./results-' date '/ref_' num2str(ref) '_normerreur_test_' num2str(coef)]);
 end
 
-format shortE
-disp('erreur relative L2 / L1 / L_infty: ')
-[max(er2) max(er1) max(erinfty)] 
 
 if save_graph==1
-    fid = fopen('./results/TEST_SAVE.txt','a');
-    fprintf(fid,'%s\n',['date : ', date]);
-    fprintf(fid,'%s\n',['date : ', num2str(ref)]);
-    fprintf(fid,'%s\n','***********************************');
-    fprintf(fid,'%s\n',['test : ', num2str(coef)]);
-    fprintf(fid,'%s\n','---------- numerical data ---------');
-    fprintf(fid,'%s\n',['number of points  : ', num2str(n)] );
-    fprintf(fid,'%s\n',['time step         : ', num2str(ddt)] );
-    fprintf(fid,'%s\n',['cfl               : ', num2str(cfl)] );
-    fprintf(fid,'%s\n',['ordre du filtre   : ', num2str(opt_ftr)] );
-    fprintf(fid,'%s\n','-------- mathematical data --------');
-    fprintf(fid,'%s\n',['ndaymax           : ', num2str(ndaymax)] );
-    fprintf(fid,'%s\n',['angle in degree   : ', num2str(alphad*180/pi)] );
-    fprintf(fid,'%s\n',['(lambdap,thetap)  : (', num2str(lambda_p*180/pi),',',num2str(teta_p*180/pi),')']);
-    fprintf(fid,'%s\n','***********************************');
-    fprintf(fid,'%s\n',['max(er_1)         : ', num2str(max(er1))] );
-    fprintf(fid,'%s\n',['max(er_2)         : ', num2str(max(er2))] );
-    fprintf(fid,'%s\n',['max(er_infty)     : ', num2str(max(erinfty))] );
-    fprintf(fid,'%s\n','***********************************');
-    fprintf(fid,'%s\n','  ');
-    fprintf(fid,'%s\n','  ');
-    fclose(fid);
+    data = fopen('AAA_RESULTS_SAVE.txt','a');
+    fprintf(data,'%s\n',['date : ', date]);
+    fprintf(data,'%s\n',['ref. : ', num2str(ref)]);
+    fprintf(data,'%s\n','***********************************');
+    fprintf(data,'%s\n',['test : ', num2str(coef)]);
+    fprintf(data,'%s\n','---------- numerical data ---------');
+    fprintf(data,'%s\n',['number of points  : ', num2str(n)] );
+    fprintf(data,'%s\n',['time step         : ', num2str(ddt)] );
+    fprintf(data,'%s\n',['cfl               : ', num2str(cfl)] );
+    fprintf(data,'%s\n',['ordre du filtre   : ', num2str(opt_ftr)] );
+    fprintf(data,'%s\n','-------- mathematical data --------');
+    fprintf(data,'%s\n',['ndaymax           : ', num2str(ndaymax)] );
+    fprintf(data,'%s\n',['angle in degree   : ', num2str(alphad*180/pi)] );
+    fprintf(data,'%s\n',['(lambdap,thetap)  : (', num2str(lambda_p*180/pi),',',num2str(teta_p*180/pi),')']);
+    fprintf(data,'%s\n','***********************************');
+    fprintf(data,'%s\n',['max(er_1)         : ', num2str(max(er1))] );
+    fprintf(data,'%s\n',['max(er_2)         : ', num2str(max(er2))] );
+    fprintf(data,'%s\n',['max(er_infty)     : ', num2str(max(erinfty))] );
+    fprintf(data,'%s\n','***********************************');
+    fprintf(data,'%s\n','  ');
+    fprintf(data,'%s\n','  ');
+    fclose(data);
 end
 
 if coupe == 1
@@ -495,10 +515,10 @@ if coupe == 1
     figure(10)
     plot(x,f,'o',xe,fe,'-')
     grid on;
-    legend('solution approchee','solution exacte')
-    xlabel('equateur - face I')
-    title('coupe de la solution le long de l''equateur')
+    legend('approximate soluton','exact solution')
+    xlabel('path W')
     if save_graph==1
-        print('-dpng', ['./results/' date 'ref_' num2str(ref) '_coupefaceI_equateur_test_' num2str(coef) '.png'])
+        print('-dpng', ['./results-' date '/ref_' num2str(ref) '_coupefaceI_equateur_test_' num2str(coef) '.png'])
+        savefig(['./results-' date '/ref_' num2str(ref) '_coupefaceI_test_' num2str(coef)]);
     end
 end

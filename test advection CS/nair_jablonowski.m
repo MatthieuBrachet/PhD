@@ -14,9 +14,6 @@ lambdac_prime=lambda0_prime+ws*t;
 tetac_prime=teta0_prime;
 [lambdatc, tetatc]=unrotated_coord(lambdac_prime,tetac_prime);
 
-%lambdatc=lambda0+ws*t;
-%tetatc=teta0;
-
 %% generation de wr
 
 tetaprime=asin(sin(teta).*sin(tetatc)+cos(teta).*cos(tetatc).*cos(lambda-lambdatc));

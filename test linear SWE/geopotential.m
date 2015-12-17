@@ -20,10 +20,9 @@ nn=size(phi,1);
 for i=1:n
     for j=1:size(phi,2)
         pp=phi(i,j);
-         [ I ] = simpson(@u_geo,0,pp,n_simpson);
-         clc; disp([num2str(i*j), '/', num2str(nn*nn)]);
-%             syms x
-%             I=double(int(u_geo(x),0,pp));
+        % [ I ] = simpson(@u_geo,0,pp,n_simpson);
+            syms x
+            I=double(int(u_geo(x),0,pp));
         gp(i,j)=g*h0-I;
     end
 end

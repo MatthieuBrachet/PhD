@@ -1,0 +1,112 @@
+date : 14-Dec-2015
+ref. : 7363120783
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 36
+angle in degree   : 
+(lambdap,thetap)  : (45,-45)
+***********************************
+  
+  
+date : 14-Dec-2015
+ref. : 7363125091
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 
+(lambdap,thetap)  : (45,-45)
+***********************************
+  
+  
+date : 14-Dec-2015
+ref. : 7363125368
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 
+(lambdap,thetap)  : (45,-45)
+***********************************
+  
+  
+date : 14-Dec-2015
+ref. : 7363125520
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 14-Dec-2015
+ref. : 7363125740
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 14-Dec-2015
+ref. : 7363125893
+***********************************
+test : 3
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 14-Dec-2015
+ref. : 7363126040
+***********************************
+test : 3
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  

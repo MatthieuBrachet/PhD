@@ -29,7 +29,7 @@ na=4*(nn-1);
 nb=na;
 
 %% global radius;
-radius=6.37122d+06; % rayon terrestre
+radius=1;%6.37122d+06; % rayon terrestre
 u0=2*pi*radius/(12*24*3600);
 
 %% global xi eta dxi deta xx yy delta deltab;
