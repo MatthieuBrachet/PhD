@@ -17,6 +17,7 @@
 *.png
 *.fig
 *.mat
+*.zip
 
 
 !./test\ advection\ CS/redaction/Images/*.png
