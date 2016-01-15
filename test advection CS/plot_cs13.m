@@ -1,4 +1,4 @@
-function []=plot_cs10(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe)
+function []=plot_cs13(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe)
 % projection stereographique et tracé des contours.
 global x_fI y_fI z_fI;
 global x_fII y_fII z_fII;
@@ -25,7 +25,7 @@ MIV=min(min(funfIVe));
 MV=min(min(funfVe));
 MVI=min(min(funfVIe));
 MIN=min([MI,MII,MIII,MIV,MV,MVI]);
-v=linspace(MAX,MIN,20);
+v=linspace(MAX,MIN,10);
 dat=(MAX+MIN)/2;
 
 
@@ -71,19 +71,39 @@ umin=min(min([funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe]));
 umax=max(max([funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe]));
 axis([lmin lmax temin temax umin umax]);
 
-contour(lam_Ia*180/pi,the_Ia,funfIea,v);
+M=funfIea;
+Mneg=M.*(M<dat);
+Mpos=M-Mneg;
+contour(lam_Ia*180/pi,the_Ia,Mneg,v,'k--');
+contour(lam_Ia*180/pi,the_Ia,Mpos,v,'k-');
 hold on;axis([lmin lmax temin temax umin umax]);
 
-contour(lam_II*180/pi,the_II,funfIIe,v);
+M=funfIIe;
+Mneg=M.*(M<dat);
+Mpos=M-Mneg;
+contour(lam_II*180/pi,the_II,Mneg,v,'k--');
+contour(lam_II*180/pi,the_II,Mpos,v,'k-');
 hold on;axis([lmin lmax temin temax umin umax]);
 
-contour(lam_III*180/pi,the_III,funfIIIe,v);
+M=funfIIIe;
+Mneg=M.*(M<dat);
+Mpos=M-Mneg;
+contour(lam_III*180/pi,the_III,Mneg,v,'k--');
+contour(lam_III*180/pi,the_III,Mpos,v,'k-');
 hold on;axis([lmin lmax temin temax umin umax]); 
 
-contour(lam_IV*180/pi,the_IV,funfIVe,v);
+M=funfIVe;
+Mneg=M.*(M<dat);
+Mpos=M-Mneg;
+contour(lam_IV*180/pi,the_IV,Mneg,v,'k--');
+contour(lam_IV*180/pi,the_IV,Mpos,v,'k-');
 hold on;axis([lmin lmax temin temax umin umax]);
 
-contour(lam_Ib*180/pi,the_Ib,funfIeb,v);
+M=funfIeb;
+Mneg=M.*(M<dat);
+Mpos=M-Mneg;
+contour(lam_Ib*180/pi,the_Ib,Mneg,v,'k--');
+contour(lam_Ib*180/pi,the_Ib,Mpos,v,'k-');
 hold on;axis([lmin lmax temin temax umin umax]);
 
 %% ************************************************************************
@@ -115,14 +135,23 @@ lam_V_a=lam_V_qI((nn+1)/2:nn,:);
 the_V_a=the_V_qI((nn+1)/2:nn,:);
 funfVa=funfVsI((nn+1)/2:nn,:);
 
-contour(lam_V_a*180/pi,the_V_a*180/pi,funfVa,v);
+
+M=funfVa;
+Mneg=M.*(M<dat);
+Mpos=M-Mneg;
+contour(lam_V_a*180/pi,the_V_a*180/pi,Mneg,v,'k--');
+contour(lam_V_a*180/pi,the_V_a*180/pi,Mpos,v,'k-');
 hold on;axis([lmin lmax temin temax umin umax]);
 
 lam_V_b=lam_V_qI(1:(nn+1)/2,:)+2*pi;
 the_V_b=the_V_qI(1:(nn+1)/2,:);
 funfVb=funfVsI(1:(nn+1)/2,:);
 
-contour(lam_V_b*180/pi,the_V_b*180/pi,funfVb,v);
+M=funfVb;
+Mneg=M.*(M<dat);
+Mpos=M-Mneg;
+contour(lam_V_b*180/pi,the_V_b*180/pi,Mneg,v,'k--');
+contour(lam_V_b*180/pi,the_V_b*180/pi,Mpos,v,'k-');
 hold on;axis([lmin lmax temin temax umin umax]);
 
 
@@ -149,7 +178,11 @@ for j=1:(nn+1)/2,
 end
 lam_V_qIII(1:nn,(nn+1)/2)=lam_V_qIII(1:nn,1);
 
-contour((lam_V_qIII+pi)*180/pi,the_V_qIII*180/pi,funfVsIII,v);
+M=funfVsIII;
+Mneg=M.*(M<dat);
+Mpos=M-Mneg;
+contour((lam_V_qIII+pi)*180/pi,the_V_qIII*180/pi,Mneg,v,'k--');
+contour((lam_V_qIII+pi)*180/pi,the_V_qIII*180/pi,Mpos,v,'k-');
 hold on;axis([lmin lmax temin temax umin umax]);
 
 %%     QUADRANT II DE FACE V
@@ -176,7 +209,12 @@ end
 lam_V_qII(1:nn,(nn+1)/2)=lam_V_qII(1:nn,1);
 funfVsII1=funfVsII((nn+1)/2:-1:1,:)';
 
-contour(lam_V_qII*180/pi,the_V_qII*180/pi,funfVsII1,v);
+M=funfVsII1;
+Mneg=M.*(M<dat);
+Mpos=M-Mneg;
+contour(lam_V_qII*180/pi,the_V_qII*180/pi,Mneg,v,'k--');
+contour(lam_V_qII*180/pi,the_V_qII*180/pi,Mpos,v,'k-');
+%contour(lam_V_qII*180/pi,the_V_qII*180/pi,funfVsII1,v);
 hold on;axis([lmin lmax temin temax umin umax]);
 
 %%     QUADRANT IV DE FACE V
@@ -204,8 +242,12 @@ lam_V_qIV(1:nn,(nn+1)/2)=lam_V_qIV(1:nn,1);
 funfVsIV1=funfVsIV(1:(nn+1)/2,:)';
 lam_V_qIV1=lam_V_qIV+(2*pi)*(lam_V_qIV<0);
 
-
-contour(lam_V_qIV1*180/pi,the_V_qIV*180/pi,funfVsIV1,v);
+M=funfVsIV1;
+Mneg=M.*(M<dat);
+Mpos=M-Mneg;
+contour(lam_V_qIV1*180/pi,the_V_qIV*180/pi,Mneg,v,'k--');
+contour(lam_V_qIV1*180/pi,the_V_qIV*180/pi,Mpos,v,'k-');
+%contour(lam_V_qIV1*180/pi,the_V_qIV*180/pi,funfVsIV1,v);
 hold on;axis([lmin lmax temin temax umin umax]);
 
 %% ************************************************************************
@@ -237,14 +279,24 @@ lam_VI_qI(1:nn,1)=lam_VI_qI(1:nn,(nn+1)/2);
  the_VI_a=the_VI_qI((nn+1)/2:nn,:);
  funfVIa=funfVIsI((nn+1)/2:-1:1,:);
 
- contour(lam_VI_a*180/pi,the_VI_a*180/pi,funfVIa,v);
+M=funfVIa;
+Mneg=M.*(M<dat);
+Mpos=M-Mneg;
+contour(lam_VI_a*180/pi,the_VI_a*180/pi,Mneg,v,'k--');
+contour(lam_VI_a*180/pi,the_VI_a*180/pi,Mpos,v,'k-');
+% contour(lam_VI_a*180/pi,the_VI_a*180/pi,funfVIa,v);
  hold on;axis([lmin lmax temin temax umin umax]);
 
  lam_VI_b=lam_VI_qI(1:(nn+1)/2,:)+2*pi;
  the_VI_b=the_VI_qI(1:(nn+1)/2,:);
  funfVIb=funfVIsI(nn:-1:(nn+1)/2,:);
  
- contour(lam_VI_b*180/pi,the_VI_b*180/pi,funfVIb,v);
+  M=funfVIb;
+Mneg=M.*(M<dat);
+Mpos=M-Mneg;
+contour(lam_VI_b*180/pi,the_VI_b*180/pi,Mneg,v,'k--');
+contour(lam_VI_b*180/pi,the_VI_b*180/pi,Mpos,v,'k-');
+% contour(lam_VI_b*180/pi,the_VI_b*180/pi,funfVIb,v);
  hold on;axis([lmin lmax temin temax umin umax]);
 
 %% QUADRANT III OF FACE VI 
@@ -270,7 +322,12 @@ for j=1:(nn+1)/2,
 end
 lam_VI_qIII(1:nn,(nn+1)/2)=lam_VI_qIII(1:nn,1);
 
-contour((lam_VI_qIII+pi)*180/pi,the_VI_qIII*180/pi,funfVIsIII,v);
+ M=funfVIsIII;
+Mneg=M.*(M<dat);
+Mpos=M-Mneg;
+contour((lam_VI_qIII+pi)*180/pi,the_VI_qIII*180/pi,Mneg,v,'k--');
+contour((lam_VI_qIII+pi)*180/pi,the_VI_qIII*180/pi,Mpos,v,'k-');
+%contour((lam_VI_qIII+pi)*180/pi,the_VI_qIII*180/pi,funfVIsIII,v);
 hold on;axis([lmin lmax temin temax umin umax]);
 
 %%     QUADRANT II DE FACE VI
@@ -297,7 +354,12 @@ end
 lam_VI_qII(1:nn,(nn+1)/2)=lam_VI_qII(1:nn,1);
 funfVIsII1=funfVIsII((nn+1)/2:-1:1,nn:-1:1)';
 
-contour(lam_VI_qII*180/pi,the_VI_qII*180/pi,funfVIsII1,v);
+M=funfVIsII1;
+Mneg=M.*(M<dat);
+Mpos=M-Mneg;
+contour(lam_VI_qII*180/pi,the_VI_qII*180/pi,Mneg,v,'k--');
+contour(lam_VI_qII*180/pi,the_VI_qII*180/pi,Mpos,v,'k-');
+%contour(lam_VI_qII*180/pi,the_VI_qII*180/pi,funfVIsII1,v);
 hold on;axis([lmin lmax temin temax umin umax]);
 
 %%     QUADRANT IV DE FACE VI
@@ -325,7 +387,12 @@ lam_VI_qIV(1:nn,1)=lam_VI_qIV(1:nn,(nn+1)/2);
 funfVIsIV1=funfVIsIV((nn+1)/2:-1:1,1:nn)';
 lam_VI_qIV1=lam_VI_qIV+(2*pi)*(lam_VI_qIV<0);
 
-contour(lam_VI_qIV1*180/pi,the_VI_qIV*180/pi,funfVIsIV1,v);
+M=funfVIsIV1;
+Mneg=M.*(M<dat);
+Mpos=M-Mneg;
+contour(lam_VI_qIV1*180/pi,the_VI_qIV*180/pi,Mneg,v,'k--');
+contour(lam_VI_qIV1*180/pi,the_VI_qIV*180/pi,Mpos,v,'k-');
+%contour(lam_VI_qIV1*180/pi,the_VI_qIV*180/pi,funfVIsIV1,v);
 hold on;axis([lmin lmax temin temax umin umax]);
 view(3);
 

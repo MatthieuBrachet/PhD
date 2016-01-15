@@ -9,6 +9,9 @@ global xi eta
 global alfa beta;
 global betacr;
 global alfa1;
+% tracé de la solution projetée en couleur
+
+
  % axis
  % DESSIN DE TYPE CYLINDRIQUE 
  [lam_I,the_I,rwk]=cart2sph(x_fI,y_fI,z_fI);
