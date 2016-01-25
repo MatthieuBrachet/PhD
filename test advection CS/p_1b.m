@@ -25,19 +25,19 @@ global lambdac1 tetac1 lambdac2 tetac2
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 2;
+coef = 0;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
-film = 0;
+film = 1;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
 save_graph = 0;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
-opt_ftr = 10;
+opt_ftr =10;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
-snapshot = 1;
+snapshot = 0;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 2
 %         1 : coupe.
 coupe = 0;
@@ -46,17 +46,19 @@ coupe = 0;
 %            recharger les données).
 sauvegarde = 0;
 %% *** Benchmarks data ****************************************************
- n=31;
+ n=40;
  nn=n+2;
- cfl=0.9;
- ndaymax=6;
- err=0.8;
+ cfl=0.5;
+ ndaymax=12;
+ err=2;
+ mm=-0;
+ MM=1000;
 %% ************************************************************************
  if coef == 0
  %% test de Williamson
- alphad=0;  
- lambdac=0;                                                           % longitude BUMP
- tetac=3*pi/2;                                                                  % latitude BUMP
+ alphad=3*pi/4;  
+ lambdac=-pi/2;                                                           % longitude BUMP
+ tetac=0;                                                                  % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;
  elseif coef == 1
@@ -361,9 +363,11 @@ ermin(ite)=min(min([funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,
 if film==1
     figure(100);
     title(['days : ', num2str(xdays(ite))])
-    %plot_cs11(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
-    plot_cs12(n,nn,funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,funfV-funfVe,funfVI-funfVIe,err);
-    
+    %plot_cs15(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI,mm,MM);
+    plot_cs11(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
+    %plot_cs14(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI,mm,MM);
+    %*plot_cs12(n,nn,funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,funfV-funfVe,funfVI-funfVIe,err);
+    hold off;
     mov(ite) = getframe(gcf);
 end
 
@@ -436,9 +440,11 @@ end
 
 if snapshot == 1
     figure(11)
-    plot_cs10(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
-    print('-dpng', ['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef) '_nday_' num2str(ndaymax) '.png'])
-    savefig(['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef)]);
+    plot_cs13(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
+    if save_graph==1
+        print('-dpng', ['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef) '_nday_' num2str(ndaymax) '.png'])
+        savefig(['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef)]);
+    end
 end
 
 figure(35);

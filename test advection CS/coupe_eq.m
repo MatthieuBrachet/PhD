@@ -1,7 +1,7 @@
 function [x,f] = coupe_eq(funfI,funfII,funfIII,funfIV)
-global x_fI y_fI z_fI
-[lambda, ~, ~]=cart2sph(x_fI, y_fI, z_fI);
+global x_fIV y_fIV z_fIV
+[lambda, ~, ~]=cart2sph(x_fIV, y_fIV, z_fIV);
 p=floor(size(lambda,1)/2);
-f=funfI(:,p);
+f=funfIV(:,p);
 x=lambda(:,p);
 end

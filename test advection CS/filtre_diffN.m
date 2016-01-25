@@ -40,11 +40,11 @@ sauvegarde = 0;
 %    save_graph = 0 : ne pas enregistrer
 save_graph = 1;
 %% *** Benchmarks data ****************************************************
- Na=80;
- Nb=160;
+ Na=40;
+ Nb=80;
  nn=n+2;
  cfl=0.9;
- ndaymax=24;
+ ndaymax=36;
 %% ************************************************************************
  if coef == 0
  %% test de Williamson
@@ -61,8 +61,8 @@ save_graph = 1;
  gamma=5;
  elseif coef == 2
  %% test de Nair et Jablonowski
- alphad=3*pi/4; 
- lambda0 = pi/2;
+ alphad=pi/4; 
+ lambda0 = 0;
  teta0 = 0;
  lambda_p=pi;                                                              % position du pole nord à t=0, i.e. position du vortex nord à t=0
  teta_p=pi/2 - alphad;

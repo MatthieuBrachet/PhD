@@ -302,3 +302,291 @@ angle in degree   : 135
 ***********************************
   
   
+date : 11-Jan-2016
+ref. : 7363406491
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 0
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 11-Jan-2016
+ref. : 7363406685
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 0
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 11-Jan-2016
+ref. : 7363407233
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 40
+time step         : 3160.9756
+cfl               : 0.5
+ordre du filtre   : 0
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 11-Jan-2016
+ref. : 7363407555
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 0
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 11-Jan-2016
+ref. : 7363408753
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 0
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 12-Jan-2016
+ref. : 7363413724
+***********************************
+test : 3
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 0
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 12-Jan-2016
+ref. : 7363413993
+***********************************
+test : 3
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 0
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 12-Jan-2016
+ref. : 7363414149
+***********************************
+test : 3
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 0
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 12-Jan-2016
+ref. : 7363415029
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 2
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 12-Jan-2016
+ref. : 7363415877
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 0
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 12-Jan-2016
+ref. : 7363416175
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 2
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 12-Jan-2016
+ref. : 7363416484
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 12-Jan-2016
+ref. : 7363416559
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 15
+time step         : 14580
+cfl               : 0.9
+ordre du filtre   : 0
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 12-Jan-2016
+ref. : 7363416881
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 7290
+cfl               : 0.9
+ordre du filtre   : 0
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 13-Jan-2016
+ref. : 7363420007
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 7290
+cfl               : 0.9
+ordre du filtre   : 0
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 13-Jan-2016
+ref. : 7363424787
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 7290
+cfl               : 0.9
+ordre du filtre   : 0
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 13-Jan-2016
+ref. : 7363424896
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 7290
+cfl               : 0.9
+ordre du filtre   : 2
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
+date : 13-Jan-2016
+ref. : 7363425276
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 7290
+cfl               : 0.9
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+  
+  
