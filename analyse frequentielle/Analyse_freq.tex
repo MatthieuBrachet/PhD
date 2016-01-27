@@ -602,7 +602,128 @@ Dans la pratique lorsque $c_p < c$, les différentes longueurs d'onde vont moins
 
 \part{Filtrage des hautes fréquences}
 
-\section{Filtres explicites en espace}
+Les phénomènes de dissipations et de dispersion numérique sont liés à la résolution des hautes fréquences. Soit une fonction $f$ est discrétisée aux points équirépartis du maillage $(x_i)_i$ tels que $x_i = x_0+ih$ avec $h$ une constante positive destinée à être proche de $0$. Cette fonction peut etre dévellopée en série de Fourier mais sa forme discrétisée ne comprend pas toutes les fréquences. EN effet, les fréquences les plus élevée avec $h \xi$ proche de $\pi$ sont mal voir pas représentées par la forme discrétisée. Ces échelles non résolues peuvent mener à des instabilitées numériques, il est important de les traiter.
+
+Une méthode pour traiter ce problème est de filtrer le signal. On souhaite voir disparaitre ces échelles. Dans un cadre idéal, on représenterait sans perte les fréquences suffisament basses et on éliminerait totalement les fréquences trop élevées. Le filtre idéal est donc de multiplier $\widehat{f}$ par une fonction porte valant $1$ sur les basses fréquences et $0$ sur les hautes fréquences. Il s'agit d'un filtre passe-bas. Dans le domaine spatial (par transformée de Fourier = transformée de Fourier inverse), il s'agit d'une convolution par une fonction de type sinus cardinal (FAIRE UN CROQUIS).
+
+Bien entendu, il s'agit la d'un cadre idéal, dans la pratique, il est impossible d'utiliser cette méthode. On va donc garder l'idée et l'adapter de manière à avoir une version exploitable numériquement. La convolution par une fonction dans le cadre spatial revient à chercher la fonction filtrée $\overline{f}_i$ sous forme d'une combinaison de ses voisins. Dans la suite, nous étudierons deux types de filtres : les filtres explicites où $\overline{f}_i$ est une combinaison linéaire de ses voisins, et les filtres implicites où $\overline{f}_i$ est obtenu par résolution d'un système linéaire (dans la même idée que pour les schémas compacts).
+
+\subsection{Filtrage : Notions générales}
+
+D'une manière générale, dans ce travail, les valeurs $\overline{f}_i$ sont données par la résolution du système linéaire suivant :
+
+\begin{equation}
+  \label{filtre general}
+  \sum_{i=-M}^M \alpha_i \overline{f}_{i} = \sum{i=-N}^N a_i f_i
+\end{equation}
+
+En considérant que le filtre est centré (autant de points à gauche qu'à droite de chaque donnée sont pris en compte) et symétriques (Pour tout $i$, on a $a_i = a_{-i}$ et de même $\alpha_i = \alpha_{-i}$).
+
+On passe alors en fréquentiel par transformée de Fourier. On pose $\theta = h \xi$ le nombre d'onde, on obtient alors la relation suivante :
+
+\begin{equation}
+  \label{filtre frequentiel}
+  \widehat{\overline{f}}_i = \mathcal{F} ( \theta ) = \widehat{f}_i
+\end{equation}
+
+avec $\mathcal{F}$ donné par :
+
+$$\mathcal{F} ( \theta ) = \dfrac{a_0 + 2 \sum_{i=1}^N  a_i  cos ( i \theta ) }{\alpha_0 + 2 \sum_{i=1}^M \alpha_i cos ( i \theta )}$$
+
+Le problème est maintenant de déterminer les coefficients $(a_i)_i$ et $(\alpha_i)_i$. Il faut donc trouver des conditions nécessaires.
+
+La première qui semble naturelle est la nécéssité de supprimer les échelles non résolues. Pour cela, on suppose $\mathcal{F}(\pi) = 0$. Ce qui se traduit facilement par :
+
+\begin{equation}
+  \label{eq:cond1}
+  a_0 + 2 \sum_{i=1}^N a_i (-1)^i = 0
+\end{equation}
+
+Une fois cette condtion fixée, il reste à faire en sorte que les basses fréquences soient le moins affectées possible. Pour cela on veut avoir :
+
+\begin{equation}
+  \label{eq:cond2}
+  \forall p < P \hspace{1cm} \dfrac{d^{(p)}}{d \theta^p} \mathcal{F} ( 0 ) = \delta_{0,p} 
+\end{equation}
+
+Où $\delta_{0,p}$ est le symbole de Kronecker. 
+
+\subsection{Filtrage Explicite}
+
+IDEE : tracer la fonction sinus cardinal et les valeurs du filtre sur un même graphe pour différents ordre? Mettre aussi des exemples de filtres (ordre 2 à 10 de redonnet et les expliquer)
+
+On parle de filtre explicite lorsque le calcul de la donnée filtrée $(\overline{f})_i$ ne nécessite pas d'inversion de matrices : le calcul est immédiatement fait par un produit matrice vecteur. On a alors $M=1$ et $\alpha_0 = 1$. Le filtre prend la forme suivante :
+
+\begin{equation}
+  \label{eq:filtre_explicite}
+  \mathcal{F}(\theta) = a_0 + 2 \sum_{i=1}^N a_i cos( i \theta )
+\end{equation}  
+
+Les conditions données par les équations \eqref{eq:cond1} et \eqref{eq:cond2} restent vraies (encore heureux). La condition \eqref{eq:cond1} reste inchangée et la condition \eqref{eq:cond2} se traduit par :
+
+\begin{equation}
+  \label{eq:explicite:cond1a}
+  a_0 + 2 \sum_{i=1}^N a_i = 1
+\end{equation}
+
+qui permet d'assurer la convergence et
+
+\begin{equation}
+  \label{eq:explicite:con1b}
+  \sum_{i=1}^N i^p a_i = 0 \text{ pour } p \in \{ 2, 4, 6, ..., P \}
+\end{equation}
+
+En faisant le bilan, on constate que l'on a $N+1$ inconnues et $\lfloor \frac{P}{2} \rfloor + 2$ équations pour avoir une méthode d'ordre $P+1$. Cela implique que pour avoir une méthode d'ordre 10, il faut prendre en compte 11 points (5 voisins immédiats de chaque coté) car on doit avoir l'égalité :
+
+\begin{equation}
+  \label{eq:explicite:cond}
+  N+1 = \lfloor P/2 \rfloor + 2
+\end{equation}
+  
+\subsection{Filtrage Implicite}
+
+Pour $p=0$, la condition \eqref{eq:cond2} s'écrit facilement :
+
+\begin{equation}
+  \label{eq:implicite:cond2a}
+  a_0 + 2 \sum_{i=1}^N a_i = \alpha_0 + 2 \sum_{j=1}^M \alpha_j
+\end{equation}
+
+Dans la suite, nous supposons que cette condition est vraie.
+
+
+Le raisonnement pour traduire la condition \eqref{eq:cond2} est suffisament joli pour etre dévelopée ici. Il s'agit d'un raisonnement par récurrence. Supposons que la condition est vraie au rang $p=0$ (donc \eqref{eq:implicite:cond2a} et montrons comment cela se traduit dans la suite.
+
+Nous supposons que le résultat \eqref{eq:cond2} est vérifié pour tout rang inférieur à $p$ (récurrence forte?) et soient $u$ et $v$ tels que :
+$$\mathcal{F} ( \theta ) = \dfrac{u(\theta)}{v(\theta)}.$$ Alors :
+
+$$u( \theta ) = \mathcal{F}(\theta) v( \theta )$$
+
+En dérivant $p$ fois et en utilisant la formule de Leibnitz, on obtient :
+
+$$u^{(p)} ( \theta ) = \sum_{k=1}^p \left( \begin{array}{c}p \\ k\end{array}  \right) v^{(k)} ( \theta ) \mathcal{F}^{(p-k)} ( \theta ) + v^{(p)} ( \theta ) \mathcal{F}^{(0)} (\theta) $$
+
+En considérant $\theta = 0$, l'hypothèse de récurrence et l'initialisation, on arrive facilement à :
+
+$$u^{ (p) } (0) =  v^{(p)} (0)$$
+
+Soit :
+
+\begin{equation}
+  \label{eq:implicite:cond2b}
+  \sum_{i=1}^N a_i i^p = \sum_{j=1}^M \alpha_j j^p
+\end{equation}
+
+ATTENTION : VERIFIER POUR QUEL p CETTE CONDITION EST VALABLE ET A UN SENS!!!
+
+CALCULER ET DONNER QUELQUES FILTRES POUR M=1 VOIR M=2.
+
+GRAPHES DE FIABILIT\'E DES FILTRES IMPLICITES ET EXPLICITES (SUR UN MEME GRAPHE)
+
+COMPARER AVEC LES FILTRES D'ALPERT SI POSSIBLE SINON FAIRE UNE PARTIE SUR LE FILTRE D'ALPERT.
+
+    
+
 
 \section{Analyse fréquentielle}
 
