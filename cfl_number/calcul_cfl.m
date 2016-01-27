@@ -3,8 +3,8 @@ clc; clear all; close all
 %% scheme we want to test
 c=4;
 space='implicit';
-f=8;
-alpha=0.1;
+f=2;
+delta=0.1;
 filtre='explicit';
 
 %% research of cfl number max
@@ -13,13 +13,13 @@ itermax=1000;
 iter=0;
 
 %% data for cfl research
-teta = 0.:epsi:pi;
+teta = 0:0.001:pi;
 a=0;
 b=5;
 
 while abs(b-a)>epsi && iter < itermax
     lambda=0.5*(a+b);
-    g = ark4cf(lambda,teta,c,space,f,filtre,alpha);
+    g = ark4cf(lambda,teta,c,space,f,filtre,delta);
     h=max(abs(g));
     iter=iter+1;
     if h>1
@@ -31,7 +31,7 @@ end
 cfl=lambda
 iter
 
-g = ark4cf(cfl, teta,c,space,f,filtre,alpha);
+g = ark4cf(cfl, teta,c,space,f,filtre,delta);
 figure(1)
 plot(teta,abs(g))
 grid on
