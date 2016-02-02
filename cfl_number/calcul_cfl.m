@@ -1,11 +1,12 @@
 clc; clear all; close all
 
 %% scheme we want to test
+time='rk1';
 c=4;
 space='implicit';
-f=2;
+f=8;
 delta=0.1;
-filtre='explicit';
+filtre='redonnet';
 
 %% research of cfl number max
 epsi=10^-8;
@@ -19,7 +20,7 @@ b=5;
 
 while abs(b-a)>epsi && iter < itermax
     lambda=0.5*(a+b);
-    g = ark4cf(lambda,teta,c,space,f,filtre,delta);
+    g = atsf(lambda, teta,time,c,space,f,filtre,delta);
     h=max(abs(g));
     iter=iter+1;
     if h>1
@@ -31,7 +32,7 @@ end
 cfl=lambda
 iter
 
-g = ark4cf(cfl, teta,c,space,f,filtre,delta);
+g = atsf(lambda, teta,time,c,space,f,filtre,delta);
 figure(1)
 plot(teta,abs(g))
 grid on

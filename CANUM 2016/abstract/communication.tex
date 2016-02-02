@@ -1,0 +1,135 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%               PRIERE DE NE RIEN MODIFIER CI-DESSOUS                      %
+%       JUSQU'A LA LIGNE "PRIERE DE NE RIEN MODIFIER CI-DESSUS"            %
+%   TOUT LE BLOC QUI SUIT SERA SUPPRIME LORS DE L'EDITION FINALE DU POLY   %
+%   CONTENANT LES RESUMES                                                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[10pt]{article}
+%===  Priere de ne pas utiliser d'autres modules
+\usepackage{latexsym}
+\usepackage{bbm}              % fontes doubles (pour les ensembles, par ex.)
+\usepackage{graphicx}         % pour d'eventuelles figures 
+\usepackage{epsfig}           % (preferer graphicx, si possible)
+\usepackage{amsmath}          % AMSTEX
+\usepackage{amsfonts}
+%
+\setlength{\paperheight}{297mm}\setlength{\paperwidth}{210mm}
+\setlength{\oddsidemargin}{10mm}\setlength{\evensidemargin}{10mm}
+\setlength{\topmargin}{0mm}\setlength{\headheight}{10mm}\setlength{\headsep}{8mm}
+\setlength{\textheight}{240mm}\setlength{\textwidth}{160mm}
+\setlength{\marginparsep}{0mm}\setlength{\marginparwidth}{0mm}
+\setlength{\footskip}{10mm}
+\voffset -13mm\hoffset -10mm\parindent=0cm
+\def\titre#1{\begin{center}{\Large{\bf #1}}\end{center}}
+\def\orateur#1#2{\begin{center}{\underline{\large{\bf #1}}}, {#2}\end{center}}
+\def\auteur#1#2{\begin{center}{\large{\bf #1}}, {#2}\end{center}}
+\def\auteurenbasdepage#1#2#3{\small{\bf #1}, \small{#2}\\ \small{\tt #3}\\ }
+\def\motscles#1{%
+	\ifx#1\IsUndefined\relax\else\noindent{\normalsize{\bf Mots-cl\'es :}} #1\\ \fi}
+\renewcommand{\refname}{\normalsize R\'ef\'erences}
+%
+\begin{document}
+\thispagestyle{empty}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%               PRIERE DE NE RIEN MODIFIER CI-DESSUS                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% DANS TOUTE LA SUITE NOUS PRIONS LES AUTEURS DE BIEN VOULOIR UTILISER
+% LA SYNTAXE TeX STRICTE POUR LES LETTRES ACCENTUEES.
+% ON PEUT AU BESOIN LES REMPLACER APR\'ES LA FRAPPE DU DOCUMENT 
+% PAR LEUR \'EQUIVALENT TeX.
+% DANS LE CAS CONTRAIRE LES LETTRES ACCENTU\'ES N'APPARA\^ITRONT PAS
+% DANS LE DOCUMENT FINAL.
+%
+%                   ORATEUR ET CO-AUTEURS
+%---------------------------------------------------------------
+%
+% LES AUTEURS SONT PRIES DE FOURNIR LES BONS ARGUMENTS AUX MACROS CI-DESSOUS :
+%   \Titre         : Titre de la communication
+%   \NomOrateur    : Pr\'enom(s) NOM de l'Orateur
+%   \AdresseCourteOrateur : Exemple : Universit\'e de Rennes 1
+%   \AdresseLongueOrateur : Exemple : IRMAR, Universit\'e de Rennes 1, 263 avenue du G\'en\'eral Leclerc, 35000 Rennes
+%   \EmailOrateur : Adresse electronique
+%
+% ET DE MEME POUR LES EVENTUELS CO-AUTEURS :
+%   \NomAuteurI ...
+%   \AdresseCourteAuteurI ...
+%---------------------------------------------------------------
+% DEFINIR ICI LE TITRE DE VOTRE COMMUNICATION
+\def\Titre{Titre de la communication}
+%
+% DEFINIR ICI LES NOMS, ADRESSES, ... DE l'ORATEUR OU UNIQUE AUTEUR
+\def\NomOrateur{Pr\'enom NOM}
+\def\AdresseCourteOrateur{Adresse Courte}
+\def\AdresseLongueOrateur{Adresse Longue}
+\def\EmailOrateur{email}
+%
+% DEFINIR ICI LES NOMS, ADRESSES, ... DES EVENTUELS CO-AUTEURS
+\def\NomAuteurI{Pr\'enom NOM}
+\def\AdresseCourteAuteurI{Adresse Courte}
+\def\AdresseLongueAuteurI{Adresse Longue}
+\def\EmailAuteurI{email}
+%=== et ainsi de suite II, III, IV, V ... pour les suivants
+%
+%=== Liste des mots-cles separes par des virgules si besoin
+% N'enlever le signe % que si necessaire
+%\def\listmotcles{mot-cle-1, mot-cle-2, ...}
+%
+%
+%                   DEBUT DE LA COMMUNICATION
+%---------------------------------------------------------------
+% NE PAS MODIFIER LA LIGNE SUIVANTE 
+% Le titre est a definir dans la macro \Titre (23 lignes plus haut)
+\titre{\Titre}% 
+%---------------------------------------------------------------
+% TITRE & AUTEUR(S) 
+% RETIRER LES SIGNES % SI NECESSAIRE ET PLACER DANS L'ORDRE SOUHAITE
+% DANS LES LIGNES SUIVANTES NE MODIFIER QUE LES SIGNES COMMENTAIRES '%'
+% Les noms, adresses, email de l'orateur et des co-auteurs sont a definir
+% dans les macros \NomOrateur, \AdresseCourteOrateur etc. plus haut
+%---------------------------------------------------------------
+\orateur{\NomOrateur}{\AdresseCourteOrateur}
+% NE PAS MODIFIER LES 4 LIGNES SUIVANTES sauf a retirer le signe commentaire '%'
+%\auteur{\NomAuteurI}{\AdresseCourteAuteurI}
+%\auteur{\NomAuteurII}{\AdresseCourteAuteurII}
+%\auteur{\NomAuteurIII}{\AdresseCourteAuteurIII}
+%\auteur{\NomAuteurIV}{\AdresseCourteAuteurIV}
+%
+\motscles{\listmotcles}
+%---------------------------------------------------------------
+% TEXTE DE LA COMMUNICATION
+%---------------------------------------------------------------
+
+Texte de la communication avec ses r\'ef\'erences
+bibliographiques \'even\-tuelles \cite{ref1}\cite{ref2}.\\
+
+%---------------------------------------------------------------
+% REFERENCES BIBLIOGRAPHIQUES
+%---------------------------------------------------------------
+% NE PAS MODIFIER LES 2 LIGNES SUIVANTES
+\bibliographystyle{plain}
+\begin{thebibliography}{99}
+
+\bibitem{ref1} {\sc Auteur}, {\sl Titre}, Editeur, ann\'ee.
+
+\bibitem{ref2} {\sc Auteur}, {\sl Titre}, Revue, r\'ef\'erences, ann\'ee.
+
+% NE PAS MODIFIER LA LIGNE SUIVANTE
+\end{thebibliography}
+%
+%---------------------------------------------------------------
+% NOM & ADRESSE COMPLETE & EMAIL DU OU DES AUTEURS
+% RETIRER LES SIGNES % SI NECESSAIRE ET PLACER DANS L'ORDRE SOUHAITE
+% DANS LES LIGNES SUIVANTES NE MODIFIER QUE LES SIGNES COMMENTAIRES '%'
+%---------------------------------------------------------------
+\vfill
+\auteurenbasdepage{\NomOrateur}{\AdresseLongueOrateur}{\EmailOrateur}
+% Les noms, adresses, email de l'orateur et des co-auteurs sont a definir
+% dans les macros \NomOrateur, \AdresseCourteOrateur etc. plus haut
+%
+%\auteurenbasdepage{\NomAuteurI}{\AdresseLongueAuteurI}{\EmailAuteurI}
+%\auteurenbasdepage{\NomAuteurII}{\AdresseLongueAuteurII}{\EmailAuteurII}
+%\auteurenbasdepage{\NomAuteurIII}{\AdresseLongueAuteurIII}{\EmailAuteurIII}
+%\auteurenbasdepage{\NomAuteurIV}{\AdresseLongueAuteurIV}{\EmailAuteurIV}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

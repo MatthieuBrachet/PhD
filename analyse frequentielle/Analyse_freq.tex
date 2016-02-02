@@ -623,7 +623,7 @@ On passe alors en fréquentiel par transformée de Fourier. On pose $\theta = h 
 
 \begin{equation}
   \label{filtre frequentiel}
-  \widehat{\overline{f}}_i = \mathcal{F} ( \theta ) = \widehat{f}_i
+  \widehat{\overline{f}}_i = \mathcal{F} ( \theta )  \widehat{f}_i
 \end{equation}
 
 avec $\mathcal{F}$ donné par :
@@ -722,7 +722,34 @@ GRAPHES DE FIABILIT\'E DES FILTRES IMPLICITES ET EXPLICITES (SUR UN MEME GRAPHE)
 
 COMPARER AVEC LES FILTRES D'ALPERT SI POSSIBLE SINON FAIRE UNE PARTIE SUR LE FILTRE D'ALPERT.
 
-    
+\subsection{Filtre de Lonf et al.}
+
+En 1978, Long et al. \cite{Long1978} présentent un filtre implicite dépendant d'un paramètre. Ce filtre, comme les précédents est un filtre passe-bas mais il prend la forme suivante :
+
+\begin{equation}
+  \label{eq:filtre_long}
+  (1-\delta) \overline{f}_{i-1} + 2 ( 1+ \delta ) \overline{f}_i + (1- \delta) \overline{f}_{i+1} = f_{i-1} + 2 f_i + f_{i+1}
+\end{equation}
+
+Dans ce cadre, et comme précédemment, il est facil de montrer que :
+
+\begin{equation}
+  \label{eq:freq_long}
+  \mathcal{F}(\theta) = \dfrac{1}{1 + \delta tg^{2} ( \theta )}
+\end{equation}
+
+Il est évident que $\delta = 0$ revient à l'absence de filtre, $\delta = 1/4$ revient à un filtre explicite. Lorsque $\delta \rightarrow 0^+ $ on tend vers l'absence de filtre et moins les hautes fréquences sont ammoindries. On note cependant que la fréquence associée à $\theta = \pi$ est toujours supprimée lorsque $\delta \neq 0$.
+
+Dans l'article \cite{Alpert1981}, Alpert présente un choix de $\delta$ de manière à ce qu'à une fréquence donnée $\theta_0$ l'influence du filtre de Long \eqref{eq:filtre_long} et d'un filtre explicite d'ordre $n$ soient les m\^emes :
+
+\begin{equation}
+  \delta_0 = cos^2 \frac{\theta_0}{2} sin^{2(n-1)} \frac{\theta_0}{2}
+\end{equation}
+
+\subsection{comparaison des différents Filtres}
+
+
+
 
 
 \section{Analyse fréquentielle}
@@ -752,6 +779,13 @@ COMPARER AVEC LES FILTRES D'ALPERT SI POSSIBLE SINON FAIRE UNE PARTIE SUR LE FIL
 
 \begin{thebibliography}{9}
         
+\bibitem{Alpert1981}
+         Alpert
+         \emph{: Note :  Implicit Filtering in Conjonction with Explicit Filtering}.
+         Notes,
+         Journal of computational Physics 44,
+         212-219,
+         1981.
 
 \bibitem{Redonnet}
          Stéphane Redonnet
@@ -797,6 +831,14 @@ COMPARER AVEC LES FILTRES D'ALPERT SI POSSIBLE SINON FAIRE UNE PARTIE SUR LE FIL
          Center for turbulence Research, NASA-Ames Research Center
          Journal of computational physics,
          1991.
+
+\bibitem{Long1978}
+         P. E. Long, W. A. Shaffer, J. E. Kemper, F. J. Hicks
+         \emph{:  The state of the Techniques Dvelopment Laboratory's Boundary Layer Model : May 24, 1977}.
+         NOAA Technical Memorandum NWS TDL66,
+         Sylver Spring,
+         Md.,
+         1978.
          
 \bibitem{Goncalves}
          Eric Goncalvès

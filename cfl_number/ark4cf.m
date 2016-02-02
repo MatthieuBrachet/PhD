@@ -52,7 +52,7 @@ if f==0
 elseif f==2
     ftr = 1./(1+delta.*tan(teta/2).^2);
 else
-    error('Invalid input argument : f must be an interger in {0,2} for explicit filter.');
+    error('Invalid input argument : f must be an interger in {0,2} for implicit filter.');
 end
 end
 

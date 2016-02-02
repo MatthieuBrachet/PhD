@@ -2,7 +2,7 @@ function [ ftr ] = ftr( teta,f,filtre,delta )
 %% ************************************************************************
 % author : Brachet Matthieu (IECL-Metz)
 % birth date : janv-26-2016
-% last version : janv-26-2016
+% last version : janv-27-2016
 %
 %% ************************************************************************
 % this function build the amplification number obtain with use of a linear
@@ -11,7 +11,7 @@ function [ ftr ] = ftr( teta,f,filtre,delta )
 %% *** inputs
 % teta : wave number;
 % f : order of the space filter;
-% filtre : type of space filter (explicit or implicit).
+% filtre : type of space filter.
 %
 %% *** outputs
 % ftr : amplification number.
@@ -19,7 +19,7 @@ function [ ftr ] = ftr( teta,f,filtre,delta )
 %% ************************************************************************
 
 %% *** calcul du filtre ***************************************************
-if strcmp(filtre,'explicit') == 1
+if strcmp(filtre,'redonnet') == 1
 if f==0
     ftr=1;
 elseif f==2
@@ -36,14 +36,17 @@ else
     error('Invalid input argument : f must be an interger in {0,2,4,6,8,10} for explicit filter.');
 end
 
-elseif strcmp(filtre,'implicit') == 1
+elseif strcmp(filtre,'long') == 1
 if f==0
     ftr=1;
 elseif f==2
     ftr = 1./(1+delta.*tan(teta/2).^2);
 else
-    error('Invalid input argument : f must be an interger in {0,2,4,6,8,10} for explicit filter.');
+    error('Invalid input argument : f must be an interger in {0,2} for implicit filter.');
 end
+
+elseif strcmp(filtre,'shapiro') == 1
+    ftr=1-sin(teta/2).^f;
 end
 
 end
