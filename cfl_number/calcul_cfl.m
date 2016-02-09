@@ -1,15 +1,15 @@
 clc; clear all; close all
 
 %% scheme we want to test
-time='rk1';
+time='rk4';
 c=4;
 space='implicit';
-f=8;
-delta=0.1;
-filtre='redonnet';
+f=10;
+delta=0.11;
+filtre='visbal';
 
 %% research of cfl number max
-epsi=10^-8;
+epsi=10^-12;
 itermax=1000;
 iter=0;
 
@@ -32,7 +32,7 @@ end
 cfl=lambda
 iter
 
-g = atsf(lambda, teta,time,c,space,f,filtre,delta);
+g = atsf(cfl, teta,time,c,space,f,filtre,delta);
 figure(1)
 plot(teta,abs(g))
 grid on

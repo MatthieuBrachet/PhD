@@ -8,8 +8,8 @@ qual=0.99;
 
 %% schema testé
 order=10;
-genre='shapiro';
-delta=0.001;
+genre='visbal';
+delta=0.49;
 
 %% algorithme
 a=0;
