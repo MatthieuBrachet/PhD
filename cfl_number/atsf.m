@@ -2,7 +2,7 @@ function [ g ] = atsf(lambda, teta,time,c,space,f,filtre,delta)
 %% ************************************************************************
 % author : Brachet Matthieu (IECL-Metz)
 % birth date : janv-30-2016
-% last version : 08-feb-2016
+% last version : 09-feb-2016
 % *************************************************************************
 % this function build the amplification number obtain with Runge Kutta method is time,
 % space discretisation and an other scheme for space discretisation and a space

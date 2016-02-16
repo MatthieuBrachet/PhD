@@ -56,19 +56,20 @@
 %   \AdresseCourteAuteurI ...
 %---------------------------------------------------------------
 % DEFINIR ICI LE TITRE DE VOTRE COMMUNICATION
-\def\Titre{Titre de la communication}
+\def\Titre{Approximation num\'erique de probl\`emes de convection 
+sur la sph\`ere par un sch\'ema compact}
 %
 % DEFINIR ICI LES NOMS, ADRESSES, ... DE l'ORATEUR OU UNIQUE AUTEUR
-\def\NomOrateur{Pr\'enom NOM}
+\def\NomOrateur{Matthieu BRACHET}
 \def\AdresseCourteOrateur{Adresse Courte}
 \def\AdresseLongueOrateur{Adresse Longue}
 \def\EmailOrateur{email}
 %
 % DEFINIR ICI LES NOMS, ADRESSES, ... DES EVENTUELS CO-AUTEURS
-\def\NomAuteurI{Pr\'enom NOM}
-\def\AdresseCourteAuteurI{Adresse Courte}
-\def\AdresseLongueAuteurI{Adresse Longue}
-\def\EmailAuteurI{email}
+\def\NomAuteurI{Jean-Pierre CROISILLE}
+\def\AdresseCourteAuteurI{IECL, Univ. Lorraine, Metz}
+\def\AdresseLongueAuteurI{Inst. Elie Cartan de Lorraine, UMR 7502, Univ. Lorraine, Metz}
+\def\EmailAuteurI{jean-pierre.croisille@univ-lorraine.fr}
 %=== et ainsi de suite II, III, IV, V ... pour les suivants
 %
 %=== Liste des mots-cles separes par des virgules si besoin
@@ -90,7 +91,7 @@
 %---------------------------------------------------------------
 \orateur{\NomOrateur}{\AdresseCourteOrateur}
 % NE PAS MODIFIER LES 4 LIGNES SUIVANTES sauf a retirer le signe commentaire '%'
-%\auteur{\NomAuteurI}{\AdresseCourteAuteurI}
+\auteur{\NomAuteurI}{\AdresseCourteAuteurI}
 %\auteur{\NomAuteurII}{\AdresseCourteAuteurII}
 %\auteur{\NomAuteurIII}{\AdresseCourteAuteurIII}
 %\auteur{\NomAuteurIV}{\AdresseCourteAuteurIV}
@@ -100,14 +101,23 @@
 % TEXTE DE LA COMMUNICATION
 %---------------------------------------------------------------
 
-La r\'esolution num\'erique d'\'equations aux d\'eriv\'ees partielles sur la sph\`ere pr\'esente de nombreuses applications, notament en climatologie, imagerie m\'edicale ou en cosmologie.
-L'id\'ee de cet expos\'e est de pr\'esenter les r\'e\c{c}ents r\'esultats obtenus par une m\'ethode de diff\'erences finies sur la sph\`ere sur des \'equations issues de la m\'ecanique des fluides \cite{Brachet2016}.
+La r\'esolution approch\'ee d'\'equations de propagation sur la sph\`ere 
+intervient de fa\c con essentielle en climatologie num\'erique.
+Dans cet expos\'e, on pr\'esentera des d\'eveloppements r\'ecents 
+sur une approche diff\'erences finies compacte \cite{Lele1991} sur la Cubed-Sphere \cite{Ronchi1996}.
+La discr\'etisation spatiale est d'ordre 4. 
+% de type sch\'emas hermitiens d'ordre \'elev\'e \cite{Lele1991}. 
+La discr\'etisation temporelle est effectu\'ee \`a l'aide du sch\'ema RK4,
+coupl\'e \`a un filtrage qui sert \`a att\'enuer les effets 
+de dispersion et de dissipation num\'erique.
 
-Pour cela, on choisit d'utiliser un maillage de type ``cube-sphere'' \cite{Ronchi1996} et une discr\'etisation spatiale de type sch\'emas hermitiens d'ordre \'elev\'e \cite{Lele1991}. La discr\'etisation temporelle se fait \`a l'aide d'une m\'ethode classique de Runge-Kutta qui sera filtr\'ee en espace pour att\'enuer les effets de dispersion et dissipation li\'es aux hautes fr\'equences.
-
-Un benchmark classique sera pr\'esent\'e sur l'\'equation d'advection. Il s'agit de deux vortex instationnaires en d\'eplacement autour de la sph\`ere \cite{Nair2008}.
-
-De plus, les r\'e\c{c}ents r\'esultats th\'eoriques concernant ce sch\'ema seront pr\'esent\'es.
+Un cas test repr\'esentant l'advection de 
+% benchmark classique sera pr\'esent\'e sur l'\'equation d'advection. Il s'agit de 
+deux vortex instationnaires en d\'eplacement autour de la sph\`ere \cite{Nair2008} sera pr\'esent\'e.
+Des r\'esultats sur le syst\`eme Shallow Water sur la sph\`ere en rotation 
+seront \'egalement pr\'esent\'es, \cite{Brachet2016}, de m\^eme que des r\'esultats 
+pr\'eliminaires sur l'analyse math\'ematique
+du sch\'ema.
 
 \begin{center}
 \includegraphics[scale=0.6]{ref_7363377214_solapprochee_test_2.png}
@@ -123,11 +133,11 @@ De plus, les r\'e\c{c}ents r\'esultats th\'eoriques concernant ce sch\'ema seron
 
 \bibitem{Brachet2016} {\sc M. Brachet, J.-P. Croisille} {\sl Numerical simulation of vortex propagation on the Cubed-Sphere using compact scheme}, Preprint, 2016.
 
-\bibitem{Lele1991} {\sc S. K. Lele}, {\sl Compact Finite Difference Schemes with Spectral-like Resolution}, J. Comput. Phys. ,1991.
+\bibitem{Lele1991} {\sc S. K. Lele}, {\sl Compact Finite Difference Schemes with Spectral-like Resolution}, J. Comput. Phys. ,103, 1992, pp 16--42.
 
-\bibitem{Nair2008} {\sc R. D. Nair, C. Jablonowski}, {\sl Moving Vortices on the Sphere : a test case for horizontal advection problem}, J. Comput. Phys. , 2008.
+\bibitem{Nair2008} {\sc R. D. Nair, C. Jablonowski}, {\sl Moving Vortices on the Sphere : a test case for horizontal advection problem}, Mon. Wea. Rev. , 136, 2008, pp. 689--711.
 
-\bibitem{Ronchi1996} {\sc C. Ronchi, R. Iacono and P. S. Paolucci}, {\sl The Cube-Sphere : A New Method for the Solution of Partial Differential Equation in Spherical Geometry}, J. Comput. Phys. , 1996.
+\bibitem{Ronchi1996} {\sc C. Ronchi, R. Iacono and P. S. Paolucci}, {\sl The Cubed Sphere : A New Method for the Solution of Partial Differential Equation in Spherical Geometry}, J. Comput. Phys. , 124, 1996, pp. 93--114.
 
 % NE PAS MODIFIER LA LIGNE SUIVANTE
 \end{thebibliography}

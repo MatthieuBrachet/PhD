@@ -1,5 +1,5 @@
 function [div_fI,div_fII,div_fIII,div_fIV,div_fV,div_fVI]=...
-    div(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn)
+    div72(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn)
 global mm na nb;
 global radius;
 global xi eta dxi deta xx yy delta deltab;
@@ -63,8 +63,8 @@ end
 % FACE IV
 for i=1:nn,
     for j=1:nn,
-        xwk1=fun5(x_fIV(i,j)); % CORRECTION P67.M
-        xwk2=fun7(x_fIV(i,j));
+        xwk1=fun5(x_fII(i,j));
+        xwk2=fun7(x_fII(i,j));
         xxtIa_IV(i,j)=y_fIV(i,j)*xwk1;
         yytIa_IV(i,j)=z_fIV(i,j)*xwk2;
     end
@@ -200,6 +200,9 @@ for jline1=1:nn, % EACH GREAT CIRCLE OF  NETWORK I-ALPHA
  alfag4d=3*(p\dalfag4);
  %
  funa7=va_fI(:,jline1); % TABLEAU DE TRAVAIL VALEURS
+%  size(funa7)
+%  size(p)
+%  size(k)
  funad7=3*((p\k)*funa7); % TABLEAU DE TRAVAIL DERIVEES
  funad8=funad7./alfag4d; % AUTRE TABLEAU DE TRAVAIL DERIVEES
  vad_fI(:,jline1)=funad8; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
@@ -456,30 +459,30 @@ for i=1:nn,
     end
 end
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ETAPE 5: COMPARAISON DIVERGENCE EXACTE ET CALCULEE POUR FACES I ET III.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% A - FACE I: 
-% COMPARAISON DIVERGENCE EXACTE / DIVERGENCE CALCULEE SUR FACE I
-% gradient exact
-% [func,func_x,func_y,func_z]=fun3(x_fI,y_fI,z_fI);
-% projection du gradient sur la sphere
-% norm_I=zeros(3,1);
-% gradse_I=zeros(nn,nn,3);gradset_I=zeros(nn,nn,3); % GRADSET_I=GRADIENT TANGENTIEL= SPHERIQUE
-% gradse_I(1:nn,1:nn,1)=func_x ; 
-% gradse_I(1:nn,1:nn,2)=func_y ; 
-% gradse_I(1:nn,1:nn,3)=func_z;
-% norm_xI=zeros(nn,nn);norm_yI=zeros(nn,nn);norm_zI=zeros(nn,nn);
-% for i=1:nn,
-%     for j=1:nn,
-%         norm_xI(i,j)=x_fI(i,j) ; norm_yI(i,j)=y_fI(i,j) ; norm_zI(i,j)=z_fI(i,j);
-%         xwk(1)=gradse_I(i,j,1) ; xwk(2)=gradse_I(i,j,2) ; xwk(3)=gradse_I(i,j,3);
-%         gradset_I(i,j,1)=gradse_I(i,j,1)-(xwk(1)*norm_xI(i,j)+xwk(2)*norm_yI(i,j)+xwk(3)*norm_zI(i,j))*norm_xI(i,j);
-%         gradset_I(i,j,2)=gradse_I(i,j,2)-(xwk(1)*norm_xI(i,j)+xwk(2)*norm_yI(i,j)+xwk(3)*norm_zI(i,j))*norm_yI(i,j);
-%         gradset_I(i,j,3)=gradse_I(i,j,3)-(xwk(1)*norm_xI(i,j)+xwk(2)*norm_yI(i,j)+xwk(3)*norm_zI(i,j))*norm_zI(i,j);
-%     end
-% end
-% calcul erreur sur le gradient en X:
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % ETAPE 5: COMPARAISON DIVERGENCE EXACTE ET CALCULEE POUR FACES I ET III.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % A - FACE I: 
+% % COMPARAISON DIVERGENCE EXACTE / DIVERGENCE CALCULEE SUR FACE I
+% % gradient exact
+% % [func,func_x,func_y,func_z]=fun3(x_fI,y_fI,z_fI);
+% % projection du gradient sur la sphere
+% % norm_I=zeros(3,1);
+% % gradse_I=zeros(nn,nn,3);gradset_I=zeros(nn,nn,3); % GRADSET_I=GRADIENT TANGENTIEL= SPHERIQUE
+% % gradse_I(1:nn,1:nn,1)=func_x ; 
+% % gradse_I(1:nn,1:nn,2)=func_y ; 
+% % gradse_I(1:nn,1:nn,3)=func_z;
+% % norm_xI=zeros(nn,nn);norm_yI=zeros(nn,nn);norm_zI=zeros(nn,nn);
+% % for i=1:nn,
+% %     for j=1:nn,
+% %         norm_xI(i,j)=x_fI(i,j) ; norm_yI(i,j)=y_fI(i,j) ; norm_zI(i,j)=z_fI(i,j);
+% %         xwk(1)=gradse_I(i,j,1) ; xwk(2)=gradse_I(i,j,2) ; xwk(3)=gradse_I(i,j,3);
+% %         gradset_I(i,j,1)=gradse_I(i,j,1)-(xwk(1)*norm_xI(i,j)+xwk(2)*norm_yI(i,j)+xwk(3)*norm_zI(i,j))*norm_xI(i,j);
+% %         gradset_I(i,j,2)=gradse_I(i,j,2)-(xwk(1)*norm_xI(i,j)+xwk(2)*norm_yI(i,j)+xwk(3)*norm_zI(i,j))*norm_yI(i,j);
+% %         gradset_I(i,j,3)=gradse_I(i,j,3)-(xwk(1)*norm_xI(i,j)+xwk(2)*norm_yI(i,j)+xwk(3)*norm_zI(i,j))*norm_zI(i,j);
+% %     end
+% % end
+% % calcul erreur sur le gradient en X:
 % errg_fI=zeros(nn,nn);errg_fIII=zeros(nn,nn);
 % for i=1:nn,
 %     for j=1:nn,
@@ -522,8 +525,8 @@ end
 % %err_grad_31=max([errVI_30,errV_29,errIV_28,errIII_27,errII_26,errI_25])
 % err_grad_31=max([errIII_27,errI_25]);
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%break;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %break;
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ETAPE 6: CALCUL DE LA PARTIE D/DXI DE LA DIVERGENCE (FACE II ET IV)
 % -------------------------------------------------------------------
@@ -963,30 +966,30 @@ for i=1:nn,
     end
 end
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ETAPE 10: COMPARAISON DIVERGENCE EXACTE ET CALCULEE POUR FACES II ET IV.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% A - FACE I: 
-% COMPARAISON DIVERGENCE EXACTE / DIVERGENCE CALCULEE SUR FACE I
-% gradient exact
-% [func,func_x,func_y,func_z]=fun3(x_fI,y_fI,z_fI);
-% projection du gradient sur la sphere
-% norm_I=zeros(3,1);
-% gradse_I=zeros(nn,nn,3);gradset_I=zeros(nn,nn,3); % GRADSET_I=GRADIENT TANGENTIEL= SPHERIQUE
-% gradse_I(1:nn,1:nn,1)=func_x ; 
-% gradse_I(1:nn,1:nn,2)=func_y ; 
-% gradse_I(1:nn,1:nn,3)=func_z;
-% norm_xI=zeros(nn,nn);norm_yI=zeros(nn,nn);norm_zI=zeros(nn,nn);
-% for i=1:nn,
-%     for j=1:nn,
-%         norm_xI(i,j)=x_fI(i,j) ; norm_yI(i,j)=y_fI(i,j) ; norm_zI(i,j)=z_fI(i,j);
-%         xwk(1)=gradse_I(i,j,1) ; xwk(2)=gradse_I(i,j,2) ; xwk(3)=gradse_I(i,j,3);
-%         gradset_I(i,j,1)=gradse_I(i,j,1)-(xwk(1)*norm_xI(i,j)+xwk(2)*norm_yI(i,j)+xwk(3)*norm_zI(i,j))*norm_xI(i,j);
-%         gradset_I(i,j,2)=gradse_I(i,j,2)-(xwk(1)*norm_xI(i,j)+xwk(2)*norm_yI(i,j)+xwk(3)*norm_zI(i,j))*norm_yI(i,j);
-%         gradset_I(i,j,3)=gradse_I(i,j,3)-(xwk(1)*norm_xI(i,j)+xwk(2)*norm_yI(i,j)+xwk(3)*norm_zI(i,j))*norm_zI(i,j);
-%     end
-% end
-% calcul erreur sur le gradient en X:
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % ETAPE 10: COMPARAISON DIVERGENCE EXACTE ET CALCULEE POUR FACES II ET IV.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % A - FACE I: 
+% % COMPARAISON DIVERGENCE EXACTE / DIVERGENCE CALCULEE SUR FACE I
+% % gradient exact
+% % [func,func_x,func_y,func_z]=fun3(x_fI,y_fI,z_fI);
+% % projection du gradient sur la sphere
+% % norm_I=zeros(3,1);
+% % gradse_I=zeros(nn,nn,3);gradset_I=zeros(nn,nn,3); % GRADSET_I=GRADIENT TANGENTIEL= SPHERIQUE
+% % gradse_I(1:nn,1:nn,1)=func_x ; 
+% % gradse_I(1:nn,1:nn,2)=func_y ; 
+% % gradse_I(1:nn,1:nn,3)=func_z;
+% % norm_xI=zeros(nn,nn);norm_yI=zeros(nn,nn);norm_zI=zeros(nn,nn);
+% % for i=1:nn,
+% %     for j=1:nn,
+% %         norm_xI(i,j)=x_fI(i,j) ; norm_yI(i,j)=y_fI(i,j) ; norm_zI(i,j)=z_fI(i,j);
+% %         xwk(1)=gradse_I(i,j,1) ; xwk(2)=gradse_I(i,j,2) ; xwk(3)=gradse_I(i,j,3);
+% %         gradset_I(i,j,1)=gradse_I(i,j,1)-(xwk(1)*norm_xI(i,j)+xwk(2)*norm_yI(i,j)+xwk(3)*norm_zI(i,j))*norm_xI(i,j);
+% %         gradset_I(i,j,2)=gradse_I(i,j,2)-(xwk(1)*norm_xI(i,j)+xwk(2)*norm_yI(i,j)+xwk(3)*norm_zI(i,j))*norm_yI(i,j);
+% %         gradset_I(i,j,3)=gradse_I(i,j,3)-(xwk(1)*norm_xI(i,j)+xwk(2)*norm_yI(i,j)+xwk(3)*norm_zI(i,j))*norm_zI(i,j);
+% %     end
+% % end
+% % calcul erreur sur le gradient en X:
 % errg_fII=zeros(nn,nn);errg_fIV=zeros(nn,nn);
 % for i=1:nn,
 %     for j=1:nn,
@@ -1008,7 +1011,7 @@ end
 % % errVI_30=max(max(abs(errg_fVI)))
 % %err_grad_31=max([errVI_30,errV_29,errIV_28,errIII_27,errII_26,errI_25])
 % err_grad_32=max([errIV_28,errII_26]);
-% break;
+% % break;
 % -------------------------------------------------------------------
 % ETAPE 11: CALCUL DE LA PARTIE D/DXI DE LA DIVERGENCE (FACE V ET VI)
 % -------------------------------------------------------------------
@@ -1449,8 +1452,74 @@ for i=1:nn,
     end
 end
 %
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % ETAPE 15: COMPARAISON DIVERGENCE EXACTE ET CALCULEE POUR FACES V ET VI.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % A - FACE I: 
+% % COMPARAISON DIVERGENCE EXACTE / DIVERGENCE CALCULEE SUR FACE I
+% % gradient exact
+% % [func,func_x,func_y,func_z]=fun3(x_fI,y_fI,z_fI);
+% % projection du gradient sur la sphere
+% % norm_I=zeros(3,1);
+% % gradse_I=zeros(nn,nn,3);gradset_I=zeros(nn,nn,3); % GRADSET_I=GRADIENT TANGENTIEL= SPHERIQUE
+% % gradse_I(1:nn,1:nn,1)=func_x ; 
+% % gradse_I(1:nn,1:nn,2)=func_y ; 
+% % gradse_I(1:nn,1:nn,3)=func_z;
+% % norm_xI=zeros(nn,nn);norm_yI=zeros(nn,nn);norm_zI=zeros(nn,nn);
+% % for i=1:nn,
+% %     for j=1:nn,
+% %         norm_xI(i,j)=x_fI(i,j) ; norm_yI(i,j)=y_fI(i,j) ; norm_zI(i,j)=z_fI(i,j);
+% %         xwk(1)=gradse_I(i,j,1) ; xwk(2)=gradse_I(i,j,2) ; xwk(3)=gradse_I(i,j,3);
+% %         gradset_I(i,j,1)=gradse_I(i,j,1)-(xwk(1)*norm_xI(i,j)+xwk(2)*norm_yI(i,j)+xwk(3)*norm_zI(i,j))*norm_xI(i,j);
+% %         gradset_I(i,j,2)=gradse_I(i,j,2)-(xwk(1)*norm_xI(i,j)+xwk(2)*norm_yI(i,j)+xwk(3)*norm_zI(i,j))*norm_yI(i,j);
+% %         gradset_I(i,j,3)=gradse_I(i,j,3)-(xwk(1)*norm_xI(i,j)+xwk(2)*norm_yI(i,j)+xwk(3)*norm_zI(i,j))*norm_zI(i,j);
+% %     end
+% % end
+% % calcul erreur sur le gradient en X:
+% errg_fV=zeros(nn,nn);errg_fVI=zeros(nn,nn);
+% for i=1:nn,
+%     for j=1:nn,
+%         errg_fV(i,j)=max(abs(div_fV(i,j)-dfunV(i,j)));
+%     end
+% end
+% % for i=1:nn,
+% %     for j=1:nn,
+% %         errg_fII(i,j)=max(abs(grad_II(i,j,:)-gradset_II(i,j,:)));
+% %     end
+% % end
+% % B - FACE III: 
+% % COMPARAISON DIVERGENCE EXACTE / DIVERGENCE CALCULEE SUR FACE VI
+% for i=1:nn,
+%     for j=1:nn,
+%         errg_fVI(i,j)=max(abs(div_fVI(i,j)-dfunVI(i,j)));
+%     end
+% end
+% % for i=1:nn,
+% %     for j=1:nn,
+% %         errg_fIV(i,j)=max(abs(grad_IV(i,j,:)-gradset_IV(i,j,:)));
+% %     end
+% % end
+% % for i=1:nn,
+% %     for j=1:nn,
+% %         errg_fV(i,j)=max(abs(grad_V(i,j,:)-gradset_V(i,j,:)));
+% %     end
+% % end
+% % for i=1:nn,
+% %     for j=1:nn,
+% %         errg_fVI(i,j)=max(abs(grad_VI(i,j,:)-gradset_VI(i,j,:)));
+% %     end
+% % end
+% %errI_25=max(max(abs(errg_fI)))
+% %errII_26=max(max(abs(errg_fII)))
+% %errIII_27=max(max(abs(errg_fIII)))
+% % errIV_28=max(max(abs(errg_fIV)))
+%  errV_29=max(max(abs(errg_fV)));
+%  errVI_30=max(max(abs(errg_fVI)));
+% %err_grad_31=max([errVI_30,errV_29,errIV_28,errIII_27,errII_26,errI_25])
+% err_grad_33=max([errV_29,errVI_30]);
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % demi-somme + 1/3 somme de la divergence
 uwk_I=div_fI(1:nn,1:nn,1);uwk_II=div_fII(1:nn,1:nn,1);uwk_III=div_fIII(1:nn,1:nn,1);
 uwk_IV=div_fIV(1:nn,1:nn,1);uwk_V=div_fV(1:nn,1:nn,1);uwk_VI=div_fVI(1:nn,1:nn,1);
 [div_fI(1:nn,1:nn),div_fII(1:nn,1:nn),div_fIII(1:nn,1:nn),div_fIV(1:nn,1:nn),div_fV(1:nn,1:nn),div_fVI(1:nn,1:nn,1)]=...
-    ds(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
+    ds72(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);

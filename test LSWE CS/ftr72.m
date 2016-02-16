@@ -1,9 +1,22 @@
 function [funftI,funftII,funftIII,funftIV,funftV,funftVI]=...
-    ftr(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
+    ftr72(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
 global mm na nb;
-global deta
-global alfa beta betacr;
+global radius;
+global xi eta dxi deta xx yy delta deltab;
+global alfa beta;
+global alfacr betacr;
 global alfa1;
+global alfag betag;
+global p k;
+global x_fI y_fI z_fI;
+global x_fII y_fII z_fII;
+global x_fIII y_fIII z_fIII;
+global x_fIV y_fIV z_fIV;
+global x_fV y_fV z_fV;
+global x_fVI y_fVI z_fVI;
+global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
+global geta_I geta_II geta_III geta_IV geta_V geta_VI;
+global ite aaa bbb itestop;
 global ftr;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 betaspline=zeros(nn,1);

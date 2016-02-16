@@ -7,13 +7,13 @@ genre='visbal';
 %% courbe
 teta=0:0.001:pi;
 
-delta1=0.49;
+delta1=0.5;
 ff1=ftr(teta,order,genre,delta1);
 
-delta2=0.4;
+delta2=0.49;
 ff2=ftr(teta,order,genre,delta2);
 
-delta3=0.3;
+delta3=0.35;
 ff3=ftr(teta,order,genre,delta3);
 
 delta4=0.1;

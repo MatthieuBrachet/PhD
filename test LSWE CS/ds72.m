@@ -1,4 +1,4 @@
-function [v_fI,v_fII,v_fIII,v_fIV,v_fV,v_fVI]=ds(u_fI,u_fII,u_fIII,u_fIV,u_fV,u_fVI,n,nn)
+function [v_fI,v_fII,v_fIII,v_fIV,v_fV,v_fVI]=ds72(u_fI,u_fII,u_fIII,u_fIV,u_fV,u_fVI,n,nn)
 
  % - CALCUL 1/2 SOMME SUR LES 12 ARETES
 % -----------------------------------

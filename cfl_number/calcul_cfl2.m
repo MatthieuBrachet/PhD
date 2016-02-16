@@ -6,8 +6,8 @@ cfl=1;
 c=4;
 space='implicit';
 f=10;
-filtre='redonnet';
-delta=0.1;
+filtre='visbal';
+delta=0.49;
 
 %% schemas explicites
 
