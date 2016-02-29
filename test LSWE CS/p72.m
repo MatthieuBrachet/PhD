@@ -61,7 +61,7 @@ tmax=t_final;
 u0=kv;
 cfl=0.05;
 ddt=cfl*radius*dxi/u0;
-ntime=160;
+ntime=4;%160;
 %ddt=(t_final-tinit)/ntime;
 cfl=(ddt*u0)/(radius*dxi);
 itemax=ntime;
@@ -298,6 +298,11 @@ erinfty(itemax)
  err_fI=mfunfI-mfunfIe;err_fII=mfunfII-mfunfIIe;
  err_fIII=mfunfIII-mfunfIIIe;err_fIV=mfunfIV-mfunfIVe;
  err_fV=mfunfV-mfunfVe;err_fVI=mfunfVI-mfunfVIe;
+ 
+  figure(33);
+ plot_cs5(n,nn,err_fI(:,:,4),err_fII(:,:,4),err_fIII(:,:,4)...
+     ,err_fIV(:,:,4),err_fV(:,:,4),err_fVI(:,:,4));colorbar;
+ title('erreur')
  %
  errI_38=max(max(abs(err_fI(:,:,4)))); % ERREUR ETA
  errII_38=max(max(abs(err_fII(:,:,4)))); % ERREUR ETA
@@ -306,7 +311,7 @@ erinfty(itemax)
  errV_38=max(max(abs(err_fV(:,:,4)))); % ERREUR ETA
  errVI_38=max(max(abs(err_fVI(:,:,4)))); % ERREUR ETA
  %
- err_38=max([errI_38,errII_38,errIII_38,errIV_38,errV_38,errVI_38]);
+ err_38=max([errI_38,errII_38,errIII_38,errIV_38,errV_38,errVI_38])
  %
 %  str='infty';
 %   [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=...
@@ -317,10 +322,12 @@ erinfty(itemax)
  figure(35);
  plot_cs5(n,nn,mfunfIe(:,:,4),mfunfIIe(:,:,4),mfunfIIIe(:,:,4)...
      ,mfunfIVe(:,:,4),mfunfVe(:,:,4),mfunfVIe(:,:,4));colorbar;
+ title('exacte')
  %%%%%%
  figure(37);
   plot_cs5(n,nn,mfunfI(:,:,4),mfunfII(:,:,4),mfunfIII(:,:,4)...
      ,mfunfIV(:,:,4),mfunfV(:,:,4),mfunfVI(:,:,4));colorbar;
+ title('approchee')
  % 
 %  figure(39);
 %   plot_cs5(n,nn,err_fI(:,:,4),err_fII(:,:,4),err_fIII(:,:,4)...

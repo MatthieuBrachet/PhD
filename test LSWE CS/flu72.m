@@ -36,7 +36,8 @@ cste=2*omega/(radius*radius);
 % ------ face I
 fc_x(:,:)=cste*x_fI.*z_fI;
 fc_y(:,:)=cste*y_fI.*z_fI;
-fc_z(:,:)=cste*z_fI.*z_fI;
+%fc_z(:,:)=cste*z_fI.*z_fI;
+fc_z(:,:)=-cste*(x_fI.*x_fI+y_fI.*y_fI);
 vel_x=mfunfI(:,:,1);
 vel_y=mfunfI(:,:,2);
 vel_z=mfunfI(:,:,3);
@@ -47,7 +48,8 @@ mflu_I(:,:,4)=hp*div_fI;
 % ------ face II
 fc_x(:,:)=cste*x_fII.*z_fII;
 fc_y(:,:)=cste*y_fII.*z_fII;
-fc_z(:,:)=cste*z_fII.*z_fII;
+%fc_z(:,:)=cste*z_fII.*z_fII;
+fc_z(:,:)=-cste*(x_fII.*x_fII+y_fII.*y_fII);
 vel_x=mfunfII(:,:,1);
 vel_y=mfunfII(:,:,2);
 vel_z=mfunfII(:,:,3);
@@ -58,7 +60,8 @@ mflu_II(:,:,4)=hp*div_fII;
 % ------ face III
 fc_x(:,:)=cste*x_fIII.*z_fIII;
 fc_y(:,:)=cste*y_fIII.*z_fIII;
-fc_z(:,:)=cste*z_fIII.*z_fIII;
+%fc_z(:,:)=cste*z_fIII.*z_fIII;
+fc_z(:,:)=-cste*(x_fIII.*x_fIII+y_fIII.*y_fIII);
 vel_x=mfunfIII(:,:,1);
 vel_y=mfunfIII(:,:,2);
 vel_z=mfunfIII(:,:,3);
@@ -69,7 +72,8 @@ mflu_III(:,:,4)=hp*div_fIII;
 % ------ face IV
 fc_x(:,:)=cste*x_fIV.*z_fIV;
 fc_y(:,:)=cste*y_fIV.*z_fIV;
-fc_z(:,:)=cste*z_fIV.*z_fIV;
+%fc_z(:,:)=cste*z_fIV.*z_fIV;
+fc_z(:,:)=-cste*(x_fIV.*x_fIV+y_fIV.*y_fIV);
 vel_x=mfunfIV(:,:,1);
 vel_y=mfunfIV(:,:,2);
 vel_z=mfunfIV(:,:,3);
@@ -80,7 +84,8 @@ mflu_IV(:,:,4)=hp*div_fIV;
 % ------ face V
 fc_x(:,:)=cste*x_fV.*z_fV;
 fc_y(:,:)=cste*y_fV.*z_fV;
-fc_z(:,:)=cste*z_fV.*z_fV;
+%fc_z(:,:)=cste*z_fV.*z_fV;
+fc_z(:,:)=-cste*(x_fV.*x_fV+y_fV.*y_fV);
 vel_x=mfunfV(:,:,1);
 vel_y=mfunfV(:,:,2);
 vel_z=mfunfV(:,:,3);
@@ -91,7 +96,8 @@ mflu_V(:,:,4)=hp*div_fV;
 % ------ face VI
 fc_x(:,:)=cste*x_fVI.*z_fVI;
 fc_y(:,:)=cste*y_fVI.*z_fVI;
-fc_z(:,:)=cste*z_fVI.*z_fVI;
+%fc_z(:,:)=cste*z_fVI.*z_fVI;
+fc_z(:,:)=-cste*(x_fVI.*x_fVI+y_fVI.*y_fVI);
 vel_x=mfunfVI(:,:,1);
 vel_y=mfunfVI(:,:,2);
 vel_z=mfunfVI(:,:,3);

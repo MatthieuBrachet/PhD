@@ -48,10 +48,10 @@ sauvegarde = 0;
 %% *** Benchmarks data ****************************************************
  n=40;
  nn=n+2;
- cfl=0.5;
- ndaymax=12;
+ cfl=0.9;
+ ndaymax=24;
  err=2;
- mm=-0;
+ mm=0;
  MM=1000;
 %% ************************************************************************
  if coef == 0
@@ -364,8 +364,8 @@ if film==1
     figure(100);
     title(['days : ', num2str(xdays(ite))])
     %plot_cs15(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI,mm,MM);
-    plot_cs11(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
-    %plot_cs14(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI,mm,MM);
+    %plot_cs11(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
+    plot_cs14(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI,mm,MM);
     %*plot_cs12(n,nn,funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,funfV-funfVe,funfVI-funfVIe,err);
     hold off;
     mov(ite) = getframe(gcf);

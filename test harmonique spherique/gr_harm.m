@@ -18,5 +18,5 @@ jj(:,:,3)=cos(teta);
 
 grade(:,:,1)=1./(r.*cos(teta)).*h_lambda.*ii(:,:,1)+(1./r).*h_teta.*jj(:,:,1);
 grade(:,:,2)=1./(r.*cos(teta)).*h_lambda.*ii(:,:,2)+(1./r).*h_teta.*jj(:,:,2);
-grade(:,:,2)=1./(r.*cos(teta)).*h_lambda.*ii(:,:,3)+(1./r).*h_teta.*jj(:,:,3);
+grade(:,:,3)=1./(r.*cos(teta)).*h_lambda.*ii(:,:,3)+(1./r).*h_teta.*jj(:,:,3);
 end
