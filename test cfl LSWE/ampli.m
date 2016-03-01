@@ -6,7 +6,7 @@ function [ stab ] = ampli(teta1, teta2,dx,dy,dt)
 % coriolis
 teta0=pi/4;
 omega = 7.27*10^-5;
-f0 = 0*2*omega*cos(teta0);
+f0 = 2*omega*cos(teta0);
 
 % athmosphere
 H=1;

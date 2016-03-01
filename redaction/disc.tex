@@ -4,9 +4,118 @@
 
 \section{Discrétisation spatiale}
 
+La résolution d'une équations aux dérivées partielles (EDP) par des
+voies numériques nécessite une discrétisation du problème
+initiales. Différentes méthodes ont été développées dans cet objectif,
+en voici les exemples les plus courrants :
+
+\begin{itemize}
+\item Les méthodes d'éléments finis reposent sur la formulation
+  variationnelle du problème initial,
+
+\item Les méthodes de volumes finis utilisent la forme intégrale de
+  l'EDP,
+
+\item Les différences finies emploient la formulation forte de
+  l'équation à résoudre.
+\end{itemize}
+
+Dans cette partie, nous présentons les méthodes de différences finies
+qui permettent une discrétisation et une résolution
+numérique. L'accent sera mis sur les schémas d'ordre élevé \cite{Desquesnes2007} et en
+particulier sur les schémas compacts étudiées par S. K. Lele dans
+\cite{Lele1991}. On effectuera aussi une étude sur les fréquences qui
+jouent un r\^ole important dans la résolution des équations hyperboliques. 
+
 \subsection{Méthodes de différences finies}
 
-\subsection{Schémas compacts hermitiens}
+Dans la suite nous considérons une fonction :
+
+$$u : [0, 1] \rightarrow \mathbb{R}$$
+
+ supposée suffisament régulière. Nous supposons connues les valeurs de $u(x_i)$
+(nous noterons $u_i$ cette valeur) et $u$ $1-$périodique (donc $u(0) =
+ u(1)$.
+
+Les points $x_i$ sont les points du maillage. Nous les définissons par
+$x_0 = 0$ et $x_i = x_0 + i \times h$ avec $h = \frac{1}{N+1}$, pour
+tout $ 0 \leq i \leq N+1 $.
+
+L'objectif est ici de déterminer une valeur approchée de la dérrivée
+première $\partial_xu(x_i)$ notée $\delta_x u_i$\footnote{On peut
+  appliquer le m\^me raisonnement pour déterminer une approximationd es
+dérivées d'ordre supérieur. Voir \cite{Lele1991} pour plus de détails.} gr\^ace à une relation de la forme :
+
+\begin{equation}
+\label{eq:differences finies}
+\alpha_0 \delta_x u_i + \sum_{j=1}^M \alpha_j \left( \delta_x u_{i+j} + \delta_x
+u_{i-j} \right) = \sum_{k=1}^N a_k \dfrac{u_{i+j} - u_{i-j}}{2kh}
+\end{equation}
+
+La difficulté étant de déterminer les coefficients les coefficients
+$(\alpha_j)_{0 \leq j \leq M}$ et $(a_k)_{1 \leq k \leq N}$ pour que la
+méthode soit aussi précise que souhaité.
+
+\begin{definition}
+On dit que la formule \eqref{eq:differences finies} est précise à
+l'ordre $q$ si elle définit $\delta_x u_i$ tels que :
+\begin{equation}
+ \delta_x u_i - \partial_x u(x_i) = \mathcal{O} \left( h^q \right)
+\end{equation}
+
+lorsque $u$ est suffisament régulière.
+\end{definition}
+
+Dans la suite nous parlerons de schémas classiques et de schémas
+compacts.
+
+\subsection{Schémas Classiques }
+
+Les schémas classiques sont construits de manière à pouvoir calculer
+immédiatement $\delta_x u_i$ comme une combinaison linéaire de ses
+voisins immédiats.
+
+\begin{definition}
+Un schéma d'approximation de la forme \eqref{eq:differences finies}
+est dit classique lorsque pour tout $0 \leq i \leq N+1$, on a
+$\alpha_i = \delta_{0,i}$\footnote{$\delta_{p,q}$ est le symbole de
+  Kronecker. Il vaut $1$ lorsque $p=q$ et $0$ sinon.}
+\end{definition}
+
+Un schéma classique d'approximation de $\partial_x u$ est de la forme
+:
+
+\begin{equation}
+ \delta_x u_i = \sum_{k=1}^N a_k \dfrac{u_{i+j} - u_{i-j}}{2kh}
+\end{equation}
+
+Les développements de Taylor nous donnent immédiatement la relation
+suivante :
+
+\begin{equation}
+\label{eq:taylor}
+ \sum_{k=1}^N a_k \dfrac{u(x+jh) - u(x-jh)}{2kh} = \sum_{p=0}^{P}
+ \sum_{k=1}^N a_k \dfrac{(kh)^p + (-kh)^p}{p! 2 k h} \partial_x^{(p)} u(x)
+ + \mathcal{O} \left( h^{P+1} \right)
+\end{equation}
+
+ainsi pour avoir une méthode d'ordre $P+1$, il faut que pour tout $0
+\leq p \leq P$ :
+
+\begin{equation}
+\sum_{k=1}^N a_k \dfrac{k^p + (-k)^p}{k} = \delta_{p,1}
+\end{equation}
+
+
+\subsection{Schémas Compacts }
+
+
+
+
+
+
+
+
 
 Dois je mettre une méthode pour traiter les CL? (voir article avec J.P. Chehab)
 
