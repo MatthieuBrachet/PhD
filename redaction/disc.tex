@@ -86,6 +86,7 @@ Un schéma classique d'approximation de $\partial_x u$ est de la forme
 :
 
 \begin{equation}
+  \label{eq:schemas classiques}
  \delta_x u_i = \sum_{k=1}^N a_k \dfrac{u_{i+j} - u_{i-j}}{2kh}
 \end{equation}
 
@@ -103,9 +104,11 @@ ainsi pour avoir une méthode d'ordre $P+1$, il faut que pour tout $0
 \leq p \leq P$ :
 
 \begin{equation}
+  \label{eq:prop schemas explicites}
 \sum_{k=1}^N a_k \dfrac{k^p + (-k)^p}{k} = \delta_{p,1}
 \end{equation}
 
+On remarque que la propriété \eqref{eq:prop schemas explicites} est automatiquement vérifiée pour $p$ impair. On peut en déduire qu'un schéma classique centré de la forme \eqref{eq:schemas classiques} est automatiquement d'ordre pair. De plus, un schéma à $N$ points sera d'ordre $2N$ au plus. 
 
 \subsection{Schémas Compacts }
 
