@@ -4,9 +4,8 @@
 
 \section{Discrétisation spatiale}
 
-La résolution d'une équations aux dérivées partielles (EDP) par des
-voies numériques nécessite une discrétisation du problème
-initiales. Différentes méthodes ont été développées dans cet objectif,
+La résolution numérique d'une équations aux dérivées partielles (EDP) nécessite une discrétisation du problème
+initials. Différentes méthodes ont été développées dans cet objectif,
 en voici les exemples les plus courrants :
 
 \begin{itemize}
@@ -19,6 +18,8 @@ en voici les exemples les plus courrants :
 \item Les différences finies emploient la formulation forte de
   l'équation à résoudre.
 \end{itemize}
+
+Il est tout de même à noter que certaines méthodes possèdent des propriétés mixtes. On pensera, par exemple, au schéma boîte \cite{Abbas2011} qui possèdent des propriétés communent aux différences finies et aux volumes finis ou aux méthodes de Galerkin discontinues qui reposent sur les éléments finis mais possèdent des propriétés de conservations de matière typiques des volumes finis.
 
 Dans cette partie, nous présentons les méthodes de différences finies
 qui permettent une discrétisation et une résolution
@@ -34,8 +35,7 @@ Dans la suite nous considérons une fonction :
 $$u : [0, 1] \rightarrow \mathbb{R}$$
 
  supposée suffisament régulière. Nous supposons connues les valeurs de $u(x_i)$
-(nous noterons $u_i$ cette valeur) et $u$ $1-$périodique (donc $u(0) =
- u(1)$.
+(nous noterons $u_i$ cette valeur) et $u$ $1-$périodique\footnote{Le choix de périodicité est fait par simplicité d'écriture mais des méthodes existent pour effectuer ce calcul avec des conditions de Dirichlet, Neumann, ... Voir par exemple \cite{Abbas2011} et \cite{Brachet2015}} (donc $u(0) = u(1)$).
 
 Les points $x_i$ sont les points du maillage. Nous les définissons par
 $x_0 = 0$ et $x_i = x_0 + i \times h$ avec $h = \frac{1}{N+1}$, pour
@@ -43,7 +43,7 @@ tout $ 0 \leq i \leq N+1 $.
 
 L'objectif est ici de déterminer une valeur approchée de la dérrivée
 première $\partial_xu(x_i)$ notée $\delta_x u_i$\footnote{On peut
-  appliquer le m\^me raisonnement pour déterminer une approximationd es
+  appliquer le m\^eme raisonnement pour déterminer une approximationd es
 dérivées d'ordre supérieur. Voir \cite{Lele1991} pour plus de détails.} gr\^ace à une relation de la forme :
 
 \begin{equation}
@@ -73,7 +73,7 @@ compacts.
 
 Les schémas classiques sont construits de manière à pouvoir calculer
 immédiatement $\delta_x u_i$ comme une combinaison linéaire de ses
-voisins immédiats.
+voisins.
 
 \begin{definition}
 Un schéma d'approximation de la forme \eqref{eq:differences finies}
@@ -100,18 +100,63 @@ suivante :
  + \mathcal{O} \left( h^{P+1} \right)
 \end{equation}
 
-ainsi pour avoir une méthode d'ordre $P+1$, il faut que pour tout $0
-\leq p \leq P$ :
+ainsi pour avoir une méthode d'ordre aussi élevé que possible, on souhaite avoir pour $p \in \mathbb{N}$ :
 
 \begin{equation}
   \label{eq:prop schemas explicites}
-\sum_{k=1}^N a_k \dfrac{k^p + (-k)^p}{k} = \delta_{p,1}
+\sum_{k=1}^N a_k \dfrac{k^{p-1} + (-k)^{p-1}}{k} = \delta_{p,1}
 \end{equation}
 
 On remarque que la propriété \eqref{eq:prop schemas explicites} est automatiquement vérifiée pour $p$ impair. On peut en déduire qu'un schéma classique centré de la forme \eqref{eq:schemas classiques} est automatiquement d'ordre pair. De plus, un schéma à $N$ points sera d'ordre $2N$ au plus. 
 
+\begin{exemple}
+  Voici quelques exemples de schémas classiques centrés :
+
+  \begin{itemize}
+  \item Schéma classique d'ordre 2 :
+    \begin{equation}
+      \label{eq:classique ordre 2}
+      \dfrac{u(x+h)-u(x-h)}{2h} = \partial_x u(x) + \mathcal{O} \left( h^2 \right)
+    \end{equation}
+
+  \item Schéma classique d'ordre 4 :
+    \begin{equation}
+      \label{eq:classique ordre 4}
+      \dfrac{4}{3} \dfrac{u(x+h)-u(x-h)}{2h} - \dfrac{1}{3} \dfrac{u(x+2h)-u(x-2h)}{4h}  = \partial_x u(x) + \mathcal{O} \left( h^4 \right)
+    \end{equation}
+
+    \item Schéma classique d'ordre 6 :
+    \begin{equation}
+      \label{eq:classique ordre 6}
+      \dfrac{3}{2} \dfrac{u(x+h)-u(x-h)}{2h} - \dfrac{3}{5} \dfrac{u(x+2h)-u(x-2h)}{4h} + \dfrac{1}{10} \dfrac{u(x+3h)-u(x-3h)}{6h} = \partial_x u(x) + \mathcal{O} \left( h^6 \right)
+    \end{equation}
+    
+  \end{itemize}
+\end{exemple}
+
+Il est clair que plus l'ordre d'une méthode est élevé plus cette méthode est précise. Le choix de la méthode de discrétisation est crucial dans la résolution numérique d'une équation.
+
 \subsection{Schémas Compacts }
 
+Les schémas compacts, ou Hermitiens, reposent sur une idée semblable à celle des schémas classiques mais prennant en compte l'intégralité des points disponibles. L'idée est d'utiliser l'équation \eqref{eq:differences finies} mais contrairement aux schémas classiques, nous ne supposons pas $\alpha_i = \delta_{i,0}$
+
+Ainsi, si les $(a_i)_{1 \leq i \leq N}$ sont déterminés par un schéma explicite comme précédemment, il ne reste plus qu'à déterminer les coefficients $(\alpha_j)_{0 \leq j \leq M}$. Par développement limité et identification des facteurs, on déduit que les équations suivantes doivent être vérifiées :
+
+\begin{equation}
+  \label{eq:compact-eq1}
+  \alpha_0 + 2 \sum_{j=1}^M \alpha_j = 2 \sum_{i=1}^N a_i
+\end{equation}
+
+ainsi que pour tout $k=1, ...$:
+
+\begin{equation}
+  \label{eq:compact-eq2}
+  \left( k+1 \right) \sum_{j=1}^M \alpha_j \left( j^k + (-j)^k \right) = \sum_{i=1}^N a_i \left( i^k + (-i)^k \right)
+\end{equation}
+
+NOTE : VERIFIER CES EQUATIONS!!!
+
+On peut commencer par noter que la propriété \eqref{eq:compact-eq2} est automatiquement vérifiée pour $k$ impair. De plus, si les $(a_i)_{1 \leq i \leq N}$ sont préalablement définis, il ne reste plus qu'à déterminer les $M+1$ coefficients $(\alpha_j)_{0 \leq j \leq M}$. La méthode est alors une discrétisation par différences finies\footnote{Cependant, il est important de noter que le calcul des $\delta_x u_i$ est implicite et demande la résolution d'un système linéaire.} à l'ordre $2(M+N)$.
 
 
 
@@ -129,7 +174,9 @@ Dois je mettre une méthode pour traiter les CL? (voir article avec J.P. Chehab)
 
 \subsection{Méthodes de Runge-Kutta : généralités}
 
-\subsection{Quelques méthodes : Runge-Kutta explicite, DIRK et SDIRK}
+\subsection{Méthodes de Runge-Kutta explicite}
+
+\subsection{Quelques méthodes de Runge-Kutta implicites : DIRK et SDIRK}
 
 
 \section{Filtrage numérique}

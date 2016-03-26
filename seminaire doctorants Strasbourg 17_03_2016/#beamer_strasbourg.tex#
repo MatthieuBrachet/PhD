@@ -26,20 +26,58 @@ Séminaire Doctorants de Strasbourg}
 \end{center}
 \end{frame}
 
+
+\section{Introduction}
+\begin{frame}{Introduction}
+
+  \begin{block}{Objectif :}
+    Résolution numérique d'EDP sur la sphère.
+  \end{block}
+
+  Ici : mettres qqes photos d'applications : climat, océans, imagerie médicale, ...
+
+  
+\end{frame}
+
+\begin{frame}
+  Méthodes déjà existantes :
+  \begin{itemize}
+    \item Problème des pôles
+    \item Rapidité du calcul
+    \item Précision
+  \end{itemize}
+  NOTE : METTRE UNE IMAGE DU MAILLAGE LONLAT A GAUCHE
+
+  \begin{exampleblock}{Dans cet exposé :}
+    \begin{itemize}
+    \item Présentation de la méthode de discrétisation spaciale : rapide et précis en différences finies;
+    \item Discrétisation temporelle : Runge Kutta avec filtrage des hautes fréquences.  
+    \end{itemize}
+  \end{exampleblock}
+
+  
+\end{frame}
+
+% ********************************************************************************
+
 \begin{frame}
 \tableofcontents
 \end{frame}
 
 % ********************************************************************************
-\section{Introduction}
-\begin{frame}{Introduction}
+
+
+\section{Calcul du gradient sphérique}
+
+\begin{frame}{Gradient sphérique}
 
 \end{frame}
 
-% ********************************************************************************
-\section{Calcul du gradient sphérique}
 
-\subsection{Quelques généralités}
+\subsection{Maillage}
+
+
+
 
 \subsection{Schémas compacts hermitiens}
 
