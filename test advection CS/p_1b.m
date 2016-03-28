@@ -28,10 +28,10 @@ global lambdac1 tetac1 lambdac2 tetac2
 coef = 0;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
-film = 1;
+film = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 0;
+save_graph = 1;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
 opt_ftr =10;
@@ -364,8 +364,8 @@ if film==1
     figure(100);
     title(['days : ', num2str(xdays(ite))])
     %plot_cs15(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI,mm,MM);
-    %plot_cs11(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
-    plot_cs14(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI,mm,MM);
+    plot_cs11(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe);
+    %plot_cs14(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI,mm,MM);
     %*plot_cs12(n,nn,funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,funfV-funfVe,funfVI-funfVIe,err);
     hold off;
     mov(ite) = getframe(gcf);
@@ -432,6 +432,10 @@ end
 
 time_res=cputime-tstart;
 %% graphiques
+if save_graph==1
+    mkdir(['./results-' date ])
+end
+
 
 if sauvegarde == 1
     mkdir(['./results-' date ])

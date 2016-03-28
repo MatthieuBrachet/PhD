@@ -21,28 +21,12 @@ global ftr;
 global radius gp hp omega
 global kvit keta
 
-%
-% n=3,nn=5; 
- n=7, nn=9; % number of points by face
-% n=15, nn=17; % number of points by face
-%n=19,nn=21; % number of points by face
-% n=31, nn=33; % number of points by face
-%  n=39, nn=41; % number of points by face
-% n =59, nn=61; % number of points by face
-% n =63, nn=65; % number of points by face
-% n=127, nn=129; % number of points by face
-% n=255, nn=257; % number of points by face
-% n=511, nn=513; % number of points by face
-% n=1023, nn=1025; % number of points by face
-% n=2047, nn=2049; % number of points by face
-% -----------------------------------------
-%global mm na nb;
+%global nn mm na nb;
+nn=n+2;
 mm=((nn-1)/2)+1;
 na=4*(nn-1);
 nb=na;
 % ----------------------------------------
-%global radius;
-% radius=1; % rayon terrestre (pour cas Nair-Lauritzen 1)
 %radius=6.37122d+06; % rayon terrestre (pour cas Williamson 1)
 radius =1;
 %gp=9.80616; % CSTE GRAVITATION
@@ -51,7 +35,7 @@ gp=0;
 hp=0;
 omega= 7.292d-05;  % ANGULAR ROTATION  
 %omega=0;
-% -----------------------------------------
+%% -----------------------------------------
 kvit=1;
 keta=1;
 %global xi eta dxi deta xx yy delta deltab;
@@ -138,7 +122,8 @@ for j=1:nn,
   alfag(3*(nn-1)+1:4*(nn-1),j)=alfacr(1:nn-1,j)+pi;
 end
 betag=alfag'; % BETAG=TRANSPOSEE DE ALFAG
-% --------------------------------------------------
+%% --------------------------------------------------
+% matrices de dérivation (grandes)
 %global p k;
 p=zeros(na); % 
 p=sparse(p);
@@ -156,7 +141,8 @@ p(1,1)=4;p(1,2)=1;p(1,na)=1;
 p( na,1)=1;p(na,na-1)=1;p(na,na)=4;
 k(1,2)=1;k(1,na)=-1;
 k(na,1)=1;k(na,na-1)=-1;
-% ----------------------------------------------------------------
+
+%% ----------------------------------------------------------------
 % % CARTESIAN COORDINATES OF THE POINTS OF THE 6 FACES.
 % global x_fI y_fI z_fI;
 % global x_fII y_fII z_fII;
@@ -248,7 +234,7 @@ end
 x_fVI=radius*x_fVI;
 y_fVI=radius*y_fVI;
 z_fVI=radius*z_fVI;
-% -----------------------------------------------------------------
+%% -----------------------------------------------------------------
 % DATA OF THE CONTRAVARIANT VECTORS XI/ETA FOR EACH FACE
 % - FACE I -
 % global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
@@ -390,6 +376,10 @@ for i=1:nn,
       geta_VI(i,j,1:3)=geta_VI(i,j,1:3)/xwk;     
     end
 end
+
+%% ------------------------------------------------------------------------
+% matrices de dérivation (petites)
+
 p1=zeros(n); % 
 p1=sparse(p1);
 k1=zeros(n);
@@ -406,66 +396,9 @@ p1(1,1)=4;p1(1,2)=1;
 p1(n,n-1)=1;p1(n,n)=4;
 k1(1,2)=1;
 k1(n,n-1)=-1;
-%
-% MATRICE DE FILTRE POUR LES RESEAUX ALPHA ET BETA
-% OPTION 0: pas de filtrage
-%   ftr=eye(na);
-% OPTION 1
-% -------
-% f0=1/2; 
-% f1=1/4;
-% lig1=[0,1, zeros(1,na-2)];
-% col1=[zeros(na-1,1);1];
-% sh1=toeplitz(col1,lig1);
-% sh1i=inv(sh1);
-% ftr=f0*eye(na)+f1*sh1+f1*sh1i;
-% OPTION 2
-% --------
-% f0=10/16; 
-% f1=4/16;
-% f2=-1/16;
-% lig1=[0,1, zeros(1,na-2)];
-% col1=[zeros(na-1,1);1];
-% sh1=toeplitz(col1,lig1);
-% sh1i=inv(sh1);
-% sh12=sh1^2;
-% sh1i2=sh1i^2;
-% ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2);
-% OPTION 3
-% -------
-% f0=44/64; 
-% f1=15/64;
-% f2=-6/64;
-% f3=1/64;
-% lig1=[0,1, zeros(1,na-2)];
-% col1=[zeros(na-1,1);1];
-% sh1=toeplitz(col1,lig1);
-% sh1i=inv(sh1);
-% sh12=sh1^2;
-% sh1i2=sh1i^2;
-% sh13=sh12*sh1;
-% sh1i3=sh1i2*sh1i;
-% ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3);
-% % OPTION 4
-% % -------
-% f0=186/256; 
-% f1=56/256;
-% f2=-28/256;
-% f3=8/256;
-% f4=-1/256;
-% lig1=[0,1, zeros(1,na-2)];
-% col1=[zeros(na-1,1);1];
-% sh1=toeplitz(col1,lig1);
-% sh1i=inv(sh1);
-% sh12=sh1^2;
-% sh1i2=sh1i^2;
-% sh13=sh12*sh1;
-% sh1i3=sh1i2*sh1i;
-% sh14=sh13*sh1;
-% sh1i4=sh1i3*sh1i;
-% ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4);
-% OPTION 5
-% -------
+
+%% MATRICE DE FILTRE POUR LES RESEAUX ALPHA ET BETA
+
 f0=772/1024; 
 f1=210/1024;
 f2=-120/1024;
@@ -487,4 +420,3 @@ sh1i5=sh1i4*sh1i;
 ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*(sh15+sh1i5);
 %  FIN MODULE "PROBLEME"= CALCULS EFFECTUES UNE SEULE FOIS
 %  PAR EXECUTION
-%

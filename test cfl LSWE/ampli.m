@@ -1,4 +1,4 @@
-function [ stab ] = ampli(teta1, teta2,dx,dy,dt)
+function [ stab ] = ampli(teta1, teta2,dx,dy,dt,timescheme)
 
 
 
@@ -13,7 +13,7 @@ H=1;
 
 % gravity
 g=9.81;
-
+if strcmp(timescheme,'rk4')==1
 
 for i=1:length(teta1)
     for j=1:length(teta2)
@@ -41,3 +41,60 @@ for i=1:length(teta1)
     end
 end
 
+elseif strcmp(timescheme,'rk1')==1
+
+for i=1:length(teta1)
+    for j=1:length(teta2)
+        t1=teta1(i);
+        t2=teta2(j);
+        
+        %% discretisations
+        s1 = sin(t1)./(2/3+2*(1/6*cos(t1)));
+        s2 = sin(t2)./(2/3+2*(1/6*cos(t2)));
+
+        %% filtre
+        ftr1 = 772/1024+2*(210/1024*cos(t1)-120/1024*cos(2*t1)+45/1024*cos(3*t1)-10/1024*cos(4*t1)+1/1024*cos(5*t1));
+        ftr2 = 772/1024+2*(210/1024*cos(t2)-120/1024*cos(2*t2)+45/1024*cos(3*t2)-10/1024*cos(4*t2)+1/1024*cos(5*t2));
+
+        %% matrice
+        A=[0  f0  -1i*g/dx*s1; -f0  0  -1i*g/dy*s2; -1i*H/dx*s1  -1i*H/dy*s2  0];
+
+        %% coefficient d'amplification
+        G=eye(3,3)+dt*A;
+
+
+        %% calcul du parametre de stabilité
+        spectre=eigs(G)*ftr1*ftr2;
+        stab(i,j)=max(abs(spectre));
+    end
+end
+
+elseif strcmp(timescheme,'rk2') == 1
+    
+for i=1:length(teta1)
+    for j=1:length(teta2)
+        t1=teta1(i);
+        t2=teta2(j);
+        
+        %% discretisations
+        s1 = sin(t1)./(2/3+2*(1/6*cos(t1)));
+        s2 = sin(t2)./(2/3+2*(1/6*cos(t2)));
+
+        %% filtre
+        ftr1 = 772/1024+2*(210/1024*cos(t1)-120/1024*cos(2*t1)+45/1024*cos(3*t1)-10/1024*cos(4*t1)+1/1024*cos(5*t1));
+        ftr2 = 772/1024+2*(210/1024*cos(t2)-120/1024*cos(2*t2)+45/1024*cos(3*t2)-10/1024*cos(4*t2)+1/1024*cos(5*t2));
+
+        %% matrice
+        A=[0  f0  -1i*g/dx*s1; -f0  0  -1i*g/dy*s2; -1i*H/dx*s1  -1i*H/dy*s2  0];
+
+        %% coefficient d'amplification
+        G=eye(3,3)+dt*A+0.5*dt^2*A^2;
+
+
+        %% calcul du parametre de stabilité
+        spectre=eigs(G)*ftr1*ftr2;
+        stab(i,j)=max(abs(spectre));
+    end
+end
+
+end

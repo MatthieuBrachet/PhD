@@ -1,12 +1,12 @@
 clc; clear all; close all
 
 %% scheme we want to test
-time='rk1';
+time='rk4';
 c=4;
 space='implicit';
-f=10;
+f=2;
 delta=0.4;
-filtre='visbal';
+filtre='redonnet';
 
 %% research of cfl number max
 epsi=10^-10;
@@ -21,7 +21,7 @@ b=5;
 while abs(b-a)>epsi && iter < itermax
     lambda=0.5*(a+b);
     g = atsf(lambda, teta,time,c,space,f,filtre,delta);
-    h=floor(max(abs(g))*1/epsi)*epsi;
+    h=floor(max(abs(g))/epsi)*epsi;
     %h=max(abs(g));
     iter=iter+1;
     if h>1
