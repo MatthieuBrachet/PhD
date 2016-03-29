@@ -1,0 +1,130 @@
+\documentclass[11pt]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\title[\'Equation d'advection sur la sphère]{Résolution de l'équation d'advection en différences finies d'ordre élevé sur la sphère\\
+Séminaire Doctorants de Strasbourg}
+\setbeamercovered{transparent} 
+\setbeamertemplate{navigation symbols}{} 
+\author{Brachet Matthieu}
+\logo{IECL.jpg} 
+\date[17.03.2017]{Jeudi 17 Mars 2016}
+\institute[IECL]{Institut Elie Cartan de Lorraine}
+%\subject{} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\begin{center}
+\includegraphics[width=2.5cm]{IECL.jpg}
+\end{center}
+\end{frame}
+
+
+\section{Introduction}
+\begin{frame}{Introduction}
+
+  \begin{block}{Objectif :}
+    Résolution numérique d'EDP sur la sphère.
+  \end{block}
+
+  Ici : mettres qqes photos d'applications : climat, océans, imagerie médicale, ...
+
+  
+\end{frame}
+
+\begin{frame}
+  Méthodes déjà existantes :
+  \begin{itemize}
+    \item Problème des pôles
+    \item Rapidité du calcul
+    \item Précision
+  \end{itemize}
+  NOTE : METTRE UNE IMAGE DU MAILLAGE LONLAT A GAUCHE
+
+  \begin{exampleblock}{Dans cet exposé :}
+    \begin{itemize}
+    \item Présentation de la méthode de discrétisation spaciale : rapide et précis en différences finies;
+    \item Discrétisation temporelle : Runge Kutta avec filtrage des hautes fréquences.  
+    \end{itemize}
+  \end{exampleblock}
+
+  
+\end{frame}
+
+% ********************************************************************************
+
+\begin{frame}
+\tableofcontents
+\end{frame}
+
+% ********************************************************************************
+
+
+\section{Calcul du gradient sphérique}
+
+\begin{frame}{Gradient sphérique}
+
+\end{frame}
+
+
+\subsection{Maillage}
+
+
+
+
+\subsection{Schémas compacts hermitiens}
+
+\subsection{Résultats numériques}
+
+% ********************************************************************************
+\section{Méthodes de Runge-Kutta}
+
+\subsection{Notions générales}
+
+\subsection{Méthodes RKE et DIRK}
+
+\subsection{Stabilité}
+
+% ********************************************************************************
+\section{Equation d'advection}
+
+\subsection{Test 1 de Williamson [REF]}
+
+\subsection{\'Etude du cas 1D périodique}
+
+\subsection{Filtrage numérique}
+
+\subsection{Résultats Numériques}
+
+% ********************************************************************************
+\section{Test de Nair et Jablonowski}
+
+\subsection{Présentation}
+
+\subsection{Résultats}
+
+\subsection{Ordre de convergence}
+
+% ********************************************************************************
+\section{Conclusion}
+
+
+
+
+
+\section*{}
+\begin{frame}
+\begin{center}
+Merci de votre attention :)
+\end{center}
+\end{frame}
+
+
+\end{document}

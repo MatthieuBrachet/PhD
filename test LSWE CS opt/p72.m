@@ -1,6 +1,7 @@
 % MODULE PROBLEM FOR THE CUBED SPHERE
 % ----------------------------------
 clear all;clc; close all;
+t1=cputime;
 global n nn;
 global x_fI y_fI z_fI;
 global x_fII y_fII z_fII;
@@ -15,7 +16,7 @@ global u0;
 global t_final;
 
 %% space data
-n=31;
+n=127;
 mod72; 
 
 %% time data
@@ -220,17 +221,19 @@ errV_38=max(max(abs(err_fV(:,:,4)))); % ERREUR ETA
 errVI_38=max(max(abs(err_fVI(:,:,4)))); % ERREUR ETA
 err_38=max([errI_38,errII_38,errIII_38,errIV_38,errV_38,errVI_38])
 
-figure(33);
-plot_cs5(n,nn,err_fI(:,:,4),err_fII(:,:,4),err_fIII(:,:,4)...
-     ,err_fIV(:,:,4),err_fV(:,:,4),err_fVI(:,:,4));colorbar;
-title('erreur')
+% figure(33);
+% plot_cs5(n,nn,err_fI(:,:,4),err_fII(:,:,4),err_fIII(:,:,4)...
+%      ,err_fIV(:,:,4),err_fV(:,:,4),err_fVI(:,:,4));colorbar;
+% title('erreur')
+% 
+% figure(35);
+% plot_cs5(n,nn,mfunfIe(:,:,4),mfunfIIe(:,:,4),mfunfIIIe(:,:,4)...
+%      ,mfunfIVe(:,:,4),mfunfVe(:,:,4),mfunfVIe(:,:,4));colorbar;
+% title('exacte')
+% 
+% figure(37);
+%  plot_cs5(n,nn,mfunfI(:,:,4),mfunfII(:,:,4),mfunfIII(:,:,4)...
+%     ,mfunfIV(:,:,4),mfunfV(:,:,4),mfunfVI(:,:,4));colorbar;
+% title('approchee')
 
-figure(35);
-plot_cs5(n,nn,mfunfIe(:,:,4),mfunfIIe(:,:,4),mfunfIIIe(:,:,4)...
-     ,mfunfIVe(:,:,4),mfunfVe(:,:,4),mfunfVIe(:,:,4));colorbar;
-title('exacte')
-
-figure(37);
- plot_cs5(n,nn,mfunfI(:,:,4),mfunfII(:,:,4),mfunfIII(:,:,4)...
-    ,mfunfIV(:,:,4),mfunfV(:,:,4),mfunfVI(:,:,4));colorbar;
-title('approchee')
+t2=cputime-t1

@@ -16,7 +16,6 @@ global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
 global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
-global p1 k1;
 global ftr;
 global radius gp hp omega
 global kvit keta
@@ -63,9 +62,7 @@ for i=1:nn,
     delta(i,j)=1+xx(i,j)^2+yy(i,j)^2;
   end
 end
-deltab=zeros(n,n);
 deltab=sqrt(delta); % DELTAB=DELTA DE ULLRICH = SQRT(1+X^2+Y^2).
-dga=zeros(nn,nn);
 dga=(radius^2)*((1+xx.^2).*(1+yy.^2))./(delta.*deltab); % ELEMENT AREA
 % ---------------------------------------
 %global alfa beta;
@@ -131,16 +128,16 @@ k=zeros(na);
 k=sparse(k);
 %
 for i=2:na-1
-    p(i,i)=4;
-    p(i,i+1)=1;
-    p(i,i-1)=1;
-    k(i,i+1)=1;
-    k(i,i-1)=-1;
+    p(i,i)=4/6;
+    p(i,i+1)=1/6;
+    p(i,i-1)=1/6;
+    k(i,i+1)=1/(2*dxi);
+    k(i,i-1)=-1/(2*dxi);
 end
-p(1,1)=4;p(1,2)=1;p(1,na)=1;
-p( na,1)=1;p(na,na-1)=1;p(na,na)=4;
-k(1,2)=1;k(1,na)=-1;
-k(na,1)=1;k(na,na-1)=-1;
+p(1,1)=4/6;p(1,2)=1/6;p(1,na)=1/6;
+p(na,1)=1/6;p(na,na-1)=1/6;p(na,na)=4/6;
+k(1,2)=1/(2*dxi);k(1,na)=-1/(2*dxi);
+k(na,1)=1/(2*dxi);k(na,na-1)=-1/(2*dxi);
 
 %% ----------------------------------------------------------------
 % % CARTESIAN COORDINATES OF THE POINTS OF THE 6 FACES.
@@ -376,26 +373,6 @@ for i=1:nn,
       geta_VI(i,j,1:3)=geta_VI(i,j,1:3)/xwk;     
     end
 end
-
-%% ------------------------------------------------------------------------
-% matrices de dérivation (petites)
-
-p1=zeros(n); % 
-p1=sparse(p1);
-k1=zeros(n);
-k1=sparse(k1);
-%
-for i=2:n-1
-    p1(i,i)=4;
-    p1(i,i+1)=1;
-    p1(i,i-1)=1;
-    k1(i,i+1)=1;
-    k1(i,i-1)=-1;
-end
-p1(1,1)=4;p1(1,2)=1;
-p1(n,n-1)=1;p1(n,n)=4;
-k1(1,2)=1;
-k1(n,n-1)=-1;
 
 %% MATRICE DE FILTRE POUR LES RESEAUX ALPHA ET BETA
 

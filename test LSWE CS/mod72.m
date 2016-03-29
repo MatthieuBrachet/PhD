@@ -23,14 +23,14 @@ global kvit keta
 
 %
 % n=3,nn=5; 
- n=7, nn=9; % number of points by face
+% n=7, nn=9; % number of points by face
 % n=15, nn=17; % number of points by face
-%n=19,nn=21; % number of points by face
-% n=31, nn=33; % number of points by face
+% n=19,nn=21; % number of points by face
+% n=31; nn=33; % number of points by face
 %  n=39, nn=41; % number of points by face
 % n =59, nn=61; % number of points by face
 % n =63, nn=65; % number of points by face
-% n=127, nn=129; % number of points by face
+ n=127, nn=129; % number of points by face
 % n=255, nn=257; % number of points by face
 % n=511, nn=513; % number of points by face
 % n=1023, nn=1025; % number of points by face

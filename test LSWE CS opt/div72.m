@@ -2,11 +2,11 @@ function [div_fI,div_fII,div_fIII,div_fIV,div_fV,div_fVI]=...
     div72(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn)
 global na nb;
 global radius;
-global xx yy deltab;
+%global xx yy deltab;
 global alfa beta;
 global betacr;
 global alfa1;
-global alfag betag;
+%global alfag betag;
 global p k;
 global x_fI y_fI z_fI;
 global x_fII y_fII z_fII;
@@ -118,14 +118,14 @@ end
 
 vad_fI=zeros(na,nn);
 for jline1=1:nn,
-    alfag4=alfag(:,jline1);
-    dalfag4=k*alfag4;
-    dalfag4(1)=dalfag4(1)+2*pi;
-    dalfag4(na)=dalfag4(na)+2*pi;
-    alfag4d=3*(p\dalfag4);
+%     alfag4=alfag(:,jline1);
+%     dalfag4=k*alfag4;
+%     dalfag4(1)=dalfag4(1)+2*pi;
+%     dalfag4(na)=dalfag4(na)+2*pi;
+%     alfag4d=(p\dalfag4);
     funa7=va_fI(:,jline1); 
-    funad7=3*p\(k*funa7); 
-    funad8=funad7./alfag4d; 
+    funad7=p\(k*funa7); 
+    funad8=funad7;%./alfag4d; 
     vad_fI(:,jline1)=funad8; 
 end
 
@@ -225,18 +225,16 @@ end
 
 vbd_fI=zeros(nn,nb);
 for iline1=1:nn,
-    betag1=betag(iline1,:);
-    dbetag1=k*betag1';
-    dbetag1(1)=dbetag1(1)+2*pi;
-    dbetag1(na)=dbetag1(na)+2*pi;
-    betag1d=3*(p\dbetag1);
+%     betag1=betag(iline1,:);
+%     dbetag1=k*betag1';
+%     dbetag1(1)=dbetag1(1)+2*pi;
+%     dbetag1(na)=dbetag1(na)+2*pi;
+%     betag1d=(p\dbetag1);
     funb1=vb_fI(iline1,:);
-    funbd1=3*p\(k*funb1');
-    funbd2=funbd1./betag1d;
+    funbd1=p\(k*funb1');
+    funbd2=funbd1;%./betag1d;
     vbd_fI(iline1,:)=funbd2; 
 end
-
-%% ************************************************************************
 
 dg_alfa=zeros(nn,nn,6);dg_beta=zeros(nn,nn,6);
 
@@ -253,10 +251,11 @@ div_fI=zeros(nn,nn);
 gt_I=gtIa_I;
 for i=1:nn,
     for j=1:nn,
-        xwk=(1+xx(i,j)^2)*(1+yy(i,j)^2)/(deltab(i,j)^2);
-        xwk_xi  = (1/sqrt(1+yy(i,j)^2))*xwk;
-        xwk_eta = (1/sqrt(1+xx(i,j)^2))*xwk;
-        div_fI(i,j)=(xwk_xi*dg_alfa(i,j,1) + xwk_eta*dg_beta(i,j,1))/gt_I(i,j);
+%         xwk=(1+xx(i,j)^2)*(1+yy(i,j)^2)/(deltab(i,j)^2);
+%         xwk_xi  = (1/sqrt(1+yy(i,j)^2))*xwk;
+%         xwk_eta = (1/sqrt(1+xx(i,j)^2))*xwk;
+%         div_fI(i,j)=(xwk_xi*dg_alfa(i,j,1) + xwk_eta*dg_beta(i,j,1))/gt_I(i,j);
+        div_fI(i,j)=(dg_alfa(i,j,1) + dg_beta(i,j,1))/gt_I(i,j);
     end
 end
 
@@ -266,12 +265,15 @@ gt_III=gtIa_III;
 
 for i=1:nn,
     for j=1:nn,
-        xwk=(1+xx(i,j)^2)*(1+yy(i,j)^2)/(deltab(i,j)^2);
-        xwk_xi  = (1/sqrt(1+yy(i,j)^2))*xwk;
-        xwk_eta = (1/sqrt(1+xx(i,j)^2))*xwk;
-        div_fIII(i,j)=(xwk_xi*dg_alfa(i,j,3) - xwk_eta*dg_beta(i,j,3))/gt_III(i,j);
+%         xwk=(1+xx(i,j)^2)*(1+yy(i,j)^2)/(deltab(i,j)^2);
+%         xwk_xi  = (1/sqrt(1+yy(i,j)^2))*xwk;
+%         xwk_eta = (1/sqrt(1+xx(i,j)^2))*xwk;
+%         div_fIII(i,j)=(xwk_xi*dg_alfa(i,j,3) - xwk_eta*dg_beta(i,j,3))/gt_III(i,j);
+        div_fIII(i,j)=(dg_alfa(i,j,3) + dg_beta(i,j,3))/gt_III(i,j);
     end
 end
+
+%% ************************************************************************
 
 xxtIIa_II=zeros(nn,nn);xxtIIa_III=zeros(nn,nn);
 xxtIIa_IV=zeros(nn,nn);xxtIIa_I=zeros(nn,nn);
@@ -389,14 +391,14 @@ end
 
 vad_fII=zeros(na,nn);
 for jline1=1:nn,
-    alfag5=alfag(:,jline1);
-    dalfag5=k*alfag5;
-    dalfag5(1)=dalfag5(1)+2*pi;
-    dalfag5(na)=dalfag5(na)+2*pi;
-    alfag5d=3*(p\dalfag5);
+%     alfag5=alfag(:,jline1);
+%     dalfag5=k*alfag5;
+%     dalfag5(1)=dalfag5(1)+2*pi;
+%     dalfag5(na)=dalfag5(na)+2*pi;
+%     alfag5d=(p\dalfag5);
     funa9=va_fII(:,jline1);
-    funad9=3*p\(k*funa9);
-    funad10=funad9./alfag5d;
+    funad9=p\(k*funa9);
+    funad10=funad9;%./alfag5d;
     vad_fII(:,jline1)=funad10; 
 end
 
@@ -499,18 +501,16 @@ end
 
 vbd_fII=zeros(nn,nb);
 for iline1=1:nn,
-    betag2=betag(iline1,:);
-    dbetag2=k*betag2';
-    dbetag2(1)=dbetag2(1)+2*pi;
-    dbetag2(na)=dbetag2(na)+2*pi;
-    betag2d=3*(p\dbetag2);
+%     betag2=betag(iline1,:);
+%     dbetag2=k*betag2';
+%     dbetag2(1)=dbetag2(1)+2*pi;
+%     dbetag2(na)=dbetag2(na)+2*pi;
+%     betag2d=(p\dbetag2);
     funb2=vb_fII(iline1,:);
-    funbd2=3*p\(k*funb2');
-    funbd3=funbd2./betag2d;
+    funbd2=p\(k*funb2');
+    funbd3=funbd2;%./betag2d;
     vbd_fII(iline1,:)=funbd3; 
 end
-
-%% ************************************************************************
 
 for i=1:nn,
     for j=1:nn,
@@ -525,10 +525,11 @@ div_fII=zeros(nn,nn);
 gt_II=gtIIa_II; 
 for i=1:nn,
     for j=1:nn,
-        xwk=(1+xx(i,j)^2)*(1+yy(i,j)^2)/(deltab(i,j)^2);
-        xwk_xi  = (1/sqrt(1+yy(i,j)^2))*xwk;
-        xwk_eta = (1/sqrt(1+xx(i,j)^2))*xwk;
-        div_fII(i,j)=(xwk_xi*dg_alfa(i,j,2) + xwk_eta*dg_beta(i,j,2))/gt_II(i,j);
+%         xwk=(1+xx(i,j)^2)*(1+yy(i,j)^2)/(deltab(i,j)^2);
+%         xwk_xi  = (1/sqrt(1+yy(i,j)^2))*xwk;
+%         xwk_eta = (1/sqrt(1+xx(i,j)^2))*xwk;
+%         div_fII(i,j)=(xwk_xi*dg_alfa(i,j,2) + xwk_eta*dg_beta(i,j,2))/gt_II(i,j);
+        div_fII(i,j)=(dg_alfa(i,j,2) + dg_beta(i,j,2))/gt_II(i,j);
     end
 end
 
@@ -536,12 +537,15 @@ div_fIV=zeros(nn,nn);
 gt_IV=gtIIa_IV;
 for i=1:nn,
     for j=1:nn,
-        xwk=(1+xx(i,j)^2)*(1+yy(i,j)^2)/(deltab(i,j)^2);
-        xwk_xi  = (1/sqrt(1+yy(i,j)^2))*xwk;
-        xwk_eta = (1/sqrt(1+xx(i,j)^2))*xwk;
-        div_fIV(i,j)=(xwk_xi*dg_alfa(i,j,4) - xwk_eta*dg_beta(i,j,4))/gt_IV(i,j);
+%         xwk=(1+xx(i,j)^2)*(1+yy(i,j)^2)/(deltab(i,j)^2);
+%         xwk_xi  = (1/sqrt(1+yy(i,j)^2))*xwk;
+%         xwk_eta = (1/sqrt(1+xx(i,j)^2))*xwk;
+%         div_fIV(i,j)=(xwk_xi*dg_alfa(i,j,4) - xwk_eta*dg_beta(i,j,4))/gt_IV(i,j);
+        div_fIV(i,j)=(dg_alfa(i,j,4) + dg_beta(i,j,4))/gt_IV(i,j);
     end
 end
+
+%% ************************************************************************
 
 xxtVa_V=y_fV./z_fV;
 yytVa_V=-x_fV./z_fV;
@@ -644,14 +648,14 @@ end
 
 vad_fV=zeros(na,nn);
 for jline1=1:nn,
-    alfag6=alfag(1:na,jline1);
-    dalfag6=k*alfag6;
-    dalfag6(1)=dalfag6(1)+2*pi;
-    dalfag6(na)=dalfag6(na)+2*pi;
-    alfag6d=3*(p\dalfag6);
+%     alfag6=alfag(1:na,jline1);
+%     dalfag6=k*alfag6;
+%     dalfag6(1)=dalfag6(1)+2*pi;
+%     dalfag6(na)=dalfag6(na)+2*pi;
+%     alfag6d=(p\dalfag6);
     funa11=va_fV(:,jline1);
-    funad11=3*p\(k*funa11);
-    funad12=funad11./alfag6d;
+    funad11=p\(k*funa11);
+    funad12=funad11;%./alfag6d;
     vad_fV(:,jline1)=funad12; 
 end
 
@@ -750,18 +754,17 @@ end
 
 vbd_fV=zeros(nn,nb);
 for iline1=1:nn,
-    betag5=betag(iline1,:);
-    dbetag5=k*betag5';
-    dbetag5(1)=dbetag5(1)+2*pi;
-    dbetag5(na)=dbetag5(na)+2*pi;
-    betag5d=3*(p\dbetag5);
+%     betag5=betag(iline1,:);
+%     dbetag5=k*betag5';
+%     dbetag5(1)=dbetag5(1)+2*pi;
+%     dbetag5(na)=dbetag5(na)+2*pi;
+%     betag5d=(p\dbetag5);
     funb5=vb_fV(iline1,:);
-    funbd5=3*p\(k*funb5');
-    funbd6=funbd5./betag5d;
+    funbd5=p\(k*funb5');
+    funbd6=funbd5;%./betag5d;
     vbd_fV(iline1,:)=funbd6; 
 end
 
-%% ************************************************************************
 
 for i=1:nn,
     for j=1:nn,
@@ -774,13 +777,14 @@ end
 
 div_fV=zeros(nn,nn);
 
-gt_V=gtVb_V; 
+%gt_V=gtVb_V; 
 for i=1:nn,
     for j=1:nn,
-        xwk=(1+xx(i,j)^2)*(1+yy(i,j)^2)/(deltab(i,j)^2);
-        xwk_xi  = (1/sqrt(1+yy(i,j)^2))*xwk;
-        xwk_eta = (1/sqrt(1+xx(i,j)^2))*xwk;
-        div_fV(i,j)=(xwk_xi*dg_alfa(i,j,5) + xwk_eta*dg_beta(i,j,5))/gt_V(i,j);
+%         xwk=(1+xx(i,j)^2)*(1+yy(i,j)^2)/(deltab(i,j)^2);
+%         xwk_xi  = (1/sqrt(1+yy(i,j)^2))*xwk;
+%         xwk_eta = (1/sqrt(1+xx(i,j)^2))*xwk;
+%        div_fV(i,j)=(xwk_xi*dg_alfa(i,j,5) + xwk_eta*dg_beta(i,j,5))/gt_V(i,j);
+        div_fV(i,j)=dg_alfa(i,j,5) + dg_beta(i,j,5);
     end
 end
 
@@ -789,10 +793,11 @@ div_fVI=zeros(nn,nn);
 gt_VI=gtVa_VI;
 for i=1:nn,
     for j=1:nn,
-        xwk=(1+xx(i,j)^2)*(1+yy(i,j)^2)/(deltab(i,j)^2);
-        xwk_xi  = (1/sqrt(1+yy(i,j)^2))*xwk;
-        xwk_eta = (1/sqrt(1+xx(i,j)^2))*xwk;
-        div_fVI(i,j)=(-xwk_xi*dg_alfa(i,j,6) + xwk_eta*dg_beta(i,j,6))/gt_VI(i,j);
+%         xwk=(1+xx(i,j)^2)*(1+yy(i,j)^2)/(deltab(i,j)^2);
+%         xwk_xi  = (1/sqrt(1+yy(i,j)^2))*xwk;
+%         xwk_eta = (1/sqrt(1+xx(i,j)^2))*xwk;
+%        div_fVI(i,j)=(-xwk_xi*dg_alfa(i,j,6) + xwk_eta*dg_beta(i,j,6))/gt_VI(i,j);
+        div_fVI(i,j)=(dg_alfa(i,j,6) + dg_beta(i,j,6))/gt_VI(i,j);
     end
 end
 
