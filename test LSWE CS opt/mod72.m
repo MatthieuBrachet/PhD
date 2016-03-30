@@ -26,8 +26,8 @@ mm=((nn-1)/2)+1;
 na=4*(nn-1);
 nb=na;
 % ----------------------------------------
-%radius=6.37122d+06; % rayon terrestre (pour cas Williamson 1)
-radius =1;
+radius=6.37122d+06; % rayon terrestre (pour cas Williamson 1)
+%radius =1;
 %gp=9.80616; % CSTE GRAVITATION
 gp=0;
 %hp=20; % MEAN HEIGTH

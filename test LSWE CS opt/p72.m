@@ -16,7 +16,7 @@ global u0;
 global t_final;
 
 %% space data
-n=127;
+n=63;
 mod72; 
 
 %% time data
@@ -57,7 +57,7 @@ er1=zeros(1,itemax);er2=zeros(1,itemax);erinfty=zeros(1,itemax);ermax=zeros(1,it
 xdays=zeros(1,itemax);
 integral=zeros(1,itemax);
 for ite=1:itemax
-ite
+clc; disp(ite);
 %% *** filtrage ***********************************************************
 for k1=1:4,
 [mfunftI(:,:,k1),mfunftII(:,:,k1),mfunftIII(:,:,k1),mfunftIV(:,:,k1),mfunftV(:,:,k1),mfunftVI(:,:,k1)]=...
@@ -209,9 +209,9 @@ err_fIII=mfunfIII-mfunfIIIe;err_fIV=mfunfIV-mfunfIVe;
 err_fV=mfunfV-mfunfVe;err_fVI=mfunfVI-mfunfVIe;
 
 
-% figure(1)
-% semilogy(xdays, er1,xdays,er2,xdays,erinfty)
-% legend('norm 1','norm 2','norm infty')
+figure(1)
+semilogy(xdays, er1,xdays,er2,xdays,erinfty)
+legend('norm 1','norm 2','norm infty')
 
 errI_38=max(max(abs(err_fI(:,:,4)))); % ERREUR ETA
 errII_38=max(max(abs(err_fII(:,:,4)))); % ERREUR ETA
@@ -221,19 +221,19 @@ errV_38=max(max(abs(err_fV(:,:,4)))); % ERREUR ETA
 errVI_38=max(max(abs(err_fVI(:,:,4)))); % ERREUR ETA
 err_38=max([errI_38,errII_38,errIII_38,errIV_38,errV_38,errVI_38])
 
-% figure(33);
-% plot_cs5(n,nn,err_fI(:,:,4),err_fII(:,:,4),err_fIII(:,:,4)...
-%      ,err_fIV(:,:,4),err_fV(:,:,4),err_fVI(:,:,4));colorbar;
-% title('erreur')
-% 
-% figure(35);
-% plot_cs5(n,nn,mfunfIe(:,:,4),mfunfIIe(:,:,4),mfunfIIIe(:,:,4)...
-%      ,mfunfIVe(:,:,4),mfunfVe(:,:,4),mfunfVIe(:,:,4));colorbar;
-% title('exacte')
-% 
-% figure(37);
-%  plot_cs5(n,nn,mfunfI(:,:,4),mfunfII(:,:,4),mfunfIII(:,:,4)...
-%     ,mfunfIV(:,:,4),mfunfV(:,:,4),mfunfVI(:,:,4));colorbar;
-% title('approchee')
+figure(33);
+plot_cs5(n,nn,err_fI(:,:,4),err_fII(:,:,4),err_fIII(:,:,4)...
+     ,err_fIV(:,:,4),err_fV(:,:,4),err_fVI(:,:,4));colorbar;
+title('erreur')
+
+figure(35);
+plot_cs5(n,nn,mfunfIe(:,:,4),mfunfIIe(:,:,4),mfunfIIIe(:,:,4)...
+     ,mfunfIVe(:,:,4),mfunfVe(:,:,4),mfunfVIe(:,:,4));colorbar;
+title('exacte')
+
+figure(37);
+ plot_cs5(n,nn,mfunfI(:,:,4),mfunfII(:,:,4),mfunfIII(:,:,4)...
+    ,mfunfIV(:,:,4),mfunfV(:,:,4),mfunfVI(:,:,4));colorbar;
+title('approchee')
 
 t2=cputime-t1

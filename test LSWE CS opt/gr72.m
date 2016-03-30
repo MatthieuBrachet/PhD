@@ -1,10 +1,10 @@
 function [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=...
     gr72(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
 global na nb;
-global xx yy deltab;
+%global xx yy deltab;
 global alfa beta betacr;
 global alfa1;
-global alfag betag;
+%global alfag betag;
 global p k;
 global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
@@ -24,6 +24,7 @@ funbIV1=zeros(nn,1);
 for jline1=1:nn, 
     va_fI(1:nn-1,jline1)=funfI(1:nn-1,jline1);
 end
+
 % FACE II: SPLINE INTERPOLATION A L'AIDE DES ANGLES BETA
 for i=1:nn-1
     betaspline(1:nn)=beta(i,1:nn);
