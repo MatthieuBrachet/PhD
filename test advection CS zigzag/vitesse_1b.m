@@ -2,7 +2,7 @@ function [vitx_I,vitx_II, vitx_III, vitx_IV, vitx_V, vitx_VI, ...
     vity_I,vity_II, vity_III, vity_IV, vity_V, vity_VI, ...
     vitz_I,vitz_II, vitz_III, vitz_IV, vitz_V, vitz_VI] = vitesse_1b(t)
 
-global radius tmax;
+global radius;
 global alphad u0;
 global x_fI y_fI z_fI;
 global x_fII y_fII z_fII;
@@ -19,9 +19,6 @@ global gamma rho0
 
 % test de Nair et Jablonowski
 global teta0 lambda0
-
-% test de Nair et Lauritzen (deformational test case)
-global kk
 
 a=radius;
 
@@ -125,7 +122,7 @@ vity_VI=ulambda.*elambda_y + vteta.*eteta_y;
 vitz_VI=ulambda.*elambda_z + vteta.*eteta_z;
 
 elseif coef == 1
-%% Nair and Machenhauer
+    
 % FACE I
 
     [lambda, teta, ~]=cart2sph(x_fI,y_fI,z_fI);
@@ -271,7 +268,7 @@ elseif coef == 1
     vitz_VI=ulambda.*elambda_z + vteta.*eteta_z;
 
 elseif coef == 2
-%% Nair and Jablonowski
+
     [vitx_I   , vity_I   , vitz_I  ] = nair_jablonowski(x_fI  ,y_fI   ,z_fI  ,t);
     [vitx_II  , vity_II  , vitz_II ] = nair_jablonowski(x_fII ,y_fII  ,z_fII ,t);
     [vitx_III , vity_III , vitz_III] = nair_jablonowski(x_fIII,y_fIII ,z_fIII,t);
@@ -373,4 +370,5 @@ vteta= -u0*sin(alphad)*sin(lambda);
 vitx_VI=ulambda.*elambda_x + vteta.*eteta_x;
 vity_VI=ulambda.*elambda_y + vteta.*eteta_y;
 vitz_VI=ulambda.*elambda_z + vteta.*eteta_z;
+
 end

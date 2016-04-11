@@ -2,12 +2,14 @@
 % ----------------------------------
 global n nn;
 global mm na nb;
+global radius u0;
 global xi eta dxi deta xx yy delta deltab dga;
 global alfa beta;
 global alfacr betacr;
+global pts_beta ptscr_beta;
 global alfa1;
 global alfag betag;
-global p k;
+global p keta kxi;
 global x_fI y_fI z_fI;
 global x_fII y_fII z_fII;
 global x_fIII y_fIII z_fIII;
@@ -16,28 +18,27 @@ global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
 global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
+global p1 k1;
 global ftr;
-global radius gp hp omega
-global kvit keta
 
-%global nn mm na nb;
-nn=n+2;
+global opt_ftr;
+
+
+% unzip('http://math.boisestate.edu/~wright/montestigliano/rbfsphere.zip');
+% addpath(fullfile(cd,'rbfsphere'),fullfile(cd,'rbfsphere/rbfqr'));
+% addpath(fullfile(cd,'rbfsphere/kdtree'),fullfile(cd,'rbfsphere/data'));
+% savepath
+
+%% global mm na nb;
 mm=((nn-1)/2)+1;
 na=4*(nn-1);
 nb=na;
-% ----------------------------------------
-radius=6.37122d+06; % rayon terrestre (pour cas Williamson 1)
-%radius =1;
-%gp=9.80616; % CSTE GRAVITATION
-gp=0;
-%hp=20; % MEAN HEIGTH
-hp=0;
-omega= 7.292d-05;  % ANGULAR ROTATION  
-%omega=0;
-%% -----------------------------------------
-kvit=1;
-keta=1;
-%global xi eta dxi deta xx yy delta deltab;
+
+%% global radius;
+radius=6.37122d+06; % rayon terrestre
+u0=2*pi*radius/(12*24*3600);
+
+%% global xi eta dxi deta xx yy delta deltab;
 xi=linspace(-pi/4, pi/4, nn); 
 dxi=(pi/2)/(nn-1);
 eta=linspace(-pi/4, pi/4, nn); 
@@ -62,10 +63,14 @@ for i=1:nn,
     delta(i,j)=1+xx(i,j)^2+yy(i,j)^2;
   end
 end
+deltab=zeros(n,n);
 deltab=sqrt(delta); % DELTAB=DELTA DE ULLRICH = SQRT(1+X^2+Y^2).
+dga=zeros(nn,nn);
 dga=(radius^2)*((1+xx.^2).*(1+yy.^2))./(delta.*deltab); % ELEMENT AREA
-% ---------------------------------------
-%global alfa beta;
+
+
+%% global alfa beta;
+
 alfa=zeros(nn,nn);
 beta=zeros(nn,nn);
 for j=1:nn,
@@ -84,8 +89,9 @@ for i=1:nn,
         beta(i,j)=atan(tan(eta(j))/xwk);
     end
 end
-% -----------------------------------------
-%global alfacr betacr;
+
+%% global alfacr betacr;
+
 alfacr=zeros(nn,nn);
 betacr=zeros(nn,nn);
 for j=1:nn,
@@ -106,6 +112,57 @@ for i=1:nn,
         alfa1(i,j)=betacr(j,i);
     end
 end
+
+% points pour l'interpolation et fonction a interpoler
+compteur=1;
+for j=1:nn
+    for i=1:nn
+        if rem(j,2) == 1
+            if i==1 && j==1
+                pts_beta(compteur)=beta(1,1);
+            elseif i==1 && j ~= 1
+                pts_beta(compteur)=pts_beta(compteur-1)+sqrt(1+(beta(j,i)-beta(j-1,i))^2);
+            else
+                pts_beta(compteur)=pts_beta(compteur-1)+abs(beta(j,i)-beta(j,i-1));
+            end
+        elseif rem(j,2) == 0
+            if i==1
+                pts_beta(compteur)=pts_beta(compteur-1)+sqrt(1+(beta(j,nn-i+1)-beta(j-1,nn-i+1))^2);
+            else
+                pts_beta(compteur)=pts_beta(compteur-1)+abs(beta(j,nn-i+1)-beta(j,nn-i+2));
+            end
+        end
+            compteur=compteur+1;
+    end
+end
+
+for i=1:nn
+    betacrn(i,:)=sort(betacr(i,:));
+end
+% points à évaluer
+compteur=1;
+for j=1:nn
+    for i=1:nn
+        if rem(j,2) == 1
+            if i==1 && j==1
+                ptscr_beta(compteur)=betacrn(1,1);
+            elseif i==1 && j ~= 1
+                ptscr_beta(compteur)=ptscr_beta(compteur-1)+abs(beta(j-1,i)-betacrn(j-1,i))+sqrt(1+(beta(j,i)-beta(j-1,i))^2)+abs(beta(j,i)-betacrn(j,i));
+            else
+                ptscr_beta(compteur)=ptscr_beta(compteur-1)+abs(betacr(j,i)-betacr(j,i-1));
+            end
+        elseif rem(j,2) == 0
+            if i==1
+                ptscr_beta(compteur)=ptscr_beta(compteur-1)+abs(beta(j-1,nn-i+1)-betacrn(j-1,nn-i+1))+sqrt(1+(beta(j,nn-i+1)-beta(j-1,nn-i+1))^2)+abs(beta(j,nn-i+1)-betacrn(j,nn-i+1));
+            else
+                ptscr_beta(compteur)=ptscr_beta(compteur-1)+abs(betacrn(j,nn-i+1)-betacrn(j,nn-i+2));
+            end
+        end
+            compteur=compteur+1;
+    end   
+end
+
+
 % ----------------------------------------
 % CALCUL DES ANGLES GLOBAUX DE RESEAUX: 2 TABLEAUX SEULEMENT ALFA_G ET BETA_G
 % ALFA_G: ABSCISSES CURVILIGNES LE LONG DE Ia, IIa, Va
@@ -119,8 +176,7 @@ for j=1:nn,
   alfag(3*(nn-1)+1:4*(nn-1),j)=alfacr(1:nn-1,j)+pi;
 end
 betag=alfag'; % BETAG=TRANSPOSEE DE ALFAG
-%% --------------------------------------------------
-% matrices de dérivation (grandes)
+% --------------------------------------------------
 %global p k;
 p=zeros(na); % 
 p=sparse(p);
@@ -128,18 +184,20 @@ k=zeros(na);
 k=sparse(k);
 %
 for i=2:na-1
-    p(i,i)=4/6;
-    p(i,i+1)=1/6;
-    p(i,i-1)=1/6;
-    k(i,i+1)=1/(2*dxi);
-    k(i,i-1)=-1/(2*dxi);
+    p(i,i)=4;
+    p(i,i+1)=1;
+    p(i,i-1)=1;
+    k(i,i+1)=1;
+    k(i,i-1)=-1;
 end
-p(1,1)=4/6;p(1,2)=1/6;p(1,na)=1/6;
-p(na,1)=1/6;p(na,na-1)=1/6;p(na,na)=4/6;
-k(1,2)=1/(2*dxi);k(1,na)=-1/(2*dxi);
-k(na,1)=1/(2*dxi);k(na,na-1)=-1/(2*dxi);
-
-%% ----------------------------------------------------------------
+p(1,1)=4;p(1,2)=1;p(1,na)=1;
+p( na,1)=1;p(na,na-1)=1;p(na,na)=4;
+k(1,2)=1;k(1,na)=-1;
+k(na,1)=1;k(na,na-1)=-1;
+p=p./6;
+keta=k./(2*deta);
+kxi=k./(2*dxi);
+% ----------------------------------------------------------------
 % % CARTESIAN COORDINATES OF THE POINTS OF THE 6 FACES.
 % global x_fI y_fI z_fI;
 % global x_fII y_fII z_fII;
@@ -231,7 +289,7 @@ end
 x_fVI=radius*x_fVI;
 y_fVI=radius*y_fVI;
 z_fVI=radius*z_fVI;
-%% -----------------------------------------------------------------
+% -----------------------------------------------------------------
 % DATA OF THE CONTRAVARIANT VECTORS XI/ETA FOR EACH FACE
 % - FACE I -
 % global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
@@ -373,27 +431,29 @@ for i=1:nn,
       geta_VI(i,j,1:3)=geta_VI(i,j,1:3)/xwk;     
     end
 end
+p1=zeros(n); % 
+p1=sparse(p1);
+k1=zeros(n);
+k1=sparse(k1);
+%
+for i=2:n-1
+    p1(i,i)=4;
+    p1(i,i+1)=1;
+    p1(i,i-1)=1;
+    k1(i,i+1)=1;
+    k1(i,i-1)=-1;
+end
+p1(1,1)=4;p1(1,2)=1;
+p1(n,n-1)=1;p1(n,n)=4;
+k1(1,2)=1;
+k1(n,n-1)=-1;
 
-%% MATRICE DE FILTRE POUR LES RESEAUX ALPHA ET BETA
+% OPTION 5
+% -------
 
-f0=772/1024; 
-f1=210/1024;
-f2=-120/1024;
-f3=45/1024;
-f4=-10/1024;
-f5=1/1024;
-lig1=[0,1, zeros(1,na-2)];
-col1=[zeros(na-1,1);1];
-sh1=toeplitz(col1,lig1);
-sh1i=inv(sh1);
-sh12=sh1^2;
-sh1i2=sh1i^2;
-sh13=sh12*sh1;
-sh1i3=sh1i2*sh1i;
-sh14=sh13*sh1;
-sh1i4=sh1i3*sh1i;
-sh15=sh14*sh1;
-sh1i5=sh1i4*sh1i;
-ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*(sh15+sh1i5);
+
+%% Options sur les filtres
+[ ftr ] = filtre( na , opt_ftr );
 %  FIN MODULE "PROBLEME"= CALCULS EFFECTUES UNE SEULE FOIS
 %  PAR EXECUTION
+%

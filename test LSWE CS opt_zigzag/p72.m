@@ -25,7 +25,7 @@ tmax=t_final;
 crk=2.5;
 stab=0.25;
 ddt=stab*crk/(2*omega);
-ntime=2;
+ntime=25;
 itemax=ntime;
 cfl=(ddt*u0)/(radius*dxi);
 
@@ -159,37 +159,38 @@ time=time+ddt;
 mfunfI=mfunfInew;mfunfII=mfunfIInew;mfunfIII=mfunfIIInew;
 mfunfIV=mfunfIVnew;mfunfV=mfunfVnew;mfunfVI=mfunfVInew;
 
-% %% HISTORIQUE ERREUR
-% xdays(ite)=(time-tinit)/(24*3600);
-% xsecs(ite)=time-tinit;
-% 
-% mfunfIe=fun8(x_fI,y_fI,z_fI,time);mfunfIIe=fun8(x_fII,y_fII,z_fII,time);
-% mfunfIIIe=fun8(x_fIII,y_fIII,z_fIII,time); mfunfIVe=fun8(x_fIV,y_fIV,z_fIV,time);
-% mfunfVe=fun8(x_fV,y_fV,z_fV,time); mfunfVIe=fun8(x_fVI,y_fVI,z_fVI,time);
-% err_fI=mfunfI-mfunfIe;err_fII=mfunfII-mfunfIIe;
-% err_fIII=mfunfIII-mfunfIIIe;err_fIV=mfunfIV-mfunfIVe;
-% err_fV=mfunfV-mfunfVe;err_fVI=mfunfVI-mfunfVIe;
-% 
-%  str='1';
-% [nrmerI(1:4),nrmerII(1:4),nrmerIII(1:4),nrmerIV(1:4),nrmerV(1:4),nrmerVI(1:4),nrmger(1:4)]=...
-%     nrm72(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-% [nrmeI(1:4),nrmeII(1:4),nrmeIII(1:4),nrmeIV(1:4),nrmeV(1:4),nrmeVI(1:4),nrmge(1:4)]=...
-%     nrm72(mfunfIe,mfunfIIe,mfunfIIIe,mfunfIVe,mfunfVe,mfunfVIe,n,nn,str);
-% er1(ite,1:4)=nrmger(1:4)./nrmge(1:4);
-% 
-% str='2';
-% [nrmerI(1:4),nrmerII(1:4),nrmerIII(1:4),nrmerIV(1:4),nrmerV(1:4),nrmerVI(1:4),nrmger(1:4)]=...
-%     nrm72(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-% [nrmeI(1:4),nrmeII(1:4),nrmeIII(1:4),nrmeIV(1:4),nrmeV(1:4),nrmeVI(1:4),nrmge(1:4)]=...
-%     nrm72(mfunfIe,mfunfIIe,mfunfIIIe,mfunfIVe,mfunfVe,mfunfVIe,n,nn,str);
-% er2(ite,1:4)=nrmger./nrmge;
-% 
-% str='infty';
-% [nrmerI(1:4),nrmerII(1:4),nrmerIII(1:4),nrmerIV(1:4),nrmerV(1:4),nrmerVI(1:4),nrmger(1:4)]=...
-%     nrm72(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-% [nrmeI(1:4),nrmeII(1:4),nrmeIII(1:4),nrmeIV(1:4),nrmeV(1:4),nrmeVI(1:4),nrmge(1:4)]=...
-%     nrm72(mfunfIe,mfunfIIe,mfunfIIIe,mfunfIVe,mfunfVe,mfunfVIe,n,nn,str);
-% erinfty(ite,1:4)=nrmger./nrmge;
+%% HISTORIQUE ERREUR
+xdays(ite)=(time-tinit)/(24*3600);
+xsecs(ite)=time-tinit;
+
+mfunfIe=fun8(x_fI,y_fI,z_fI,time);mfunfIIe=fun8(x_fII,y_fII,z_fII,time);
+mfunfIIIe=fun8(x_fIII,y_fIII,z_fIII,time); mfunfIVe=fun8(x_fIV,y_fIV,z_fIV,time);
+mfunfVe=fun8(x_fV,y_fV,z_fV,time); mfunfVIe=fun8(x_fVI,y_fVI,z_fVI,time);
+
+err_fI=mfunfI(:,:,4)-mfunfIe(:,:,4);err_fII=mfunfII(:,:,4)-mfunfIIe(:,:,4);
+err_fIII=mfunfIII(:,:,4)-mfunfIIIe(:,:,4);err_fIV=mfunfIV(:,:,4)-mfunfIVe(:,:,4);
+err_fV=mfunfV(:,:,4)-mfunfVe(:,:,4);err_fVI=mfunfVI(:,:,4)-mfunfVIe(:,:,4);
+
+ str='1';
+[nrmerI,nrmerII,nrmerIII,nrmerIV,nrmerV,nrmerVI,nrmger]=...
+    nrm72(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
+[nrmeI,nrmeII,nrmeIII,nrmeIV,nrmeV,nrmeVI,nrmge]=...
+    nrm72(mfunfIe(:,:,4),mfunfIIe(:,:,4),mfunfIIIe(:,:,4),mfunfIVe(:,:,4),mfunfVe(:,:,4),mfunfVIe(:,:,4),n,nn,str);
+er1(ite)=nrmger./nrmge;
+
+str='2';
+[nrmerI,nrmerII,nrmerIII,nrmerIV,nrmerV,nrmerVI,nrmger]=...
+    nrm72(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
+[nrmeI,nrmeII,nrmeIII,nrmeIV,nrmeV,nrmeVI,nrmge]=...
+    nrm72(mfunfIe(:,:,4),mfunfIIe(:,:,4),mfunfIIIe(:,:,4),mfunfIVe(:,:,4),mfunfVe(:,:,4),mfunfVIe(:,:,4),n,nn,str);
+er2(ite)=nrmger./nrmge;
+
+str='infty';
+[nrmerI,nrmerII,nrmerIII,nrmerIV,nrmerV,nrmerVI,nrmger]=...
+    nrm72(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
+[nrmeI,nrmeII,nrmeIII,nrmeIV,nrmeV,nrmeVI,nrmge]=...
+    nrm72(mfunfIe(:,:,4),mfunfIIe(:,:,4),mfunfIIIe(:,:,4),mfunfIVe(:,:,4),mfunfVe(:,:,4),mfunfVIe(:,:,4),n,nn,str);
+erinfty(ite)=nrmger./nrmge;
 end
 
 %% *** bilan **************************************************************

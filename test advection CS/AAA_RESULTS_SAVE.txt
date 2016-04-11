@@ -998,3 +998,63 @@ max(er_infty)     : 0.027332
 ***********************************
   
   
+date : 01-Apr-2016
+ref. : 7364217248
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 5
+time step         : 38880
+cfl               : 0.9
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+max(er_1)         : 199.7926
+max(er_2)         : 43.978
+max(er_infty)     : 17.1699
+***********************************
+  
+  
+date : 01-Apr-2016
+ref. : 7364217254
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 5
+time step         : 38880
+cfl               : 0.9
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 6
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+max(er_1)         : 1.8253
+max(er_2)         : 0.72554
+max(er_infty)     : 0.67097
+***********************************
+  
+  
+date : 01-Apr-2016
+ref. : 7364217260
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 5
+time step         : 38880
+cfl               : 0.9
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 6
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+max(er_1)         : 1.8253
+max(er_2)         : 0.72554
+max(er_infty)     : 0.67097
+***********************************
+  
+  

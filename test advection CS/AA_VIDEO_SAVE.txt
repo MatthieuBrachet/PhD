@@ -670,3 +670,35 @@ angle in degree   : 135
 ***********************************
   
   
+date : 04-Apr-2016
+ref. : 7364246556
+***********************************
+test : 4
+---------- numerical data ---------
+number of points  : 10
+time step         : 18850.9091
+cfl               : 0.8
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 3
+angle in degree   : 0
+(lambdap,thetap)  : (180,90)
+***********************************
+  
+  
+date : 04-Apr-2016
+ref. : 7364246581
+***********************************
+test : 4
+---------- numerical data ---------
+number of points  : 10
+time step         : 18850.9091
+cfl               : 0.8
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 3
+angle in degree   : 0
+(lambdap,thetap)  : (180,90)
+***********************************
+  
+  

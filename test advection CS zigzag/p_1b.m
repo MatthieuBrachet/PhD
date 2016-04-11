@@ -25,10 +25,10 @@ global lambdac1 tetac1 lambdac2 tetac2
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 0;
+coef = 2;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
-film = 1;
+film = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
 save_graph = 0;
@@ -46,10 +46,10 @@ coupe = 0;
 %            recharger les données).
 sauvegarde = 0;
 %% *** Benchmarks data ****************************************************
- n=40;
+ n=7;
  nn=n+2;
  cfl=0.8;
- ndaymax=3;
+ ndaymax=12;
  err=2;
  mm=0;
  MM=1000;
@@ -157,12 +157,12 @@ end
 
 %% Boucles RK 4 avec filtrage
 xdays(1)=0;
-for ite=1:itemax
-clc; [ite itemax]
+for ite=1:2;%itemax
+clc; disp(num2str([ite itemax]));
 
-%% ------------------------------------------------------------------------
+% -------------------------------------------------------------------------
 %%                 CALCUL DES ITERATIONS
-%%  -----------------------------------------------------------------------
+% -------------------------------------------------------------------------
 
 
 
@@ -328,18 +328,18 @@ err_fVI=funfVI-funfVIe;
 % en norme 1
 
 str='1';
-[nrmerI,nrmerII,nrmerIII,nrmerIV,nrmerV,nrmerVI,nrmger]=...
+[~,~,~,~,~,~,nrmger]=...
     nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-[nrmeI,nrmeII,nrmeIII,nrmeIV,nrmeV,nrmeVI,nrmge]=...
+[~,~,~,~,~,~,nrmge]=...
     nrm_1b(funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe,n,nn,str);
 er1(ite)=nrmger/nrmge;
 
 % en norme 2
 
 str='2';
-[nrmerI,nrmerII,nrmerIII,nrmerIV,nrmerV,nrmerVI,nrmger]=...
+[~,~,~,~,~,~,nrmger]=...
     nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-[nrmeI,nrmeII,nrmeIII,nrmeIV,nrmeV,nrmeVI,nrmge]=...
+[~,~,~,~,~,~,nrmge]=...
     nrm_1b(funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe,n,nn,str);
 er2(ite)=nrmger/nrmge;
 
@@ -362,12 +362,12 @@ ermin(ite)=min(min([funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,
 %% Figure pour film
 if film==1
     figure(100);
-    title(['days : ', num2str(xdays(ite))])
+    title(['days : ', num2str(xdays(ite))]); hold on
+    %view([1 0 0])
     %plot_cs15(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI,mm,MM);
     %plot_cs11(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe);
-    plot_cs11(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
     %plot_cs14(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI,mm,MM);
-    %*plot_cs12(n,nn,funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,funfV-funfVe,funfVI-funfVIe,err);
+    %plot_cs12(n,nn,funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,funfV-funfVe,funfVI-funfVIe,err);
     hold off;
     mov(ite) = getframe(gcf);
 end
@@ -469,7 +469,7 @@ if save_graph==1
 end
 
 figure(39);
-plot_cs11(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI);colorbar;
+plot_cs5(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI);colorbar;
 title('relative error - RK4')
 if save_graph==1
     print('-dpng', ['./results-' date '/ref_' num2str(ref) '_erreur_test_' num2str(coef) '.png'])

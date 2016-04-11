@@ -395,5 +395,32 @@ sh1i4=sh1i3*sh1i;
 sh15=sh14*sh1;
 sh1i5=sh1i4*sh1i;
 ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*(sh15+sh1i5);
+
+% %% POINTS D'INTERPOLATION
+% for i=1:2:nn-1
+%     pts=[pts beta(i,1:nn) beta(i+1,nn:-1:1)];
+%     funspline=[funspline funfII(i,1:nn) funfII(i+1,nn:-1:1)];
+% end
+% betaspline(1)=pts(1);
+% for i=2:length(pts);
+%     betaspline(i)=betaspline(i-1)+abs(pts(i)-pts(i-1));
+% end
+% pts=[];
+% for i=1:2:nn-1
+%     v1=[beta(i,1) betacr(i,1:nn) beta(i,nn)];
+%     v2=[beta(i+1,nn) betacr(i+1,nn:-1:1) beta(i+1,1)];
+%     pts=[pts v1 v2];
+% end
+% betacrspl(1)=pts(1);
+% for i=2:length(pts)
+%     betacrspl(i)=betacrspl(i-1)+abs(pts(i)-pts(i-1));
+% end
+% 
+
+
+
+
+
+
 %  FIN MODULE "PROBLEME"= CALCULS EFFECTUES UNE SEULE FOIS
 %  PAR EXECUTION
