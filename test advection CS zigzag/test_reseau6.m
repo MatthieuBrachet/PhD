@@ -1,4 +1,4 @@
-% TEST
+% TEST PANEL II
 clear all; clc; close all;
 %% construction des variables globales
 global n nn;
@@ -13,11 +13,12 @@ global teta0 lambda0
 global lambdac1 tetac1 lambdac2 tetac2
 
 global pts_beta ptscr_beta;
+global pts_alfa ptscr_alfa;
 %% *** OPTIONS ************************************************************
-coef = 1;
+coef = 0;
 opt_ftr =10;
 %% *** Benchmarks data ****************************************************
- n=40;
+ n=30;
  nn=n+2;
 %% ************************************************************************
  if coef == 0
@@ -29,8 +30,8 @@ opt_ftr =10;
  teta_p=pi/2 - alphad;
  elseif coef == 1
  %% test de Nair et Machenhauer
- lambda_p=pi/2;                                                            % position du pole nord, i.e. position du vortex nord
- teta_p=0;
+ lambda_p=pi/4;                                                            % position du pole nord, i.e. position du vortex nord
+ teta_p=-pi/4;
  rho0=3;
  gamma=5;
  elseif coef == 2
@@ -70,139 +71,139 @@ time=24*3600*ndaymax;
 %% méthode 1
 disp('----- case 1 :');
 t1=cputime;
-% Face I : TRANSFERT OF DATA OF FACE I 
-va_fI=zeros(4*(nn-1),nn); 
-for jline1=1:nn, % boucle sur les lignes iso-eta du reseaux Ia
-    va_fI(1:nn-1,jline1)=funfI(1:nn-1,jline1);
+
+vb_fV=zeros(nn,4*(nn-1));
+% Face V : 
+for iline1=1:nn,
+    vb_fV(iline1,1:nn-1)=funfV(iline1,1:nn-1);
 end
 
-% FaceII: SPLINE INTERPOLATION A L'AIDE DES ANGLES BETA
-for i=1:nn-1 % LOOP ON THE XI OF FACE II
-    betaspline(1:nn)=beta(i,1:nn);
-    funspline(1:nn)=funfII(i,1:nn);
-    ppspline=spline(betaspline,funspline);
-    funbII1(1:nn)=ppval(ppspline,betacr(i,1:nn));
-    va_fI(nn-1+i,1:nn)=funbII1(1:nn);
+% Face III : 
+for j=1:nn-1,
+    alfaspline(1:nn)=alfa(1:nn,nn+1-j);
+    funspline(1:nn)=funfIII(1:nn,nn+1-j);
+    ppspline=spline(alfaspline,funspline);
+    funaIII1(1:nn)=ppval(ppspline,alfa1(nn+1-[1:nn],j));
+    vb_fV(1:nn,nn-1+j)=funaIII1(1:nn);
+end 
+
+% Face V
+for iline1=1:nn,
+    vb_fV(iline1,2*nn-1:3*nn-3)=funfVI(nn-iline1+1,1:nn-1);
 end
 
-% Face III : transfert of data of face III
-for jline1=1:nn,
-    va_fI(2*nn-1:3*nn-3,jline1)=funfIII(1:nn-1,nn-jline1+1);
-end
+% Face I : Transfert of data
+for j=1:nn-1, % LOOP ON THE ETA-LINES OF FACE I. j= order of encountering !!!
+    alfaspline(1:nn)=alfa(1:nn,j);
+    funspline(1:nn)=funfI(1:nn,j);
+    ppspline=spline(alfaspline,funspline);
+    funaI1(1:nn)=ppval(ppspline,alfa1(nn+1-[1:nn],j)); % VERIFIER SI C'EST BIEN "NN+1-[1,NN]" SUR LE PLAN LOGIQUE: je ne suis pas sur!!!!!
+    vb_fV(1:nn,3*nn-3+j)=funaI1(1:nn);
+end 
 
-% Face IV: SPLINE INTERPOLATION A L'AIDE DES ANGLES BETA
-for i=1:nn-1
-   betaspline=beta(i,1:nn);
-   funspline=funfIV(i,1:nn);
-   ppspline=spline(betaspline,funspline);
-   funbIV1(1:nn)=ppval(ppspline,betacr(i,nn+1-[1:nn]));
-   va_fI(3*nn-3+i,1:nn)=funbIV1(1:nn);
-end
-va_fI1=va_fI;
-time_meth1=cputime-t1
+
+
+
+vb_fV1=vb_fV;
+time_meth1=cputime-t1;
 
 %% méthode 2
 disp('----- case 2 :')
 t1=cputime;
-% Face I : TRANSFERT OF DATA OF FACE I 
-va_fI=zeros(4*(nn-1),nn); 
-for jline1=1:nn, % boucle sur les lignes iso-eta du reseaux Ia
-    va_fI(1:nn-1,jline1)=funfI(1:nn-1,jline1);
+
+vb_fV=zeros(nn,4*(nn-1));
+vbd_fV=zeros(nn,nb);
+
+% Face V : TRANSFERT OF DATA selon beta
+for iline1=1:nn, % boucle sur les lignes iso-xi du reseau V-beta
+    vb_fV(iline1,1:nn-1)=funfV(iline1,1:nn-1);
 end
 
-% Face II
+% Face III
 compteur=1;
 for j=1:nn
     for i=1:nn
-        if rem(j,2) == 1
-            fun(compteur)=funfII(j,i);
-        elseif rem(j,2) == 0
-            fun(compteur)=funfII(j,nn-i+1);
+        if rem(j,2) == 0
+            fun(compteur)=funfIII(i,nn+1-j);
+        elseif rem(j,2) == 1
+            fun(compteur)=funfIII(nn+1-i,nn+1-j);
         end
             compteur=compteur+1;
     end
 end
-ppspline=spline(pts_beta,fun);
-funspl=ppval(ppspline,ptscr_beta(1:nn*nn));
+ppspline=spline(pts_alfa,fun);
+funspl=ppval(ppspline,ptscr_alfa(1:nn*nn));
+
+for i=1:nn-1
+    if i <= nn/2
+        if rem(i,2)== 0
+            FUN(1:nn,i)=funspl((i-1)*nn+[1:nn]);
+        else
+            FUN(1:nn,i)=funspl(i*nn-[1:nn]+1);
+        end
+    else
+        if rem(i,2)== 0
+            FUN(1:nn,i)=funspl((i-1)*nn+[nn:-1:1]);
+        else
+            FUN(1:nn,i)=funspl(i*nn-[nn:-1:1]+1);
+        end
+    end
+end
+vb_fV(1:nn,nn:2*nn-2)=FUN(nn:-1:1,1:nn-1);
+
+% Face V
+for iline1=1:nn,
+    vb_fV(iline1,2*nn-1:3*nn-3)=funfVI(nn-iline1+1,1:nn-1);
+end
+
+% Face I
+compteur=1;
+for j=1:nn
+    for i=1:nn
+        if rem(j,2) == 0
+            fun(compteur)=funfI(nn+1-i,j);
+        elseif rem(j,2) == 1
+            fun(compteur)=funfI(i,j);
+        end
+            compteur=compteur+1;
+    end
+end
+ppspline=spline(pts_alfa,fun);
+funspl=ppval(ppspline,ptscr_alfa(1:nn*nn));
 
 for i=1:nn-1
     if i <= nn/2
         if rem(i,2)== 1
-            FUN(i,1:nn)=funspl((i-1)*nn+[1:nn]);
+            FUN(1:nn,i)=funspl((i-1)*nn+[1:nn]);
         else
-            FUN(i,1:nn)=funspl(i*nn-[1:nn]+1);
+            FUN(1:nn,i)=funspl(i*nn-[1:nn]+1);
         end
     else
         if rem(i,2)== 1
-            FUN(i,1:nn)=funspl((i-1)*nn+[nn:-1:1]);
+            FUN(1:nn,i)=funspl((i-1)*nn+[nn:-1:1]);
         else
-            FUN(i,1:nn)=funspl(i*nn-[nn:-1:1]+1);
+            FUN(1:nn,i)=funspl(i*nn-[nn:-1:1]+1);
         end
     end
 end
-va_fI(nn-1+[1:nn-1],1:nn)=FUN(1:nn-1,1:nn);
+ vb_fV(1:nn,3*nn-3+[1:nn-1])=FUN(nn:-1:1,1:nn-1);
 
-
-
-
-% Face III : transfert of data of face III
-for jline1=1:nn,
-    va_fI(2*nn-1:3*nn-3,jline1)=funfIII(1:nn-1,nn-jline1+1);
-end
-
-% Face IV
-compteur=1;
-for j=1:nn
-    for i=1:nn
-        if rem(j,2) == 1
-            fun(compteur)=funfIV(j,i);
-        elseif rem(j,2) == 0
-            fun(compteur)=funfIV(j,nn-i+1);
-        end
-            compteur=compteur+1;
-    end
-end
-ppspline=spline(pts_beta,fun);
-funspl=ppval(ppspline,ptscr_beta);
-
-for i=1:nn-1
-    if i > nn/2
-        if rem(i,2)== 1
-            FUN(i,1:nn)=funspl((i-1)*nn+[1:nn]);
-        else
-            FUN(i,1:nn)=funspl(i*nn-[1:nn]+1);
-        end
-    else
-        if rem(i,2)== 1
-            FUN(i,1:nn)=funspl((i-1)*nn+[nn:-1:1]);
-        else
-            FUN(i,1:nn)=funspl(i*nn-[nn:-1:1]+1);
-        end
-    end
-end
-va_fI(3*nn-3+[1:nn-1],1:nn)=FUN(1:nn-1,1:nn);
-time_meth2=cputime-t1
+time_meth2=cputime-t1;
 
 
 %% courbes
-max(max(abs(va_fI1-va_fI)))
-
 
 figure(1)
-surf(abs(va_fI1-va_fI))
+surf(abs(vb_fV1-vb_fV))
 title('error')
+
+max(max(abs(vb_fV1-vb_fV)))
 
 figure(2)
 subplot(121)
-surf(va_fI1)
+surf(vb_fV1)
 title('old method')
 
 subplot(122)
-surf(va_fI)
+surf(vb_fV)
 title('new method')
-
-% figure(3)
-% plot(pts_beta); hold on
-% plot(ptscr_beta); hold off
-% legend('interpolated','interpolation')
-

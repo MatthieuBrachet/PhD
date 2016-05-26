@@ -1,4 +1,4 @@
-% TEST
+% TEST PANEL II
 clear all; clc; close all;
 %% construction des variables globales
 global n nn;
@@ -17,7 +17,7 @@ global pts_beta ptscr_beta;
 coef = 1;
 opt_ftr =10;
 %% *** Benchmarks data ****************************************************
- n=40;
+ n=50;
  nn=n+2;
 %% ************************************************************************
  if coef == 0
@@ -29,8 +29,8 @@ opt_ftr =10;
  teta_p=pi/2 - alphad;
  elseif coef == 1
  %% test de Nair et Machenhauer
- lambda_p=pi/2;                                                            % position du pole nord, i.e. position du vortex nord
- teta_p=0;
+ lambda_p=pi/4;                                                            % position du pole nord, i.e. position du vortex nord
+ teta_p=-pi/4;
  rho0=3;
  gamma=5;
  elseif coef == 2
@@ -70,94 +70,95 @@ time=24*3600*ndaymax;
 %% méthode 1
 disp('----- case 1 :');
 t1=cputime;
-% Face I : TRANSFERT OF DATA OF FACE I 
-va_fI=zeros(4*(nn-1),nn); 
-for jline1=1:nn, % boucle sur les lignes iso-eta du reseaux Ia
-    va_fI(1:nn-1,jline1)=funfI(1:nn-1,jline1);
+
+vb_fII=zeros(nn,4*(nn-1));
+% Face II : TRANSFERT OF DATA OF FACE II
+for iline1=1:nn, % boucle sur les lignes iso-xi du reseau II-beta
+    vb_fII(iline1,1:nn-1)=funfII(iline1,1:nn-1);
 end
 
-% FaceII: SPLINE INTERPOLATION A L'AIDE DES ANGLES BETA
-for i=1:nn-1 % LOOP ON THE XI OF FACE II
-    betaspline(1:nn)=beta(i,1:nn);
-    funspline(1:nn)=funfII(i,1:nn);
+% FACE V: SPLINE INTERPOLATION A L'AIDE DES ANGLES BETA
+% INVERSION OF THE LOOP ON THE ISO-ETA LINES AND ON THE XI OF FACE V
+for i=1:nn-1 % LOOP ON THE XI OF FACE V. i= order of encountering !!!
+    betaspline(1:nn)=beta(nn-i+1,1:nn);
+    funspline(1:nn)=funfV(nn-i+1,1:nn);
     ppspline=spline(betaspline,funspline);
-    funbII1(1:nn)=ppval(ppspline,betacr(i,1:nn));
-    va_fI(nn-1+i,1:nn)=funbII1(1:nn);
+    funbV1(1:nn)=ppval(ppspline,betacr(i,1:nn));
+    vb_fII(1:nn,nn-1+i)=funbV1(1:nn);
 end
 
-% Face III : transfert of data of face III
-for jline1=1:nn,
-    va_fI(2*nn-1:3*nn-3,jline1)=funfIII(1:nn-1,nn-jline1+1);
+% FACE III: TRANSFERT OF DATA OF FACE III
+for iline1=1:nn,
+    vb_fII(iline1,2*nn-1:3*nn-3)=funfIV(iline1,nn:-1:2); % symetrie sur adresses en i + inversion en j !
 end
 
-% Face IV: SPLINE INTERPOLATION A L'AIDE DES ANGLES BETA
-for i=1:nn-1
-   betaspline=beta(i,1:nn);
-   funspline=funfIV(i,1:nn);
-   ppspline=spline(betaspline,funspline);
-   funbIV1(1:nn)=ppval(ppspline,betacr(i,nn+1-[1:nn]));
-   va_fI(3*nn-3+i,1:nn)=funbIV1(1:nn);
+% FACE VI: SPLINE INTERPOLATION A L'AIDE DES ANGLES BETA
+% INVERSION OF THE LOOP ON THE ISO-ETA LINES AND ON THE XI OF FACE Vi
+for i=1:nn-1 % LOOP ON THE XI OF FACE VI. i= order of encountering !!!
+    betaspline(1:nn)=beta(i,1:nn);
+    funspline(1:nn)=funfVI(i,1:nn);
+    ppspline=spline(betaspline,funspline);
+    funbVI1(1:nn)=ppval(ppspline,betacr(i,1:nn));
+    vb_fII(1:nn,3*nn-3+i)=funbVI1(1:nn);
 end
-va_fI1=va_fI;
+
+vb_fII1=vb_fII;
+
 time_meth1=cputime-t1
 
 %% méthode 2
 disp('----- case 2 :')
 t1=cputime;
-% Face I : TRANSFERT OF DATA OF FACE I 
-va_fI=zeros(4*(nn-1),nn); 
-for jline1=1:nn, % boucle sur les lignes iso-eta du reseaux Ia
-    va_fI(1:nn-1,jline1)=funfI(1:nn-1,jline1);
+vb_fII=zeros(nn,4*(nn-1));
+% Face II 
+for iline1=1:nn, 
+    vb_fII(iline1,1:nn-1)=funfII(iline1,1:nn-1);
 end
 
-% Face II
+% Face V
 compteur=1;
 for j=1:nn
     for i=1:nn
         if rem(j,2) == 1
-            fun(compteur)=funfII(j,i);
+            fun(compteur)=funfV(nn-j+1,i);
         elseif rem(j,2) == 0
-            fun(compteur)=funfII(j,nn-i+1);
+            fun(compteur)=funfV(nn-j+1,nn-i+1);
         end
             compteur=compteur+1;
     end
 end
 ppspline=spline(pts_beta,fun);
-funspl=ppval(ppspline,ptscr_beta(1:nn*nn));
-
+funspl=ppval(ppspline,ptscr_beta);
 for i=1:nn-1
-    if i <= nn/2
+    if i > nn/2
         if rem(i,2)== 1
-            FUN(i,1:nn)=funspl((i-1)*nn+[1:nn]);
+            FUN(1:nn,i)=funspl((i-1)*nn+[1:nn]);
         else
-            FUN(i,1:nn)=funspl(i*nn-[1:nn]+1);
+            FUN(1:nn,i)=funspl(i*nn-[1:nn]+1);
         end
     else
         if rem(i,2)== 1
-            FUN(i,1:nn)=funspl((i-1)*nn+[nn:-1:1]);
+            FUN(1:nn,i)=funspl((i-1)*nn+[nn:-1:1]);
         else
-            FUN(i,1:nn)=funspl(i*nn-[nn:-1:1]+1);
+            FUN(1:nn,i)=funspl(i*nn-[nn:-1:1]+1);
         end
     end
 end
-va_fI(nn-1+[1:nn-1],1:nn)=FUN(1:nn-1,1:nn);
+vb_fII(1:nn,nn-1+[1:nn-1])=FUN(nn:-1:1,1:nn-1);
 
-
-
-
-% Face III : transfert of data of face III
-for jline1=1:nn,
-    va_fI(2*nn-1:3*nn-3,jline1)=funfIII(1:nn-1,nn-jline1+1);
+% FACE III: TRANSFERT OF DATA OF FACE III
+for iline1=1:nn,
+    vb_fII(iline1,2*nn-1:3*nn-3)=funfIV(iline1,nn:-1:2); % symetrie sur adresses en i + inversion en j !
 end
 
-% Face IV
+% Face VI
 compteur=1;
 for j=1:nn
     for i=1:nn
         if rem(j,2) == 1
-            fun(compteur)=funfIV(j,i);
+            fun(compteur)=funfVI(j,i);
         elseif rem(j,2) == 0
-            fun(compteur)=funfIV(j,nn-i+1);
+            fun(compteur)=funfVI(j,nn-i+1);
         end
             compteur=compteur+1;
     end
@@ -168,41 +169,43 @@ funspl=ppval(ppspline,ptscr_beta);
 for i=1:nn-1
     if i > nn/2
         if rem(i,2)== 1
-            FUN(i,1:nn)=funspl((i-1)*nn+[1:nn]);
+            FUN(1:nn,i)=funspl((i-1)*nn+[1:nn]);
         else
-            FUN(i,1:nn)=funspl(i*nn-[1:nn]+1);
+            FUN(1:nn,i)=funspl(i*nn-[1:nn]+1);
         end
     else
         if rem(i,2)== 1
-            FUN(i,1:nn)=funspl((i-1)*nn+[nn:-1:1]);
+            FUN(1:nn,i)=funspl((i-1)*nn+[nn:-1:1]);
         else
-            FUN(i,1:nn)=funspl(i*nn-[nn:-1:1]+1);
+            FUN(1:nn,i)=funspl(i*nn-[nn:-1:1]+1);
         end
     end
 end
-va_fI(3*nn-3+[1:nn-1],1:nn)=FUN(1:nn-1,1:nn);
+vb_fII(1:nn,3*nn-3+[1:nn-1])=FUN(nn:-1:1,1:nn-1);
+
+
+
 time_meth2=cputime-t1
 
 
 %% courbes
-max(max(abs(va_fI1-va_fI)))
-
 
 figure(1)
-surf(abs(va_fI1-va_fI))
+surf(abs(vb_fII1-vb_fII))
 title('error')
+
+max(max(abs(vb_fII1-vb_fII)))
 
 figure(2)
 subplot(121)
-surf(va_fI1)
+surf(vb_fII1)
 title('old method')
 
 subplot(122)
-surf(va_fI)
+surf(vb_fII)
 title('new method')
 
-% figure(3)
-% plot(pts_beta); hold on
-% plot(ptscr_beta); hold off
-% legend('interpolated','interpolation')
+
+
+
 

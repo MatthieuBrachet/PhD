@@ -19,6 +19,8 @@ global gamma rho0 teta_p lambda_p
 global teta0 lambda0
 % test de Nair et Lauritzen
 global lambdac1 tetac1 lambdac2 tetac2
+
+time1=cputime;
 %% *** OPTIONS ************************************************************
 % si coef = 0, test 1 de Williamson (solid body rotation on the sphere)
 %    coef = 1, test de Nair et Machenhauer  (deformational flow test - 
@@ -46,9 +48,9 @@ coupe = 0;
 %            recharger les données).
 sauvegarde = 0;
 %% *** Benchmarks data ****************************************************
- n=7;
+ n=300;
  nn=n+2;
- cfl=0.8;
+ cfl=0.5;
  ndaymax=12;
  err=2;
  mm=0;
@@ -157,7 +159,7 @@ end
 
 %% Boucles RK 4 avec filtrage
 xdays(1)=0;
-for ite=1:2;%itemax
+for ite=1:itemax
 clc; disp(num2str([ite itemax]));
 
 % -------------------------------------------------------------------------
@@ -373,6 +375,9 @@ if film==1
 end
 
 end
+time2=cputime-time1;
+disp(['temps de fonctionnement : ', num2str(time2)])
+
 ref=floor(10000*now);
 if film == 1
     mkdir(['./video-' date ])

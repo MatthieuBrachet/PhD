@@ -1,0 +1,22 @@
+date : 09-May-2016
+ref. : 7364590466
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 40
+time step         : 0.01
+cfl               : 3.2774e-06
+ordre du filtre   : 10
+-------- mathematical data --------
+date : 09-May-2016
+ref. : 7364592919
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 40
+time step         : 0.01
+cfl               : 3.2774e-06
+ordre du filtre   : 10
+***********************************
+  
+  

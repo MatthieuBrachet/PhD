@@ -2,7 +2,6 @@
 % ----------------------------------
 global n nn;
 global mm na nb;
-global radius u0;
 global xi eta dxi deta xx yy delta deltab dga;
 global alfa beta;
 global alfacr betacr;
@@ -10,7 +9,7 @@ global pts_beta ptscr_beta;
 global pts_alfa ptscr_alfa;
 global alfa1;
 global alfag betag;
-global p keta kxi;
+global p k;
 global x_fI y_fI z_fI;
 global x_fII y_fII z_fII;
 global x_fIII y_fIII z_fIII;
@@ -19,22 +18,25 @@ global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
 global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
-global p1 k1;
-global ftr;
+global radius gp hp omega
+global kvit keta
+global opt_ftr ftr;
 
-global opt_ftr;
-
-
-%% global mm na nb;
+%global nn mm na nb;
+nn=n+2;
 mm=((nn-1)/2)+1;
 na=4*(nn-1);
 nb=na;
+%% physical data
+radius=6.37122d+06;
+omega=7.292d-05;
+hp=10000;
+gp=9.80616;
 
-%% global radius;
-radius=6.37122d+06; % rayon terrestre
-u0=2*pi*radius/(12*24*3600);
-
-%% global xi eta dxi deta xx yy delta deltab;
+%% -----------------------------------------
+kvit=1;
+keta=1;
+%global xi eta dxi deta xx yy delta deltab;
 xi=linspace(-pi/4, pi/4, nn); 
 dxi=(pi/2)/(nn-1);
 eta=linspace(-pi/4, pi/4, nn); 
@@ -59,14 +61,10 @@ for i=1:nn,
     delta(i,j)=1+xx(i,j)^2+yy(i,j)^2;
   end
 end
-deltab=zeros(n,n);
 deltab=sqrt(delta); % DELTAB=DELTA DE ULLRICH = SQRT(1+X^2+Y^2).
-dga=zeros(nn,nn);
 dga=(radius^2)*((1+xx.^2).*(1+yy.^2))./(delta.*deltab); % ELEMENT AREA
-
-
-%% global alfa beta;
-
+% ---------------------------------------
+%global alfa beta;
 alfa=zeros(nn,nn);
 beta=zeros(nn,nn);
 for j=1:nn,
@@ -85,9 +83,8 @@ for i=1:nn,
         beta(i,j)=atan(tan(eta(j))/xwk);
     end
 end
-
-%% global alfacr betacr;
-
+% -----------------------------------------
+%global alfacr betacr;
 alfacr=zeros(nn,nn);
 betacr=zeros(nn,nn);
 for j=1:nn,
@@ -108,6 +105,19 @@ for i=1:nn,
         alfa1(i,j)=betacr(j,i);
     end
 end
+% ----------------------------------------
+% CALCUL DES ANGLES GLOBAUX DE RESEAUX: 2 TABLEAUX SEULEMENT ALFA_G ET BETA_G
+% ALFA_G: ABSCISSES CURVILIGNES LE LONG DE Ia, IIa, Va
+% BETA_G: ABSCISSES CURVILIGNES LE LONG DE Ib, IIb, Vb
+%global alfag betag;
+alfag=zeros(4*(nn-1),nn); 
+for j=1:nn,
+  alfag(1:nn-1,j)=alfa(1:nn-1,j);
+  alfag(nn:2*(nn-1),j)=alfacr(1:nn-1,j);
+  alfag(2*(nn-1)+1:3*(nn-1),j)=alfa(1:nn-1,j)+pi;
+  alfag(3*(nn-1)+1:4*(nn-1),j)=alfacr(1:nn-1,j)+pi;
+end
+betag=alfag'; % BETAG=TRANSPOSEE DE ALFAG
 
 % points pour l'interpolation
 compteur=1;
@@ -164,20 +174,16 @@ end
 
 pts_alfa=pts_beta';
 ptscr_alfa=ptscr_beta';
-% ----------------------------------------
-% CALCUL DES ANGLES GLOBAUX DE RESEAUX: 2 TABLEAUX SEULEMENT ALFA_G ET BETA_G
-% ALFA_G: ABSCISSES CURVILIGNES LE LONG DE Ia, IIa, Va
-% BETA_G: ABSCISSES CURVILIGNES LE LONG DE Ib, IIb, Vb
-%global alfag betag;
-alfag=zeros(4*(nn-1),nn); 
-for j=1:nn,
-  alfag(1:nn-1,j)=alfa(1:nn-1,j);
-  alfag(nn:2*(nn-1),j)=alfacr(1:nn-1,j);
-  alfag(2*(nn-1)+1:3*(nn-1),j)=alfa(1:nn-1,j)+pi;
-  alfag(3*(nn-1)+1:4*(nn-1),j)=alfacr(1:nn-1,j)+pi;
-end
-betag=alfag'; % BETAG=TRANSPOSEE DE ALFAG
-% --------------------------------------------------
+
+
+
+
+
+
+
+
+%% --------------------------------------------------
+% matrices de dérivation (grandes)
 %global p k;
 p=zeros(na); % 
 p=sparse(p);
@@ -185,20 +191,18 @@ k=zeros(na);
 k=sparse(k);
 %
 for i=2:na-1
-    p(i,i)=4;
-    p(i,i+1)=1;
-    p(i,i-1)=1;
-    k(i,i+1)=1;
-    k(i,i-1)=-1;
+    p(i,i)=4/6;
+    p(i,i+1)=1/6;
+    p(i,i-1)=1/6;
+    k(i,i+1)=1/(2*dxi);
+    k(i,i-1)=-1/(2*dxi);
 end
-p(1,1)=4;p(1,2)=1;p(1,na)=1;
-p( na,1)=1;p(na,na-1)=1;p(na,na)=4;
-k(1,2)=1;k(1,na)=-1;
-k(na,1)=1;k(na,na-1)=-1;
-p=p./6;
-keta=k./(2*deta);
-kxi=k./(2*dxi);
-% ----------------------------------------------------------------
+p(1,1)=4/6;p(1,2)=1/6;p(1,na)=1/6;
+p(na,1)=1/6;p(na,na-1)=1/6;p(na,na)=4/6;
+k(1,2)=1/(2*dxi);k(1,na)=-1/(2*dxi);
+k(na,1)=1/(2*dxi);k(na,na-1)=-1/(2*dxi);
+
+%% ----------------------------------------------------------------
 % % CARTESIAN COORDINATES OF THE POINTS OF THE 6 FACES.
 % global x_fI y_fI z_fI;
 % global x_fII y_fII z_fII;
@@ -290,7 +294,7 @@ end
 x_fVI=radius*x_fVI;
 y_fVI=radius*y_fVI;
 z_fVI=radius*z_fVI;
-% -----------------------------------------------------------------
+%% -----------------------------------------------------------------
 % DATA OF THE CONTRAVARIANT VECTORS XI/ETA FOR EACH FACE
 % - FACE I -
 % global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
@@ -432,29 +436,9 @@ for i=1:nn,
       geta_VI(i,j,1:3)=geta_VI(i,j,1:3)/xwk;     
     end
 end
-p1=zeros(n); % 
-p1=sparse(p1);
-k1=zeros(n);
-k1=sparse(k1);
-%
-for i=2:n-1
-    p1(i,i)=4;
-    p1(i,i+1)=1;
-    p1(i,i-1)=1;
-    k1(i,i+1)=1;
-    k1(i,i-1)=-1;
-end
-p1(1,1)=4;p1(1,2)=1;
-p1(n,n-1)=1;p1(n,n)=4;
-k1(1,2)=1;
-k1(n,n-1)=-1;
 
-% OPTION 5
-% -------
-
-
+%% MATRICE DE FILTRE POUR LES RESEAUX ALPHA ET BETA
 %% Options sur les filtres
 [ ftr ] = filtre( na , opt_ftr );
 %  FIN MODULE "PROBLEME"= CALCULS EFFECTUES UNE SEULE FOIS
 %  PAR EXECUTION
-%

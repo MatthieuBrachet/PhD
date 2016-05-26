@@ -19,16 +19,18 @@ global gamma rho0 teta_p lambda_p
 global teta0 lambda0
 % test de Nair et Lauritzen
 global lambdac1 tetac1 lambdac2 tetac2
+
+time1=cputime;
 %% *** OPTIONS ************************************************************
 % si coef = 0, test 1 de Williamson (solid body rotation on the sphere)
 %    coef = 1, test de Nair et Machenhauer  (deformational flow test - 
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 0;
+coef = 2;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
-film = 1;
+film = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
 save_graph = 0;
@@ -48,8 +50,8 @@ sauvegarde = 0;
 %% *** Benchmarks data ****************************************************
  n=40;
  nn=n+2;
- cfl=0.8;
- ndaymax=3;
+ cfl=0.9;
+ ndaymax=12;
  err=2;
  mm=0;
  MM=1000;
@@ -373,6 +375,9 @@ if film==1
 end
 
 end
+
+time2=cputime-time1;
+disp(['temps de fonctionnement : ', num2str(time2)]);
 ref=floor(10000*now);
 if film == 1
     mkdir(['./video-' date ])

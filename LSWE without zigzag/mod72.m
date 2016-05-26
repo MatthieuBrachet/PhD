@@ -2,15 +2,13 @@
 % ----------------------------------
 global n nn;
 global mm na nb;
-global radius u0;
+global radius;
 global xi eta dxi deta xx yy delta deltab dga;
 global alfa beta;
 global alfacr betacr;
-global pts_beta ptscr_beta;
-global pts_alfa ptscr_alfa;
 global alfa1;
 global alfag betag;
-global p keta kxi;
+global p k kxi keta;
 global x_fI y_fI z_fI;
 global x_fII y_fII z_fII;
 global x_fIII y_fIII z_fIII;
@@ -20,21 +18,29 @@ global x_fVI y_fVI z_fVI;
 global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
 global p1 k1;
-global ftr;
+global opt_ftr ftr;
+global omega hp gp u0 h0
 
-global opt_ftr;
+%% physical data
+radius=6.37122d+06;
+omega=7.292d-05;
+hp=10000;
+gp=9.80616;
+u0=80;
+h0=hp;
 
 
-%% global mm na nb;
+nn=n+2;
+% -----------------------------------------
+%global mm na nb;
 mm=((nn-1)/2)+1;
 na=4*(nn-1);
 nb=na;
-
-%% global radius;
-radius=6.37122d+06; % rayon terrestre
-u0=2*pi*radius/(12*24*3600);
-
-%% global xi eta dxi deta xx yy delta deltab;
+% ----------------------------------------
+%global radius;
+%radius=6.37122d+06; % rayon terrestre
+% -----------------------------------------
+%global xi eta dxi deta xx yy delta deltab;
 xi=linspace(-pi/4, pi/4, nn); 
 dxi=(pi/2)/(nn-1);
 eta=linspace(-pi/4, pi/4, nn); 
@@ -63,10 +69,8 @@ deltab=zeros(n,n);
 deltab=sqrt(delta); % DELTAB=DELTA DE ULLRICH = SQRT(1+X^2+Y^2).
 dga=zeros(nn,nn);
 dga=(radius^2)*((1+xx.^2).*(1+yy.^2))./(delta.*deltab); % ELEMENT AREA
-
-
-%% global alfa beta;
-
+% ---------------------------------------
+%global alfa beta;
 alfa=zeros(nn,nn);
 beta=zeros(nn,nn);
 for j=1:nn,
@@ -85,9 +89,8 @@ for i=1:nn,
         beta(i,j)=atan(tan(eta(j))/xwk);
     end
 end
-
-%% global alfacr betacr;
-
+% -----------------------------------------
+%global alfacr betacr;
 alfacr=zeros(nn,nn);
 betacr=zeros(nn,nn);
 for j=1:nn,
@@ -108,62 +111,6 @@ for i=1:nn,
         alfa1(i,j)=betacr(j,i);
     end
 end
-
-% points pour l'interpolation
-compteur=1;
-for j=1:nn
-    for i=1:nn
-        if rem(j,2) == 1
-            if i==1 && j==1
-                pts_beta(compteur)=beta(1,1);
-            elseif i==1 && j ~= 1
-                %pts_beta(compteur)=pts_beta(compteur-1)+sqrt((alfa(i,j)-alfa(i,j-1))^2+(beta(j,i)-beta(j-1,i))^2);
-                pts_beta(compteur)=pts_beta(compteur-1)+sqrt(1+(beta(j,i)-beta(j-1,i))^2);
-            else
-                pts_beta(compteur)=pts_beta(compteur-1)+abs(beta(j,i)-beta(j,i-1));
-            end
-        elseif rem(j,2) == 0
-            if i==1
-                %pts_beta(compteur)=pts_beta(compteur-1)+sqrt((alfa(i,j)-alfa(i,j-1))^2+(beta(j,nn-i+1)-beta(j-1,nn-i+1))^2);
-                pts_beta(compteur)=pts_beta(compteur-1)+sqrt(1+(beta(j,nn-i+1)-beta(j-1,nn-i+1))^2);
-            else
-                pts_beta(compteur)=pts_beta(compteur-1)+abs(beta(j,nn-i+1)-beta(j,nn-i+2));
-            end
-        end
-            compteur=compteur+1;
-    end
-end
-
-for i=1:nn
-    betacrn(i,:)=sort(betacr(i,:));
-end
-% points à évaluer
-compteur=1;
-for j=1:nn
-    for i=1:nn
-        if rem(j,2) == 1
-            if i==1 && j==1
-                ptscr_beta(compteur)=betacrn(1,1);
-            elseif i==1 && j ~= 1
-                %ptscr_beta(compteur)=ptscr_beta(compteur-1)+abs(beta(j-1,i)-betacrn(j-1,i))+sqrt((alfa(i,j)-alfa(i,j-1))^2+(beta(j,i)-beta(j-1,i))^2)+abs(beta(j,i)-betacrn(j,i));
-                ptscr_beta(compteur)=ptscr_beta(compteur-1)+abs(beta(j-1,i)-betacrn(j-1,i))+sqrt(1+(beta(j,i)-beta(j-1,i))^2)+abs(beta(j,i)-betacrn(j,i));
-            else
-                ptscr_beta(compteur)=ptscr_beta(compteur-1)+abs(betacr(j,i)-betacr(j,i-1));
-            end
-        elseif rem(j,2) == 0
-            if i==1
-                %ptscr_beta(compteur)=ptscr_beta(compteur-1)+abs(beta(j-1,nn-i+1)-betacrn(j-1,nn-i+1))+sqrt((alfa(i,j)-alfa(i,j-1))^2+(beta(j,nn-i+1)-beta(j-1,nn-i+1))^2)+abs(beta(j,nn-i+1)-betacrn(j,nn-i+1));
-                ptscr_beta(compteur)=ptscr_beta(compteur-1)+abs(beta(j-1,nn-i+1)-betacrn(j-1,nn-i+1))+sqrt(1+(beta(j,nn-i+1)-beta(j-1,nn-i+1))^2)+abs(beta(j,nn-i+1)-betacrn(j,nn-i+1));
-            else
-                ptscr_beta(compteur)=ptscr_beta(compteur-1)+abs(betacrn(j,nn-i+1)-betacrn(j,nn-i+2));
-            end
-        end
-            compteur=compteur+1;
-    end   
-end
-
-pts_alfa=pts_beta';
-ptscr_alfa=ptscr_beta';
 % ----------------------------------------
 % CALCUL DES ANGLES GLOBAUX DE RESEAUX: 2 TABLEAUX SEULEMENT ALFA_G ET BETA_G
 % ALFA_G: ABSCISSES CURVILIGNES LE LONG DE Ia, IIa, Va
@@ -195,9 +142,11 @@ p(1,1)=4;p(1,2)=1;p(1,na)=1;
 p( na,1)=1;p(na,na-1)=1;p(na,na)=4;
 k(1,2)=1;k(1,na)=-1;
 k(na,1)=1;k(na,na-1)=-1;
+
 p=p./6;
 keta=k./(2*deta);
 kxi=k./(2*dxi);
+
 % ----------------------------------------------------------------
 % % CARTESIAN COORDINATES OF THE POINTS OF THE 6 FACES.
 % global x_fI y_fI z_fI;
@@ -449,12 +398,6 @@ p1(n,n-1)=1;p1(n,n)=4;
 k1(1,2)=1;
 k1(n,n-1)=-1;
 
-% OPTION 5
-% -------
-
 
 %% Options sur les filtres
 [ ftr ] = filtre( na , opt_ftr );
-%  FIN MODULE "PROBLEME"= CALCULS EFFECTUES UNE SEULE FOIS
-%  PAR EXECUTION
-%

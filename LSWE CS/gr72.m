@@ -1,25 +1,15 @@
 function [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=...
-    gr_1b(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
+    gr72(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
 global na nb;
-global p kxi keta;
+global pts_beta ptscr_beta;
+global pts_alfa ptscr_alfa;
+global p k;
 global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
 
-global pts_beta ptscr_beta;
-global pts_alfa ptscr_alfa;
+%% *** Derivées alpha - beta **********************************************
 
-% COMPUTATION SPHERICAL GRADIENT
-
-grad_I=zeros(nn,nn,3);
-grad_II=zeros(nn,nn,3);
-grad_III=zeros(nn,nn,3);
-grad_IV=zeros(nn,nn,3);
-grad_V=zeros(nn,nn,3);
-grad_VI=zeros(nn,nn,3);
-
-%%  PHASE 1: ASSEMBLAGE DES 6 RESEAUX
 %% RESEAU 1 : ASSEMBLAGE DES DONNEES SUR LE RESEAU I-ALPHA
-
 % Face I : TRANSFERT OF DATA OF FACE I 
 va_fI=zeros(4*(nn-1),nn); 
 for jline1=1:nn, % boucle sur les lignes iso-eta du reseaux Ia
@@ -46,7 +36,7 @@ funspl=ppval(ppspline,ptscr_beta(1:nn*nn));
 for i=1:nn-1
     if i <= nn/2
         if rem(i,2)== 1
-            FUN(i,1:nn)=funspl((i-1)*nn+[1:nn]);
+            FUN(i,1:nn)=funspl((i-1)*nn+1:(i-1)*nn+nn);
         else
             FUN(i,1:nn)=funspl(i*nn-[1:nn]+1);
         end
@@ -99,18 +89,15 @@ for i=1:nn-1
 end
 va_fI(3*nn-3+[1:nn-1],1:nn)=FUN;
 
-
-% CALCUL DES DERIVEES ALFA SUR LE RESEAU DE GRANDS CERCLES I-ALFA
-for jline1=1:nn, % EACH GREAT CIRCLE OF  NETWORK I-ALPHA
- funa7=va_fI(:,jline1); % TABLEAU DE TRAVAIL VALEURS
- test=kxi*funa7;
- funad8=p\test; % TABLEAU DE TRAVAIL DERIVEES
- vad_fI(:,jline1)=funad8; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
+vad_fI=zeros(na,nn);
+for jline1=1:nn, 
+    funa7=va_fI(:,jline1);
+    funad7=p\(k*funa7); 
+    funad8=funad7;
+    vad_fI(:,jline1)=funad8; 
 end
 
-
 %% RESEAU 2: ASSEMBLAGE DES DONNEES SUR LE RESEAU I-BETA
-
 vb_fI=zeros(nn,4*(nn-1));
 % Face I : TRANSFERT OF DATA OF FACE I 
 for iline1=1:nn, % boucle sur les lignes iso-xi du reseau I-beta
@@ -190,17 +177,15 @@ for i=1:nn-1
 end
 vb_fI(1:nn,3*nn-3+[1:nn-1])=FUN(1:nn,1:nn-1);
 
-% CALCUL DES DERIVEES BETA SUR LE RESEAU DE GRANDS CERCLES I-BETA
+vbd_fI=zeros(nn,nb);
 for iline1=1:nn,
- funb1=vb_fI(iline1,:);
- test=keta*(funb1');
- funbd2=p\test;
- vbd_fI(iline1,:)=funbd2; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
+    funb1=vb_fI(iline1,:);
+    funbd1=p\(k*funb1');
+    funbd2=funbd1;
+    vbd_fI(iline1,:)=funbd2;
 end
 
-
 %% RESEAU 3: ASSEMBLAGE DES DONNEES SUR LE RESEAU II-ALPHA
-
 % Face II : TRANSFERT OF DATA OF FACE I 
 va_fII=zeros(4*(nn-1),nn); 
 for jline1=1:nn, % boucle sur les lignes iso-eta du reseaux Ia
@@ -280,18 +265,15 @@ for i=1:nn-1
 end
 va_fII(3*nn-3+[1:nn-1],1:nn)=FUN(1:nn-1,1:nn);
 
-% CALCUL DES DERIVEES
 vad_fII=zeros(na,nn);
 for jline1=1:nn,
- funa9=va_fII(:,jline1);
- test=kxi*funa9;
- funad10=p\test;
- vad_fII(:,jline1)=funad10; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
+    funa9=va_fII(:,jline1);
+    funad9=p\(k*funa9);
+    funad10=funad9;
+    vad_fII(:,jline1)=funad10;
 end
 
 %% RESEAU 4: ASSEMBLAGE DES DONNEES SUR LE RESEAU II-BETA
-
-vbd_fII=zeros(nn,nb);
 vb_fII=zeros(nn,4*(nn-1));
 % Face II 
 for iline1=1:nn, 
@@ -370,17 +352,15 @@ for i=1:nn-1
 end
 vb_fII(1:nn,3*nn-3+[1:nn-1])=FUN(nn:-1:1,1:nn-1);
 
-% CALCUL DES DERIVEES BETA SUR LE RESEAU DE GRANDS CERCLES II-BETA
-
+vbd_fII=zeros(nn,nb);
 for iline1=1:nn,
     funb2=vb_fII(iline1,:);
-    test=keta*(funb2');
-    funbd3=p\test;
-    vbd_fII(iline1,:)=funbd3; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
+    funbd2=p\(k*funb2');
+    funbd3=funbd2;
+    vbd_fII(iline1,:)=funbd3; 
 end
 
 %% RESEAU 5: ASSEMBLAGE DES DONNEES SUR LE RESEAU V-ALPHA
-
 vad_fV=zeros(na,nn);
 va_fV=zeros(4*(nn-1),nn); 
 % Face V
@@ -461,18 +441,16 @@ for i=1:nn-1
 end
  va_fV(3*nn-3+[1:nn-1],1:nn)=FUN(1:nn-1,1:nn);
 
-% CALCUL DES DERIVEES ALPHA SUR LE RESEAU DE GRANDS CERCLES I-ALPHA
+vad_fV=zeros(na,nn);
 for jline1=1:nn,
     funa11=va_fV(:,jline1);
-    test=kxi*funa11;
-    funad12=p\test;
-    vad_fV(:,jline1)=funad12; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
+    funad11=p\(k*funa11);
+    funad12=funad11;
+    vad_fV(:,jline1)=funad12; 
 end
 
 %% RESEAU 6: ASSEMBLAGE DES DONNEES SUR LE RESEAU V-BETA
-
 vb_fV=zeros(nn,4*(nn-1));
-vbd_fV=zeros(nn,nb);
 
 % Face V : TRANSFERT OF DATA selon beta
 for iline1=1:nn, % boucle sur les lignes iso-xi du reseau V-beta
@@ -552,28 +530,17 @@ for i=1:nn-1
 end
  vb_fV(1:nn,3*nn-3+[1:nn-1])=FUN(nn:-1:1,1:nn-1);
 
-% CALCUL DES DERIVEES BETA SUR LE RESEAU DE GRANDS CERCLES V-BETA
-
+vbd_fV=zeros(nn,nb);
 for iline1=1:nn,
     funb5=vb_fV(iline1,:);
-    test=keta*(funb5');
-    funbd6=p\test;
-    vbd_fV(iline1,:)=funbd6; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE BETA.
+    funbd5=p\(k*funb5');
+    funbd6=funbd5;
+    vbd_fV(iline1,:)=funbd6; 
 end
 
-%% FIN ASSEMBLAGE DES DERIVEES HERMITIENNES SUR LES 6 RESEAUX DE CERCLES %%%%%%%%%%%%%%
-
-
-
-
-
-%% ETAPE 2 - ASSEMBLAGE DES DERIVEES ALPHA/BETA SUR CHACUNE DES 6 FACES 
-% DEDUITES DES DERIVEES HERMITIENNES SUR LES 6 RESEAUX DE GRANDS CERCLES.
-%
-
+%% *** Assemblage *********************************************************
 
 dg_alfa=zeros(nn,nn,6);dg_beta=zeros(nn,nn,6);
-
 % FACE I
 for i=1:nn,
     for j=1:nn,
@@ -617,79 +584,70 @@ for i=1:nn,
     end
 end
 
+%% *** Gradient ***********************************************************
 
-%% ETAPE 3 - ASSEMBLAGE GRADIENTS EN FONCTION DES DERIVEES ALPHA/BETA
-
-% 8.1 - FACE I: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA
-% FACE
-
+grad_I=zeros(nn,nn,3);
 for i=1:nn,
     for j=1:nn,
         grad_I(i,j,1:3)=dg_alfa(i,j,1)*gxi_I(i,j,1:3) + dg_beta(i,j,1)*geta_I(i,j,1:3);
     end
 end
 
-% 8.2  FACE II: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA FACE II
-
+grad_II=zeros(nn,nn,3);
 for i=1:nn,
     for j=1:nn,
         grad_II(i,j,1:3)=dg_alfa(i,j,2)*gxi_II(i,j,1:3) + dg_beta(i,j,2)*geta_II(i,j,1:3);
     end
 end
 
-% 8.3 -  FACE III: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA FACE III
-
-% FACE III: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA FACE
-for i=1:nn
-    for j=1:nn
+grad_III=zeros(nn,nn,3);
+for i=1:nn,
+    for j=1:nn,
         grad_III(i,j,1:3)=dg_alfa(i,j,3)*gxi_III(i,j,1:3) - dg_beta(i,j,3)*geta_III(i,j,1:3);
     end
 end
 
-% 8.4 - FACE IV: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA FACE IV
-
+grad_IV=zeros(nn,nn,3);
 for i=1:nn,
     for j=1:nn,
         grad_IV(i,j,1:3)=dg_alfa(i,j,4)*gxi_IV(i,j,1:3) - dg_beta(i,j,4)*geta_IV(i,j,1:3);
     end
 end
 
-% 8.5 - FACE V: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA
-
-% FACE V: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA FACE V
+grad_V=zeros(nn,nn,3);
 for i=1:nn,
     for j=1:nn,
         grad_V(i,j,1:3)=dg_alfa(i,j,5)*gxi_V(i,j,1:3) + dg_beta(i,j,5)*geta_V(i,j,1:3);
     end
 end
 
-% 8.6 - FACE VI : CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA 
+grad_VI=zeros(nn,nn,3);
 
-% FACE VI: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA FACE
 for i=1:nn,
     for j=1:nn,
-        grad_VI(i,j,1:3)=-dg_alfa(i,j,6)*gxi_VI(i,j,1:3) + dg_beta(i,j,6)*geta_VI(i,j,1:3);
+        grad_VI(i,j,1:3)=dg_alfa(i,j,6)*gxi_VI(i,j,1:3) + dg_beta(i,j,6)*geta_VI(i,j,1:3);
     end
 end
 
-%% ETAPE 4 - GESTION DES BORDS
-% Moyennage sur les bords des panels
-% 1/2 SOMME ARRETES, 1/3 SOMME SOMMETS
+%% 1/2 SOMME ARRETES, 1/3 SOMME SOMMETS
 % COMPONENT 1
 uwk_I=grad_I(1:nn,1:nn,1);uwk_II=grad_II(1:nn,1:nn,1);uwk_III=grad_III(1:nn,1:nn,1);
 uwk_IV=grad_IV(1:nn,1:nn,1);uwk_V=grad_V(1:nn,1:nn,1);uwk_VI=grad_VI(1:nn,1:nn,1);
 [grad_I(1:nn,1:nn,1),grad_II(1:nn,1:nn,1),grad_III(1:nn,1:nn,1),grad_IV(1:nn,1:nn,1),grad_V(1:nn,1:nn,1),grad_VI(1:nn,1:nn,1)]=...
-    ds_1b(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
+    ds72(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
 % COMPONENT 2
 uwk_I=grad_I(1:nn,1:nn,2);uwk_II=grad_II(1:nn,1:nn,2);uwk_III=grad_III(1:nn,1:nn,2);
 uwk_IV=grad_IV(1:nn,1:nn,2);uwk_V=grad_V(1:nn,1:nn,2);uwk_VI=grad_VI(1:nn,1:nn,2);
 [grad_I(1:nn,1:nn,2),grad_II(1:nn,1:nn,2),grad_III(1:nn,1:nn,2),grad_IV(1:nn,1:nn,2),grad_V(1:nn,1:nn,2),grad_VI(1:nn,1:nn,2)]=...
-    ds_1b(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
+    ds72(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
 % COMPONENT 3
 uwk_I=grad_I(1:nn,1:nn,3);uwk_II=grad_II(1:nn,1:nn,3);uwk_III=grad_III(1:nn,1:nn,3);
 uwk_IV=grad_IV(1:nn,1:nn,3);uwk_V=grad_V(1:nn,1:nn,3);uwk_VI=grad_VI(1:nn,1:nn,3);
 [grad_I(1:nn,1:nn,3),grad_II(1:nn,1:nn,3),grad_III(1:nn,1:nn,3),grad_IV(1:nn,1:nn,3),grad_V(1:nn,1:nn,3),grad_VI(1:nn,1:nn,3)]=...
-    ds_1b(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
+    ds72(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
 
 
-end
+
+
+
+

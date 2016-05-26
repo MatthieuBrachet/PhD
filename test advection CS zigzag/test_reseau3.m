@@ -1,4 +1,4 @@
-% TEST
+% TEST PANEL II
 clear all; clc; close all;
 %% construction des variables globales
 global n nn;
@@ -17,7 +17,7 @@ global pts_beta ptscr_beta;
 coef = 1;
 opt_ftr =10;
 %% *** Benchmarks data ****************************************************
- n=40;
+ n=30;
  nn=n+2;
 %% ************************************************************************
  if coef == 0
@@ -29,8 +29,8 @@ opt_ftr =10;
  teta_p=pi/2 - alphad;
  elseif coef == 1
  %% test de Nair et Machenhauer
- lambda_p=pi/2;                                                            % position du pole nord, i.e. position du vortex nord
- teta_p=0;
+ lambda_p=pi/4;                                                            % position du pole nord, i.e. position du vortex nord
+ teta_p=-pi/4;
  rho0=3;
  gamma=5;
  elseif coef == 2
@@ -70,54 +70,60 @@ time=24*3600*ndaymax;
 %% méthode 1
 disp('----- case 1 :');
 t1=cputime;
-% Face I : TRANSFERT OF DATA OF FACE I 
-va_fI=zeros(4*(nn-1),nn); 
-for jline1=1:nn, % boucle sur les lignes iso-eta du reseaux Ia
-    va_fI(1:nn-1,jline1)=funfI(1:nn-1,jline1);
+
+va_fII=zeros(4*(nn-1),nn); % VALEURS =DONNEES RESEAU FACE II SELON ALPHA
+% Face II : TRANSFERT OF DATA OF FACE II
+for jline1=1:nn, % boucle sur les lignes iso-eta du reseaux IIa
+    va_fII(1:nn-1,jline1)=funfII(1:nn-1,jline1);
 end
 
-% FaceII: SPLINE INTERPOLATION A L'AIDE DES ANGLES BETA
+% FACE III: SPLINE INTERPOLATION A L'AIDE DES ANGLES BETA
+% INVERSION OF THE LOOP ON THE ISO-ETA LINES AND ON THE XI OF FACE II
 for i=1:nn-1 % LOOP ON THE XI OF FACE II
     betaspline(1:nn)=beta(i,1:nn);
-    funspline(1:nn)=funfII(i,1:nn);
+    funspline(1:nn)=funfIII(i,1:nn);
     ppspline=spline(betaspline,funspline);
-    funbII1(1:nn)=ppval(ppspline,betacr(i,1:nn));
-    va_fI(nn-1+i,1:nn)=funbII1(1:nn);
+    funbIII1(1:nn)=ppval(ppspline,betacr(i,1:nn));
+    va_fII(nn-1+i,1:nn)=funbIII1(1:nn);
 end
 
-% Face III : transfert of data of face III
+% FACE IV: TRANSFERT OF DATA
 for jline1=1:nn,
-    va_fI(2*nn-1:3*nn-3,jline1)=funfIII(1:nn-1,nn-jline1+1);
+    va_fII(2*nn-1:3*nn-3,jline1)=funfIV(1:nn-1,nn-jline1+1); % symetrie sur adresses en j !    
 end
 
-% Face IV: SPLINE INTERPOLATION A L'AIDE DES ANGLES BETA
-for i=1:nn-1
-   betaspline=beta(i,1:nn);
-   funspline=funfIV(i,1:nn);
+% FACE I: SPLINE INTERPOLATION A L'AIDE DES ANGLES BETA
+% INVERSION OF THE LOOP ON THE ISO-ETA LINES AND ON THE XI OF FACE I
+for i=1:nn-1, % LOOP ON THE XI OF FACE I
+   betaspline(1:nn)=beta(i,1:nn);
+   funspline(1:nn)=funfI(i,1:nn);
    ppspline=spline(betaspline,funspline);
-   funbIV1(1:nn)=ppval(ppspline,betacr(i,nn+1-[1:nn]));
-   va_fI(3*nn-3+i,1:nn)=funbIV1(1:nn);
+   funbI1(1:nn)=ppval(ppspline,betacr(i,nn+1-[1:nn]));
+   va_fII(3*nn-3+i,1:nn)=funbI1(1:nn);
 end
-va_fI1=va_fI;
+
+va_fII1=va_fII;
+
 time_meth1=cputime-t1
 
 %% méthode 2
 disp('----- case 2 :')
 t1=cputime;
-% Face I : TRANSFERT OF DATA OF FACE I 
+
+% Face II : TRANSFERT OF DATA OF FACE I 
 va_fI=zeros(4*(nn-1),nn); 
 for jline1=1:nn, % boucle sur les lignes iso-eta du reseaux Ia
-    va_fI(1:nn-1,jline1)=funfI(1:nn-1,jline1);
+    va_fII(1:nn-1,jline1)=funfII(1:nn-1,jline1);
 end
 
-% Face II
+% Face III
 compteur=1;
 for j=1:nn
     for i=1:nn
         if rem(j,2) == 1
-            fun(compteur)=funfII(j,i);
+            fun(compteur)=funfIII(j,i);
         elseif rem(j,2) == 0
-            fun(compteur)=funfII(j,nn-i+1);
+            fun(compteur)=funfIII(j,nn-i+1);
         end
             compteur=compteur+1;
     end
@@ -140,24 +146,24 @@ for i=1:nn-1
         end
     end
 end
-va_fI(nn-1+[1:nn-1],1:nn)=FUN(1:nn-1,1:nn);
+va_fII(nn-1+[1:nn-1],1:nn)=FUN(1:nn-1,1:nn);
 
 
 
 
-% Face III : transfert of data of face III
+% Face IV 
 for jline1=1:nn,
-    va_fI(2*nn-1:3*nn-3,jline1)=funfIII(1:nn-1,nn-jline1+1);
+    va_fII(2*nn-1:3*nn-3,jline1)=funfIV(1:nn-1,nn-jline1+1);
 end
 
-% Face IV
+% Face I
 compteur=1;
 for j=1:nn
     for i=1:nn
         if rem(j,2) == 1
-            fun(compteur)=funfIV(j,i);
+            fun(compteur)=funfI(j,i);
         elseif rem(j,2) == 0
-            fun(compteur)=funfIV(j,nn-i+1);
+            fun(compteur)=funfI(j,nn-i+1);
         end
             compteur=compteur+1;
     end
@@ -180,29 +186,23 @@ for i=1:nn-1
         end
     end
 end
-va_fI(3*nn-3+[1:nn-1],1:nn)=FUN(1:nn-1,1:nn);
+va_fII(3*nn-3+[1:nn-1],1:nn)=FUN(1:nn-1,1:nn);
 time_meth2=cputime-t1
 
 
 %% courbes
-max(max(abs(va_fI1-va_fI)))
-
 
 figure(1)
-surf(abs(va_fI1-va_fI))
+surf(abs(va_fII1-va_fII))
 title('error')
+
+max(max(abs(va_fII1-va_fII)))
 
 figure(2)
 subplot(121)
-surf(va_fI1)
+surf(va_fII1)
 title('old method')
 
 subplot(122)
-surf(va_fI)
+surf(va_fII)
 title('new method')
-
-% figure(3)
-% plot(pts_beta); hold on
-% plot(ptscr_beta); hold off
-% legend('interpolated','interpolation')
-
