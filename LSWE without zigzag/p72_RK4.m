@@ -1,4 +1,4 @@
-clc; clear all; close all; format long;
+clc; clear all; close all; format short;
 
 global n nn dxi
 global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII
@@ -10,12 +10,12 @@ test=1;
 video = 'no';
 save = 1;
 opt_ftr=10;
-n=40;
+n=100;
 mod72
 
-cfl=0.5;
+cfl=0.7;
 ddt=radius*dxi*cfl/u0;
-ndaymax=12;
+ndaymax=2;
 Tmax=ndaymax*3600*24;
 itermax=1000;
 
@@ -33,6 +33,20 @@ hte_fIII = ht_fIII;
 hte_fIV  = ht_fIV;
 hte_fV   = ht_fV;
 hte_fVI  = ht_fVI;
+
+vte_fI   = vt_fI;
+vte_fII  = vt_fII;
+vte_fIII = vt_fIII;
+vte_fIV  = vt_fIV;
+vte_fV   = vt_fV;
+vte_fVI  = vt_fVI;
+
+%% quantités a conserver
+[~,~,~,~,~,~,intref]=nrm72(hte_fI,hte_fII,hte_fIII,hte_fIV,hte_fV,hte_fVI,n,nn,'int');
+
+[ Eref ] = energy(vte_fI,vte_fII,vte_fIII,vte_fIV,vte_fV,vte_fVI,hte_fI,hte_fII,hte_fIII,hte_fIV,hte_fV,hte_fVI,n,nn);
+
+[ Qxref,Qyref,Qzref ] = qte_mvt(vte_fI,vte_fII,vte_fIII,vte_fIV,vte_fV,vte_fVI,hte_fI,hte_fII,hte_fIII,hte_fIV,hte_fV,hte_fVI,n,nn);
 %% *** video option *******************************************************
 if strcmp(video,'yes')==1
     nFrames = min(itermax,floor(Tmax/ddt));
@@ -42,11 +56,11 @@ end
 
 t=0;iter=0;
 time(1)=0; err(1)=0;
-while t<Tmax & iter<itermax & err(end)<0.15
+while t<Tmax & iter<itermax
     t=t+ddt;
     iter=iter+1;
     
-    clc; [iter min(itermax,floor(Tmax/ddt)) err(end)]
+    clc; [iter min(itermax,floor(Tmax/ddt))]
     %% Filtrage
     for p=1:3
         [vt_fI(:,:,p),vt_fII(:,:,p),vt_fIII(:,:,p),vt_fIV(:,:,p),vt_fV(:,:,p),vt_fVI(:,:,p)]=...
@@ -205,7 +219,6 @@ while t<Tmax & iter<itermax & err(end)<0.15
     err(iter)=max([err_fI(iter),err_fII(iter),err_fIII(iter),err_fIV(iter),err_fV(iter),err_fVI(iter)]);
     time(iter)=t/(24*3600);
     
-    
     %% mise a jour
     vt_fI   = vtnew_fI;
     vt_fII  = vtnew_fII;
@@ -220,6 +233,23 @@ while t<Tmax & iter<itermax & err(end)<0.15
     ht_fIV  = htnew_fIV;
     ht_fV   = htnew_fV;
     ht_fVI  = htnew_fVI;
+    
+    
+    ptht(iter)=ht_fI(floor(nn/2),floor(nn/2));
+    
+    %% conservation
+    str='int';
+    [~,~,~,~,~,~,int]=...
+    nrm72(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn,str);
+    err_int(iter)=abs(int-intref)./abs(intref);
+    
+    [ E ] = energy(vt_fI,vt_fII,vt_fIII,vt_fIV,vt_fV,vt_fVI,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn);
+    err_energy(iter)=abs(E-Eref)./abs(Eref);
+    
+    [ Qx,Qy,Qz ] = qte_mvt(vt_fI,vt_fII,vt_fIII,vt_fIV,vt_fV,vt_fVI,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn);
+    err_Qx(iter)=abs(Qxref-Qx)./abs(Qxref);
+    err_Qy(iter)=abs(Qyref-Qy)./abs(Qyref);
+    err_Qz(iter)=abs(Qzref-Qx)./abs(Qzref);
 
     %% film
     if strcmp(video,'yes')==1
@@ -279,6 +309,7 @@ if save == 1
 end
 figure(1)
 plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
+title(['time = ', num2str(time(end))])
 if save==1
     mkdir(['./RK4_results-' date ]);
     print('-dpng', ['./RK4_results-' date '/ref_' num2str(ref) '_courbe.png'])
@@ -288,7 +319,7 @@ end 
 figure(2)
 plot(time,err)
 xlabel('time')
-ylabel('erreur relative')
+ylabel('relative error')
 grid on
 if save==1
     mkdir(['./RK4_results-' date ]);
@@ -297,5 +328,17 @@ if save==1
 end 
 
 figure(3)
-plot_cs11(n,nn,abs(ht_fI-hte_fI)./abs(hte_fI),abs(ht_fII-hte_fII)./abs(hte_fII),abs(ht_fIII-hte_fIII)./abs(hte_fIII),abs(ht_fIV-hte_fIV)./abs(hte_fIV),abs(ht_fV-hte_fV)./abs(hte_fV),abs(ht_fVI-hte_fVI)./abs(hte_fVI));
+semilogy(time,err_int,time,err_energy)
+legend('mass','energy')
+xlabel('time')
 title('relative error')
+grid on
+if save==1
+    mkdir(['./RK4_results-' date ]);
+    print('-dpng', ['./RK4_results-' date '/ref_' num2str(ref) '_conservation.png'])
+    savefig(['./RK4_results-' date '/ref_' num2str(ref) '_conservation']);
+end 
+
+figure(4)
+plot(time,ptht)
+

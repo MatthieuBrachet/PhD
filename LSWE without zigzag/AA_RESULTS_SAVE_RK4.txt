@@ -1,11 +1,11 @@
-date : 24-May-2016
-ref. : 7364747079
+date : 31-May-2016
+ref. : 7364810116
 ***********************************
 test : 1
 ---------- numerical data ---------
 number of points  : 40
-time step         : 1525.5928
-cfl               : 0.5
+time step         : 2135.83
+cfl               : 0.7
 ordre du filtre   : 10
 ---------- physical data ----------
 gravity g              : 9.8062
@@ -15,14 +15,65 @@ coriolis parameter     : 7.292e-05
 ***********************************
   
   
-date : 24-May-2016
-ref. : 7364747530
+date : 01-Jun-2016
+ref. : 7364826801
 ***********************************
 test : 1
 ---------- numerical data ---------
 number of points  : 40
-time step         : 1525.5928
-cfl               : 0.5
+time step         : 2135.83
+cfl               : 0.7
+ordre du filtre   : 10
+---------- physical data ----------
+gravity g              : 9.8062
+equilibrium SWE hp     : 10000
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+***********************************
+  
+  
+date : 01-Jun-2016
+ref. : 7364826910
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 40
+time step         : 2135.83
+cfl               : 0.7
+ordre du filtre   : 10
+---------- physical data ----------
+gravity g              : 9.8062
+equilibrium SWE hp     : 10000
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+***********************************
+  
+  
+date : 01-Jun-2016
+ref. : 7364827647
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 40
+time step         : 2135.83
+cfl               : 0.7
+ordre du filtre   : 10
+---------- physical data ----------
+gravity g              : 9.8062
+equilibrium SWE hp     : 10000
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+***********************************
+  
+  
+date : 01-Jun-2016
+ref. : 7364828214
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 40
+time step         : 2135.83
+cfl               : 0.7
 ordre du filtre   : 10
 ---------- physical data ----------
 gravity g              : 9.8062

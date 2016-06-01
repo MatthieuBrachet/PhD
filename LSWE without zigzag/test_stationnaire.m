@@ -8,7 +8,7 @@ global hp gp radius dxi u0
 
 test=1;
 opt_ftr=0;
-disc=[10:10:200];
+disc=[10:10:40];
 
 e_vit=[];
 e_ht=[];
@@ -38,12 +38,12 @@ for i=1:length(disc)
     [cor_I,cor_II,cor_III,cor_IV,cor_V,cor_VI]=coriolis(vt_fI,vt_fII,vt_fIII,vt_fIV,vt_fV,vt_fVI);
     
     % ASSEMBLAGE
-    K1v_fI=-ddt*(gp*grad_I+cor_I);
-    K1v_fII=-ddt*(gp*grad_II+cor_II);
-    K1v_fIII=-ddt*(gp*grad_III+cor_III);
-    K1v_fIV=-ddt*(gp*grad_IV+cor_IV);
-    K1v_fV=-ddt*(gp*grad_V+cor_V);
-    K1v_fVI=-ddt*(gp*grad_VI+cor_VI);
+    K1v_fI=-(gp*grad_I+cor_I);
+    K1v_fII=-(gp*grad_II+cor_II);
+    K1v_fIII=-(gp*grad_III+cor_III);
+    K1v_fIV=-(gp*grad_IV+cor_IV);
+    K1v_fV=-(gp*grad_V+cor_V);
+    K1v_fVI=-(gp*grad_VI+cor_VI);
     
     
     
@@ -53,12 +53,12 @@ for i=1:length(disc)
         div72(vt_fI,vt_fII,vt_fIII,vt_fIV,vt_fV,vt_fVI,n,nn);
     
     % assemblage
-    K1h_fI=-ddt*hp*div_fI;
-    K1h_fII=-ddt*hp*div_fII;
-    K1h_fIII=-ddt*hp*div_fIII;
-    K1h_fIV=-ddt*hp*div_fIV;
-    K1h_fV=-ddt*hp*div_fV;
-    K1h_fVI=-ddt*hp*div_fVI;
+    K1h_fI=-hp*div_fI;
+    K1h_fII=-hp*div_fII;
+    K1h_fIII=-hp*div_fIII;
+    K1h_fIV=-hp*div_fIV;
+    K1h_fV=-hp*div_fV;
+    K1h_fVI=-hp*div_fVI;
     
     %% ERREUR
     % erreur eq en vitesse

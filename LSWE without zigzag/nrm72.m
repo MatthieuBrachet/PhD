@@ -3,8 +3,7 @@ function [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=...
 global radius;
 global dxi deta dga;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% dga=zeros(nn,nn);
-% dga=(radius^2)*((1+xx).*(1+yy))./(delta.*deltab); % ELEMENT AREA
+% NEW VERSION COMPARED TO NRM72.M : COEFFT 1/4 FOR THE 8 CORNER POINTS
 switch str
     case 'infty',
     nrmI=max(max(abs(funfI)));
@@ -156,6 +155,7 @@ switch str
     
     case 'int', % INTEGRAL OF THE FUNCTION (IT IS NOT A NORM).
         % face I
+
     nrmint=(radius^2)*dxi*deta*sum(sum(dga(2:nn-1,2:nn-1).*funfI(2:nn-1,2:nn-1)));
     nrmW=(radius^2)*dxi*deta*sum(dga(1,2:nn-1).*funfI(1,2:nn-1));
     nrmE=(radius^2)*dxi*deta*sum(dga(nn,2:nn-1).*funfI(nn,2:nn-1));
@@ -167,6 +167,7 @@ switch str
     nrmSE=(radius^2)*dxi*deta*dga(nn,1)*funfI(nn,1);
     nrmI=nrmint+(1/2)*(nrmW+nrmE+nrmS+nrmN)+(1/3)*(nrmNW+nrmNE+nrmSW+nrmSE);
             % face II
+
     nrmint=(radius^2)*dxi*deta*sum(sum(dga(2:nn-1,2:nn-1).*funfII(2:nn-1,2:nn-1)));
     nrmW=(radius^2)*dxi*deta*sum(dga(1,2:nn-1).*funfII(1,2:nn-1));
     nrmE=(radius^2)*dxi*deta*sum(dga(nn,2:nn-1).*funfII(nn,2:nn-1));
@@ -178,6 +179,7 @@ switch str
     nrmSE=(radius^2)*dxi*deta*dga(nn,1)*funfII(nn,1);
     nrmII=nrmint+(1/2)*(nrmW+nrmE+nrmS+nrmN)+(1/3)*(nrmNW+nrmNE+nrmSW+nrmSE);
             % face III
+
     nrmint=(radius^2)*dxi*deta*sum(sum(dga(2:nn-1,2:nn-1).*funfIII(2:nn-1,2:nn-1)));
     nrmW=(radius^2)*dxi*deta*sum(dga(1,2:nn-1).*funfIII(1,2:nn-1));
     nrmE=(radius^2)*dxi*deta*sum(dga(nn,2:nn-1).*funfIII(nn,2:nn-1));
@@ -189,6 +191,7 @@ switch str
     nrmSE=(radius^2)*dxi*deta*dga(nn,1)*funfIII(nn,1);
     nrmIII=nrmint+(1/2)*(nrmW+nrmE+nrmS+nrmN)+(1/3)*(nrmNW+nrmNE+nrmSW+nrmSE);
             % face IV
+
     nrmint=(radius^2)*dxi*deta*sum(sum(dga(2:nn-1,2:nn-1).*funfIV(2:nn-1,2:nn-1)));
     nrmW=(radius^2)*dxi*deta*sum(dga(1,2:nn-1).*funfIV(1,2:nn-1));
     nrmE=(radius^2)*dxi*deta*sum(dga(nn,2:nn-1).*funfIV(nn,2:nn-1));
@@ -200,6 +203,7 @@ switch str
     nrmSE=(radius^2)*dxi*deta*dga(nn,1)*funfIV(nn,1);
     nrmIV=nrmint+(1/2)*(nrmW+nrmE+nrmS+nrmN)+(1/3)*(nrmNW+nrmNE+nrmSW+nrmSE);
             % face V
+
     nrmint=(radius^2)*dxi*deta*sum(sum(dga(2:nn-1,2:nn-1).*funfV(2:nn-1,2:nn-1)));
     nrmW=(radius^2)*dxi*deta*sum(dga(1,2:nn-1).*funfV(1,2:nn-1));
     nrmE=(radius^2)*dxi*deta*sum(dga(nn,2:nn-1).*funfV(nn,2:nn-1));
@@ -211,6 +215,7 @@ switch str
     nrmSE=(radius^2)*dxi*deta*dga(nn,1)*funfV(nn,1);
     nrmV=nrmint+(1/2)*(nrmW+nrmE+nrmS+nrmN)+(1/3)*(nrmNW+nrmNE+nrmSW+nrmSE);
             % face VI
+
     nrmint=(radius^2)*dxi*deta*sum(sum(dga(2:nn-1,2:nn-1).*funfVI(2:nn-1,2:nn-1)));
     nrmW=(radius^2)*dxi*deta*sum(dga(1,2:nn-1).*funfVI(1,2:nn-1));
     nrmE=(radius^2)*dxi*deta*sum(dga(nn,2:nn-1).*funfVI(nn,2:nn-1));
@@ -224,3 +229,12 @@ switch str
     %
     nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI;    
 end
+
+
+
+
+
+
+
+
+
