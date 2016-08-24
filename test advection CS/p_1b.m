@@ -27,7 +27,7 @@ time1=cputime;
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 2;
+coef = 3;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;

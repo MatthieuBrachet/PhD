@@ -10,7 +10,7 @@ global radius u0 dxi;
 global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII;
 global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI;
 global ite aaa bbb itestop
-global coef opt_ftr
+global coef opt_ftr scheme
 % test de Williamson
 global alphad tetac lambdac
 % test de Nair et Machenhauer
@@ -33,7 +33,7 @@ coef = 2;
 film = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 0;
+save_graph = 1;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
 opt_ftr =10;
@@ -43,15 +43,17 @@ snapshot = 0;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 2
 %         1 : coupe.
 coupe = 0;
-% sauvegarde = 1 : sauvegarde toutes les données
-%            = 0 : ne les sauvegarde pas (utiliser load('namefile') pour
+% sauvegarde = 1 : sauvegarde toutes les données,
+%            = 0 : ne les sauvegarde pas, (utiliser load('namefile') pour
 %            recharger les données).
-sauvegarde = 0;
+sauvegarde = 1;
+% choix du schéma aux différences finies
+scheme='compact4'; % compact ou explicite
 %% *** Benchmarks data ****************************************************
- n=300;
+ n=400;
  nn=n+2;
  cfl=0.5;
- ndaymax=12;
+ ndaymax=100;
  err=2;
  mm=0;
  MM=1000;
@@ -159,8 +161,10 @@ end
 
 %% Boucles RK 4 avec filtrage
 xdays(1)=0;
-for ite=1:itemax
-clc; disp(num2str([ite itemax]));
+ite =1
+erinfty(1)=0;
+while ite<itemax & erinfty(end)<1
+clc; disp(num2str([ite itemax erinfty(end)]));
 
 % -------------------------------------------------------------------------
 %%                 CALCUL DES ITERATIONS
@@ -365,15 +369,16 @@ ermin(ite)=min(min([funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,
 if film==1
     figure(100);
     title(['days : ', num2str(xdays(ite))]); hold on
-    %view([1 0 0])
+    view([1 -1 1])
     %plot_cs15(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI,mm,MM);
-    %plot_cs11(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe);
+    plot_cs11(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
     %plot_cs14(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI,mm,MM);
     %plot_cs12(n,nn,funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,funfV-funfVe,funfVI-funfVIe,err);
     hold off;
     mov(ite) = getframe(gcf);
 end
 
+ite=ite+1;
 end
 time2=cputime-time1;
 disp(['temps de fonctionnement : ', num2str(time2)])
@@ -389,6 +394,7 @@ if film == 1
     fprintf(fid,'%s\n','***********************************');
     fprintf(fid,'%s\n',['test : ', num2str(coef)]);
     fprintf(fid,'%s\n','---------- numerical data ---------');
+    fprintf(fid,'%s\n',['scheme            : ', scheme] );
     fprintf(fid,'%s\n',['number of points  : ', num2str(n)] );
     fprintf(fid,'%s\n',['time step         : ', num2str(ddt)] );
     fprintf(fid,'%s\n',['cfl               : ', num2str(cfl)] );
@@ -445,7 +451,7 @@ end
 
 if sauvegarde == 1
     mkdir(['./results-' date ])
-    save(['./results-' date '/ref_' num2str(ref) '_erreurdata_test_' num2str(coef) '.mat'],'funfI','funfII','funfIII','funfIV','funfV','funfVI','er1','er2','erinfty')
+    save(['./results-' date '/ref_' num2str(ref) '_erreurdata_test_' num2str(coef) '.mat'])
 end
 
 if snapshot == 1
@@ -474,8 +480,8 @@ if save_graph==1
 end
 
 figure(39);
-plot_cs5(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI);colorbar;
-title('relative error - RK4')
+plot_cs11(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI);colorbar;
+title('error - RK4')
 if save_graph==1
     print('-dpng', ['./results-' date '/ref_' num2str(ref) '_erreur_test_' num2str(coef) '.png'])
     savefig(['./results-' date '/ref_' num2str(ref) '_erreur_test_' num2str(coef)]);
@@ -500,6 +506,7 @@ if save_graph==1
     fprintf(data,'%s\n','***********************************');
     fprintf(data,'%s\n',['test : ', num2str(coef)]);
     fprintf(data,'%s\n','---------- numerical data ---------');
+    fprintf(data,'%s\n',['scheme            : ', scheme] );
     fprintf(data,'%s\n',['number of points  : ', num2str(n)] );
     fprintf(data,'%s\n',['time step         : ', num2str(ddt)] );
     fprintf(data,'%s\n',['cfl               : ', num2str(cfl)] );

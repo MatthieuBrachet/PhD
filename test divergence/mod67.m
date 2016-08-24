@@ -8,7 +8,7 @@ global alfa beta;
 global alfacr betacr;
 global alfa1;
 global alfag betag;
-global p k;
+global p k kxi keta p_div k_div;
 global x_fI y_fI z_fI;
 global x_fII y_fII z_fII;
 global x_fIII y_fIII z_fIII;
@@ -19,7 +19,7 @@ global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
 global p1 k1;
 global ftr;
-n=40; nn=n+2
+nn=n+2;
 % n=3,nn=5; 
 % n=7, nn=9; % number of points by face
 % n=15, nn=17; % number of points by face
@@ -112,6 +112,7 @@ for i=1:nn,
         alfa1(i,j)=betacr(j,i);
     end
 end
+
 % ----------------------------------------
 % CALCUL DES ANGLES GLOBAUX DE RESEAUX: 2 TABLEAUX SEULEMENT ALFA_G ET BETA_G
 % ALFA_G: ABSCISSES CURVILIGNES LE LONG DE Ia, IIa, Va
@@ -125,7 +126,8 @@ for j=1:nn,
   alfag(3*(nn-1)+1:4*(nn-1),j)=alfacr(1:nn-1,j)+pi;
 end
 betag=alfag'; % BETAG=TRANSPOSEE DE ALFAG
-% --------------------------------------------------
+
+%% --------------------------------------------------
 %global p k;
 p=zeros(na); % 
 p=sparse(p);
@@ -143,7 +145,36 @@ p(1,1)=4;p(1,2)=1;p(1,na)=1;
 p( na,1)=1;p(na,na-1)=1;p(na,na)=4;
 k(1,2)=1;k(1,na)=-1;
 k(na,1)=1;k(na,na-1)=-1;
-% ----------------------------------------------------------------
+
+p=p/6;
+kxi=k./(2*dxi);
+keta=k./(2*deta);
+
+
+J=diag(ones(na-1,1),-1);
+J(1,end)=1;
+
+a=25/16;
+b=1/5;
+c=-1/80;
+alpha=3/8;
+k_div=(-a/(2*dxi))*J+(-b/(4*dxi))*J*J+(-c/(6*dxi))*J^3+...
+    (a/(2*dxi))*J^(na-1)+(b/(4*dxi))*J^(na-2)+(c/(6*dxi))*J^(na-3);
+k_div=sparse(k_div);
+
+p_div=diag(alpha*ones(na-1,1),1)+diag(alpha*ones(na-1,1),-1)+diag(ones(na,1));
+p_div(1,end)=alpha;
+p_div(end,1)=alpha;
+p_div=sparse(p_div);
+
+%p_div=p;
+%k_div=keta;
+
+
+
+
+
+%% ----------------------------------------------------------------
 % % CARTESIAN COORDINATES OF THE POINTS OF THE 6 FACES.
 % global x_fI y_fI z_fI;
 % global x_fII y_fII z_fII;

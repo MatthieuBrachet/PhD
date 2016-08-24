@@ -1,30 +1,15 @@
-date : 01-Apr-2016
-ref. : 7364217401
+date : 16-Jun-2016
+ref. : 7364974589
 ***********************************
-test : 0
+test : 2
 ---------- numerical data ---------
-number of points  : 25
-time step         : 7975.3846
-cfl               : 0.8
+scheme            : explicite2
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
 ordre du filtre   : 10
 -------- mathematical data --------
-ndaymax           : 3
-angle in degree   : 135
-(lambdap,thetap)  : (180,-45)
-***********************************
-  
-  
-date : 01-Apr-2016
-ref. : 7364217414
-***********************************
-test : 0
----------- numerical data ---------
-number of points  : 25
-time step         : 7975.3846
-cfl               : 0.8
-ordre du filtre   : 10
--------- mathematical data --------
-ndaymax           : 3
+ndaymax           : 12
 angle in degree   : 135
 (lambdap,thetap)  : (180,-45)
 ***********************************

@@ -1,0 +1,17 @@
+date : 23-Jun-2016
+ref. : 7365045212
+***********************************
+test : 3
+---------- numerical data ---------
+number of points  : 40
+time step         : 701.5387
+cfl               : 0.9
+ordre du filtre   : 4
+---------- physical data ----------
+gravity g              : 9.8062
+equilibrium SWE hp     : 10000
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+***********************************
+  
+  

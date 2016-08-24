@@ -99,3 +99,39 @@ axis equal;
  axis([-radius radius -radius radius -radius radius]);
 colorbar;
 
+
+
+
+
+
+
+%% add the borders of each panel
+[~, ts,~]=cart2sph(x1(1), y1(1), z1(1));
+ts=abs(ts);
+
+th=linspace(-ts,ts,n+1);
+pp=pi/4*ones(1,n+1);
+
+[x,y,z]=sph2cart(pp,th,radius);
+plot3(x,y,z,'k-','linewidth',2); hold on
+plot3(-x,y,z,'k-','linewidth',2); hold on
+plot3(x,-y,z,'k-','linewidth',2); hold on
+plot3(-x,-y,z,'k-','linewidth',2); hold on
+
+plot3(z,y,x,'k-','linewidth',2); hold on
+plot3(z,-y,x,'k-','linewidth',2); hold on
+plot3(z,y,-x,'k-','linewidth',2); hold on
+plot3(z,-y,-x,'k-','linewidth',2); hold on
+
+plot3(x,z,y,'k-','linewidth',2); hold on
+plot3(-x,z,y,'k-','linewidth',2); hold on
+plot3(x,z,-y,'k-','linewidth',2); hold on
+plot3(-x,z,-y,'k-','linewidth',2); hold on
+
+
+
+
+
+
+
+

@@ -188,7 +188,8 @@ for i=1:nn-1, % LOOP ON THE XI OF FACE IV
    funbIV1(1:nn)=ppval(ppspline,betacr(i,nn+1-[1:nn]));
    va_fI(3*nn-3+i,1:nn)=funbIV1(1:nn);
 end
-% break;
+%va_fI(:,1)
+%va_fI(:,nn)
 % --------------------------------------------------
 alfag4=zeros(na,1); % ANGLE ALONG EACH GREAT CIRCLE 
 %xa=zeros(na,1);ya=zeros(na,1);za=zeros(na,1); % CARTESIAN COORDINATES IN COORDINATES ALFA/ETA (FACE I)
@@ -206,6 +207,7 @@ for jline1=1:nn, % EACH GREAT CIRCLE OF  NETWORK I-ALPHA
  funad8=funad7./alfag4d; % AUTRE TABLEAU DE TRAVAIL DERIVEES
  vad_fI(:,jline1)=funad8; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
 end
+
 %%%%%%%%% fin section gr59.m------------------------
 %
 % ETAPE 2: CALCUL DE LA PARTIE D/DETA DE LA DIVERGENCE (FACE I ET III)
@@ -372,6 +374,8 @@ end
     funaVI1(1:nn)=ppval(ppspline,alfa1(nn+1-[1:nn],j));
     vb_fI(1:nn,3*nn-3+j)=funaVI1(1:nn);
  end
+
+ %%****************************************************************************************************************
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CALCUL DES DERIVEES BETA SUR LE RESEAU DE GRANDS CERCLES I-BETA
 betag1=zeros(1,nb);
@@ -625,6 +629,9 @@ for i=1:nn-1, % LOOP ON THE XI OF FACE I============
    funbI1(1:nn)=ppval(ppspline,betacr(i,nn+1-[1:nn]));
    va_fII(3*nn-3+i,1:nn)=funbI1(1:nn);
 end
+
+% va_fII(:,1)
+% va_fII(:,nn)
 % FILTRAGE
 % for jline1=1:nn,
 %    va_fII(1:na,jline1)=ftr*va_fII(1:na,jline1);
@@ -646,6 +653,7 @@ for jline1=1:nn,
  funad10=funad9./alfag5d;
  vad_fII(:,jline1)=funad10; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
 end
+
 %%%%%%%%% fin section gr59.m------------------------
 % break;
 %
@@ -807,6 +815,7 @@ for i=1:nn-1 % LOOP ON THE XI OF FACE VI. i= order of encountering !!!
     funbVI1(1:nn)=ppval(ppspline,betacr(i,1:nn));
     vb_fII(1:nn,3*nn-3+i)=funbVI1(1:nn);
 end
+
  % FILTRAGE
 % for iline1=1:nn,
 %    vb_fII(iline1,1:nb)=vb_fII(iline1,1:nb)*ftr;
@@ -830,6 +839,7 @@ for iline1=1:nn,
  funbd3=funbd2./betag2d;
  vbd_fII(iline1,:)=funbd3; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
 end
+
 %%%%%%%%% fin section gr59.m------------------------
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%% FIN ASSEMBLAGE DES DERIVEES HERMITIENNES SUR LES 2 RESEAUX DE CERCLES %%%%%%%%%%%%%%
@@ -1115,6 +1125,7 @@ for jline1=1:nn,
  funad12=funad11./alfag6d;
  vad_fV(:,jline1)=funad12; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
 end
+
 %%%%%%%%% fin section gr59.m------------------------
 %
 % ETAPE 12: CALCUL DE LA PARTIE D/DETA DE LA DIVERGENCE (FACE V ET VI)

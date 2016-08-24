@@ -1,4 +1,5 @@
 clear all;clc; close all;
+format long
 global n nn;
 global x_fI y_fI z_fI;
 global x_fII y_fII z_fII;
@@ -6,9 +7,14 @@ global x_fIII y_fIII z_fIII;
 global x_fIV y_fIV z_fIV;
 global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
+global test;
 %%%%%%%%%%%%%%%%%%%
 
-mod67; % APPEL MODULE "PROBLEME"
+test=2;
+n=101;
+%mod67; % APPEL MODULE "PROBLEME"
+mod72
+
 
 [mfunfI,dfunI]=fun6(x_fI,y_fI,z_fI); % FONCTION VECTORIELLE SUR LES 6 FACES
 [mfunfII,dfunII]=fun6(x_fII,y_fII,z_fII);
@@ -18,7 +24,7 @@ mod67; % APPEL MODULE "PROBLEME"
 [mfunfVI,dfunVI]=fun6(x_fVI,y_fVI,z_fVI);
 
 [div_fI,div_fII,div_fIII,div_fIV,div_fV,div_fVI]=...
-    div68(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
+    div72(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
 
 % calcul erreur finale
 for i=1:nn,
@@ -51,20 +57,20 @@ for i=1:nn,
         errg_fVI(i,j)=max(abs(div_fVI(i,j,:)-dfunVI(i,j,:)));
     end
 end
-errI_25=max(max(abs(errg_fI)))
-errII_26=max(max(abs(errg_fII)))
-errIII_27=max(max(abs(errg_fIII)))
-errIV_28=max(max(abs(errg_fIV)))
-errV_29=max(max(abs(errg_fV)))
-errVI_30=max(max(abs(errg_fVI)))
+errI_25=max(max(abs(errg_fI)));
+errII_26=max(max(abs(errg_fII)));
+errIII_27=max(max(abs(errg_fIII)));
+errIV_28=max(max(abs(errg_fIV)));
+errV_29=max(max(abs(errg_fV)));
+errVI_30=max(max(abs(errg_fVI)));
 err_div_31=max([errVI_30,errV_29,errIV_28,errIII_27,errII_26,errI_25])
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(1);
 plot_cs5(n,nn,div_fI,div_fII,div_fIII,div_fIV,div_fV,div_fVI);colorbar;
 title('DIV CALCULATED');
-figure(2);
-plot_cs5(n,nn,dfunI,dfunII,dfunIII,dfunIV,dfunV,dfunVI);colorbar;
-title('DIV EXACT');
+% figure(2);
+% plot_cs5(n,nn,dfunI,dfunII,dfunIII,dfunIV,dfunV,dfunVI);colorbar;
+% title('DIV EXACT');
 figure(3);
 plot_cs5(n,nn,errg_fI,errg_fII,errg_fIII,errg_fIV,errg_fV,errg_fVI);colorbar;
 title('ERREUR');
