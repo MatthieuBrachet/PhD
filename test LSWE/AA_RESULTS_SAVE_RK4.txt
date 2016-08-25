@@ -908,3 +908,23 @@ Coriolis parameter     : 7.292e-05
 ***********************************
   
   
+date : 24-Aug-2016
+ref. : 7365669457
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 40
+time step         : 262.6996
+cfl               : 0.5
+ordre du filtre   : 10
+iterfmax          : -1
+---------- physical data ----------
+gravity acceleration g        : 9.8062
+equilibrium SWE thickness hp  : 1000
+caracteristic velocity : 9.9026
+Coriolis parameter     : 7.292e-05
+------------ comment --------------
+Coriolis parameter     : 7.292e-05
+***********************************
+  
+  

@@ -24,7 +24,7 @@ global omega hp gp u0 h0
 %% physical data
 radius=6.37122d+06;
 omega=7.292d-05;
-hp=1000;
+hp=10000;
 gp=9.80616;
 % u0=80;% JPC
 u0=(sqrt(gp*hp)/10);

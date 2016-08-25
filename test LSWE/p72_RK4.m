@@ -41,7 +41,7 @@ cfl=0.5;
 ddt=radius*dxi*cfl/c;
 %ndaymax=2;
 % JPC
-ndaymax=3;
+ndaymax=2;
 Tmax=ndaymax*3600*24;
 itermax=5000;
 

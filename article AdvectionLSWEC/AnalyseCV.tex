@@ -6,8 +6,14 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\def\gint{\displaystyle\int}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+
 \author{Brachet Matthieu}
-\title{Convergence Analysis for Linearized Shallow Water equation with Coriolis Force}
+\title{Some benchmarks for Linearized Shallow Water equation with Coriolis Force}
 \begin{document}
 \maketitle
 
@@ -28,7 +34,12 @@ The equation is solved on a sphere $\mathbb{S}_R^2$ with radius is $R$. If $\mat
 
 $$\mathbf{u} = u \mathbf{e}_{\theta} + v \mathbf{e}_{\lambda}.$$ 
 
-The Coriolis parameter $f$ is $2 \omega sin ( \theta )$.
+The Coriolis parameter :
+
+\begin{equation}
+f=2 \omega sin ( \theta )
+\label{coriolis_parameter}
+\end{equation}
 
 In the numericals results, we are looking the following error :
 
@@ -36,7 +47,88 @@ $$e_{i} = max_n \dfrac{\| \eta^n - \eta(t^n) \|_{i}}{\| \eta(0) \|_{i}}$$
 
 $i \in \left\lbrace 1, 2, \infty \right\rbrace$.
 
+\section{Some conservations properties of \eqref{LSWEC}}
 
+\begin{remark}
+\label{remark_stokes}
+A preliminary remark is :
+
+If $\Omega_1$ and $\Omega_2$ are two hemisphere on $\mathbb{S}^2_R$ then :
+\begin{itemize}
+\item $\Omega_1 \cup \Omega_2 = \mathbb{S}^2_R $,
+\item $\overbrace{\Omega_1 \cap \Omega_2}^{\circ} = \varnothing$
+\end{itemize}
+
+by the Stokes theorem :
+
+\begin{equation}
+\gint_{\Omega_i}  \nabla \cdot \mathbf{u} = \gint_{\partial \Omega_i} \mathbf{u} \cdot \mathbf{n}_i
+\end{equation}
+
+with $i \in \left\lbrace 1, 2 \right\rbrace$ and $\mathbf{n}_i$ is the exterior normal of $\Omega_i$ on $\mathbb{S}_R^2$.
+Then, because $\mathbf{n_1} = -\mathbf{n_2}$ and $\partial \Omega_1 = \partial \Omega_2$ :
+
+$$\gint_{\mathbb{S}_R^2}  \nabla \cdot \mathbf{u} = \gint_{\Omega_1}  \nabla \cdot \mathbf{u} + \gint_{\Omega_2}  \nabla \cdot \mathbf{u} = \gint_{\partial \Omega_1} \mathbf{u} \cdot \mathbf{n}_1 + \gint_{\partial \Omega_2} \mathbf{u} \cdot \mathbf{n}_2 = 0$$
+\end{remark}
+
+\begin{proposition}
+(mass conservation)
+The mass $\gint_{\mathbb{S}_R^2} \eta$ is constant in time.
+\end{proposition}
+
+\begin{proof}
+We integrate on $\mathbb{S}_R^2$ the second equation of \eqref{LSWEC} :
+
+$$\dfrac{\partial}{\partial t} \gint_{\mathbb{S}_R^2} \eta = \gint_{\mathbb{S}_R^2} \dfrac{\partial \eta}{\partial t} = \gint_{\mathbb{S}_R^2} \nabla \cdot \mathbf{u} = 0$$
+\end{proof}
+
+\begin{proposition}
+(energy conservation)
+If $\mathbf{F} = \mathbf{0}$, the energy $g  \eta^2 + H \| u \|_{L^2(\mathbb{S}_R^2)}^2$ is constant in time.
+\end{proposition}
+
+\begin{proof}
+\begin{itemize}
+\item First, we notice that $\mathbf{u}$ is orthogonal to $\mathbf{k} \wedge \mathbf{u}$ then :
+
+$$\gint_{\mathbb{S}_R^2} \dfrac{\partial \mathbf{u}}{\partial t} \cdot \mathbf{u} = \dfrac{1}{2} \dfrac{\partial}{\partial t} \gint_{\mathbb{S}_R^2} \mathbf{u}^2 = -g \gint_{\mathbb{S}_R^2} \nabla \eta \cdot \mathbf{u}$$
+
+in other words :
+
+\begin{equation}
+\dfrac{1}{2} \dfrac{\partial}{\partial t} \| u \|_{L^2(\mathbb{S}_R^2)}^2 = -g \gint_{\mathbb{S}_R^2} \nabla \eta \cdot \mathbf{u}
+\label{energy_eq1}
+\end{equation}
+
+\item with a similar idea, we have :
+
+$$\dfrac{\partial \eta}{\partial t} \times \eta = -H \eta \nabla \cdot \mathbf{u} $$
+
+and after integration on $\mathbb{S}_R^2$ :
+
+\begin{equation}
+\dfrac{1}{2} \dfrac{\partial}{\partial t} \| \eta \|^2_{L^2(\mathbb{S}_R^2)} = -H \gint_{\mathbb{S}_R^2} \eta \nabla \cdot \mathbf{u}
+\label{energy_eq2}
+\end{equation}
+
+\item It is well known that :
+
+\begin{equation}
+\nabla \cdot \left( \mathbf{A} B \right) = \left( \mathbf{A} \cdot \nabla \right) B + \left( B \nabla \cdot \mathbf{A} \right)
+\label{energy_eq3}
+\end{equation}
+
+Then :
+
+$$g \dfrac{\partial}{\partial t}  \| \eta \|^2_{L^2(\mathbb{S}_R^2)} + H \dfrac{\partial}{\partial t} \| \mathbf{u} \|^2_{L^2(\mathbb{S}_R^2)} = -2gH \gint_{\mathbb{S}_R^2} \left( \mathbf{u} \cdot \nabla \eta + \eta \nabla \cdot \mathbf{u} \right)$$
+
+using \eqref{energy_eq3} and \ref{remark_stokes} :
+
+\begin{equation}
+\dfrac{\partial}{\partial t} \left( g  \eta^2 + H \| u \|_{L^2(\mathbb{S}_R^2)}^2 \right) = 0
+\end{equation}
+\end{itemize}
+\end{proof}
 
 \section{exponential solution}
 
@@ -64,6 +156,7 @@ where :
  
 \end{array}
 \right.
+\label{galewski_fun}
 \end{equation*}
 
 $K = e^{-\dfrac{4}{(\theta_0 - \theta_1)^2}}$ is a normalization constant.
@@ -80,7 +173,7 @@ with $c = max(c_{grav}, c_{cor})$, $c_{grav} = \sqrt{gH}$ and $c_{cor} = R \omeg
 
 Tables \ref{CV_order4_hp10}, \ref{CV_order4_hp100} and \ref{CV_order4_hp1000} are obtain with a scheme of order 4 in time (RK4) and order 4 in the divergence and the gradient. For the tables Tables \ref{CV_order8_hp10}, \ref{CV_order8_hp100} and \ref{CV_order8_hp1000} the scheme is the same except for the divergence where the compact scheme is order 8.
 
-\begin{table}
+\begin{table}[H!]
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & order & $e_2$ & order & $e_1$ & order \\ 
 \hline 
@@ -99,7 +192,7 @@ $100$ & $4.1779(-7)$ & $4.2988$ & $1.4789 (-7)$ & $4.1745$ & $8.5641 (-8)$ & $4.
 \label{CV_order4_hp10}
 \end{table}
 
-\begin{table}
+\begin{table}[H!]
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & order & $e_2$ & order & $e_1$ & order \\ 
 \hline 
@@ -118,7 +211,7 @@ $100$ & $5.8355(-6)$ & $4.1331$ & $1.9027 (-6)$ & $4.2447$ & $1.2637 (-6)$ & $4.
 \label{CV_order4_hp100}
 \end{table}
 
-\begin{table}
+\begin{table}[H!]
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & order & $e_2$ & order & $e_1$ & order \\ 
 \hline 
@@ -137,7 +230,7 @@ $100$ & $6.9510(-5)$ & $3.7874$ & $2.1324 (-5)$ & $4.1819$ & $1.6013 (-5)$ & $4.
 \label{CV_order4_hp1000}
 \end{table}
 
-\begin{table}
+\begin{table}[H!]
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & order & $e_2$ & order & $e_1$ & order \\ 
 \hline 
@@ -156,7 +249,7 @@ $100$ & $4.2901(-7)$ & $4.1993$ & $1.2667 (-7)$ & $4.2980$ & $6.7292 (-8)$ & $4.
 \label{CV_order8_hp10}
 \end{table}
 
-\begin{table}
+\begin{table}[H!]
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & order & $e_2$ & order & $e_1$ & order \\ 
 \hline 
@@ -175,7 +268,7 @@ $100$ & $2.7584(-6)$ & $4.7860$ & $8.5491 (-7)$ & $4.5538$ & $4.9340 (-7)$ & $4.
 \label{CV_order8_hp100}
 \end{table}
 
-\begin{table}
+\begin{table}[H!]
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & order & $e_2$ & order & $e_1$ & order \\ 
 \hline 
@@ -195,12 +288,52 @@ $100$ & $4.9820(-6)$ & $6.3615$ & $1.9414 (-6)$ & $5.8892$ & $1.7583 (-6)$ & $6.
 \end{table}
 
 
+\section{Test case without forcing map}
+
+This second test is without forcing map ($\mathbf{F} = \mathbf{0}$). In this context, we construct a stationnary solution such that :
+
+$$\mathbf{u}(\theta, \lambda) = u(\theta) \mathbf{e}_{\lambda}$$
+
+This velocity $ \mathbf{u}$ divergence is easilly zero with this choice.
+
+The atmosphere perturbation $\eta$ is construct such that :
+
+\begin{equation}
+f \mathbf{k} \wedge \mathbf{u} + g \nabla \eta = 0
+\end{equation} 
+
+in the basis $(\mathbf{e}_{\lambda}, \mathbf{e}_{\theta})$ :
+
+\begin{equation}
+f u \mathbf{e}_{\theta} + g \left[ \dfrac{1}{R cos \theta} \dfrac{\partial \eta}{\partial \lambda} \mathbf{e}_{\lambda} + \dfrac{1}{R}\dfrac{\partial \eta}{\partial \theta} \mathbf{e}_{\theta} \right] = 0
+\end{equation}
+
+by identification :
+
+\begin{itemize}
+\item $\dfrac{1}{R cos \theta} \dfrac{\partial \eta}{\partial \lambda} = 0$, then $\eta$ is independant of $\lambda$,
+
+\item $f u + \dfrac{g}{R} \dfrac{\partial \eta}{\partial \theta} = 0$, then (because \eqref{coriolis_parameter}) :
+
+\begin{equation}
+\eta (\theta ) = \eta_0 - \dfrac{2 \omega R}{g} \gint_0^{\theta} sin(\tau) u(\tau) d \tau
+\end{equation} 
+\end{itemize}
+
+then a stationnary solution is given. We choose $u(\theta) = u_0 \psi( \theta )$ with $\psi$ given by \eqref{galewski_fun}. The integral is numerically calculate by the trapeze rules (of course, the Simsons rules will be better but we will do this later!).
+
+Numerically, we obtain two kinds of results :
+\begin{itemize}
+\item we represent the relative error at time $t^n$, $e_i^n$ with $i \in \lbrace 1, 2, \infty \rbrace$, we hope this quantity is small,
+\item we reprensent too two the relative mass and the relative energy :
+\begin{equation}
+\dfrac{I^n}{I(0)}
+\end{equation}
+where $I$ is egual to $I^n = \gint_{\mathbb{S}_R^2} \eta (t^n)$ the mass or the energy $I^n = g \gint_{\mathbb{S}_R^2} \eta (t^n)^2 + H \gint_{\mathbb{S}_R^2} \|u \|_2^2$. It must be close to one.
+\end{itemize} 
 
 
 
-
-
-\section{Stationnary solution}
 
 
 \end{document}
