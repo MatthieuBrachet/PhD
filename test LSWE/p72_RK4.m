@@ -24,10 +24,9 @@ global teta0 teta1
 
 
 test=0;
-%test=0;
 video = 'no';
 sauvegarde = 1;
-opt_ftr=10;
+opt_ftr=0;
 n=40;
 teta0=-3*pi/16;
 teta1=3*pi/16;
@@ -36,19 +35,15 @@ mod72
 cgrav=sqrt(gp*hp);
 ccor=radius*omega;
 c=max(cgrav,ccor);
-
 cfl=0.5;
 ddt=radius*dxi*cfl/c;
-%ndaymax=2;
-% JPC
 ndaymax=2;
 Tmax=ndaymax*3600*24;
 itermax=5000;
 
-comment='order 4 for divergence';
+comment='order 8 for divergence';
 
 tstart=cputime;
-mm=-5; MM=0;
 %% *** initialisation des données
 t=0;
 [ ht_fI,    vt_fI] = sol_exacte(x_fI,   y_fI,   z_fI,   t);
@@ -57,7 +52,8 @@ t=0;
 [ ht_fIV,   vt_fIV] = sol_exacte(x_fIV,  y_fIV,  z_fIV,  t);
 [ ht_fV,    vt_fV] = sol_exacte(x_fV,   y_fV,   z_fV,   t);
 [ ht_fVI,   vt_fVI] = sol_exacte(x_fVI,  y_fVI,  z_fVI,  t);
-
+mm=min(min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI])));
+MM=max(max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI])));
 %% quantités a conserver
 [~,~,~,~,~,~,intref]=nrm72(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn,'int');
 [~,~,~,~,~,~,nrmrefi]=nrm72(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn,'infty');
