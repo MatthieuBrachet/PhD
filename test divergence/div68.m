@@ -323,6 +323,9 @@ for iline1=1:nn,
     vbd_fI(iline1,:)=funbd2;
 end
 
+
+
+
 %% *** assemblage *********************************************************
 dg_alfa=zeros(nn,nn,6);dg_beta=zeros(nn,nn,6);
 % FACE I
@@ -859,6 +862,7 @@ for jline1=1:nn,
     vad_fV(:,jline1)=funad12; 
 end
 
+
 %% ************************************************************************
 xxtVb_V=zeros(nn,nn);xxtVb_III=zeros(nn,nn);
 xxtVb_VI=zeros(nn,nn);xxtVb_I=zeros(nn,nn);
@@ -1009,6 +1013,8 @@ for iline1=1:nn,
     funbd6=funbd5./betag5d;
     vbd_fV(iline1,:)=funbd6; 
 end
+
+
 %% *** Assemblage *********************************************************
 
 % FACE V

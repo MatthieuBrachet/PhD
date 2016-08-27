@@ -1,0 +1,51 @@
+date : 19-Jun-2016
+ref. : 7365002213
+***********************************
+test : 3
+---------- numerical data ---------
+number of points  : 40
+time step         : 389.7437
+cfl               : 0.5
+ordre du filtre   : 10
+---------- physical data ----------
+gravity g              : 9.8062
+equilibrium SWE hp     : 10000
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+***********************************
+  
+  
+date : 21-Jun-2016
+ref. : 7365021812
+***********************************
+test : 3
+---------- numerical data ---------
+number of points  : 40
+time step         : 389.7437
+cfl               : 0.5
+ordre du filtre   : 10
+---------- physical data ----------
+gravity g              : 9.8062
+equilibrium SWE hp     : 10000
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+***********************************
+  
+  
+date : 22-Jun-2016
+ref. : 7365030651
+***********************************
+test : 3
+---------- numerical data ---------
+number of points  : 40
+time step         : 389.7437
+cfl               : 0.5
+ordre du filtre   : 10
+---------- physical data ----------
+gravity g              : 9.8062
+equilibrium SWE hp     : 10000
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+***********************************
+  
+  

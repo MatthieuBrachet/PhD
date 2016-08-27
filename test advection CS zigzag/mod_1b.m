@@ -22,7 +22,7 @@ global geta_I geta_II geta_III geta_IV geta_V geta_VI;
 global p1 k1;
 global ftr;
 
-global opt_ftr;
+global opt_ftr scheme;
 
 
 %% global mm na nb;
@@ -179,25 +179,69 @@ end
 betag=alfag'; % BETAG=TRANSPOSEE DE ALFAG
 % --------------------------------------------------
 %global p k;
-p=zeros(na); % 
-p=sparse(p);
-k=zeros(na);
-k=sparse(k);
-%
-for i=2:na-1
-    p(i,i)=4;
-    p(i,i+1)=1;
-    p(i,i-1)=1;
-    k(i,i+1)=1;
-    k(i,i-1)=-1;
+if strcmp(scheme,'compact4')==1
+    p=zeros(na); % 
+    p=sparse(p);
+    k=zeros(na);
+    k=sparse(k);
+    %
+    for i=2:na-1
+        p(i,i)=4;
+        p(i,i+1)=1;
+        p(i,i-1)=1;
+        k(i,i+1)=1;
+        k(i,i-1)=-1;
+    end
+    p(1,1)=4;p(1,2)=1;p(1,na)=1;
+    p( na,1)=1;p(na,na-1)=1;p(na,na)=4;
+    k(1,2)=1;k(1,na)=-1;
+    k(na,1)=1;k(na,na-1)=-1;
+    p=p./6;
+    keta=k./(2*deta);
+    kxi=k./(2*dxi);
+
+elseif strcmp(scheme,'compact8')==1
+    J=diag(ones(na-1,1),-1);
+    J(1,end)=1;
+
+    a=25/16;
+    b=1/5;
+    c=-1/80;
+    alpha=3/8;
+    k_div=(-a/(2*dxi))*J+(-b/(4*dxi))*J*J+(-c/(6*dxi))*J^3+...
+    (a/(2*dxi))*J^(na-1)+(b/(4*dxi))*J^(na-2)+(c/(6*dxi))*J^(na-3);
+    kxi=sparse(k_div);
+    keta=sparse(k_div);
+
+    p_div=diag(alpha*ones(na-1,1),1)+diag(alpha*ones(na-1,1),-1)+diag(ones(na,1));
+    p_div(1,end)=alpha;
+    p_div(end,1)=alpha;
+    p=sparse(p_div);
+elseif strcmp(scheme,'explicite4')==1
+    J=diag(ones(na-1,1),-1);
+    J(1,end)=1;
+
+    a=4/3;
+    b=-1/3;
+    k=(-a/(2*dxi))*J+(-b/(4*dxi))*J*J+...
+    (a/(2*dxi))*J^(na-1)+(b/(4*dxi))*J^(na-2);
+    kxi=sparse(k);
+    keta=sparse(k);
+
+    p=speye(na,na);
+    
+elseif strcmp(scheme,'explicite2')==1
+    J=diag(ones(na-1,1),-1);
+    J(1,end)=1;
+
+    a=1;
+    k=(-a/(2*dxi))*J+(a/(2*dxi))*J^(na-1);
+    kxi=sparse(k);
+    keta=sparse(k);
+
+    p=speye(na,na);
 end
-p(1,1)=4;p(1,2)=1;p(1,na)=1;
-p( na,1)=1;p(na,na-1)=1;p(na,na)=4;
-k(1,2)=1;k(1,na)=-1;
-k(na,1)=1;k(na,na-1)=-1;
-p=p./6;
-keta=k./(2*deta);
-kxi=k./(2*dxi);
+
 % ----------------------------------------------------------------
 % % CARTESIAN COORDINATES OF THE POINTS OF THE 6 FACES.
 % global x_fI y_fI z_fI;
