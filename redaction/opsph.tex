@@ -5,11 +5,37 @@
 
 \section{Discrétisation sur la sphère : la cube-sphère}
 
+La construction d'un maillage sur la sphère présente de nombreuses difficultés, Dans \ref{Ronchi1996}, on présente les critères pour avoir un "bon" maillage de la sphère :
+
+\begin{itemize}
+\item absence de singularités,
+\item préserver la forme générale des équation hydrostatiques,
+\item maillage aussi régulier que possible,
+\item ...
+\end{itemize}
+
+En 1972, Robert Sadourny propose un maillage basé sur la projection d'un cube pour mailler la sphère \ref{Sadourny1972}.
+
+Soit $C$ un cube centré sur $O=(0,0,0)$ inscrit dans une sphère de rayon R $\mathbb{S}_R$ de centre $O$.
+Si $c^{(K)}$ est un point de la $K_{\text{ième}}$ face du cube ($K \in I, II, III, IV, V, VI$) 
+Le point $c^{(K)}$ est projeté sur la sphère. Si ce point est un point de maillage du cube, il permet par projection de mailler la sphère. 
+
 \subsection{Construction}
+
+Dans 
 
 \subsection{Coordonnées}
 
 \section{Gradient sphérique}
+
+Soit $u : \mathbb{S}^2 \longrightarrow \mathbb{R}$ une fonction sur la sphère. Le gradient de $u$ est donné par :
+
+\begin{equation}
+\label{eq:gradCS}
+\nabla_T u = \dfrac{\partial u}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial u}{\partial \eta} \mathbf{g}^{\eta}
+\end{equation}
+
+où $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ est la base duale de $( \mathbf{g}_{\xi}, \mathbf{g}_{\eta})$.
 
 \subsection{Définition}
 
@@ -18,6 +44,17 @@
 \section{Divergence sphérique}
 
 \subsection{Définition}
+
+$(\xi, \eta)$ définit un système de coordonnées sur la sphère sur chaque panel.
+
+Soit un champ de vecteurs sur la sphère $\mathbf{F} :  \mathbb{S}^2 \longrightarrow \mathbb{TS}^2$, alors on peut calculer la divergence sur chaque panel grâce à :
+
+\begin{equation}
+\label{eq:divCS}
+\nabla_T \cdot \mathbf{F} = \dfrac{1}{\sqrt{\overline{\mathbf{G}}}} \left[  \dfrac{\partial}{\partial \xi} \left( \sqrt{\overline{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\xi} \right) + \dfrac{\partial}{\partial \eta} \left( \sqrt{\overline{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\eta} \right)  \right]
+\end{equation}
+
+où $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ est la base duale de $( \mathbf{g}_{\xi}, \mathbf{g}_{\eta})$ et $\overline{\mathbf{G}} = |det \left( \overline{\mathbf{G}} \right)|$ le déterminant de la métrique en valeur absolue.
 
 \subsection{Schémas compact pour le calcul de la divergence sphérique}
 
