@@ -48,3 +48,22 @@ first test : 28-07-2016
 ***********************************
   
   
+date : 30-Aug-2016
+ref. : 7365727235
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 5
+time step         : 1795.1137
+cfl               : 0.5
+ordre du filtre   : 10
+iter ftr max      : 1
+---------- physical data ----------
+gravity acceleration g              : 9.8062
+caracteristic velocity : 80
+Coriolis parameter     : 7.292e-05
+------------ comment --------------
+first test : 28-07-2016
+***********************************
+  
+  

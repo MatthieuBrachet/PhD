@@ -389,7 +389,7 @@ end
 % FACE VI: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA FACE
 for i=1:nn,
     for j=1:nn,
-        grad_VI(i,j,1:3)=-dg_alfa(i,j,6)*gxi_VI(i,j,1:3) + dg_beta(i,j,6)*geta_VI(i,j,1:3);
+        grad_VI(i,j,1:3)= - dg_alfa(i,j,6)*gxi_VI(i,j,1:3) + dg_beta(i,j,6)*geta_VI(i,j,1:3);
     end
 end
 

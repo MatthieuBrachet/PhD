@@ -1,6 +1,6 @@
-function [div_fI,div_fII,div_fIII,div_fIV,div_fV,div_fVI]=...
-    div72(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn)
-% remplacer tous les spline par spline
+function [rot_fI,rot_fII,rot_fIII,rot_fIV,rot_fV,rot_fVI]=...
+    rot72(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn)
+
 global na nb;
 global radius;
 global alfa beta;
@@ -59,10 +59,12 @@ deltatIa_I=(1+xxtIa_I.^2+yytIa_I.^2);
 deltatIa_II=(1+xxtIa_II.^2+yytIa_II.^2); 
 deltatIa_III=(1+xxtIa_III.^2+yytIa_III.^2); 
 deltatIa_IV=(1+xxtIa_IV.^2+yytIa_IV.^2);
+
 deltabtIa_I=sqrt(deltatIa_I);
 deltabtIa_II=sqrt(deltatIa_II);
 deltabtIa_III=sqrt(deltatIa_III);
 deltabtIa_IV=sqrt(deltatIa_IV);
+
 gtIa_I=(radius^2)*(1+xxtIa_I.^2).*(1+yytIa_I.^2)./(deltabtIa_I.^3);
 gtIa_II=(radius^2)*(1+xxtIa_II.^2).*(1+yytIa_II.^2)./(deltabtIa_II.^3);
 gtIa_III=(radius^2)*(1+xxtIa_III.^2).*(1+yytIa_III.^2)./(deltabtIa_III.^3);
@@ -104,63 +106,65 @@ funfIV=zeros(nn,nn);funfV=zeros(nn,nn);funfVI=zeros(nn,nn);
 %
 for i=1:nn,
     for j=1:nn,
-      funfI(i,j)=dot(mfunfI(i,j,:),gxiIa_I(i,j,:));
-      funfI(i,j)=funfI(i,j)*gtIa_I(i,j);
+      funfI(i,j,1:3)=cross(mfunfI(i,j,:),gxiIa_I(i,j,:));
+      funfI(i,j,1:3)=funfI(i,j,1:3)*gtIa_I(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfII(i,j)=dot(mfunfII(i,j,:),gxiIa_II(i,j,:));
-      funfII(i,j)=funfII(i,j)*gtIa_II(i,j);
+      funfII(i,j,1:3)=cross(mfunfII(i,j,:),gxiIa_II(i,j,:));
+      funfII(i,j,1:3)=funfII(i,j,1:3)*gtIa_II(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfIII(i,j)=dot(mfunfIII(i,j,:),gxiIa_III(i,j,:));
-      funfIII(i,j)=funfIII(i,j)*gtIa_III(i,j);
+      funfIII(i,j,1:3)=cross(mfunfIII(i,j,:),gxiIa_III(i,j,:));
+      funfIII(i,j,1:3)=funfIII(i,j,1:3)*gtIa_III(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfIV(i,j)=dot(mfunfIV(i,j,:),gxiIa_IV(i,j,:));
-      funfIV(i,j)=funfIV(i,j)*gtIa_IV(i,j);
+      funfIV(i,j,1:3)=cross(mfunfIV(i,j,:),gxiIa_IV(i,j,:));
+      funfIV(i,j,1:3)=funfIV(i,j,1:3)*gtIa_IV(i,j);
      end
 end
 
-va_fI=zeros(4*(nn-1),nn); 
-funbII1=zeros(nn,1);
-funbIV1=zeros(nn,1);
-% Face I : 
-for jline1=1:nn, 
-    va_fI(1:nn-1,jline1)=funfI(1:nn-1,jline1);
-end
-% FACE II: 
-for i=1:nn-1 
-    betaspline(1:nn)=beta(i,1:nn);
-    funspline(1:nn)=funfII(i,1:nn);
-    ppspline=spline(betaspline,funspline);
-    funbII1(1:nn)=ppval(ppspline,betacr(i,1:nn));
-    va_fI(nn-1+i,1:nn)=funbII1(1:nn);
-end
-% FACE III: 
-for jline1=1:nn,
-    va_fI(2*nn-1:3*nn-3,jline1)=funfIII(1:nn-1,nn-jline1+1); 
-end
-% FACE IV:
-for i=1:nn-1, 
-   betaspline(1:nn)=beta(i,1:nn);
-   funspline(1:nn)=funfIV(i,1:nn);
-   ppspline=spline(betaspline,funspline);
-   funbIV1(1:nn)=ppval(ppspline,betacr(i,nn+1-[1:nn]));
-   va_fI(3*nn-3+i,1:nn)=funbIV1(1:nn);
-end
+for kk=1:3
+    va_fI=zeros(4*(nn-1),nn); 
+    funbII1=zeros(nn,1);
+    funbIV1=zeros(nn,1);
+    % Face I : 
+    for jline1=1:nn, 
+        va_fI(1:nn-1,jline1)=funfI(1:nn-1,jline1,kk);
+    end
+    % FACE II: 
+    for i=1:nn-1 
+        betaspline(1:nn)=beta(i,1:nn);
+        funspline(1:nn)=funfII(i,1:nn,kk);
+        ppspline=spline(betaspline,funspline);
+        funbII1(1:nn)=ppval(ppspline,betacr(i,1:nn));
+        va_fI(nn-1+i,1:nn)=funbII1(1:nn);
+    end
+    % FACE III: 
+    for jline1=1:nn,
+        va_fI(2*nn-1:3*nn-3,jline1)=funfIII(1:nn-1,nn-jline1+1,kk); 
+    end
+    % FACE IV:
+    for i=1:nn-1, 
+       betaspline(1:nn)=beta(i,1:nn);
+       funspline(1:nn)=funfIV(i,1:nn,kk);
+       ppspline=spline(betaspline,funspline);
+       funbIV1(1:nn)=ppval(ppspline,betacr(i,nn+1-[1:nn]));
+       va_fI(3*nn-3+i,1:nn)=funbIV1(1:nn);
+    end
 
-vad_fI=zeros(na,nn);
-for jline1=1:nn,
-    funa7=va_fI(:,jline1); 
-    test=k_div*funa7;
-    funad7=p_div\test; 
-    vad_fI(:,jline1)=funad7; 
+    vad_fI=zeros(na,nn);
+    for jline1=1:nn,
+        funa7=va_fI(:,jline1); 
+        test=k_div*funa7;
+        funad7=p_div\test; 
+        vad_fI(:,jline1,kk)=funad7; 
+    end
 end
 
 %% ************************************************************************ FRONT and BOTTOM on ETA
@@ -250,26 +254,26 @@ end
 
 for i=1:nn,
     for j=1:nn,
-      funfI(i,j)=dot(mfunfI(i,j,:),getaIb_I(i,j,:));
-      funfI(i,j)=funfI(i,j)*gtIb_I(i,j);
+      funfI(i,j,1:3)=cross(mfunfI(i,j,:),getaIb_I(i,j,:));
+      funfI(i,j,1:3)=funfI(i,j,1:3)*gtIb_I(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfV(i,j)=dot(mfunfV(i,j,:),getaIb_V(i,j,:));
-      funfV(i,j)=funfV(i,j)*gtIb_V(i,j);
+      funfV(i,j,1:3)=cross(mfunfV(i,j,:),getaIb_V(i,j,:));
+      funfV(i,j,1:3)=funfV(i,j,1:3)*gtIb_V(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfIII(i,j)=dot(mfunfIII(i,j,:),getaIb_III(i,j,:));
-      funfIII(i,j)=funfIII(i,j)*gtIb_III(i,j);
+      funfIII(i,j,1:3)=cross(mfunfIII(i,j,:),getaIb_III(i,j,:));
+      funfIII(i,j,1:3)=funfIII(i,j,1:3)*gtIb_III(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfVI(i,j)=dot(mfunfVI(i,j,:),getaIb_VI(i,j,:));
-      funfVI(i,j)=funfVI(i,j)*gtIb_VI(i,j);
+      funfVI(i,j,1:3)=cross(mfunfVI(i,j,:),getaIb_VI(i,j,:));
+      funfVI(i,j,1:3)=funfVI(i,j,1:3)*gtIb_VI(i,j);
      end
 end
 
@@ -278,75 +282,78 @@ vb_fI=zeros(nn,4*(nn-1));
 funaV1=zeros(nn,1);
 funaVI1=zeros(nn,1);
 
-% Face I : 
-for iline1=1:nn,
-    vb_fI(iline1,1:nn-1)=funfI(iline1,1:nn-1);
-end
-% FACE V: 
-for j=1:nn-1 
-    alfaspline(1:nn)=alfa(1:nn,j);
-    funspline(1:nn)=funfV(1:nn,j);
-    ppspline=spline(alfaspline,funspline);
-    funaV1(1:nn)=ppval(ppspline,alfa1(1:nn,j));
-    vb_fI(1:nn,nn-1+j)=funaV1(1:nn);
-end
+for kk=1:3
+    % Face I : 
+    for iline1=1:nn,
+        vb_fI(iline1,1:nn-1)=funfI(iline1,1:nn-1,kk);
+    end
+    % FACE V: 
+    for j=1:nn-1 
+        alfaspline(1:nn)=alfa(1:nn,j);
+        funspline(1:nn)=funfV(1:nn,j,kk);
+        ppspline=spline(alfaspline,funspline);
+        funaV1(1:nn)=ppval(ppspline,alfa1(1:nn,j));
+        vb_fI(1:nn,nn-1+j)=funaV1(1:nn);
+    end
 
-% FACE III: TRANSFERT OF DATA
- for iline1=1:nn,
-     vb_fI(iline1,2*nn-1:3*nn-3)=funfIII(iline1,nn:-1:2); 
- end
-% FACE VI:
- for j=1:nn-1, 
-    alfaspline(1:nn)=alfa(1:nn,j);
-    funspline(1:nn)=funfVI(1:nn,j);
-    ppspline=spline(alfaspline,funspline);
-    funaVI1(1:nn)=ppval(ppspline,alfa1(nn+1-[1:nn],j));
-    vb_fI(1:nn,3*nn-3+j)=funaVI1(1:nn);
- end
+    % FACE III: TRANSFERT OF DATA
+     for iline1=1:nn,
+         vb_fI(iline1,2*nn-1:3*nn-3)=funfIII(iline1,nn:-1:2,kk); 
+     end
+    % FACE VI:
+     for j=1:nn-1, 
+        alfaspline(1:nn)=alfa(1:nn,j);
+        funspline(1:nn)=funfVI(1:nn,j,kk);
+        ppspline=spline(alfaspline,funspline);
+        funaVI1(1:nn)=ppval(ppspline,alfa1(nn+1-[1:nn],j));
+        vb_fI(1:nn,3*nn-3+j)=funaVI1(1:nn);
+     end
 
-vbd_fI=zeros(nn,nb);
-for iline1=1:nn,
-    funb1=vb_fI(iline1,:);
-    test=k_div*funb1';
-    funbd1=p_div\test;
-    vbd_fI(iline1,:)=funbd1;
+    vbd_fI=zeros(nn,nb);
+    for iline1=1:nn,
+        funb1=vb_fI(iline1,:);
+        test=k_div*funb1';
+        funbd1=p_div\test;
+        vbd_fI(iline1,:,kk)=funbd1;
+    end
 end
 
 %% *** assemblage *********************************************************
-dg_alfa=zeros(nn,nn,6);dg_beta=zeros(nn,nn,6);
-% FACE I
-for i=1:nn,
-    for j=1:nn,
-        dg_alfa(i,j,1) = vad_fI(i,j);
-        dg_beta(i,j,1) = vbd_fI(i,j);
+for kk=1:3
+    dg_alfa=zeros(nn,nn,6);dg_beta=zeros(nn,nn,6);
+    % FACE I
+    for i=1:nn,
+        for j=1:nn,
+            dg_alfa(i,j,1) = vad_fI(i,j,kk);
+            dg_beta(i,j,1) = vbd_fI(i,j,kk);
+        end
+    end
+    % FACE III
+    for i=1:nn,
+        for j=1:nn,
+            dg_alfa(i,j,3)=vad_fI(2*(nn-1)+i,nn-j+1,kk);
+            dg_beta(i,j,3)=vbd_fI(i,2*(nn-1)+nn-j+1,kk); 
+        end
+    end
+
+    div_fI=zeros(nn,nn);
+
+    gt_I=gtIa_I;
+    for i=1:nn,
+        for j=1:nn,
+            rot_fI(i,j,kk)=(dg_alfa(i,j,1) + dg_beta(i,j,1))/gt_I(i,j);
+        end
+    end
+
+    div_fIII=zeros(nn,nn);
+
+    gt_III=gtIa_III; 
+    for i=1:nn,
+        for j=1:nn,
+            rot_fIII(i,j,kk)=(dg_alfa(i,j,3) - dg_beta(i,j,3))/gt_III(i,j);
+        end
     end
 end
-% FACE III
-for i=1:nn,
-    for j=1:nn,
-        dg_alfa(i,j,3)=vad_fI(2*(nn-1)+i,nn-j+1);
-        dg_beta(i,j,3)=vbd_fI(i,2*(nn-1)+nn-j+1); 
-    end
-end
-
-div_fI=zeros(nn,nn);
-
-gt_I=gtIa_I;
-for i=1:nn,
-    for j=1:nn,
-        div_fI(i,j)=(dg_alfa(i,j,1) + dg_beta(i,j,1))/gt_I(i,j);
-    end
-end
-
-div_fIII=zeros(nn,nn);
-
-gt_III=gtIa_III; 
-for i=1:nn,
-    for j=1:nn,
-        div_fIII(i,j)=(dg_alfa(i,j,3) - dg_beta(i,j,3))/gt_III(i,j);
-    end
-end
-
 %% ************************************************************************ EAST and WEST on XI
 xxtIIa_II=zeros(nn,nn);xxtIIa_III=zeros(nn,nn);
 xxtIIa_IV=zeros(nn,nn);xxtIIa_I=zeros(nn,nn);
@@ -436,63 +443,65 @@ funfIV=zeros(nn,nn);funfV=zeros(nn,nn);funfVI=zeros(nn,nn);
 
 for i=1:nn,
     for j=1:nn,
-      funfII(i,j)=dot(mfunfII(i,j,:),gxiIIa_II(i,j,:));
-      funfII(i,j)=funfII(i,j)*gtIIa_II(i,j);
+      funfII(i,j,1:3)=cross(mfunfII(i,j,:),gxiIIa_II(i,j,:));
+      funfII(i,j,1:3)=funfII(i,j,:)*gtIIa_II(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfIII(i,j)=dot(mfunfIII(i,j,:),gxiIIa_III(i,j,:));
-      funfIII(i,j)=funfIII(i,j)*gtIIa_III(i,j);
+      funfIII(i,j,1:3)=cross(mfunfIII(i,j,:),gxiIIa_III(i,j,:));
+      funfIII(i,j,1:3)=funfIII(i,j,1:3)*gtIIa_III(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfIV(i,j)=dot(mfunfIV(i,j,:),gxiIIa_IV(i,j,:));
-      funfIV(i,j)=funfIV(i,j)*gtIIa_IV(i,j);
+      funfIV(i,j,1:3)=cross(mfunfIV(i,j,:),gxiIIa_IV(i,j,:));
+      funfIV(i,j,1:3)=funfIV(i,j,1:3)*gtIIa_IV(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfI(i,j)=dot(mfunfI(i,j,:),gxiIIa_I(i,j,:));
-      funfI(i,j)=funfI(i,j)*gtIIa_I(i,j);
+      funfI(i,j,1:3)=cross(mfunfI(i,j,:),gxiIIa_I(i,j,:));
+      funfI(i,j,1:3)=funfI(i,j,1:3)*gtIIa_I(i,j);
      end
 end
 
-va_fII=zeros(4*(nn-1),nn); 
-funbIII1=zeros(nn,1);
-funbI1=zeros(nn,1);
-% Face II : 
-for jline1=1:nn, 
-    va_fII(1:nn-1,jline1)=funfII(1:nn-1,jline1);
-end
-% FACE III: 
-for i=1:nn-1 
-    betaspline(1:nn)=beta(i,1:nn);
-    funspline(1:nn)=funfIII(i,1:nn);
-    ppspline=spline(betaspline,funspline);
-    funbIII1(1:nn)=ppval(ppspline,betacr(i,1:nn));
-    va_fII(nn-1+i,1:nn)=funbIII1(1:nn);
-end
-% FACE IV: 
-for jline1=1:nn,
-    va_fII(2*nn-1:3*nn-3,jline1)=funfIV(1:nn-1,nn-jline1+1);
-end
-% FACE I: 
-for i=1:nn-1, 
-   betaspline(1:nn)=beta(i,1:nn);
-   funspline(1:nn)=funfI(i,1:nn);
-   ppspline=spline(betaspline,funspline);
-   funbI1(1:nn)=ppval(ppspline,betacr(i,nn+1-[1:nn]));
-   va_fII(3*nn-3+i,1:nn)=funbI1(1:nn);
-end
+for kk=1:3
+    va_fII=zeros(4*(nn-1),nn); 
+    funbIII1=zeros(nn,1);
+    funbI1=zeros(nn,1);
+    % Face II : 
+    for jline1=1:nn, 
+        va_fII(1:nn-1,jline1)=funfII(1:nn-1,jline1,kk);
+    end
+    % FACE III: 
+    for i=1:nn-1 
+        betaspline(1:nn)=beta(i,1:nn);
+        funspline(1:nn)=funfIII(i,1:nn,kk);
+        ppspline=spline(betaspline,funspline);
+        funbIII1(1:nn)=ppval(ppspline,betacr(i,1:nn));
+        va_fII(nn-1+i,1:nn)=funbIII1(1:nn);
+    end
+    % FACE IV: 
+    for jline1=1:nn,
+        va_fII(2*nn-1:3*nn-3,jline1)=funfIV(1:nn-1,nn-jline1+1,kk);
+    end
+    % FACE I: 
+    for i=1:nn-1, 
+       betaspline(1:nn)=beta(i,1:nn);
+       funspline(1:nn)=funfI(i,1:nn,kk);
+       ppspline=spline(betaspline,funspline);
+       funbI1(1:nn)=ppval(ppspline,betacr(i,nn+1-[1:nn]));
+       va_fII(3*nn-3+i,1:nn)=funbI1(1:nn);
+    end
 
-vad_fII=zeros(na,nn);
-for jline1=1:nn,
-    funa9=va_fII(:,jline1);
-    test=k_div*funa9;
-    funad9=p_div\test;
-    vad_fII(:,jline1)=funad9; 
+    vad_fII=zeros(na,nn);
+    for jline1=1:nn,
+        funa9=va_fII(:,jline1);
+        test=k_div*funa9;
+        funad9=p_div\test;
+        vad_fII(:,jline1,kk)=funad9; 
+    end
 end
 
 %% ************************************************************************ EAST and WEST on ETA
@@ -579,96 +588,99 @@ end
 
 for i=1:nn,
     for j=1:nn,
-      funfII(i,j)=dot(mfunfII(i,j,:),getaIIb_II(i,j,:));
-      funfII(i,j)=funfII(i,j)*gtIIb_II(i,j);
+      funfII(i,j,1:3)=cross(mfunfII(i,j,:),getaIIb_II(i,j,:));
+      funfII(i,j,1:3)=funfII(i,j,1:3)*gtIIb_II(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfV(i,j)=dot(mfunfV(i,j,:),getaIIb_V(i,j,:));
-      funfV(i,j)=funfV(i,j)*gtIIb_V(i,j);
+      funfV(i,j,1:3)=cross(mfunfV(i,j,:),getaIIb_V(i,j,:));
+      funfV(i,j,1:3)=funfV(i,j,1:3)*gtIIb_V(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfIV(i,j)=dot(mfunfIV(i,j,:),getaIIb_IV(i,j,:));
-      funfIV(i,j)=funfIV(i,j)*gtIIb_IV(i,j);
+      funfIV(i,j,1:3)=cross(mfunfIV(i,j,:),getaIIb_IV(i,j,:));
+      funfIV(i,j,1:3)=funfIV(i,j,1:3)*gtIIb_IV(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfVI(i,j)=dot(mfunfVI(i,j,:),getaIIb_VI(i,j,:));
-      funfVI(i,j)=funfVI(i,j)*gtIIb_VI(i,j);
+      funfVI(i,j,1:3)=cross(mfunfVI(i,j,:),getaIIb_VI(i,j,:));
+      funfVI(i,j,1:3)=funfVI(i,j,1:3)*gtIIb_VI(i,j);
      end
 end
 
-vb_fII=zeros(nn,4*(nn-1));
-funbV1=zeros(nn,1);
-funbVI1=zeros(nn,1);
-% Face II : 
-for iline1=1:nn, 
-    vb_fII(iline1,1:nn-1)=funfII(iline1,1:nn-1);
-end
-% FACE V: 
-for i=1:nn-1
-    betaspline(1:nn)=beta(nn-i+1,1:nn);
-    funspline(1:nn)=funfV(nn-i+1,1:nn);
-    ppspline=spline(betaspline,funspline);
-    funbV1(1:nn)=ppval(ppspline,betacr(i,1:nn));
-    vb_fII(1:nn,nn-1+i)=funbV1(1:nn);
-end
-% FACE IV: 
-for iline1=1:nn,
-    vb_fII(iline1,2*nn-1:3*nn-3)=funfIV(iline1,nn:-1:2);
-end
-% FACE VI: 
-for i=1:nn-1 
-    betaspline(1:nn)=beta(i,1:nn);
-    funspline(1:nn)=funfVI(i,1:nn);
-    ppspline=spline(betaspline,funspline);
-    funbVI1(1:nn)=ppval(ppspline,betacr(i,1:nn));
-    vb_fII(1:nn,3*nn-3+i)=funbVI1(1:nn);
-end
+for kk=1:3
+    vb_fII=zeros(nn,4*(nn-1));
+    funbV1=zeros(nn,1);
+    funbVI1=zeros(nn,1);
+    % Face II : 
+    for iline1=1:nn, 
+        vb_fII(iline1,1:nn-1)=funfII(iline1,1:nn-1,kk);
+    end
+    % FACE V: 
+    for i=1:nn-1
+        betaspline(1:nn)=beta(nn-i+1,1:nn);
+        funspline(1:nn)=funfV(nn-i+1,1:nn,kk);
+        ppspline=spline(betaspline,funspline);
+        funbV1(1:nn)=ppval(ppspline,betacr(i,1:nn));
+        vb_fII(1:nn,nn-1+i)=funbV1(1:nn);
+    end
+    % FACE IV: 
+    for iline1=1:nn,
+        vb_fII(iline1,2*nn-1:3*nn-3)=funfIV(iline1,nn:-1:2,kk);
+    end
+    % FACE VI: 
+    for i=1:nn-1 
+        betaspline(1:nn)=beta(i,1:nn);
+        funspline(1:nn)=funfVI(i,1:nn,kk);
+        ppspline=spline(betaspline,funspline);
+        funbVI1(1:nn)=ppval(ppspline,betacr(i,1:nn));
+        vb_fII(1:nn,3*nn-3+i)=funbVI1(1:nn);
+    end
 
-vbd_fII=zeros(nn,nb);
-for iline1=1:nn,
-    funb2=vb_fII(iline1,:);
-    test=k_div*funb2';
-    funbd2=p_div\test;
-    vbd_fII(iline1,:)=funbd2; 
+    vbd_fII=zeros(nn,nb);
+    for iline1=1:nn,
+        funb2=vb_fII(iline1,:);
+        test=k_div*funb2';
+        funbd2=p_div\test;
+        vbd_fII(iline1,:,kk)=funbd2; 
+    end
 end
 
 %% *** Assemblage *********************************************************
-
-% FACE II
-for i=1:nn,
-    for j=1:nn,
-        dg_alfa(i,j,2)=vad_fII(i,j);
-        dg_beta(i,j,2)=vbd_fII(i,j);
+for kk=1:3
+    % FACE II
+    for i=1:nn,
+        for j=1:nn,
+            dg_alfa(i,j,2)=vad_fII(i,j,kk);
+            dg_beta(i,j,2)=vbd_fII(i,j,kk);
+        end
     end
-end
-% FACE IV
-for i=1:nn,
-    for j=1:nn,
-        dg_alfa(i,j,4)=vad_fII(2*(nn-1)+i,nn-j+1);
-        dg_beta(i,j,4)=vbd_fII(i,2*(nn-1)+nn-j+1);
+    % FACE IV
+    for i=1:nn,
+        for j=1:nn,
+            dg_alfa(i,j,4)=vad_fII(2*(nn-1)+i,nn-j+1,kk);
+            dg_beta(i,j,4)=vbd_fII(i,2*(nn-1)+nn-j+1,kk);
+        end
     end
-end
 
-div_fII=zeros(nn,nn);
+    div_fII=zeros(nn,nn);
 
-gt_II=gtIIa_II; 
-for i=1:nn,
-    for j=1:nn,
-        div_fII(i,j)=(dg_alfa(i,j,2) + dg_beta(i,j,2))/gt_II(i,j);
+    gt_II=gtIIa_II; 
+    for i=1:nn,
+        for j=1:nn,
+            rot_fII(i,j,kk)=(dg_alfa(i,j,2) + dg_beta(i,j,2))/gt_II(i,j);
+        end
     end
-end
 
-div_fIV=zeros(nn,nn);
-gt_IV=gtIIa_IV; 
-for i=1:nn,
-    for j=1:nn,
-        div_fIV(i,j)=(dg_alfa(i,j,4) - dg_beta(i,j,4))/gt_IV(i,j);
+    div_fIV=zeros(nn,nn);
+    gt_IV=gtIIa_IV; 
+    for i=1:nn,
+        for j=1:nn,
+            rot_fIV(i,j,kk)=(dg_alfa(i,j,4) - dg_beta(i,j,4))/gt_IV(i,j);
+        end
     end
 end
 
@@ -761,63 +773,65 @@ funfIV=zeros(nn,nn);funfV=zeros(nn,nn);funfVI=zeros(nn,nn);
 
 for i=1:nn,
     for j=1:nn,
-      funfV(i,j)=dot(mfunfV(i,j,:),gxiVa_V(i,j,:));
-      funfV(i,j)=funfV(i,j)*gtVa_V(i,j);
+      funfV(i,j,1:3)=cross(mfunfV(i,j,:),gxiVa_V(i,j,:));
+      funfV(i,j,1:3)=funfV(i,j,1:3)*gtVa_V(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfII(i,j)=dot(mfunfII(i,j,:),gxiVa_II(i,j,:));
-      funfII(i,j)=funfII(i,j)*gtVa_II(i,j);
+      funfII(i,j,1:3)=cross(mfunfII(i,j,:),gxiVa_II(i,j,:));
+      funfII(i,j,1:3)=funfII(i,j,1:3)*gtVa_II(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfVI(i,j)=dot(mfunfVI(i,j,:),gxiVa_VI(i,j,:));
-      funfVI(i,j)=funfVI(i,j)*gtVa_VI(i,j);
+      funfVI(i,j,1:3)=cross(mfunfVI(i,j,:),gxiVa_VI(i,j,:));
+      funfVI(i,j,1:3)=funfVI(i,j,1:3)*gtVa_VI(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfIV(i,j)=dot(mfunfIV(i,j,:),gxiVa_IV(i,j,:));
-      funfIV(i,j)=funfIV(i,j)*gtVa_IV(i,j);
+      funfIV(i,j,1:3)=cross(mfunfIV(i,j,:),gxiVa_IV(i,j,:));
+      funfIV(i,j,1:3)=funfIV(i,j,1:3)*gtVa_IV(i,j);
      end
 end
 
-va_fV=zeros(4*(nn-1),nn);
-funaII1=zeros(nn,1);
-funaIV1=zeros(nn,1);
-% Face V
-for jline1=1:nn,
-    va_fV(1:nn-1,jline1)=funfV(1:nn-1,jline1);
-end
-% FACE II: 
-for j=1:nn-1,
-    alfaspline(1:nn)=alfa(1:nn,nn+1-j);
-    funspline(1:nn)=funfII(1:nn,nn+1-j);
-    ppspline=spline(alfaspline,funspline);
-    funaII1(1:nn)=ppval(ppspline,alfa1(1:nn,j));
-    va_fV(nn-1+j,1:nn)=funaII1(1:nn);
-end 
-% FACE VI: 
-for jline1=1:nn,
-    va_fV(2*nn-1:3*nn-3,jline1)=funfVI(nn:-1:2,jline1);
-end
-% FACE IV: 
-for j=1:nn-1,
-    alfaspline(1:nn)=alfa(1:nn,j);
-    funspline(1:nn)=funfIV(1:nn,j);
-    ppspline=spline(alfaspline,funspline);
-    funaIV1(1:nn)=ppval(ppspline,alfa1(1:nn,j)); 
-    va_fV(3*nn-3+j,1:nn)=funaIV1(1:nn);
-end 
+for kk=1:3
+    va_fV=zeros(4*(nn-1),nn);
+    funaII1=zeros(nn,1);
+    funaIV1=zeros(nn,1);
+    % Face V
+    for jline1=1:nn,
+        va_fV(1:nn-1,jline1)=funfV(1:nn-1,jline1,kk);
+    end
+    % FACE II: 
+    for j=1:nn-1,
+        alfaspline(1:nn)=alfa(1:nn,nn+1-j);
+        funspline(1:nn)=funfII(1:nn,nn+1-j,kk);
+        ppspline=spline(alfaspline,funspline);
+        funaII1(1:nn)=ppval(ppspline,alfa1(1:nn,j));
+        va_fV(nn-1+j,1:nn)=funaII1(1:nn);
+    end 
+    % FACE VI: 
+    for jline1=1:nn,
+        va_fV(2*nn-1:3*nn-3,jline1)=funfVI(nn:-1:2,jline1,kk);
+    end
+    % FACE IV: 
+    for j=1:nn-1,
+        alfaspline(1:nn)=alfa(1:nn,j);
+        funspline(1:nn)=funfIV(1:nn,j,kk);
+        ppspline=spline(alfaspline,funspline);
+        funaIV1(1:nn)=ppval(ppspline,alfa1(1:nn,j)); 
+        va_fV(3*nn-3+j,1:nn)=funaIV1(1:nn);
+    end 
 
-vad_fV=zeros(na,nn);
-for jline1=1:nn,
-    funa11=va_fV(:,jline1);
-    test=k_div*funa11;
-    funad11=p_div\test;
-    vad_fV(:,jline1)=funad11; 
+    vad_fV=zeros(na,nn);
+    for jline1=1:nn,
+        funa11=va_fV(:,jline1);
+        test=k_div*funa11;
+        funad11=p_div\test;
+        vad_fV(:,jline1,kk)=funad11; 
+    end
 end
 
 %% ************************************************************************ NORTH and SOUTH on ETA
@@ -907,98 +921,105 @@ end
 
 for i=1:nn,
     for j=1:nn,
-      funfV(i,j)=dot(mfunfV(i,j,:),getaVb_V(i,j,:));
-      funfV(i,j)=funfV(i,j)*gtVb_V(i,j);
+      funfV(i,j,1:3)=cross(mfunfV(i,j,:),getaVb_V(i,j,:));
+      funfV(i,j,1:3)=funfV(i,j,1:3)*gtVb_V(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfIII(i,j)=dot(mfunfIII(i,j,:),getaVb_III(i,j,:));
-      funfIII(i,j)=funfIII(i,j)*gtVb_III(i,j);
+      funfIII(i,j,1:3)=cross(mfunfIII(i,j,:),getaVb_III(i,j,:));
+      funfIII(i,j,1:3)=funfIII(i,j,1:3)*gtVb_III(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfVI(i,j)=dot(mfunfVI(i,j,:),getaVb_VI(i,j,:));
-      funfVI(i,j)=funfVI(i,j)*gtVb_VI(i,j);
+      funfVI(i,j,1:3)=cross(mfunfVI(i,j,:),getaVb_VI(i,j,:));
+      funfVI(i,j,1:3)=funfVI(i,j,1:3)*gtVb_VI(i,j);
      end
 end
 for i=1:nn,
     for j=1:nn,
-      funfI(i,j)=dot(mfunfI(i,j,:),getaVb_I(i,j,:));
-      funfI(i,j)=funfI(i,j)*gtVb_I(i,j);
+      funfI(i,j,1:3)=cross(mfunfI(i,j,:),getaVb_I(i,j,:));
+      funfI(i,j,1:3)=funfI(i,j,1:3)*gtVb_I(i,j);
      end
 end
 
-vb_fV=zeros(nn,4*(nn-1)); 
-funaIII1=zeros(nn,1);
-funaI1=zeros(nn,1);
-% Face V :
-for iline1=1:nn, 
-    vb_fV(iline1,1:nn-1)=funfV(iline1,1:nn-1);
-end
-for j=1:nn-1, 
-    alfaspline(1:nn)=alfa(1:nn,nn+1-j);
-    funspline(1:nn)=funfIII(1:nn,nn+1-j);
-    ppspline=spline(alfaspline,funspline);
-    funaIII1(1:nn)=ppval(ppspline,alfa1(nn+1-[1:nn],j)); 
-    vb_fV(1:nn,nn-1+j)=funaIII1(1:nn);
-end 
-% Face VI
-for iline1=1:nn,
-    vb_fV(iline1,2*nn-1:3*nn-3)=funfVI(nn-iline1+1,1:nn-1); %
-end
-% Face I
-for j=1:nn-1,
-    alfaspline(1:nn)=alfa(1:nn,j);
-    funspline(1:nn)=funfI(1:nn,j);
-    ppspline=spline(alfaspline,funspline);
-    funaI1(1:nn)=ppval(ppspline,alfa1(nn+1-[1:nn],j)); 
-    vb_fV(1:nn,3*nn-3+j)=funaI1(1:nn);
-end 
+for kk=1:3
+    vb_fV=zeros(nn,4*(nn-1)); 
+    funaIII1=zeros(nn,1);
+    funaI1=zeros(nn,1);
+    % Face V :
+    for iline1=1:nn, 
+        vb_fV(iline1,1:nn-1)=funfV(iline1,1:nn-1,kk);
+    end
+    for j=1:nn-1, 
+        alfaspline(1:nn)=alfa(1:nn,nn+1-j);
+        funspline(1:nn)=funfIII(1:nn,nn+1-j,kk);
+        ppspline=spline(alfaspline,funspline);
+        funaIII1(1:nn)=ppval(ppspline,alfa1(nn+1-[1:nn],j)); 
+        vb_fV(1:nn,nn-1+j)=funaIII1(1:nn);
+    end 
+    % Face VI
+    for iline1=1:nn,
+        vb_fV(iline1,2*nn-1:3*nn-3)=funfVI(nn-iline1+1,1:nn-1,kk); %
+    end
+    % Face I
+    for j=1:nn-1,
+        alfaspline(1:nn)=alfa(1:nn,j);
+        funspline(1:nn)=funfI(1:nn,j,kk);
+        ppspline=spline(alfaspline,funspline);
+        funaI1(1:nn)=ppval(ppspline,alfa1(nn+1-[1:nn],j)); 
+        vb_fV(1:nn,3*nn-3+j)=funaI1(1:nn);
+    end 
 
-vbd_fV=zeros(nn,nb);
-for iline1=1:nn,
-    funb5=vb_fV(iline1,:);
-    test=k_div*funb5';
-    funbd5=p_div\test;
-    vbd_fV(iline1,:)=funbd5; 
+    vbd_fV=zeros(nn,nb);
+    for iline1=1:nn,
+        funb5=vb_fV(iline1,:);
+        test=k_div*funb5';
+        funbd5=p_div\test;
+        vbd_fV(iline1,:,kk)=funbd5; 
+    end
 end
 %% *** Assemblage *********************************************************
 
-% FACE V
-for i=1:nn,
-    for j=1:nn,
-        dg_alfa(i,j,5)=vad_fV(i,j);
-        dg_beta(i,j,5)=vbd_fV(i,j);
+for kk=1:3
+    % FACE V
+    for i=1:nn,
+        for j=1:nn,
+            dg_alfa(i,j,5)=vad_fV(i,j,kk);
+            dg_beta(i,j,5)=vbd_fV(i,j,kk);
+        end
     end
-end
-% FACE VI
-for i=1:nn,
-    for j=1:nn,
-        dg_alfa(i,j,6)=vad_fV(2*(nn-1)+nn-i+1,j);
-        dg_beta(i,j,6)=vbd_fV(nn-i+1,2*(nn-1)+j);
+    % FACE VI
+    for i=1:nn,
+        for j=1:nn,
+            dg_alfa(i,j,6)=vad_fV(2*(nn-1)+nn-i+1,j,kk);
+            dg_beta(i,j,6)=vbd_fV(nn-i+1,2*(nn-1)+j,kk);
+        end
     end
-end
 
-div_fV=zeros(nn,nn);
-gt_V=gtVb_V;
-for i=1:nn,
-    for j=1:nn,
-        div_fV(i,j)=(dg_alfa(i,j,5) + dg_beta(i,j,5))/gt_V(i,j);
+    div_fV=zeros(nn,nn);
+    gt_V=gtVb_V;
+    for i=1:nn,
+        for j=1:nn,
+            rot_fV(i,j,kk)=(dg_alfa(i,j,5) + dg_beta(i,j,5))/gt_V(i,j);
+        end
     end
-end
 
-div_fVI=zeros(nn,nn);
-gt_VI=gtVa_VI; 
-for i=1:nn,
-    for j=1:nn,
-        div_fVI(i,j)=(-dg_alfa(i,j,6) + dg_beta(i,j,6))/gt_VI(i,j);
+    div_fVI=zeros(nn,nn);
+    gt_VI=gtVa_VI; 
+    for i=1:nn,
+        for j=1:nn,
+            rot_fVI(i,j,kk)=(-dg_alfa(i,j,6) + dg_beta(i,j,6))/gt_VI(i,j);
+        end
     end
 end
 
 %% *** demi-somme + 1/3 somme de la divergence ****************************
-uwk_I=div_fI(1:nn,1:nn,1);uwk_II=div_fII(1:nn,1:nn,1);uwk_III=div_fIII(1:nn,1:nn,1);
-uwk_IV=div_fIV(1:nn,1:nn,1);uwk_V=div_fV(1:nn,1:nn,1);uwk_VI=div_fVI(1:nn,1:nn,1);
-[div_fI(1:nn,1:nn),div_fII(1:nn,1:nn),div_fIII(1:nn,1:nn),div_fIV(1:nn,1:nn),div_fV(1:nn,1:nn),div_fVI(1:nn,1:nn,1)]=...
-    ds72(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
+for kk=1:3
+    uwk_I=rot_fI(1:nn,1:nn,kk);uwk_II=rot_fII(1:nn,1:nn,kk);uwk_III=rot_fIII(1:nn,1:nn,kk);
+    uwk_IV=rot_fIV(1:nn,1:nn,kk);uwk_V=rot_fV(1:nn,1:nn,kk);uwk_VI=rot_fVI(1:nn,1:nn,kk);
+    
+    [rot_fI(1:nn,1:nn,kk),rot_fII(1:nn,1:nn,kk),rot_fIII(1:nn,1:nn,kk),rot_fIV(1:nn,1:nn,kk),rot_fV(1:nn,1:nn,kk),rot_fVI(1:nn,1:nn,kk)]=...
+        ds72(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
+end

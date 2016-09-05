@@ -1,4 +1,4 @@
-clc; clear all; close all; format short;
+clc; clear all; close all;
 format long;
 
 global n nn dxi
@@ -23,7 +23,7 @@ global teta0 teta1
 %% ************************************************************************
 
 
-test=0;
+test=1;
 %test=0 : test de J. Galewsky stationnaire;
 %    = 1 : test de J. Galewsky avec perturbation.
 video = 'no';
@@ -38,7 +38,7 @@ ccor=radius*omega;
 cgrav=sqrt(h0*gp);
 c=max(cgrav,ccor);
 
-cfl=0.5;
+cfl=0.1;
 ddt=radius*dxi*cfl/c;
 %ndaymax=2;
 % JPC
@@ -46,7 +46,7 @@ ndaymax=1;
 Tmax=ndaymax*3600*24;
 itermax=5000;
 
-comment='first test : 28-07-2016';
+comment='continue the 30-08-2016. Change the advection term.';
 
 mm=-10;
 MM=10;
@@ -82,7 +82,7 @@ while t<Tmax & iter<itermax
     iterf=0;
     % filtre itératif : laisser 'iterf<1' pour avoir un seul filtrage (pas
     % d'itérations), 'iterf<-1', pas de filtrage.
-    iterfmax=1;
+    iterfmax=-1;
     while e>1.e-4 & iterf<iterfmax
         iterf=iterf+1;
         for p=1:3
@@ -106,6 +106,21 @@ while t<Tmax & iter<itermax
     FTR=max(iterf,FTR);
 
     %% K1
+    
+    hh_fI=ht_fI;
+    hh_fII=ht_fII;
+    hh_fIII=ht_fIII;
+    hh_fIV=ht_fIV;
+    hh_fV=ht_fV;
+    hh_fVI=ht_fVI;
+    
+    vv_fI=vt_fI;
+    vv_fII=vt_fII;
+    vv_fIII=vt_fIII;
+    vv_fIV=vt_fIV;
+    vv_fV=vt_fV;
+    vv_fVI=vt_fVI;
+    
     % premiere equation
     
     % FORCAGE
@@ -117,19 +132,19 @@ while t<Tmax & iter<itermax
     [forv_fVI] = for_v(x_fVI,y_fVI,z_fVI,t);
 
     % GRADIENT
-    [fun_I, fun_II, fun_III, fun_IV, fun_V, fun_VI] = fun_eq1(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI, ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI);
-    [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=...
-        gr72( fun_I, fun_II, fun_III, fun_IV, fun_V, fun_VI  , n , nn);
+    [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]= gr72( hh_fI, hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI  , n , nn);
     % CALCUL DE CORIOLIS
-    [cor_I,cor_II,cor_III,cor_IV,cor_V,cor_VI]=coriolis( vt_fI  , vt_fII  , vt_fIII  , vt_fIV  , vt_fV  , vt_fVI );
+    [cor_I,cor_II,cor_III,cor_IV,cor_V,cor_VI]=coriolis( vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI );
+    % ADVECTION
+    [adv_fI,adv_fII,adv_fIII,adv_fIV,adv_fV,adv_fVI]=adv72(vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI ,n ,nn );
     
     % ASSEMBLAGE
-    K1v_fI   = -(grad_I   + cor_I) + forv_fI;
-    K1v_fII  = -(grad_II  + cor_II) + forv_fII;
-    K1v_fIII = -(grad_III + cor_III) + forv_fIII;
-    K1v_fIV  = -(grad_IV  + cor_IV) + forv_fIV;
-    K1v_fV   = -(grad_V   + cor_V) + forv_fV;
-    K1v_fVI  = -(grad_VI  + cor_VI) + forv_fVI;
+    K1v_fI   = -(gp*grad_I   + cor_I   + adv_fI  ) + forv_fI;
+    K1v_fII  = -(gp*grad_II  + cor_II  + adv_fII ) + forv_fII;
+    K1v_fIII = -(gp*grad_III + cor_III + adv_fIII) + forv_fIII;
+    K1v_fIV  = -(gp*grad_IV  + cor_IV  + adv_fIV ) + forv_fIV;
+    K1v_fV   = -(gp*grad_V   + cor_V   + adv_fV  ) + forv_fV;
+    K1v_fVI  = -(gp*grad_VI  + cor_VI  + adv_fVI ) + forv_fVI;
     
     % seconde equation
     
@@ -141,7 +156,7 @@ while t<Tmax & iter<itermax
     [forh_fVI] = for_h(x_fVI,y_fVI,z_fVI,t);
     
     % divergence
-    [vec_I, vec_II, vec_III, vec_IV, vec_V, vec_VI] = fun_eq2(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI, ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI);
+    [vec_I, vec_II, vec_III, vec_IV, vec_V, vec_VI] = fun_eq2(vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI, hh_fI, hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI);
 
     
     [div_fI,div_fII,div_fIII,div_fIV,div_fV,div_fVI]=...
@@ -154,46 +169,60 @@ while t<Tmax & iter<itermax
      K1h_fIV  = -div_fIV + forh_fIV;
      K1h_fV   = -div_fV + forh_fV;
      K1h_fVI  = -div_fVI + forh_fVI;
-
+     
+     
      %% K2
+    
+    hh_fI=ht_fI + ddt/2*K1h_fI;
+    hh_fII=ht_fII + ddt/2*K1h_fII;
+    hh_fIII=ht_fIII + ddt/2*K1h_fIII;
+    hh_fIV=ht_fIV + ddt/2*K1h_fIV;
+    hh_fV=ht_fV + ddt/2*K1h_fV;
+    hh_fVI=ht_fVI + ddt/2*K1h_fVI;
+    
+    vv_fI=vt_fI + ddt/2*K1v_fI;
+    vv_fII=vt_fII + ddt/2*K1v_fII;
+    vv_fIII=vt_fIII + ddt/2*K1v_fIII;
+    vv_fIV=vt_fIV + ddt/2*K1v_fIV;
+    vv_fV=vt_fV + ddt/2*K1v_fV;
+    vv_fVI=vt_fVI + ddt/2*K1v_fVI;
+    
     % premiere equation
     
     % FORCAGE
-    [forv_fI] = for_v(x_fI,y_fI,z_fI,t+ddt/2);
-    [forv_fII] = for_v(x_fII,y_fII,z_fII,t+ddt/2);
-    [forv_fIII] = for_v(x_fIII,y_fIII,z_fIII,t+ddt/2);
-    [forv_fIV] = for_v(x_fIV,y_fIV,z_fIV,t+ddt/2);
-    [forv_fV] = for_v(x_fV,y_fV,z_fV,t+ddt/2);
-    [forv_fVI] = for_v(x_fVI,y_fVI,z_fVI,t+ddt/2);
+    [forv_fI] = for_v(x_fI,y_fI,z_fI,t);
+    [forv_fII] = for_v(x_fII,y_fII,z_fII,t);
+    [forv_fIII] = for_v(x_fIII,y_fIII,z_fIII,t);
+    [forv_fIV] = for_v(x_fIV,y_fIV,z_fIV,t);
+    [forv_fV] = for_v(x_fV,y_fV,z_fV,t);
+    [forv_fVI] = for_v(x_fVI,y_fVI,z_fVI,t);
 
     % GRADIENT
-    [fun_I, fun_II, fun_III, fun_IV, fun_V, fun_VI] = fun_eq1(vt_fI+0.5*ddt*K1v_fI, vt_fII+0.5*ddt*K1v_fII, vt_fIII+0.5*ddt*K1v_fIII, vt_fIV+0.5*ddt*K1v_fIV, vt_fV+0.5*ddt*K1v_fV, vt_fVI+0.5*ddt*K1v_fVI,...
-        ht_fI+0.5*ddt*K1h_fI, ht_fII+0.5*ddt*K1h_fII, ht_fIII+0.5*ddt*K1h_fIII, ht_fIV+0.5*ddt*K1h_fIV, ht_fV+0.5*ddt*K1h_fV, ht_fVI+0.5*ddt*K1h_fVI);
-    [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=...
-        gr72( fun_I, fun_II, fun_III, fun_IV, fun_V, fun_VI  , n , nn);
+    [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]= gr72( hh_fI, hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI  , n , nn);
     % CALCUL DE CORIOLIS
-    [cor_I,cor_II,cor_III,cor_IV,cor_V,cor_VI]=coriolis( vt_fI+0.5*ddt*K1v_fI, vt_fII+0.5*ddt*K1v_fII, vt_fIII+0.5*ddt*K1v_fIII, vt_fIV+0.5*ddt*K1v_fIV, vt_fV+0.5*ddt*K1v_fV, vt_fVI+0.5*ddt*K1v_fVI );
+    [cor_I,cor_II,cor_III,cor_IV,cor_V,cor_VI]=coriolis( vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI );
+    % ADVECTION
+    [adv_fI,adv_fII,adv_fIII,adv_fIV,adv_fV,adv_fVI]=adv72(vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI ,n ,nn );
     
     % ASSEMBLAGE
-    K2v_fI   = -(grad_I   + cor_I) + forv_fI;
-    K2v_fII  = -(grad_II  + cor_II) + forv_fII;
-    K2v_fIII = -(grad_III + cor_III) + forv_fIII;
-    K2v_fIV  = -(grad_IV  + cor_IV) + forv_fIV;
-    K2v_fV   = -(grad_V   + cor_V) + forv_fV;
-    K2v_fVI  = -(grad_VI  + cor_VI) + forv_fVI;
+    K2v_fI   = -(gp*grad_I   + cor_I   + adv_fI  ) + forv_fI;
+    K2v_fII  = -(gp*grad_II  + cor_II  + adv_fII ) + forv_fII;
+    K2v_fIII = -(gp*grad_III + cor_III + adv_fIII) + forv_fIII;
+    K2v_fIV  = -(gp*grad_IV  + cor_IV  + adv_fIV ) + forv_fIV;
+    K2v_fV   = -(gp*grad_V   + cor_V   + adv_fV  ) + forv_fV;
+    K2v_fVI  = -(gp*grad_VI  + cor_VI  + adv_fVI ) + forv_fVI;
     
     % seconde equation
     
-    [forh_fI] = for_h(x_fI,y_fI,z_fI,t+ddt/2);
-    [forh_fII] = for_h(x_fII,y_fII,z_fII,t+ddt/2);
-    [forh_fIII] = for_h(x_fIII,y_fIII,z_fIII,t+ddt/2);
-    [forh_fIV] = for_h(x_fIV,y_fIV,z_fIV,t+ddt/2);
-    [forh_fV] = for_h(x_fV,y_fV,z_fV,t+ddt/2);
-    [forh_fVI] = for_h(x_fVI,y_fVI,z_fVI,t+ddt/2);
+    [forh_fI] = for_h(x_fI,y_fI,z_fI,t);
+    [forh_fII] = for_h(x_fII,y_fII,z_fII,t);
+    [forh_fIII] = for_h(x_fIII,y_fIII,z_fIII,t);
+    [forh_fIV] = for_h(x_fIV,y_fIV,z_fIV,t);
+    [forh_fV] = for_h(x_fV,y_fV,z_fV,t);
+    [forh_fVI] = for_h(x_fVI,y_fVI,z_fVI,t);
     
     % divergence
-    [vec_I, vec_II, vec_III, vec_IV, vec_V, vec_VI] = fun_eq2(vt_fI+0.5*ddt*K1v_fI, vt_fII+0.5*ddt*K1v_fII, vt_fIII+0.5*ddt*K1v_fIII, vt_fIV+0.5*ddt*K1v_fIV, vt_fV+0.5*ddt*K1v_fV, vt_fVI+0.5*ddt*K1v_fVI,...
-        ht_fI+0.5*ddt*K1h_fI, ht_fII+0.5*ddt*K1h_fII, ht_fIII+0.5*ddt*K1h_fIII, ht_fIV+0.5*ddt*K1h_fIV, ht_fV+0.5*ddt*K1h_fV, ht_fVI+0.5*ddt*K1h_fVI);
+    [vec_I, vec_II, vec_III, vec_IV, vec_V, vec_VI] = fun_eq2(vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI, hh_fI, hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI);
 
     
     [div_fI,div_fII,div_fIII,div_fIV,div_fV,div_fVI]=...
@@ -207,45 +236,58 @@ while t<Tmax & iter<itermax
      K2h_fV   = -div_fV + forh_fV;
      K2h_fVI  = -div_fVI + forh_fVI;
      
-      %% K3
+     %% K3
+    
+    hh_fI=ht_fI + ddt/2*K2h_fI;
+    hh_fII=ht_fII + ddt/2*K2h_fII;
+    hh_fIII=ht_fIII + ddt/2*K2h_fIII;
+    hh_fIV=ht_fIV + ddt/2*K2h_fIV;
+    hh_fV=ht_fV + ddt/2*K2h_fV;
+    hh_fVI=ht_fVI + ddt/2*K2h_fVI;
+    
+    vv_fI=vt_fI + ddt/2*K2v_fI;
+    vv_fII=vt_fII + ddt/2*K2v_fII;
+    vv_fIII=vt_fIII + ddt/2*K2v_fIII;
+    vv_fIV=vt_fIV + ddt/2*K2v_fIV;
+    vv_fV=vt_fV + ddt/2*K2v_fV;
+    vv_fVI=vt_fVI + ddt/2*K2v_fVI;
+    
     % premiere equation
     
     % FORCAGE
-    [forv_fI] = for_v(x_fI,y_fI,z_fI,t+ddt/2);
-    [forv_fII] = for_v(x_fII,y_fII,z_fII,t+ddt/2);
-    [forv_fIII] = for_v(x_fIII,y_fIII,z_fIII,t+ddt/2);
-    [forv_fIV] = for_v(x_fIV,y_fIV,z_fIV,t+ddt/2);
-    [forv_fV] = for_v(x_fV,y_fV,z_fV,t+ddt/2);
-    [forv_fVI] = for_v(x_fVI,y_fVI,z_fVI,t+ddt/2);
+    [forv_fI] = for_v(x_fI,y_fI,z_fI,t);
+    [forv_fII] = for_v(x_fII,y_fII,z_fII,t);
+    [forv_fIII] = for_v(x_fIII,y_fIII,z_fIII,t);
+    [forv_fIV] = for_v(x_fIV,y_fIV,z_fIV,t);
+    [forv_fV] = for_v(x_fV,y_fV,z_fV,t);
+    [forv_fVI] = for_v(x_fVI,y_fVI,z_fVI,t);
 
     % GRADIENT
-    [fun_I, fun_II, fun_III, fun_IV, fun_V, fun_VI] = fun_eq1(vt_fI+0.5*ddt*K2v_fI, vt_fII+0.5*ddt*K2v_fII, vt_fIII+0.5*ddt*K2v_fIII, vt_fIV+0.5*ddt*K2v_fIV, vt_fV+0.5*ddt*K2v_fV, vt_fVI+0.5*ddt*K2v_fVI,...
-        ht_fI+0.5*ddt*K2h_fI, ht_fII+0.5*ddt*K2h_fII, ht_fIII+0.5*ddt*K2h_fIII, ht_fIV+0.5*ddt*K2h_fIV, ht_fV+0.5*ddt*K2h_fV, ht_fVI+0.5*ddt*K2h_fVI);
-    [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=...
-        gr72( fun_I, fun_II, fun_III, fun_IV, fun_V, fun_VI  , n , nn);
+    [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]= gr72( hh_fI, hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI  , n , nn);
     % CALCUL DE CORIOLIS
-    [cor_I,cor_II,cor_III,cor_IV,cor_V,cor_VI]=coriolis( vt_fI+0.5*ddt*K2v_fI, vt_fII+0.5*ddt*K2v_fII, vt_fIII+0.5*ddt*K2v_fIII, vt_fIV+0.5*ddt*K2v_fIV, vt_fV+0.5*ddt*K2v_fV, vt_fVI+0.5*ddt*K2v_fVI );
+    [cor_I,cor_II,cor_III,cor_IV,cor_V,cor_VI]=coriolis( vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI );
+    % ADVECTION
+    [adv_fI,adv_fII,adv_fIII,adv_fIV,adv_fV,adv_fVI]=adv72(vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI ,n ,nn );
     
     % ASSEMBLAGE
-    K3v_fI   = -(grad_I   + cor_I) + forv_fI;
-    K3v_fII  = -(grad_II  + cor_II) + forv_fII;
-    K3v_fIII = -(grad_III + cor_III) + forv_fIII;
-    K3v_fIV  = -(grad_IV  + cor_IV) + forv_fIV;
-    K3v_fV   = -(grad_V   + cor_V) + forv_fV;
-    K3v_fVI  = -(grad_VI  + cor_VI) + forv_fVI;
+    K3v_fI   = -(gp*grad_I   + cor_I   + adv_fI  ) + forv_fI;
+    K3v_fII  = -(gp*grad_II  + cor_II  + adv_fII ) + forv_fII;
+    K3v_fIII = -(gp*grad_III + cor_III + adv_fIII) + forv_fIII;
+    K3v_fIV  = -(gp*grad_IV  + cor_IV  + adv_fIV ) + forv_fIV;
+    K3v_fV   = -(gp*grad_V   + cor_V   + adv_fV  ) + forv_fV;
+    K3v_fVI  = -(gp*grad_VI  + cor_VI  + adv_fVI ) + forv_fVI;
     
     % seconde equation
     
-    [forh_fI] = for_h(x_fI,y_fI,z_fI,t+ddt/2);
-    [forh_fII] = for_h(x_fII,y_fII,z_fII,t+ddt/2);
-    [forh_fIII] = for_h(x_fIII,y_fIII,z_fIII,t+ddt/2);
-    [forh_fIV] = for_h(x_fIV,y_fIV,z_fIV,t+ddt/2);
-    [forh_fV] = for_h(x_fV,y_fV,z_fV,t+ddt/2);
-    [forh_fVI] = for_h(x_fVI,y_fVI,z_fVI,t+ddt/2);
+    [forh_fI] = for_h(x_fI,y_fI,z_fI,t);
+    [forh_fII] = for_h(x_fII,y_fII,z_fII,t);
+    [forh_fIII] = for_h(x_fIII,y_fIII,z_fIII,t);
+    [forh_fIV] = for_h(x_fIV,y_fIV,z_fIV,t);
+    [forh_fV] = for_h(x_fV,y_fV,z_fV,t);
+    [forh_fVI] = for_h(x_fVI,y_fVI,z_fVI,t);
     
     % divergence
-    [vec_I, vec_II, vec_III, vec_IV, vec_V, vec_VI] = fun_eq2(vt_fI+0.5*ddt*K2v_fI, vt_fII+0.5*ddt*K2v_fII, vt_fIII+0.5*ddt*K2v_fIII, vt_fIV+0.5*ddt*K2v_fIV, vt_fV+0.5*ddt*K2v_fV, vt_fVI+0.5*ddt*K2v_fVI,...
-        ht_fI+0.5*ddt*K2h_fI, ht_fII+0.5*ddt*K2h_fII, ht_fIII+0.5*ddt*K2h_fIII, ht_fIV+0.5*ddt*K2h_fIV, ht_fV+0.5*ddt*K2h_fV, ht_fVI+0.5*ddt*K2h_fVI);
+    [vec_I, vec_II, vec_III, vec_IV, vec_V, vec_VI] = fun_eq2(vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI, hh_fI, hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI);
 
     
     [div_fI,div_fII,div_fIII,div_fIV,div_fV,div_fVI]=...
@@ -258,47 +300,59 @@ while t<Tmax & iter<itermax
      K3h_fIV  = -div_fIV + forh_fIV;
      K3h_fV   = -div_fV + forh_fV;
      K3h_fVI  = -div_fVI + forh_fVI;
+     
+     %% K4
     
+    hh_fI=ht_fI + ddt*K3h_fI;
+    hh_fII=ht_fII + ddt*K3h_fII;
+    hh_fIII=ht_fIII + ddt*K3h_fIII;
+    hh_fIV=ht_fIV + ddt*K3h_fIV;
+    hh_fV=ht_fV + ddt*K3h_fV;
+    hh_fVI=ht_fVI + ddt*K3h_fVI;
     
-      %% K4
+    vv_fI=vt_fI + ddt*K3v_fI;
+    vv_fII=vt_fII + ddt*K3v_fII;
+    vv_fIII=vt_fIII + ddt*K3v_fIII;
+    vv_fIV=vt_fIV + ddt*K3v_fIV;
+    vv_fV=vt_fV + ddt*K3v_fV;
+    vv_fVI=vt_fVI + ddt*K3v_fVI;
+    
     % premiere equation
     
     % FORCAGE
-    [forv_fI] = for_v(x_fI,y_fI,z_fI,t+ddt);
-    [forv_fII] = for_v(x_fII,y_fII,z_fII,t+ddt);
-    [forv_fIII] = for_v(x_fIII,y_fIII,z_fIII,t+ddt);
-    [forv_fIV] = for_v(x_fIV,y_fIV,z_fIV,t+ddt);
-    [forv_fV] = for_v(x_fV,y_fV,z_fV,t+ddt);
-    [forv_fVI] = for_v(x_fVI,y_fVI,z_fVI,t+ddt);
+    [forv_fI] = for_v(x_fI,y_fI,z_fI,t);
+    [forv_fII] = for_v(x_fII,y_fII,z_fII,t);
+    [forv_fIII] = for_v(x_fIII,y_fIII,z_fIII,t);
+    [forv_fIV] = for_v(x_fIV,y_fIV,z_fIV,t);
+    [forv_fV] = for_v(x_fV,y_fV,z_fV,t);
+    [forv_fVI] = for_v(x_fVI,y_fVI,z_fVI,t);
 
     % GRADIENT
-    [fun_I, fun_II, fun_III, fun_IV, fun_V, fun_VI] = fun_eq1(vt_fI+ddt*K3v_fI, vt_fII+ddt*K3v_fII, vt_fIII+ddt*K3v_fIII, vt_fIV+ddt*K3v_fIV, vt_fV+ddt*K3v_fV, vt_fVI+ddt*K3v_fVI,...
-        ht_fI+ddt*K3h_fI, ht_fII+ddt*K3h_fII, ht_fIII+ddt*K3h_fIII, ht_fIV+ddt*K3h_fIV, ht_fV+ddt*K3h_fV, ht_fVI+ddt*K3h_fVI);
-    [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=...
-        gr72( fun_I, fun_II, fun_III, fun_IV, fun_V, fun_VI  , n , nn);
+    [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]= gr72( hh_fI, hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI  , n , nn);
     % CALCUL DE CORIOLIS
-    [cor_I,cor_II,cor_III,cor_IV,cor_V,cor_VI]=coriolis( vt_fI+ddt*K3v_fI, vt_fII+ddt*K3v_fII, vt_fIII+ddt*K3v_fIII, vt_fIV+ddt*K3v_fIV, vt_fV+ddt*K3v_fV, vt_fVI+ddt*K3v_fVI );
+    [cor_I,cor_II,cor_III,cor_IV,cor_V,cor_VI]=coriolis( vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI );
+    % ADVECTION
+    [adv_fI,adv_fII,adv_fIII,adv_fIV,adv_fV,adv_fVI]=adv72(vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI ,n ,nn );
     
     % ASSEMBLAGE
-    K4v_fI   = -(grad_I   + cor_I) + forv_fI;
-    K4v_fII  = -(grad_II  + cor_II) + forv_fII;
-    K4v_fIII = -(grad_III + cor_III) + forv_fIII;
-    K4v_fIV  = -(grad_IV  + cor_IV) + forv_fIV;
-    K4v_fV   = -(grad_V   + cor_V) + forv_fV;
-    K4v_fVI  = -(grad_VI  + cor_VI) + forv_fVI;
+    K4v_fI   = -(gp*grad_I   + cor_I   + adv_fI  ) + forv_fI;
+    K4v_fII  = -(gp*grad_II  + cor_II  + adv_fII ) + forv_fII;
+    K4v_fIII = -(gp*grad_III + cor_III + adv_fIII) + forv_fIII;
+    K4v_fIV  = -(gp*grad_IV  + cor_IV  + adv_fIV ) + forv_fIV;
+    K4v_fV   = -(gp*grad_V   + cor_V   + adv_fV  ) + forv_fV;
+    K4v_fVI  = -(gp*grad_VI  + cor_VI  + adv_fVI ) + forv_fVI;
     
     % seconde equation
     
-    [forh_fI] = for_h(x_fI,y_fI,z_fI,t+ddt);
-    [forh_fII] = for_h(x_fII,y_fII,z_fII,t+ddt);
-    [forh_fIII] = for_h(x_fIII,y_fIII,z_fIII,t+ddt);
-    [forh_fIV] = for_h(x_fIV,y_fIV,z_fIV,t+ddt);
-    [forh_fV] = for_h(x_fV,y_fV,z_fV,t+ddt);
-    [forh_fVI] = for_h(x_fVI,y_fVI,z_fVI,t+ddt);
+    [forh_fI] = for_h(x_fI,y_fI,z_fI,t);
+    [forh_fII] = for_h(x_fII,y_fII,z_fII,t);
+    [forh_fIII] = for_h(x_fIII,y_fIII,z_fIII,t);
+    [forh_fIV] = for_h(x_fIV,y_fIV,z_fIV,t);
+    [forh_fV] = for_h(x_fV,y_fV,z_fV,t);
+    [forh_fVI] = for_h(x_fVI,y_fVI,z_fVI,t);
     
     % divergence
-    [vec_I, vec_II, vec_III, vec_IV, vec_V, vec_VI] = fun_eq2(vt_fI+ddt*K3v_fI, vt_fII+ddt*K3v_fII, vt_fIII+ddt*K3v_fIII, vt_fIV+ddt*K3v_fIV, vt_fV+ddt*K3v_fV, vt_fVI+ddt*K3v_fVI,...
-        ht_fI+ddt*K3h_fI, ht_fII+ddt*K3h_fII, ht_fIII+ddt*K3h_fIII, ht_fIV+ddt*K3h_fIV, ht_fV+ddt*K3h_fV, ht_fVI+ddt*K3h_fVI);
+    [vec_I, vec_II, vec_III, vec_IV, vec_V, vec_VI] = fun_eq2(vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI, hh_fI, hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI);
 
     
     [div_fI,div_fII,div_fIII,div_fIV,div_fV,div_fVI]=...
@@ -311,6 +365,7 @@ while t<Tmax & iter<itermax
      K4h_fIV  = -div_fIV + forh_fIV;
      K4h_fV   = -div_fV + forh_fV;
      K4h_fVI  = -div_fVI + forh_fVI;
+
      
     %% Assemblage final
 

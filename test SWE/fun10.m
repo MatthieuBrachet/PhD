@@ -3,6 +3,7 @@ function [y] = fun10(x, teta0, teta1)
 % (an initial-value problem for testing numerical models of the global
 % shallow water equations).
 [n1,n2]=size(x);
+y=zeros(n1,n2);
 en=exp(-4/(teta0-teta1)^2);
 for i=1:n1
     for j=1:n2
@@ -11,7 +12,7 @@ for i=1:n1
         elseif x(i,j)>=teta1
             y(i,j)=0;
         else
-            denom=(x(i,j)-teta0).*(x(i,j)-teta1);
+%             denom=(x(i,j)-teta0).*(x(i,j)-teta1);
             y(i,j)=exp(1/((x(i,j)-teta0)*(x(i,j)-teta1)))./en;
         end
     end

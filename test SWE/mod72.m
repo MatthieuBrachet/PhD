@@ -21,9 +21,9 @@ global opt_ftr ftr;
 global omega gp u0 h0
 
 %% physical data
-radius=6.37122d+06;
+radius=1;%6.37122d+06;
 omega=7.292d-05;
-h0=10;
+h0=10000;
 gp=9.80616;
 u0=80;
 %
@@ -418,3 +418,6 @@ end
 
 %% Options sur les filtres
 [ ftr ] = filtre( na , opt_ftr );
+
+
+%% CALCUL DES COORDONNEES COVARIANTES

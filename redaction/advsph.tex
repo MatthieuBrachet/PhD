@@ -2,13 +2,90 @@
 
 \chapter{\'Equation d'advection sphérique}
 
-Cette partie sera-t-elle remplacée par l'article de JPC et moi même?
-
-\section{Position du problème}
-
 \section{Test de Williamson : Bump instationnaire}
 
-Mettre le bump et la solution discontinue de Nair-Lauritzen?
+\subsection{Préliminaires}
+
+Soit $\mathbf{x} = (x,y,z)^T \in \mathbb{S}_R^2$ un point de la sphère de centre $O$ et de rayon $R$. Il existe alors $\lambda$ et $\theta$ , respectivement longitude et latitude, dans $] 0, 2 \pi ] \times ] - \pi /2, \pi/2 [ $ tels que :
+
+\begin{equation}
+\left\lbrace 
+\begin{array}{rcl}
+x & = & R \cos \theta \cos \lambda \\
+y & = & R \cos \theta \sin \lambda \\
+z & = & R \sin \theta
+\end{array}
+\right.
+\end{equation}
+
+Ainsi :
+
+\begin{equation}
+\dfrac{d \mathbf{x}}{dt} = u \mathbf{e}_{\lambda} + v \mathbf{e}_{\theta}
+\end{equation}
+
+où $\mathbf{e}_{\lambda}$ et $\mathbf{e}_{\theta}$ sont donnés dans la remarque \ref{base_lonlat}. Par identification, on a :
+
+\begin{equation}
+\left\lbrace 
+\begin{array}{rcl}
+u & = & R cos ( \theta ) \dfrac{d \lambda}{dt} \\
+v & = & R \dfrac{d \theta}{dt}
+\end{array}
+\right.
+\end{equation}.
+
+Lorsque $\mathbf{x}$ est transporté parallèlement à l'équateur, à vitesse angulaire constante, on a :
+
+\begin{equation}
+\left\lbrace 
+\begin{array}{rcl}
+\dfrac{d \lambda}{dt} & = & \omega \\
+\dfrac{d \theta}{dt} & = & 0
+\end{array}
+\right.
+\end{equation}.
+
+\subsection{Résolution exacte}
+
+\subsubsection{Cas 1 : transport parallère à l'équateur}
+
+Le but de cette partie est de résoudre l'équation d'advection sphèrique suivante :
+
+\begin{equation}
+\label{eq:advection spherique 1}
+\left\lbrace
+\begin{array}{r cl}
+\dfrac{\partial h}{\partial t} + \mathbf{c} ( \mathbf{x} ) \cdot \nabla_ T h & = & 0 \\
+h(\mathbf{x},0) & = & h_0 ( \mathbf{x} )
+\end{array}
+\right. \text{ pour tout } \mathbf{x} \in \mathbf{S}_R^2 \text{ et } t \geq 0
+\end{equation}
+
+Avec $\mathbf{c} ( \mathbf{x} ) = R \omega cos ( \theta )$ \footnote{Dans ce premier cas, le transport est parallèle à l'équateur et à vitesse constante.}.
+On cherche la solution par la méthode des caractéristiques, sur la caractéristique $t \rightarrow\mathbf{x}(t) = (\lambda (t), \theta(t) )$ on a :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\partial_t \lambda & = & u_0 cos ( \theta ) \\
+\partial_t \theta & = & 0
+\end{array}
+\right.
+\end{equation}
+
+d'où : $\lambda(t) = \lambda_0 + \Omega t$ et $\theta(t) = \theta_0$ avec $\Omega = u_0 cos ( \theta )$.
+
+Ainsi la solution de \eqref{eq:advection spherique 1} est :
+
+\begin{equation}
+h( \mathbf{x}, t ) = h_0 ( \lambda - \Omega t, \theta ) = h_0 ( R_{-t}  \mathbf{x} )
+\end{equation}
+
+Avec $R_{-t}$ la rotation autour de l'axe $(Oz)$ d'angle $-\Omega t$.
+
+
+\subsection{Tests numériques}
 
 \section{Test de Nair et Machenhauer}
 
