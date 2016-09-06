@@ -1,7 +1,320 @@
 % LSWEC.tex
 \chapter{Linearized Shallow Water Equation with Coriolis Force}
 
-\section{Equation sur la sphère}
+Le but de cette partie est de présenter deux test pour l'équation Shallow-Water linéarisée avec force de Coriolis (LSWEC) :
 
-\section{Ondes sur le $\beta$-plan}
+\begin{equation}
+\label{LSWEC}
+\left\lbrace
+\begin{array}{r @{=} l}
+\partial_t \mathbf{u} & -f \mathbf{k} \wedge \mathbf{u} - g \nabla \eta + \mathbf{F} \\
+\partial_t \eta & -H \nabla \cdot \mathbf{u} 
+\end{array}
+\right.
+\end{equation}
+
+ici $\mathbf{F}$ est une fonction de forcage.
+
+l'équation est résolue sur la sphère $\mathbb{S}_R^2$ dont le rayon est $R$. $\mathbf{x}$, un point de $\mathbb{S}_R^2$ est un point de latitude $\lambda$ et de longitude $\theta$ the longitude. Un vecteur $\mathbf{v} : \mathbb{S}_R^2 \rightarrow \mathbb{T}\mathbb{S}_R^2$ est déterminé par :
+
+$$\mathbf{u} = u \mathbf{e}_{\theta} + v \mathbf{e}_{\lambda}.$$ 
+
+Le paramètre de Coriolis est :
+
+\begin{equation}
+f=2 \omega sin ( \theta )
+\label{coriolis_parameter}
+\end{equation}
+
+En ce qui concerne la mesure de l'erreur, nous considérons l'erreur sous la forme suivante :
+
+$$e_{i} = max_n \dfrac{\| \eta^n - \eta(t^n) \|_{i}}{\| \eta(0) \|_{i}}$$
+
+$i \in \left\lbrace 1, 2, \infty \right\rbrace$.
+
+\section{Quelques relations de conservation pour \eqref{LSWEC}}
+
+\begin{remarque}
+\label{remark_stokes}
+Une remarque préliminaire est la suivante  :
+
+Si $\Omega_1$ et $\Omega_2$ sont les deux hémisphères de $\mathbb{S}^2_R$ alors :
+\begin{itemize}
+\item $\Omega_1 \cup \Omega_2 = \mathbb{S}^2_R $,
+\item $\overbrace{\Omega_1 \cap \Omega_2}^{\circ} = \varnothing$
+\end{itemize}
+
+par le théorème de Stokes, on a :
+
+\begin{equation}
+\gint_{\Omega_i}  \nabla \cdot \mathbf{u} = \gint_{\partial \Omega_i} \mathbf{u} \cdot \mathbf{n}_i
+\end{equation}
+
+pour $i \in \left\lbrace 1, 2 \right\rbrace$ et $\mathbf{n}_i$ est la normale extérieur de $\Omega_i$ sur $\mathbb{S}_R^2$ ($\mathbf{n}_i$ est tangent à la sphère).
+Alors, comme $\mathbf{n_1} = -\mathbf{n_2}$ et $\partial \Omega_1 = \partial \Omega_2$ on a :
+
+$$\gint_{\mathbb{S}_R^2}  \nabla \cdot \mathbf{u} = \gint_{\Omega_1}  \nabla \cdot \mathbf{u} + \gint_{\Omega_2}  \nabla \cdot \mathbf{u} = \gint_{\partial \Omega_1} \mathbf{u} \cdot \mathbf{n}_1 + \gint_{\partial \Omega_2} \mathbf{u} \cdot \mathbf{n}_2 = 0$$
+\end{remarque}
+
+\begin{proposition}
+(Conservation de la masse)
+La masse totale $\gint_{\mathbb{S}_R^2} \eta$ est constante au cours du temps.
+\end{proposition}
+
+\begin{proof}
+Nous intégrons sur $\mathbb{S}_R^2$ la seconde équation de \eqref{LSWEC} et tenons compte de la remarque \ref{remark_stokes}.
+
+$$\dfrac{\partial}{\partial t} \gint_{\mathbb{S}_R^2} \eta = \gint_{\mathbb{S}_R^2} \dfrac{\partial \eta}{\partial t} = \gint_{\mathbb{S}_R^2} \nabla \cdot \mathbf{u} = 0$$
+\end{proof}
+
+\begin{proposition}
+(Conservation de l'énergie)
+Si $\mathbf{F} = \mathbf{0}$, alors l'énergie totale $g  \eta^2 + H \| u \|_{L^2(\mathbb{S}_R^2)}^2$ est constante par rapport au temps $t$.
+\end{proposition}
+
+\begin{proof}
+\begin{itemize}
+\item premièrement, remarquons que $\mathbf{u}$ est orthogonal à $\mathbf{k} \wedge \mathbf{u}$ alors :
+
+$$\gint_{\mathbb{S}_R^2} \dfrac{\partial \mathbf{u}}{\partial t} \cdot \mathbf{u} = \dfrac{1}{2} \dfrac{\partial}{\partial t} \gint_{\mathbb{S}_R^2} \mathbf{u}^2 = -g \gint_{\mathbb{S}_R^2} \nabla \eta \cdot \mathbf{u}$$
+
+en d'autres mots :
+
+\begin{equation}
+\dfrac{1}{2} \dfrac{\partial}{\partial t} \| u \|_{L^2(\mathbb{S}_R^2)}^2 = -g \gint_{\mathbb{S}_R^2} \nabla \eta \cdot \mathbf{u}
+\label{energy_eq1}
+\end{equation}
+
+\item avec une idée similaire :
+
+$$\dfrac{\partial \eta}{\partial t} \times \eta = -H \eta \nabla \cdot \mathbf{u} $$
+
+et après intégrations sur $\mathbb{S}_R^2$ :
+
+\begin{equation}
+\dfrac{1}{2} \dfrac{\partial}{\partial t} \| \eta \|^2_{L^2(\mathbb{S}_R^2)} = -H \gint_{\mathbb{S}_R^2} \eta \nabla \cdot \mathbf{u}
+\label{energy_eq2}
+\end{equation}
+
+\item Il est connu que :
+
+\begin{equation}
+\nabla \cdot \left( \mathbf{A} B \right) = \left( \mathbf{A} \cdot \nabla \right) B + \left( B \nabla \cdot \mathbf{A} \right)
+\label{energy_eq3}
+\end{equation}
+
+Alors :
+
+$$g \dfrac{\partial}{\partial t}  \| \eta \|^2_{L^2(\mathbb{S}_R^2)} + H \dfrac{\partial}{\partial t} \| \mathbf{u} \|^2_{L^2(\mathbb{S}_R^2)} = -2gH \gint_{\mathbb{S}_R^2} \left( \mathbf{u} \cdot \nabla \eta + \eta \nabla \cdot \mathbf{u} \right)$$
+
+en utilisant \eqref{energy_eq3} et \ref{remark_stokes}, nous avons le résultat :
+
+\begin{equation}
+\dfrac{\partial}{\partial t} \left( g  \eta^2 + H \| u \|_{L^2(\mathbb{S}_R^2)}^2 \right) = 0
+\end{equation}
+\end{itemize}
+\end{proof}
+
+\section{Solution exponentielle}
+
+Pour ce test, la fonction de forcage $\mathbf{F}$ est ajustée pour que la solution exacte de \eqref{LSWEC} soit :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{r @{=} l}
+u & \frac{\sqrt{gH}}{10} \psi ( \theta )  e^{-\sigma t} \\
+v & 0 \\
+\eta & \psi( \theta ) e^{-\sigma t}
+\end{array}
+\right.
+\end{equation}
+
+où :
+
+\begin{equation*}
+\psi ( \theta ) = 
+\left\lbrace
+\begin{array}{l}
+0 \text{ if } \theta > \theta_1\\
+\frac{1}{K}e^{\frac{1}{(\theta - \theta_0)(\theta-\theta_1)}} \text{ if } \theta_0 \leq \theta \leq \theta_1 \\
+0 \text{ if } \theta < \theta_0\\
+ 
+\end{array}
+\right.
+\label{galewski_fun}
+\end{equation*}
+
+$K = e^{-\dfrac{4}{(\theta_0 - \theta_1)^2}}$ est une constante de normalisation.
+
+Pour les calculs numériques, nous choisissons $\sigma = 10^{-4}$, $\theta_0 = -\dfrac{3 \pi}{16}$ and $\theta_1 = \dfrac{3 \pi}{16}$.
+
+ainsi qu'une condition CFL de la forme suivante :
+
+\begin{equation}
+CFL = \dfrac{c \Delta t}{R \Delta \xi}
+\end{equation}
+
+avec $c = max(c_{grav}, c_{cor})$, $c_{grav} = \sqrt{gH}$ et $c_{cor} = R \omega$, $\Delta \xi = \pi / 2N$.
+
+Les tables \ref{CV_order4_hp10}, \ref{CV_order4_hp100} et \ref{CV_order4_hp1000} sont obtenues avec un schéma d'ordre 4 en temps (RK4) et d'ordre 4 en espace. Pour les Tables \ref{CV_order8_hp10}, \ref{CV_order8_hp100} et \ref{CV_order8_hp1000} le schéma est le même en temps mais nous utilisons un schéma compact à l'ordre 8 pour la divergence et 4 pour le gradient.
+
+\begin{table}%[H!]
+\begin{tabular}{c|c|c|c|c|c|c}
+$N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
+\hline 
+\hline
+$20$ & $1.2920 (-4)$ & - & $5.6417 (-5)$ & - & $4.7733 (-5)$ & - \\ 
+\hline 
+$40$ & $1.9620 (-5)$ & $2.9171$ & $5.4901 (-6)$ & $3.4823$ & $3.6578 (-6)$ & $3.8394$ \\ 
+\hline 
+$60$ & $3.7239 (-6)$ & $4.1827$ & $1.1867 (-6)$ & $3.8554$ & $7.3660 (-7)$ & $4.0336$ \\
+\hline 
+$80$ & $1.0788 (-6)$ & $4.3689$ & $3.7154 (-7)$ & $4.0951$ & $2.1765 (-7)$ & $4.2992$ \\ 
+\hline 
+$100$ & $4.1779(-7)$ & $4.2988$ & $1.4789 (-7)$ & $4.1745$ & $8.5641 (-8)$ & $4.2268$  \\ 
+\end{tabular} 
+\caption{Analyse de convergence $CFL=0.5$ et $H=10$.}
+\label{CV_order4_hp10}
+\end{table}
+
+\begin{table}%[H!]
+\begin{tabular}{c|c|c|c|c|c|c}
+$N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
+\hline 
+\hline
+$20$ & $0.0038$ & - & $0.0015$ & - & $0.0012$ & - \\ 
+\hline 
+$40$ & $3.8502 (-4)$ & $3.4220$ & $1.1233 (-4)$ & $3.8738$ & $7.0664 (-5)$ & $4.2331$ \\ 
+\hline 
+$60$ & $6.0715 (-5)$ & $4.6491$ & $1.7546 (-5)$ & $4.6731$ & $1.1497 (-5)$ & $4.5705$ \\
+\hline 
+$80$ & $1.4527 (-5)$ & $5.0434$ & $4.8548 (-6)$ & $4.5309$ & $3.2599 (-6)$ & $4.4446$ \\ 
+\hline 
+$100$ & $5.8355(-6)$ & $4.1331$ & $1.9027 (-6)$ & $4.2447$ & $1.2637 (-6)$ & $4.2944$  \\ 
+\end{tabular} 
+\caption{Analyse de convergence $CFL=0.5$ et $H=100$.}
+\label{CV_order4_hp100}
+\end{table}
+
+\begin{table}%[H!]
+\begin{tabular}{c|c|c|c|c|c|c}
+$N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
+\hline 
+\hline
+$20$ & $0.0629$ & - & $0.0283$ & - & $0.0277$ & - \\ 
+\hline 
+$40$ & $0.0044$ & $3.9757$ & $0.0014$ & $4.4935$ & $0.0011$ & $4.8219$ \\ 
+\hline 
+$60$ & $6.6608 (-4)$ & $4.7519$ & $1.9743 (-4)$ & $4.9304$ & $1.4907 (-4)$ & $5.0306$ \\
+\hline 
+$80$ & $1.6033 (-4)$ & $5.0222$ & $5.3660 (-5)$ & $4.5217$ & $4.2043 (-5)$ & $4.4634$ \\ 
+\hline 
+$100$ & $6.9510(-5)$ & $3.7874$ & $2.1324 (-5)$ & $4.1819$ & $1.6013 (-5)$ & $4.3743$  \\ 
+\end{tabular} 
+\caption{Analyse de convergence avec $CFL=0.5$ et $H=1000$.}
+\label{CV_order4_hp1000}
+\end{table}
+
+\begin{table}%[H!]
+\begin{tabular}{c|c|c|c|c|c|c}
+$N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
+\hline 
+\hline
+$20$ & $1.0303 (-4)$ & - & $5.1192 (-5)$ & - & $5.0087 (-5)$ & - \\ 
+\hline 
+$40$ & $1.1221 (-5)$ & $3.3140$ & $4.7304 (-6)$ & $3.5596$ & $3.3176 (-6)$ & $4.0573$ \\ 
+\hline 
+$60$ & $2.8566 (-6)$ & $3.4436$ & $1.0696 (-6)$ & $3.7421$ & $6.5310 (-7)$ & $4.0908$ \\
+\hline 
+$80$ & $1.0837 (-6)$ & $3.4180$ & $3.2702 (-7)$ & $4.1789$ & $1.8005 (-7)$ & $4.5438$ \\ 
+\hline 
+$100$ & $4.2901(-7)$ & $4.1993$ & $1.2667 (-7)$ & $4.2980$ & $6.7292 (-8)$ & $4.4600$  \\ 
+\end{tabular} 
+\caption{Analyse de convergence avec $CFL=0.5$ et $H=10$.}
+\label{CV_order8_hp10}
+\end{table}
+
+\begin{table}%[H!]
+\begin{tabular}{c|c|c|c|c|c|c}
+$N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
+\hline 
+\hline
+$20$ & $0.0025$ & - & $0.0012$ & - & $0.0011$ & - \\ 
+\hline 
+$40$ & $1.7414 (-4)$ & $3.9820$ & $6.5746 (-5)$ & $4.3409$ & $4.6314 (-5)$ & $4.7345$ \\ 
+\hline 
+$60$ & $2.7156 (-5)$ & $4.6772$ & $9.1924 (-6)$ & $4.9520$ & $5.9158 (-6)$ & $5.1795$ \\
+\hline 
+$80$ & $7.9310 (-6)$ & $4.3404$ & $2.3353 (-6)$ & $4.8320$ & $1.3738 (-6)$ & $5.1487$ \\ 
+\hline 
+$100$ & $2.7584(-6)$ & $4.7860$ & $8.5491 (-7)$ & $4.5538$ & $4.9340 (-7)$ & $4.6405$  \\ 
+\end{tabular} 
+\caption{Analyse de convergence avec $CFL=0.5$ et $H=100$.}
+\label{CV_order8_hp100}
+\end{table}
+
+\begin{table}%[H!]
+\begin{tabular}{c|c|c|c|c|c|c}
+$N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
+\hline 
+\hline
+$20$ & $0.0376$ & - & $0.0206$ & - & $0.0241$ & - \\ 
+\hline 
+$40$ & $0.0019$ & $4.4618$ & $7.3624 (-4)$ & $4.9794$ & $7.3567 (-4)$ & $5.2151$ \\ 
+\hline 
+$60$ & $1.5134 (-4)$ & $6.3682$ & $5.3116 (-5)$ & $6.6173$ & $5.5023 (-5)$ & $6.5266$ \\
+\hline 
+$80$ & $2.0280 (-5)$ & $7.0877$ & $7.1205 (-6)$ & $7.0863$ & $7.3563 (-6)$ & $7.0958$ \\ 
+\hline 
+$100$ & $4.9820(-6)$ & $6.3615$ & $1.9414 (-6)$ & $5.8892$ & $1.7583 (-6)$ & $6.4857$  \\ 
+\end{tabular} 
+\caption{Analyse de convergence avec $CFL=0.5$ et $H=1000$.}
+\label{CV_order8_hp1000}
+\end{table}
+
+
+\section{Test sans forcage}
+
+Ce second test est considéré sans forcage ($\mathbf{F} = \mathbf{0}$). Dans ce contexte, on construit une solution stationnaire telle que le champ de vitesse est zonale :
+
+$$\mathbf{u}(\theta, \lambda) = u(\theta) \mathbf{e}_{\lambda}$$
+
+On montre facilement que la vitesse $ \mathbf{u}$ est à divergence nulle avec ce choix.
+
+La perturbation de l'atmosphère $\eta$ est ensuite construite de telle sorte que l'on a :
+
+\begin{equation}
+f \mathbf{k} \wedge \mathbf{u} + g \nabla \eta = 0
+\end{equation} 
+
+Dans la base $(\mathbf{e}_{\lambda}, \mathbf{e}_{\theta})$ :
+
+\begin{equation}
+f u \mathbf{e}_{\theta} + g \left[ \dfrac{1}{R cos \theta} \dfrac{\partial \eta}{\partial \lambda} \mathbf{e}_{\lambda} + \dfrac{1}{R}\dfrac{\partial \eta}{\partial \theta} \mathbf{e}_{\theta} \right] = 0
+\end{equation}
+
+par identification :
+
+\begin{itemize}
+\item $\dfrac{1}{R cos \theta} \dfrac{\partial \eta}{\partial \lambda} = 0$, alors $\eta$ est indépendant de $\lambda$,
+
+\item $f u + \dfrac{g}{R} \dfrac{\partial \eta}{\partial \theta} = 0$, alors (comme on a l'équation \eqref{coriolis_parameter}) :
+
+\begin{equation}
+\eta (\theta ) = \eta_0 - \dfrac{2 \omega R}{g} \gint_0^{\theta} sin(\tau) u(\tau) d \tau
+\end{equation} 
+\end{itemize}
+
+ainsi une solution stationnaire est donnée. Nous choisissons $u(\theta) = u_0 \psi( \theta )$ avec $\psi$ donné par \eqref{galewski_fun}. L'intégrale est calculée numériquement par la méthode des trapèzes composites (FAIRE AVEC SIMSONS!).
+
+Numériquement, nous obtenons deux types de résultats :
+\begin{itemize}
+\item nous représentons l'erreur relative au temps $t^n$, $e_i^n$ avec $i \in \lbrace 1, 2, \infty \rbrace$,
+\item Nous représentons aussi les relations de conservations relatives :
+\begin{equation}
+\dfrac{I^n}{I(0)}
+\end{equation}
+où  $I^n = \gint_{\mathbb{S}_R^2} \eta (t^n)$ la masse ou l'énergie $I^n = g \gint_{\mathbb{S}_R^2} \eta (t^n)^2 + H \gint_{\mathbb{S}_R^2} \|u \|_2^2$ et $I(0)$ est la masse ou l'énergie initiale. Cette quantité $I^n/I(0)$ doit etre proche de $1$ si les quantités sont conservées.
+\end{itemize} 
+
 
