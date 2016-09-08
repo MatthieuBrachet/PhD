@@ -10,7 +10,7 @@ global teta0 teta1
 teta0=-3*pi/16;
 teta1=3*pi/16;
 opt_ftr=0;
-n=40;
+n=100;
 mod72;
 
 [vt_fI,rotvt_fI] = sol_exacte_rot(x_fI,y_fI,z_fI);
@@ -21,7 +21,7 @@ mod72;
 [vt_fVI,rotvt_fVI] = sol_exacte_rot(x_fVI,y_fVI,z_fVI);
 
 [rot_fI,rot_fII,rot_fIII,rot_fIV,rot_fV,rot_fVI]=...
-    rot73(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
+    rot74(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
 
 err_I=abs(rotvt_fI-rot_fI);
 err_II=abs(rotvt_fII-rot_fII);
@@ -39,25 +39,46 @@ e_VI=max(max(max(err_VI)))
 
 err=max([e_I e_II e_III e_IV e_V e_VI])
 
+% for p=1:3
+%     m_I(p)=mean(mean(rotvt_fI(:,:,p)./rot_fI(:,:,p)));
+%     m_II(p)=mean(mean(rotvt_fII(:,:,p)./rot_fII(:,:,p)));
+%     m_III(p)=mean(mean(rotvt_fIII(:,:,p)./rot_fIII(:,:,p)));
+%     m_IV(p)=mean(mean(rotvt_fIV(:,:,p)./rot_fIV(:,:,p)));
+%     m_V(p)=mean(mean(rotvt_fV(:,:,p)./rot_fV(:,:,p)));
+%     m_VI(p)=mean(mean(rotvt_fVI(:,:,p)./rot_fVI(:,:,p)));
+% end
+% 
+% m_I
+% m_II
+% m_III
+% m_IV
+% m_V
+% m_VI
 
-for p=1:3
-    figure(p)
-    plot_cs11(n,nn,err_I(:,:,p),err_II(:,:,p),err_III(:,:,p),err_IV(:,:,p),err_V(:,:,p),err_VI(:,:,p))
-    title('error')
-    colorbar
-end
 
-for p=1:3
-    figure(p+3)
-    subplot(1,2,1)
-    plot_cs11(n,nn,rotvt_fI(:,:,p),rotvt_fII(:,:,p),rotvt_fIII(:,:,p),rotvt_fIV(:,:,p),rotvt_fV(:,:,p),rotvt_fVI(:,:,p))
-    title('exact sol.')
-    colorbar
-
-    subplot(1,2,2)
-    plot_cs11(n,nn,rot_fI(:,:,p),rot_fII(:,:,p),rot_fIII(:,:,p),rot_fIV(:,:,p),rot_fV(:,:,p),rot_fVI(:,:,p))
-    title('approx sol.')
-    colorbar
-end
+% for p=1:3
+%     figure(p)
+%     plot_cs11(n,nn,rotvt_fI(:,:,p)./rot_fI(:,:,p),rotvt_fII(:,:,p)./rot_fII(:,:,p),rotvt_fIII(:,:,p)./rot_fIII(:,:,p),rotvt_fIV(:,:,p)./rot_fIV(:,:,p),rotvt_fV(:,:,p)./rot_fV(:,:,p),rotvt_fVI(:,:,p)./rot_fVI(:,:,p))
+%     title('quotient exact/approx')
+%     colorbar
+% end
+% 
+% for p=1:3
+%     figure(p+3)
+%     subplot(1,3,1)
+%     plot_cs11(n,nn,rotvt_fI(:,:,p),rotvt_fII(:,:,p),rotvt_fIII(:,:,p),rotvt_fIV(:,:,p),rotvt_fV(:,:,p),rotvt_fVI(:,:,p))
+%     title('exact sol.')
+%     colorbar
+% 
+%     subplot(1,3,2)
+%     plot_cs11(n,nn,rot_fI(:,:,p),rot_fII(:,:,p),rot_fIII(:,:,p),rot_fIV(:,:,p),rot_fV(:,:,p),rot_fVI(:,:,p))
+%     title('approx sol.')
+%     colorbar
+%     
+%     subplot(1,3,3)
+%     plot_cs11(n,nn,err_I(:,:,p),err_II(:,:,p),err_III(:,:,p),err_IV(:,:,p),err_V(:,:,p),err_VI(:,:,p))
+%     title('ERROR')
+%     colorbar
+% end
 
 

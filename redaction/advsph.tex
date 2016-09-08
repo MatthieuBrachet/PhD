@@ -2,7 +2,7 @@
 
 \chapter{\'Equation d'advection sphérique}
 
-\section{Test de Williamson : Bump instationnaire}
+\section{Test de rotation solide}
 
 \subsection{Préliminaires}
 
@@ -46,6 +46,113 @@ Lorsque $\mathbf{x}$ est transporté parallèlement à l'équateur, à vitesse a
 \right.
 \end{equation}.
 
+Supposont à présent que $P=( \lambda_P, \theta_P)$ est un point de $\mathbb{S}_R^2$. Un nouveau système de coordonnées est donné en placant le nouveau pôle Nord en $P$ au lieu du pôle Nord habituel. Dans ce système, les points sont positionnés en $(\lambda', \theta')$ (en longitude-latitude) et en $(\lambda, \theta)$ dans le système de coordonnés classiques (en longitude-latitude aussi).
+
+Pour des raisons pratiques, nous avons besoin des relations permettant de passer de $( \lambda', \theta')$ à $(\lambda, \theta)$ et inversement.
+
+En utilisant les relations de trigonométrie sphèrique, on a :
+
+\begin{equation}
+\label{coord_rot}
+\left\lbrace 
+\begin{array}{rcl}
+sin ( \theta ) & = & sin( \theta_P) sin( \theta') - cos( \theta_P) cos( \theta') cos( \lambda' ) \\
+sin( \theta' ) & = & sin( \theta) sin(\theta_P) + cos( \theta ) cos( \theta_P) cos( \lambda - \lambda_P ) \\
+cos( \theta ) sin( \lambda - \lambda_P) & = & cos( \theta' ) sin( \lambda' )
+\end{array}
+\right.
+\end{equation}.
+
+En utilisant (\ref{coord_rot}.b), on a trivialement :
+
+\begin{equation}
+\theta' = arcsin \left[ sin( \theta) sin(\theta_P) + cos( \theta ) cos( \theta_P) cos( \lambda - \lambda_P ) \right]
+\end{equation}
+
+De plus, (\ref{coord_rot}.a) et (\ref{coord_rot}.c) donnent :
+
+\begin{equation}
+\left\lbrace 
+\begin{array}{rcl}
+cos( \theta ) sin( \lambda - \lambda_P) & = & cos( \theta' ) sin( \lambda' ) \\
+cos( \theta ) cos( \lambda - \lambda_P) & = & \frac{sin( \theta' ) sin ( \theta_P ) - sin( \theta )}{cos( \theta_P)}
+\end{array}
+\right.
+\end{equation}.
+
+Or :
+
+\begin{equation*}
+\begin{array}{rcl}
+cos( \theta ) cos( \lambda - \lambda_P) & = & \dfrac{sin( \theta' ) sin ( \theta_P ) - sin( \theta )}{cos( \theta_P)} \\
+ & = & \dfrac{sin( \theta) (sin^2 ( \theta_P) -1 )}{cos( \theta_P)} + cos( \theta ) cos( \lambda- \lambda_P) sin( \theta_P) \text{ par (\ref{coord_rot}.b) et simplifications.} \\
+ & = & cos ( \theta) cos( \lambda - \lambda_P) sin( \theta_P ) - sin( \theta) cos ( \theta_P )
+\end{array}
+\end{equation*}
+
+Dès lors, en remarquant que :
+
+$$tan ( \lambda' ) =  \dfrac{cos( \theta' ) sin(  \lambda' ) }{cos( \theta' ) cos(  \lambda' )}$$
+
+on a le changement de coordonnées dans un premier sens :
+
+\begin{equation}
+\label{from classic to prime}
+\left\lbrace 
+\begin{array}{rcl}
+\theta' & = & arcsin \left[ sin( \theta) sin(\theta_P) + cos( \theta ) cos( \theta_P) cos( \lambda - \lambda_P ) \right] \\
+\lambda' & = & arctan \left[ \dfrac{cos ( \theta) sin( \lambda - \lambda_P)}{cos( \theta) cos( \lambda - \lambda_P) sin( \theta_P) - sin( \theta) cos( \theta_P)} \right]
+\end{array}
+\right.
+\end{equation}
+
+De manière similaire, on a :
+
+\begin{equation}
+\label{from prime to classic}
+\left\lbrace 
+\begin{array}{rcl}
+\theta & = & arcsin \left[ sin( \theta') sin(\theta_P) - cos( \theta' ) cos( \theta_P) cos( \lambda' ) \right] \\
+\lambda & = & \lambda_P + arctan \left[ \dfrac{cos ( \theta') sin( \lambda ')}{sin( \theta') cos( \theta_P) + cos ( \theta') cos( \lambda') sin ( \theta_P)} \right]
+\end{array}
+\right.
+\end{equation}
+
+Si le point $\mathbf{x}$ est transporté parallèlement au nouvel équateur, on a :
+
+\begin{equation}
+\left\lbrace 
+\begin{array}{rcl}
+\dfrac{d \lambda'}{dt} & = & \omega \\
+\dfrac{d \theta'}{dt} & = & 0
+\end{array}
+\right.
+\end{equation}.
+
+En dérivant (\ref{coord_rot}.a) par rapport à $t$, on a :
+
+\begin{equation}
+\begin{array}{rcl}
+\dfrac{d \theta}{dt} cos ( \theta ) & = & \dfrac{d \lambda' }{dt} cos ( \theta' ) cos ( \theta_P) sin( \lambda') \\
+ & = & \omega cos ( \theta' ) cos ( \theta_P) sin( \lambda') \\
+ & = & \omega cos ( \theta ) cos ( \theta_P) sin( \lambda) \text{ par (\ref{coord_rot}.c)}\\
+\end{array}
+\end{equation}
+
+d'où par identification :
+
+\begin{equation}
+\label{vitesse_solide_v}
+v = R \omega cos ( \theta_P ) sin( \lambda - \lambda_P )
+\end{equation}
+
+De la même manière avec \ref{coord_rot}.b), on a :
+
+\begin{equation}
+\label{vitesse_solide_u}
+u = R  \omega \left( cos ( \theta ) sin( \theta_P) - sin( \theta ) cos( \theta_P) cos( \lambda - \lambda_P) \right)
+\end{equation}
+
 \subsection{Résolution exacte}
 
 \subsubsection{Cas 1 : transport parallère à l'équateur}
@@ -62,7 +169,7 @@ h(\mathbf{x},0) & = & h_0 ( \mathbf{x} )
 \right. \text{ pour tout } \mathbf{x} \in \mathbf{S}_R^2 \text{ et } t \geq 0
 \end{equation}
 
-Avec $\mathbf{c} ( \mathbf{x} ) = R \omega cos ( \theta )$ \footnote{Dans ce premier cas, le transport est parallèle à l'équateur et à vitesse constante.}.
+Avec $\mathbf{c} ( \mathbf{x} ) = R \omega cos ( \theta ) \mathbf{e}_{\lambda}$ \footnote{Dans ce premier cas, le transport est parallèle à l'équateur et à vitesse constante.}.
 On cherche la solution par la méthode des caractéristiques, sur la caractéristique $t \rightarrow\mathbf{x}(t) = (\lambda (t), \theta(t) )$ on a :
 
 \begin{equation}
@@ -79,15 +186,116 @@ d'où : $\lambda(t) = \lambda_0 + \Omega t$ et $\theta(t) = \theta_0$ avec $\Ome
 Ainsi la solution de \eqref{eq:advection spherique 1} est :
 
 \begin{equation}
+\label{eq: advection solution 1}
 h( \mathbf{x}, t ) = h_0 ( \lambda - \Omega t, \theta ) = h_0 ( R_{-t}  \mathbf{x} )
 \end{equation}
 
 Avec $R_{-t}$ la rotation autour de l'axe $(Oz)$ d'angle $-\Omega t$.
 
+\subsubsection{Cas 2 : transport parallèle à un grand cercle}
+
+On souhaite résoudre :
+
+\begin{equation}
+\label{eq:advection spherique 2}
+\left\lbrace
+\begin{array}{r cl}
+\dfrac{\partial h}{\partial t} + \mathbf{c} ( \mathbf{x} ) \cdot \nabla_ T h & = & 0 \\
+h(\mathbf{x},0) & = & h_0 ( \mathbf{x} )
+\end{array}
+\right. \text{ pour tout } \mathbf{x} \in \mathbf{S}_R^2 \text{ et } t \geq 0
+\end{equation}
+
+Avec :
+$$\mathbf{c} ( \mathbf{x} ) = u_0 ( cos ( \theta) cos ( \alpha ) + sin( \theta) cos ( \lambda) sin( \alpha) ) \mathbf{e}_{\lambda} - u_0 sin( \lambda) sin( \alpha) \mathbf{e}_{\theta}. $$
+
+On reconnait la forme donnée par \eqref{vitesse_solide_v} et \eqref{vitesse_solide_u} lorsque $R \omega = u_0$ ainsi que $(\lambda_P, \theta_P) = \pi, \pi/2 - \alpha$. 
+
+Le gradient $\nabla_T h$ est invariant par rotation, on peut donc effectuer le changement de variable $\mathbf{x}' = P_{\alpha}^{-1} \mathbf{x}$ dans \eqref{eq:advection spherique 2}. $P_{\alpha}$ est la rotation autour de $(Oy)$ d'angle $\alpha$.
+
+On obtient alors :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{r cl}
+\dfrac{\partial h}{\partial t}( \mathbf{x}' ) + \mathbf{c} ( \mathbf{x}' ) \cdot \nabla_ T h( \mathbf{x}' ) & = & 0 \\
+h(\mathbf{x}',0) & = & h_0 ( \mathbf{x}' )
+\end{array}
+\right. \text{ pour tout } \mathbf{x}' \in \mathbf{S}_R^2 \text{ et } t \geq 0
+\end{equation}
+
+Avec $\mathbf{c} ( \mathbf{x}' ) = R \omega cos ( \theta' ) \mathbf{e}_{\lambda'}$ avec $(\lambda', \theta')$ donnés par \eqref{from classic to prime}.
+
+La solution de cette équation est donnée par \eqref{eq: advection solution 1} : $h( \mathbf{x}', t )= h_0(  R_{-t} \mathbf{x}') $. Appliquant \eqref{from prime to classic} (équivalent à $P_{\alpha}$), la solution de \eqref{eq:advection spherique 2} est :
+
+\begin{equation}
+\label{eq: advection solution 2}
+h( \mathbf{x}, t ) = h_0(  P_{\alpha} R_{-t} P_{\alpha}^{-1} \mathbf{x}')
+\end{equation}
+
 
 \subsection{Tests numériques}
 
-\section{Test de Nair et Lauritzen}
+Deux tests sont présentés dans ce travail concernant l'équation d'advection avec rotation solide :
+
+\begin{equation}
+\label{eq:advection spherique 3}
+\left\lbrace
+\begin{array}{r cl}
+\dfrac{\partial h}{\partial t} + \mathbf{c} ( \mathbf{x} ) \cdot \nabla_ T h & = & 0 \\
+h(\mathbf{x},0) & = & h_0 ( \mathbf{x} )
+\end{array}
+\right. \text{ pour tout } \mathbf{x} \in \mathbf{S}_R^2 \text{ et } t \geq 0
+\end{equation}
+
+Avec :
+$$\mathbf{c} ( \mathbf{x} ) = u_0 ( cos ( \theta) cos ( \alpha ) + sin( \theta) cos ( \lambda) sin( \alpha) ) \mathbf{e}_{\lambda} - u_0 sin( \lambda) sin( \alpha) \mathbf{e}_{\theta}. $$
+
+\subsubsection{Test du BUMP de Williamson}
+
+Le test 1 de l'article de David L. Williamson \textit{et al.} \cite{Williamson1992} concerne l'équation d'advection \eqref{eq:advection spherique 3} sur la sphère. La condition initiale est donnée par une fonction $\mathcal{C}^1$ constituée d'un bump localisé et nulle ailleur :
+
+\begin{equation}
+h_0(\lambda, \theta) = 
+\left\lbrace
+\begin{array}{ll}
+(h_{ref}/2) \left( 1+cos \frac{3 \pi r}{R} \right) & \text{ si } r<\frac{R}{3} \\
+0 & \text{ sinon.}
+\end{array}
+\right.
+\end{equation}
+
+avec $h_{ref}=1000$, $r$ est la distance entre $(\lambda, \theta)$ et le centre du bump. Initialement, le centre est en $(\lambda_C, \theta_C) = (3 \pi /2, 0)$.
+
+\begin{equation}
+r = R arccos \left[ sin ( \theta_C) sin( \theta) + cos( \theta_C) cos ( \theta) cos ( \lambda - \lambda_C ) \right]
+\end{equation}
+
+On prend aussi $u_0 = 2  \pi R / (12 \text{jours} )\approx 40 \text{m/sec}$.
+
+\subsubsection{Test de Nair et Lauritzen}
+
+En 2010, R. D. Nair et P. H. Lauritzen \cite{Nair2010} propose un test de rotation solide pour l'équation \eqref{eq:advection spherique 3} pour une solution non-régulière. Il déplace deux cylindres coupés autour de la sphère. Ce test est particulièrement difficile car la conservation de la solution aux irrégularités n'est pas naturelle pour un schéma en différences finies. La condition initiale $h_0$ est donnée par la fonction suivante :
+
+\begin{equation}
+h_0(\lambda, \theta) = 
+\left\lbrace
+\begin{array}{ll}
+c & \text{ si } r_i < \frac{R}{3} \text{ et } |\lambda - \lambda_i| \geq R/18 \text{ pour } i=1,2 \\
+c & \text{ si } r_1 < \frac{R}{3} \text{ et } |\lambda - \lambda_1| < R/18 \text{ et } \theta-\theta_1 < -5R/36 \\
+c & \text{ si } r_2 < \frac{R}{3} \text{ et } |\lambda - \lambda_2| < R/18 \text{ et } \theta-\theta_2 > -5R/36 \\
+b \text{ dans les autres cas }
+\end{array}
+\right.
+\end{equation}
+
+On choisit $c=1$ et $b=0.1$. $(\lambda_i, \theta_i)$ donnent les position initiales des cylindres. De plus, on a 
+
+\begin{equation}
+r_i = R arccos \left[ sin ( \theta_i) sin( \theta) + cos( \theta_i) cos ( \theta) cos ( \lambda - \lambda_i ) \right]
+\end{equation}
+
+et comme pour le test précédent $u_0 = 2  \pi R / (12 \text{jours} )$.
 
 \section{Test de Nair et Machenhauer}
 
