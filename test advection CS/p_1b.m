@@ -39,7 +39,7 @@ save_graph = 0;
 opt_ftr =10;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
-snapshot = 0;
+snapshot = 1;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 2
 %         1 : coupe.
 coupe = 0;
@@ -48,7 +48,7 @@ coupe = 0;
 %            recharger les données).
 sauvegarde = 0;
 %% *** Benchmarks data ****************************************************
- n=40;
+ n=31;
  nn=n+2;
  cfl=0.9;
  ndaymax=12;
@@ -94,7 +94,7 @@ tstart=cputime;
 mod_1b
 tmax=24*3600*ndaymax;
 ddt=cfl*radius*dxi/u0;
-itemax=floor(tmax/ddt);
+itemax=1;%floor(tmax/ddt);
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DEBUT BOUCLE EN TEMPS %
 % ------------------------------------------------------------------------
@@ -450,7 +450,7 @@ end
 
 if snapshot == 1
     figure(11)
-    plot_cs13(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
+    plot_cs7(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
     if save_graph==1
         print('-dpng', ['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef) '_nday_' num2str(ndaymax) '.png'])
         savefig(['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef)]);

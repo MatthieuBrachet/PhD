@@ -22,7 +22,7 @@ alfaspline=zeros(nn,1);
 funspline=zeros(nn,1);
 
 %%  PHASE 1: ASSEMBLAGE DES 6 RESEAUX FRONT/BOTTOM
-%% RESEAU 1 : ASSEMBLAGE DES DONNEES SUR LE RESEAU I-ALPHA
+%% RESEAU 1 : ASSEMBLAGE DES DONNEES SUR LE RESEAU I-XI
 
 for kk=1:3
     % Face I : 
@@ -54,7 +54,7 @@ for kk=1:3
     end
 
 
-    % CALCUL DES DERIVEES ALFA SUR LE RESEAU DE GRANDS CERCLES I-ALFA
+    % CALCUL DES DERIVEES XI SUR LE RESEAU DE GRANDS CERCLES I-XI
     for jline1=1:nn, 
      funa7=va_fI(:,jline1); 
      test=kxi*funa7;
@@ -64,7 +64,7 @@ for kk=1:3
 end
 
 
-%% RESEAU 2: ASSEMBLAGE DES DONNEES SUR LE RESEAU I-BETA
+%% RESEAU 2: ASSEMBLAGE DES DONNEES SUR LE RESEAU I-ETA
 
 for kk=1:3
     % Face I :
@@ -95,7 +95,7 @@ for kk=1:3
         vb_fI(1:nn,3*nn-3+j)=funaVI1(1:nn);
      end
 
-    % CALCUL DES DERIVEES BETA SUR LE RESEAU DE GRANDS CERCLES I-BETA
+    % CALCUL DES DERIVEES ETA SUR LE RESEAU DE GRANDS CERCLES I-ETA
     for iline1=1:nn,
         funb1=vb_fI(iline1,:);
         test=keta*(funb1');
@@ -104,7 +104,7 @@ for kk=1:3
     end
 end
 
-%% RESEAU 3: ASSEMBLAGE DES DONNEES SUR LE RESEAU II-ALPHA
+%% RESEAU 3: ASSEMBLAGE DES DONNEES SUR LE RESEAU II-XI
 
 for kk=1:3
     % Face II :
@@ -144,7 +144,7 @@ for kk=1:3
     end
 end
 
-%% RESEAU 4: ASSEMBLAGE DES DONNEES SUR LE RESEAU II-BETA
+%% RESEAU 4: ASSEMBLAGE DES DONNEES SUR LE RESEAU II-ETA
 
 for kk=1:3
     % Face II : 
@@ -175,7 +175,7 @@ for kk=1:3
         vb_fII(1:nn,3*nn-3+i)=funbVI1(1:nn);
     end
 
-    % CALCUL DES DERIVEES BETA SUR LE RESEAU DE GRANDS CERCLES II-BETA
+    % CALCUL DES DERIVEES ETA SUR LE RESEAU DE GRANDS CERCLES II-ETA
     for iline1=1:nn,
         funb2=vb_fII(iline1,:);
         test=keta*(funb2');
@@ -184,7 +184,7 @@ for kk=1:3
     end
 end
 
-%% RESEAU 5: ASSEMBLAGE DES DONNEES SUR LE RESEAU V-ALPHA
+%% RESEAU 5: ASSEMBLAGE DES DONNEES SUR LE RESEAU V-XI
 
 for kk=1:3
     % Face V
@@ -215,7 +215,7 @@ for kk=1:3
         va_fV(3*nn-3+j,1:nn)=funaIV1(1:nn);
     end 
 
-    % CALCUL DES DERIVEES ALPHA SUR LE RESEAU DE GRANDS CERCLES I-ALPHA
+    % CALCUL DES DERIVEES XI SUR LE RESEAU DE GRANDS CERCLES I-XI
     for jline1=1:nn,
         funa11=va_fV(:,jline1);
         test=kxi*funa11;
@@ -224,7 +224,7 @@ for kk=1:3
     end
 end
 
-%% RESEAU 6: ASSEMBLAGE DES DONNEES SUR LE RESEAU V-BETA
+%% RESEAU 6: ASSEMBLAGE DES DONNEES SUR LE RESEAU V-ETA
 
 for kk=1:3
     % Face V : 
@@ -255,7 +255,7 @@ for kk=1:3
         vb_fV(1:nn,3*nn-3+j)=funaI1(1:nn);
     end 
 
-    % CALCUL DES DERIVEES BETA SUR LE RESEAU DE GRANDS CERCLES V-BETA
+    % CALCUL DES DERIVEES ETA SUR LE RESEAU DE GRANDS CERCLES V-ETA
     for iline1=1:nn,
         funb5=vb_fV(iline1,:);
         test=keta*(funb5');
@@ -270,7 +270,7 @@ end
 
 
 
-%% ETAPE 2 - ASSEMBLAGE DES DERIVEES ALPHA/BETA SUR CHACUNE DES 6 FACES 
+%% ETAPE 2 - ASSEMBLAGE DES DERIVEES XI/ETA SUR CHACUNE DES 6 FACES 
 % DEDUITES DES DERIVEES HERMITIENNES SUR LES 6 RESEAUX DE GRANDS CERCLES.
 
 % FACE I
@@ -320,63 +320,47 @@ for i=1:nn,
 end
 
 
-%% ETAPE 3 - ASSEMBLAGE GRADIENTS EN FONCTION DES DERIVEES ALPHA/BETA
+%% ETAPE 3 - ASSEMBLAGE ROTATIONNEL EN FONCTION DES DERIVEES XI/ETA
 
-% 8.1 - FACE I: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA
-% FACE
-
+% 8.1 - FACE I: CALCUL DU ROT. EN FONCTION DES DERIVEES ALPHA ET BETA
 for i=1:nn,
     for j=1:nn,
         rot_fI(i,j,1:3)=cross(gxi_I(i,j,1:3),dg_xi_fI(i,j,1:3)) + cross(geta_I(i,j,1:3), dg_eta_fI(i,j,1:3));
-        % rot_fI(i,j,1:3)=pdt_vect(gxi_I(i,j,1:3),dg_xi1(i,j,1:3)) + pdt_vect(geta_I(i,j,1:3), dg_eta1(i,j,1:3));
     end
 end
 
-% 8.2  FACE II: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA FACE II
-
+% 8.2  FACE II: CALCUL DU ROT. EN FONCTION DES DERIVEES ALPHA ET BETA FACE II
 for i=1:nn,
     for j=1:nn,
         rot_fII(i,j,1:3)=cross(gxi_II(i,j,1:3),dg_xi_fII(i,j,1:3)) + cross(geta_II(i,j,1:3),dg_eta_fII(i,j,1:3));
-        % rot_fII(i,j,1:3)=pdt_vect(gxi_II(i,j,1:3),dg_xi2(i,j,1:3)) + pdt_vect(geta_II(i,j,1:3),dg_eta2(i,j,1:3));
     end
 end
 
-% 8.3 -  FACE III: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA FACE III
-
-% FACE III: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA FACE
+% 8.3 -  FACE III: CALCUL DU ROT. EN FONCTION DES DERIVEES ALPHA ET BETA FACE III
 for i=1:nn
     for j=1:nn
         rot_fIII(i,j,1:3)=cross(gxi_III(i,j,1:3),dg_xi_fIII(i,j,1:3)) + cross(geta_III(i,j,1:3), dg_eta_fIII(i,j,1:3));
-        % rot_fIII(i,j,1:3)=pdt_vect(gxi_III(i,j,1:3),dg_xi3(i,j,1:3)) + pdt_vect(geta_III(i,j,1:3), dg_eta3(i,j,1:3));
     end
 end
 
-% 8.4 - FACE IV: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA FACE IV
-
+% 8.4 - FACE IV: CALCUL DU ROT. EN FONCTION DES DERIVEES ALPHA ET BETA FACE IV
 for i=1:nn,
     for j=1:nn,
         rot_fIV(i,j,1:3)=cross(gxi_IV(i,j,1:3),dg_xi_fIV(i,j,1:3)) + cross(geta_IV(i,j,1:3),dg_eta_fIV(i,j,1:3));
-        % rot_fIV(i,j,1:3)=pdt_vect(gxi_IV(i,j,1:3),dg_xi4(i,j,1:3)) + pdt_vect(geta_IV(i,j,1:3),dg_eta4(i,j,1:3));
     end
 end
 
-% 8.5 - FACE V: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA
-
-% FACE V: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA FACE V
+% 8.5 - FACE V: CALCUL DU ROT. EN FONCTION DES DERIVEES ALPHA ET BETA
 for i=1:nn,
     for j=1:nn,
         rot_fV(i,j,1:3)=cross(gxi_V(i,j,1:3),dg_xi_fV(i,j,1:3)) + cross(geta_V(i,j,1:3),dg_eta_fV(i,j,1:3));
-        % rot_fV(i,j,1:3)=pdt_vect(gxi_V(i,j,1:3),dg_xi5(i,j,1:3)) + pdt_vect(geta_V(i,j,1:3),dg_eta5(i,j,1:3));
     end
 end
 
-% 8.6 - FACE VI : CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA 
-
-% FACE VI: CALCUL DU GRADIENT EN FONCTION DES DERIVEES ALPHA ET BETA FACE
+% 8.6 - FACE VI : CALCUL DU ROT. EN FONCTION DES DERIVEES ALPHA ET BETA 
 for i=1:nn,
     for j=1:nn,
         rot_fVI(i,j,1:3)=cross(gxi_VI(i,j,1:3),dg_xi_fVI(i,j,1:3)) + cross(geta_VI(i,j,1:3),dg_eta_fVI(i,j,1:3));
-        % rot_fVI(i,j,1:3)=pdt_vect(gxi_VI(i,j,1:3),dg_xi6(i,j,1:3)) + pdt_vect(geta_VI(i,j,1:3),dg_eta6(i,j,1:3));
     end
 end
 
@@ -387,17 +371,17 @@ end
 uwk_I=rot_fI(1:nn,1:nn,1);uwk_II=rot_fII(1:nn,1:nn,1);uwk_III=rot_fIII(1:nn,1:nn,1);
 uwk_IV=rot_fIV(1:nn,1:nn,1);uwk_V=rot_fV(1:nn,1:nn,1);uwk_VI=rot_fVI(1:nn,1:nn,1);
 [rot_fI(1:nn,1:nn,1),rot_fII(1:nn,1:nn,1),rot_fIII(1:nn,1:nn,1),rot_fIV(1:nn,1:nn,1),rot_fV(1:nn,1:nn,1),rot_fVI(1:nn,1:nn,1)]=...
-    ds72(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
+    ds74(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
 % COMPONENT 2
 uwk_I=rot_fI(1:nn,1:nn,2);uwk_II=rot_fII(1:nn,1:nn,2);uwk_III=rot_fIII(1:nn,1:nn,2);
 uwk_IV=rot_fIV(1:nn,1:nn,2);uwk_V=rot_fV(1:nn,1:nn,2);uwk_VI=rot_fVI(1:nn,1:nn,2);
 [rot_fI(1:nn,1:nn,2),rot_fII(1:nn,1:nn,2),rot_fIII(1:nn,1:nn,2),rot_fIV(1:nn,1:nn,2),rot_fV(1:nn,1:nn,2),rot_fVI(1:nn,1:nn,2)]=...
-    ds72(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
+    ds74(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
 % COMPONENT 3
 uwk_I=rot_fI(1:nn,1:nn,3);uwk_II=rot_fII(1:nn,1:nn,3);uwk_III=rot_fIII(1:nn,1:nn,3);
 uwk_IV=rot_fIV(1:nn,1:nn,3);uwk_V=rot_fV(1:nn,1:nn,3);uwk_VI=rot_fVI(1:nn,1:nn,3);
 [rot_fI(1:nn,1:nn,3),rot_fII(1:nn,1:nn,3),rot_fIII(1:nn,1:nn,3),rot_fIV(1:nn,1:nn,3),rot_fV(1:nn,1:nn,3),rot_fVI(1:nn,1:nn,3)]=...
-    ds72(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
+    ds74(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
 
 
 end

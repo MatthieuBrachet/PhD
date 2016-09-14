@@ -1,5 +1,5 @@
 clc; clear all; close all;
-
+% rot(grad(u))=0?
 %% test rotationnel
 
 clc; clear all; close all
@@ -9,7 +9,7 @@ global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
 global opt_ftr test
 global teta0 teta1
 
-n=100;
+n=40;
 test = 0;
 opt_ftr=0;
 teta0=-3*pi/16;
@@ -24,20 +24,19 @@ t=0;
 [ ht_fIV,   vt_fIV] = sol_exacte(x_fIV,  y_fIV,  z_fIV,  t);
 [ ht_fV,    vt_fV] = sol_exacte(x_fV,   y_fV,   z_fV,   t);
 [ ht_fVI,   vt_fVI] = sol_exacte(x_fVI,  y_fVI,  z_fVI,  t);
+    
+% GRADIENT
+[grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]= gr72( ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI  , n , nn);
 
 [rot_fI,rot_fII,rot_fIII,rot_fIV,rot_fV,rot_fVI]=...
-    rot74(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV,vt_fVI ,n,nn);
+    rot75(grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI,n,nn);
 
-[div_fI,div_fII,div_fIII,div_fIV,div_fV,div_fVI]=...
-    div72(rot_fI,rot_fII,rot_fIII,rot_fIV,rot_fV,rot_fVI,n,nn);
-
-
-err_I=abs(div_fI);
-err_II=abs(div_fII);
-err_III=abs(div_fIII);
-err_IV=abs(div_fIV);
-err_V=abs(div_fV);
-err_VI=abs(div_fVI);
+err_I=abs(rot_fI);
+err_II=abs(rot_fII);
+err_III=abs(rot_fIII);
+err_IV=abs(rot_fIV);
+err_V=abs(rot_fV);
+err_VI=abs(rot_fVI);
 
 e_I=max(max(max(err_I)))
 e_II=max(max(max(err_II)))
@@ -51,7 +50,7 @@ err=max([e_I e_II e_III e_IV e_V e_VI])
 
 for p=1:3
     figure(p)
-    plot_cs11(n,nn,div_fI,div_fII,div_fIII,div_fIV,div_fV,div_fVI)
+    plot_cs11(n,nn,err_I(:,:,p),err_II(:,:,p),err_III(:,:,p),err_IV(:,:,p),err_V(:,:,p),err_VI(:,:,p))
     title('error')
     colorbar
 end

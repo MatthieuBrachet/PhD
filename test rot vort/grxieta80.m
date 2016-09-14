@@ -1,5 +1,5 @@
 function [grxi_I,grxi_II,grxi_III,grxi_IV,grxi_V,grxi_VI...
-    greta_I,greta_II,greta_III,greta_IV,greta_V,greta_VI]=...
+    ,greta_I,greta_II,greta_III,greta_IV,greta_V,greta_VI]=...
     grxieta80(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
 global mm na nb;
 global radius;
@@ -9,16 +9,7 @@ global alfacr betacr;
 global alfa1;
 global alfag betag;
 global p k;
-global x_fI y_fI z_fI;
-global x_fII y_fII z_fII;
-global x_fIII y_fIII z_fIII;
-global x_fIV y_fIV z_fIV;
-global x_fV y_fV z_fV;
-global x_fVI y_fVI z_fVI;
-global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
-global geta_I geta_II geta_III geta_IV geta_V geta_VI;
 global ite aaa bbb itestop;
-global ftr;
 % COMPUTATION OF d/dxi et d/deta 
 % OF THE3  CARTESIAN COMPONENTS OF THE GIVEN SCALAR FUNCTION 
 % FUNFI, FUNFII, FUNFIII, FUNFIV, FUNFV, FUNFI, FUNFVI

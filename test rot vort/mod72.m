@@ -17,6 +17,7 @@ global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
 global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
+global gr_I gr_II gr_III gr_IV gr_V gr_VI;
 global opt_ftr ftr;
 global omega gp u0 h0
 
@@ -161,9 +162,11 @@ p_div=sparse(p_div);
 
 %p_div=p;
 %k_div=kxi;
-
-p=p_div;
-k=k_div;
+% 
+% p=p_div;
+% k=k_div;
+% kxi=k_div;
+% keta=k_div;
 
 
 %% ----------------------------------------------------------------
@@ -400,6 +403,42 @@ for i=1:nn,
       geta_VI(i,j,1:3)=geta_VI(i,j,1:3)/xwk;     
     end
 end
+
+for i=1:nn
+    for j=1:nn
+        gr_I(i,j,1)=x_fI(i,j)/radius;
+        gr_I(i,j,2)=y_fI(i,j)/radius;
+        gr_I(i,j,3)=z_fI(i,j)/radius;
+        %
+        gr_II(i,j,1)=x_fII(i,j)/radius;
+        gr_II(i,j,2)=y_fII(i,j)/radius;
+        gr_II(i,j,3)=z_fII(i,j)/radius;
+        %
+        gr_III(i,j,1)=x_fIII(i,j)/radius;
+        gr_III(i,j,2)=y_fIII(i,j)/radius;
+        gr_III(i,j,3)=z_fIII(i,j)/radius;
+        %
+        gr_IV(i,j,1)=x_fIV(i,j)/radius;
+        gr_IV(i,j,2)=y_fIV(i,j)/radius;
+        gr_IV(i,j,3)=z_fIV(i,j)/radius;
+        %
+        gr_V(i,j,1)=x_fV(i,j)/radius;
+        gr_V(i,j,2)=y_fV(i,j)/radius;
+        gr_V(i,j,3)=z_fV(i,j)/radius;
+        %
+        gr_VI(i,j,1)=x_fVI(i,j)/radius;
+        gr_VI(i,j,2)=y_fVI(i,j)/radius;
+        gr_VI(i,j,3)=z_fVI(i,j)/radius;
+    end
+end
+
+
+
+
+
+
+
+
 % p1=zeros(n); % 
 % p1=sparse(p1);
 % k1=zeros(n);
