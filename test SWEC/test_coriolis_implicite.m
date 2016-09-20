@@ -15,7 +15,7 @@ opt_ftr=10;
 scheme='compact4';
 snapshot='no';
 
-n=100;
+n=40;
 teta0=pi/7;
 teta1=pi/2-teta0;
 mod74

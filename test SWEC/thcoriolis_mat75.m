@@ -11,7 +11,7 @@ for i=1:n1
         kz=z(i,j)./radius;
         COR=[0 -kz ky;kz 0 -kx; -ky kx 0 ];
         cc(i,j,1:3)=COR*vect';
-        f(i,j,1:3)=u(i,j,1:3)+alpha.*2.*omega.*cos(teta(i,j)).*cc(i,j,1:3);
+        f(i,j,1:3)=u(i,j,1:3)+alpha.*2.*omega.*sin(teta(i,j)).*cc(i,j,1:3);
     end
 end
 

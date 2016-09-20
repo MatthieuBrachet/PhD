@@ -1,6 +1,6 @@
 function[u_fI, u_fII, u_fIII, u_fIV, u_fV, u_fVI]=eq_moment76(ht_fI,...
     ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI, ddt)
-
+% solve Shallow Water equation (moment equation) with implicit Euler.
 global nn n
 global gp
 global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII

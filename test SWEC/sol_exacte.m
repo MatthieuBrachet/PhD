@@ -66,7 +66,7 @@ elseif test == 1
     vt(:,:,3)=uu.*elambda_z + vv.*eteta_z;
 
     %% integrale
-    n=1000;
+    n=4000;
     a=0;
     b=teta;
     h=(b-a)/n;

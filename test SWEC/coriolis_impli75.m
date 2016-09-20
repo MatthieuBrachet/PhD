@@ -13,7 +13,7 @@ for i=1:n1
         ky=y(i,j)./radius;
         kz=z(i,j)./radius;
         COR=[0 -kz ky;kz 0 -kx; -ky kx 0 ];
-        A=speye(3,3)+alpha*2*omega*cos(teta(i,j))*COR;
+        A=speye(3,3)+alpha*2*omega*sin(teta(i,j))*COR;
         u(i,j,1:3)=A\b';
     end
 end

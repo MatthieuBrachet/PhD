@@ -1,16 +1,10 @@
 %% ************************************************************************
-% author            : Matthieu Brachet & Jean-Pierre Croisille
-% birth date        : 13-sept 2016
-% last modification : 14-sept 2016
-%% ************************************************************************
-% Resolution de SWEC sur la Cubed-Sphere with Euler Semi-Implicit (Coriolis
-% term is implicit).
+% Resolution de SWEC sur la Cubed-Sphere.
 %
 % *** options :
-% test = 0 : test de J. Galewsky stationnaire;
-%      = 1 : test de J. Galewsky avec perturbation.
-% scheme : spatial scheme used. 
-% video : 'yes' ou 'no', do a video or not.
+% test = 0 : test 2 de Williamson;
+% scheme : numerical spatial scheme used. 
+% video : 'yes' ou 'no', faire une video ou non.
 % sauvegarde = 0 (ne rien sauvegarder), 1 (sauvegarder toutes les valeurs
 %          finales).
 % opt_ftr : filtre explicite de S. Redonnet (=2, 4, 6, 8, 10, ordre du
@@ -20,26 +14,21 @@
 clc; clear all; close all;
 format short
 
-
 global n nn dxi
 global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII
 global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
 global opt_ftr test scheme
 global gp h0 u0 radius omega
-global teta0 teta1
+global alpha
 
-
-
-test=1;
+test=0;
 video = 'no';
 sauvegarde = 0;
-opt_ftr=4;
+opt_ftr=10;
 scheme='compact4';
 snapshot='no';
 
-n=63;
-teta0=pi/7;
-teta1=pi/2-teta0;
+n=31;
 mod74
 
 ccor=radius*omega;
@@ -47,15 +36,25 @@ cgrav=sqrt(h0*gp);
 cvit=u0;
 c=max([cgrav,ccor,cvit]);
 
-cfl=0.5;
+cfl=0.9;
 ddt=radius*dxi*cfl/c;
-ndaymax=5;
+ndaymax=12;
 Tmax=ndaymax*3600*24;
-itermax=5;
+itermax=100;
 
 comment='Start Galewsky benchmark.';
 
 tstart=cputime;
+
+%% ***  donnée de test ****************************************************
+
+if test == 0
+    alpha=0.05;
+    u0=2*pi*radius/(12*24*60*60);
+end
+
+
+
 %% *** initialisation des données *****************************************
 t=0;
 [ ht_fI,    vt_fI]   = sol_exacte(x_fI,   y_fI,   z_fI,   t);
@@ -66,20 +65,20 @@ t=0;
 [ ht_fVI,   vt_fVI]  = sol_exacte(x_fVI,  y_fVI,  z_fVI,  t);
 
 if strcmp(snapshot,'yes')==1
-    disp('please wait... ')
+   disp('Please wait')
     [vort_I, vort_II, vort_III, vort_IV, vort_V, vort_VI]=vort74(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI, n, nn);
 
     figure(1)
-    plot_cs13(n,nn, vort_I, vort_II, vort_III, vort_IV, vort_V, vort_VI)
+    plot_cs7(n,nn, vort_I, vort_II, vort_III, vort_IV, vort_V, vort_VI)
+
     pause
 end
 
 %% *** quantités a conserver **********************************************
 [~,~,~,~,~,~,intref]=nrm74(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn,'int');
-[~,~,~,~,~,~,nrmref]=nrm74(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn,'infty');
 
 iter=0; FTR=0;
-time(1)=t; erri(1)=0; err_int(1)=1;
+time(1)=t; erri(1)=0;
 %% *** video option *******************************************************
 if strcmp(video,'yes')==1
     nFrames = min(itermax,floor(Tmax/ddt));
@@ -88,10 +87,10 @@ if strcmp(video,'yes')==1
 end
 
 %% *** iterations *********************************************************
-while t<Tmax & iter<itermax & err_int(end)<10^3
+while t<Tmax & iter<itermax
     iter=iter+1;
     clc; 
-    disp([iter min(itermax,floor(Tmax/ddt));err_int(end) erri(end)]);
+    disp([iter min(itermax,floor(Tmax/ddt)) erri(end)]);
     %% Filtrage
     e=1;
     iterf=0;
@@ -122,7 +121,7 @@ while t<Tmax & iter<itermax & err_int(end)<10^3
     end
     FTR=max(iterf,FTR);
 
-    %% EE
+    %% K1
     hh_fI   = ht_fI;
     hh_fII  = ht_fII;
     hh_fIII = ht_fIII;
@@ -137,8 +136,91 @@ while t<Tmax & iter<itermax & err_int(end)<10^3
     vv_fV   = vt_fV;
     vv_fVI  = vt_fVI;
     
-    [vtnew_fI, vtnew_fII, vtnew_fIII, vtnew_fIV, vtnew_fV, vtnew_fVI]=eq_moment77(hh_fI,hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI, ddt);
-    [htnew_fI, htnew_fII, htnew_fIII, htnew_fIV, htnew_fV, htnew_fVI]=eq_cons76(hh_fI,hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI, ddt);
+    [K1v_fI, K1v_fII, K1v_fIII, K1v_fIV, K1v_fV, K1v_fVI]=eq_moment74(hh_fI,...
+                 hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);
+            
+    [K1h_fI, K1h_fII, K1h_fIII, K1h_fIV, K1h_fV, K1h_fVI]=eq_cons74(hh_fI,...
+                hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);
+            
+    %% K2
+    hh_fI   = ht_fI   + 0.5*ddt*K1h_fI;
+    hh_fII  = ht_fII  + 0.5*ddt*K1h_fII;
+    hh_fIII = ht_fIII + 0.5*ddt*K1h_fIII;
+    hh_fIV  = ht_fIV  + 0.5*ddt*K1h_fIV;
+    hh_fV   = ht_fV   + 0.5*ddt*K1h_fV;
+    hh_fVI  = ht_fVI  + 0.5*ddt*K1h_fVI;
+    
+    vv_fI   = vt_fI   + 0.5*ddt*K1v_fI;
+    vv_fII  = vt_fII  + 0.5*ddt*K1v_fII;
+    vv_fIII = vt_fIII + 0.5*ddt*K1v_fIII;
+    vv_fIV  = vt_fIV  + 0.5*ddt*K1v_fIV;
+    vv_fV   = vt_fV   + 0.5*ddt*K1v_fV;
+    vv_fVI  = vt_fVI  + 0.5*ddt*K1v_fVI;
+    
+    [K2v_fI, K2v_fII, K2v_fIII, K2v_fIV, K2v_fV, K2v_fVI]=eq_moment74(hh_fI,...
+                hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);
+            
+    [K2h_fI, K2h_fII, K2h_fIII, K2h_fIV, K2h_fV, K2h_fVI]=eq_cons74(hh_fI,...
+                 hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);
+     
+    %% K3
+    hh_fI   = ht_fI   + 0.5*ddt*K2h_fI;
+    hh_fII  = ht_fII  + 0.5*ddt*K2h_fII;
+    hh_fIII = ht_fIII + 0.5*ddt*K2h_fIII;
+    hh_fIV  = ht_fIV  + 0.5*ddt*K2h_fIV;
+    hh_fV   = ht_fV   + 0.5*ddt*K2h_fV;
+    hh_fVI  = ht_fVI  + 0.5*ddt*K2h_fVI;
+    
+    vv_fI   = vt_fI   + 0.5*ddt*K2v_fI;
+    vv_fII  = vt_fII  + 0.5*ddt*K2v_fII;
+    vv_fIII = vt_fIII + 0.5*ddt*K2v_fIII;
+    vv_fIV  = vt_fIV  + 0.5*ddt*K2v_fIV;
+    vv_fV   = vt_fV   + 0.5*ddt*K2v_fV;
+    vv_fVI  = vt_fVI  + 0.5*ddt*K2v_fVI;
+    
+    [K3v_fI, K3v_fII, K3v_fIII, K3v_fIV, K3v_fV, K3v_fVI]=eq_moment74(hh_fI,...
+                 hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);
+            
+    [K3h_fI, K3h_fII, K3h_fIII, K3h_fIV, K3h_fV, K3h_fVI]=eq_cons74(hh_fI,...
+                hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);
+            
+     %% K4
+    hh_fI   = ht_fI   + ddt*K3h_fI;
+    hh_fII  = ht_fII  + ddt*K3h_fII;
+    hh_fIII = ht_fIII + ddt*K3h_fIII;
+    hh_fIV  = ht_fIV  + ddt*K3h_fIV;
+    hh_fV   = ht_fV   + ddt*K3h_fV;
+    hh_fVI  = ht_fVI  + ddt*K3h_fVI;
+    
+    vv_fI   = vt_fI   + ddt*K3v_fI;
+    vv_fII  = vt_fII  + ddt*K3v_fII;
+    vv_fIII = vt_fIII + ddt*K3v_fIII;
+    vv_fIV  = vt_fIV  + ddt*K3v_fIV;
+    vv_fV   = vt_fV   + ddt*K3v_fV;
+    vv_fVI  = vt_fVI  + ddt*K3v_fVI;
+    
+    [K4v_fI, K4v_fII, K4v_fIII, K4v_fIV, K4v_fV, K4v_fVI]=eq_moment74(hh_fI,...
+                 hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);
+            
+    [K4h_fI, K4h_fII, K4h_fIII, K4h_fIV, K4h_fV, K4h_fVI]=eq_cons74(hh_fI,...
+                 hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);       
+            
+            
+    %% Assemblage final
+
+    htnew_fI    = ht_fI   + ddt/6 * (K1h_fI   + 2*K2h_fI   + 2*K3h_fI   + K4h_fI);
+    htnew_fII   = ht_fII  + ddt/6 * (K1h_fII  + 2*K2h_fII  + 2*K3h_fII  + K4h_fII);
+    htnew_fIII  = ht_fIII + ddt/6 * (K1h_fIII + 2*K2h_fIII + 2*K3h_fIII + K4h_fIII);
+    htnew_fIV   = ht_fIV  + ddt/6 * (K1h_fIV  + 2*K2h_fIV  + 2*K3h_fIV  + K4h_fIV);
+    htnew_fV    = ht_fV   + ddt/6 * (K1h_fV   + 2*K2h_fV   + 2*K3h_fV   + K4h_fV);
+    htnew_fVI   = ht_fVI  + ddt/6 * (K1h_fVI  + 2*K2h_fVI  + 2*K3h_fVI  + K4h_fVI);
+
+    vtnew_fI    = vt_fI   + ddt/6 * (K1v_fI   + 2*K2v_fI   + 2*K3v_fI   + K4v_fI);
+    vtnew_fII   = vt_fII  + ddt/6 * (K1v_fII  + 2*K2v_fII  + 2*K3v_fII  + K4v_fII);
+    vtnew_fIII  = vt_fIII + ddt/6 * (K1v_fIII + 2*K2v_fIII + 2*K3v_fIII + K4v_fIII);
+    vtnew_fIV   = vt_fIV  + ddt/6 * (K1v_fIV  + 2*K2v_fIV  + 2*K3v_fIV  + K4v_fIV);
+    vtnew_fV    = vt_fV   + ddt/6 * (K1v_fV   + 2*K2v_fV   + 2*K3v_fV   + K4v_fV);
+    vtnew_fVI   = vt_fVI  + ddt/6 * (K1v_fVI  + 2*K2v_fVI  + 2*K3v_fVI  + K4v_fVI);
 
 
     %% calcul de l'erreur sur h
@@ -168,7 +250,20 @@ while t<Tmax & iter<itermax & err_int(end)<10^3
     str='infty';
         [~,~,~,~,~,~,nrmger]=...
       nrm74(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
+    [~,~,~,~,~,~,nrmref]=nrm74(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
     erri(iter)=nrmger./nrmref;
+    
+    str='2';
+        [~,~,~,~,~,~,nrmger]=...
+      nrm74(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
+    [~,~,~,~,~,~,nrmref]=nrm74(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
+    err2(iter)=nrmger./nrmref;
+    
+    str='1';
+        [~,~,~,~,~,~,nrmger]=...
+      nrm74(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
+    [~,~,~,~,~,~,nrmref]=nrm74(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
+    err1(iter)=nrmger./nrmref;
     
     %% stabilisation
     stab_fI=htnew_fI-ht_fI;
@@ -208,7 +303,8 @@ while t<Tmax & iter<itermax & err_int(end)<10^3
     %% film
     if strcmp(video,'yes')==1
         [vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=...
-            vort77(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
+            vort74(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
+        
         
         figure(100)
         plot_cs7(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
@@ -222,10 +318,10 @@ tend=cputime-tstart;
 
 ref=floor(10000*now);
 if strcmp(video,'yes') == 1
-    mkdir(['./EImp_video-' date ])
-    movie2avi(mov, ['./EImp_video-' date '/ref_' num2str(ref) '.avi'], 'compression', 'None');
+    mkdir(['./RK4_video-' date ])
+    movie2avi(mov, ['./RK4_video-' date '/ref_' num2str(ref) '.avi'], 'compression', 'None');
     
-    fid = fopen('AA_VIDEO_SAVE_EImp.txt','a');
+    fid = fopen('AA_VIDEO_SAVE_RK4.txt','a');
     fprintf(fid,'%s\n',['date : ', date]);
     fprintf(fid,'%s\n',['ref. : ', num2str(ref)]);
     fprintf(fid,'%s\n','***********************************');
@@ -238,7 +334,7 @@ if strcmp(video,'yes') == 1
     fprintf(fid,'%s\n',['iterfmax          : ', num2str(iterfmax)] );
     fprintf(fid,'%s\n','---------- physical data ----------');
     fprintf(fid,'%s\n',['gravity g              : ', num2str(gp)] );
-    fprintf(fid,'%s\n',['caracteristic velocity : ', num2str(u0)] );
+    fprintf(fid,'%s\n',['caracteristiv velocity : ', num2str(u0)] );
     fprintf(fid,'%s\n',['coriolis parameter     : ', num2str(omega)] );
     fprintf(fid,'%s\n','------------ comment --------------');
     fprintf(fid,'%s\n',[comment] );
@@ -249,7 +345,7 @@ if strcmp(video,'yes') == 1
 end
 
 if sauvegarde == 1
-    fid = fopen('AA_RESULTS_SAVE_EImp.txt','a');
+    fid = fopen('AA_RESULTS_SAVE_RK4.txt','a');
     fprintf(fid,'%s\n',['date : ', date]);
     fprintf(fid,'%s\n',['ref. : ', num2str(ref)]);
     fprintf(fid,'%s\n','***********************************');
@@ -262,7 +358,7 @@ if sauvegarde == 1
     fprintf(fid,'%s\n',['iterfmax          : ', num2str(iterfmax)] );
     fprintf(fid,'%s\n','---------- physical data ----------');
     fprintf(fid,'%s\n',['gravity g              : ', num2str(gp)] );
-    fprintf(fid,'%s\n',['caracteristic velocity : ', num2str(u0)] );
+    fprintf(fid,'%s\n',['caracteristiv velocity : ', num2str(u0)] );
     fprintf(fid,'%s\n',['coriolis parameter     : ', num2str(omega)] );
     fprintf(fid,'%s\n','------------ comment --------------');
     fprintf(fid,'%s\n',[comment] );
@@ -276,11 +372,11 @@ figure(1)
 plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
 title(['calculated solution at time = ', num2str(time(end))])
 if sauvegarde==1
-    mkdir(['./EImp_results-' date ]);
-    print('-dpng', ['./EImp_results-' date '/ref_' num2str(ref) '_courbe.png'])
-    savefig(['./EImp_results-' date '/ref_' num2str(ref) '_courbe']);
+    mkdir(['./RK4_results-' date ]);
+    print('-dpng', ['./RK4_results-' date '/ref_' num2str(ref) '_courbe.png'])
+    savefig(['./RK4_results-' date '/ref_' num2str(ref) '_courbe']);
     
-    save(['./EImp_results-' date '/ref_' num2str(ref) '_erreurdata_test_' num2str(test) '.mat']);
+    save(['./RK4_results-' date '/ref_' num2str(ref) '_erreurdata_test_' num2str(test) '.mat']);
 end 
 
 figure(2)
@@ -294,19 +390,19 @@ if strcmp(snapshot,'yes')==1
     figure(3)
     plot_cs13(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
     title(['vorticity at time : ', num2str(time(end))])
-    print('-dpng', ['./EImp_results-' date '/ref_' num2str(ref) '_snapshot.png'])
-    savefig(['./EImp_results-' date '/ref_' num2str(ref) '_snapshot']);
+    print('-dpng', ['./RK4_results-' date '/ref_' num2str(ref) '_snapshot.png'])
+    savefig(['./RK4_results-' date '/ref_' num2str(ref) '_snapshot']);
 end
 
 figure(4)
-semilogy(time, erri)
+semilogy(time, erri,time, err2, time, err1)
 xlabel('time')
 ylabel('relative error')
-legend('infty norm')
+legend('infty norm','norm 2','norm 1')
 grid on
 if sauvegarde==1
-    print('-dpng', ['./EImp_results-' date '/ref_' num2str(ref) '_erreur.png'])
-    savefig(['./EImp_results-' date '/ref_' num2str(ref) '_erreur']);
+    print('-dpng', ['./RK4_results-' date '/ref_' num2str(ref) '_erreur.png'])
+    savefig(['./RK4_results-' date '/ref_' num2str(ref) '_erreur']);
 end 
 
 figure(5)
@@ -316,10 +412,9 @@ xlabel('time')
 title('relative quantity')
 grid on
 if sauvegarde==1
-    mkdir(['./EImp_results-' date ]);
-    print('-dpng', ['./EImp_results-' date '/ref_' num2str(ref) '_conservation.png'])
-    savefig(['./EImp_results-' date '/ref_' num2str(ref) '_conservation']);
+    mkdir(['./RK4_results-' date ]);
+    print('-dpng', ['./RK4_results-' date '/ref_' num2str(ref) '_conservation.png'])
+    savefig(['./RK4_results-' date '/ref_' num2str(ref) '_conservation']);
 end 
 
 disp(['temps de calcul (sans les graphiques) : ', num2str(tend)])
-pause
