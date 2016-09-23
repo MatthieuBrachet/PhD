@@ -1,0 +1,139 @@
+date : 20-Sep-2016
+ref. : 7365938763
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+ordre du filtre   : 0
+iterfmax          : -1
+---------- physical data ----------
+gravity g              : 9.8062
+caracteristiv velocity : 38.6107
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+Start Williamson benchmark 2.
+***********************************
+  
+  
+date : 21-Sep-2016
+ref. : 7365946115
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+ordre du filtre   : 10
+iterfmax          : 1
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+Start Williamson benchmark 5.
+***********************************
+  
+  
+date : 22-Sep-2016
+ref. : 7365950284
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 32
+time step         : 587.4918
+cfl               : 0.9
+ordre du filtre   : 0
+iterfmax          : -1
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+Start Williamson benchmark 5.
+***********************************
+  
+  
+date : 22-Sep-2016
+ref. : 7365956866
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+ordre du filtre   : 0
+iterfmax          : -1
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+Start Williamson benchmark 5.
+***********************************
+  
+  
+date : 22-Sep-2016
+ref. : 7365957148
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+ordre du filtre   : 10
+iterfmax          : 1
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 23-Sep-2016
+ref. : 7365958078
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 471.2174
+cfl               : 0.7
+ordre du filtre   : 10
+iterfmax          : 1
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 23-Sep-2016
+ref. : 7365964636
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 15
+time step         : 942.4347
+cfl               : 0.7
+ordre du filtre   : redonnet10
+iterfmax          : 1
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  

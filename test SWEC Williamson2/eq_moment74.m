@@ -8,7 +8,7 @@ global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
 global gr_I gr_II gr_III gr_IV gr_V gr_VI
 
 
-%% terme en gradient
+%% gradient term
 % face I
 norm2_I=vt_fI(:,:,1).^2+vt_fI(:,:,2).^2+vt_fI(:,:,3).^2;
 fun_I=0.5*norm2_I+gp*ht_fI;
@@ -37,7 +37,7 @@ fun_VI=0.5*norm2_VI+gp*ht_fVI;
     gr74(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn);
 
 
-%% terme en pdt vectoriel
+%% vectorial product
 
 % VORTICITY
 [vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=...

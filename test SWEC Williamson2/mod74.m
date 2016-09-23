@@ -19,13 +19,13 @@ global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
 global gr_I gr_II gr_III gr_IV gr_V gr_VI;
 global opt_ftr ftr scheme;
-global omega gp h0
+global omega gp
 
 %% physical data
 radius=6.37122d+06;
 omega=7.292d-05;
 gp=9.80616;
-h0=2.94*10^4/gp;
+
 
 %% 
 nn=n+2;

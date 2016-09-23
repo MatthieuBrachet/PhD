@@ -2,18 +2,36 @@
 
 \chapter{\'Equation d'advection sphérique}
 
-\section{Test de rotation solide}
+Nous présentons dans cette parties les tests et les résultats numériques associés pour l'équation d'advection :
+\begin{equation}
+\label{eq:advection spherique}
+\left\lbrace
+\begin{array}{r cl}
+\dfrac{\partial h}{\partial t} + \mathbf{c} ( \mathbf{x} ) \cdot \nabla_ T h & = & 0 \\
+h(\mathbf{x},0) & = & h_0 ( \mathbf{x} )
+\end{array}
+\right. \text{ pour tout } \mathbf{x} \in \mathbf{S}_a^2 \text{ et } t \geq 0
+\end{equation}
 
-\subsection{Préliminaires}
+La solution exacte est donnée pour tout ces test, on peut donc mesurer l'erreur au temps $t^n$ avec :
 
-Soit $\mathbf{x} = (x,y,z)^T \in \mathbb{S}_R^2$ un point de la sphère de centre $O$ et de rayon $R$. Il existe alors $\lambda$ et $\theta$ , respectivement longitude et latitude, dans $] 0, 2 \pi ] \times ] - \pi /2, \pi/2 [ $ tels que :
+\begin{equation}
+\label{erreur relative}
+e(t^n) = \dfrac{\| h^n - h(t^n) \|_p}{\| h(t^n) \|_p}
+\end{equation}
+
+où $h^n$ est la solution numérique au temps $t^n$ et $h(t^n)$ la solution exacte au même instant. $p \in {1, 2, \infty }$ permet de choisir la norme de notre choix.
+
+\section{Préliminaires}
+
+Soit $\mathbf{x} = (x,y,z)^T \in \mathbb{S}_a^2$ un point de la sphère de centre $O$ et de rayon $a$. Il existe alors $\lambda$ et $\theta$ , respectivement longitude et latitude, dans $] 0, 2 \pi ] \times ] - \pi /2, \pi/2 [ $ tels que :
 
 \begin{equation}
 \left\lbrace 
 \begin{array}{rcl}
-x & = & R \cos \theta \cos \lambda \\
-y & = & R \cos \theta \sin \lambda \\
-z & = & R \sin \theta
+x & = & a \cos \theta \cos \lambda \\
+y & = & a \cos \theta \sin \lambda \\
+z & = & a \sin \theta
 \end{array}
 \right.
 \end{equation}
@@ -29,8 +47,8 @@ où $\mathbf{e}_{\lambda}$ et $\mathbf{e}_{\theta}$ sont donnés dans la remarqu
 \begin{equation}
 \left\lbrace 
 \begin{array}{rcl}
-u & = & R cos ( \theta ) \dfrac{d \lambda}{dt} \\
-v & = & R \dfrac{d \theta}{dt}
+u & = & a cos ( \theta ) \dfrac{d \lambda}{dt} \\
+v & = & a \dfrac{d \theta}{dt}
 \end{array}
 \right.
 \end{equation}.
@@ -46,7 +64,7 @@ Lorsque $\mathbf{x}$ est transporté parallèlement à l'équateur, à vitesse a
 \right.
 \end{equation}.
 
-Supposont à présent que $P=( \lambda_P, \theta_P)$ est un point de $\mathbb{S}_R^2$. Un nouveau système de coordonnées est donné en placant le nouveau pôle Nord en $P$ au lieu du pôle Nord habituel. Dans ce système, les points sont positionnés en $(\lambda', \theta')$ (en longitude-latitude) et en $(\lambda, \theta)$ dans le système de coordonnés classiques (en longitude-latitude aussi).
+Supposont à présent que $P=( \lambda_P, \theta_P)$ est un point de $\mathbb{S}_a^2$. Un nouveau système de coordonnées est donné en placant le nouveau pôle Nord en $P$ au lieu du pôle Nord habituel. Dans ce système, les points sont positionnés en $(\lambda', \theta')$ (en longitude-latitude) et en $(\lambda, \theta)$ dans le système de coordonnés classiques (en longitude-latitude aussi).
 
 Pour des raisons pratiques, nous avons besoin des relations permettant de passer de $( \lambda', \theta')$ à $(\lambda, \theta)$ et inversement.
 
@@ -143,19 +161,21 @@ d'où par identification :
 
 \begin{equation}
 \label{vitesse_solide_v}
-v = R \omega cos ( \theta_P ) sin( \lambda - \lambda_P )
+v = a \omega cos ( \theta_P ) sin( \lambda - \lambda_P )
 \end{equation}
 
 De la même manière avec \ref{coord_rot}.b), on a :
 
 \begin{equation}
 \label{vitesse_solide_u}
-u = R  \omega \left( cos ( \theta ) sin( \theta_P) - sin( \theta ) cos( \theta_P) cos( \lambda - \lambda_P) \right)
+u = a  \omega \left( cos ( \theta ) sin( \theta_P) - sin( \theta ) cos( \theta_P) cos( \lambda - \lambda_P) \right)
 \end{equation}
 
-\subsection{Résolution exacte}
+\section{Test de rotation solide}
 
-\subsubsection{Cas 1 : transport parallère à l'équateur}
+L'idée dans cette partie est de présenter un test pour l'équation d'advection \eqref{eq:advection spherique} transportant la condition initiale le long d'un grand cercle.
+
+\subsection{Cas 1 : transport parallère à l'équateur}
 
 Le but de cette partie est de résoudre l'équation d'advection sphèrique suivante :
 
@@ -166,7 +186,7 @@ Le but de cette partie est de résoudre l'équation d'advection sphèrique suiva
 \dfrac{\partial h}{\partial t} + \mathbf{c} ( \mathbf{x} ) \cdot \nabla_ T h & = & 0 \\
 h(\mathbf{x},0) & = & h_0 ( \mathbf{x} )
 \end{array}
-\right. \text{ pour tout } \mathbf{x} \in \mathbf{S}_R^2 \text{ et } t \geq 0
+\right. \text{ pour tout } \mathbf{x} \in \mathbf{S}_a^2 \text{ et } t \geq 0
 \end{equation}
 
 Avec $\mathbf{c} ( \mathbf{x} ) = R \omega cos ( \theta ) \mathbf{e}_{\lambda}$ \footnote{Dans ce premier cas, le transport est parallèle à l'équateur et à vitesse constante.}.
@@ -187,29 +207,19 @@ Ainsi la solution de \eqref{eq:advection spherique 1} est :
 
 \begin{equation}
 \label{eq: advection solution 1}
-h( \mathbf{x}, t ) = h_0 ( \lambda - \Omega t, \theta ) = h_0 ( R_{-t}  \mathbf{x} )
+h( \mathbf{x}, t ) = h_0 ( \lambda - \Omega t, \theta ) = h_0 ( a_{-t}  \mathbf{x} )
 \end{equation}
 
 Avec $R_{-t}$ la rotation autour de l'axe $(Oz)$ d'angle $-\Omega t$.
 
-\subsubsection{Cas 2 : transport parallèle à un grand cercle}
+\subsection{Cas 2 : transport parallèle à un grand cercle}
 
-On souhaite résoudre :
-
-\begin{equation}
-\label{eq:advection spherique 2}
-\left\lbrace
-\begin{array}{r cl}
-\dfrac{\partial h}{\partial t} + \mathbf{c} ( \mathbf{x} ) \cdot \nabla_ T h & = & 0 \\
-h(\mathbf{x},0) & = & h_0 ( \mathbf{x} )
-\end{array}
-\right. \text{ pour tout } \mathbf{x} \in \mathbf{S}_R^2 \text{ et } t \geq 0
-\end{equation}
+On souhaite résoudre la même équation que dans la partie précédente \eqref{eq:advection spherique 1}
 
 Avec :
 $$\mathbf{c} ( \mathbf{x} ) = u_0 ( cos ( \theta) cos ( \alpha ) + sin( \theta) cos ( \lambda) sin( \alpha) ) \mathbf{e}_{\lambda} - u_0 sin( \lambda) sin( \alpha) \mathbf{e}_{\theta}. $$
 
-On reconnait la forme donnée par \eqref{vitesse_solide_v} et \eqref{vitesse_solide_u} lorsque $R \omega = u_0$ ainsi que $(\lambda_P, \theta_P) = \pi, \pi/2 - \alpha$. 
+On reconnait la forme donnée par \eqref{vitesse_solide_v} et \eqref{vitesse_solide_u} lorsque $a \omega = u_0$ ainsi que $(\lambda_P, \theta_P) = \pi, \pi/2 - \alpha$. 
 
 Le gradient $\nabla_T h$ est invariant par rotation, on peut donc effectuer le changement de variable $\mathbf{x}' = P_{\alpha}^{-1} \mathbf{x}$ dans \eqref{eq:advection spherique 2}. $P_{\alpha}$ est la rotation autour de $(Oy)$ d'angle $\alpha$.
 
@@ -221,10 +231,10 @@ On obtient alors :
 \dfrac{\partial h}{\partial t}( \mathbf{x}' ) + \mathbf{c} ( \mathbf{x}' ) \cdot \nabla_ T h( \mathbf{x}' ) & = & 0 \\
 h(\mathbf{x}',0) & = & h_0 ( \mathbf{x}' )
 \end{array}
-\right. \text{ pour tout } \mathbf{x}' \in \mathbf{S}_R^2 \text{ et } t \geq 0
+\right. \text{ pour tout } \mathbf{x}' \in \mathbf{S}_a^2 \text{ et } t \geq 0
 \end{equation}
 
-Avec $\mathbf{c} ( \mathbf{x}' ) = R \omega cos ( \theta' ) \mathbf{e}_{\lambda'}$ avec $(\lambda', \theta')$ donnés par \eqref{from classic to prime}.
+Avec $\mathbf{c} ( \mathbf{x}' ) = a \omega cos ( \theta' ) \mathbf{e}_{\lambda'}$ avec $(\lambda', \theta')$ donnés par \eqref{from classic to prime}.
 
 La solution de cette équation est donnée par \eqref{eq: advection solution 1} : $h( \mathbf{x}', t )= h_0(  R_{-t} \mathbf{x}') $. Appliquant \eqref{from prime to classic} (équivalent à $P_{\alpha}$), la solution de \eqref{eq:advection spherique 2} est :
 
@@ -245,7 +255,7 @@ Deux tests sont présentés dans ce travail concernant l'équation d'advection a
 \dfrac{\partial h}{\partial t} + \mathbf{c} ( \mathbf{x} ) \cdot \nabla_ T h & = & 0 \\
 h(\mathbf{x},0) & = & h_0 ( \mathbf{x} )
 \end{array}
-\right. \text{ pour tout } \mathbf{x} \in \mathbf{S}_R^2 \text{ et } t \geq 0
+\right. \text{ pour tout } \mathbf{x} \in \mathbf{S}_a^2 \text{ et } t \geq 0
 \end{equation}
 
 Avec :
@@ -259,7 +269,7 @@ Le test 1 de l'article de David L. Williamson \textit{et al.} \cite{Williamson19
 h_0(\lambda, \theta) = 
 \left\lbrace
 \begin{array}{ll}
-(h_{ref}/2) \left( 1+cos \frac{3 \pi r}{R} \right) & \text{ si } r<\frac{R}{3} \\
+(h_{ref}/2) \left( 1+cos \frac{3 \pi r}{a} \right) & \text{ si } r<\frac{a}{3} \\
 0 & \text{ sinon.}
 \end{array}
 \right.
@@ -268,10 +278,10 @@ h_0(\lambda, \theta) =
 avec $h_{ref}=1000$, $r$ est la distance entre $(\lambda, \theta)$ et le centre du bump. Initialement, le centre est en $(\lambda_C, \theta_C) = (3 \pi /2, 0)$.
 
 \begin{equation}
-r = R arccos \left[ sin ( \theta_C) sin( \theta) + cos( \theta_C) cos ( \theta) cos ( \lambda - \lambda_C ) \right]
+r = a \cdot arccos \left[ sin ( \theta_C) sin( \theta) + cos( \theta_C) cos ( \theta) cos ( \lambda - \lambda_C ) \right]
 \end{equation}
 
-On prend aussi $u_0 = 2  \pi R / (12 \text{jours} )\approx 40 \text{m/sec}$.
+On prend aussi $u_0 = 2  \pi a / (12 \text{jours} )\approx 40 \text{m/sec}$.
 
 \subsubsection{Test de Nair et Lauritzen}
 
@@ -281,10 +291,10 @@ En 2010, R. D. Nair et P. H. Lauritzen \cite{Nair2010} propose un test de rotati
 h_0(\lambda, \theta) = 
 \left\lbrace
 \begin{array}{ll}
-c & \text{ si } r_i < \frac{R}{3} \text{ et } |\lambda - \lambda_i| \geq R/18 \text{ pour } i=1,2 \\
-c & \text{ si } r_1 < \frac{R}{3} \text{ et } |\lambda - \lambda_1| < R/18 \text{ et } \theta-\theta_1 < -5R/36 \\
-c & \text{ si } r_2 < \frac{R}{3} \text{ et } |\lambda - \lambda_2| < R/18 \text{ et } \theta-\theta_2 > -5R/36 \\
-b \text{ dans les autres cas }
+c & \text{ si } r_i < \frac{R}{3} \text{ et } |\lambda - \lambda_i| \geq a/18 \text{ pour } i=1,2 \\
+c & \text{ si } r_1 < \frac{R}{3} \text{ et } |\lambda - \lambda_1| < a/18 \text{ et } \theta-\theta_1 < -5a/36 \\
+c & \text{ si } r_2 < \frac{R}{3} \text{ et } |\lambda - \lambda_2| < a/18 \text{ et } \theta-\theta_2 > -5a/36 \\
+b &\text{ dans les autres cas }
 \end{array}
 \right.
 \end{equation}
@@ -292,11 +302,109 @@ b \text{ dans les autres cas }
 On choisit $c=1$ et $b=0.1$. $(\lambda_i, \theta_i)$ donnent les position initiales des cylindres. De plus, on a 
 
 \begin{equation}
-r_i = R arccos \left[ sin ( \theta_i) sin( \theta) + cos( \theta_i) cos ( \theta) cos ( \lambda - \lambda_i ) \right]
+r_i = a \cdot arccos \left[ sin ( \theta_i) sin( \theta) + cos( \theta_i) cos ( \theta) cos ( \lambda - \lambda_i ) \right]
 \end{equation}
 
-et comme pour le test précédent $u_0 = 2  \pi R / (12 \text{jours} )$.
+et comme pour le test précédent $u_0 = 2  \pi a / (12 \text{jours} )$.
 
 \section{Test de Nair et Machenhauer}
 
+L'objectif de ce test est de présenter une solution plus réaliste. L'idée est de construire deux vortex placés au pôles $P$ et au point diamétralement opposé. Ce test est présenté dans l'article de 2002 de R. D. Nair et B. Machenhauer dans \cite{Nair2002}.
+La solution initiale $h_0$ est déformée au fil des itérations pour donner naissance à deux tourbillons. 
+Plus le temps physique est long, plus la solution exacte a tendance à être sous résolue ce qui rend ce test particulièrement difficile.
+
+La solution en tout temps est donnée dans les coordonnées $(\lambda', \theta' )$ issues de \eqref{from classic to prime} par :
+
+\begin{equation}
+\label{exact_machenhauer}
+h_0(\lambda', \theta') = 1- tanh \left[ \dfrac{\rho}{\gamma} sin \left( \lambda' - \omega_r(\theta') t \right) \right]
+\end{equation}
+
+avec
+
+\begin{equation}
+\label{rotation_r}
+\omega_r(\theta') = \left\lbrace
+\begin{array}{ll}
+V/a\rho \text{ si } \rho \neq 0\\
+0 \text{ sinon.}
+\end{array}
+\right.
+\end{equation}
+,$\rho = \rho_0 cos ( \theta' )$ et $V =v_0 \dfrac{3 \sqrt{3}}{2} sech^2 ( \rho )  tanh( \rho )$. Avec $\dfrac{3 \sqrt{3}}{2}$ une constante de normalisation et $v_0 = 2 \pi a / T$ ($T$ est le temps à 12 jours en secondes ).
+
+De manière classique, pour que la solution soit suffisamment régulière, on choisit $\rho_0 = 3$ et $\gamma = 5$.
+Le point $P$, centre d'un des vortex est localisé en $( \lambda_P, \theta_P)$, ce point peut être choisit dans une zone d'intérêt particulier.
+
+Le champ de vecteur $\mathbf{c}$ est donné par $\mathbf{c}( \mathbf{x} ) = u_r \mathbf{e}_{\lambda} + v_r \mathbf{e}_{\theta}$ avec :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+u_r & = & a \omega_r ( \theta' ) \left[ sin \theta_P cos \theta - cos \theta_P cos( \lambda - \lambda_P ) sin \theta \right] \\
+v_r & = & a \omega_r ( \theta' ) \left[ cos \theta_P sin ( \lambda - \lambda_P) \right]
+\end{array}
+\right.
+\end{equation}
+
+
 \section{Test de Nair et Jablonowski}
+
+Le test de R. D. Nair et C. Jablonowsky \cite{Nair2008} mixe les deux tests précédents : celui de déformation solide avec celui de R. D. Nair et B. Machenhaueur.
+
+Les deux vortex du test précédent sont transportés le long d'un grand cercle autour de la sphère. Si on note $(\lambda_C(t), \theta_C(t))$ la position du centre du vortex, il faut noter que ce point dépendant du temps. Ce point va donc être transporté par un champ de vecteur $\mathbf{c_s} = u_s \mathbf{e}_{\lambda} + v_s \mathbf{e}_{\theta}$ et le vortex va être créé par un champ de vecteur $\mathbf{c}_r(t)=u_r \mathbf{e}_{\lambda} + v_r \mathbf{e}_{\theta}$ :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+u_s & = & u_0 ( cos \theta cos \alpha + sin \theta cos \lambda sin \alpha ) \\
+v_s & = & - u_0 sin \lambda sin \alpha 
+\end{array}
+\right.
+\end{equation}
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+u_r & = & a \omega_r  \left[ sin \theta_C(t) cos \theta - cos \theta_C(t) cos( \lambda - \lambda_C(t) ) sin \theta \right] \\
+v_r & = & a \omega_r  \left[ cos \theta_C(t) sin ( \lambda - \lambda_C(t)) \right]
+\end{array}
+\right.
+\end{equation}
+
+$(\lambda_C, \theta_C)$ est donnée dans la base tournée d'un angle $\alpha$ par :
+
+\begin{equation}
+\label{centre vortex}
+\left\lbrace
+\begin{array}{rcl}
+\lambda_C'(t) & = & \lambda_0' + \omega_s t\\
+\theta_C'(t) & = & \theta_0 \\
+\end{array}
+\right.
+\end{equation}
+
+avec $a \omega_s = u_0$ et $\omega_r$ donné par \eqref{rotation_r}.
+
+La solution exacte de ce test peut être calculée par le procédé suivant :
+
+\begin{enumerate}
+\item Calculer les coordonnées dans la sphère de pôle nord $(\lambda_P, \theta_P) = ( \pi, \pi/2 - \alpha)$ grâce à \eqref{from classic to prime}. On note $(\lambda', \theta')$ ces coordonnées,
+
+\item Déplacer $(\lambda', \theta')$ sur la position :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\lambda_s' & = & \lambda' + \omega_s t\\
+\theta_s' & = & \theta' \\
+\end{array}
+\right.
+\end{equation}
+
+\item Calculer $(\lambda_s, \theta_s)$ grâce à \eqref{from prime to classic},
+
+\item Calculer le vortex en $(\lambda_s, \theta_s)$ centré en $(\lambda_C, \theta_C)$ grâce à \eqref{centre vortex} et \eqref{exact_machenhauer}
+ 
+\end{enumerate}
+
+Il s'agit, comme pour le calcul de $\mathbf{c}$, d'effectuer la rotation solide puis la construction du vortex.

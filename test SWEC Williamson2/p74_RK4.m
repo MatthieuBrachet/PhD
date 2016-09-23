@@ -2,13 +2,15 @@
 % Resolution de SWEC sur la Cubed-Sphere.
 %
 % *** options :
-% test = 0 : test 2 de Williamson;
+% test = 0 : test 2 of Williamson & al.,
+%        1 : test 5 of Williamson & al..
 % scheme : numerical spatial scheme used. 
-% video : 'yes' ou 'no', faire une video ou non.
-% sauvegarde = 0 (ne rien sauvegarder), 1 (sauvegarder toutes les valeurs
-%          finales).
-% opt_ftr : filtre explicite de S. Redonnet (=2, 4, 6, 8, 10, ordre du
-%          filtre; =0, pas de filtrage)
+% video : 'yes' ou 'no', do a video or not,
+% nper  :  periodicity of frames in the video.
+% sauvegarde = 0 (do not save data), 1 (save all data).
+% opt_ftr : explicit filtering of S. Redonnet (=2, 4, 6, 8, 10, filter order
+%         ; =0, no filtering)
+% alfa_ftr : parameter for implicit fliter (type visbal only).
 %
 %% ************************************************************************
 clc; clear all; close all;
@@ -17,17 +19,20 @@ format short
 global n nn dxi
 global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII
 global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
-global opt_ftr test scheme
+global opt_ftr alfa_ftr test scheme
 global gp h0 u0 radius omega
 global alpha
 
-test=0;
+test=1;
 video = 'no';
+nper=25;
 sauvegarde = 0;
-opt_ftr=10;
+opt_ftr='visbal10';
+alfa_ftr=0.3;
 scheme='compact4';
 snapshot='no';
 
+% for snapshot, n must be in the form 2^m-1 !
 n=31;
 mod74
 
@@ -36,26 +41,30 @@ cgrav=sqrt(h0*gp);
 cvit=u0;
 c=max([cgrav,ccor,cvit]);
 
-cfl=0.9;
+cfl=0.7;
 ddt=radius*dxi*cfl/c;
-ndaymax=12;
+ndaymax=15;
 Tmax=ndaymax*3600*24;
-itermax=100;
+itermax=5000;
 
-comment='Start Galewsky benchmark.';
+comment='.';
 
 tstart=cputime;
 
-%% ***  donnée de test ****************************************************
+%% *** test data **********************************************************
 
 if test == 0
-    alpha=0.05;
-    u0=2*pi*radius/(12*24*60*60);
+    alpha=pi/7;
+    u0=2*pi*radius/(12*24*3600);
+    h0=2.94*10^4/gp;
+elseif test == 1
+    alpha=0;
+    u0=20;
+    h0=5960;
 end
 
 
-
-%% *** initialisation des données *****************************************
+%% *** initial data *******************************************************
 t=0;
 [ ht_fI,    vt_fI]   = sol_exacte(x_fI,   y_fI,   z_fI,   t);
 [ ht_fII,   vt_fII]  = sol_exacte(x_fII,  y_fII,  z_fII,  t);
@@ -65,7 +74,7 @@ t=0;
 [ ht_fVI,   vt_fVI]  = sol_exacte(x_fVI,  y_fVI,  z_fVI,  t);
 
 if strcmp(snapshot,'yes')==1
-   disp('Please wait')
+    disp('Please wait')
     [vort_I, vort_II, vort_III, vort_IV, vort_V, vort_VI]=vort74(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI, n, nn);
 
     figure(1)
@@ -75,23 +84,27 @@ if strcmp(snapshot,'yes')==1
 end
 
 %% *** quantités a conserver **********************************************
-[~,~,~,~,~,~,intref]=nrm74(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn,'int');
+[Mref] = mass( ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI );
+[Eref] = energy(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
+[PEref] = enstrophy(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
 
 iter=0; FTR=0;
-time(1)=t; erri(1)=0;
+time(1)=t; erri(1)=0; err_int(1)=1;
 %% *** video option *******************************************************
 if strcmp(video,'yes')==1
-    nFrames = min(itermax,floor(Tmax/ddt));
+    nFrames = min(itermax,floor(Tmax/(nper*ddt)));
     mov(1:nFrames) = struct('cdata', [],'colormap', []);
     set(gca,'nextplot','replacechildren');
 end
 
 %% *** iterations *********************************************************
-while t<Tmax & iter<itermax
+ref=floor(10000*now);
+jour=date;
+while t<Tmax && iter<itermax
     iter=iter+1;
     clc; 
-    disp([iter min(itermax,floor(Tmax/ddt)) erri(end)]);
-    %% Filtrage
+    disp([iter min(itermax,floor(Tmax/ddt)) erri(end) err_int(end)]);
+    %% Filtering
     e=1;
     iterf=0;
     if opt_ftr==0
@@ -99,7 +112,7 @@ while t<Tmax & iter<itermax
     else
         iterfmax=1;
     end
-    while e>1.e-4 & iterf<iterfmax
+    while e>1.e-4 && iterf<iterfmax
         iterf=iterf+1;
         for p=1:3
             [vt_fI(:,:,p),vt_fII(:,:,p),vt_fIII(:,:,p),vt_fIV(:,:,p),vt_fV(:,:,p),vt_fVI(:,:,p)]=...
@@ -206,8 +219,10 @@ while t<Tmax & iter<itermax
                  hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);       
             
             
-    %% Assemblage final
+    %% End data
 
+    
+    
     htnew_fI    = ht_fI   + ddt/6 * (K1h_fI   + 2*K2h_fI   + 2*K3h_fI   + K4h_fI);
     htnew_fII   = ht_fII  + ddt/6 * (K1h_fII  + 2*K2h_fII  + 2*K3h_fII  + K4h_fII);
     htnew_fIII  = ht_fIII + ddt/6 * (K1h_fIII + 2*K2h_fIII + 2*K3h_fIII + K4h_fIII);
@@ -223,29 +238,29 @@ while t<Tmax & iter<itermax
     vtnew_fVI   = vt_fVI  + ddt/6 * (K1v_fVI  + 2*K2v_fVI  + 2*K3v_fVI  + K4v_fVI);
 
 
-    %% calcul de l'erreur sur h
+    %% error on h
     t=t+ddt;
     
-    [h_fI,v_fI] = sol_exacte(x_fI,y_fI,z_fI,t);
-    [h_fII,v_fII] = sol_exacte(x_fII,y_fII,z_fII,t);
-    [h_fIII,v_fIII] = sol_exacte(x_fIII,y_fIII,z_fIII,t);
-    [h_fIV,v_fIV] = sol_exacte(x_fIV,y_fIV,z_fIV,t);
-    [h_fV,v_fV] = sol_exacte(x_fV,y_fV,z_fV,t);
-    [h_fVI,v_fVI] = sol_exacte(x_fVI,y_fVI,z_fVI,t);
+    [h_fI,v_fI]     = sol_exacte(x_fI  ,y_fI   ,z_fI  ,t);
+    [h_fII,v_fII]   = sol_exacte(x_fII ,y_fII  ,z_fII ,t);
+    [h_fIII,v_fIII] = sol_exacte(x_fIII,y_fIII ,z_fIII,t);
+    [h_fIV,v_fIV]   = sol_exacte(x_fIV ,y_fIV  ,z_fIV ,t);
+    [h_fV,v_fV]     = sol_exacte(x_fV  ,y_fV   ,z_fV  ,t);
+    [h_fVI,v_fVI]   = sol_exacte(x_fVI ,y_fVI  ,z_fVI ,t);
     
-    err_fI=htnew_fI-h_fI;
-    err_fII=htnew_fII-h_fII;
-    err_fIII=htnew_fIII-h_fIII;
-    err_fIV=htnew_fIV-h_fIV;
-    err_fV=htnew_fV-h_fV ;
-    err_fVI=htnew_fVI-h_fVI;
+    err_fI   = htnew_fI  -h_fI;
+    err_fII  = htnew_fII -h_fII;
+    err_fIII = htnew_fIII-h_fIII;
+    err_fIV  = htnew_fIV -h_fIV;
+    err_fV   = htnew_fV  -h_fV ;
+    err_fVI  = htnew_fVI -h_fVI;
     
-    errv_fI=vtnew_fI-v_fI;
-    errv_fII=vtnew_fII-v_fII;
-    errv_fIII=vtnew_fIII-v_fIII;
-    errv_fIV=vtnew_fIV-v_fIV;
-    errv_fV=vtnew_fV-v_fV ;
-    errv_fVI=vtnew_fVI-v_fVI;
+    errv_fI   = vtnew_fI   - v_fI;
+    errv_fII  = vtnew_fII  - v_fII;
+    errv_fIII = vtnew_fIII - v_fIII;
+    errv_fIV  = vtnew_fIV  - v_fIV;
+    errv_fV   = vtnew_fV   - v_fV ;
+    errv_fVI  = vtnew_fVI  - v_fVI;
     
     str='infty';
         [~,~,~,~,~,~,nrmger]=...
@@ -265,21 +280,22 @@ while t<Tmax & iter<itermax
     [~,~,~,~,~,~,nrmref]=nrm74(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
     err1(iter)=nrmger./nrmref;
     
-    %% stabilisation
-    stab_fI=htnew_fI-ht_fI;
-    stab_fII=htnew_fII-ht_fII;
-    stab_fIII=htnew_fIII-ht_fIII;
-    stab_fIV=htnew_fIV-ht_fIV;
-    stab_fV=htnew_fV-ht_fV ;
-    stab_fVI=htnew_fVI-ht_fVI;
+    %% stabilization
+    stab_fI   = htnew_fI   - ht_fI;
+    stab_fII  = htnew_fII  - ht_fII;
+    stab_fIII = htnew_fIII - ht_fIII;
+    stab_fIV  = htnew_fIV  - ht_fIV;
+    stab_fV   = htnew_fV   - ht_fV ;
+    stab_fVI  = htnew_fVI  - ht_fVI;
 
+    str='infty';
     [~,~,~,~,~,~,nrmger]=...
       nrm74(stab_fI,stab_fII,stab_fIII,stab_fIV,stab_fV,stab_fVI,n,nn,str);
     stabi(iter)=nrmger;
     
     time(iter)=t/(24*3600);
     
-    %% mise a jour
+    %% update height and velocity
     vt_fI   = vtnew_fI;
     vt_fII  = vtnew_fII;
     vt_fIII = vtnew_fIII;
@@ -295,34 +311,44 @@ while t<Tmax & iter<itermax
     ht_fVI  = htnew_fVI;
     
     %% conservation
-    str='int';
-    [~,~,~,~,~,~,int]=...
-    nrm74(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn,str);
-    err_int(iter)=int./intref;
+    [M] = mass( ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI );
+    err_int(iter)=M/Mref;
+    [E] = energy(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
+    err_energy(iter)=E/Eref;
+    [PE] = enstrophy(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
+    err_enstrophy(iter)=PE/PEref;
     
-    %% film
-    if strcmp(video,'yes')==1
-        [vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=...
-            vort74(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
-        
-        
+    %% video
+    if strcmp(video,'yes')==1 & mod(nper,iter) == 0
         figure(100)
-        plot_cs7(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
+        plot_cs7(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI)
         title(['numerical solution at ', num2str(time(end)), 'days'])
         hold off;
         mov(iter) = getframe(gcf);
     end
+    
+    if sauvegarde == 1 & mod(iter,floor(Tmax/(3*ddt))+1) == 0
+        mkdir(['./RK4_results-' jour ])
+        close all;
+        
+        figure(9)
+        plot_cs17(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050,5950,50);
+        title(['calculated solution at time = ', num2str(time(end))])
 
+        print('-dpng', ['./RK4_results-' jour '/ref_' num2str(ref) '_snapshot_intermediaire' num2str(floor(time(end))) '.png'])
+        savefig(['./RK4_results-' jour '/ref_' num2str(ref) '_snapshot_intermediaire_' num2str(floor(time(end))) '.fig']);
+    end
+
+    
 end
 tend=cputime-tstart;
 
-ref=floor(10000*now);
 if strcmp(video,'yes') == 1
-    mkdir(['./RK4_video-' date ])
-    movie2avi(mov, ['./RK4_video-' date '/ref_' num2str(ref) '.avi'], 'compression', 'None');
+    mkdir(['./RK4_video-' jour ])
+    movie2avi(mov, ['./RK4_video-' jour '/ref_' num2str(ref) '.avi'], 'compression', 'None');
     
     fid = fopen('AA_VIDEO_SAVE_RK4.txt','a');
-    fprintf(fid,'%s\n',['date : ', date]);
+    fprintf(fid,'%s\n',['date : ', jour]);
     fprintf(fid,'%s\n',['ref. : ', num2str(ref)]);
     fprintf(fid,'%s\n','***********************************');
     fprintf(fid,'%s\n',['test : ', num2str(test)]);
@@ -330,14 +356,15 @@ if strcmp(video,'yes') == 1
     fprintf(fid,'%s\n',['number of points  : ', num2str(n)] );
     fprintf(fid,'%s\n',['time step         : ', num2str(ddt)] );
     fprintf(fid,'%s\n',['cfl               : ', num2str(cfl)] );
-    fprintf(fid,'%s\n',['ordre du filtre   : ', num2str(opt_ftr)] );
+    fprintf(fid,'%s\n',['ordre du filtre   : '  opt_ftr] );
+    fprintf(fid,'%s\n',['alpha_ftr         : ', num2str(alfa_ftr)] );
     fprintf(fid,'%s\n',['iterfmax          : ', num2str(iterfmax)] );
     fprintf(fid,'%s\n','---------- physical data ----------');
     fprintf(fid,'%s\n',['gravity g              : ', num2str(gp)] );
     fprintf(fid,'%s\n',['caracteristiv velocity : ', num2str(u0)] );
     fprintf(fid,'%s\n',['coriolis parameter     : ', num2str(omega)] );
     fprintf(fid,'%s\n','------------ comment --------------');
-    fprintf(fid,'%s\n',[comment] );
+    fprintf(fid,'%s\n', comment );
     fprintf(fid,'%s\n','***********************************');
     fprintf(fid,'%s\n','  ');
     fprintf(fid,'%s\n','  ');
@@ -346,7 +373,7 @@ end
 
 if sauvegarde == 1
     fid = fopen('AA_RESULTS_SAVE_RK4.txt','a');
-    fprintf(fid,'%s\n',['date : ', date]);
+    fprintf(fid,'%s\n',['date : ', jour]);
     fprintf(fid,'%s\n',['ref. : ', num2str(ref)]);
     fprintf(fid,'%s\n','***********************************');
     fprintf(fid,'%s\n',['test : ', num2str(test)]);
@@ -354,14 +381,16 @@ if sauvegarde == 1
     fprintf(fid,'%s\n',['number of points  : ', num2str(n)] );
     fprintf(fid,'%s\n',['time step         : ', num2str(ddt)] );
     fprintf(fid,'%s\n',['cfl               : ', num2str(cfl)] );
-    fprintf(fid,'%s\n',['ordre du filtre   : ', num2str(opt_ftr)] );
+    fprintf(fid,'%s\n',['ordre du filtre   : '  opt_ftr] );
+    fprintf(fid,'%s\n',['alpha_ftr         : ', num2str(alfa_ftr)] );
     fprintf(fid,'%s\n',['iterfmax          : ', num2str(iterfmax)] );
     fprintf(fid,'%s\n','---------- physical data ----------');
     fprintf(fid,'%s\n',['gravity g              : ', num2str(gp)] );
+    fprintf(fid,'%s\n',['alpha                  : ', num2str(alpha)] );
     fprintf(fid,'%s\n',['caracteristiv velocity : ', num2str(u0)] );
     fprintf(fid,'%s\n',['coriolis parameter     : ', num2str(omega)] );
     fprintf(fid,'%s\n','------------ comment --------------');
-    fprintf(fid,'%s\n',[comment] );
+    fprintf(fid,'%s\n', comment );
     fprintf(fid,'%s\n','***********************************');
     fprintf(fid,'%s\n','  ');
     fprintf(fid,'%s\n','  ');
@@ -372,49 +401,79 @@ figure(1)
 plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
 title(['calculated solution at time = ', num2str(time(end))])
 if sauvegarde==1
-    mkdir(['./RK4_results-' date ]);
-    print('-dpng', ['./RK4_results-' date '/ref_' num2str(ref) '_courbe.png'])
-    savefig(['./RK4_results-' date '/ref_' num2str(ref) '_courbe']);
-    
-    save(['./RK4_results-' date '/ref_' num2str(ref) '_erreurdata_test_' num2str(test) '.mat']);
+    print('-dpng', ['./RK4_results-' jour '/ref_' num2str(ref) '_courbe.png'])
+    savefig(['./RK4_results-' jour '/ref_' num2str(ref) '_courbe']);
+    save(['./RK4_results-' jour '/ref_' num2str(ref) '_erreurdata_test_' num2str(test) '.mat']);
 end 
 
 figure(2)
-[vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=...
-     vort74(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
+plot_cs11(n,nn,h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI);
+title(['exact solution at time = ', num2str(time(end))])
 
-plot_cs7(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
-title(['vorticity at time : ', num2str(time(end))])
+figure(3)
+plot_cs11(n,nn,err_fI, err_fII, err_fIII, err_fIV, err_fV, err_fVI);
+title(['error at time = ', num2str(time(end))])
 
 if strcmp(snapshot,'yes')==1
-    figure(3)
-    plot_cs13(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
+    [vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=...
+            vort74(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
+    
+    figure(4)
+    plot_cs7(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
     title(['vorticity at time : ', num2str(time(end))])
-    print('-dpng', ['./RK4_results-' date '/ref_' num2str(ref) '_snapshot.png'])
-    savefig(['./RK4_results-' date '/ref_' num2str(ref) '_snapshot']);
+    print('-dpng', ['./RK4_results-' jour '/ref_' num2str(ref) '_snapshot.png'])
+    savefig(['./RK4_results-' jour '/ref_' num2str(ref) '_snapshot']);
 end
 
-figure(4)
+figure(5)
 semilogy(time, erri,time, err2, time, err1)
 xlabel('time')
 ylabel('relative error')
 legend('infty norm','norm 2','norm 1')
 grid on
 if sauvegarde==1
-    print('-dpng', ['./RK4_results-' date '/ref_' num2str(ref) '_erreur.png'])
-    savefig(['./RK4_results-' date '/ref_' num2str(ref) '_erreur']);
+    print('-dpng', ['./RK4_results-' jour '/ref_' num2str(ref) '_erreur.png'])
+    savefig(['./RK4_results-' jour '/ref_' num2str(ref) '_erreur']);
 end 
 
-figure(5)
-semilogy(time,err_int)
-legend('mass')
+figure(6)
+plot(time,err_int,time,err_energy,time,err_enstrophy)
+legend('mass','energy','potential enstrophy')
 xlabel('time')
 title('relative quantity')
 grid on
 if sauvegarde==1
-    mkdir(['./RK4_results-' date ]);
-    print('-dpng', ['./RK4_results-' date '/ref_' num2str(ref) '_conservation.png'])
-    savefig(['./RK4_results-' date '/ref_' num2str(ref) '_conservation']);
+    print('-dpng', ['./RK4_results-' jour '/ref_' num2str(ref) '_conservation.png'])
+    savefig(['./RK4_results-' jour '/ref_' num2str(ref) '_conservation']);
 end 
+
+figure(7)
+semilogy(time,stabi)
+xlabel('time')
+title('stabilization of height')
+grid on
+
+figure(8)
+plot_cs7(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
+title(['calculated solution at time = ', num2str(time(end))])
+
+figure(9)
+plot_cs17(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050,5950,50);
+title(['calculated solution at time = ', num2str(time(end))])
+if sauvegarde==1
+    print('-dpng', ['./RK4_results-' jour '/ref_' num2str(ref) '_snapshot_solution.png'])
+    savefig(['./RK4_results-' jour '/ref_' num2str(ref) '_snapshot_solution']);
+end 
+
+[hs_fI] = relief(x_fI,y_fI,z_fI);
+[hs_fII] = relief(x_fII,y_fII,z_fII);
+[hs_fIII] = relief(x_fIII,y_fIII,z_fIII);
+[hs_fIV] = relief(x_fIV,y_fIV,z_fIV);
+[hs_fV] = relief(x_fV,y_fV,z_fV);
+[hs_fVI] = relief(x_fVI,y_fVI,z_fVI);
+figure(10)
+plot_cs7(n,nn,hs_fI,hs_fII,hs_fIII,hs_fIV,hs_fV,hs_fVI);
+title('relief on the sphere')
+
 
 disp(['temps de calcul (sans les graphiques) : ', num2str(tend)])

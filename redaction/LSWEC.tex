@@ -15,7 +15,7 @@ Le but de cette partie est de présenter deux test pour l'équation Shallow-Wate
 
 ici $\mathbf{F}$ est une fonction de forcage.
 
-l'équation est résolue sur la sphère $\mathbb{S}_R^2$ dont le rayon est $R$. $\mathbf{x}$, un point de $\mathbb{S}_R^2$ est un point de latitude $\lambda$ et de longitude $\theta$ the longitude. Un vecteur $\mathbf{v} : \mathbb{S}_R^2 \rightarrow \mathbb{T}\mathbb{S}_R^2$ est déterminé par :
+l'équation est résolue sur la sphère $\mathbb{S}_a^2$ dont le rayon est $a$. $\mathbf{x}$, un point de $\mathbb{S}_a^2$ est un point de latitude $\lambda$ et de longitude $\theta$ the longitude. Un vecteur $\mathbf{v} : \mathbb{S}_a^2 \rightarrow \mathbb{T}\mathbb{S}_R^2$ est déterminé par :
 
 $$\mathbf{u} = u \mathbf{e}_{\theta} + v \mathbf{e}_{\lambda}.$$ 
 
@@ -34,13 +34,15 @@ $i \in \left\lbrace 1, 2, \infty \right\rbrace$.
 
 \section{Quelques relations de conservation pour \eqref{LSWEC}}
 
+Dans cette partie, nous considérons l'équation \eqref{LSWEC} sans forcage (\textit{i.e.} $\mathbf{F} \equiv \mathbf{0}$.
+
 \begin{remarque}
 \label{remark_stokes}
 Une remarque préliminaire est la suivante  :
 
-Si $\Omega_1$ et $\Omega_2$ sont les deux hémisphères de $\mathbb{S}^2_R$ alors :
+Si $\Omega_1$ et $\Omega_2$ sont les deux hémisphères de $\mathbb{S}^2_a$ alors :
 \begin{itemize}
-\item $\Omega_1 \cup \Omega_2 = \mathbb{S}^2_R $,
+\item $\Omega_1 \cup \Omega_2 = \mathbb{S}^2_a $,
 \item $\overbrace{\Omega_1 \cap \Omega_2}^{\circ} = \varnothing$
 \end{itemize}
 
@@ -50,7 +52,7 @@ par le théorème de Stokes, on a :
 \gint_{\Omega_i}  \nabla \cdot \mathbf{u} = \gint_{\partial \Omega_i} \mathbf{u} \cdot \mathbf{n}_i
 \end{equation}
 
-pour $i \in \left\lbrace 1, 2 \right\rbrace$ et $\mathbf{n}_i$ est la normale extérieur de $\Omega_i$ sur $\mathbb{S}_R^2$ ($\mathbf{n}_i$ est tangent à la sphère).
+pour $i \in \left\lbrace 1, 2 \right\rbrace$ et $\mathbf{n}_i$ est la normale extérieur de $\Omega_i$ sur $\mathbb{S}_a^2$ ($\mathbf{n}_i$ est tangent à la sphère).
 Alors, comme $\mathbf{n_1} = -\mathbf{n_2}$ et $\partial \Omega_1 = \partial \Omega_2$ on a :
 
 $$\gint_{\mathbb{S}_R^2}  \nabla \cdot \mathbf{u} = \gint_{\Omega_1}  \nabla \cdot \mathbf{u} + \gint_{\Omega_2}  \nabla \cdot \mathbf{u} = \gint_{\partial \Omega_1} \mathbf{u} \cdot \mathbf{n}_1 + \gint_{\partial \Omega_2} \mathbf{u} \cdot \mathbf{n}_2 = 0$$
@@ -58,30 +60,30 @@ $$\gint_{\mathbb{S}_R^2}  \nabla \cdot \mathbf{u} = \gint_{\Omega_1}  \nabla \cd
 
 \begin{proposition}
 (Conservation de la masse)
-La masse totale $\gint_{\mathbb{S}_R^2} \eta$ est constante au cours du temps.
+La masse totale $\gint_{\mathbb{S}_a^2} \eta$ est constante au cours du temps.
 \end{proposition}
 
 \begin{proof}
-Nous intégrons sur $\mathbb{S}_R^2$ la seconde équation de \eqref{LSWEC} et tenons compte de la remarque \ref{remark_stokes}.
+Nous intégrons sur $\mathbb{S}_a^2$ la seconde équation de \eqref{LSWEC} et tenons compte de la remarque \ref{remark_stokes}.
 
-$$\dfrac{\partial}{\partial t} \gint_{\mathbb{S}_R^2} \eta = \gint_{\mathbb{S}_R^2} \dfrac{\partial \eta}{\partial t} = \gint_{\mathbb{S}_R^2} \nabla \cdot \mathbf{u} = 0$$
+$$\dfrac{\partial}{\partial t} \gint_{\mathbb{S}_a^2} \eta = \gint_{\mathbb{S}_a^2} \dfrac{\partial \eta}{\partial t} = \gint_{\mathbb{S}_a^2} \nabla \cdot \mathbf{u} = 0$$
 \end{proof}
 
 \begin{proposition}
 (Conservation de l'énergie)
-Si $\mathbf{F} = \mathbf{0}$, alors l'énergie totale $g  \eta^2 + H \| u \|_{L^2(\mathbb{S}_R^2)}^2$ est constante par rapport au temps $t$.
+Si $\mathbf{F} = \mathbf{0}$, alors l'énergie totale $\gint_{\mathbf{S}_a^2 }g  \eta^2 + H | u |^2$ est constante par rapport au temps $t$.
 \end{proposition}
 
 \begin{proof}
 \begin{itemize}
-\item premièrement, remarquons que $\mathbf{u}$ est orthogonal à $\mathbf{k} \wedge \mathbf{u}$ alors :
+\item premièrement, notons que $\mathbf{u}$ est orthogonal à $\mathbf{k} \wedge \mathbf{u}$ alors :
 
-$$\gint_{\mathbb{S}_R^2} \dfrac{\partial \mathbf{u}}{\partial t} \cdot \mathbf{u} = \dfrac{1}{2} \dfrac{\partial}{\partial t} \gint_{\mathbb{S}_R^2} \mathbf{u}^2 = -g \gint_{\mathbb{S}_R^2} \nabla \eta \cdot \mathbf{u}$$
+$$\gint_{\mathbb{S}_a^2} \dfrac{\partial \mathbf{u}}{\partial t} \cdot \mathbf{u} = \dfrac{1}{2} \dfrac{\partial}{\partial t} \gint_{\mathbb{S}_a^2} \mathbf{u}^2 = -g \gint_{\mathbb{S}_a^2} \nabla \eta \cdot \mathbf{u}$$
 
-en d'autres mots :
+en d'autres termes :
 
 \begin{equation}
-\dfrac{1}{2} \dfrac{\partial}{\partial t} \| u \|_{L^2(\mathbb{S}_R^2)}^2 = -g \gint_{\mathbb{S}_R^2} \nabla \eta \cdot \mathbf{u}
+\dfrac{1}{2} \dfrac{\partial}{\partial t} \| u \|_{L^2(\mathbb{S}_a^2)}^2 = -g \gint_{\mathbb{S}_a^2} \nabla \eta \cdot \mathbf{u}
 \label{energy_eq1}
 \end{equation}
 
@@ -89,10 +91,10 @@ en d'autres mots :
 
 $$\dfrac{\partial \eta}{\partial t} \times \eta = -H \eta \nabla \cdot \mathbf{u} $$
 
-et après intégrations sur $\mathbb{S}_R^2$ :
+et après intégrations sur $\mathbb{S}_a^2$ :
 
 \begin{equation}
-\dfrac{1}{2} \dfrac{\partial}{\partial t} \| \eta \|^2_{L^2(\mathbb{S}_R^2)} = -H \gint_{\mathbb{S}_R^2} \eta \nabla \cdot \mathbf{u}
+\dfrac{1}{2} \dfrac{\partial}{\partial t} \| \eta \|^2_{L^2(\mathbb{S}_a^2)} = -H \gint_{\mathbb{S}_a^2} \eta \nabla \cdot \mathbf{u}
 \label{energy_eq2}
 \end{equation}
 
@@ -105,12 +107,12 @@ et après intégrations sur $\mathbb{S}_R^2$ :
 
 Alors :
 
-$$g \dfrac{\partial}{\partial t}  \| \eta \|^2_{L^2(\mathbb{S}_R^2)} + H \dfrac{\partial}{\partial t} \| \mathbf{u} \|^2_{L^2(\mathbb{S}_R^2)} = -2gH \gint_{\mathbb{S}_R^2} \left( \mathbf{u} \cdot \nabla \eta + \eta \nabla \cdot \mathbf{u} \right)$$
+$$g \dfrac{\partial}{\partial t}  \| \eta \|^2_{L^2(\mathbb{S}_a^2)} + H \dfrac{\partial}{\partial t} \| \mathbf{u} \|^2_{L^2(\mathbb{S}_a^2)} = -2gH \gint_{\mathbb{S}_a^2} \left( \mathbf{u} \cdot \nabla \eta + \eta \nabla \cdot \mathbf{u} \right)$$
 
 en utilisant \eqref{energy_eq3} et \ref{remark_stokes}, nous avons le résultat :
 
 \begin{equation}
-\dfrac{\partial}{\partial t} \left( g  \eta^2 + H \| u \|_{L^2(\mathbb{S}_R^2)}^2 \right) = 0
+\dfrac{\partial}{\partial t} \left( g  \eta^2 + H \| u \|_{L^2(\mathbb{S}_a^2)}^2 \right) = 0
 \end{equation}
 \end{itemize}
 \end{proof}
@@ -151,14 +153,16 @@ Pour les calculs numériques, nous choisissons $\sigma = 10^{-4}$, $\theta_0 = -
 ainsi qu'une condition CFL de la forme suivante :
 
 \begin{equation}
-CFL = \dfrac{c \Delta t}{R \Delta \xi}
+CFL = \dfrac{c \Delta t}{a \Delta \xi}
 \end{equation}
 
-avec $c = max(c_{grav}, c_{cor})$, $c_{grav} = \sqrt{gH}$ et $c_{cor} = R \omega$, $\Delta \xi = \pi / 2N$.
+avec $c = max(c_{grav}, c_{cor})$, $c_{grav} = \sqrt{gH}$ et $c_{cor} = a \omega$, $\Delta \xi = \pi / 2N$.
 
 Les tables \ref{CV_order4_hp10}, \ref{CV_order4_hp100} et \ref{CV_order4_hp1000} sont obtenues avec un schéma d'ordre 4 en temps (RK4) et d'ordre 4 en espace. Pour les Tables \ref{CV_order8_hp10}, \ref{CV_order8_hp100} et \ref{CV_order8_hp1000} le schéma est le même en temps mais nous utilisons un schéma compact à l'ordre 8 pour la divergence et 4 pour le gradient.
 
+
 \begin{table}%[H!]
+\begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
 \hline 
@@ -175,9 +179,11 @@ $100$ & $4.1779(-7)$ & $4.2988$ & $1.4789 (-7)$ & $4.1745$ & $8.5641 (-8)$ & $4.
 \end{tabular} 
 \caption{Analyse de convergence $CFL=0.5$ et $H=10$.}
 \label{CV_order4_hp10}
+\end{center}
 \end{table}
 
 \begin{table}%[H!]
+\begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
 \hline 
@@ -194,9 +200,11 @@ $100$ & $5.8355(-6)$ & $4.1331$ & $1.9027 (-6)$ & $4.2447$ & $1.2637 (-6)$ & $4.
 \end{tabular} 
 \caption{Analyse de convergence $CFL=0.5$ et $H=100$.}
 \label{CV_order4_hp100}
+\end{center}
 \end{table}
 
 \begin{table}%[H!]
+\begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
 \hline 
@@ -213,9 +221,11 @@ $100$ & $6.9510(-5)$ & $3.7874$ & $2.1324 (-5)$ & $4.1819$ & $1.6013 (-5)$ & $4.
 \end{tabular} 
 \caption{Analyse de convergence avec $CFL=0.5$ et $H=1000$.}
 \label{CV_order4_hp1000}
+\end{center}
 \end{table}
 
 \begin{table}%[H!]
+\begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
 \hline 
@@ -232,9 +242,11 @@ $100$ & $4.2901(-7)$ & $4.1993$ & $1.2667 (-7)$ & $4.2980$ & $6.7292 (-8)$ & $4.
 \end{tabular} 
 \caption{Analyse de convergence avec $CFL=0.5$ et $H=10$.}
 \label{CV_order8_hp10}
+\end{center}
 \end{table}
 
 \begin{table}%[H!]
+\begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
 \hline 
@@ -251,9 +263,12 @@ $100$ & $2.7584(-6)$ & $4.7860$ & $8.5491 (-7)$ & $4.5538$ & $4.9340 (-7)$ & $4.
 \end{tabular} 
 \caption{Analyse de convergence avec $CFL=0.5$ et $H=100$.}
 \label{CV_order8_hp100}
+\end{center}
 \end{table}
 
+
 \begin{table}%[H!]
+\begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
 \hline 
@@ -270,6 +285,7 @@ $100$ & $4.9820(-6)$ & $6.3615$ & $1.9414 (-6)$ & $5.8892$ & $1.7583 (-6)$ & $6.
 \end{tabular} 
 \caption{Analyse de convergence avec $CFL=0.5$ et $H=1000$.}
 \label{CV_order8_hp1000}
+\end{center}
 \end{table}
 
 
@@ -290,18 +306,18 @@ f \mathbf{k} \wedge \mathbf{u} + g \nabla \eta = 0
 Dans la base $(\mathbf{e}_{\lambda}, \mathbf{e}_{\theta})$ :
 
 \begin{equation}
-f u \mathbf{e}_{\theta} + g \left[ \dfrac{1}{R cos \theta} \dfrac{\partial \eta}{\partial \lambda} \mathbf{e}_{\lambda} + \dfrac{1}{R}\dfrac{\partial \eta}{\partial \theta} \mathbf{e}_{\theta} \right] = 0
+f u \mathbf{e}_{\theta} + g \left[ \dfrac{1}{a \cdot cos \theta} \dfrac{\partial \eta}{\partial \lambda} \mathbf{e}_{\lambda} + \dfrac{1}{a}\dfrac{\partial \eta}{\partial \theta} \mathbf{e}_{\theta} \right] = 0
 \end{equation}
 
 par identification :
 
 \begin{itemize}
-\item $\dfrac{1}{R cos \theta} \dfrac{\partial \eta}{\partial \lambda} = 0$, alors $\eta$ est indépendant de $\lambda$,
+\item $\dfrac{1}{a cos \theta} \dfrac{\partial \eta}{\partial \lambda} = 0$, alors $\eta$ est indépendant de $\lambda$,
 
-\item $f u + \dfrac{g}{R} \dfrac{\partial \eta}{\partial \theta} = 0$, alors (comme on a l'équation \eqref{coriolis_parameter}) :
+\item $f u + \dfrac{g}{a} \dfrac{\partial \eta}{\partial \theta} = 0$, alors (comme on a l'équation \eqref{coriolis_parameter}) :
 
 \begin{equation}
-\eta (\theta ) = \eta_0 - \dfrac{2 \omega R}{g} \gint_0^{\theta} sin(\tau) u(\tau) d \tau
+\eta (\theta ) = \eta_0 - \dfrac{2 \omega a}{g} \gint_0^{\theta} sin(\tau) u(\tau) d \tau
 \end{equation} 
 \end{itemize}
 
@@ -314,7 +330,7 @@ Numériquement, nous obtenons deux types de résultats :
 \begin{equation}
 \dfrac{I^n}{I(0)}
 \end{equation}
-où  $I^n = \gint_{\mathbb{S}_R^2} \eta (t^n)$ la masse ou l'énergie $I^n = g \gint_{\mathbb{S}_R^2} \eta (t^n)^2 + H \gint_{\mathbb{S}_R^2} \|u \|_2^2$ et $I(0)$ est la masse ou l'énergie initiale. Cette quantité $I^n/I(0)$ doit etre proche de $1$ si les quantités sont conservées.
+où  $I^n = \gint_{\mathbb{S}_a^2} \eta (t^n)$ la masse ou l'énergie $I^n = g \gint_{\mathbb{S}_a^2} \eta (t^n)^2 + H |u(t^n) |^2$ et $I(0)$ est la masse ou l'énergie initiale. Cette quantité $I^n/I(0)$ doit etre proche de $1$ si les quantités sont conservées.
 \end{itemize} 
 
 
