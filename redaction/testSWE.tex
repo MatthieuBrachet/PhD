@@ -1,9 +1,105 @@
 % testSWEC.tex
-\chapter{Benchmarks sur l'équation Shallow Water avec force de Coriolis}
+\chapter{Benchmarks sur l'équation SWEC}
 
 \section{Forme de SWEC}
 
+On a montré dans le Chapitre 1 que l'équation Shallow Water était issue de l'équation de Navier-Stokes en tenant compte d'une faible profondeur de fluide et de la faile viscosité.
+
+L'équation Shallow Water obtenue était la suivante :
+
+\begin{equation}
+\label{SWEC_new}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial \mathbf{u}}{\partial t} + \left( \mathbf{u} \cdot \nabla \right) \mathbf{u} + f \mathbf{k} \wedge \mathbf{u} + g \nabla \eta & = & \mathbf{0} \\
+\dfrac{\partial \eta^{\star}}{\partial t} + \nabla \cdot \left( \eta^{\star} \mathbf{u} \right) & = & 0
+\end{array}
+\right.
+\end{equation}
+
+avec $\eta^{\star} = \eta - \eta_s$, $\eta_s$ représentant les reliefs sur la sphère.
+
+Le terme $\left( \mathbf{u} \cdot \nabla \right) \mathbf{u}$ peut-être délicat à discrétiser. Pour éviter de discrétiser directement ce terme, on se repose sur la formule suivante :
+
+\begin{equation}
+\left( \mathbf{u} \cdot \nabla \right) \mathbf{u} = \nabla \left( \dfrac{1}{2} \mathbf{u}^2 \right) + \zeta \mathbf{k} \wedge \mathbf{u}
+\end{equation}
+
+avec $\zeta = \mathbf{k} \cdot \left( \nabla \wedge \mathbf{u} \right)$ la vorticité relative. On note la présente de $\nabla \wedge \mathbf{u}$ le rotationnel de $\mathbf{u}$.
+
+L'équation \eqref{SWEC_new} s'écrit alors :
+
+\begin{equation}
+\label{SWEC_vectform}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial \mathbf{u}}{\partial t} + \nabla \left( g \eta + \dfrac{1}{2} \mathbf{u}^2  \right) + \left( \zeta + f \right) \mathbf{k} \wedge \mathbf{u} & = & \mathbf{0} \\
+\dfrac{\partial \eta^{\star}}{\partial t} + \nabla \cdot \left( \eta^{\star} \mathbf{u} \right) & = & 0
+\end{array}
+\right.
+\end{equation}
+
+Dans la suite, nous travaillerons avec cette forme de l'équation \eqref{SWEC_new}.
+
+
+\section{Relations de Conservations}
+
+\begin{proposition}
+L'équation \eqref{SWEC_vectform} préserve la masse :
+\begin{equation}
+\dfrac{d}{dt}\gint_{\mathbb{S}_R^2} \eta^{\star} = 0
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Conséquence directe de la remarque \ref{remark_stokes}.
+\end{proof}
+
+\begin{remarque}
+On note que si $\eta_s$ est indépendant du temps, on a aussi :
+
+\begin{equation}
+\dfrac{d}{dt}\gint_{\mathbb{S}_R^2} \eta = 0
+\end{equation}
+\end{remarque}
+
+VOIR POUR LA CONSERVATION DE L'ENERGIE ET DE L'ENSTROPIE POTENTIELLE.
+
+
 \section{Test 2 de D. L. Williamson \textit{et al.} : Etat d'équilibre zonal}
+
+NOTE : IL SERAIT INTERESSANT DE RELIER CE TEST AVEC LA SOLUTION STATIONNAIRE DE GALEWSKI ET LES CHANGEMENTS DE REPERES DE JABLONOWSKI. JE PENSE QUE C EST POSSIBLE.
+
+Le second test de D. L. Williamson \textit{et al.} \cite{Williamson1992} est un test visant à observer la conservation d'une solution stationnaire et zonale pour un schéma numérique. On cherche à observer les conservations d'énergie, de masse et d'enstropie potentielle.
+
+Ce test reposant sur une solution stationnaire, la solution exacte est conne à chaque instant. Le champ de vitesse $\mathbf{u} = u \mathbf{e}_{\lambda} + v \mathbf{e}_{\theta}$ est donné par :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+u & = & u_0 \left( cos \theta cos \alpha + cos \lambda sin \theta sin \alpha \right)\\
+v & = & - u_0 sin \lambda sin \alpha
+\end{array}
+\right.
+\end{equation}
+
+où $u_0 = 2 \pi 0 / (12 \text{jours} )$ et $\alpha$ est l'angle d'inclinaisonde  la sphère.
+
+La hauteur du fluide s'obtient en consèquences comme étant :
+
+\begin{equation}
+\eta = \eta_0 - \left( a \omega u_0 + \dfrac{1}{2}u_0^2 \right) \left( -cos \lambda cos \theta sin \alpha + sin \theta cos \alpha \right)^2
+\end{equation}
+
+$\eta_0$ est tel que $g \eta_0 = 2.94 \times 10^{-4}$. 
+
+Le terme de la force de Coriolis $f$ est adapté à l'inclinaison de l'axe Nord-Sud d'un angle $\alpha$. Ainsi on a :
+
+$$ f = 2 \omega sin \theta' = 2 \omega \left( -cos \lambda cos \theta sin \alpha + sin \theta cos \alpha \right)$$
+
+
+
+
 
 \section{Test 5 de D. L. Williamson \textit{et al.} : flux zonal autour d'une montagne isolée}
 

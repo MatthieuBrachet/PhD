@@ -1,9 +1,9 @@
 clc; clear all; close all
 
 theta = 0:0.01:pi;
-f=2;
-filtre = 'long';
-delta=0.005;
+f=10;
+filtre = 'visbal';
+delta=0.4;
 [ ftr1 ] = ftr( theta,f,filtre,delta );
 n=20; ftr2 = 1-sin(theta/2).^n;
 [ ftr3 ] = ftr( theta,2,'redonnet',0 );

@@ -4,12 +4,12 @@ lambda=0.7;
 teta=0:0.01:pi;
 
 %% schema entièrement compact
-time='dirk12a';
+time='rk4';
 c=4;
 space='explicit';
 f=10;
 filtre='redonnet';
-delta=0;
+delta=0.3;
 [ g1 ] = atsf(lambda, teta,time,c,space,f,filtre,delta);
 h1=abs(g1);
 

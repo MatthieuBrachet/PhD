@@ -1,4 +1,4 @@
-\documentclass[portrait,final,a0paper,fontscale=0.277]{baposter}
+\documentclass[portrait,final,a0paper,fontscale=0.33]{baposter}%0.277
 \usepackage[utf8]{inputenc}
 \usepackage{calc}
 \usepackage{graphicx}
@@ -131,9 +131,21 @@
       \tikz{\useasboundingbox (-0.2em,-0.32em) rectangle(0.2em,0.32em); \draw[draw=black,fill=lightblue,line width=0.03em] (0,0) circle(0.18em);}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Objectif :}{name=problem,column=0,row=0}{
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \headerbox{Problème mathématique :}{name=problem,column=0, span=3,row=0}{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
    Proposer et étudier une nouvelle méthode numérique permettant de prévoir les mouvements de l'atmosphère en se basant sur un modèle mathématique \eqref{SWEC} issu des équations de Navier-Stokes. 
+   
+  L'équation Shallow Water \eqref{SWEC} permet de modéliser l'épaisseur de l'atmosphère $h$ et sa vitesse $\mathbf{u}$ en tenant compte de la gravité et de la force de Coriolis :
+
+  \begin{equation}
+  \label{SWEC}
+  \left\lbrace
+  \begin{array}{rcl}
+  \dfrac{\partial \mathbf{u}}{\partial t} + \mathbf{u} \cdot \nabla \mathbf{u} + g \nabla h + f \mathbf{k} \wedge \mathbf{u} & = & \mathbf{0} \\
+  \dfrac{\partial h}{\partial t} + \nabla \cdot \left( h \mathbf{u} \right) & = & 0
+  \end{array}
+  \right.\text{ pour } \mathbf{x} \in \mathbb{S}_R^2 \text{ et } t>0.
+  \end{equation}
  }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -152,24 +164,6 @@
 	\end{itemize}	   
   }
   
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\headerbox{Modèle mathématique :}{name=model,column=1,span=2,row=0}{
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-  L'équation Shallow Water \eqref{SWEC} permet de modéliser l'épaisseur de l'atmosphère $h$ et sa vitesse $\mathbf{u}$ en tenant compte de la gravité et de la force de Coriolis :
-
-  \begin{equation}
-  \label{SWEC}
-  \left\lbrace
-  \begin{array}{rcl}
-  \dfrac{\partial \mathbf{u}}{\partial t} + \mathbf{u} \cdot \nabla \mathbf{u} + g \nabla h + f \mathbf{k} \wedge \mathbf{u} & = & \mathbf{0} \\
-  \dfrac{\partial h}{\partial t} + \nabla \cdot \left( h \mathbf{u} \right) & = & 0
-  \end{array}
-  \right.\text{ pour } \mathbf{x} \in \mathbb{S}_R^2 \text{ et } t>0.
-  \end{equation}
-    
-}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \headerbox{Méthode numérique :}{name=method,column=0,span=1, below=difficult }{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -201,9 +195,9 @@ $$
 
 \end{itemize}
   }
-  
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Résultats numériques : équation d'advection}{name=advection,column=1,span=2, below=model}{
+  \headerbox{Résultats numériques : équation d'advection}{name=advection,column=1,span=2, below=problem}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Résolution de l'équation d'advection :
 \begin{equation}
@@ -227,14 +221,14 @@ Résolution de l'équation d'advection :
   \textbf{Figure 1:} Solution à $t=12$ jours (gauche), erreur relative (droite). 
 \end{center}
 
-
+\textbf{Bilan :}  L'équation d'advection \eqref{advection} est un modèle très simplifié mais primordial. On observe une bonne précision un test complexe. 
 
 }
-  
+
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \headerbox{Résultats numériques : eq. Shallow Water linéarisée }{name=SWEC,column=1,span=2, below=advection}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Résolution de l'équation d'advection :
+L'équation LSWE \eqref{LSWEC} représente une perturbation de \eqref{SWEC} autour d'une position d'équilibre. Nous avons démontré que cette équation possède des propriétés intéréssantes de conservation d'énergie et de masse.
 \begin{equation}
   \label{LSWEC}
   \left\lbrace
@@ -258,14 +252,16 @@ Résolution de l'équation d'advection :
   \vspace{1cm}
   \includegraphics[scale=0.35]{erreur_LSWE.png}
   
-  \textbf{Figure 2:} Conservation de masse et de l'énergie (gauche), erreur relative (droite). 
+  \textbf{Figure 2:} Masse et énergie relative (gauche), erreur relative (droite). 
 \end{center}
-  }
 
+\textbf{Bilan :} La méthode numérique utilisée préserve de manière satisfesante les relations de conservation. De plus, sur des tests dont la solution exacte est connue, on observe des résultats de précision intéressants.
+  }
+  
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{References :}{name=references,column=0,above=bottom}{
+  \headerbox{References :}{name=references,column=0,below=method}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \smaller
+    %\smaller
     \bibliographystyle{ieee}
     \renewcommand{\section}[2]{\vskip 0.05em}
       \begin{thebibliography}{1}\itemsep=-0.01em
@@ -294,9 +290,17 @@ Résolution de l'équation d'advection :
       \end{thebibliography}
    \vspace{0.3em}
   }
-\end{poster}
+  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \headerbox{Conclusion et Perspectives :}{name=conclusion,column=0,span=3,below=SWEC}{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\textbf{Conclusion : } La méthode numérique proposée ne présente pas de singularités majeurs (tels que les pôles Nord et Sud. De plus, la précision est satisfesante sur des tests complexes et les relations de conservations sont globalement respectées.
 
+\textbf{Perspectives : } Nous disposons des outils pour travailler sur l'équation Shallow Water  complète \eqref{SWEC} et ainsi proposer une méthode complète pour la résolution de ce problème. Cela permettra de proposer une méthode précise possèdant de bonnes propriétés de conservations pour la résolution d'équations de Climatologie visant à prédire les mouvements de l'atmosphère. 
+    
+  }
+
+\end{poster}
 \end{document}
 
-% J.-P. Croisille. Hermitian compact interpolation on the Cubed-Sphere grid. Jour. Sci. Comp.
 

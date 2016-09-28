@@ -8,21 +8,21 @@ Le but de cette partie est de présenter deux test pour l'équation Shallow-Wate
 \left\lbrace
 \begin{array}{r @{=} l}
 \partial_t \mathbf{u} & -f \mathbf{k} \wedge \mathbf{u} - g \nabla \eta + \mathbf{F} \\
-\partial_t \eta & -H \nabla \cdot \mathbf{u} 
+\partial_t \eta & -H \nabla \cdot \mathbf{u} + G
 \end{array}
 \right.
 \end{equation}
 
-ici $\mathbf{F}$ est une fonction de forcage.
+ici $\mathbf{F}$ et $G$ sont des fonctions de forcage.
 
-l'équation est résolue sur la sphère $\mathbb{S}_a^2$ dont le rayon est $a$. $\mathbf{x}$, un point de $\mathbb{S}_a^2$ est un point de latitude $\lambda$ et de longitude $\theta$ the longitude. Un vecteur $\mathbf{v} : \mathbb{S}_a^2 \rightarrow \mathbb{T}\mathbb{S}_R^2$ est déterminé par :
+l'équation est résolue sur la sphère $\mathbb{S}_a^2$ dont le rayon est $a$. $\mathbf{x}$, un point de $\mathbb{S}_a^2$ est un point de latitude $\lambda$ et de longitude $\theta$ the longitude. Un vecteur $\mathbf{v} : \mathbb{S}_a^2 \rightarrow \mathbb{T}\mathbb{S}_a^2$ est déterminé par :
 
 $$\mathbf{u} = u \mathbf{e}_{\theta} + v \mathbf{e}_{\lambda}.$$ 
 
 Le paramètre de Coriolis est :
 
 \begin{equation}
-f=2 \omega sin ( \theta )
+f=2 \omega sin ( \theta' ) = 2 \omega \left( -cos \lambda cos \theta sin \alpha + sin \theta cos \alpha \right)
 \label{coriolis_parameter}
 \end{equation}
 
@@ -32,9 +32,52 @@ $$e_{i} = max_n \dfrac{\| \eta^n - \eta(t^n) \|_{i}}{\| \eta(0) \|_{i}}$$
 
 $i \in \left\lbrace 1, 2, \infty \right\rbrace$.
 
+\section{Linéarisation de l'équation Shallow Water}
+
+On considère l'équation Shallow Water sans reliefs ($\eta^{\star} \equiv 0$) :
+
+\begin{equation}
+\label{eq:SWE_without relief}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial \mathbf{u}}{\partial t} + \left( \mathbf{u} \cdot \nabla \right) \mathbf{u} + f \mathbf{k} \wedge \mathbf{u} + g \nabla \eta & = & \mathbf{0} \\
+\dfrac{\partial \eta}{\partial t} + \nabla \cdot \left( \eta \mathbf{u} \right) & = & 0
+\end{array}
+\right.
+\end{equation}
+
+Pour linéariser ce système autour de la solution stationnaire $(H, \overline{\mathbf{u}}) = (H,\mathbf{0})$, on considère le couple de solutions :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\eta & = & H + \tilde{\eta} \\
+\mathbf{u} & = & \tilde{\mathbf{u}} \\
+\end{array}
+\right.
+\end{equation}
+
+En incorporant cette solution dans \eqref{eq:SWE_without relief} et en simplifiant les termes d'ordre 2, on obtient le nouveau système d'équations aux dérivées partielles :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{r @{=} l}
+\partial_t \tilde{\mathbf{u}}& -f \mathbf{k} \wedge \tilde{\mathbf{u}} - g \nabla \tilde{\eta}\\
+\partial_t \tilde{\eta} & -H \nabla \cdot \tilde{\mathbf{u}}
+\end{array}
+\right.
+\end{equation}
+
+Il s'agit de l'équation de Shallow Water linéarisée.
+Pour simplifier les notations, dans ce chapitre, on remplacera $\tilde{\mathbf{u}}$ par $\mathbf{u}$ ainsi que $\tilde{\eta}$ par $\eta$.
+
+
+
+
+
 \section{Quelques relations de conservation pour \eqref{LSWEC}}
 
-Dans cette partie, nous considérons l'équation \eqref{LSWEC} sans forcage (\textit{i.e.} $\mathbf{F} \equiv \mathbf{0}$.
+Dans cette partie, nous considérons l'équation \eqref{LSWEC} sans forcage (\textit{i.e.} $\mathbf{F} \equiv \mathbf{0}$ et $G \equiv 0$).
 
 \begin{remarque}
 \label{remark_stokes}
@@ -105,21 +148,17 @@ et après intégrations sur $\mathbb{S}_a^2$ :
 \label{energy_eq3}
 \end{equation}
 
-Alors :
-
-$$g \dfrac{\partial}{\partial t}  \| \eta \|^2_{L^2(\mathbb{S}_a^2)} + H \dfrac{\partial}{\partial t} \| \mathbf{u} \|^2_{L^2(\mathbb{S}_a^2)} = -2gH \gint_{\mathbb{S}_a^2} \left( \mathbf{u} \cdot \nabla \eta + \eta \nabla \cdot \mathbf{u} \right)$$
-
-en utilisant \eqref{energy_eq3} et \ref{remark_stokes}, nous avons le résultat :
+en utilisant \eqref{energy_eq3} et la remarque \ref{remark_stokes}, nous avons le résultat :
 
 \begin{equation}
-\dfrac{\partial}{\partial t} \left( g  \eta^2 + H \| u \|_{L^2(\mathbb{S}_a^2)}^2 \right) = 0
+\dfrac{\partial}{\partial t} \gint_{\mathbb{S}^2_a} \left( g  \eta^2 + H | u |^2 \right) = 0
 \end{equation}
 \end{itemize}
 \end{proof}
 
 \section{Solution exponentielle}
 
-Pour ce test, la fonction de forcage $\mathbf{F}$ est ajustée pour que la solution exacte de \eqref{LSWEC} soit :
+Pour ce test, $\alpha = 0$ et les fonctions de forcage $\mathbf{F}$ et $G$ sont ajustées pour que la solution exacte de \eqref{LSWEC} soit :
 
 \begin{equation}
 \left\lbrace
@@ -161,7 +200,7 @@ avec $c = max(c_{grav}, c_{cor})$, $c_{grav} = \sqrt{gH}$ et $c_{cor} = a \omega
 Les tables \ref{CV_order4_hp10}, \ref{CV_order4_hp100} et \ref{CV_order4_hp1000} sont obtenues avec un schéma d'ordre 4 en temps (RK4) et d'ordre 4 en espace. Pour les Tables \ref{CV_order8_hp10}, \ref{CV_order8_hp100} et \ref{CV_order8_hp1000} le schéma est le même en temps mais nous utilisons un schéma compact à l'ordre 8 pour la divergence et 4 pour le gradient.
 
 
-\begin{table}%[H!]
+\begin{table}[h]
 \begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
@@ -182,7 +221,7 @@ $100$ & $4.1779(-7)$ & $4.2988$ & $1.4789 (-7)$ & $4.1745$ & $8.5641 (-8)$ & $4.
 \end{center}
 \end{table}
 
-\begin{table}%[H!]
+\begin{table}[h]
 \begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
@@ -203,7 +242,7 @@ $100$ & $5.8355(-6)$ & $4.1331$ & $1.9027 (-6)$ & $4.2447$ & $1.2637 (-6)$ & $4.
 \end{center}
 \end{table}
 
-\begin{table}%[H!]
+\begin{table}[h]
 \begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
@@ -224,7 +263,7 @@ $100$ & $6.9510(-5)$ & $3.7874$ & $2.1324 (-5)$ & $4.1819$ & $1.6013 (-5)$ & $4.
 \end{center}
 \end{table}
 
-\begin{table}%[H!]
+\begin{table}[h]
 \begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
@@ -245,7 +284,7 @@ $100$ & $4.2901(-7)$ & $4.1993$ & $1.2667 (-7)$ & $4.2980$ & $6.7292 (-8)$ & $4.
 \end{center}
 \end{table}
 
-\begin{table}%[H!]
+\begin{table}[h]
 \begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
@@ -267,7 +306,7 @@ $100$ & $2.7584(-6)$ & $4.7860$ & $8.5491 (-7)$ & $4.5538$ & $4.9340 (-7)$ & $4.
 \end{table}
 
 
-\begin{table}%[H!]
+\begin{table}[h]
 \begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
@@ -291,9 +330,10 @@ $100$ & $4.9820(-6)$ & $6.3615$ & $1.9414 (-6)$ & $5.8892$ & $1.7583 (-6)$ & $6.
 
 \section{Test sans forcage}
 
-Ce second test est considéré sans forcage ($\mathbf{F} = \mathbf{0}$). Dans ce contexte, on construit une solution stationnaire telle que le champ de vitesse est zonale :
 
-$$\mathbf{u}(\theta, \lambda) = u(\theta) \mathbf{e}_{\lambda}$$
+Ce second test est considéré sans forcage ($\mathbf{F} \equiv \mathbf{0}$ et $G \equiv 0$) et $\alpha$ est quelconque. Dans ce contexte, on construit une solution stationnaire telle que le champ de vitesse est zonale dans le système de coordonnées $(\lambda', \theta')$ donné dans \eqref{from classic to prime} avec $(\lambda_P, \theta_P) = (\pi, \pi /2 - \alpha)$ :
+
+$$\mathbf{u}(\theta', \lambda') = u(\theta') \mathbf{e}_{\lambda'}$$
 
 On montre facilement que la vitesse $ \mathbf{u}$ est à divergence nulle avec ce choix.
 
@@ -303,25 +343,38 @@ La perturbation de l'atmosphère $\eta$ est ensuite construite de telle sorte qu
 f \mathbf{k} \wedge \mathbf{u} + g \nabla \eta = 0
 \end{equation} 
 
-Dans la base $(\mathbf{e}_{\lambda}, \mathbf{e}_{\theta})$ :
+Dans la base $(\mathbf{e}_{\lambda'}, \mathbf{e}_{\theta'})$ :
 
 \begin{equation}
-f u \mathbf{e}_{\theta} + g \left[ \dfrac{1}{a \cdot cos \theta} \dfrac{\partial \eta}{\partial \lambda} \mathbf{e}_{\lambda} + \dfrac{1}{a}\dfrac{\partial \eta}{\partial \theta} \mathbf{e}_{\theta} \right] = 0
+f u \mathbf{e}_{\theta'} + g \left[ \dfrac{1}{a \cdot cos \theta'} \dfrac{\partial \eta}{\partial \lambda'} \mathbf{e}_{\lambda'} + \dfrac{1}{a}\dfrac{\partial \eta'}{\partial \theta'} \mathbf{e}_{\theta'} \right] = 0
 \end{equation}
 
 par identification :
 
 \begin{itemize}
-\item $\dfrac{1}{a cos \theta} \dfrac{\partial \eta}{\partial \lambda} = 0$, alors $\eta$ est indépendant de $\lambda$,
+\item $\dfrac{1}{a cos \theta'} \dfrac{\partial \eta'}{\partial \lambda'} = 0$, alors $\eta'$ est indépendant de $\lambda'$,
 
-\item $f u + \dfrac{g}{a} \dfrac{\partial \eta}{\partial \theta} = 0$, alors (comme on a l'équation \eqref{coriolis_parameter}) :
+\item $f u + \dfrac{g}{a} \dfrac{\partial \eta'}{\partial \theta'} = 0$, alors (comme on a l'équation \eqref{coriolis_parameter}) :
 
 \begin{equation}
-\eta (\theta ) = \eta_0 - \dfrac{2 \omega a}{g} \gint_0^{\theta} sin(\tau) u(\tau) d \tau
+\eta (\theta' ) = \eta_0 - \dfrac{2 \omega a}{g} \gint_0^{\theta'} sin(\tau) u(\tau) d \tau
 \end{equation} 
 \end{itemize}
 
-ainsi une solution stationnaire est donnée. Nous choisissons $u(\theta) = u_0 \psi( \theta )$ avec $\psi$ donné par \eqref{galewski_fun}. L'intégrale est calculée numériquement par la méthode des trapèzes composites (FAIRE AVEC SIMSONS!).
+ainsi une solution stationnaire est donnée. Nous choisissons $u(\theta') = u_0 \psi( \theta' )$ avec $\psi$ donné par \eqref{galewski_fun}. L'intégrale est calculée numériquement par la méthode des trapèzes composites.
+
+On peut ainsi calculer :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\mathbf{u}(\mathbf{x}) & = & \mathbf{u}(P_{\alpha} \mathbf{x} ) \\
+\eta (\mathbf{x}) & = & \eta(P_{\alpha} \mathbf{x} )
+\end{array}
+\right.
+\end{equation}
+
+où $P_{\alpha}$ est la rotation permettant de passer de l'axe Nord-Sud classique à l'axe Nord-Sud tourné d'un angle $\alpha$.
 
 Numériquement, nous obtenons deux types de résultats :
 \begin{itemize}
@@ -330,7 +383,7 @@ Numériquement, nous obtenons deux types de résultats :
 \begin{equation}
 \dfrac{I^n}{I(0)}
 \end{equation}
-où  $I^n = \gint_{\mathbb{S}_a^2} \eta (t^n)$ la masse ou l'énergie $I^n = g \gint_{\mathbb{S}_a^2} \eta (t^n)^2 + H |u(t^n) |^2$ et $I(0)$ est la masse ou l'énergie initiale. Cette quantité $I^n/I(0)$ doit etre proche de $1$ si les quantités sont conservées.
+où  $I^n = \gint_{\mathbb{S}_a^2} \eta (t^n)$ la masse ou l'énergie $I^n = \gint_{\mathbb{S}_a^2} g \eta (t^n)^2 + H |u(t^n) |^2$ et $I(0)$ est la masse ou l'énergie initiale. Cette quantité $I^n/I(0)$ doit etre proche de $1$ si les quantités sont conservées.
 \end{itemize} 
 
 

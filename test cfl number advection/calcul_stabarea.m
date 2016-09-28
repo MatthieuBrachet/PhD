@@ -26,7 +26,7 @@ rk4c4f10=log(g);
 plot(rk4c4f10,'rx');
 
 %% filter order 6
-f=6;
+f=2;
 filtre='explicit';
 delta=0;
 [ g ] = ark4cf(lambda, teta,c,space,f,filtre,delta);
@@ -35,8 +35,8 @@ plot(rk4c4f6,'gx');
 
 %% filter order 2
 f=2;
-filtre='explicit';
-delta=0;
+filtre='implicit';
+delta=0.3;
 [ g ] = ark4cf(lambda, teta,c,space,f,filtre,delta);
 rk4c4f2=log(g);
 plot(rk4c4f2,'kx')
