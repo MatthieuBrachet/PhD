@@ -122,6 +122,7 @@ p=sparse(zeros(na,na));
 k=sparse(zeros(na,na));
 kxi=k; keta=k;
 
+
 if strcmp(scheme,'compact4')==1
     
     for i=2:na-1

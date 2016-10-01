@@ -26,8 +26,8 @@ global alpha
 
 test=1;
 video = 'yes';
-nper=1;
-sauvegarde = 1;
+nper=10;
+sauvegarde = 0;
 opt_ftr='redonnet0';
 alfa_ftr=0.45;
 scheme='compact4';
@@ -49,8 +49,6 @@ itermax=5000;
 comment='.';
 
 tstart=cputime;
-ref=floor(10000*now);
-jour=date;
 %% *** test data **********************************************************
 
 if test == 0
@@ -92,14 +90,14 @@ iter=0; FTR=0;
 time(1)=t; erri(1)=0; err_int(1)=1;
 %% *** video option *******************************************************
 if strcmp(video,'yes')==1
-    mkdir(['./RK4_video-' jour ])
-    vidObj=VideoWriter(['./RK4_video-' jour '/ref_' num2str(ref) '.avi']);
-    open(vidObj);
-    axis tight
+    nFrames = min(itermax,floor(Tmax/(nper*ddt)));
+    mov(1:nFrames) = struct('cdata', [],'colormap', []);
     set(gca,'nextplot','replacechildren');
 end
 
 %% *** iterations *********************************************************
+ref=floor(10000*now);
+jour=date;
 while t<Tmax && iter<itermax
     iter=iter+1;
     clc; 
@@ -322,26 +320,26 @@ while t<Tmax && iter<itermax
     
     %% video
     if strcmp(video,'yes')==1 & mod(iter,nper) == 0
+        close all
+        
         figure(9)
         plot_cs17(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050,5950,25);
         title(['calculated solution at time = ', num2str(time(end))])
-        hold off
-
-        currFrame = getframe;
-        writeVideo(vidObj,currFrame);
+        hold off;
+        mov(iter) = getframe(gcf, [0 0 560 420]);
     end
     
     % snapshot
     if sauvegarde == 1 & mod(iter,floor(Tmax/(3*ddt))+1) == 0 & strcmp(snapshot,'yes')==1 
-        mkdir(['./RK4_results-' jour '/' num2str(ref) ])
+        mkdir(['./RK4_results2-' jour '/' num2str(ref) ])
         close all;
         
         figure(100)
         plot_cs17(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050,5950,10);
         title(['calculated solution at time = ', num2str(time(end))])
 
-        print('-dpng', ['./RK4_results-' jour '/ref_' num2str(ref) '_snapshot_intermediaire' num2str(floor(time(end))) '.png'])
-        savefig(['./RK4_results-' jour '/ref_' num2str(ref) '_snapshot_intermediaire_' num2str(floor(time(end))) '.fig']);
+        print('-dpng', ['./RK4_results2-' jour '/ref_' num2str(ref) '_snapshot_intermediaire' num2str(floor(time(end))) '.png'])
+        savefig(['./RK4_results2-' jour '/ref_' num2str(ref) '_snapshot_intermediaire_' num2str(floor(time(end))) '.fig']);
     end
 
     
@@ -349,7 +347,8 @@ end
 tend=cputime-tstart;
 
 if strcmp(video,'yes') == 1
-    close(vidObj);
+    mkdir(['./RK4_video2-' jour ])
+    movie2avi(mov, ['./RK4_video2-' jour '/ref_' num2str(ref) '.avi'], 'compression', 'None');
     
     fid = fopen('AA_VIDEO_SAVE_RK4.txt','a');
     fprintf(fid,'%s\n',['date : ', jour]);
@@ -404,10 +403,10 @@ figure(1)
 plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
 title(['calculated solution at time = ', num2str(time(end))])
 if sauvegarde==1
-    mkdir(['./RK4_results-' jour '/' num2str(ref) ])
-    print('-dpng', ['./RK4_results-' jour '/ref_' num2str(ref) '_courbe.png'])
-    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_courbe']);
-    save(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_erreurdata_test_' num2str(test) '.mat']);
+    mkdir(['./RK4_results2-' jour '/' num2str(ref) ])
+    print('-dpng', ['./RK4_results2-' jour '/ref_' num2str(ref) '_courbe.png'])
+    savefig(['./RK4_results2-' jour '/' num2str(ref) '/ref_' num2str(ref) '_courbe']);
+    save(['./RK4_results2-' jour '/' num2str(ref) '/ref_' num2str(ref) '_erreurdata_test_' num2str(test) '.mat']);
 end 
 
 figure(2)
@@ -425,8 +424,8 @@ if strcmp(snapshot,'yes')==1
     figure(4)
     plot_cs7(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
     title(['vorticity at time : ', num2str(time(end))])
-    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot.png'])
-    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot']);
+    print('-dpng', ['./RK4_results2-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot.png'])
+    savefig(['./RK4_results2-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot']);
 end
 
 figure(5)
@@ -436,8 +435,8 @@ ylabel('relative error')
 legend('infty norm','norm 2','norm 1')
 grid on
 if sauvegarde==1
-    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_erreur.png'])
-    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_erreur']);
+    print('-dpng', ['./RK4_results2-' jour '/' num2str(ref) '/ref_' num2str(ref) '_erreur.png'])
+    savefig(['./RK4_results2-' jour '/' num2str(ref) '/ref_' num2str(ref) '_erreur']);
 end 
 
 figure(6)
@@ -447,8 +446,8 @@ xlabel('time')
 title('relative quantity')
 grid on
 if sauvegarde==1
-    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservation.png'])
-    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservation']);
+    print('-dpng', ['./RK4_results2-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservation.png'])
+    savefig(['./RK4_results2-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservation']);
 end 
 
 figure(7)
@@ -466,8 +465,8 @@ figure(9)
 plot_cs17(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050,5950,25);
 title(['calculated solution at time = ', num2str(time(end))])
 if sauvegarde==1
-    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_solution.png'])
-    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_solution']);
+    print('-dpng', ['./RK4_results2-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_solution.png'])
+    savefig(['./RK4_results2-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_solution']);
 end 
 
 if test == 1

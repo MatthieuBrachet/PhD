@@ -1,8 +1,7 @@
 function [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=...
     gr74(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
 
-global mm na nb;
-global deta;
+global na nb;
 global alfa beta;
 global betacr;
 global alfa1;
@@ -217,8 +216,6 @@ end
 
 % FACE VI: TRANSFERT OF DATA
 for jline1=1:nn,
-    jbar= jline1-mm;
-    etabar= jbar*deta;
     va_fV(2*nn-1:3*nn-3,jline1)=funfVI(nn:-1:2,jline1); % symetrie a bien regarder!
 end
 
