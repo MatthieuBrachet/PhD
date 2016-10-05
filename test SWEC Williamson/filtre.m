@@ -22,7 +22,7 @@ if strcmp(opt_ftr,'redonnet0') == 1
     sh15=sh14*sh1;
     sh1i5=sh1i4*sh1i;
     ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*(sh15+sh1i5);
-    ftre=sparse(ftr);
+    ftre=speye(size(ftr));
     ftri=speye(size(ftre));
     
 elseif strcmp(opt_ftr,'redonnet2') == 1
@@ -175,6 +175,7 @@ elseif strcmp(opt_ftr,'visbal2') == 1
     sh1i5=sh1i4*sh1i;
     ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*(sh15+sh1i5);
     ftre=sparse(ftr);
+    
     ftri=sparse(eye(size(ftre))+alfa_ftr*diag(ones(length(ftre)-1,1),1)+alfa_ftr*diag(ones(length(ftre)-1,1),-1));
     ftri(1,end)=alfa_ftr; ftri(end,1)=alfa_ftr;
     
@@ -202,6 +203,7 @@ elseif strcmp(opt_ftr,'visbal4') == 1
     sh1i5=sh1i4*sh1i;
     ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*(sh15+sh1i5);
     ftre=sparse(ftr);
+    
     ftri=sparse(eye(size(ftre))+alfa_ftr*diag(ones(length(ftre)-1,1),1)+alfa_ftr*diag(ones(length(ftre)-1,1),-1));
     ftri(1,end)=alfa_ftr; ftri(end,1)=alfa_ftr;
     
@@ -229,6 +231,7 @@ elseif strcmp(opt_ftr,'visbal6') == 1
     sh1i5=sh1i4*sh1i;
     ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*(sh15+sh1i5);
     ftre=sparse(ftr);
+    
     ftri=sparse(eye(size(ftre))+alfa_ftr*diag(ones(length(ftre)-1,1),1)+alfa_ftr*diag(ones(length(ftre)-1,1),-1));
     ftri(1,end)=alfa_ftr; ftri(end,1)=alfa_ftr;
     
@@ -256,6 +259,7 @@ elseif strcmp(opt_ftr,'visbal8') == 1
     sh1i5=sh1i4*sh1i;
     ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*(sh15+sh1i5);
     ftre=sparse(ftr);
+    
     ftri=sparse(eye(size(ftre))+alfa_ftr*diag(ones(length(ftre)-1,1),1)+alfa_ftr*diag(ones(length(ftre)-1,1),-1));
     ftri(1,end)=alfa_ftr; ftri(end,1)=alfa_ftr;
     
@@ -283,6 +287,7 @@ elseif strcmp(opt_ftr,'visbal10') == 1
     sh1i5=sh1i4*sh1i;
     ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*(sh15+sh1i5);
     ftre=sparse(ftr);
+    
     ftri=sparse(eye(size(ftre))+alfa_ftr*diag(ones(length(ftre)-1,1),1)+alfa_ftr*diag(ones(length(ftre)-1,1),-1));
     ftri(1,end)=alfa_ftr; ftri(end,1)=alfa_ftr;
    

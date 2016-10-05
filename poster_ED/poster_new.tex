@@ -1,4 +1,4 @@
-\documentclass[portrait,final,a0paper,fontscale=0.33]{baposter}%0.277
+\documentclass[portrait,final,a0paper,fontscale=0.34]{baposter}%0.277
 \usepackage[utf8]{inputenc}
 \usepackage{calc}
 \usepackage{graphicx}
@@ -153,14 +153,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
    Difficultés liées au problème physique :
    \begin{itemize}
-   \item Singularités sur les maillages de la sphère,
-   \item Tendre vers le problème complet.
+   \item On souhaite éviter la singularité liée aux pôles Nord et Sud,
+   \item Tendre vers le problème complet prennant en compte les paramètres physiques.
    \end{itemize}
    
 	Difficultés numériques :
 	\begin{itemize}
-	\item coût en calcul important,
-	\item précision spatiale et temporelle.
+	\item importance de la construction d'une méthode de calcul rapide,
+	\item précision élevée à la fois en espace et en temps.
 	\end{itemize}	   
   }
   
@@ -221,7 +221,7 @@ Résolution de l'équation d'advection :
   \textbf{Figure 1:} Solution à $t=12$ jours (gauche), erreur relative (droite). 
 \end{center}
 
-\textbf{Bilan :}  L'équation d'advection \eqref{advection} est un modèle très simplifié mais primordial. On observe une bonne précision un test complexe. 
+\textbf{Bilan :}  L'équation d'advection \eqref{advection} est un modèle très simplifié mais important. On observe une bonne précision sur ce test complexe où apparaissent deux tourbillons pouvant être difficiles à retrouver numériquement (problème de sous-résolution ou de dissipation numérique par exemple). 
 
 }
 
@@ -250,12 +250,12 @@ L'équation LSWE \eqref{LSWEC} représente une perturbation de \eqref{SWEC} auto
 \begin{center}
   \includegraphics[height=4cm]{conservation_LSWE.png}
   \vspace{1cm}
-  \includegraphics[scale=0.35]{erreur_LSWE.png}
+  \includegraphics[scale=0.33]{erreur_LSWE.png}
   
   \textbf{Figure 2:} Masse et énergie relative (gauche), erreur relative (droite). 
 \end{center}
 
-\textbf{Bilan :} La méthode numérique utilisée préserve de manière satisfesante les relations de conservation. De plus, sur des tests dont la solution exacte est connue, on observe des résultats de précision intéressants.
+\textbf{Bilan :} La méthode numérique utilisée préserve de manière satisfesante les relations de conservation. De plus, sur des tests dont la solution exacte est connue, on observe des résultats de précision très encourageants (de l'ordre de $5 \times 10^{-2} \% $ pour la conservation de solution stationnaire).
   }
   
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -292,11 +292,11 @@ L'équation LSWE \eqref{LSWEC} représente une perturbation de \eqref{SWEC} auto
   }
   
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Conclusion et Perspectives :}{name=conclusion,column=0,span=3,below=SWEC}{
+  \headerbox{Conclusion et Perspectives :}{name=conclusion,column=0,span=3,below=references}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\textbf{Conclusion : } La méthode numérique proposée ne présente pas de singularités majeurs (tels que les pôles Nord et Sud. De plus, la précision est satisfesante sur des tests complexes et les relations de conservations sont globalement respectées.
+\textbf{Conclusion : } La méthode numérique proposée ne présente pas de singularités majeurs (tels que les pôles Nord et Sud). De plus, la précision est satisfaisante sur des tests complexes et les relations de conservations sont respectées.
 
-\textbf{Perspectives : } Nous disposons des outils pour travailler sur l'équation Shallow Water  complète \eqref{SWEC} et ainsi proposer une méthode complète pour la résolution de ce problème. Cela permettra de proposer une méthode précise possèdant de bonnes propriétés de conservations pour la résolution d'équations de Climatologie visant à prédire les mouvements de l'atmosphère. 
+\textbf{Perspectives : } Nous disposons des outils pour travailler sur l'équation Shallow Water  complète \eqref{SWEC} et ainsi proposer une méthode complète pour la résolution de ce problème. Cela permettra de proposer une méthode précise possèdant de bonnes propriétés de conservations pour la résolution d'équations de Climatologie visant à prédire les mouvements de l'atmosphère. Le travail en cours porte sur la résolution du modèle complet en considérant des reliefs sur la sphère.
     
   }
 

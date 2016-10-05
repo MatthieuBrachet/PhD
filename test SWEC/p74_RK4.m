@@ -99,9 +99,9 @@ while t<Tmax & iter<itermax
     end
     while e>1.e-4 & iterf<iterfmax
         iterf=iterf+1;
-        for p=1:3
-            [vt_fI(:,:,p),vt_fII(:,:,p),vt_fIII(:,:,p),vt_fIV(:,:,p),vt_fV(:,:,p),vt_fVI(:,:,p)]=...
-                ftr74(vt_fI(:,:,p),vt_fII(:,:,p),vt_fIII(:,:,p),vt_fIV(:,:,p),vt_fV(:,:,p),vt_fVI(:,:,p),n,nn);
+        for ppp=1:3
+            [vt_fI(:,:,ppp),vt_fII(:,:,ppp),vt_fIII(:,:,ppp),vt_fIV(:,:,ppp),vt_fV(:,:,ppp),vt_fVI(:,:,ppp)]=...
+                ftr74(vt_fI(:,:,ppp),vt_fII(:,:,ppp),vt_fIII(:,:,ppp),vt_fIV(:,:,ppp),vt_fV(:,:,ppp),vt_fVI(:,:,ppp),n,nn);
         end
         [htf_fI,htf_fII,htf_fIII,htf_fIV,htf_fV,htf_fVI]=...
             ftr74(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn);
