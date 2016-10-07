@@ -33,9 +33,9 @@ save_graph = 1;
 %         1 : coupe.
 coupe = 1;
 %% *** Benchmarks data ****************************************************
- n=35;
+ n=80;
  nn=n+2;
- cfl=0.5;
+ cfl=0.9;
  ndaymax=12;
 %% *** filtres choisis ****************************************************
 ftra=10;
@@ -45,7 +45,7 @@ ftrc=2;
 opt_ftr=10;
  if coef == 0
  % test de Williamson
- alphad=pi/4;  
+ alphad=0;  
  lambdac=pi/2;                                                           % longitude BUMP
  tetac=0;                                                                  % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
@@ -306,6 +306,33 @@ if save_graph==1
     print('-dpng', ['./results_ftr/' date 'ref_' num2str(ref) '_normerreur_test_' num2str(coef) '.png'])
 end
 
+if coupe == 1
+    [ ~,f_10 ] = coupe_eq(funfI10,funfII10,funfIII10,funfIV10);
+    [ ~,f_8 ] = coupe_eq(funfI8,funfII8,funfIII8,funfIV8);
+    [ x,f_6 ] = coupe_eq(funfI6,funfII6,funfIII6,funfIV6);
+    n=100;
+    nn=n+2;
+    mod_1b
+    funfIe=fun4_b(x_fI,y_fI,z_fI,time);
+    funfIIe=fun4_b(x_fII,y_fII,z_fII,time);
+    funfIIIe=fun4_b(x_fIII,y_fIII,z_fIII,time);
+    funfIVe=fun4_b(x_fIV,y_fIV,z_fIV,time);
+    [ xe,fe ] = coupe_eq(funfIe,funfIIe,funfIIIe,funfIVe);
+    
+    figure(10)
+    plot(x,f_10,'b-o'); hold on;
+    plot(x,f_8,'g-d');hold on
+    plot(x,f_6,'r-x'); hold on;
+    plot(xe,fe,'k-')
+    grid on;
+    legend(['filtre ', num2str(ftra)],['filtre ', num2str(ftrb)],['filtre ', num2str(ftrc)],'solution exacte')
+    %xlabel('equateur - face II')
+    title('coupe de la solution le long de l''equateur')
+    if save_graph==1
+        print('-dpng', ['./results_ftr/' date 'ref_' num2str(ref) '_coupefaceI_equateur_test_' num2str(coef) '.png'])
+    end
+end
+
 if save_graph==1
     %ouvre un fichier ou le créé
     fid = fopen('./results_ftr/TEST_SAVE.txt','a');
@@ -325,14 +352,17 @@ if save_graph==1
     fprintf(fid,'%s\n',['max(er_1)        : ', num2str(max(er1_10))] );
     fprintf(fid,'%s\n',['max(er_2)        : ', num2str(max(er2_10))] );
     fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty_10))] );
+    fprintf(fid,'%s\n',['max              : ', num2str(max(f_10))] );
     fprintf(fid,'%s\n',['*** filtre ordre ', num2str(ftrb) ]);
     fprintf(fid,'%s\n',['max(er_1)        : ', num2str(max(er1_8))] );
     fprintf(fid,'%s\n',['max(er_2)        : ', num2str(max(er2_8))] );
     fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty_8))] );
+    fprintf(fid,'%s\n',['max              : ', num2str(max(f_8))] );
     fprintf(fid,'%s\n',['*** filtre ordre ', num2str(ftrc) ]);
     fprintf(fid,'%s\n',['max(er_1)        : ', num2str(max(er1_6))] );
     fprintf(fid,'%s\n',['max(er_2)        : ', num2str(max(er2_6))] );
     fprintf(fid,'%s\n',['max(er_infty)    : ', num2str(max(erinfty_6))] );
+    fprintf(fid,'%s\n',['max              : ', num2str(max(f_6))] );
     fprintf(fid,'%s\n','******************************');
     fprintf(fid,'%s\n',['ndaymax          : ', num2str(ndaymax)] );
     fprintf(fid,'%s\n','******************************');
@@ -344,29 +374,3 @@ if save_graph==1
     fclose(fid);
 end
 
-if coupe == 1
-    [ ~,f_10 ] = coupe_eq(funfI10,funfII10,funfIII10,funfIV10);
-    [ ~,f_8 ] = coupe_eq(funfI8,funfII8,funfIII8,funfIV8);
-    [ x,f_6 ] = coupe_eq(funfI6,funfII6,funfIII6,funfIV6);
-    n=500;
-    nn=n+2;
-    mod_1b
-    funfIe=fun4_b(x_fI,y_fI,z_fI,time);
-    funfIIe=fun4_b(x_fII,y_fII,z_fII,time);
-    funfIIIe=fun4_b(x_fIII,y_fIII,z_fIII,time);
-    funfIVe=fun4_b(x_fIV,y_fIV,z_fIV,time);
-    [ xe,fe ] = coupe_eq(funfIe,funfIIe,funfIIIe,funfIVe);
-    
-    figure(10)
-    plot(x,f_10,'bo'); hold on;
-    plot(x,f_8,'gd');hold on
-    plot(x,f_6,'rx'); hold on;
-    plot(xe,fe,'k-')
-    grid on;
-    legend(['filtre ', num2str(ftra)],['filtre ', num2str(ftrb)],['filtre ', num2str(ftrc)],'solution exacte')
-    xlabel('equateur - face II')
-    title('coupe de la solution le long de l''equateur')
-    if save_graph==1
-        print('-dpng', ['./results_ftr/' date 'ref_' num2str(ref) '_coupefaceI_equateur_test_' num2str(coef) '.png'])
-    end
-end

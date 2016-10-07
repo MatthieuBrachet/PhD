@@ -75,7 +75,7 @@ Pour simplifier les notations, dans ce chapitre, on remplacera $\tilde{\mathbf{u
 
 
 
-\section{Quelques relations de conservation pour \eqref{LSWEC}}
+\section{Quelques relations de conservation pour l'équation Shallow Water linéarisée}
 
 Dans cette partie, nous considérons l'équation \eqref{LSWEC} sans forcage (\textit{i.e.} $\mathbf{F} \equiv \mathbf{0}$ et $G \equiv 0$).
 
@@ -200,7 +200,7 @@ avec $c = max(c_{grav}, c_{cor})$, $c_{grav} = \sqrt{gH}$ et $c_{cor} = a \omega
 Les tables \ref{CV_order4_hp10}, \ref{CV_order4_hp100} et \ref{CV_order4_hp1000} sont obtenues avec un schéma d'ordre 4 en temps (RK4) et d'ordre 4 en espace. Pour les Tables \ref{CV_order8_hp10}, \ref{CV_order8_hp100} et \ref{CV_order8_hp1000} le schéma est le même en temps mais nous utilisons un schéma compact à l'ordre 8 pour la divergence et 4 pour le gradient.
 
 
-\begin{table}[h]
+\begin{table}[ht]
 \begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
@@ -221,7 +221,7 @@ $100$ & $4.1779(-7)$ & $4.2988$ & $1.4789 (-7)$ & $4.1745$ & $8.5641 (-8)$ & $4.
 \end{center}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[ht]
 \begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
@@ -242,7 +242,7 @@ $100$ & $5.8355(-6)$ & $4.1331$ & $1.9027 (-6)$ & $4.2447$ & $1.2637 (-6)$ & $4.
 \end{center}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[ht]
 \begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
@@ -263,7 +263,7 @@ $100$ & $6.9510(-5)$ & $3.7874$ & $2.1324 (-5)$ & $4.1819$ & $1.6013 (-5)$ & $4.
 \end{center}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[ht]
 \begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
@@ -284,7 +284,7 @@ $100$ & $4.2901(-7)$ & $4.1993$ & $1.2667 (-7)$ & $4.2980$ & $6.7292 (-8)$ & $4.
 \end{center}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[ht]
 \begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
@@ -306,7 +306,7 @@ $100$ & $2.7584(-6)$ & $4.7860$ & $8.5491 (-7)$ & $4.5538$ & $4.9340 (-7)$ & $4.
 \end{table}
 
 
-\begin{table}[h]
+\begin{table}[ht]
 \begin{center}
 \begin{tabular}{c|c|c|c|c|c|c}
 $N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 

@@ -889,3 +889,45 @@ add the delta_ftr parameter in filtering.
 ***********************************
   
   
+date : 05-Oct-2016
+ref. : 7366087798
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 15
+time step         : 1211.7018
+cfl               : 0.9
+ordre du filtre   : redonnet8
+delta_ftr         : 1
+alpha_ftr         : 0
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+correction in filtering.
+***********************************
+  
+  
+date : 06-Oct-2016
+ref. : 7366092633
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+ordre du filtre   : redonnet4
+delta_ftr         : 1
+alpha_ftr         : 0
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+correction in filtering.
+***********************************
+  
+  

@@ -27,28 +27,28 @@ time1=cputime;
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 3;
+coef = 1;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 0;
+save_graph = 1;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
 opt_ftr =10;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
-snapshot = 1;
+snapshot = 0;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 2
 %         1 : coupe.
 coupe = 0;
 % sauvegarde = 1 : sauvegarde toutes les données
 %            = 0 : ne les sauvegarde pas (utiliser load('namefile') pour
 %            recharger les données).
-sauvegarde = 0;
+sauvegarde = 1;
 %% *** Benchmarks data ****************************************************
- n=31;
+ n=40;
  nn=n+2;
  cfl=0.9;
  ndaymax=12;
@@ -58,7 +58,7 @@ sauvegarde = 0;
 %% ************************************************************************
  if coef == 0
  %% test de Williamson
- alphad=3*pi/4;  
+ alphad=0;  
  lambdac=-pi/2;                                                           % longitude BUMP
  tetac=0;                                                                  % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
@@ -94,7 +94,7 @@ tstart=cputime;
 mod_1b
 tmax=24*3600*ndaymax;
 ddt=cfl*radius*dxi/u0;
-itemax=1;%floor(tmax/ddt);
+itemax=floor(tmax/ddt);
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DEBUT BOUCLE EN TEMPS %
 % ------------------------------------------------------------------------

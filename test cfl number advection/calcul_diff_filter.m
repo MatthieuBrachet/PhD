@@ -10,10 +10,10 @@ teta=0:0.001:pi;
 delta1=0.5;
 ff1=ftr(teta,order,genre,delta1);
 
-delta2=0.49;
+delta2=0.4;
 ff2=ftr(teta,order,genre,delta2);
 
-delta3=0.35;
+delta3=0.3;
 ff3=ftr(teta,order,genre,delta3);
 
 delta4=0.1;

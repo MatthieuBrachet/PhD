@@ -4,6 +4,10 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Test du Bump - $\alpha = 0$ - $N=40$ - $CFL=0.9$ - solution \IeC {\`a} $t=0$ (gauche) et \IeC {\`a} $t=12 jours$ (droite) }}{22}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Test du Bump - $\alpha = 0$ - $N=40$ - $CFL=0.9$ - \IeC {\`a} $t=12 jours$ localisation spatiale de l'erreur relative $( h^n - h(t^n) )$ (gauche) et erreur relative en norme (droite) }}{22}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Test du Bump - $\alpha = 3 \pi /4$ - $N=40$ - $CFL=0.9$ - \IeC {\`a} $t=12 jours$ localisation spatiale de l'erreur relative $( h^n - h(t^n))$ (gauche) et erreur relative en norme (droite) }}{23}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Test du Bump - $\alpha = 0$ - $N=40$ - $CFL=0.9$ - \IeC {\`a} $t=12$ coupe sur l'\IeC {\'e}quateur (gauche) - erreur relative sans filtre (droite)}}{23}{figure.5.4}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

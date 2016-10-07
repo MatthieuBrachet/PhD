@@ -56,7 +56,6 @@ t=0;
 [ ht_fV,    vt_fV]   = sol_exacte(x_fV,   y_fV,   z_fV,   t);
 [ ht_fVI,   vt_fVI]  = sol_exacte(x_fVI,  y_fVI,  z_fVI,  t);
 
-
 [htf_fI,htf_fII,htf_fIII,htf_fIV,htf_fV,htf_fVI]=...
             ftr72(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn);
 

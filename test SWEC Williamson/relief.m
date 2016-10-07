@@ -7,7 +7,7 @@ if test == 0
 elseif test == 1
     hs0=2000;
     R=pi/9;
-    lambdac=pi/2;
+    lambdac=0*pi/2;
     tetac=pi/6;
     
     [lambda, teta, ~]=cart2sph(x,y,z);

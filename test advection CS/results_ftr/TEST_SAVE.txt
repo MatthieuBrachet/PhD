@@ -358,3 +358,309 @@ ndaymax          : 12
   
   
   
+date : 06-Oct-2016
+date : 7366098533
+******************************
+test : 0
+------- numerical data -------
+number of points : 40
+time step        : 5689.7561
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 0
+******************************
+*** filtre ordre 10
+max(er_1)        : 0.23603
+max(er_2)        : 0.19429
+max(er_infty)    : 0.16342
+*** filtre ordre 4
+max(er_1)        : 0.34594
+max(er_2)        : 0.235
+max(er_infty)    : 0.21125
+*** filtre ordre 0
+max(er_1)        : 4.7474
+max(er_2)        : 1.1028
+max(er_infty)    : 0.66135
+******************************
+ndaymax          : 12
+******************************
+  
+  
+  
+  
+date : 06-Oct-2016
+date : 7366098691
+******************************
+test : 0
+------- numerical data -------
+number of points : 40
+time step        : 5689.7561
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 0
+******************************
+*** filtre ordre 10
+max(er_1)        : 0.23603
+max(er_2)        : 0.19429
+max(er_infty)    : 0.16342
+*** filtre ordre 4
+max(er_1)        : 0.34594
+max(er_2)        : 0.235
+max(er_infty)    : 0.21125
+*** filtre ordre 0
+max(er_1)        : 4.7474
+max(er_2)        : 1.1028
+max(er_infty)    : 0.66135
+******************************
+ndaymax          : 12
+******************************
+  
+  
+  
+  
+date : 06-Oct-2016
+date : 7366098803
+******************************
+test : 0
+------- numerical data -------
+number of points : 40
+time step        : 5689.7561
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 0
+******************************
+*** filtre ordre 10
+max(er_1)        : 0.23603
+max(er_2)        : 0.19429
+max(er_infty)    : 0.16342
+*** filtre ordre 4
+max(er_1)        : 0.34594
+max(er_2)        : 0.235
+max(er_infty)    : 0.21125
+*** filtre ordre 2
+max(er_1)        : 1.4553
+max(er_2)        : 0.8472
+max(er_infty)    : 0.87322
+******************************
+ndaymax          : 12
+******************************
+  
+  
+  
+  
+date : 07-Oct-2016
+date : 7366105937
+******************************
+test : 0
+------- numerical data -------
+number of points : 40
+time step        : 5689.7561
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 0
+******************************
+*** filtre ordre 10
+max(er_1)        : 0.23603
+max(er_2)        : 0.19429
+max(er_infty)    : 0.16342
+*** filtre ordre 4
+max(er_1)        : 0.34594
+max(er_2)        : 0.235
+max(er_infty)    : 0.21125
+*** filtre ordre 2
+max(er_1)        : 1.4553
+max(er_2)        : 0.8472
+max(er_infty)    : 0.87322
+******************************
+ndaymax          : 12
+******************************
+  
+  
+  
+  
+date : 07-Oct-2016
+date : 7366106076
+******************************
+test : 0
+------- numerical data -------
+number of points : 40
+time step        : 5689.7561
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 0
+******************************
+*** filtre ordre 10
+max(er_1)        : 0.23603
+max(er_2)        : 0.19429
+max(er_infty)    : 0.16342
+*** filtre ordre 6
+max(er_1)        : 0.24397
+max(er_2)        : 0.19427
+max(er_infty)    : 0.16269
+*** filtre ordre 2
+max(er_1)        : 1.4553
+max(er_2)        : 0.8472
+max(er_infty)    : 0.87322
+******************************
+ndaymax          : 12
+******************************
+  
+  
+  
+  
+date : 07-Oct-2016
+date : 7366106192
+******************************
+test : 0
+------- numerical data -------
+number of points : 40
+time step        : 5689.7561
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 0
+******************************
+*** filtre ordre 10
+max(er_1)        : 0.23603
+max(er_2)        : 0.19429
+max(er_infty)    : 0.16342
+*** filtre ordre 4
+max(er_1)        : 0.34594
+max(er_2)        : 0.235
+max(er_infty)    : 0.21125
+*** filtre ordre 0
+max(er_1)        : 4.7474
+max(er_2)        : 1.1028
+max(er_infty)    : 0.66135
+******************************
+ndaymax          : 12
+******************************
+  
+  
+  
+  
+date : 07-Oct-2016
+date : 7366106318
+******************************
+test : 0
+------- numerical data -------
+number of points : 40
+time step        : 5689.7561
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 0
+******************************
+*** filtre ordre 10
+max(er_1)        : 0.23603
+max(er_2)        : 0.19429
+max(er_infty)    : 0.16342
+*** filtre ordre 4
+max(er_1)        : 0.34594
+max(er_2)        : 0.235
+max(er_infty)    : 0.21125
+*** filtre ordre 2
+max(er_1)        : 1.4553
+max(er_2)        : 0.8472
+max(er_infty)    : 0.87322
+******************************
+ndaymax          : 12
+******************************
+  
+  
+  
+  
+date : 07-Oct-2016
+date : 7366106351
+******************************
+test : 0
+------- numerical data -------
+number of points : 20
+time step        : 11108.5714
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 0
+******************************
+*** filtre ordre 10
+max(er_1)        : 0.47828
+max(er_2)        : 0.37236
+max(er_infty)    : 0.32187
+*** filtre ordre 4
+max(er_1)        : 0.88261
+max(er_2)        : 0.51355
+max(er_infty)    : 0.51417
+*** filtre ordre 2
+max(er_1)        : 1.6151
+max(er_2)        : 0.9141
+max(er_infty)    : 0.92893
+******************************
+ndaymax          : 12
+******************************
+  
+  
+  
+  
+date : 07-Oct-2016
+date : 7366106470
+******************************
+test : 0
+------- numerical data -------
+number of points : 100
+time step        : 5689.7561
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 0
+******************************
+*** filtre ordre 10
+max(er_1)        : 0.23603
+max(er_2)        : 0.19429
+max(er_infty)    : 0.16342
+max              : 990.8628
+*** filtre ordre 4
+max(er_1)        : 0.34594
+max(er_2)        : 0.235
+max(er_infty)    : 0.21125
+max              : 834.3534
+*** filtre ordre 2
+max(er_1)        : 1.4553
+max(er_2)        : 0.8472
+max(er_infty)    : 0.87322
+max              : 126.0255
+******************************
+ndaymax          : 12
+******************************
+  
+  
+  
+  
+date : 07-Oct-2016
+date : 7366107227
+******************************
+test : 0
+------- numerical data -------
+number of points : 100
+time step        : 2880
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 0
+******************************
+*** filtre ordre 10
+max(er_1)        : 0.11535
+max(er_2)        : 0.098744
+max(er_infty)    : 0.083796
+max              : 996.1402
+*** filtre ordre 4
+max(er_1)        : 0.135
+max(er_2)        : 0.10262
+max(er_infty)    : 0.088707
+max              : 975.4953
+*** filtre ordre 2
+max(er_1)        : 1.1904
+max(er_2)        : 0.73722
+max(er_infty)    : 0.77586
+max              : 223.3778
+******************************
+ndaymax          : 12
+******************************
+  
+  
+  
+  

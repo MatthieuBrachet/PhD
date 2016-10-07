@@ -17,7 +17,8 @@
 %
 %% ************************************************************************
 clc; clear all; close all;
-format short
+format long
+
 global n nn dxi
 global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII
 global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
@@ -28,14 +29,14 @@ global alpha
 test=1;
 video = 'no';
 nper=1;
-sauvegarde = 0;
-opt_ftr='redonnet10';
+sauvegarde = 1;
+opt_ftr='redonnet6';
 alfa_ftr=0;
 delta_ftr=1;
 scheme='compact4';
-snapshot='no';
+snapshot='yes';
 
-n=15; % for snapshot, n must be in the form 2^m-1 !
+n=31; % for snapshot, n must be in the form 2^m-1 !
 mod74
 
 ccor=radius*omega;
@@ -45,9 +46,9 @@ c=max([cgrav,ccor,cvit]);
 
 cfl=0.9;
 ddt=radius*dxi*cfl/c;
-ndaymax=5;
+ndaymax=15;
 Tmax=ndaymax*3600*24;
-itermax=1000;
+itermax=5000;
 comment='correction in filtering.';
 
 tstart=cputime;
@@ -91,7 +92,7 @@ if strcmp(video,'yes')==1
 end
 
 %% *** iterations *********************************************************
-while t<Tmax && iter<itermax
+while t<Tmax && iter<itermax && err_int(end)<10^3
     iter=iter+1;
     clc; 
     disp([iter min(itermax,floor(Tmax/ddt)) erri(end) err_int(end)]);
@@ -324,12 +325,12 @@ while t<Tmax && iter<itermax
     end
     
     % snapshot
-    if sauvegarde == 1 & mod(iter,floor(Tmax/(3*ddt))+1) == 0 & strcmp(snapshot,'yes')==1 
+    if sauvegarde == 1 & mod(iter,floor(Tmax/(3*ddt))) == 0 & strcmp(snapshot,'yes')==1 
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         close all;
         
         figure(100)
-        plot_cs17(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050,5950,10);
+        plot_cs17(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050,5950,50);
         title(['calculated solution at time = ', num2str(time(end))])
 
         print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire' num2str(floor(time(end))) '.png'])
@@ -454,10 +455,14 @@ grid on
 figure(8)
 plot_cs7(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
 title(['calculated solution at time = ', num2str(time(end))])
+if sauvegarde==1
+    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_solution.png'])
+    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_solution']);
+end
 
 
 figure(9)
-plot_cs17(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050,5950,25);
+plot_cs17(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050,5950,50);
 title(['calculated solution at time = ', num2str(time(end))])
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_solution.png'])
