@@ -8,16 +8,36 @@ global alfa beta;
 global alfacr betacr;
 global alfa1;
 global alfag betag;
+% -----------------------------------
 global p k kxi keta k_div p_div;
+% -----------------------------------
 global x_fI y_fI z_fI;
 global x_fII y_fII z_fII;
 global x_fIII y_fIII z_fIII;
 global x_fIV y_fIV z_fIV;
 global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
+% -----------------------------------
 global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
+global gdxi_I gdxi_II gdxi_III gdxi_IV gdxi_V gdxi_VI;
+global gdeta_I gdeta_II gdeta_III gdeta_IV gdeta_V gdeta_VI;
 global gr_I gr_II gr_III gr_IV gr_V gr_VI;
+% -----------------------------------
+global G11_fI G12_fI G22_fI
+global G11_fII G12_fII G22_fII
+global G11_fIII G12_fIII G22_fIII
+global G11_fIV G12_fIV G22_fIV
+global G11_fV G12_fV G22_fV
+global G11_fVI G12_fVI G22_fVI
+% -----------------------------------
+global Gd11_fI Gd12_fI Gd22_fI
+global Gd11_fII Gd12_fII Gd22_fII
+global Gd11_fIII Gd12_fIII Gd22_fIII
+global Gd11_fIV Gd12_fIV Gd22_fIV
+global Gd11_fV Gd12_fV Gd22_fV
+global Gd11_fVI Gd12_fVI Gd22_fVI
+% -----------------------------------
 global opt_ftr ftr scheme;
 global omega gp
 
@@ -29,12 +49,9 @@ gp=9.80616;
 
 %% 
 nn=n+2;
-% -----------------------------------------
-%global mm na nb;
 mm=((nn-1)/2)+1;
 na=4*(nn-1);
 nb=na;
-%global xi eta dxi deta xx yy delta deltab;
 xi=linspace(-pi/4, pi/4, nn); 
 dxi=(pi/2)/(nn-1);
 eta=linspace(-pi/4, pi/4, nn); 
@@ -59,10 +76,11 @@ for i=1:nn,
     delta(i,j)=1+xx(i,j)^2+yy(i,j)^2;
   end
 end
-deltab=sqrt(delta); % DELTAB=DELTA DE ULLRICH = SQRT(1+X^2+Y^2).
-dga=(radius^2)*((1+xx.^2).*(1+yy.^2))./(delta.*deltab); % ELEMENT AREA
-% ---------------------------------------
-%global alfa beta;
+deltab=sqrt(delta);
+dga=(radius^2)*((1+xx.^2).*(1+yy.^2))./(delta.*deltab);
+
+
+%% calcul des grands cercles en alfa/beta
 alfa=zeros(nn,nn);
 beta=zeros(nn,nn);
 for j=1:nn,
@@ -81,8 +99,7 @@ for i=1:nn,
         beta(i,j)=atan(tan(eta(j))/xwk);
     end
 end
-% -----------------------------------------
-%global alfacr betacr;
+
 alfacr=zeros(nn,nn);
 betacr=zeros(nn,nn);
 for j=1:nn,
@@ -95,19 +112,14 @@ for i=1:nn
         alfacr(i,j)=acos((cos(betacr(i,j))/cos(eta(j)))*sin(-xi(i)));
     end
 end
-%global alfa1;
-alfa1=zeros(nn,nn); % VARIABLE DE TRAVAIL= ANGLE ALPHA DE TYPE BETACROSS
-% LIEN ENTRE ALFA1 ET BETACROSS, CE CALCUL EST A REFAIRE POUR ETRE SUR. 
+
+alfa1=zeros(nn,nn); 
 for i=1:nn,
     for j=1:nn,
         alfa1(i,j)=betacr(j,i);
     end
 end
-% ----------------------------------------
-% CALCUL DES ANGLES GLOBAUX DE RESEAUX: 2 TABLEAUX SEULEMENT ALFA_G ET BETA_G
-% ALFA_G: ABSCISSES CURVILIGNES LE LONG DE Ia, IIa, Va
-% BETA_G: ABSCISSES CURVILIGNES LE LONG DE Ib, IIb, Vb
-%global alfag betag;
+
 alfag=zeros(4*(nn-1),nn); 
 for j=1:nn,
   alfag(1:nn-1,j)=alfa(1:nn-1,j);
@@ -115,8 +127,8 @@ for j=1:nn,
   alfag(2*(nn-1)+1:3*(nn-1),j)=alfa(1:nn-1,j)+pi;
   alfag(3*(nn-1)+1:4*(nn-1),j)=alfacr(1:nn-1,j)+pi;
 end
-betag=alfag'; % BETAG=TRANSPOSEE DE ALFAG
-%% %% --------------------------------------------------
+betag=alfag'; 
+%% MATRICES DE DERIVATIONS
 
 p=sparse(zeros(na,na));
 k=sparse(zeros(na,na));
@@ -186,16 +198,7 @@ else
     error(['Error in scheme. The spatial scheme : ', scheme ,' is uncorrect'])
 end
 
-%% ----------------------------------------------------------------
-% % CARTESIAN COORDINATES OF THE POINTS OF THE 6 FACES.
-% global x_fI y_fI z_fI;
-% global x_fII y_fII z_fII;
-% global x_fIII y_fIII z_fIII;
-% global x_fIV y_fIV z_fIV;
-% global x_fV y_fV z_fV;
-% global x_fVI y_fVI z_fVI;
-% -------------------------------------------------------------------
-% MODIFICATION CALCUL DES COORDONNEES CARTESIENNES: PLUS CLAIR.
+%% CARTESIAN COORDINATES OF THE POINTS OF THE 6 FACES.
 % - FACE I -
 for i=1:nn,  
     for j=1:nn,
@@ -279,10 +282,8 @@ x_fVI=radius*x_fVI;
 y_fVI=radius*y_fVI;
 z_fVI=radius*z_fVI;
 % -----------------------------------------------------------------
-% DATA OF THE CONTRAVARIANT VECTORS XI/ETA FOR EACH FACE
-% - FACE I -
-% global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
-% global geta_I geta_II geta_III geta_IV geta_V geta_VI;
+%% DATA OF THE CONTRAVARIANT VECTORS XI/ETA FOR EACH FACE
+% Face I
 gxi_I=zeros(nn,nn,3);geta_I=zeros(nn,nn,3); % CONTRAVARIANT VECTORS XI/ETA
 for i=1:nn,
     for j=1:nn,
@@ -294,7 +295,7 @@ for i=1:nn,
       gxi_I(i,j,1:3)=gxi_I(i,j,1:3)/xwk;
     end
 end
-%
+% - FACE II -
 for i=1:nn,
     for j=1:nn,
       xwk=x_fI(i,j)*(1+yy(i,j)^2);
@@ -449,33 +450,139 @@ for i=1:nn
     end
 end
 
-
-
-
-
-
-
-
-% p1=zeros(n); % 
-% p1=sparse(p1);
-% k1=zeros(n);
-% k1=sparse(k1);
-% %
-% for i=2:n-1
-%     p1(i,i)=4;
-%     p1(i,i+1)=1;
-%     p1(i,i-1)=1;
-%     k1(i,i+1)=1;
-%     k1(i,i-1)=-1;
-% end
-% p1(1,1)=4;p1(1,2)=1;
-% p1(n,n-1)=1;p1(n,n)=4;
-% k1(1,2)=1;
-% k1(n,n-1)=-1;
-
-
 %% Options sur les filtres
 [ ftr ] = filtre( na , opt_ftr );
 
+%% base directe
 
-%% CALCUL DES COORDONNEES COVARIANTES
+% FACE I
+gdxi_I=zeros(nn,nn,3);
+gdeta_I=zeros(nn,nn,3);
+G11_fI=zeros(nn,nn);
+G12_fI=zeros(nn,nn);
+G22_fI=zeros(nn,nn);
+Gd11_fI=zeros(nn,nn);
+Gd12_fI=zeros(nn,nn);
+Gd22_fI=zeros(nn,nn);
+for i=1:nn
+    for j=1:nn
+        G11_fI(i,j)=dot(gxi_I(i,j,1:3),gxi_I(i,j,1:3));
+        G12_fI(i,j)=dot(gxi_I(i,j,1:3),geta_I(i,j,1:3));
+        G22_fI(i,j)=dot(geta_I(i,j,1:3),geta_I(i,j,1:3));
+        gdxi_I(i,j,1:3)=G11_fI(i,j)*gxi_I(i,j,1:3)+G12*geta_I(i,j,1:3);
+        gdeta_I(i,j,1:3)=G12*gxi_I(i,j,1:3)+G22_fI(i,j)*geta_I(i,j,1:3);
+        Gd11_fI(i,j)=dot(gdxi_I(i,j,1:3),gdxi_I(i,j,1:3));
+        Gd12_fI(i,j)=dot(gdxi_I(i,j,1:3),gdeta_I(i,j,1:3));
+        Gd22_fI(i,j)=dot(gdeta_I(i,j,1:3),gdeta_I(i,j,1:3));
+    end
+end
+
+% FACE II
+gdxi_II=zeros(nn,nn,3);
+gdeta_II=zeros(nn,nn,3);
+G11_fII=zeros(nn,nn);
+G12_fII=zeros(nn,nn);
+G22_fII=zeros(nn,nn);
+Gd11_fII=zeros(nn,nn);
+Gd12_fII=zeros(nn,nn);
+Gd22_fII=zeros(nn,nn);
+for i=1:nn
+    for j=1:nn
+        G11_fII(i,j)=dot(gxi_II(i,j,1:3),gxi_II(i,j,1:3));
+        G12_fII(i,j)=dot(gxi_II(i,j,1:3),geta_II(i,j,1:3));
+        G22_fII(i,j)=dot(geta_II(i,j,1:3),geta_II(i,j,1:3));
+        gdxi_II(i,j,1:3)=G11_fII(i,j)*gxi_II(i,j,1:3)+G12_fII(i,j)*geta_II(i,j,1:3);
+        gdeta_II(i,j,1:3)=G12_fII(i,j)*gxi_II(i,j,1:3)+G22_fII(i,j)*geta_II(i,j,1:3);
+        Gd11_fII(i,j)=dot(gdxi_II(i,j,1:3),gdxi_II(i,j,1:3));
+        Gd12_fII(i,j)=dot(gdxi_II(i,j,1:3),gdeta_II(i,j,1:3));
+        Gd22_fII(i,j)=dot(gdeta_II(i,j,1:3),gdeta_II(i,j,1:3));
+    end
+end
+
+% FACE III
+gdxi_III=zeros(nn,nn,3);
+gdeta_III=zeros(nn,nn,3);
+G11_fIII=zeros(nn,nn);
+G12_fIII=zeros(nn,nn);
+G22_fIII=zeros(nn,nn);
+Gd11_fIII=zeros(nn,nn);
+Gd12_fIII=zeros(nn,nn);
+Gd22_fIII=zeros(nn,nn);
+for i=1:nn
+    for j=1:nn
+        G11_fIII(i,j)=dot(gxi_III(i,j,1:3),gxi_III(i,j,1:3));
+        G12_fIII(i,j)=dot(gxi_III(i,j,1:3),geta_III(i,j,1:3));
+        G22_fIII(i,j)=dot(geta_III(i,j,1:3),geta_III(i,j,1:3));
+        gdxi_III(i,j,1:3)=G11_fIII(i,j)*gxi_III(i,j,1:3)+G12_fIII(i,j)*geta_III(i,j,1:3);
+        gdeta_III(i,j,1:3)=G12_fIII(i,j)*gxi_III(i,j,1:3)+G22_fIII(i,j)*geta_III(i,j,1:3);
+        Gd11_fIII(i,j)=dot(gdxi_III(i,j,1:3),gdxi_III(i,j,1:3));
+        Gd12_fIII(i,j)=dot(gdxi_III(i,j,1:3),gdeta_III(i,j,1:3));
+        Gd22_fIII(i,j)=dot(gdeta_III(i,j,1:3),gdeta_III(i,j,1:3));
+    end
+end
+
+% FACE IV
+gdxi_IV=zeros(nn,nn,3);
+gdeta_IV=zeros(nn,nn,3);
+G11_fIV=zeros(nn,nn);
+G12_fIV=zeros(nn,nn);
+G22_fIV=zeros(nn,nn);
+Gd11_fIV=zeros(nn,nn);
+Gd12_fIV=zeros(nn,nn);
+Gd22_fIV=zeros(nn,nn);
+for i=1:nn
+    for j=1:nn
+        G11_fIV(i,j)=dot(gxi_IV(i,j,1:3),gxi_IV(i,j,1:3));
+        G12_fIV(i,j)=dot(gxi_IV(i,j,1:3),geta_IV(i,j,1:3));
+        G22_fIV(i,j)=dot(geta_IV(i,j,1:3),geta_IV(i,j,1:3));
+        gdxi_IV(i,j,1:3)=G11_fIV(i,j)*gxi_IV(i,j,1:3)+G12_fIV(i,j)*geta_IV(i,j,1:3);
+        gdeta_IV(i,j,1:3)=G12_fIV(i,j)*gxi_IV(i,j,1:3)+G22_fIV(i,j)*geta_IV(i,j,1:3);
+        Gd11_fIV(i,j)=dot(gdxi_IV(i,j,1:3),gdxi_IV(i,j,1:3));
+        Gd12_fIV(i,j)=dot(gdxi_IV(i,j,1:3),gdeta_IV(i,j,1:3));
+        Gd22_fIV(i,j)=dot(gdeta_IV(i,j,1:3),gdeta_IV(i,j,1:3));
+    end
+end
+
+% FACE V
+gdxi_V=zeros(nn,nn,3);
+gdeta_V=zeros(nn,nn,3);
+G11_fV=zeros(nn,nn);
+G12_fV=zeros(nn,nn);
+G22_fV=zeros(nn,nn);
+Gd11_fV=zeros(nn,nn);
+Gd12_fV=zeros(nn,nn);
+Gd22_fV=zeros(nn,nn);
+for i=1:nn
+    for j=1:nn
+        G11_fV(i,j)=dot(gxi_V(i,j,1:3),gxi_V(i,j,1:3));
+        G12_fV(i,j)=dot(gxi_V(i,j,1:3),geta_V(i,j,1:3));
+        G22_fV(i,j)=dot(geta_V(i,j,1:3),geta_V(i,j,1:3));
+        gdxi_V(i,j,1:3)=G11_fV(i,j)*gxi_V(i,j,1:3)+G12_fV(i,j)*geta_V(i,j,1:3);
+        gdeta_V(i,j,1:3)=G12_fV(i,j)*gxi_V(i,j,1:3)+G22_fV(i,j)*geta_V(i,j,1:3);
+        Gd11_fV(i,j)=dot(gdxi_V(i,j,1:3),gdxi_V(i,j,1:3));
+        Gd12_fV(i,j)=dot(gdxi_V(i,j,1:3),gdeta_V(i,j,1:3));
+        Gd22_fV(i,j)=dot(gdeta_V(i,j,1:3),gdeta_V(i,j,1:3));
+    end
+end
+
+% FACE VI
+gdxi_VI=zeros(nn,nn,3);
+gdeta_VI=zeros(nn,nn,3);
+G11_fVI=zeros(nn,nn);
+G12_fVI=zeros(nn,nn);
+G22_fVI=zeros(nn,nn);
+Gd11_fVI=zeros(nn,nn);
+Gd12_fVI=zeros(nn,nn);
+Gd22_fVI=zeros(nn,nn);
+for i=1:nn
+    for j=1:nn
+        G11_fVI(i,j)=dot(gxi_VI(i,j,1:3),gxi_VI(i,j,1:3));
+        G12_fVI(i,j)=dot(gxi_VI(i,j,1:3),geta_VI(i,j,1:3));
+        G22_fVI(i,j)=dot(geta_VI(i,j,1:3),geta_VI(i,j,1:3));
+        gdxi_VI(i,j,1:3)=G11_fVI(i,j)*gxi_VI(i,j,1:3)+G12_fVI(i,j)*geta_VI(i,j,1:3);
+        gdeta_VI(i,j,1:3)=G12_fVI(i,j)*gxi_VI(i,j,1:3)+G22_fVI(i,j)*geta_VI(i,j,1:3);
+        Gd11_fVI(i,j)=dot(gdxi_VI(i,j,1:3),gdxi_VI(i,j,1:3));
+        Gd12_fVI(i,j)=dot(gdxi_VI(i,j,1:3),gdeta_VI(i,j,1:3));
+        Gd22_fVI(i,j)=dot(gdeta_VI(i,j,1:3),gdeta_VI(i,j,1:3));
+    end
+end

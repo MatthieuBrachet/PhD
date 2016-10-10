@@ -25,9 +25,9 @@ global teta0 teta1
 
 test=1;
 video = 'no';
-sauvegarde = 0;
+sauvegarde = 1;
 opt_ftr=10;
-scheme='explicite4';
+scheme='compact4';
 snapshot='no';
 
 n=31;
@@ -40,9 +40,9 @@ cgrav=sqrt(h0*gp);
 cvit=u0;
 c=max([cgrav,ccor,cvit]);
 
-cfl=0.05;
+cfl=0.5;
 ddt=radius*dxi*cfl/c;
-ndaymax=4/24;
+ndaymax=1;
 Tmax=ndaymax*3600*24;
 itermax=5000;
 

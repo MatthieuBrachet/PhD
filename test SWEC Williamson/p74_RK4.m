@@ -44,7 +44,7 @@ cgrav=sqrt(h0*gp);
 cvit=u0;
 c=max([cgrav,ccor,cvit]);
 
-cfl=0.9;
+cfl=0.7;
 ddt=radius*dxi*cfl/c;
 ndaymax=15;
 Tmax=ndaymax*3600*24;
@@ -92,7 +92,7 @@ if strcmp(video,'yes')==1
 end
 
 %% *** iterations *********************************************************
-while t<Tmax && iter<itermax && err_int(end)<10^3
+while t<Tmax && iter<itermax
     iter=iter+1;
     clc; 
     disp([iter min(itermax,floor(Tmax/ddt)) erri(end) err_int(end)]);

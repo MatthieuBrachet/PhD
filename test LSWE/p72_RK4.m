@@ -26,7 +26,8 @@ global teta0 teta1
 test=0;
 video = 'no';
 sauvegarde = 1;
-opt_ftr=0;
+opt_ftr=10;
+type_ftr='caracteristic';
 n=40;
 teta0=-3*pi/16;
 teta1=3*pi/16;
@@ -37,7 +38,7 @@ ccor=radius*omega;
 c=max(cgrav,ccor);
 cfl=0.5;
 ddt=radius*dxi*cfl/c;
-ndaymax=2;
+ndaymax=6;
 Tmax=ndaymax*3600*24;
 itermax=5000;
 
@@ -74,34 +75,18 @@ time(1)=t; erri(1)=0;
 while t<Tmax & iter<itermax
     iter=iter+1;
     clc; [iter min(itermax,floor(Tmax/ddt)) (erri(end))]
-    %% Filtrage
     
-    e=1;
-    iterf=0;
-    % filtre itératif : laisser 'iterf<1' pour avoir un seul filtrage (pas
-    % d'itérations), 'iterf<-1', pas de filtrage.
-    iterfmax=-1;
-    while e>1.e-4 & iterf<iterfmax
-        iterf=iterf+1;
-        for p=1:3
-            [vt_fI(:,:,p),vt_fII(:,:,p),vt_fIII(:,:,p),vt_fIV(:,:,p),vt_fV(:,:,p),vt_fVI(:,:,p)]=...
-                ftr72(vt_fI(:,:,p),vt_fII(:,:,p),vt_fIII(:,:,p),vt_fIV(:,:,p),vt_fV(:,:,p),vt_fVI(:,:,p),n,nn);
-        end
-        [htf_fI,htf_fII,htf_fIII,htf_fIV,htf_fV,htf_fVI]=...
-            ftr72(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn);
-        
-        eh_fI   = max(max(abs(htf_fI   - ht_fI   )./abs(ht_fI   )));
-        eh_fII  = max(max(abs(htf_fII  - ht_fII  )./abs(ht_fII  )));
-        eh_fIII = max(max(abs(htf_fIII - ht_fIII )./abs(ht_fIII )));
-        eh_fIV  = max(max(abs(htf_fIV  - ht_fIV  )./abs(ht_fIV  )));
-        eh_fV   = max(max(abs(htf_fV   - ht_fV   )./abs(ht_fV   )));
-        eh_fVI  = max(max(abs(htf_fVI  - ht_fVI  )./abs(ht_fVI  )));
-        e=max([eh_fI,eh_fII,eh_fIII,eh_fIV,eh_fV,eh_fVI]);
-        
-        ht_fI=htf_fI;     ht_fII=htf_fII;    ht_fIII=htf_fIII;
-        ht_fIV=htf_fIV;   ht_fV=htf_fV;      ht_fVI=htf_fVI;
+	%% Filtrage
+    if strcmp(type_ftr,'classic')==1
+        [ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI]=ftr72(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
+        [vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1)]=ftr72(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
+        [vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2)]=ftr72(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
+        [vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3)]=ftr72(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
+    elseif strcmp(type_ftr,'caracteristic')==1
+        [ ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI ]...
+            = ftrcar72(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
     end
-    FTR=max(iterf,FTR);
+
 
     %% K1
     % premiere equation
@@ -415,8 +400,8 @@ if strcmp(video,'yes') == 1
     fprintf(fid,'%s\n',['number of points  : ', num2str(n)] );
     fprintf(fid,'%s\n',['time step         : ', num2str(ddt)] );
     fprintf(fid,'%s\n',['cfl               : ', num2str(cfl)] );
+    fprintf(fid,'%s\n',['type of filter    : ' type_ftr] );
     fprintf(fid,'%s\n',['ordre du filtre   : ', num2str(opt_ftr)] );
-    fprintf(fid,'%s\n',['iterfmax          : ', num2str(iterfmax)] );
     fprintf(fid,'%s\n','---------- physical data ----------');
     fprintf(fid,'%s\n',['gravity g              : ', num2str(gp)] );
     fprintf(fid,'%s\n',['equilibrium SWE hp     : ', num2str(hp)] );
@@ -439,9 +424,9 @@ if sauvegarde == 1
     fprintf(fid,'%s\n','---------- numerical data ---------');
     fprintf(fid,'%s\n',['number of points  : ', num2str(n)] );
     fprintf(fid,'%s\n',['time step         : ', num2str(ddt)] );
+    fprintf(fid,'%s\n',['type of filter    : ' type_ftr] );
     fprintf(fid,'%s\n',['cfl               : ', num2str(cfl)] );
     fprintf(fid,'%s\n',['ordre du filtre   : ', num2str(opt_ftr)] );
-    fprintf(fid,'%s\n',['iterfmax          : ', num2str(iterfmax)] );
     fprintf(fid,'%s\n','---------- physical data ----------');
     fprintf(fid,'%s\n',['gravity acceleration g        : ', num2str(gp)] );
     fprintf(fid,'%s\n',['equilibrium SWE thickness hp  : ', num2str(hp)] );
