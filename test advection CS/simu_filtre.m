@@ -39,10 +39,10 @@ coupe = 1;
  ndaymax=12;
 %% *** filtres choisis ****************************************************
 ftra=10;
-ftrb=4;
+ftrb=6;
 ftrc=2;
 %% ************************************************************************
-opt_ftr=10;
+opt_ftr=ftra;
  if coef == 0
  % test de Williamson
  alphad=0;  

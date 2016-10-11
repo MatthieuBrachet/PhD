@@ -66,7 +66,7 @@ sauvegarde = 1;
  elseif coef == 1
  %% test de Nair et Machenhauer
  lambda_p=pi/4;                                                            % position du pole nord, i.e. position du vortex nord
- teta_p=-pi/4;
+ teta_p=pi/4;
  rho0=3;
  gamma=5;
  elseif coef == 2
@@ -74,7 +74,7 @@ sauvegarde = 1;
  alphad=3*pi/4; 
  lambda0 = pi/2;
  teta0 = 0;
- lambda_p=pi;                                                              % position du pole nord à t=0, i.e. position du vortex nord à t=0
+ lambda_p=0;                                                              % position du pole nord à t=0, i.e. position du vortex nord à t=0
  teta_p=pi/2 - alphad;
  rho0=3;
  gamma=5;
@@ -89,6 +89,7 @@ sauvegarde = 1;
  tetac2=0;
  end
 %% données du problème
+vvv=[1 1 1];
 itestop=10000;
 tstart=cputime;
 mod_1b
@@ -451,6 +452,7 @@ end
 if snapshot == 1
     figure(11)
     plot_cs7(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
+    view(vvv)
     if save_graph==1
         print('-dpng', ['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef) '_nday_' num2str(ndaymax) '.png'])
         savefig(['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef)]);
@@ -459,6 +461,7 @@ end
 
 figure(35);
 plot_cs11(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe);
+view(vvv)
 title('exact solution')
 if save_graph==1
     print('-dpng', ['./results-' date '/ref_' num2str(ref) '_solexacte_test_' num2str(coef) '.png'])
@@ -468,6 +471,7 @@ end
 figure(37);
 plot_cs11(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
 title('approximate solution - RK4')
+view(vvv)
 if save_graph==1
     print('-dpng', ['./results-' date '/ref_' num2str(ref) '_solapprochee_test_' num2str(coef) '.png'])
     savefig(['./results-' date '/ref_' num2str(ref) '_solapprochee_test_' num2str(coef)]);
@@ -475,7 +479,8 @@ end
 
 figure(39);
 plot_cs11(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI);colorbar;
-title('relative error - RK4')
+title('error - RK4')
+%view(vvv)
 if save_graph==1
     print('-dpng', ['./results-' date '/ref_' num2str(ref) '_erreur_test_' num2str(coef) '.png'])
     savefig(['./results-' date '/ref_' num2str(ref) '_erreur_test_' num2str(coef)]);
@@ -532,7 +537,7 @@ if coupe == 1
     plot(x,f,'o',xe,fe,'-')
     grid on;
     legend('approximate soluton','exact solution')
-    xlabel('path W')
+    xlabel('path N')
     if save_graph==1
         print('-dpng', ['./results-' date '/ref_' num2str(ref) '_coupefaceI_equateur_test_' num2str(coef) '.png'])
         savefig(['./results-' date '/ref_' num2str(ref) '_coupefaceI_test_' num2str(coef)]);

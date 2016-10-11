@@ -1138,3 +1138,43 @@ max(er_infty)     : 1.73
 ***********************************
   
   
+date : 11-Oct-2016
+ref. : 7366146685
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 
+(lambdap,thetap)  : (0,0)
+***********************************
+max(er_1)         : 0.0018066
+max(er_2)         : 0.0066893
+max(er_infty)     : 0.034631
+***********************************
+  
+  
+date : 11-Oct-2016
+ref. : 7366146760
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 40
+time step         : 5689.7561
+cfl               : 0.9
+ordre du filtre   : 10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 
+(lambdap,thetap)  : (45,45)
+***********************************
+max(er_1)         : 0.00073591
+max(er_2)         : 0.0032752
+max(er_infty)     : 0.024767
+***********************************
+  
+  

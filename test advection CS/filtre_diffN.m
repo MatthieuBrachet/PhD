@@ -40,11 +40,11 @@ sauvegarde = 0;
 %    save_graph = 0 : ne pas enregistrer
 save_graph = 1;
 %% *** Benchmarks data ****************************************************
- Na=40;
- Nb=80;
+ Na=30;
+ Nb=60;
  nn=n+2;
  cfl=0.9;
- ndaymax=36;
+ ndaymax=12;
 %% ************************************************************************
  if coef == 0
  %% test de Williamson
@@ -575,7 +575,7 @@ if sauvegarde == 1
 end
 
 if coupe == 1
-    n=500;
+    n=200;
     nn=n+2;
     mod_1b
     funfIe=fun4_b(x_fI,y_fI,z_fI,time);
@@ -584,11 +584,12 @@ if coupe == 1
     funfIVe=fun4_b(x_fIV,y_fIV,z_fIV,time);
     [ xe,fe ] = coupe_eq(funfIe,funfIIe,funfIIIe,funfIVe);
     figure(10)
-    plot(xa,fa,'o',xb,fb,'x',xe,fe,'-')
+    plot(xa,fa,'o-',xb,fb,'x-',xe,fe,'-')
     grid on;
     legend(['approximate solution with n=' num2str(Na)],['approximate solution with n=' num2str(Nb)],'exact solution')
     xlabel('path Front')
     if save_graph==1
+        mkdir(['./filtre-' date '/']);
         print('-dpng', ['./filtre-' date '/ref_' num2str(ref) '_coupefaceI_equateur_test_' num2str(coef) '.png'])
         savefig(['./filtre-' date '/ref_' num2str(ref) '_coupefaceI_test_' num2str(coef)]);
     end
@@ -608,10 +609,6 @@ if coupe == 1
     fprintf(data,'%s\n',['ndaymax              : ', num2str(ndaymax)] );
     fprintf(data,'%s\n',['angle in degree      : ', num2str(alphad*180/pi)] );
     fprintf(data,'%s\n',['(lambdap,thetap)     : (', num2str(lambda_p*180/pi),',',num2str(teta_p*180/pi),')']);
-    fprintf(data,'%s\n','***********************************');
-    fprintf(data,'%s\n',['max(er_1)            : ', num2str(max(er1))] );
-    fprintf(data,'%s\n',['max(er_2)            : ', num2str(max(er2))] );
-    fprintf(data,'%s\n',['max(er_infty)        : ', num2str(max(erinfty))] );
     fprintf(data,'%s\n','***********************************');
     fprintf(data,'%s\n','  ');
     fprintf(data,'%s\n','  ');

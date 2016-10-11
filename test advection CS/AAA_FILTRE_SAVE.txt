@@ -1,0 +1,48 @@
+date : 11-Oct-2016
+ref. : 7366148118
+***********************************
+test : 1
+---------- numerical data ---------
+number of points (1) : 804
+number of points (2) : 804
+time step            : 5689.7561
+ordre du filtre      : 10
+-------- mathematical data --------
+ndaymax              : 12
+angle in degree      : 
+(lambdap,thetap)     : (0,0)
+***********************************
+
+
+date : 11-Oct-2016
+ref. : 7366148118
+***********************************
+test : 1
+---------- numerical data ---------
+number of points (1) : 804
+number of points (2) : 804
+time step            : 5689.7561
+ordre du filtre      : 10
+-------- mathematical data --------
+ndaymax              : 12
+angle in degree      : 
+(lambdap,thetap)     : (0,0)
+***********************************
+  
+  
+date : 11-Oct-2016
+ref. : 7366148261
+***********************************
+test : 1
+---------- numerical data ---------
+number of points (1) : 804
+number of points (2) : 804
+time step            : 3824.2623
+ordre du filtre      : 10
+-------- mathematical data --------
+ndaymax              : 12
+angle in degree      : 
+(lambdap,thetap)     : (0,0)
+***********************************
+  
+  

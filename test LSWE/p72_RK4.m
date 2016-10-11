@@ -19,15 +19,15 @@ global teta0 teta1
 %          finales).
 % opt_ftr : filtre explicite de S. Redonnet (=2, 4, 6, 8, 10, ordre du
 %          filtre) (=0, pas de filtrage)
+% type_ftr : caracteristic or classic.
 %
 %% ************************************************************************
-
 
 test=0;
 video = 'no';
 sauvegarde = 1;
-opt_ftr=10;
-type_ftr='caracteristic';
+opt_ftr=0;
+type_ftr='classic';
 n=40;
 teta0=-3*pi/16;
 teta1=3*pi/16;
@@ -38,11 +38,11 @@ ccor=radius*omega;
 c=max(cgrav,ccor);
 cfl=0.5;
 ddt=radius*dxi*cfl/c;
-ndaymax=6;
+ndaymax=1;
 Tmax=ndaymax*3600*24;
-itermax=5000;
+itermax=10000;
 
-comment='order 8 for divergence';
+comment='order 4 for everything';
 
 tstart=cputime;
 %% *** initialisation des données
@@ -77,14 +77,22 @@ while t<Tmax & iter<itermax
     clc; [iter min(itermax,floor(Tmax/ddt)) (erri(end))]
     
 	%% Filtrage
-    if strcmp(type_ftr,'classic')==1
+    if strcmp(type_ftr,'classic') == 1
         [ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI]=ftr72(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
         [vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1)]=ftr72(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
         [vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2)]=ftr72(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
         [vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3)]=ftr72(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
-    elseif strcmp(type_ftr,'caracteristic')==1
-        [ ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI ]...
-            = ftrcar72(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
+    elseif strcmp(type_ftr,'caracteristic') == 1
+        [htf1_fI, htf1_fII, htf1_fIII, htf1_fIV, htf1_fV, htf1_fVI, vtf_fI, vtf_fII, vtf_fIII, vtf_fIV, vtf_fV, vtf_fVI ]= ftrcar72(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
+
+        ht_fI=htf1_fI;
+        ht_fII=htf1_fII;
+        ht_fIII=htf1_fIII;
+        ht_fIV=htf1_fIV;
+        ht_fV=htf1_fV;
+        ht_fVI=htf1_fVI;
+    else
+        error('Error in type_ftr variable. this kind of filter does not exist.');
     end
 
 

@@ -19,13 +19,13 @@ L'équation Shallow Water obtenue était la suivante :
 
 avec $\eta^{\star} = \eta - \eta_s$, $\eta_s$ représentant les reliefs sur la sphère.
 
-Le terme $\left( \mathbf{u} \cdot \nabla \right) \mathbf{u}$ peut-être délicat à discrétiser. Pour éviter de discrétiser directement ce terme, on se repose sur la formule suivante :
+Il peut être délicat de travailler directement avec le terme $\left( \mathbf{u} \cdot \nabla \right) \mathbf{u}$. Pour éviter de discrétiser directement ce terme, on se repose sur la formule suivante :
 
 \begin{equation}
 \left( \mathbf{u} \cdot \nabla \right) \mathbf{u} = \nabla \left( \dfrac{1}{2} \mathbf{u}^2 \right) + \zeta \mathbf{k} \wedge \mathbf{u}
 \end{equation}
 
-avec $\zeta = \mathbf{k} \cdot \left( \nabla \wedge \mathbf{u} \right)$ la vorticité relative. On note la présente de $\nabla \wedge \mathbf{u}$ le rotationnel de $\mathbf{u}$.
+avec $\zeta = \mathbf{k} \cdot \left( \nabla \wedge \mathbf{u} \right)$ la vorticité relative. On note la présence de $\nabla \wedge \mathbf{u}$ le rotationnel de $\mathbf{u}$.
 
 L'équation \eqref{SWEC_new} s'écrit alors :
 

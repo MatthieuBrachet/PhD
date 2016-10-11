@@ -75,3 +75,6 @@ vel_z=funfVI(:,:,3);
 flu_VI(:,:,1)= fc_y.*vel_z - fc_z.*vel_y;
 flu_VI(:,:,2)= fc_z.*vel_x - fc_x.*vel_z;
 flu_VI(:,:,3)= fc_x.*vel_y - fc_y.*vel_x;
+
+
+
