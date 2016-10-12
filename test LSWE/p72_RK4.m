@@ -6,6 +6,7 @@ global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
 global opt_ftr test
 global hp gp u0 radius omega
 global teta0 teta1
+global alpha lambda_p teta_p
 
 %% ************************************************************************
 % Resolution de LSWEC sur la Cubed-Sphere.
@@ -29,8 +30,13 @@ sauvegarde = 1;
 opt_ftr=0;
 type_ftr='classic';
 n=40;
+
 teta0=-3*pi/16;
 teta1=3*pi/16;
+alpha=pi/4;
+lambda_p=pi;
+teta_p=pi/2 - alpha;
+
 mod72
 
 cgrav=sqrt(gp*hp);
@@ -47,12 +53,12 @@ comment='order 4 for everything';
 tstart=cputime;
 %% *** initialisation des données
 t=0;
-[ ht_fI,    vt_fI] = sol_exacte(x_fI,   y_fI,   z_fI,   t);
-[ ht_fII,   vt_fII] = sol_exacte(x_fII,  y_fII,  z_fII,  t);
-[ ht_fIII,  vt_fIII] = sol_exacte(x_fIII, y_fIII, z_fIII, t);
-[ ht_fIV,   vt_fIV] = sol_exacte(x_fIV,  y_fIV,  z_fIV,  t);
-[ ht_fV,    vt_fV] = sol_exacte(x_fV,   y_fV,   z_fV,   t);
-[ ht_fVI,   vt_fVI] = sol_exacte(x_fVI,  y_fVI,  z_fVI,  t);
+[ ht_fI,    vt_fI] = sol_exacte2(x_fI,   y_fI,   z_fI,   t);
+[ ht_fII,   vt_fII] = sol_exacte2(x_fII,  y_fII,  z_fII,  t);
+[ ht_fIII,  vt_fIII] = sol_exacte2(x_fIII, y_fIII, z_fIII, t);
+[ ht_fIV,   vt_fIV] = sol_exacte2(x_fIV,  y_fIV,  z_fIV,  t);
+[ ht_fV,    vt_fV] = sol_exacte2(x_fV,   y_fV,   z_fV,   t);
+[ ht_fVI,   vt_fVI] = sol_exacte2(x_fVI,  y_fVI,  z_fVI,  t);
 mm=min(min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI])));
 MM=max(max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI])));
 %% quantités a conserver
@@ -304,12 +310,12 @@ while t<Tmax & iter<itermax
     %% calcul de l'erreur sur h
     t=t+ddt;
     
-    [h_fI,v_fI] = sol_exacte(x_fI,y_fI,z_fI,t);
-    [h_fII,v_fII] = sol_exacte(x_fII,y_fII,z_fII,t);
-    [h_fIII,v_fIII] = sol_exacte(x_fIII,y_fIII,z_fIII,t);
-    [h_fIV,v_fIV] = sol_exacte(x_fIV,y_fIV,z_fIV,t);
-    [h_fV,v_fV] = sol_exacte(x_fV,y_fV,z_fV,t);
-    [h_fVI,v_fVI] = sol_exacte(x_fVI,y_fVI,z_fVI,t);
+    [h_fI,v_fI] = sol_exacte2(x_fI,y_fI,z_fI,t);
+    [h_fII,v_fII] = sol_exacte2(x_fII,y_fII,z_fII,t);
+    [h_fIII,v_fIII] = sol_exacte2(x_fIII,y_fIII,z_fIII,t);
+    [h_fIV,v_fIV] = sol_exacte2(x_fIV,y_fIV,z_fIV,t);
+    [h_fV,v_fV] = sol_exacte2(x_fV,y_fV,z_fV,t);
+    [h_fVI,v_fVI] = sol_exacte2(x_fVI,y_fVI,z_fVI,t);
     
     
     err_fI=htnew_fI-h_fI;
@@ -415,6 +421,7 @@ if strcmp(video,'yes') == 1
     fprintf(fid,'%s\n',['equilibrium SWE hp     : ', num2str(hp)] );
     fprintf(fid,'%s\n',['caracteristiv velocity : ', num2str(u0)] );
     fprintf(fid,'%s\n',['coriolis parameter     : ', num2str(omega)] );
+    fprintf(fid,'%s\n',['Alpha                  : ', num2str(alpha)] );
     fprintf(fid,'%s\n','------------ comment --------------');
     fprintf(fid,'%s\n',['Coriolis parameter     : ', num2str(omega)] );
     fprintf(fid,'%s\n','***********************************');
@@ -440,6 +447,7 @@ if sauvegarde == 1
     fprintf(fid,'%s\n',['equilibrium SWE thickness hp  : ', num2str(hp)] );
     fprintf(fid,'%s\n',['caracteristic velocity : ', num2str(u0)] );
     fprintf(fid,'%s\n',['Coriolis parameter     : ', num2str(omega)] );
+    fprintf(fid,'%s\n',['Alpha                  : ', num2str(alpha)] );
     fprintf(fid,'%s\n','------------ comment --------------');
     fprintf(fid,'%s\n',['Coriolis parameter     : ', num2str(omega)] );
     fprintf(fid,'%s\n','***********************************');

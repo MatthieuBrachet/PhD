@@ -46,7 +46,7 @@ opt_ftr=ftra;
  if coef == 0
  % test de Williamson
  alphad=0;  
- lambdac=pi/2;                                                           % longitude BUMP
+ lambdac=0;                                                           % longitude BUMP
  tetac=0;                                                                  % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;

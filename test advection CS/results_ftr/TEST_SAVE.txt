@@ -664,3 +664,69 @@ ndaymax          : 12
   
   
   
+date : 11-Oct-2016
+date : 7366148822
+******************************
+test : 0
+------- numerical data -------
+number of points : 100
+time step        : 2880
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 0
+******************************
+*** filtre ordre 10
+max(er_1)        : 0.11535
+max(er_2)        : 0.098744
+max(er_infty)    : 0.083796
+max              : 0.11151
+*** filtre ordre 6
+max(er_1)        : 0.11676
+max(er_2)        : 0.098742
+max(er_infty)    : 0.082713
+max              : 0.023622
+*** filtre ordre 2
+max(er_1)        : 1.1904
+max(er_2)        : 0.73722
+max(er_infty)    : 0.77586
+max              : 4.9715
+******************************
+ndaymax          : 12
+******************************
+  
+  
+  
+  
+date : 11-Oct-2016
+date : 7366149891
+******************************
+test : 0
+------- numerical data -------
+number of points : 100
+time step        : 2880
+cfl              : 0.9
+----- mathematical data ------
+angle in degree  : 0
+******************************
+*** filtre ordre 10
+max(er_1)        : 0.11535
+max(er_2)        : 0.098744
+max(er_infty)    : 0.083796
+max              : 996.1402
+*** filtre ordre 6
+max(er_1)        : 0.11676
+max(er_2)        : 0.098742
+max(er_infty)    : 0.082713
+max              : 995.8051
+*** filtre ordre 2
+max(er_1)        : 1.1904
+max(er_2)        : 0.73722
+max(er_infty)    : 0.77586
+max              : 223.3713
+******************************
+ndaymax          : 12
+******************************
+  
+  
+  
+  

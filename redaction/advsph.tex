@@ -22,6 +22,12 @@ e(t^n) = \dfrac{\| h^n - h(t^n) \|_p}{\| h(t^n) \|_p}
 
 où $h^n$ est la solution numérique au temps $t^n$ et $h(t^n)$ la solution exacte au même instant. $p \in {1, 2, \infty }$ permet de choisir la norme de notre choix.
 
+Dans la suite, nous adoptons le schéma en temps Runge-Kutta d'ordre 4 détaillé précédemment. La discrétisation en espace se fait via les schéma hermitiens construits sur la Cubed-Sphere utilisant les schémas compacts d'ordre 4. On notera à présent la condition de Courant-Friedrich-Lewis (notée CFL) :
+
+\begin{equation}
+CFL = \dfrac{u_0 \times \Delta t}{a \times \Delta \xi} = \dfrac{u_0 \times \Delta t}{a \times \Delta \eta}
+\end{equation}
+
 \section{Préliminaires}
 
 Soit $\mathbf{x} = (x,y,z)^T \in \mathbb{S}_a^2$ un point de la sphère de centre $O$ et de rayon $a$. Il existe alors $\lambda$ et $\theta$ , respectivement longitude et latitude, dans $] 0, 2 \pi ] \times ] - \pi /2, \pi/2 [ $ tels que :
@@ -256,9 +262,9 @@ h( \mathbf{x}, t ) = h_0(  P_{\alpha} R_{-t} P_{\alpha}^{-1} \mathbf{x}')
 \end{equation}
 
 
-\subsection{Tests numériques}
+\subsection{Test du BUMP de D. L. Williamson}
 
-Deux tests sont présentés dans ce travail concernant l'équation d'advection avec rotation solide :
+Nous présentons ici un test concernant l'équation d'advection avec rotation solide :
 
 \begin{equation}
 \label{eq:advection spherique 3}
@@ -270,10 +276,8 @@ h(\mathbf{x},0) & = & h_0 ( \mathbf{x} )
 \right. \text{ pour tout } \mathbf{x} \in \mathbf{S}_a^2 \text{ et } t \geq 0
 \end{equation}
 
-Avec :
+$\mathbf{c}$ est donné par :
 $$\mathbf{c} ( \mathbf{x} ) = u_0 ( cos ( \theta) cos ( \alpha ) + sin( \theta) cos ( \lambda) sin( \alpha) ) \mathbf{e}_{\lambda} - u_0 sin( \lambda) sin( \alpha) \mathbf{e}_{\theta}. $$
-
-\subsubsection{Test du BUMP de D. L. Williamson}
 
 Le test 1 de l'article de David L. Williamson \textit{et al.} \cite{Williamson1992} concerne l'équation d'advection \eqref{eq:advection spherique 3} sur la sphère. La condition initiale est donnée par une fonction $\mathcal{C}^1$ constituée d'un bump localisé et nulle ailleur :
 
@@ -300,9 +304,9 @@ La solution peut être calculée en chaque instant par la formule \eqref{eq: adv
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.3]{ref_7366098248_solexacte_test_0.png}
-\includegraphics[scale=0.3]{ref_7366098351_solapprochee_test_0.png}
-\caption{Test du Bump - $\alpha = 0$ - $N=40$ - $CFL=0.9$ - solution à $t=0$ (gauche) et à $t=12 jours$ (droite) }
+\includegraphics[scale=0.3]{ref_7366153815_solexacte_test_0.png}
+\includegraphics[scale=0.3]{ref_7366153815_solapprochee_test_0.png}
+\caption{Test du Bump - $\alpha = 0$ - $N=40$ - $CFL=0.9$ - solution exacte à $t=0$ (gauche) et approchée à $t=12 jours$ (droite) }
 \label{table adv1}
 \end{center}
 \end{figure}
@@ -311,9 +315,9 @@ La solution peut être calculée en chaque instant par la formule \eqref{eq: adv
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.4]{ref_7366098351_erreur_test_0.png}
-\includegraphics[scale=0.3]{ref_7366098351_normerreur_test_0.png}
-\caption{Test du Bump - $\alpha = 0$ - $N=40$ - $CFL=0.9$ - à $t=12 jours$ localisation spatiale de l'erreur relative $( h^n - h(t^n) )$ (gauche) et erreur relative en norme (droite) }
+\includegraphics[scale=0.3]{ref_7366153815_erreur_test_0.png}
+\includegraphics[scale=0.3]{ref_7366153815_normerreur_test_0.png}
+\caption{Test du Bump avec $\alpha = 0$, $N=40$, $CFL=0.9$ - à $t=12 jours$ localisation spatiale de l'erreur $( h^n - h(t^n) )$ (gauche) et erreur relative en norme (droite) }
 \label{table adv2}
 \end{center}
 \end{figure}
@@ -322,9 +326,9 @@ La solution peut être calculée en chaque instant par la formule \eqref{eq: adv
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.4]{ref_7366098300_erreur_test_0.png}
-\includegraphics[scale=0.3]{ref_7366098300_normerreur_test_0.png}
-\caption{Test du Bump - $\alpha = 3 \pi /4$ - $N=40$ - $CFL=0.9$ - à $t=12 jours$ localisation spatiale de l'erreur relative $( h^n - h(t^n))$ (gauche) et erreur relative en norme (droite) }
+\includegraphics[scale=0.3]{ref_7366154078_erreur_test_0.png}
+\includegraphics[scale=0.3]{ref_7366154078_normerreur_test_0.png}
+\caption{Test du Bump - $\alpha = - \pi /4$ - $N=40$ - $CFL=0.9$ - à $t=12 jours$ localisation spatiale de l'erreur $( h^n - h(t^n))$ (gauche) et erreur relative en norme (droite) }
 \label{table adv3}
 \end{center}
 \end{figure}
@@ -355,9 +359,9 @@ maxi. théorique & $1000$ & $1000$ & $1000$ \\
 \hline 
 maxi. filtre d'ordre 10 & $916.1395$& $990.8628$ & $996.1402$  \\ 
 \hline 
-maxi. filtre d'ordre 6 & $501.9189$& $834.3534$ & $975.9533$  \\ 
+maxi. filtre d'ordre 6 & $501.9189$& $834.3534$ & $995.8051$  \\ 
 \hline 
-maxi. filtre d'ordre 2 & $69.0705$ & $126.0255$ & $223.3778$  \\ 
+maxi. filtre d'ordre 2 & $69.0705$ & $126.0255$ & $223.3713$  \\ 
 \hline 
 \end{tabular} 
 \caption{Maximum du Bump après $12$ jours - $CFL=0.9$}
@@ -434,27 +438,27 @@ Les figures \ref{fig NM1}, \ref{fig NM2} présentent deux valeurs de $(\lambda_P
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.3]{ref_7366146685_solapprochee_test_1.png}
-\includegraphics[scale=0.3]{ref_7366146685_erreur_test_1.png}
-\caption{Test de R. D. Nair et B. Machenhaueur - $(\lambda_P, \theta_P) = (0,0)$ - $N=40$ - $CFL=0.9$ - à $t=12$ coupe sur l'équateur (gauche) - localisation spatiale de l'erreur (droite)}
+\includegraphics[scale=0.3]{ref_7366154221_solapprochee_test_1.png}
+\includegraphics[scale=0.3]{ref_7366154221_erreur_test_1.png}
+\caption{Test de R. D. Nair et B. Machenhaueur, $(\lambda_P, \theta_P) = (0,0)$, $N=40$, $CFL=0.9$, à $t=12$ coupe sur l'équateur (gauche) - localisation spatiale de l'erreur (droite)}
 \label{fig NM1}
 \end{center}
 \end{figure}
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.4]{ref_7366146760_solapprochee_test_1.png}
-\includegraphics[scale=0.5]{ref_7366146760_erreur_test_1.png}
-\caption{Test de R. D. Nair et B. Machenhaueur - $(\lambda_P, \theta_P) = (\pi/4,\pi/4)$ - $N=40$ - $CFL=0.9$ - à $t=12$ coupe sur l'équateur (gauche) - localisation spatiale de l'erreur (droite)}
+\includegraphics[scale=0.4]{ref_7366154508_solapprochee_test_1.png}
+\includegraphics[scale=0.4]{ref_7366154508_erreur_test_1.png}
+\caption{Test de R. D. Nair et B. Machenhaueur, $(\lambda_P, \theta_P) = (\pi/4,\pi/4)$, $N=40$, $CFL=0.9$, à $t=12$ coupe sur l'équateur (gauche) - localisation spatiale de l'erreur (droite)}
 \label{fig NM2}
 \end{center}
 \end{figure}
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.3]{ref_7366146685_normerreur_test_1.png}
-\includegraphics[scale=0.3]{ref_7366146760_normerreur_test_1.png}
-\caption{Erreur relative pour le test de R. D. Nair et B. Machenhaueur sur 12 jours -  $(\lambda_P, \theta_P) = (0,0)$ (gauche) et $(\lambda_P, \theta_P) = (\pi/4,\pi/4)$ (droite) avec $N=40$ et $CFL=0.9$}
+\includegraphics[scale=0.3]{ref_7366154221_normerreur_test_1.png}
+\includegraphics[scale=0.3]{ref_7366154508_normerreur_test_1.png}
+\caption{Erreur relative pour le test de R. D. Nair et B. Machenhaueur sur 12 jours,  $(\lambda_P, \theta_P) = (0,0)$ (gauche) et $(\lambda_P, \theta_P) = (\pi/4,\pi/4)$ (droite) avec $N=40$ et $CFL=0.9$}
 \label{fig NM3}
 \end{center}
 \end{figure}
@@ -473,9 +477,9 @@ En figure \ref{fig NM4}, on observe bien le lien entre le rafinement du maillage
 
 \section{Test de Nair et Jablonowski}
 
-Le test de R. D. Nair et C. Jablonowsky \cite{Nair2008} mixe les deux tests précédents : celui de déformation solide avec celui de R. D. Nair et B. Machenhaueur.
+Le test de R. D. Nair et C. Jablonowsky \cite{Nair2008} mixe les deux tests précédents : celui de déformation solide avec celui de déformation décrit pat R. D. Nair et B. Machenhaueur.
 
-Les deux vortex du test précédent sont transportés le long d'un grand cercle autour de la sphère. Si on note $(\lambda_C(t), \theta_C(t))$ la position du centre du vortex, il faut noter que ce point dépendant du temps. Ce point va donc être transporté par un champ de vecteur $\mathbf{c_s} = u_s \mathbf{e}_{\lambda} + v_s \mathbf{e}_{\theta}$ et le vortex va être créé par un champ de vecteur $\mathbf{c}_r(t)=u_r \mathbf{e}_{\lambda} + v_r \mathbf{e}_{\theta}$ :
+Les deux vortex du test précédent sont transportés le long d'un grand cercle autour de la sphère. Si on note $C=(\lambda_C(t), \theta_C(t))$ la position du centre du vortex, notons que les coordonnées de ce point dépendent du temps. $C$ est transporté par un champ de vecteur $\mathbf{c_s} = u_s \mathbf{e}_{\lambda} + v_s \mathbf{e}_{\theta}$ et le vortex va être créé par un champ de vecteur $\mathbf{c}_r(t)=u_r \mathbf{e}_{\lambda} + v_r \mathbf{e}_{\theta}$ où $u_s$, $v_s$, $u_r$ et $v_r$ sont donnés par :
 
 \begin{equation}
 \left\lbrace
@@ -507,12 +511,12 @@ $(\lambda_C, \theta_C)$ est donnée dans la base tournée d'un angle $\alpha$ pa
 \right.
 \end{equation}
 
-avec $a \omega_s = u_0$ et $\omega_r$ donné par \eqref{rotation_r}.
+avec $a \omega_s = u_0$ et $\omega_r$ donné par \eqref{rotation_r}. Dans les tests numériques effectués, on choisit $(\lambda_0, \theta_0) = (0,0)$.
 
-La solution exacte de ce test peut être calculée par le procédé suivant :
+La solution exacte peut être calculée par le procédé suivant :
 
 \begin{enumerate}
-\item Calculer les coordonnées dans la sphère de pôle nord $(\lambda_P, \theta_P) = ( \pi, \pi/2 - \alpha)$ grâce à \eqref{from classic to prime}. On note $(\lambda', \theta')$ ces coordonnées,
+\item Calculer les coordonnées dans la sphère orientée sur le pôle nord $(\lambda_P, \theta_P) = ( \pi, \pi/2 - \alpha)$ grâce à \eqref{from classic to prime}. On note $(\lambda', \theta')$ ces coordonnées,
 
 \item Déplacer $(\lambda', \theta')$ sur la position :
 \begin{equation}
@@ -531,3 +535,58 @@ La solution exacte de ce test peut être calculée par le procédé suivant :
 \end{enumerate}
 
 Il s'agit, comme pour le calcul de $\mathbf{c}$, d'effectuer la rotation solide puis la construction du vortex.
+
+Ce test permet de combiner un déplacement (qui ne déforme pas la solution initiale) avec un déformation. Les tests numériques sont effectués pour $\alpha = 0$ ou $\alpha = \pi/4$ pour mettre en difficultés le maillage. Les résultats sont donnés au temps 0, 3, 6, 9 et 12 jours en figure \ref{fig NJ1}. De plus, on peut observer les courbes d'erreur et la localisation spatiale en figure \ref{fig NJ2} et \ref{fig NJ3}. La table \ref{table NJ1} confirme l'ordre 4 espéré pour chaqu'une des erreurs mesurées.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.35]{ref_7366155784_snapshot_test_2_nday_0.png}\\
+\includegraphics[scale=0.35]{ref_7366155795_snapshot_test_2_nday_3.png}\\
+\includegraphics[scale=0.35]{ref_7366155813_snapshot_test_2_nday_6.png}\\
+\includegraphics[scale=0.35]{ref_7366156040_snapshot_test_2_nday_9.png}\\
+\includegraphics[scale=0.35]{ref_7366156069_snapshot_test_2_nday_12.png}\\
+\caption{Test de R. D. Nair et C. Jablonowski, $(\lambda_0, \theta_0) = (0,0)$, $\alpha= \pi/4$ à $t=0$, $3$, $6$, $9$ et $12$ jours.}
+\label{fig NJ1}
+\end{center}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.3]{ref_7366156130_normerreur_test_2.png}
+\includegraphics[scale=0.3]{ref_7366156130_erreur_test_2.png}
+\caption{Test de R. D. Nair et C. Jablonowski, $(\lambda_0, \theta_0) = (0,0)$, $\alpha= \pi/4$ sur $12$ jours. On a choisit $N=40$ et $CFL=0.9$. Erreur relative au cours du temps (gauche), localisation spatiale de l'erreur (droite).}
+\label{fig NJ2}
+\end{center}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.3]{ref_7366156187_normerreur_test_2.png}
+\includegraphics[scale=0.3]{ref_7366156187_erreur_test_2.png}
+\caption{Test de R. D. Nair et C. Jablonowski, $(\lambda_0, \theta_0) = (0,0)$, $\alpha= \pi/4$ sur $12$ jours. On a choisit $N=40$ et $CFL=0.9$. Erreur relative au cours du temps (gauche), localisation spatiale de l'erreur (droite).}
+\label{fig NJ3}
+\end{center}
+\end{figure}
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{c|cc|cc|cc}
+$N$ & $max_n |e_1^n|$ & ordre  & $max_n |e_2^n|$ & ordre  & $max_n |e_{\infty}^n|$ & ordre \\
+\hline
+\hline
+$40$ & $2.7609 (-3)$ & -  & $9.7386 (-3)$ & - & $5.4808 (-2)$  & - \\
+\hline 
+$50$ & $1.276 (-3)$ & $3.5364$ & $5.0160 (-3)$ & $3.0399$ & $3.2035 (-2)$ & $2.4605$ \\
+\hline
+$60$ & $6.2957 (-4)$ & $3.9456$ & $2.6157 (-3)$ & $3.6365$ & $1.8218 (-2)$ & $3.1523$ \\
+\hline
+$80$ & $1.9603 (-4) $ & $4.1145$ & $8.3722 (-4)$ & $4.0173$ & $6.0931 (-3)$ & $3.8623$ \\
+\hline
+$100$ & $8.0399 (-5)$ & $4.0389$ & $3.4524 (-4)$ & $4.0143$ & $2.6514 (-3)$ & $3.7706$\\
+\hline
+$150$ & $1.5656 (-5)$ & $4.0684$ & $6.9199 (-5)$ & $3.9966$ & $5.8082 (-4)$ & $3.7756$
+\end{tabular}
+\caption{Analyse de convergence pour le test de R. D. Nair et C. Jablonowski \cite{Nair2008} ; $CFL = 0.7$ ; $\alpha = \pi /4$}
+\label{table NJ1}
+\end{center}
+\end{table}

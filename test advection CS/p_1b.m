@@ -4,13 +4,14 @@
 %           Jean-Pierre Croisille
 % ----------------------------------
 clear all; clc; close all;
+vvv=[1 1 1];
 %% construction des variables globales
 global n nn;
 global radius u0 dxi;
 global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII;
 global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI;
 global ite aaa bbb itestop
-global coef opt_ftr
+global coef opt_ftr scheme
 % test de Williamson
 global alphad tetac lambdac
 % test de Nair et Machenhauer
@@ -27,7 +28,7 @@ time1=cputime;
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 1;
+coef = 2;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;
@@ -43,10 +44,12 @@ snapshot = 0;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 2
 %         1 : coupe.
 coupe = 0;
-% sauvegarde = 1 : sauvegarde toutes les données
-%            = 0 : ne les sauvegarde pas (utiliser load('namefile') pour
+% sauvegarde = 1 : sauvegarde toutes les données,
+%            = 0 : ne les sauvegarde pas, (utiliser load('namefile') pour
 %            recharger les données).
-sauvegarde = 1;
+sauvegarde = 0;
+% choix du schéma aux différences finies
+scheme='compact4'; % compact ou explicite
 %% *** Benchmarks data ****************************************************
  n=40;
  nn=n+2;
@@ -58,7 +61,7 @@ sauvegarde = 1;
 %% ************************************************************************
  if coef == 0
  %% test de Williamson
- alphad=0;  
+ alphad=3*pi/4;  
  lambdac=-pi/2;                                                           % longitude BUMP
  tetac=0;                                                                  % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
@@ -66,15 +69,15 @@ sauvegarde = 1;
  elseif coef == 1
  %% test de Nair et Machenhauer
  lambda_p=pi/4;                                                            % position du pole nord, i.e. position du vortex nord
- teta_p=pi/4;
+ teta_p=-pi/4;
  rho0=3;
  gamma=5;
  elseif coef == 2
  %% test de Nair et Jablonowski
- alphad=3*pi/4; 
- lambda0 = pi/2;
+ alphad=pi/4; 
+ lambda0 = 0;
  teta0 = 0;
- lambda_p=0;                                                              % position du pole nord à t=0, i.e. position du vortex nord à t=0
+ lambda_p=pi;                                                              % position du pole nord à t=0, i.e. position du vortex nord à t=0
  teta_p=pi/2 - alphad;
  rho0=3;
  gamma=5;
@@ -89,13 +92,16 @@ sauvegarde = 1;
  tetac2=0;
  end
 %% données du problème
-vvv=[1 1 1];
 itestop=10000;
 tstart=cputime;
 mod_1b
 tmax=24*3600*ndaymax;
 ddt=cfl*radius*dxi/u0;
 itemax=floor(tmax/ddt);
+
+
+
+
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DEBUT BOUCLE EN TEMPS %
 % ------------------------------------------------------------------------
@@ -160,12 +166,14 @@ end
 
 %% Boucles RK 4 avec filtrage
 xdays(1)=0;
-for ite=1:itemax
-clc; [ite itemax]
+ite =1
+erinfty(1)=0;
+while ite<itemax & erinfty(end)<1
+clc; disp(num2str([ite itemax erinfty(end)]));
 
-%% ------------------------------------------------------------------------
+% -------------------------------------------------------------------------
 %%                 CALCUL DES ITERATIONS
-%%  -----------------------------------------------------------------------
+% -------------------------------------------------------------------------
 
 
 
@@ -331,18 +339,18 @@ err_fVI=funfVI-funfVIe;
 % en norme 1
 
 str='1';
-[nrmerI,nrmerII,nrmerIII,nrmerIV,nrmerV,nrmerVI,nrmger]=...
+[~,~,~,~,~,~,nrmger]=...
     nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-[nrmeI,nrmeII,nrmeIII,nrmeIV,nrmeV,nrmeVI,nrmge]=...
+[~,~,~,~,~,~,nrmge]=...
     nrm_1b(funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe,n,nn,str);
 er1(ite)=nrmger/nrmge;
 
 % en norme 2
 
 str='2';
-[nrmerI,nrmerII,nrmerIII,nrmerIV,nrmerV,nrmerVI,nrmger]=...
+[~,~,~,~,~,~,nrmger]=...
     nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-[nrmeI,nrmeII,nrmeIII,nrmeIV,nrmeV,nrmeVI,nrmge]=...
+[~,~,~,~,~,~,nrmge]=...
     nrm_1b(funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe,n,nn,str);
 er2(ite)=nrmger/nrmge;
 
@@ -365,20 +373,21 @@ ermin(ite)=min(min([funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,
 %% Figure pour film
 if film==1
     figure(100);
-    title(['days : ', num2str(xdays(ite))])
+    title(['days : ', num2str(xdays(ite))]); hold on
+    view([1 -1 1])
     %plot_cs15(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI,mm,MM);
-    %plot_cs11(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe);
     plot_cs11(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
     %plot_cs14(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI,mm,MM);
-    %*plot_cs12(n,nn,funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,funfV-funfVe,funfVI-funfVIe,err);
+    %plot_cs12(n,nn,funfI-funfIe,funfII-funfIIe,funfIII-funfIIIe,funfIV-funfIVe,funfV-funfVe,funfVI-funfVIe,err);
     hold off;
     mov(ite) = getframe(gcf);
 end
 
+ite=ite+1;
 end
-
 time2=cputime-time1;
-disp(['temps de fonctionnement : ', num2str(time2)]);
+disp(['temps de fonctionnement : ', num2str(time2)])
+
 ref=floor(10000*now);
 if film == 1
     mkdir(['./video-' date ])
@@ -390,6 +399,7 @@ if film == 1
     fprintf(fid,'%s\n','***********************************');
     fprintf(fid,'%s\n',['test : ', num2str(coef)]);
     fprintf(fid,'%s\n','---------- numerical data ---------');
+    fprintf(fid,'%s\n',['scheme            : ', scheme] );
     fprintf(fid,'%s\n',['number of points  : ', num2str(n)] );
     fprintf(fid,'%s\n',['time step         : ', num2str(ddt)] );
     fprintf(fid,'%s\n',['cfl               : ', num2str(cfl)] );
@@ -438,6 +448,7 @@ end
     nrm_1b(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
 
 time_res=cputime-tstart;
+
 %% graphiques
 if save_graph==1
     mkdir(['./results-' date ])
@@ -446,13 +457,15 @@ end
 
 if sauvegarde == 1
     mkdir(['./results-' date ])
-    save(['./results-' date '/ref_' num2str(ref) '_erreurdata_test_' num2str(coef) '.mat'],'funfI','funfII','funfIII','funfIV','funfV','funfVI','er1','er2','erinfty')
+    save(['./results-' date '/ref_' num2str(ref) '_erreurdata_test_' num2str(coef) '.mat'])
 end
 
 if snapshot == 1
     figure(11)
-    plot_cs7(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
-    view(vvv)
+    hFig = figure(11);
+    set(gcf,'PaperPositionMode','auto')
+    set(hFig, 'Position', [50 50 1000 500])
+    plot_cs7(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe)
     if save_graph==1
         print('-dpng', ['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef) '_nday_' num2str(ndaymax) '.png'])
         savefig(['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef)]);
@@ -480,7 +493,7 @@ end
 figure(39);
 plot_cs11(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI);colorbar;
 title('error - RK4')
-%view(vvv)
+view(vvv)
 if save_graph==1
     print('-dpng', ['./results-' date '/ref_' num2str(ref) '_erreur_test_' num2str(coef) '.png'])
     savefig(['./results-' date '/ref_' num2str(ref) '_erreur_test_' num2str(coef)]);

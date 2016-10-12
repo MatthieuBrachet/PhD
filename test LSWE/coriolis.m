@@ -1,80 +1,53 @@
-function[flu_I,flu_II,flu_III,flu_IV,flu_V,flu_VI]=coriolis(funfI,funfII,funfIII,funfIV,funfV,funfVI)
+function[flu_I,flu_II,flu_III,flu_IV,flu_V,flu_VI]=coriolis(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI)
 global x_fI y_fI z_fI;
 global x_fII y_fII z_fII;
 global x_fIII y_fIII z_fIII;
 global x_fIV y_fIV z_fIV;
 global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
-global radius omega
+global omega alpha
+global gr_I gr_II gr_III gr_IV gr_V gr_VI;
 
+%% coriolis
 
-cste=2*omega/(radius*radius);
+% PDT VECT
+[n1,n2]=size(x_fI);
+for i=1:n1
+    for j=1:n2
+        vect_fI(i,j,1:3)=cross(gr_I(i,j,1:3),vt_fI(i,j,1:3));
+        vect_fII(i,j,1:3)=cross(gr_II(i,j,1:3),vt_fII(i,j,1:3));
+        vect_fIII(i,j,1:3)=cross(gr_III(i,j,1:3),vt_fIII(i,j,1:3));
+        vect_fIV(i,j,1:3)=cross(gr_IV(i,j,1:3),vt_fIV(i,j,1:3));
+        vect_fV(i,j,1:3)=cross(gr_V(i,j,1:3),vt_fV(i,j,1:3));
+        vect_fVI(i,j,1:3)=cross(gr_VI(i,j,1:3),vt_fVI(i,j,1:3));
+    end
+end
 
-%% ------ face I
-fc_x(:,:)=cste*x_fI.*z_fI;
-fc_y(:,:)=cste*y_fI.*z_fI;
-fc_z(:,:)=cste*z_fI.*z_fI;
-vel_x=funfI(:,:,1);
-vel_y=funfI(:,:,2);
-vel_z=funfI(:,:,3);
-flu_I(:,:,1)= fc_y.*vel_z - fc_z.*vel_y;
-flu_I(:,:,2)= fc_z.*vel_x - fc_x.*vel_z;
-flu_I(:,:,3)= fc_x.*vel_y - fc_y.*vel_x;
+%% ASSEMBLAGE
+[lambda_fI, teta_fI, ~]=cart2sph(x_fI, y_fI, z_fI);
+[lambda_fII, teta_fII, ~]=cart2sph(x_fII, y_fII, z_fII);
+[lambda_fIII, teta_fIII, ~]=cart2sph(x_fIII, y_fIII, z_fIII);
+[lambda_fIV, teta_fIV, ~]=cart2sph(x_fIV, y_fIV, z_fIV);
+[lambda_fV, teta_fV, ~]=cart2sph(x_fV, y_fV, z_fV);
+[lambda_fVI, teta_fVI, ~]=cart2sph(x_fVI, y_fVI, z_fVI);
 
-%% ------ face II
-fc_x(:,:)=cste*x_fII.*z_fII;
-fc_y(:,:)=cste*y_fII.*z_fII;
-fc_z(:,:)=cste*z_fII.*z_fII;
-vel_x=funfII(:,:,1);
-vel_y=funfII(:,:,2);
-vel_z=funfII(:,:,3);
-flu_II(:,:,1)= fc_y.*vel_z - fc_z.*vel_y;
-flu_II(:,:,2)= fc_z.*vel_x - fc_x.*vel_z;
-flu_II(:,:,3)= fc_x.*vel_y - fc_y.*vel_x;
-
-%% ------ face III
-fc_x(:,:)=cste*x_fIII.*z_fIII;
-fc_y(:,:)=cste*y_fIII.*z_fIII;
-fc_z(:,:)=cste*z_fIII.*z_fIII;
-vel_x=funfIII(:,:,1);
-vel_y=funfIII(:,:,2);
-vel_z=funfIII(:,:,3);
-flu_III(:,:,1)= fc_y.*vel_z - fc_z.*vel_y;
-flu_III(:,:,2)= fc_z.*vel_x - fc_x.*vel_z;
-flu_III(:,:,3)= fc_x.*vel_y - fc_y.*vel_x;
-
-%% ------ face IV
-fc_x(:,:)=cste*x_fIV.*z_fIV;
-fc_y(:,:)=cste*y_fIV.*z_fIV;
-fc_z(:,:)=cste*z_fIV.*z_fIV;
-vel_x=funfIV(:,:,1);
-vel_y=funfIV(:,:,2);
-vel_z=funfIV(:,:,3);
-flu_IV(:,:,1)= fc_y.*vel_z - fc_z.*vel_y;
-flu_IV(:,:,2)= fc_z.*vel_x - fc_x.*vel_z;
-flu_IV(:,:,3)= fc_x.*vel_y - fc_y.*vel_x;
-
-%% ------ face V
-fc_x(:,:)=cste*x_fV.*z_fV;
-fc_y(:,:)=cste*y_fV.*z_fV;
-fc_z(:,:)=cste*z_fV.*z_fV;
-vel_x=funfV(:,:,1);
-vel_y=funfV(:,:,2);
-vel_z=funfV(:,:,3);
-flu_V(:,:,1)= fc_y.*vel_z - fc_z.*vel_y;
-flu_V(:,:,2)= fc_z.*vel_x - fc_x.*vel_z;
-flu_V(:,:,3)= fc_x.*vel_y - fc_y.*vel_x;
-
-%% ------ face VI
-fc_x(:,:)=cste*x_fVI.*z_fVI;
-fc_y(:,:)=cste*y_fVI.*z_fVI;
-fc_z(:,:)=cste*z_fVI.*z_fVI;
-vel_x=funfVI(:,:,1);
-vel_y=funfVI(:,:,2);
-vel_z=funfVI(:,:,3);
-flu_VI(:,:,1)= fc_y.*vel_z - fc_z.*vel_y;
-flu_VI(:,:,2)= fc_z.*vel_x - fc_x.*vel_z;
-flu_VI(:,:,3)= fc_x.*vel_y - fc_y.*vel_x;
-
-
+for kk=1:3
+    f_I=2.*omega.*(-cos(lambda_fI).*cos(teta_fI).*sin(alpha)+sin(teta_fI).*cos(alpha));
+    flu_I(:,:,kk)=f_I.*vect_fI(:,:,kk);
+    
+    f_II=2.*omega.*(-cos(lambda_fII).*cos(teta_fII).*sin(alpha)+sin(teta_fII).*cos(alpha));
+    flu_II(:,:,kk)=f_II.*vect_fII(:,:,kk);
+    
+    f_III=2.*omega.*(-cos(lambda_fIII).*cos(teta_fIII).*sin(alpha)+sin(teta_fIII).*cos(alpha));
+    flu_III(:,:,kk)=f_III.*vect_fIII(:,:,kk);
+    
+    f_IV=2.*omega.*(-cos(lambda_fIV).*cos(teta_fIV).*sin(alpha)+sin(teta_fIV).*cos(alpha));
+    flu_IV(:,:,kk)=f_IV.*vect_fIV(:,:,kk);
+    
+    f_V=2.*omega.*(-cos(lambda_fV).*cos(teta_fV).*sin(alpha)+sin(teta_fV).*cos(alpha));
+    flu_V(:,:,kk)=f_V.*vect_fV(:,:,kk);
+    
+    f_VI=2.*omega.*(-cos(lambda_fVI).*cos(teta_fVI).*sin(alpha)+sin(teta_fVI).*cos(alpha));
+    flu_VI(:,:,kk)=f_VI.*vect_fVI(:,:,kk);
+end
 

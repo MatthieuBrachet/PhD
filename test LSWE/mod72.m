@@ -20,6 +20,7 @@ global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
 global gdxi_I gdxi_II gdxi_III gdxi_IV gdxi_V gdxi_VI;
 global gdeta_I gdeta_II gdeta_III gdeta_IV gdeta_V gdeta_VI;
+global gr_I gr_II gr_III gr_IV gr_V gr_VI;
 % -----------------------------------
 global G11_fI G12_fI G22_fI
 global G11_fII G12_fII G22_fII
@@ -415,6 +416,34 @@ for i=1:nn,
       geta_VI(i,j,3)= -yy(i,j);
       %
       geta_VI(i,j,1:3)=geta_VI(i,j,1:3)/xwk;     
+    end
+end
+
+for i=1:nn
+    for j=1:nn
+        gr_I(i,j,1)=x_fI(i,j)/radius;
+        gr_I(i,j,2)=y_fI(i,j)/radius;
+        gr_I(i,j,3)=z_fI(i,j)/radius;
+        %
+        gr_II(i,j,1)=x_fII(i,j)/radius;
+        gr_II(i,j,2)=y_fII(i,j)/radius;
+        gr_II(i,j,3)=z_fII(i,j)/radius;
+        %
+        gr_III(i,j,1)=x_fIII(i,j)/radius;
+        gr_III(i,j,2)=y_fIII(i,j)/radius;
+        gr_III(i,j,3)=z_fIII(i,j)/radius;
+        %
+        gr_IV(i,j,1)=x_fIV(i,j)/radius;
+        gr_IV(i,j,2)=y_fIV(i,j)/radius;
+        gr_IV(i,j,3)=z_fIV(i,j)/radius;
+        %
+        gr_V(i,j,1)=x_fV(i,j)/radius;
+        gr_V(i,j,2)=y_fV(i,j)/radius;
+        gr_V(i,j,3)=z_fV(i,j)/radius;
+        %
+        gr_VI(i,j,1)=x_fVI(i,j)/radius;
+        gr_VI(i,j,2)=y_fVI(i,j)/radius;
+        gr_VI(i,j,3)=z_fVI(i,j)/radius;
     end
 end
 
