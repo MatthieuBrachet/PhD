@@ -1,77 +1,57 @@
 % opsph.tex
 % opérateurs sphériques sur la sphère
 
-\chapter{Définition et discrétisation des opérateurs sphérique sur la sphére}
+\chapter{Opérateurs sphériques}
 
-\section{Discrétisation sur la sphère : la cube-sphère}
 
-La construction d'un maillage sur la sphère présente de nombreuses difficultés, Dans \cite{Ronchi1996}, on présente les critères pour avoir un "bon" maillage de la sphère :
+\section{Gradient sphèrique}
 
-\begin{itemize}
-\item absence de singularités,
-\item préserver la forme générale des équation hydrostatiques,
-\item maillage aussi régulier que possible,
-\item ...
-\end{itemize}
-
-En 1972, Robert Sadourny propose un maillage basé sur la projection d'un cube pour mailler la sphère \cite{Sadourny1972}.
-
-Soit $C$ un cube centré sur $O=(0,0,0)$ inscrit dans une sphère de rayon R $\mathbb{S}_R$ de centre $O$.
-Si $c^{(K)}$ est un point de la $K_{\text{ième}}$ face du cube ($K \in I, II, III, IV, V, VI$) 
-Le point $c^{(K)}$ est projeté sur la sphère. Si ce point est un point de maillage du cube, il permet par projection de mailler la sphère. 
-
-\subsection{Construction}
-
-Dans 
-
-\subsection{Coordonnées}
-
-\section{Gradient sphérique}
-
-Soit $u : \mathbb{S}^2 \longrightarrow \mathbb{R}$ une fonction sur la sphère. Le gradient de $u$ est donné par :
+Soit $h : \mathbb{S}^2_a \rightarrow \mathbb{R}$ une fonction sur la sphère à valeurs réelles. On peut calculer le gradient de cette fonction grâce à la formule :
 
 \begin{equation}
-\label{eq:gradCS}
-\nabla_T u = \dfrac{\partial u}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial u}{\partial \eta} \mathbf{g}^{\eta}
+grad(h) = \nabla h = \mathbf{g}^{\xi} \dfrac{\partial h}{\partial \xi} + \mathbf{g}^{\eta} \dfrac{\partial h}{\partial \eta}
+\label{eq:gradient}
 \end{equation}
 
-où $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ est la base duale de $( \mathbf{g}_{\xi}, \mathbf{g}_{\eta})$.
+avec $(\mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ la base duale construite précédemment.
 
-\subsection{Définition}
-
-\subsection{Schémas compact pour le calcul du gradient}
-
-\section{Divergence sphérique}
-
-\subsection{Définition}
-
-$(\xi, \eta)$ définit un système de coordonnées sur la sphère sur chaque panel.
-
-Soit un champ de vecteurs sur la sphère $\mathbf{F} :  \mathbb{S}^2 \longrightarrow \mathbb{TS}^2$, alors on peut calculer la divergence sur chaque panel grâce à :
+\begin{remarque}
+Le gradient de $h$ est, par construction, un champ de vecteur de $\mathbb{S}^2_a$ dans $\mathbb{T}\mathbb{S}^2_a$ :
 
 \begin{equation}
-\label{eq:divCS}
-\nabla_T \cdot \mathbf{F} = \dfrac{1}{\sqrt{\overline{\mathbf{G}}}} \left[  \dfrac{\partial}{\partial \xi} \left( \sqrt{\overline{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\xi} \right) + \dfrac{\partial}{\partial \eta} \left( \sqrt{\overline{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\eta} \right)  \right]
+\nabla h : \mathbb{S}^2_a \rightarrow \mathbb{T}\mathbb{S}^2_a
+\end{equation}
+\end{remarque}
+
+
+\section{Rotationnel et vorticité sur la sphère}
+
+De manière similaire aux constructions précédenntes, si $\mathbf{u} : \mathbb{S}^2_a \rightarrow \mathbb{T} \mathbb{S}^2_a$ est une fonction à valeur dans le champ de vecteurs tangents à la sphère, le rotationnel de $\mathbf{u}$ est donné par :
+
+\begin{equation}
+rot( \mathbf{u} ) = \nabla \wedge \mathbf{u} = \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{u}}{\partial \xi} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{u}}{\partial \eta}
+\label{eq:rotationnel}
 \end{equation}
 
-où $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ est la base duale de $( \mathbf{g}_{\xi}, \mathbf{g}_{\eta})$ et $\overline{\mathbf{G}} = |det \left( \overline{\mathbf{G}} \right)|$ le déterminant de la métrique en valeur absolue.
+On note que $rot( \mathbf{u} ) : \mathbb{S}^2_a \rightarrow \left[ \mathbf{T} \mathbf{S}^2_a \right]^{\bot}$. En effet ... 
 
-\subsection{Schémas compact pour le calcul de la divergence sphérique}
+ADD PROOF!!!
 
-\section{Rotationnel sphérique}
 
-\subsection{Définition}
+\section{Divergence sur la sphère}
 
-\subsection{Calcul numérique du rotationnel sphérique}
+On peut calculer la divergence de $\mathbf{u} : \mathbb{S}^2_a \rightarrow \mathbb{T} \mathbb{S}^2_a$ grâce à la formule :
 
-\section{Laplacien sphérique}
+\begin{equation}
+div( \mathbf{u} ) = \nabla \cdot \mathbf{u} = \mathbf{g}^{\xi} \cdot \dfrac{\partial \mathbf{u}}{\partial \xi} + \mathbf{g}^{\eta} \cdot \dfrac{\partial \mathbf{u}}{\partial \eta}
+\label{eq:divergence_old}
+\end{equation}
 
-\subsection{Définition}
+Cette formule nécessite de calculer la dérivée en $\xi$ et en $\eta$ de chaque composante de $\mathbf{u}$. Il est possible de diminuer le coût en calcul.
 
-\subsection{Calcul numérique du Laplacien sphérique}
+METTRE LA PREUVE
 
-\section{Intégration sur la sphère}
-
-\subsection{Définition}
-
-\subsection{Calcul numérique}
+\begin{equation}
+div( \mathbf{u} ) = \nabla \cdot \mathbf{u} = \dfrac{1}{\sqrt{\overline{\mathbf{G}}}} \left[ \dfrac{\partial}{\partial \xi} \left( \sqrt{\overline{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\xi} \right) + \dfrac{\partial}{\partial \eta} \left( \sqrt{\overline{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\xi} \right) \right]
+\label{eq:divergence}
+\end{equation}

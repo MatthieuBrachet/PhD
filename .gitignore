@@ -18,6 +18,8 @@
 *.fig
 *.mat
 *.zip
+*.lof
+*.lot
 
 
 !./test\ advection\ CS/redaction/Images/*.png
