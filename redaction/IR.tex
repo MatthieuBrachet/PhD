@@ -1,0 +1,39 @@
+% IR.tex
+
+L'objectif de cette partie est de présenter les invariants de Riemann comme outil pour l'étude des équations aux dérivées partielles hyperboliques.
+
+On considère une équation aux dérivées partielles de la forme suivante :
+
+\begin{equation}
+\dfrac{\partial u}{\partial t} + A \cdot \dfrac{\partial}{\partial x} F(u) = 0
+\label{eq:edp hyperbolique 1d}
+\end{equation}
+
+où $u$ est une fonction de $\mathbb{R}$ dans $\mathbb{R}^p$ et $F$ de $\mathbb{R}^p$ dans $\mathbb{R}^n$ ($n$ entier naturel). On note $u_0$ la solution à $t=0$.
+
+L'équation \eqref{eq:edp hyperbolique 1d} étant hyperbolique, $A  \cdot J F$, est diagonalisable, où $J F$ est la jacobienne de $F$.
+
+Il existe $P \in \mathcal{M}_n$ inversible et $D \in \mathcal{M}_ n$ diagonale tels que :
+
+\begin{equation}
+A \cdot JF = P^{-1} D P
+\end{equation}
+
+ainsi, en mutipliant \eqref{eq:edp hyperbolique 1d} à gauche par $P$ et en notant $w = P u$, on obtient :
+
+\begin{equation}
+\dfrac{\partial w}{\partial t} + D \dfrac{\partial w}{\partial x} = 0
+\label{eq:transport invariant de riemann}
+\end{equation}
+
+\begin{remarque}
+\begin{itemize}
+\item $w$ est appelé invariant de Riemann associé à l'équation \eqref{eq:edp hyperbolique 1d},
+\item $D$ est, a priori, fonction de $u$,
+\item lorsque \eqref{eq:edp hyperbolique 1d} est une équation linéaire, on peut considèrer $F(u) = u$, $D$ est indépendant de $u$ donc \eqref{eq:transport invariant de riemann} est une equation de transport que l'on sait résoudre :
+\begin{equation}
+w_j(x) = w_0 ( x - D_{j,j} t) = P u_0 ( x - D_{j,j} t )
+\end{equation} 
+et on peut déduire la solution de \eqref{eq:edp hyperbolique 1d}.
+\end{itemize}
+\end{remarque}

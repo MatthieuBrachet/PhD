@@ -190,12 +190,155 @@ Dois je mettre une méthode pour traiter les CL? (voir article avec J.P. Chehab)
 \subsection{Filtrage Implicite : cas de Visbal (titre à revoir)}
 
 
-\section{\'Etude des schémas sur l'équation d'advection}
+\section{Interpolation par spline cubique}
 
-\subsection{Equation d 'advection périodique 1D}
+L'objectif de cette section est de présenter l'outils d'interpolation utilisé : les méthodes de spline cubique.
 
-\subsubsection{\'Etude théorique}
+On se donne les valeurs $(y_i)_{0 \leq i \leq N}$ associées aux points de maillage $(x_i)_{0 \leq i \leq N}$. Les points de maillages sont tels que : pour tous $i$ et $j$ entre $0$ et $N$ tels que $i < j$ alors $x_i < x_j$.
 
-\subsection{Analyse de dispersion et dissipation de quelques schémas}
+La problèmatique est alors de trouver une fonction $\phi$ telle que :
 
-\section{Conclusion}
+\begin{equation}
+\text{Pour tout } i \hspace{0.5cm}   \phi(x_i) = y_i
+\end{equation}
+
+On peut chercher $\phi$ sous la forme suivante :
+
+\begin{equation}
+\phi (x) = \sum_{i=0}^N \phi_i(x) y_i
+\label{eq:interpolation fct caract}
+\end{equation}
+
+pour tout $x \in \mathbb{R}$. Pour tout $i$, $\phi_i$ est telle que pour tout $j$ on a :
+
+\begin{equation}
+\phi_i ( x_j ) = \delta_{i,j}
+\label{eq:fct cardinal}
+\end{equation}
+
+où $\delta_{i,j}$ est le symbole de Kronecker.
+
+\begin{remarque}
+Le problème \eqref{eq:fct cardinal} est toujours un problème d'interpolation mais le choix de $(\phi_i)_{0 \leq i \leq N}$ est indépendant de la donnée $(y_i)_{0 \leq i \leq N}$. De plus l'écriture \eqref{eq:interpolation fct caract} permet de mettre en évidence la linéarité du problème par rapport à $(y_i)_{0 \leq i \leq N}$.
+\end{remarque}
+
+Les fonctions $(\phi_i)_{0 \leq i \leq N}$ sont appelées fonctions cardinales. Lorsque $\phi_i$ est nulle exceptée sur un voisinage de $x_i$, on dit que l'interpolation est locale.
+
+\subsection{Spline Cubique}
+
+Dans cette partie, nous recherchons les fonctions $(\phi_i)_{0 \leq i \leq N}$ sous la forme d'un polynôme d'ordre 3 par morceaux. C'est à dire que pour tout $x \in [x_i, x_{i+1}]$, on a :
+
+\begin{equation}
+\phi_i(x) = c_1 + c_2 (x-x_i) + c_3 (x-x_i)^2 + c_4 (x-x_i)^3
+\end{equation}
+
+De plus, les fonctions $(\phi_i)_{0 \leq i \leq N}$ doivent être suffisament régulière. Ici on cherche $\phi_i \in \mathcal{C}^2$.
+
+\subsection{Polynôme d'interpolation de degré 3}
+
+Dans cette partie uniquement, on cherche $P\in \mathbb{R}_3 [x]$ tel que 
+
+\begin{itemize}
+\item Pour tout $x \in [a,b]$, $P(x) = y_a + y_a' (x-a) + c_3 (x-a)^2 + c_4 (x-a)^3$,
+\item $P(a)=y_a$,
+\item $P(b)=y_b$,
+\item $P'(a)=y_a'$,
+\item $P'(b)=y_b'$.
+\end{itemize}
+
+en supposant, naturellement, $a \neq b$.
+
+On note d'abord que les conditions 2 et 4 sont triviallement vérifiée par la forme donnée à $P$ dans la condition 1.
+Il reste à voir quelle forme doivent prendre $c_3$ et $c_4$ pour que les conditions 3 et 5 soient vérifiées.
+
+On sait que $P(b) = y_b$ donc :
+
+$$(b-a)^2 (c_3 + c_4 (b-a)) = y_b - y_a - y_a' (b-a)$$
+
+d'où :
+
+\begin{equation}
+c_ 3 + c_4 (b-a) = \dfrac{y_b - y_a}{(b-a)^2} - \dfrac{y_a'}{b-a}
+\label{cond:p(b)=yb}
+\end{equation}
+
+De manière similaire, comme $P'(b) = y_b'$, on a :
+
+\begin{equation}
+2 c_3 + 3 c_4 (b-a) = \dfrac{y_b' - y_a'}{b-a}
+\label{cond:p'(b)=yb'}
+\end{equation}
+
+En combinant \eqref{cond:p(b)=yb} et \eqref{cond:p(b)=yb}, on peut montrer que :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+c_3 & = & 3 \dfrac{y_b - y_a}{(b-a)^2} - \dfrac{2 y_a' + y_b'}{b-a} \\
+c_ 4 & = & 2 \dfrac{y_a - y_b}{(b-a)^3} + \dfrac{y_b' + y_a'}{(b-a)^2}
+\end{array}
+\right.
+\label{cond:c3 and c4}
+\end{equation}
+
+\subsection{Construction de la Spline cubique}
+
+Soit $i$ un entier entre $1$ et $N-1$.
+Alors $\phi$ restreint à $[x_i, x_{i+1}]$ est de la forme :
+
+\begin{equation}
+\phi_{|[x_i, x_{i+1}]} (x) = y_i + y_i' (x-x_i) + c_3^i (x-x_i)^2 + c_4^i (x-x_i)^3
+\end{equation}
+
+avec $c_3^i = 3 \dfrac{y_{i+1} - y_i}{(x_{i+1}-x_i)^2} - \dfrac{2 y_i' + y_{i+1}'}{x_{i+1}-x_i}$ et 
+$c_4^i = 2 \dfrac{y_i - y_{i+1}}{(x_{i+1}-x_i)^3} + \dfrac{y_{i+1}' + y_i'}{(x_{i+1}-x_i)^2}$.
+
+De la même manière, on a :
+
+\begin{equation}
+\phi_{|[x_{i-1}, x_{i}]} (x) = y_{i-1} + y_{i-1}' (x-x_{i-1}) + c_3^{i-1} (x-x_{i-1})^2 + c_4^{i-1} (x-x_{i-1})^3
+\end{equation}
+
+avec $c_3^{i-1} = 3 \dfrac{y_i - y_{i-1}}{(x_{i}-x_{i-1})^2} - \dfrac{2 y_{i-1}' + y_{i}'}{x_{i}-x_{i-1}}$ et 
+$c_4^{i-1} = 2 \dfrac{y_{i-1} - y_i}{(x_{i}-x_{i-1})^3} + \dfrac{y_{i}' + y_{i-1}'}{(x_{i}-x_{i-1})^2}$.
+
+Car $\phi$ est une fonction $\mathcal{C}^2$ donc sa dérivée est continue. De plus, sa dérivée seconde est continue aussi, donc :
+
+\begin{equation}
+\phi_{|[x_i, x_{i+1}]}''(x_i) = \phi_{|[x_{i-1}, x_{i}]}''(x_i) 
+\end{equation}
+
+d'où :
+
+\begin{equation}
+c_3^i = c_3^{i-1} + 3 c_4^{i-1} ( x_i - x_{i-1} )
+\end{equation}
+
+Ce que l'on peut écrire (en simplifiant) :
+
+\begin{multline}
+- \dfrac{3}{(x_i - x_{i-1})^2} y_{i-1} + \left( \dfrac{3}{(x_i - x_{i-1})} - \dfrac{3}{(x_{i+1} - x_{i})} \right) y_i + \dfrac{3}{(x_{i+1} - x_{i})^2} y_{i+1} = ...\\
+... \dfrac{1}{x_i - x_{i-1}} y_{i-1}' + \left( \dfrac{2}{x_{i+1}-x_i} + \dfrac{2}{x_{i}-x_{i-1}} \right)y_i' + \dfrac{1}{x_{i-1} - x_{i}} y_{i+1}' 
+\label{eq:spline cubique int}
+\end{multline}
+
+L'équation \eqref{eq:spline cubique int} donne $N-1$ relation pour les points intérieurs du maillages alors qu'il y a $N+1$ inconnues $y_i'$. Il manque donc deux conditions pour que le problème soit bien posé.
+
+Si la fonction à déterminer est une fonction cardinale $\phi_j$, on note que $y_i = \delta_{i,j}$. Ainsi le terme de gauche de \eqref{eq:spline cubique int} est nul lorsque $i>j+1$. Cependant, la spline cubique n'est a priori pas une interpolation locale.
+
+\subsection{Spline cubique naturelle}
+
+\subsection{Spline cubique 'Not a knot'}
+
+
+
+
+
+
+
+
+
+
+
+
+

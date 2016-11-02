@@ -4,20 +4,19 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Test du Bump - $\alpha = 0$ - $N=40$ - $CFL=0.9$ - solution exacte \IeC {\`a} $t=0$ (gauche) et approch\IeC {\'e}e \IeC {\`a} $t=12 jours$ (droite) }}{22}{figure.5.1}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Test du Bump avec $\alpha = 0$, $N=40$, $CFL=0.9$ - \IeC {\`a} $t=12 jours$ localisation spatiale de l'erreur $( h^n - h(t^n) )$ (gauche) et erreur relative en norme (droite) }}{22}{figure.5.2}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Test du Bump - $\alpha = - \pi /4$ - $N=40$ - $CFL=0.9$ - \IeC {\`a} $t=12 jours$ localisation spatiale de l'erreur $( h^n - h(t^n))$ (gauche) et erreur relative en norme (droite) }}{23}{figure.5.3}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Test du Bump - $\alpha = 0$ - $N=40$ - $CFL=0.9$ - \IeC {\`a} $t=12$ coupe sur l'\IeC {\'e}quateur (gauche) - erreur relative sans filtre (droite)}}{23}{figure.5.4}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Test de R. D. Nair et B. Machenhaueur, $(\lambda _P, \theta _P) = (0,0)$, $N=40$, $CFL=0.9$, \IeC {\`a} $t=12$ coupe sur l'\IeC {\'e}quateur (gauche) - localisation spatiale de l'erreur (droite)}}{24}{figure.5.5}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Test de R. D. Nair et B. Machenhaueur, $(\lambda _P, \theta _P) = (\pi /4,\pi /4)$, $N=40$, $CFL=0.9$, \IeC {\`a} $t=12$ coupe sur l'\IeC {\'e}quateur (gauche) - localisation spatiale de l'erreur (droite)}}{24}{figure.5.6}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Erreur relative pour le test de R. D. Nair et B. Machenhaueur sur 12 jours, $(\lambda _P, \theta _P) = (0,0)$ (gauche) et $(\lambda _P, \theta _P) = (\pi /4,\pi /4)$ (droite) avec $N=40$ et $CFL=0.9$}}{25}{figure.5.7}
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Coupe sur l'\IeC {\'e}quateur pour le test de R. D. Nair et B. Machenhaueur, $(\lambda _P, \theta _P) = (0,0)$, $CFL=0.9$ ainsi que le filtre \IeC {\`a} l'ordre 10}}{25}{figure.5.8}
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Test de R. D. Nair et C. Jablonowski, $(\lambda _0, \theta _0) = (0,0)$, $\alpha = \pi /4$ \IeC {\`a} $t=0$, $3$, $6$, $9$ et $12$ jours.}}{26}{figure.5.9}
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Test de R. D. Nair et C. Jablonowski, $(\lambda _0, \theta _0) = (0,0)$, $\alpha = \pi /4$ sur $12$ jours. On a choisit $N=40$ et $CFL=0.9$. Erreur relative au cours du temps (gauche), localisation spatiale de l'erreur (droite).}}{27}{figure.5.10}
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Test de R. D. Nair et C. Jablonowski, $(\lambda _0, \theta _0) = (0,0)$, $\alpha = \pi /4$ sur $12$ jours. On a choisit $N=40$ et $CFL=0.9$. Erreur relative au cours du temps (gauche), localisation spatiale de l'erreur (droite).}}{27}{figure.5.11}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Test du Bump - $\alpha = 0$ - $N=40$ - $CFL=0.9$ - solution exacte \IeC {\`a} $t=0$ (gauche) et approch\IeC {\'e}e \IeC {\`a} $t=12 jours$ (droite) }}{24}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Test du Bump avec $\alpha = 0$, $N=40$, $CFL=0.9$ - \IeC {\`a} $t=12 jours$ localisation spatiale de l'erreur $( h^n - h(t^n) )$ (gauche) et erreur relative en norme (droite) }}{24}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Test du Bump - $\alpha = - \pi /4$ - $N=40$ - $CFL=0.9$ - \IeC {\`a} $t=12 jours$ localisation spatiale de l'erreur $( h^n - h(t^n))$ (gauche) et erreur relative en norme (droite) }}{25}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Test du Bump - $\alpha = 0$ - $N=40$ - $CFL=0.9$ - \IeC {\`a} $t=12$ coupe sur l'\IeC {\'e}quateur (gauche) - erreur relative sans filtre (droite)}}{25}{figure.5.4}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Test de R. D. Nair et B. Machenhaueur, $(\lambda _P, \theta _P) = (0,0)$, $N=40$, $CFL=0.9$, \IeC {\`a} $t=12$ coupe sur l'\IeC {\'e}quateur (gauche) - localisation spatiale de l'erreur (droite)}}{26}{figure.5.5}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Test de R. D. Nair et B. Machenhaueur, $(\lambda _P, \theta _P) = (\pi /4,\pi /4)$, $N=40$, $CFL=0.9$, \IeC {\`a} $t=12$ coupe sur l'\IeC {\'e}quateur (gauche) - localisation spatiale de l'erreur (droite)}}{26}{figure.5.6}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Erreur relative pour le test de R. D. Nair et B. Machenhaueur sur 12 jours, $(\lambda _P, \theta _P) = (0,0)$ (gauche) et $(\lambda _P, \theta _P) = (\pi /4,\pi /4)$ (droite) avec $N=40$ et $CFL=0.9$}}{27}{figure.5.7}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Coupe sur l'\IeC {\'e}quateur pour le test de R. D. Nair et B. Machenhaueur, $(\lambda _P, \theta _P) = (0,0)$, $CFL=0.9$ ainsi que le filtre \IeC {\`a} l'ordre 10}}{27}{figure.5.8}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Test de R. D. Nair et C. Jablonowski, $(\lambda _0, \theta _0) = (0,0)$, $\alpha = \pi /4$ \IeC {\`a} $t=0$, $3$, $6$, $9$ et $12$ jours.}}{28}{figure.5.9}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Test de R. D. Nair et C. Jablonowski, $(\lambda _0, \theta _0) = (0,0)$, $\alpha = \pi /4$ sur $12$ jours. On a choisit $N=40$ et $CFL=0.9$. Erreur relative au cours du temps (gauche), localisation spatiale de l'erreur (droite).}}{29}{figure.5.10}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Test de R. D. Nair et C. Jablonowski, $(\lambda _0, \theta _0) = (0,0)$, $\alpha = \pi /4$ sur $12$ jours. On a choisit $N=40$ et $CFL=0.9$. Erreur relative au cours du temps (gauche), localisation spatiale de l'erreur (droite).}}{29}{figure.5.11}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {8.1}{\ignorespaces Longitude-Latitude}}{37}{figure.8.1}
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Longitude-Latitude}}{39}{figure.8.1}
 \addvspace {10\p@ }

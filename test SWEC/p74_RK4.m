@@ -26,9 +26,9 @@ global teta0 teta1
 test=1;
 video = 'no';
 sauvegarde = 1;
-opt_ftr=10;
+opt_ftr=6;
 scheme='compact4';
-snapshot='no';
+snapshot='yes';
 
 n=31;
 teta0=pi/7;
@@ -90,34 +90,12 @@ while t<Tmax & iter<itermax
     clc; 
     disp([iter min(itermax,floor(Tmax/ddt)) erri(end)]);
     %% Filtrage
-    e=1;
-    iterf=0;
-    if opt_ftr==0
-        iterfmax=-1;
-    else
-        iterfmax=1;
-    end
-    while e>1.e-4 & iterf<iterfmax
-        iterf=iterf+1;
-        for ppp=1:3
-            [vt_fI(:,:,ppp),vt_fII(:,:,ppp),vt_fIII(:,:,ppp),vt_fIV(:,:,ppp),vt_fV(:,:,ppp),vt_fVI(:,:,ppp)]=...
-                ftr74(vt_fI(:,:,ppp),vt_fII(:,:,ppp),vt_fIII(:,:,ppp),vt_fIV(:,:,ppp),vt_fV(:,:,ppp),vt_fVI(:,:,ppp),n,nn);
-        end
-        [htf_fI,htf_fII,htf_fIII,htf_fIV,htf_fV,htf_fVI]=...
-            ftr74(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn);
-        
-        eh_fI   = max(max(abs(htf_fI   - ht_fI   )./abs(ht_fI   )));
-        eh_fII  = max(max(abs(htf_fII  - ht_fII  )./abs(ht_fII  )));
-        eh_fIII = max(max(abs(htf_fIII - ht_fIII )./abs(ht_fIII )));
-        eh_fIV  = max(max(abs(htf_fIV  - ht_fIV  )./abs(ht_fIV  )));
-        eh_fV   = max(max(abs(htf_fV   - ht_fV   )./abs(ht_fV   )));
-        eh_fVI  = max(max(abs(htf_fVI  - ht_fVI  )./abs(ht_fVI  )));
-        e=max([eh_fI,eh_fII,eh_fIII,eh_fIV,eh_fV,eh_fVI]);
-        
-        ht_fI=htf_fI;     ht_fII=htf_fII;    ht_fIII=htf_fIII;
-        ht_fIV=htf_fIV;   ht_fV=htf_fV;      ht_fVI=htf_fVI;
-    end
-    FTR=max(iterf,FTR);
+    %% filtrage
+    [ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI]=ftr74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
+    [vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1)]=ftr74(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
+    [vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2)]=ftr74(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
+    [vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3)]=ftr74(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
+
 
     %% K1
     hh_fI   = ht_fI;
@@ -328,7 +306,6 @@ if strcmp(video,'yes') == 1
     fprintf(fid,'%s\n',['time step         : ', num2str(ddt)] );
     fprintf(fid,'%s\n',['cfl               : ', num2str(cfl)] );
     fprintf(fid,'%s\n',['ordre du filtre   : ', num2str(opt_ftr)] );
-    fprintf(fid,'%s\n',['iterfmax          : ', num2str(iterfmax)] );
     fprintf(fid,'%s\n','---------- physical data ----------');
     fprintf(fid,'%s\n',['gravity g              : ', num2str(gp)] );
     fprintf(fid,'%s\n',['caracteristiv velocity : ', num2str(u0)] );
@@ -352,7 +329,6 @@ if sauvegarde == 1
     fprintf(fid,'%s\n',['time step         : ', num2str(ddt)] );
     fprintf(fid,'%s\n',['cfl               : ', num2str(cfl)] );
     fprintf(fid,'%s\n',['ordre du filtre   : ', num2str(opt_ftr)] );
-    fprintf(fid,'%s\n',['iterfmax          : ', num2str(iterfmax)] );
     fprintf(fid,'%s\n','---------- physical data ----------');
     fprintf(fid,'%s\n',['gravity g              : ', num2str(gp)] );
     fprintf(fid,'%s\n',['caracteristiv velocity : ', num2str(u0)] );

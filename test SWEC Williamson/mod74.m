@@ -451,7 +451,7 @@ for i=1:nn
 end
 
 %% Options sur les filtres
-[ ftr ] = filtre( na , opt_ftr );
+[ ftr ] = filtre74( na , opt_ftr );
 
 %% base directe
 
@@ -598,3 +598,4 @@ for i=1:nn
         gdeta_VI(i,j,1:3)=Gd12_fVI(i,j)*gxi_VI(i,j,1:3)+Gd22_fVI(i,j)*geta_VI(i,j,1:3);
     end
 end
+

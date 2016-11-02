@@ -1,0 +1,31 @@
+%% ************************************************************************
+% test for laplacian on the CS.
+% *** options :
+% scheme : numerical spatial scheme used. 
+% sauvegarde = 0 (do not save data), 1 (save all data).
+% opt_ftr : explicit (redonnet) or implicit (visbal) filtering.
+% alfa_ftr : parameter for implicit fliter (type visbal only, 
+%            if alpha_ftr=0, the filter is equivalent to Redonnet filter,
+%            if alpha_ftr=0.5, the filter is inexistant).
+%
+%% ************************************************************************
+clc; clear all; close all;
+format long
+
+global n nn dxi
+global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII
+global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
+global opt_ftr alfa_ftr test scheme
+
+test=1;
+video = 'no';
+nper=1;
+sauvegarde = 1;
+opt_ftr='redonnet10';
+alfa_ftr=0;
+delta_ftr=1;
+scheme='compact4';
+snapshot='yes';
+
+n=31; % for snapshot, n must be in the form 2^m-1 !
+mod74

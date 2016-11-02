@@ -1,0 +1,27 @@
+date : 17-Oct-2016
+ref. : 7366206889
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 336.5838
+cfl               : 0.5
+ordre du filtre   : 10
+date : 17-Oct-2016
+ref. : 7366206889
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 336.5838
+cfl               : 0.5
+ordre du filtre   : 10
+---------- physical data ----------
+gravity g              : 9.8062
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+Start Galewsky benchmark.
+***********************************
+  
+  

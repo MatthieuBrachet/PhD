@@ -22,7 +22,7 @@ $$\mathbf{u} = u \mathbf{e}_{\theta} + v \mathbf{e}_{\lambda}.$$
 Le paramètre de Coriolis est :
 
 \begin{equation}
-f=2 \omega sin ( \theta' ) = 2 \omega \left( -cos \lambda cos \theta sin \alpha + sin \theta cos \alpha \right)
+f=2 \omega sin ( \theta )
 \label{coriolis_parameter}
 \end{equation}
 
@@ -331,9 +331,9 @@ $100$ & $4.9820(-6)$ & $6.3615$ & $1.9414 (-6)$ & $5.8892$ & $1.7583 (-6)$ & $6.
 \section{Test sans forcage}
 
 
-Ce second test est considéré sans forcage ($\mathbf{F} \equiv \mathbf{0}$ et $G \equiv 0$) et $\alpha$ est quelconque. Dans ce contexte, on construit une solution stationnaire telle que le champ de vitesse est zonale dans le système de coordonnées $(\lambda', \theta')$ donné dans \eqref{from classic to prime} avec $(\lambda_P, \theta_P) = (\pi, \pi /2 - \alpha)$ :
+Ce second test est considéré sans forcage ($\mathbf{F} \equiv \mathbf{0}$ et $G \equiv 0$). Dans ce contexte, on construit une solution stationnaire telle que le champ de vitesse est zonale :
 
-$$\mathbf{u}(\theta', \lambda') = u(\theta') \mathbf{e}_{\lambda'}$$
+$$\mathbf{u}(\theta, \lambda) = u(\theta) \mathbf{e}_{\lambda}$$
 
 On montre facilement que la vitesse $ \mathbf{u}$ est à divergence nulle avec ce choix.
 
@@ -343,38 +343,25 @@ La perturbation de l'atmosphère $\eta$ est ensuite construite de telle sorte qu
 f \mathbf{k} \wedge \mathbf{u} + g \nabla \eta = 0
 \end{equation} 
 
-Dans la base $(\mathbf{e}_{\lambda'}, \mathbf{e}_{\theta'})$ :
+Dans la base $(\mathbf{e}_{\lambda}, \mathbf{e}_{\theta})$ :
 
 \begin{equation}
-f u \mathbf{e}_{\theta'} + g \left[ \dfrac{1}{a \cdot cos \theta'} \dfrac{\partial \eta}{\partial \lambda'} \mathbf{e}_{\lambda'} + \dfrac{1}{a}\dfrac{\partial \eta'}{\partial \theta'} \mathbf{e}_{\theta'} \right] = 0
+f u \mathbf{e}_{\theta} + g \left[ \dfrac{1}{a \cdot cos \theta} \dfrac{\partial \eta}{\partial \lambda} \mathbf{e}_{\lambda} + \dfrac{1}{a}\dfrac{\partial \eta}{\partial \theta} \mathbf{e}_{\theta} \right] = 0
 \end{equation}
 
 par identification :
 
 \begin{itemize}
-\item $\dfrac{1}{a cos \theta'} \dfrac{\partial \eta'}{\partial \lambda'} = 0$, alors $\eta'$ est indépendant de $\lambda'$,
+\item $\dfrac{1}{a cos \theta} \dfrac{\partial \eta}{\partial \lambda} = 0$, alors $\eta$ est indépendant de $\lambda$,
 
-\item $f u + \dfrac{g}{a} \dfrac{\partial \eta'}{\partial \theta'} = 0$, alors (comme on a l'équation \eqref{coriolis_parameter}) :
+\item $f u + \dfrac{g}{a} \dfrac{\partial \eta}{\partial \theta} = 0$, alors (comme on a l'équation \eqref{coriolis_parameter}) :
 
 \begin{equation}
-\eta (\theta' ) = \eta_0 - \dfrac{2 \omega a}{g} \gint_0^{\theta'} sin(\tau) u(\tau) d \tau
+\eta (\theta ) = \eta_0 - \dfrac{2 \omega a}{g} \gint_0^{\theta} sin(\tau) u(\tau) d \tau
 \end{equation} 
 \end{itemize}
 
-ainsi une solution stationnaire est donnée. Nous choisissons $u(\theta') = u_0 \psi( \theta' )$ avec $\psi$ donné par \eqref{galewski_fun}. L'intégrale est calculée numériquement par la méthode des trapèzes composites.
-
-On peut ainsi calculer :
-
-\begin{equation}
-\left\lbrace
-\begin{array}{rcl}
-\mathbf{u}(\mathbf{x}) & = & \mathbf{u}(P_{\alpha} \mathbf{x} ) \\
-\eta (\mathbf{x}) & = & \eta(P_{\alpha} \mathbf{x} )
-\end{array}
-\right.
-\end{equation}
-
-où $P_{\alpha}$ est la rotation permettant de passer de l'axe Nord-Sud classique à l'axe Nord-Sud tourné d'un angle $\alpha$.
+ainsi une solution stationnaire est donnée. Nous choisissons $u(\theta) = u_0 \psi( \theta )$ avec $\psi$ donné par \eqref{galewski_fun}. L'intégrale est calculée numériquement par la méthode des trapèzes composites.
 
 Numériquement, nous obtenons deux types de résultats :
 \begin{itemize}
@@ -386,4 +373,5 @@ Numériquement, nous obtenons deux types de résultats :
 où  $I^n = \gint_{\mathbb{S}_a^2} \eta (t^n)$ la masse ou l'énergie $I^n = \gint_{\mathbb{S}_a^2} g \eta (t^n)^2 + H |u(t^n) |^2$ et $I(0)$ est la masse ou l'énergie initiale. Cette quantité $I^n/I(0)$ doit etre proche de $1$ si les quantités sont conservées.
 \end{itemize} 
 
-
+\textcolor{red}{ REMARQUE : ON POURRAIT REDIGER UN TRUC AUTOUR DE L'EQUILIBRE (V,H) NON NUL POUR V MAIS QUEL SENS DONNER A V NON NUL? V CONSTANT(ETRANGE)?
+ON NE PEUT PAS SUPPOSER DIV(V)=0 UNIQUEMENT CAR CELA IMPLIQUE V=0! ET GRAD(H)=0... }

@@ -29,9 +29,10 @@ global alpha
 test=1;
 video = 'no';
 nper=1;
-sauvegarde = 1;
-opt_ftr='redonnet6';
-alfa_ftr=0;
+sauvegarde = 0;
+opt_ftr=10;
+filtre='classic';
+%alfa_ftr=0;
 delta_ftr=1;
 scheme='compact4';
 snapshot='yes';
@@ -48,7 +49,7 @@ cfl=0.7;
 ddt=radius*dxi*cfl/c;
 ndaymax=15;
 Tmax=ndaymax*3600*24;
-itermax=5000;
+itermax=10000;
 comment='correction in filtering.';
 
 tstart=cputime;
@@ -98,11 +99,18 @@ while t<Tmax && iter<itermax
     disp([iter min(itermax,floor(Tmax/ddt)) erri(end) err_int(end)]);
     
     %% filtrage
-    [htf_fI, htf_fII, htf_fIII, htf_fIV, htf_fV, htf_fVI]=ftr74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
-    [vtf_fI(:,:,1), vtf_fII(:,:,1), vtf_fIII(:,:,1), vtf_fIV(:,:,1), vtf_fV(:,:,1), vtf_fVI(:,:,1)]=ftr74(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
-    [vtf_fI(:,:,2), vtf_fII(:,:,2), vtf_fIII(:,:,2), vtf_fIV(:,:,2), vtf_fV(:,:,2), vtf_fVI(:,:,2)]=ftr74(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
-    [vtf_fI(:,:,3), vtf_fII(:,:,3), vtf_fIII(:,:,3), vtf_fIV(:,:,3), vtf_fV(:,:,3), vtf_fVI(:,:,3)]=ftr74(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
-
+    if strcmp(filtre,'classic') == 1
+        [htf_fI, htf_fII, htf_fIII, htf_fIV, htf_fV, htf_fVI]=ftr74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
+        [vtf_fI(:,:,1), vtf_fII(:,:,1), vtf_fIII(:,:,1), vtf_fIV(:,:,1), vtf_fV(:,:,1), vtf_fVI(:,:,1)]=ftr74(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
+        [vtf_fI(:,:,2), vtf_fII(:,:,2), vtf_fIII(:,:,2), vtf_fIV(:,:,2), vtf_fV(:,:,2), vtf_fVI(:,:,2)]=ftr74(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
+        [vtf_fI(:,:,3), vtf_fII(:,:,3), vtf_fIII(:,:,3), vtf_fIV(:,:,3), vtf_fV(:,:,3), vtf_fVI(:,:,3)]=ftr74(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
+    elseif strcmp(filtre,'caracteristic') == 1
+        [htf_fI, htf_fII, htf_fIII, htf_fIV, htf_fV, htf_fVI, vtf_fI, vtf_fII, vtf_fIII, vtf_fIV, vtf_fV, vtf_fVI ]...
+            = ftrcar74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
+    else
+        error('Option ''filtre'' is uncorrect. ''filtre'' must be ''classic'' or ''caracteristic''.');
+    end
+    
     ht_fI   = (1-delta_ftr)*ht_fI   + delta_ftr.*htf_fI;
     ht_fII  = (1-delta_ftr)*ht_fII  + delta_ftr.*htf_fII;
     ht_fIII = (1-delta_ftr)*ht_fIII + delta_ftr.*htf_fIII;
@@ -353,9 +361,10 @@ if strcmp(video,'yes') == 1
     fprintf(fid,'%s\n',['number of points  : ', num2str(n)] );
     fprintf(fid,'%s\n',['time step         : ', num2str(ddt)] );
     fprintf(fid,'%s\n',['cfl               : ', num2str(cfl)] );
-    fprintf(fid,'%s\n',['ordre du filtre   : '  opt_ftr] );
+    fprintf(fid,'%s\n',['ordre du filtre   : '  num2str(opt_ftr)] );
+    fprintf(fid,'%s\n',['type du filtre    : ',  filtre] );
     fprintf(fid,'%s\n',['delta_ftr         : ', num2str(delta_ftr)] );
-    fprintf(fid,'%s\n',['alpha_ftr         : ', num2str(alfa_ftr)] );
+    %fprintf(fid,'%s\n',['alpha_ftr         : ', num2str(alfa_ftr)] );
     fprintf(fid,'%s\n','---------- physical data ----------');
     fprintf(fid,'%s\n',['gravity g              : ', num2str(gp)] );
     fprintf(fid,'%s\n',['alpha                  : ', num2str(alpha)] );
@@ -379,9 +388,10 @@ if sauvegarde == 1
     fprintf(fid,'%s\n',['number of points  : ', num2str(n)] );
     fprintf(fid,'%s\n',['time step         : ', num2str(ddt)] );
     fprintf(fid,'%s\n',['cfl               : ', num2str(cfl)] );
-    fprintf(fid,'%s\n',['ordre du filtre   : '  opt_ftr] );
+    fprintf(fid,'%s\n',['ordre du filtre   : '  num2str(opt_ftr)] );
+    fprintf(fid,'%s\n',['type du filtre    : ',  filtre] );
     fprintf(fid,'%s\n',['delta_ftr         : ', num2str(delta_ftr)] );
-    fprintf(fid,'%s\n',['alpha_ftr         : ', num2str(alfa_ftr)] );
+    %fprintf(fid,'%s\n',['alpha_ftr         : ', num2str(alfa_ftr)] );
     fprintf(fid,'%s\n','---------- physical data ----------');
     fprintf(fid,'%s\n',['gravity g              : ', num2str(gp)] );
     fprintf(fid,'%s\n',['alpha                  : ', num2str(alpha)] );
@@ -420,8 +430,10 @@ if strcmp(snapshot,'yes')==1
     figure(4)
     plot_cs7(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
     title(['vorticity at time : ', num2str(time(end))])
-    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot.png'])
-    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot']);
+    if sauvegarde == 1
+        print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot.png'])
+        savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot']);
+    end
 end
 
 figure(5)
