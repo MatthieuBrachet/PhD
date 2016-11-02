@@ -194,9 +194,9 @@ Dois je mettre une méthode pour traiter les CL? (voir article avec J.P. Chehab)
 
 L'objectif de cette section est de présenter l'outils d'interpolation utilisé : les méthodes de spline cubique.
 
-On se donne les valeurs $(y_i)_{0 \leq i \leq N}$ associées aux points de maillage $(x_i)_{0 \leq i \leq N}$. Les points de maillages sont tels que : pour tous $i$ et $j$ entre $0$ et $N$ tels que $i < j$ alors $x_i < x_j$.
+On se donne les valeurs $(y_i)_{0 \leq i \leq N+1}$ associées aux points de maillage $(x_i)_{0 \leq i \leq N+1}$. Les points de maillages sont tels que : pour tous $i$ et $j$ entre $0$ et $N+1$ tels que $i < j$ alors $x_i < x_j$.
 
-La problèmatique est alors de trouver une fonction $\phi$ telle que :
+Le problème est de trouver une fonction $\phi$ telle que :
 
 \begin{equation}
 \text{Pour tout } i \hspace{0.5cm}   \phi(x_i) = y_i
@@ -205,7 +205,7 @@ La problèmatique est alors de trouver une fonction $\phi$ telle que :
 On peut chercher $\phi$ sous la forme suivante :
 
 \begin{equation}
-\phi (x) = \sum_{i=0}^N \phi_i(x) y_i
+\phi (x) = \sum_{i=0}^{N+1} \phi_i(x) y_i
 \label{eq:interpolation fct caract}
 \end{equation}
 
@@ -219,20 +219,20 @@ pour tout $x \in \mathbb{R}$. Pour tout $i$, $\phi_i$ est telle que pour tout $j
 où $\delta_{i,j}$ est le symbole de Kronecker.
 
 \begin{remarque}
-Le problème \eqref{eq:fct cardinal} est toujours un problème d'interpolation mais le choix de $(\phi_i)_{0 \leq i \leq N}$ est indépendant de la donnée $(y_i)_{0 \leq i \leq N}$. De plus l'écriture \eqref{eq:interpolation fct caract} permet de mettre en évidence la linéarité du problème par rapport à $(y_i)_{0 \leq i \leq N}$.
+Le problème \eqref{eq:fct cardinal} est toujours un problème d'interpolation mais le choix de $(\phi_i)_{0 \leq i \leq N+1}$ est indépendant de la donnée $(y_i)_{0 \leq i \leq N+1}$. De plus l'écriture \eqref{eq:interpolation fct caract} permet de mettre en évidence la linéarité du problème par rapport à $(y_i)_{0 \leq i \leq N+1}$.
 \end{remarque}
 
-Les fonctions $(\phi_i)_{0 \leq i \leq N}$ sont appelées fonctions cardinales. Lorsque $\phi_i$ est nulle exceptée sur un voisinage de $x_i$, on dit que l'interpolation est locale.
+Les fonctions $(\phi_i)_{0 \leq i \leq N+1}$ sont appelées fonctions cardinales. Lorsque $\phi_i$ est nulle exceptée sur un voisinage de $x_i$, on dit que l'interpolation est locale.
 
 \subsection{Spline Cubique}
 
-Dans cette partie, nous recherchons les fonctions $(\phi_i)_{0 \leq i \leq N}$ sous la forme d'un polynôme d'ordre 3 par morceaux. C'est à dire que pour tout $x \in [x_i, x_{i+1}]$, on a :
+Dans cette partie, nous recherchons les fonctions $(\phi_i)_{0 \leq i \leq N+1}$ sous la forme d'un polynôme d'ordre 3 par morceaux. C'est à dire que pour tout $x \in [x_i, x_{i+1}]$, on a :
 
 \begin{equation}
 \phi_i(x) = c_1 + c_2 (x-x_i) + c_3 (x-x_i)^2 + c_4 (x-x_i)^3
 \end{equation}
 
-De plus, les fonctions $(\phi_i)_{0 \leq i \leq N}$ doivent être suffisament régulière. Ici on cherche $\phi_i \in \mathcal{C}^2$.
+De plus, les fonctions $(\phi_i)_{0 \leq i \leq N+1}$ doivent être suffisamment régulière. Ici on cherche $\phi_i \in \mathcal{C}^2$.
 
 \subsection{Polynôme d'interpolation de degré 3}
 
@@ -283,7 +283,7 @@ c_ 4 & = & 2 \dfrac{y_a - y_b}{(b-a)^3} + \dfrac{y_b' + y_a'}{(b-a)^2}
 
 \subsection{Construction de la Spline cubique}
 
-Soit $i$ un entier entre $1$ et $N-1$.
+Soit $i$ un entier entre $1$ et $N$.
 Alors $\phi$ restreint à $[x_i, x_{i+1}]$ est de la forme :
 
 \begin{equation}
@@ -314,7 +314,7 @@ d'où :
 c_3^i = c_3^{i-1} + 3 c_4^{i-1} ( x_i - x_{i-1} )
 \end{equation}
 
-Ce que l'on peut écrire (en simplifiant) pour tout $1 \leq i \leq N-1$ :
+Ce que l'on peut écrire (en simplifiant) pour tout $1 \leq i \leq N$ :
 
 \begin{multline}
 - \dfrac{3}{(x_i - x_{i-1})^2} y_{i-1} + \left( \dfrac{3}{(x_i - x_{i-1})} - \dfrac{3}{(x_{i+1} - x_{i})} \right) y_i + \dfrac{3}{(x_{i+1} - x_{i})^2} y_{i+1} = ...\\
@@ -322,7 +322,7 @@ Ce que l'on peut écrire (en simplifiant) pour tout $1 \leq i \leq N-1$ :
 \label{eq:spline cubique int}
 \end{multline}
 
-L'équation \eqref{eq:spline cubique int} donne $N-1$ relation pour les points intérieurs du maillages alors qu'il y a $N+1$ inconnues $y_i'$. Il manque donc deux conditions pour que le problème soit bien posé.
+L'équation \eqref{eq:spline cubique int} donne $N$ relation pour les points intérieurs du maillages alors qu'il y a $N+2$ inconnues $y_i'$. Il manque donc deux conditions pour que le problème soit bien posé.
 
 Si la fonction à déterminer est une fonction cardinale $\phi_j$, on note que $y_i = \delta_{i,j}$. Ainsi le terme de gauche de \eqref{eq:spline cubique int} est nul lorsque $i>j+1$. Cependant, la spline cubique n'est a priori pas une interpolation locale.
 
@@ -331,6 +331,48 @@ JE PENSE QU'ON PEUT MONTRER QUE \eqref{eq:spline cubique int} EST UN SCHEMA COMP
 \subsection{Spline cubique naturelle}
 
 \subsection{Spline cubique 'Not a knot'}
+
+Pour la condition 'Not a Knot', on suppose que $\phi$ est $\mathcal{C}^3$ en $x_1$ et en $x_N$.
+
+Ainsi, on doit avoir :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\phi_{|[x_0, x_1]}^{(3)}(x_1) & = & \phi_{|[x_1, x_2]}^{(3)}(x_1) \\
+\phi_{|[x_N, x_{N+1}]}^{(3)}(x_N) & = & \phi_{|[x_{N-1}, x_N]}^{(3)}(x_N)
+\end{array}
+\right.
+\label{NOK_condition}
+\end{equation}
+
+Ce qui se traduit par :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+6 c_4^0 & = & 6 c_4^1 \\
+6 c_4^{N} & = & 6 c_4^{N+1} \\
+\end{array}
+\right.
+\end{equation}
+
+écrit à l'aide des $(y_i)$ et $(y_i')$, on obtient :
+
+\begin{multline}
+\dfrac{1}{(x_1-x_0)^3} y_0 - \left[ \dfrac{1}{(x_1 - x_0)^3} + \dfrac{1}{(x_2-x_1)^3} \right] y_1 + \dfrac{1}{(x_2 - x_1)^3} y_2 = ... \\
+... \dfrac{1}{2} \left[ \dfrac{1}{(x_2-x_1)^2} y_2' + \left( \dfrac{1}{(x_2-x_1)^2} - \dfrac{1}{(x_1-x_0)^2} \right) y_1 - \dfrac{1}{(x_1 - x_0)^2} y_0' \right]
+\end{multline}
+
+ainsi que, de la même manière :
+
+\begin{multline}
+\dfrac{1}{(x_N-x_{N-1})^3} y_{N-1} - \left[ \dfrac{1}{(x_N - x_{N-1})^3} + \dfrac{1}{(x_{N+1}-x_N)^3} \right] y_N + \dfrac{1}{(x_{N+1} - x_N)^3} y_{N+1} = ... \\
+... \dfrac{1}{2} \left[ \dfrac{1}{(x_{N+1}-x_N)^2} y_{N+1}' + \left( \dfrac{1}{(x_{N+1}-x_N)^2} - \dfrac{1}{(x_N-x_{N-1})^2} \right) y_N - \dfrac{1}{(x_N - x_{N-1})^2} y_{N-1}' \right]
+\end{multline}
+
+
+
 
 
 
