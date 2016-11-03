@@ -20,3 +20,15 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {8.1}{\ignorespaces Longitude-Latitude}}{39}{figure.8.1}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {9.1}{\ignorespaces (left) Influence of the parameter $\tau $ on the accuracy of RSS. Error vs time for different values of $\tau $ - $N=127$, $\Delta t=0.004$, (right) Error vs time with ILU(2) and SSOR preconditioners, $N=63$,$\tau 1$, $\Delta t=0.004$}}{48}{figure.9.1}
+\contentsline {figure}{\numberline {9.2}{\ignorespaces The lid driven cavity - Schematic localization of the mean vortex regions}}{60}{figure.9.2}
+\contentsline {figure}{\numberline {9.3}{\ignorespaces Steady solution of NSE (\ref {Navier_Stokes_psi}) - $g \equiv 1$ - $\tau = 1$ - $N=127$ - $Re = 100$ - $\Delta t = 0.001$}}{62}{figure.9.3}
+\contentsline {figure}{\numberline {9.4}{\ignorespaces Solution of NSE (\ref {Navier_Stokes_psi}) - $g \equiv 1$ - $\tau = 1$ - $N=127$ - $Re = 400$ - $\Delta t = 0.001$}}{62}{figure.9.4}
+\contentsline {figure}{\numberline {9.5}{\ignorespaces Solution of NSE (\ref {Navier_Stokes_psi}) - $g \equiv 1$ - $\tau = 1$ - $N=127$ - $Re = 1000$ - $\Delta t = 0.0005$}}{63}{figure.9.5}
+\contentsline {figure}{\numberline {9.6}{\ignorespaces Solution of NSE (\ref {Navier_Stokes_psi}) - $g \equiv 1$ - $\tau = 1$ - $N=127$ - $Re = 3200$ - $\Delta t = 0.0005$}}{63}{figure.9.6}
+\contentsline {figure}{\numberline {9.7}{\ignorespaces Convergence to NSE steady state (\ref {Navier_Stokes_psi}) - $\tau = 1$ - $N=63$ - $Re = 100$ - $\Delta t = 0.01$}}{63}{figure.9.7}
+\contentsline {figure}{\numberline {9.8}{\ignorespaces Convergence to NSE steady state (\ref {Navier_Stokes_psi}) - $\tau = 100$ - $N=63$ - $Re = 100$ - $\Delta t = 0.01$}}{65}{figure.9.8}
+\contentsline {figure}{\numberline {9.9}{\ignorespaces Solution of (\ref {Navier_Stokes_psi}) in $[0; 1] \times [0; 2]$ - $g \equiv 1$ - $\tau = 1$ - $255 \times 511$ - $Re = 100$ - $\Delta t = 0.001$}}{65}{figure.9.9}
+\contentsline {figure}{\numberline {9.10}{\ignorespaces Solution of NSE (\ref {Navier_Stokes_psi}) in $[0; 1] \times [0; 2]$ - $g \equiv 1$ - $\tau = 1$ - $255 \times 511$ - $Re = 400$ - $\Delta t = 0.001$}}{66}{figure.9.10}
+\contentsline {figure}{\numberline {9.11}{\ignorespaces Solution of NSE (\ref {Navier_Stokes_psi}) in $[0; 1] \times [0; 2]$ - $g \equiv 1$ - $\tau = 1$ - $255 \times 511$ - $Re = 1000$ - $\Delta t = 0.0005$}}{66}{figure.9.11}
+\contentsline {figure}{\numberline {9.12}{\ignorespaces Solution of NSE (\ref {Navier_Stokes_psi}) on $[0; 1] \times [0; 2]$ - $g \equiv 1$ - $\tau = 1$ - $255 \times 511$ - $Re = 3200$ - $\Delta t = 0.0005$}}{68}{figure.9.12}

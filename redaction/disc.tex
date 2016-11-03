@@ -317,18 +317,46 @@ c_3^i = c_3^{i-1} + 3 c_4^{i-1} ( x_i - x_{i-1} )
 Ce que l'on peut écrire (en simplifiant) pour tout $1 \leq i \leq N$ :
 
 \begin{multline}
-- \dfrac{3}{(x_i - x_{i-1})^2} y_{i-1} + \left( \dfrac{3}{(x_i - x_{i-1})} - \dfrac{3}{(x_{i+1} - x_{i})} \right) y_i + \dfrac{3}{(x_{i+1} - x_{i})^2} y_{i+1} = ...\\
-... \dfrac{1}{x_i - x_{i-1}} y_{i-1}' + \left( \dfrac{2}{x_{i+1}-x_i} + \dfrac{2}{x_{i}-x_{i-1}} \right)y_i' + \dfrac{1}{x_{i-1} - x_{i}} y_{i+1}' 
+- \dfrac{3}{(x_i - x_{i-1})^2} y_{i-1} + \left( \dfrac{3}{(x_i - x_{i-1})^2} - \dfrac{3}{(x_{i+1} - x_{i})^2} \right) y_i + \dfrac{3}{(x_{i+1} - x_{i})^2} y_{i+1} = ...\\
+...= \dfrac{1}{x_i - x_{i-1}} y_{i-1}' + \left( \dfrac{2}{x_{i+1}-x_i} + \dfrac{2}{x_{i}-x_{i-1}} \right)y_i' + \dfrac{1}{x_{i-1} - x_{i}} y_{i+1}' 
 \label{eq:spline cubique int}
 \end{multline}
 
-L'équation \eqref{eq:spline cubique int} donne $N$ relation pour les points intérieurs du maillages alors qu'il y a $N+2$ inconnues $y_i'$. Il manque donc deux conditions pour que le problème soit bien posé.
+\begin{proposition}
+On pose $h_i = x_i - x_{i-1}$. Si $u$ est au moins de $\mathcal{C}^5$ alors la formule 
+\begin{multline}
+- \dfrac{3}{h_i^2} u(x_{i-1}) + \left( \dfrac{3}{h_i^2} - \dfrac{3}{h_{i+1}^2} \right) u(x_i) + \dfrac{3}{h_{i+1}^2} u(x_{i+1}) = \dfrac{1}{h_i} u'(x_{i-1}) + \left( \dfrac{2}{h_{i+1}} + \dfrac{2}{h_{i}} \right)u'(x_i) + \dfrac{1}{h_{i-1}} u'(x_{i+1}) + \mathcal{O}(h^3)
+\end{multline}
+est vérifiée en $x_i$ avec $h=max(h_i, h_{i+1})$.
+\end{proposition}
 
+\begin{proof}
+Par développement de Taylor en $x_i$, on montre que :
+
+\begin{multline}
+- \dfrac{3}{h_i^2} u(x_{i-1}) + \left( \dfrac{3}{h_i^2} - \dfrac{3}{h_{i+1}^2} \right) u(x_i) + \dfrac{3}{h_{i+1}^2} u(x_{i+1}) =  \left[ \dfrac{3}{h_{i+1}} + \dfrac{3}{h_{i}} \right] u'(x_i) + \left[ \dfrac{h_{i+1}}{2} + \dfrac{h_{i}}{2} \right] u^{(3)}(x_i) + \mathcal{O}\left( h^3 \right)
+\end{multline}
+
+avec $h=max(h_i, h_{i+1})$.
+
+De même, pour le terme de droite :
+
+\begin{multline}
+\left[ \dfrac{2}{h_{i+1}} + \dfrac{2}{h_{i}} \right] u'(x_i) + \dfrac{1}{h_{i+1}}u'(x_{i+1}) + \dfrac{1}{h_{i}}u'(x_{i-1}) =  \left[ \dfrac{3}{h_{i+1}} + \dfrac{3}{h_{i}} \right] u'(x_i) + \left[ \dfrac{h_{i+1}}{2} + \dfrac{h_{i}}{2} \right] u^{(3)}(x_i) + \mathcal{O}\left( h^3 \right)
+\end{multline}
+
+d'où le résultat.
+\end{proof}
+
+\begin{remarque}
 Si la fonction à déterminer est une fonction cardinale $\phi_j$, on note que $y_i = \delta_{i,j}$. Ainsi le terme de gauche de \eqref{eq:spline cubique int} est nul lorsque $i>j+1$. Cependant, la spline cubique n'est a priori pas une interpolation locale.
+\end{remarque}
 
-JE PENSE QU'ON PEUT MONTRER QUE \eqref{eq:spline cubique int} EST UN SCHEMA COMPACT D'ORDRE 4 ET DONC TRADUIRE CA COMME UN SCHEMA AU DF! VERIFIER L'ORDRE DE CETTE METHODE.
+L'équation \eqref{eq:spline cubique int} donne $N$ relation pour les points intérieurs du maillages alors qu'il y a $N+2$ inconnues $y_i'$. Il manque donc deux conditions pour que le problème soit bien posé. Il faut fixer $y_0'$ et $y_{N+1}'$ par une procédure indépendante. 
 
-\subsection{Spline cubique naturelle}
+\begin{remarque}
+La condition d'Hermite consiste à supposer $y_0'$ et $y_{N+1}'$ connus.
+\end{remarque}
 
 \subsection{Spline cubique 'Not a knot'}
 
@@ -361,19 +389,47 @@ Ce qui se traduit par :
 
 \begin{multline}
 \dfrac{1}{(x_1-x_0)^3} y_0 - \left[ \dfrac{1}{(x_1 - x_0)^3} + \dfrac{1}{(x_2-x_1)^3} \right] y_1 + \dfrac{1}{(x_2 - x_1)^3} y_2 = ... \\
-... \dfrac{1}{2} \left[ \dfrac{1}{(x_2-x_1)^2} y_2' + \left( \dfrac{1}{(x_2-x_1)^2} - \dfrac{1}{(x_1-x_0)^2} \right) y_1 - \dfrac{1}{(x_1 - x_0)^2} y_0' \right]
+... =\dfrac{1}{2} \left[ \dfrac{1}{(x_2-x_1)^2} y_2' + \left( \dfrac{1}{(x_2-x_1)^2} - \dfrac{1}{(x_1-x_0)^2} \right) y_1 - \dfrac{1}{(x_1 - x_0)^2} y_0' \right]
 \end{multline}
 
 ainsi que, de la même manière :
 
 \begin{multline}
 \dfrac{1}{(x_N-x_{N-1})^3} y_{N-1} - \left[ \dfrac{1}{(x_N - x_{N-1})^3} + \dfrac{1}{(x_{N+1}-x_N)^3} \right] y_N + \dfrac{1}{(x_{N+1} - x_N)^3} y_{N+1} = ... \\
-... \dfrac{1}{2} \left[ \dfrac{1}{(x_{N+1}-x_N)^2} y_{N+1}' + \left( \dfrac{1}{(x_{N+1}-x_N)^2} - \dfrac{1}{(x_N-x_{N-1})^2} \right) y_N - \dfrac{1}{(x_N - x_{N-1})^2} y_{N-1}' \right]
+...= \dfrac{1}{2} \left[ \dfrac{1}{(x_{N+1}-x_N)^2} y_{N+1}' + \left( \dfrac{1}{(x_{N+1}-x_N)^2} - \dfrac{1}{(x_N-x_{N-1})^2} \right) y_N - \dfrac{1}{(x_N - x_{N-1})^2} y_{N-1}' \right]
 \end{multline}
 
+\begin{proposition}
+On pose $h_i = x_i - x_{i-1}$. Si $u$ est au moins de $\mathcal{C}^6$ alors la formule 
+\begin{multline}
+\dfrac{2}{h_i^3} u(x_{i-1}) - \left[ \dfrac{2}{h_i^3} + \dfrac{2}{h_{i+1}^3} \right] u(x_i) + \dfrac{2}{h_{i+1}^3} u(x_{i+1}) = ... \\
+... =\dfrac{1}{h_{i+1}^2} u'(x_{i+1}) + \left[ \dfrac{1}{h_{i+1}^2} - \dfrac{1}{h_i^2} \right] u'(x_i) - \dfrac{1}{h_i^2} u'(x_{i-1}) + \mathcal{O}(h)
+\end{multline}
+est vérifiée en $x_{i-1}$ avec $h=max(h_i, h_{i+1})$.
+\label{prop:NOK compact scheme}
+\end{proposition}
 
+\begin{proof}
+Par développement limité de Taylor, on montre que :
 
+\begin{multline}
+\dfrac{2}{h_i^3} u(x_{i-1}) - \left[ \dfrac{2}{h_i^3} + \dfrac{2}{h_{i+1}^3} \right] u(x_i) + \dfrac{2}{h_{i+1}^3} u(x_{i+1}) = ... \\ 
+...=\left[ \dfrac{2}{h_{i+1}^2} - \dfrac{2}{h_i^2}  \right] u'(x_{i-1}) +\left[ \dfrac{1}{h_{i+1}} + \dfrac{2 h_i}{h_{i+1}^2} - \dfrac{1}{h_i} \right] u''(x_{i-1}) + \left[ \dfrac{h_i}{h_{i+1}} + \dfrac{h_i^2}{h_{i+1}^2} \right] u^{(3)}(x_{i-1}) + \mathcal{O}(h)
+\end{multline}
 
+de même :
+
+\begin{multline}
+\dfrac{1}{h_{i+1}^2} u'(x_{i+1}) + \left[ \dfrac{1}{h_{i+1}^2} - \dfrac{1}{h_i^2} \right] u'(x_i) - \dfrac{1}{h_i^2} u'(x_{i-1}) = ... \\ 
+...=\left[ \dfrac{2}{h_{i+1}^2} - \dfrac{2}{h_i^2}  \right] u'(x_{i-1}) +\left[ \dfrac{1}{h_{i+1}} + \dfrac{2 h_i}{h_{i+1}^2} - \dfrac{1}{h_i} \right] u''(x_{i-1}) + \left[ \dfrac{h_i}{h_{i+1}} + \dfrac{h_i^2}{h_{i+1}^2} \right] u^{(3)}(x_{i-1}) + \mathcal{O}(h)
+\end{multline}
+
+d'où le résultat.
+\end{proof}
+
+\begin{remarque}
+Si $j \in \left\lbrace 1, N \right\rbrace $, on remarque que $\phi_{|[x_{j-1}, x_{j+1}]}$ est un polynôme de degré 3. La condition 'Not-a-Knot' est équivalente à supposer $\phi^{(4)} (x_j) =0$.
+\end{remarque}
 
 
 
