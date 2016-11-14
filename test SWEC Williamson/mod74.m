@@ -38,7 +38,8 @@ global Gd11_fIV Gd12_fIV Gd22_fIV
 global Gd11_fV Gd12_fV Gd22_fV
 global Gd11_fVI Gd12_fVI Gd22_fVI
 % -----------------------------------
-global opt_ftr ftr scheme;
+global opt_ftr opt_ftr1 scheme
+global ftr ftr1
 global omega gp
 
 %% physical data
@@ -452,6 +453,7 @@ end
 
 %% Options sur les filtres
 [ ftr ] = filtre74( na , opt_ftr );
+[ ftr1 ] = filtre74( na , opt_ftr1 );
 
 %% base directe
 

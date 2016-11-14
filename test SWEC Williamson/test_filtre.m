@@ -22,15 +22,16 @@ format long
 global n nn dxi
 global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII
 global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
-global opt_ftr test scheme
+global opt_ftr opt_ftr1 test scheme
 global gp h0 u0 radius omega
 global alpha
 
 test=0;
-opt_ftr=10;
+opt_ftr=8;
+opt_ftr1=4;
 scheme='compact4';
 
-n=15; % for snapshot, n must be in the form 2^m-1 !
+n=30; % for snapshot, n must be in the form 2^m-1 !
 mod74
 
 ccor=radius*omega;
@@ -71,8 +72,17 @@ t=0;
 [ ht_fVI,   vt_fVI]  = sol_exacte(x_fVI,  y_fVI,  z_fVI,  t);
 
 %% filtrage
-[ hf_fI, hf_fII, hf_fIII, hf_fIV, hf_fV, hf_fVI, vf_fI, vf_fII, vf_fIII, vf_fIV, vf_fV, vf_fVI ]...
-    = ftrcar74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
+[hf_fI, hf_fII, hf_fIII, hf_fIV, hf_fV, hf_fVI]=ftr_mixte74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
+[vf_fI(:,:,1), vf_fII(:,:,1), vf_fIII(:,:,1), vf_fIV(:,:,1), vf_fV(:,:,1), vf_fVI(:,:,1)]=ftr_mixte74(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
+[vf_fI(:,:,2), vf_fII(:,:,2), vf_fIII(:,:,2), vf_fIV(:,:,2), vf_fV(:,:,2), vf_fVI(:,:,2)]=ftr_mixte74(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
+[vf_fI(:,:,3), vf_fII(:,:,3), vf_fIII(:,:,3), vf_fIV(:,:,3), vf_fV(:,:,3), vf_fVI(:,:,3)]=ftr_mixte74(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
+
+% [hf_fI, hf_fII, hf_fIII, hf_fIV, hf_fV, hf_fVI]=ftr74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
+% [vf_fI(:,:,1), vf_fII(:,:,1), vf_fIII(:,:,1), vf_fIV(:,:,1), vf_fV(:,:,1), vf_fVI(:,:,1)]=ftr74(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
+% [vf_fI(:,:,2), vf_fII(:,:,2), vf_fIII(:,:,2), vf_fIV(:,:,2), vf_fV(:,:,2), vf_fVI(:,:,2)]=ftr74(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
+% [vf_fI(:,:,3), vf_fII(:,:,3), vf_fIII(:,:,3), vf_fIV(:,:,3), vf_fV(:,:,3), vf_fVI(:,:,3)]=ftr74(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
+
+%% calcul d'erreur
 
 err_fI=abs(hf_fI-ht_fI)./abs(ht_fI);
 err_fII=abs(hf_fII-ht_fII)./abs(ht_fII);
@@ -80,6 +90,17 @@ err_fIII=abs(hf_fIII-ht_fIII)./abs(ht_fIII);
 err_fIV=abs(hf_fIV-ht_fIV)./abs(ht_fIV);
 err_fV=abs(hf_fV-ht_fV)./abs(ht_fV);
 err_fVI=abs(hf_fVI-ht_fVI)./abs(ht_fVI);
+
+for i=1:nn
+    for j=1:nn
+        errv_fI(i,j)=norm(squeeze(vt_fI(i,j,1:3)-vf_fI(i,j,1:3)));
+        errv_fII(i,j)=norm(squeeze(vt_fII(i,j,1:3)-vf_fII(i,j,1:3)));
+        errv_fIII(i,j)=norm(squeeze(vt_fIII(i,j,1:3)-vf_fIII(i,j,1:3)));
+        errv_fIV(i,j)=norm(squeeze(vt_fIV(i,j,1:3)-vf_fIV(i,j,1:3)));
+        errv_fV(i,j)=norm(squeeze(vt_fV(i,j,1:3)-vf_fV(i,j,1:3)));
+        errv_fVI(i,j)=norm(squeeze(vt_fVI(i,j,1:3)-vf_fVI(i,j,1:3)));
+    end
+end
 
 figure(1)
 plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
@@ -92,5 +113,9 @@ title('filtered function')
 figure(3)
 plot_cs11(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI);
 title('error')
+
+figure(4)
+plot_cs11(n,nn,errv_fI, errv_fII, errv_fIII,errv_fIV,errv_fV,errv_fVI);
+title('error on velocity')
 
 fig_placier

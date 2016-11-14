@@ -3,18 +3,15 @@
 % *** options :
 % test = 0 : test 2 of Williamson & al.,
 %        1 : test 5 of Williamson & al..
+%        2 : test 5 of Williamson with smooth mountain,
 % scheme : numerical spatial scheme used. 
 % video : 'yes' ou 'no', do a video or not,
 % nper  :  periodicity of frames in the video.
 % sauvegarde = 0 (do not save data), 1 (save all data).
 % opt_ftr : explicit (redonnet) or implicit (visbal) filtering.
-% alfa_ftr : parameter for implicit fliter (type visbal only, 
-%            if alpha_ftr=0, the filter is equivalent to Redonnet filter,
-%            if alpha_ftr=0.5, the filter is inexistant).
 % delta_ftr : is between 0 and 1. If the filter of u is note Fu, then, the
 %             filtering action is :
 %                        (1-delta_ftr)*u + delta_ftr*Fu
-%
 %% ************************************************************************
 clc; clear all; close all;
 format long
@@ -22,17 +19,17 @@ format long
 global n nn dxi
 global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII
 global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
-global opt_ftr alfa_ftr test scheme
+global opt_ftr opt_ftr1 test scheme
 global gp h0 u0 radius omega
 global alpha
 
 test=1;
 video = 'no';
 nper=1;
-sauvegarde = 0;
-opt_ftr=10;
+sauvegarde = 1;
+opt_ftr='bogey6';
+opt_ftr1='redonnet4';
 filtre='classic';
-%alfa_ftr=0;
 delta_ftr=1;
 scheme='compact4';
 snapshot='yes';
@@ -45,16 +42,17 @@ cgrav=sqrt(h0*gp);
 cvit=u0;
 c=max([cgrav,ccor,cvit]);
 
-cfl=0.7;
+cfl=0.5;
 ddt=radius*dxi*cfl/c;
-ndaymax=15;
+ndaymax=5;
 Tmax=ndaymax*3600*24;
 itermax=10000;
-comment='correction in filtering.';
+comment='Bogey filter.';
 
 tstart=cputime;
 ref=floor(10000*now);
 jour=date;
+
 %% *** test data **********************************************************
 
 if test == 0
@@ -65,8 +63,11 @@ elseif test == 1
     alpha=0;
     u0=20;
     h0=5960;
+elseif test == 2
+    alpha=0;
+    u0=20;
+    h0=5960;
 end
-
 
 %% *** initial data *******************************************************
 t=0;
@@ -107,8 +108,13 @@ while t<Tmax && iter<itermax
     elseif strcmp(filtre,'caracteristic') == 1
         [htf_fI, htf_fII, htf_fIII, htf_fIV, htf_fV, htf_fVI, vtf_fI, vtf_fII, vtf_fIII, vtf_fIV, vtf_fV, vtf_fVI ]...
             = ftrcar74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
+    elseif strcmp(filtre,'mixte') == 1
+        [htf_fI, htf_fII, htf_fIII, htf_fIV, htf_fV, htf_fVI]=ftr_mixte74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
+        [vtf_fI(:,:,1), vtf_fII(:,:,1), vtf_fIII(:,:,1), vtf_fIV(:,:,1), vtf_fV(:,:,1), vtf_fVI(:,:,1)]=ftr_mixte74(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
+        [vtf_fI(:,:,2), vtf_fII(:,:,2), vtf_fIII(:,:,2), vtf_fIV(:,:,2), vtf_fV(:,:,2), vtf_fVI(:,:,2)]=ftr_mixte74(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
+        [vtf_fI(:,:,3), vtf_fII(:,:,3), vtf_fIII(:,:,3), vtf_fIV(:,:,3), vtf_fV(:,:,3), vtf_fVI(:,:,3)]=ftr_mixte74(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
     else
-        error('Option ''filtre'' is uncorrect. ''filtre'' must be ''classic'' or ''caracteristic''.');
+        error('Option ''filtre'' is uncorrect. ''filtre'' must be ''classic'', ''caracteristic'' or ''mixte''.');
     end
     
     ht_fI   = (1-delta_ftr)*ht_fI   + delta_ftr.*htf_fI;
@@ -361,10 +367,9 @@ if strcmp(video,'yes') == 1
     fprintf(fid,'%s\n',['number of points  : ', num2str(n)] );
     fprintf(fid,'%s\n',['time step         : ', num2str(ddt)] );
     fprintf(fid,'%s\n',['cfl               : ', num2str(cfl)] );
-    fprintf(fid,'%s\n',['ordre du filtre   : '  num2str(opt_ftr)] );
+    fprintf(fid,'%s\n',['ordre du filtre   : '  opt_ftr] );
     fprintf(fid,'%s\n',['type du filtre    : ',  filtre] );
     fprintf(fid,'%s\n',['delta_ftr         : ', num2str(delta_ftr)] );
-    %fprintf(fid,'%s\n',['alpha_ftr         : ', num2str(alfa_ftr)] );
     fprintf(fid,'%s\n','---------- physical data ----------');
     fprintf(fid,'%s\n',['gravity g              : ', num2str(gp)] );
     fprintf(fid,'%s\n',['alpha                  : ', num2str(alpha)] );
@@ -388,10 +393,9 @@ if sauvegarde == 1
     fprintf(fid,'%s\n',['number of points  : ', num2str(n)] );
     fprintf(fid,'%s\n',['time step         : ', num2str(ddt)] );
     fprintf(fid,'%s\n',['cfl               : ', num2str(cfl)] );
-    fprintf(fid,'%s\n',['ordre du filtre   : '  num2str(opt_ftr)] );
+    fprintf(fid,'%s\n',['ordre du filtre   : '  opt_ftr] );
     fprintf(fid,'%s\n',['type du filtre    : ',  filtre] );
     fprintf(fid,'%s\n',['delta_ftr         : ', num2str(delta_ftr)] );
-    %fprintf(fid,'%s\n',['alpha_ftr         : ', num2str(alfa_ftr)] );
     fprintf(fid,'%s\n','---------- physical data ----------');
     fprintf(fid,'%s\n',['gravity g              : ', num2str(gp)] );
     fprintf(fid,'%s\n',['alpha                  : ', num2str(alpha)] );
@@ -481,7 +485,7 @@ if sauvegarde==1
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_solution']);
 end 
 
-if test == 1
+if test == 1 || test == 2
     [hs_fI] = relief(x_fI,y_fI,z_fI);
     [hs_fII] = relief(x_fII,y_fII,z_fII);
     [hs_fIII] = relief(x_fIII,y_fIII,z_fIII);
@@ -492,6 +496,13 @@ if test == 1
     plot_cs7(n,nn,hs_fI,hs_fII,hs_fIII,hs_fIV,hs_fV,hs_fVI);
     title('relief on the sphere')
 end
+
+[div_fI, div_fII, div_fIII, div_fIV, div_fV, div_fVI]=...
+        div74(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
+    
+figure(11)
+plot_cs7(n,nn,div_fI, div_fII, div_fIII, div_fIV, div_fV, div_fVI)
+title(['divergence at time : ', num2str(time(end))])
 
 fig_placier
 disp(['temps de calcul (sans les graphiques) : ', num2str(tend)])
