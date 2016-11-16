@@ -1,6 +1,6 @@
 clc; clear all; close all
 
-opt_ftr='bogey6';
+opt_ftr='redonnet10';
 NN=10:10:200;
 
 E=[];
@@ -12,7 +12,7 @@ for i=1:length(NN)
     H=[H h];
     
     x=[h:h:1]';
-    y=cos(2*pi*x);
+    y=atan((x-0.5)/0.000001);
     
     [ ftr ] = filtre74( nn , opt_ftr );
     yf=ftr*y;

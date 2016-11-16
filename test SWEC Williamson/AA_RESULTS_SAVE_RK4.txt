@@ -1120,3 +1120,108 @@ correction in filtering.
 ***********************************
   
   
+date : 14-Nov-2016
+ref. : 7366488118
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+ordre du filtre   : inf
+type du filtre    : classic
+delta_ftr         : 1
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 15-Nov-2016
+ref. : 7366496763
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+ordre du filtre   : redonnet10
+type du filtre    : adaptative
+delta_ftr         : 1
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 15-Nov-2016
+ref. : 7366498213
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+ordre du filtre   : redonnet10
+type du filtre    : classic
+delta_ftr         : 1
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0.7854
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 15-Nov-2016
+ref. : 7366498178
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+ordre du filtre   : redonnet10
+type du filtre    : adaptative
+delta_ftr         : 1
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 15-Nov-2016
+ref. : 7366499727
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+ordre du filtre   : redonnet8
+type du filtre    : adaptative
+delta_ftr         : 1
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  

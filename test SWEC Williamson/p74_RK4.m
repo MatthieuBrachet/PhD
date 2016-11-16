@@ -23,13 +23,14 @@ global opt_ftr opt_ftr1 test scheme
 global gp h0 u0 radius omega
 global alpha
 
+comment='.';
 test=1;
 video = 'no';
 nper=1;
 sauvegarde = 1;
-opt_ftr='bogey6';
-opt_ftr1='redonnet4';
-filtre='classic';
+opt_ftr='redonnet8';
+opt_ftr1='redonnet2';
+filtre='adaptative';
 delta_ftr=1;
 scheme='compact4';
 snapshot='yes';
@@ -42,12 +43,11 @@ cgrav=sqrt(h0*gp);
 cvit=u0;
 c=max([cgrav,ccor,cvit]);
 
-cfl=0.5;
+cfl=0.9;
 ddt=radius*dxi*cfl/c;
-ndaymax=5;
+ndaymax=10;
 Tmax=ndaymax*3600*24;
 itermax=10000;
-comment='Bogey filter.';
 
 tstart=cputime;
 ref=floor(10000*now);
@@ -105,16 +105,31 @@ while t<Tmax && iter<itermax
         [vtf_fI(:,:,1), vtf_fII(:,:,1), vtf_fIII(:,:,1), vtf_fIV(:,:,1), vtf_fV(:,:,1), vtf_fVI(:,:,1)]=ftr74(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
         [vtf_fI(:,:,2), vtf_fII(:,:,2), vtf_fIII(:,:,2), vtf_fIV(:,:,2), vtf_fV(:,:,2), vtf_fVI(:,:,2)]=ftr74(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
         [vtf_fI(:,:,3), vtf_fII(:,:,3), vtf_fIII(:,:,3), vtf_fIV(:,:,3), vtf_fV(:,:,3), vtf_fVI(:,:,3)]=ftr74(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
+
     elseif strcmp(filtre,'caracteristic') == 1
         [htf_fI, htf_fII, htf_fIII, htf_fIV, htf_fV, htf_fVI, vtf_fI, vtf_fII, vtf_fIII, vtf_fIV, vtf_fV, vtf_fVI ]...
             = ftrcar74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
+    
     elseif strcmp(filtre,'mixte') == 1
         [htf_fI, htf_fII, htf_fIII, htf_fIV, htf_fV, htf_fVI]=ftr_mixte74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
         [vtf_fI(:,:,1), vtf_fII(:,:,1), vtf_fIII(:,:,1), vtf_fIV(:,:,1), vtf_fV(:,:,1), vtf_fVI(:,:,1)]=ftr_mixte74(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
         [vtf_fI(:,:,2), vtf_fII(:,:,2), vtf_fIII(:,:,2), vtf_fIV(:,:,2), vtf_fV(:,:,2), vtf_fVI(:,:,2)]=ftr_mixte74(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
         [vtf_fI(:,:,3), vtf_fII(:,:,3), vtf_fIII(:,:,3), vtf_fIV(:,:,3), vtf_fV(:,:,3), vtf_fVI(:,:,3)]=ftr_mixte74(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
+    
+    elseif strcmp(filtre,'adaptative') == 1
+        [htf_fI, htf_fII, htf_fIII, htf_fIV, htf_fV, htf_fVI]=ftr74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
+        [vtf_fI(:,:,1), vtf_fII(:,:,1), vtf_fIII(:,:,1), vtf_fIV(:,:,1), vtf_fV(:,:,1), vtf_fVI(:,:,1)]=ftr74(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
+        [vtf_fI(:,:,2), vtf_fII(:,:,2), vtf_fIII(:,:,2), vtf_fIV(:,:,2), vtf_fV(:,:,2), vtf_fVI(:,:,2)]=ftr74(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
+        [vtf_fI(:,:,3), vtf_fII(:,:,3), vtf_fIII(:,:,3), vtf_fIV(:,:,3), vtf_fV(:,:,3), vtf_fVI(:,:,3)]=ftr74(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
+        
+        [htf_fI, htf_fII, htf_fIII, htf_fIV, htf_fV, htf_fVI]=ftr_adapt74(htf_fI, htf_fII, htf_fIII, htf_fIV, htf_fV, htf_fVI, n, nn);
+        [vtf_fI(:,:,1), vtf_fII(:,:,1), vtf_fIII(:,:,1), vtf_fIV(:,:,1), vtf_fV(:,:,1), vtf_fVI(:,:,1)]=ftr_adapt74(vtf_fI(:,:,1), vtf_fII(:,:,1), vtf_fIII(:,:,1), vtf_fIV(:,:,1), vtf_fV(:,:,1), vtf_fVI(:,:,1),n,nn);
+        [vtf_fI(:,:,2), vtf_fII(:,:,2), vtf_fIII(:,:,2), vtf_fIV(:,:,2), vtf_fV(:,:,2), vtf_fVI(:,:,2)]=ftr_adapt74(vtf_fI(:,:,2), vtf_fII(:,:,2), vtf_fIII(:,:,2), vtf_fIV(:,:,2), vtf_fV(:,:,2), vtf_fVI(:,:,2),n,nn);
+        [vtf_fI(:,:,3), vtf_fII(:,:,3), vtf_fIII(:,:,3), vtf_fIV(:,:,3), vtf_fV(:,:,3), vtf_fVI(:,:,3)]=ftr_adapt74(vtf_fI(:,:,3), vtf_fII(:,:,3), vtf_fIII(:,:,3), vtf_fIV(:,:,3), vtf_fV(:,:,3), vtf_fVI(:,:,3),n,nn);
+        
     else
-        error('Option ''filtre'' is uncorrect. ''filtre'' must be ''classic'', ''caracteristic'' or ''mixte''.');
+        error('Option ''filtre'' is uncorrect.');
+    
     end
     
     ht_fI   = (1-delta_ftr)*ht_fI   + delta_ftr.*htf_fI;
@@ -351,6 +366,12 @@ while t<Tmax && iter<itermax
         savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire_' num2str(floor(time(end))) '.fig']);
     end
 
+    %% historique sur la divergence
+    [div_fI, div_fII, div_fIII, div_fIV, div_fV, div_fVI]=...
+        div74(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
+    
+    Mdivu(iter)=max(max([div_fI div_fII div_fIII div_fIV div_fV div_fVI]));
+    
     
 end
 tend=cputime-tstart;
@@ -409,6 +430,7 @@ if sauvegarde == 1
     fclose(fid);
 end
  
+
 figure(1)
 plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
 title(['calculated solution at time = ', num2str(time(end))])
@@ -503,6 +525,9 @@ end
 figure(11)
 plot_cs7(n,nn,div_fI, div_fII, div_fIII, div_fIV, div_fV, div_fVI)
 title(['divergence at time : ', num2str(time(end))])
+
+figure(12)
+plot(time,Mdivu)
 
 fig_placier
 disp(['temps de calcul (sans les graphiques) : ', num2str(tend)])

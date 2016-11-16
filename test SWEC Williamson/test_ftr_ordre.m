@@ -11,14 +11,13 @@ global opt_ftr opt_ftr1 test scheme
 global gp h0 u0 radius
 global alpha
 
+
 test=0;
-opt_ftr='bogey6';
-
-
-opt_ftr1='redonnet10';
+opt_ftr='redonnet6';
+opt_ftr1='redonnet2';
 scheme='compact4';
 
-NN=[10;20;40;80];
+NN=[10;20;40];
 E=[];
 H=[];
 for i=1:length(NN)
@@ -27,7 +26,7 @@ for i=1:length(NN)
     %% *** test data **********************************************************
 
     if test == 0
-        alpha=pi/4;
+        alpha=0;
         u0=2*pi*radius/(12*24*3600);
         h0=2.94*10^4/gp;
     elseif test == 1
@@ -47,13 +46,15 @@ for i=1:length(NN)
     
     [funftI,funftII,funftIII,funftIV,funftV,funftVI]=...
             ftr_test(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI,n,nn);
+    [funftI,funftII,funftIII,funftIV,funftV,funftVI]=...
+        ftr_adapt74(funftI,funftII,funftIII,funftIV,funftV,funftVI,n,nn);
         
-    ee_fI=funftI-ht_fI;
-    ee_fII=funftII-ht_fII;
-    ee_fIII=funftIII-ht_fIII;
-    ee_fIV=funftIV-ht_fIV;
-    ee_fV=funftV-ht_fV;
-    ee_fVI=funftVI-ht_fVI;
+    ee_fI=abs(funftI-ht_fI)./abs(ht_fI);
+    ee_fII=abs(funftII-ht_fII)./abs(ht_fII);
+    ee_fIII=abs(funftIII-ht_fIII)./abs(ht_fIII);
+    ee_fIV=abs(funftIV-ht_fIV)./abs(ht_fIV);
+    ee_fV=abs(funftV-ht_fV)./abs(ht_fV);
+    ee_fVI=abs(funftVI-ht_fVI)./abs(ht_fVI);
     
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=...
             nrm74(ee_fI, ee_fII, ee_fIII, ee_fIV, ee_fV, ee_fVI ,n,nn,'infty');
@@ -74,3 +75,11 @@ disp(P(1))
 figure(2)
 plot_cs11(n,nn,ee_fI,ee_fII,ee_fIII,ee_fIV,ee_fV,ee_fVI);
 title('error')
+
+figure(3)
+plot_cs11(n,nn,ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI);
+title('initial map')
+
+figure(4)
+plot_cs11(n,nn,funftI,funftII,funftIII,funftIV,funftV,funftVI);
+title('filtered map')

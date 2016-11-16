@@ -39,8 +39,10 @@ global Gd11_fV Gd12_fV Gd22_fV
 global Gd11_fVI Gd12_fVI Gd22_fVI
 % -----------------------------------
 global opt_ftr opt_ftr1 scheme
-global ftr ftr1
+global ftr 
+global ftr1 LAP_adap B_adap
 global omega gp
+% -----------------------------------
 
 %% physical data
 radius=6.37122d+06;
@@ -451,10 +453,6 @@ for i=1:nn
     end
 end
 
-%% Options sur les filtres
-[ ftr ] = filtre74( na , opt_ftr );
-[ ftr1 ] = filtre74( na , opt_ftr1 );
-
 %% base directe
 
 % FACE I
@@ -601,3 +599,7 @@ for i=1:nn
     end
 end
 
+
+%% Options sur les filtres
+[ ftr ] = filtre74( na , opt_ftr );
+[ LAP_adap, B_adap, ftr1 ] = adaptative74( na, opt_ftr1 );
