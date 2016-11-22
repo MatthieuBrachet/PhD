@@ -4,8 +4,8 @@ clc; clear all; close all
 time='rk4';
 c=4;
 space='implicit';
-f=2;
-delta=0.4;
+f=10;
+delta=0;
 filtre='redonnet';
 
 %% research of cfl number max

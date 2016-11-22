@@ -27,18 +27,18 @@ global ftr detec
 comment='.';
 test=1;
 video = 'yes';
-nper=2;
+nper=1;
 sauvegarde = 1;
-filtre='adaptative';
-opt_ftr='inf';
+filtre='classic';
+opt_ftr='redonnet4';
 opt_detec='redonnet10';
 opt_ftr1='redonnet4';
 
 scheme='compact4';
 snapshot='yes';
 
-n=31; % for snapshot, n must be in the form 2^m-1 !
-ndaymax=15;
+n=15; % for snapshot, n must be in the form 2^m-1 !
+ndaymax=5;
 mod74
 
 ccor=radius*omega;
@@ -46,7 +46,7 @@ cgrav=sqrt(h0*gp);
 cvit=u0;
 c=max([cgrav,ccor,cvit]);
 
-cfl=0.9;
+cfl=0.5;
 ddt=radius*dxi*cfl/c;
 Tmax=ndaymax*3600*24;
 itermax=10000;
@@ -89,8 +89,8 @@ iter=0; FTR=0;
 time(1)=t; erri(1)=0; err_int(1)=1;
 %% *** video option *******************************************************
 if strcmp(video,'yes')==1
-    mkdir(['./RK4_video-' jour ])
-    vidObj=VideoWriter(['./RK4_video-' jour '/ref_' num2str(ref) '.avi']);
+    mkdir(['./RK3_video-' jour ])
+    vidObj=VideoWriter(['./RK3_video-' jour '/ref_' num2str(ref) '.avi']);
     open(vidObj);
     set(gca,'nextplot','replacechildren');
 end
@@ -146,122 +146,114 @@ while t<Tmax && iter<itermax
     
     end
    
-    %% K1
-    hh_fI   = ht_fI;
-    hh_fII  = ht_fII;
-    hh_fIII = ht_fIII;
-    hh_fIV  = ht_fIV;
-    hh_fV   = ht_fV;
-    hh_fVI  = ht_fVI;
+    %% step 1
+    hI=ht_fI;
+    hII=ht_fII;
+    hIII=ht_fIII;
+    hIV=ht_fIV;
+    hV=ht_fV;
+    hVI=ht_fVI;
     
-    vv_fI   = vt_fI;
-    vv_fII  = vt_fII;
-    vv_fIII = vt_fIII;
-    vv_fIV  = vt_fIV;
-    vv_fV   = vt_fV;
-    vv_fVI  = vt_fVI;
+    vI=vt_fI;
+    vII=vt_fII;
+    vIII=vt_fIII;
+    vIV=vt_fIV;
+    vV=vt_fV;
+    vVI=vt_fVI;
     
-    [K1v_fI, K1v_fII, K1v_fIII, K1v_fIV, K1v_fV, K1v_fVI]=eq_moment74(hh_fI,...
-                 hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);
+    [K1v_fI, K1v_fII, K1v_fIII, K1v_fIV, K1v_fV, K1v_fVI]=eq_moment74(...
+        hI,hII,hIII,hIV,hV,hVI,vI,vII,vIII,vIV,vV,vVI);
             
-    [K1h_fI, K1h_fII, K1h_fIII, K1h_fIV, K1h_fV, K1h_fVI]=eq_cons74(hh_fI,...
-                hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);
+    [K1h_fI, K1h_fII, K1h_fIII, K1h_fIV, K1h_fV, K1h_fVI]=eq_cons74(...
+        hI,hII,hIII,hIV,hV,hVI,vI,vII,vIII,vIV,vV,vVI);
+    
+    hh1_fI=ht_fI+ddt*K1h_fI;
+    hh1_fII=ht_fII+ddt*K1h_fII;
+    hh1_fIII=ht_fIII+ddt*K1h_fIII;
+    hh1_fIV=ht_fIV+ddt*K1h_fIV;
+    hh1_fV=ht_fV+ddt*K1h_fV;
+    hh1_fVI=ht_fVI+ddt*K1h_fVI;
+    
+    vv1_fI=vt_fI+ddt*K1v_fI;
+    vv1_fII=vt_fII+ddt*K1v_fII;
+    vv1_fIII=vt_fIII+ddt*K1v_fIII;
+    vv1_fIV=vt_fIV+ddt*K1v_fIV;
+    vv1_fV=vt_fV+ddt*K1v_fV;
+    vv1_fVI=vt_fVI+ddt*K1v_fVI;
+    
+    %% step 2
+    hI=hh1_fI;
+    hII=hh1_fII;
+    hIII=hh1_fIII;
+    hIV=hh1_fIV;
+    hV=hh1_fV;
+    hVI=hh1_fVI;
+    
+    vI=vv1_fI;
+    vII=vv1_fII;
+    vIII=vv1_fIII;
+    vIV=vv1_fIV;
+    vV=vv1_fV;
+    vVI=vv1_fVI;
+    
+    
+    [K1v_fI, K1v_fII, K1v_fIII, K1v_fIV, K1v_fV, K1v_fVI]=eq_moment74(...
+        hI,hII,hIII,hIV,hV,hVI,vI,vII,vIII,vIV,vV,vVI);
             
-    %% K2
-    hh_fI   = ht_fI   + 0.5*ddt*K1h_fI;
-    hh_fII  = ht_fII  + 0.5*ddt*K1h_fII;
-    hh_fIII = ht_fIII + 0.5*ddt*K1h_fIII;
-    hh_fIV  = ht_fIV  + 0.5*ddt*K1h_fIV;
-    hh_fV   = ht_fV   + 0.5*ddt*K1h_fV;
-    hh_fVI  = ht_fVI  + 0.5*ddt*K1h_fVI;
+    [K1h_fI, K1h_fII, K1h_fIII, K1h_fIV, K1h_fV, K1h_fVI]=eq_cons74(...
+        hI,hII,hIII,hIV,hV,hVI,vI,vII,vIII,vIV,vV,vVI);
     
-    vv_fI   = vt_fI   + 0.5*ddt*K1v_fI;
-    vv_fII  = vt_fII  + 0.5*ddt*K1v_fII;
-    vv_fIII = vt_fIII + 0.5*ddt*K1v_fIII;
-    vv_fIV  = vt_fIV  + 0.5*ddt*K1v_fIV;
-    vv_fV   = vt_fV   + 0.5*ddt*K1v_fV;
-    vv_fVI  = vt_fVI  + 0.5*ddt*K1v_fVI;
-    
-    [K2v_fI, K2v_fII, K2v_fIII, K2v_fIV, K2v_fV, K2v_fVI]=eq_moment74(hh_fI,...
-                hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);
-            
-    [K2h_fI, K2h_fII, K2h_fIII, K2h_fIV, K2h_fV, K2h_fVI]=eq_cons74(hh_fI,...
-                 hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);
-     
-    %% K3
-    hh_fI   = ht_fI   + 0.5*ddt*K2h_fI;
-    hh_fII  = ht_fII  + 0.5*ddt*K2h_fII;
-    hh_fIII = ht_fIII + 0.5*ddt*K2h_fIII;
-    hh_fIV  = ht_fIV  + 0.5*ddt*K2h_fIV;
-    hh_fV   = ht_fV   + 0.5*ddt*K2h_fV;
-    hh_fVI  = ht_fVI  + 0.5*ddt*K2h_fVI;
-    
-    vv_fI   = vt_fI   + 0.5*ddt*K2v_fI;
-    vv_fII  = vt_fII  + 0.5*ddt*K2v_fII;
-    vv_fIII = vt_fIII + 0.5*ddt*K2v_fIII;
-    vv_fIV  = vt_fIV  + 0.5*ddt*K2v_fIV;
-    vv_fV   = vt_fV   + 0.5*ddt*K2v_fV;
-    vv_fVI  = vt_fVI  + 0.5*ddt*K2v_fVI;
-    
-    [K3v_fI, K3v_fII, K3v_fIII, K3v_fIV, K3v_fV, K3v_fVI]=eq_moment74(hh_fI,...
-                 hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);
-            
-    [K3h_fI, K3h_fII, K3h_fIII, K3h_fIV, K3h_fV, K3h_fVI]=eq_cons74(hh_fI,...
-                hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);
-            
-     %% K4
-    hh_fI   = ht_fI   + ddt*K3h_fI;
-    hh_fII  = ht_fII  + ddt*K3h_fII;
-    hh_fIII = ht_fIII + ddt*K3h_fIII;
-    hh_fIV  = ht_fIV  + ddt*K3h_fIV;
-    hh_fV   = ht_fV   + ddt*K3h_fV;
-    hh_fVI  = ht_fVI  + ddt*K3h_fVI;
-    
-    vv_fI   = vt_fI   + ddt*K3v_fI;
-    vv_fII  = vt_fII  + ddt*K3v_fII;
-    vv_fIII = vt_fIII + ddt*K3v_fIII;
-    vv_fIV  = vt_fIV  + ddt*K3v_fIV;
-    vv_fV   = vt_fV   + ddt*K3v_fV;
-    vv_fVI  = vt_fVI  + ddt*K3v_fVI;
-    
-    [K4v_fI, K4v_fII, K4v_fIII, K4v_fIV, K4v_fV, K4v_fVI]=eq_moment74(hh_fI,...
-                 hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);
-            
-    [K4h_fI, K4h_fII, K4h_fIII, K4h_fIV, K4h_fV, K4h_fVI]=eq_cons74(hh_fI,...
-                 hh_fII, hh_fIII, hh_fIV, hh_fV, hh_fVI, vv_fI, vv_fII, vv_fIII, vv_fIV, vv_fV, vv_fVI);       
-            
-            
-    %% End data
-    Sh_fI   = (K1h_fI   + 2*K2h_fI   + 2*K3h_fI   + K4h_fI);
-    Sh_fII  = (K1h_fII  + 2*K2h_fII  + 2*K3h_fII  + K4h_fII);
-    Sh_fIII = (K1h_fIII + 2*K2h_fIII + 2*K3h_fIII + K4h_fIII);
-    Sh_fIV  = (K1h_fIV  + 2*K2h_fIV  + 2*K3h_fIV  + K4h_fIV);
-    Sh_fV   = (K1h_fV   + 2*K2h_fV   + 2*K3h_fV   + K4h_fV);
-    Sh_fVI  = (K1h_fVI  + 2*K2h_fVI  + 2*K3h_fVI  + K4h_fVI);
-    
-    Sv_fI   = (K1v_fI   + 2*K2v_fI   + 2*K3v_fI   + K4v_fI);
-    Sv_fII  = (K1v_fII  + 2*K2v_fII  + 2*K3v_fII  + K4v_fII);
-    Sv_fIII = (K1v_fIII + 2*K2v_fIII + 2*K3v_fIII + K4v_fIII);
-    Sv_fIV  = (K1v_fIV  + 2*K2v_fIV  + 2*K3v_fIV  + K4v_fIV);
-    Sv_fV   = (K1v_fV   + 2*K2v_fV   + 2*K3v_fV   + K4v_fV);
-    Sv_fVI  = (K1v_fVI  + 2*K2v_fVI  + 2*K3v_fVI  + K4v_fVI);
-    
-    
-    htnew_fI    = ht_fI   + ddt/6 * Sh_fI;
-    htnew_fII   = ht_fII  + ddt/6 * Sh_fII;
-    htnew_fIII  = ht_fIII + ddt/6 * Sh_fIII;
-    htnew_fIV   = ht_fIV  + ddt/6 * Sh_fIV;
-    htnew_fV    = ht_fV   + ddt/6 * Sh_fV;
-    htnew_fVI   = ht_fVI  + ddt/6 * Sh_fVI;
+    hh2_fI=(3/4)*ht_fI+(1/4)*hh1_fI+(1/4)*ddt*K1h_fI;
+    hh2_fII=(3/4)*ht_fII+(1/4)*hh1_fII+(1/4)*ddt*K1h_fII;
+    hh2_fIII=(3/4)*ht_fIII+(1/4)*hh1_fIII+(1/4)*ddt*K1h_fIII;
+    hh2_fIV=(3/4)*ht_fIV+(1/4)*hh1_fIV+(1/4)*ddt*K1h_fIV;
+    hh2_fV=(3/4)*ht_fV+(1/4)*hh1_fV+(1/4)*ddt*K1h_fV;
+    hh2_fVI=(3/4)*ht_fVI+(1/4)*hh1_fVI+(1/4)*ddt*K1h_fVI;
 
-    vtnew_fI    = vt_fI   + ddt/6 * Sv_fI;
-    vtnew_fII   = vt_fII  + ddt/6 * Sv_fII;
-    vtnew_fIII  = vt_fIII + ddt/6 * Sv_fIII;
-    vtnew_fIV   = vt_fIV  + ddt/6 * Sv_fIV;
-    vtnew_fV    = vt_fV   + ddt/6 * Sv_fV;
-    vtnew_fVI   = vt_fVI  + ddt/6 * Sv_fVI;
-
-
+    vv2_fI=(3/4)*vt_fI+(1/4)*vv1_fI+(1/4)*ddt*K1v_fI;
+    vv2_fII=(3/4)*vt_fII+(1/4)*vv1_fII+(1/4)*ddt*K1v_fII;
+    vv2_fIII=(3/4)*vt_fIII+(1/4)*vv1_fIII+(1/4)*ddt*K1v_fIII;
+    vv2_fIV=(3/4)*vt_fIV+(1/4)*vv1_fIV+(1/4)*ddt*K1v_fIV;
+    vv2_fV=(3/4)*vt_fV+(1/4)*vv1_fV+(1/4)*ddt*K1v_fV;
+    vv2_fVI=(3/4)*vt_fVI+(1/4)*vv1_fVI+(1/4)*ddt*K1v_fVI;
+    
+    %% step 3
+    hI=hh2_fI;
+    hII=hh2_fII;
+    hIII=hh2_fIII;
+    hIV=hh2_fIV;
+    hV=hh2_fV;
+    hVI=hh2_fVI;
+    
+    vI=vv2_fI;
+    vII=vv2_fII;
+    vIII=vv2_fIII;
+    vIV=vv2_fIV;
+    vV=vv2_fV;
+    vVI=vv2_fVI;
+    
+    
+    [K1v_fI, K1v_fII, K1v_fIII, K1v_fIV, K1v_fV, K1v_fVI]=eq_moment74(...
+        hI,hII,hIII,hIV,hV,hVI,vI,vII,vIII,vIV,vV,vVI);
+            
+    [K1h_fI, K1h_fII, K1h_fIII, K1h_fIV, K1h_fV, K1h_fVI]=eq_cons74(...
+        hI,hII,hIII,hIV,hV,hVI,vI,vII,vIII,vIV,vV,vVI);
+    
+    htnew_fI=(1/3)*ht_fI+(2/3)*hh1_fI+(2/3)*ddt*K1h_fI;
+    htnew_fII=(1/3)*ht_fII+(2/3)*hh1_fII+(2/3)*ddt*K1h_fII;
+    htnew_fIII=(1/3)*ht_fIII+(2/3)*hh1_fIII+(2/3)*ddt*K1h_fIII;
+    htnew_fIV=(1/3)*ht_fIV+(2/3)*hh1_fIV+(2/3)*ddt*K1h_fIV;
+    htnew_fV=(1/3)*ht_fV+(2/3)*hh1_fV+(2/3)*ddt*K1h_fV;
+    htnew_fVI=(1/3)*ht_fVI+(2/3)*hh1_fVI+(2/3)*ddt*K1h_fVI;
+    
+    vtnew_fI=(1/3)*vt_fI+(2/3)*vv1_fI+(2/3)*ddt*K1v_fI;
+    vtnew_fII=(1/3)*vt_fII+(2/3)*vv1_fII+(2/3)*ddt*K1v_fII;
+    vtnew_fIII=(1/3)*vt_fIII+(2/3)*vv1_fIII+(2/3)*ddt*K1v_fIII;
+    vtnew_fIV=(1/3)*vt_fIV+(2/3)*vv1_fIV+(2/3)*ddt*K1v_fIV;
+    vtnew_fV=(1/3)*vt_fV+(2/3)*vv1_fV+(2/3)*ddt*K1v_fV;
+    vtnew_fVI=(1/3)*vt_fVI+(2/3)*vv1_fVI+(2/3)*ddt*K1v_fVI;
+    
+            
     %% error on h
     t=t+ddt;
     
@@ -355,7 +347,7 @@ while t<Tmax && iter<itermax
     
     % snapshot
     if sauvegarde == 1 & mod(iter,floor(Tmax/(3*ddt))) == 0 & strcmp(snapshot,'yes')==1 
-        mkdir(['./RK4_results-' jour '/' num2str(ref)])
+        mkdir(['./RK3_results-' jour '/' num2str(ref)])
         close all;
         
         figure(100)
@@ -365,8 +357,8 @@ while t<Tmax && iter<itermax
         plot_cs17(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050,5950,50);
         title(['calculated solution at time = ', num2str(time(end))])
 
-        print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire' num2str(floor(time(end))) '.png'])
-        savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire_' num2str(floor(time(end))) '.fig']);
+        print('-dpng', ['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire' num2str(floor(time(end))) '.png'])
+        savefig(['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire_' num2str(floor(time(end))) '.fig']);
     end
 
     %% historique sur la divergence
@@ -382,7 +374,7 @@ tend=cputime-tstart;
 if strcmp(video,'yes') == 1
     close(vidObj);
     
-    fid = fopen('AA_VIDEO_SAVE_RK4.txt','a');
+    fid = fopen('AA_VIDEO_SAVE_RK3.txt','a');
     fprintf(fid,'%s\n',['date : ', jour]);
     fprintf(fid,'%s\n',['ref. : ', num2str(ref)]);
     fprintf(fid,'%s\n','***********************************');
@@ -409,7 +401,7 @@ if strcmp(video,'yes') == 1
 end
 
 if sauvegarde == 1
-    fid = fopen('AA_RESULTS_SAVE_RK4.txt','a');
+    fid = fopen('AA_RESULTS_SAVE_RK3.txt','a');
     fprintf(fid,'%s\n',['date : ', jour]);
     fprintf(fid,'%s\n',['ref. : ', num2str(ref)]);
     fprintf(fid,'%s\n','***********************************');
@@ -440,10 +432,10 @@ figure(1)
 plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
 title(['calculated solution at time = ', num2str(time(end))])
 if sauvegarde==1
-    mkdir(['./RK4_results-' jour '/' num2str(ref) ])
-    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_courbe.png'])
-    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_courbe']);
-    save(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_erreurdata_test_' num2str(test) '.mat']);
+    mkdir(['./RK3_results-' jour '/' num2str(ref) ])
+    print('-dpng', ['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_courbe.png'])
+    savefig(['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_courbe']);
+    save(['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_erreurdata_test_' num2str(test) '.mat']);
 end 
 
 figure(2)
@@ -465,8 +457,8 @@ if strcmp(snapshot,'yes')==1
     plot_cs7(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
     title(['vorticity at time : ', num2str(time(end))])
     if sauvegarde == 1
-        print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot.png'])
-        savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot']);
+        print('-dpng', ['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot.png'])
+        savefig(['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot']);
     end
 end
 
@@ -477,8 +469,8 @@ ylabel('relative error')
 legend('infty norm','norm 2','norm 1')
 grid on
 if sauvegarde==1
-    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_erreur.png'])
-    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_erreur']);
+    print('-dpng', ['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_erreur.png'])
+    savefig(['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_erreur']);
 end 
 
 figure(6)
@@ -488,8 +480,8 @@ xlabel('time')
 title('relative quantity')
 grid on
 if sauvegarde==1
-    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservation.png'])
-    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservation']);
+    print('-dpng', ['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservation.png'])
+    savefig(['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservation']);
 end 
 
 figure(7)
@@ -505,8 +497,8 @@ set(hFig, 'Position', [50 50 1000 500])
 plot_cs7(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
 title(['calculated solution at time = ', num2str(time(end))])
 if sauvegarde==1
-    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_solution.png'])
-    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_solution']);
+    print('-dpng', ['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_solution.png'])
+    savefig(['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_solution']);
 end
 
 
@@ -517,8 +509,8 @@ set(hFig, 'Position', [50 50 1000 500])
 plot_cs17(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050,5950,50);
 title(['calculated solution at time = ', num2str(time(end))])
 if sauvegarde==1
-    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_solution.png'])
-    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_solution']);
+    print('-dpng', ['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_solution.png'])
+    savefig(['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_solution']);
 end 
 
 [div_fI, div_fII, div_fIII, div_fIV, div_fV, div_fVI]=...
@@ -544,8 +536,8 @@ set(hFig, 'Position', [50 50 1000 500])
 plot_cs7(n,nn,det_fI,det_fII,det_fIII,det_fIV,det_fV,det_fVI)
 title(['detection oscillations : ', num2str(time(end))])
 if sauvegarde==1
-    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_gibbs.png'])
-    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_gibbs']);
+    print('-dpng', ['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_gibbs.png'])
+    savefig(['./RK3_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_gibbs']);
 end 
 
 

@@ -1,11 +1,13 @@
-function [funftI,funftII,funftIII,funftIV,funftV,funftVI]=...
-    ftr_adapt74(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
+function [det_fI, det_fII,det_fIII,det_fIV, det_fV, det_fVI]=...
+    detecteur74(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
 global na nb;
 global alfa beta;
 global  betacr;
 global alfa1;
-global B_adap ftr1 ftr;
+global B_adap ftr1;
 global dxi
+
+global gp
 
 
 epsilon=10^-16;
@@ -53,15 +55,19 @@ end
 % FILTRAGE
 for jline1=1:nn,
     u=va_fI(1:na,jline1);
-    uph=u-ftr*u;
-    r=0.5*((B_adap*uph).^2+((B_adap')*uph).^2)./dxi^2+epsilon;
+    dmag=0.5*((B_adap*u).^2+((B_adap')*u).^2);
+    c=gp*u+(u==0)*epsilon;
+    r=dmag./(c.^2./(dxi.^2))+epsilon;
     sigma=0.5*(1-rth./r+abs(1-rth./r));
     va_fI(1:na,jline1)=sigma.*(ftr1*u)+(1-sigma).*u;
+    det1(1:na,jline1)=sigma;
 end
 % TRANSFERT FACE I+III
 for jline1=1:nn,
    funftI(1:nn,jline1)= va_fI(1:nn,jline1);
+   deta_fI(1:nn,jline1)=det1(1:nn,jline1);
    funftIII(1:nn,nn-jline1+1)= va_fI(2*nn-1:3*nn-2,jline1);
+   deta_fIII(1:nn,nn-jline1+1)= det1(2*nn-1:3*nn-2,jline1);
 end
 
 %% RESEAU 2: 
@@ -96,15 +102,18 @@ end
  % FILTRAGE
 for iline1=1:nn,
     u=vb_fI(iline1,1:nb)';
-    uph=u-ftr*u;
-    r=0.5*((B_adap*uph).^2+((B_adap')*uph).^2)./dxi^2+epsilon;
+    dmag=0.5*((B_adap*u).^2+((B_adap')*u).^2);
+    r=dmag./(c.^2./(dxi.^2))+epsilon;
     sigma=0.5*(1-rth./r+abs(1-rth./r));
     vb_fI(iline1,1:nb)=sigma.*(ftr1*u)+(1-sigma).*u;
+    det2(iline1,1:nb)=sigma;
 end
 % TRANSFERT FACE I+III
 for iline1=1:nn,
    funftI(iline1,1:nn) = vb_fI(iline1,1:nn);
+   detb_fI(iline1,1:nn) = det2(iline1,1:nn);
    funftIII(iline1,nn:-1:1) = vb_fI(iline1,2*nn-1:3*nn-2);
+   detb_fIII(iline1,nn:-1:1)=det2(iline1,2*nn-1:3*nn-2);
 end
 
 %% RESEAU 3: 
@@ -138,15 +147,19 @@ end
 % FILTRAGE
 for jline1=1:nn,
     u=va_fII(1:na,jline1);
-    uph=u-ftr*u;
-    r=0.5*((B_adap*uph).^2+((B_adap')*uph).^2)./dxi^2+epsilon;
+    dmag=0.5*((B_adap*u).^2+((B_adap')*u).^2);
+    c=gp*u+(u==0)*epsilon;
+    r=dmag./(c.^2./(dxi.^2))+epsilon;
     sigma=0.5*(1-rth./r+abs(1-rth./r));
     va_fII(1:na,jline1)=sigma.*(ftr1*u)+(1-sigma).*u;
+    det3(1:na,jline1)=sigma;
 end
 % TRANSFERT FACE II+IV
 for jline1=1:nn,
    funftII(1:nn,jline1) = va_fII(1:nn,jline1);
+   deta_fII(1:nn,jline1) = det3(1:nn,jline1);
    funftIV(1:nn,nn-jline1+1) = va_fII(2*nn-1:3*nn-2,jline1);
+   deta_fIV(1:nn,nn-jline1+1) = det3(2*nn-1:3*nn-2,jline1);
 end
 
 %% RESEAU 4:
@@ -180,15 +193,19 @@ end
  % FILTRAGE
 for iline1=1:nn,
     u=vb_fII(iline1,1:nb)';
-    uph=u-ftr*u;
-    r=0.5*((B_adap*uph).^2+((B_adap')*uph).^2)./dxi^2+epsilon;
+    dmag=0.5*((B_adap*u).^2+((B_adap')*u).^2);
+    c=gp*u+(u==0)*epsilon;
+    r=dmag./(c.^2./(dxi.^2))+epsilon;
     sigma=0.5*(1-rth./r+abs(1-rth./r));
     vb_fII(iline1,1:nb)=sigma.*(ftr1*u)+(1-sigma).*u;
+    det4(iline1,1:nb)=sigma;
 end
 % TRANSFERT FACE II+IV
 for iline1=1:nn,
    funftII(iline1,1:nn) = vb_fII(iline1,1:nn);
+   detb_fII(iline1,1:nn)=det4(iline1,1:nn);
    funftIV(iline1,nn:-1:1) = vb_fII(iline1,2*nn-1:3*nn-2);
+   detb_fIV(iline1,nn:-1:1)=det4(iline1,2*nn-1:3*nn-2);
 end
 
 %% RESEAU 5: 
@@ -223,15 +240,19 @@ end
 % FILTRAGE
 for jline1=1:nn,
     u=va_fV(1:na,jline1);
-    uph=u-ftr*u;
-    r=0.5*((B_adap*uph).^2+((B_adap')*uph).^2)./dxi^2+epsilon;
+    dmag=0.5*((B_adap*u).^2+((B_adap')*u).^2);
+    c=gp*u+(u==0)*epsilon;
+    r=dmag./(c.^2./(dxi.^2))+epsilon;
     sigma=0.5*(1-rth./r+abs(1-rth./r));
     va_fV(1:na,jline1)=sigma.*(ftr1*u)+(1-sigma).*u;
+    det5(1:na,jline1)=sigma;
 end
 % TRANSFERT FACE V+VI
 for jline1=1:nn,
    funftV(1:nn,jline1) = va_fV(1:nn,jline1);
+   deta_fV(1:nn,jline1)=det5(1:nn,jline1);
    funftVI(nn:-1:1,jline1) = va_fV(2*nn-1:3*nn-2,jline1);
+   deta_fVI(nn:-1:1,jline1)= det5(2*nn-1:3*nn-2,jline1);
 end
 
 %% RESEAU 6: ASSEMBLAGE DES DONNEES SUR LE RESEAU V-BETA
@@ -265,13 +286,25 @@ end
  % FILTRAGE
 for iline1=1:nn,
     u=vb_fV(iline1,1:nb)';
-    uph=u-ftr*u;
-    r=0.5*((B_adap*uph).^2+((B_adap')*uph).^2)./dxi^2+epsilon;
+    dmag=0.5*((B_adap*u).^2+((B_adap')*u).^2);
+    c=gp*u+(u==0)*epsilon;
+    r=dmag./(c.^2./(dxi.^2))+epsilon;
     sigma=0.5*(1-rth./r+abs(1-rth./r));
     vb_fV(iline1,1:nb)=sigma.*(ftr1*u)+(1-sigma).*u;
+    det6(iline1,1:nb)=sigma;
 end
 % TRANSFERT FACE V+VI
 for iline1=1:nn,
    funftV(iline1,1:nn) = vb_fV(iline1,1:nn);
+   detb_fV(iline1,1:nn) = det6(iline1,1:nn);
    funftVI(nn-iline1+1,1:nn) = vb_fV(iline1,2*nn-1:3*nn-2);
+   detb_fVI(nn-iline1+1,1:nn) = det6(iline1,2*nn-1:3*nn-2);
 end
+
+%% assemblage
+det_fI=0.5*(deta_fI+detb_fI);
+det_fII=0.5*(deta_fII+detb_fII);
+det_fIII=0.5*(deta_fIII+detb_fIII);
+det_fIV=0.5*(deta_fIV+detb_fIV);
+det_fV=0.5*(deta_fV+detb_fV);
+det_fVI=0.5*(deta_fVI+detb_fVI);
