@@ -4,6 +4,7 @@
 % test = 0 : test 2 of Williamson & al.,
 %        1 : test 5 of Williamson & al..
 %        2 : test 5 of Williamson with smooth mountain,
+%        -1 : test maison avec véritables reliefs,
 % scheme : numerical spatial scheme used. 
 % video : 'yes' ou 'no', do a video or not,
 % nper  :  periodicity of frames in the video.
@@ -27,7 +28,7 @@ global ftr detec
 comment='.';
 test=1;
 video = 'yes';
-nper=2;
+nper=1;
 sauvegarde = 1;
 filtre='adaptative';
 opt_ftr='inf';
@@ -57,7 +58,11 @@ jour=date;
 
 %% *** test data **********************************************************
 
-if test == 0
+if test == -1
+    alpha=0;
+    u0=20;
+    h0=80000;
+elseif test == 0
     alpha=pi/7;
     u0=2*pi*radius/(12*24*3600);
     h0=2.94*10^4/gp;
@@ -345,7 +350,10 @@ while t<Tmax && iter<itermax
     %% video
     if strcmp(video,'yes')==1 & mod(iter,nper) == 0
         figure(9)
-        plot_cs17(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050,5950,25);
+        hFig = figure(9);
+        set(gcf,'PaperPositionMode','auto')
+        set(hFig, 'Position', [50 50 1000 500])
+        plot_cs7(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
         title(['calculated solution at time = ', num2str(time(end))])
         hold off
 
@@ -362,7 +370,7 @@ while t<Tmax && iter<itermax
         hFig = figure(100);
         set(gcf,'PaperPositionMode','auto')
         set(hFig, 'Position', [50 50 1000 500])
-        plot_cs17(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050,5950,50);
+        plot_cs7(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
         title(['calculated solution at time = ', num2str(time(end))])
 
         print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire' num2str(floor(time(end))) '.png'])

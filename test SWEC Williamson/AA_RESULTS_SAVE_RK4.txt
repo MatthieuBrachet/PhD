@@ -1534,3 +1534,69 @@ new adaptative filter (version 2).
 ***********************************
   
   
+date : 22-Nov-2016
+ref. : 7366568562
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+type du filtre    : adaptative
+ordre du filtre p.: inf
+ordre du filtre   : redonnet4
+ordre du filtre   : redonnet10
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 23-Nov-2016
+ref. : 7366574271
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 15
+time step         : 1211.7018
+cfl               : 0.9
+type du filtre    : adaptative
+ordre du filtre p.: inf
+ordre du filtre   : redonnet4
+ordre du filtre   : redonnet10
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 23-Nov-2016
+ref. : 7366575646
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 15
+time step         : 1211.7018
+cfl               : 0.9
+type du filtre    : classic
+ordre du filtre p.: inf
+ordre du filtre   : redonnet4
+ordre du filtre   : redonnet10
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  

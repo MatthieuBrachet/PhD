@@ -1,7 +1,11 @@
 function [hs] = relief(x,y,z)
 global test
 global hs0_mount R_mount lambdac_mount tetac_mount
-if test == 0
+
+if test == -1
+    hs=topography(x,y,z);
+    
+elseif test == 0
     hs=zeros(size(x));
     
 elseif test == 1
