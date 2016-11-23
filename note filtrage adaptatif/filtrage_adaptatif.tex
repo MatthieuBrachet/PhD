@@ -1,0 +1,158 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Brachet Matthieu}
+\title{Filtrage adaptatif}
+
+\newtheorem{remarque}{Remarque}
+
+\begin{document}
+\maketitle
+
+\section{Problèmatique}
+
+La résolution d'équations aux dérivées partielles hyperboliques par des schémas aux différences finies centrées présente deux difficultés :
+
+\begin{itemize}
+\item la mauvaise représentation des hautes fréquences par le schéma numérique entraine des perturbations de type phénomène de Gibbs pouvant aboutir à des perturbations numériques,
+\item l'apparition de chocs difficiles à représenter par le schéma discrétisé.
+\end{itemize}
+
+L'objectif de ce document est de présenter deux manières de filtrer en espace une donnée spatiale en ajoutant le moins d'erreur possible.
+
+Dans la suite de ce document, on considère une fonction $u : \left[ 0, 1 \right] \rightarrow \mathbb{R}$ destinée à être filtrée. Le segment $\left[ 0, 1 \right]$ est discrétisé aux point $(x_i)_i$ équirépartis avec comme pas de maillage $h$.
+
+\section{Filtrage classique}
+
+On travaille dans cette partie sur un filtrage systèmique pouvant, par exemple, être appliqué à chaque itération du calcul en temps.
+La donnée filtrée, notée $u_{f,k}$, approchant $u(x_k)$ est cherchée comme une combinaison linéaire de ses voisins :
+
+\begin{equation}
+u_{f,k} = \sum_j f_j u(x_{k+j}) 
+\label{eq:filtrage}
+\end{equation}
+
+Dans cette partie, on ne s'intéresse qu'à des filtrage locaux (i.e. $f_j= 0$ pour $|j|$ assez grand) et symétriques ($f_j = f_{-j}$).
+
+Partant de \eqref{eq:filtrage}, le coefficiant d'amplification (en Fourier) est donné par :
+
+\begin{equation}
+F(\theta) = \sum_{j \in \mathbb{Z}} f_j e^{ij \theta} = f_0 + 2 \sum_{j \geq 1} cos ( j \theta )
+\label{eq:ampli}
+\end{equation}
+
+avec $\theta = h \xi$, $\xi$ étant le paramètre de Fourier.
+
+Pour que les coefficients $(f_j)_j$ donnent un filtrage passe bas à l'ordre $P$, $F$ doit vérifier les conditions suivantes :
+
+\begin{itemize}
+\item \textbf{Consistance} :
+\begin{equation}
+F(0) = 1
+\label{cd:consistance}
+\end{equation}
+
+\item \textbf{Précision} : pour tout $p$ entre $1$ et $P-1$ inclus :
+\begin{equation}
+F^{(p)}(0) = 0
+\label{cd:precision}
+\end{equation}
+
+\item \textbf{Filtre passe bas} : 
+\begin{equation}
+F(\pi) = 0
+\label{cd:passe bas}
+\end{equation}
+\end{itemize}
+
+Ce qui, en exploitant la forme de $F$, s'écrit de manière équivalente :
+
+\begin{equation}
+\left\lbrace
+\begin{matrix}
+f_0 + 2 \sum_{j \geq 1} f_j & = & 1 \\
+\sum_{j\in\mathbb{Z}} f_j (ij)^p & = & 0 \\
+f_0 + 2 \sum_{j \geq 1} (-1)^j f_j & = & 0 \\
+\end{matrix}
+\right.
+\end{equation}
+
+pour tout $p$ entre $1$ et $P-1$.
+
+\begin{remarque}
+\begin{itemize}
+\item $P$ est l'ordre du filtre satisfesant \eqref{cd:precision}, \eqref{cd:consistance} et \eqref{cd:passe bas},
+\item la condition \eqref{cd:precision} est automatiquement satisfaite lorsque $p$ est impair. Un filtre centré et symétrique comme présenté ici est donc d'ordre $P$ pair,
+\item Il existe des filtres implicites \cite{VG2002} prenant en compte l'ensemble des points du maillage,
+\item Le filtrage peut être vue comme la transformée de Fourier inverse d'une fonction créneau (filtre passe bas exacte) : une fonction sinus cardinale.
+\end{itemize}
+\end{remarque}
+
+Voici quelques exemples de filtres locaux symétriques centrés issus de \cite{Redonnet2001}
+
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{c|cccccc}
+& $f_0$ & $f_1$ & $f_2$ & $f_3$ & $f_4$ & $f_5$ \\
+\hline
+\hline
+ordre 2 & $1/2$ & $1/4$ & $0$ & $0$ & $0$ & $0$\\
+\hline
+ordre 4 & $10/16$ & $4/16$ & $-1/16$ & $0$ & $0$ & $0$ \\
+\hline
+ordre 6 & $44/64$ & $15/64$ & $-6/64$ & $1/64$ & $0$ & $0$ \\
+\hline
+ordre 8 & $186/256$ & $56/256$ & $-28/256$ & $8/256$ & $-1/256$ & $0$ \\
+\hline
+ordre 10 & $772/1024$ & $210/1024$ & $-120/1024$ & $45/1024$ & $-10/1024$ & $1/1024$ \\
+\end{tabular}
+\caption{Exemples de filtrages explicites centrés}
+\label{tab:redonnet}
+\end{center}
+\end{table}
+
+La figure \ref{fig:ampli} représente les filtrages donnés par la table \ref{tab:redonnet}. On observe que plus l'ordre est élevé mieu sont représentées les basses fréquences.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.2]{ampli.jpg}
+\caption{Coefficient d'amplifications pour différents filtres explicites}
+\label{fig:ampli}
+\end{center}
+\end{figure}
+
+On peut aussi chercher la fréquence $\theta_m$ au dela de laquelle les fréquences sont représentées avec moins de $95 \%$ de qualité par le filtrage (\textit{i.e.} $F(\theta_m)=0.95$). Les résultats sont données dans la table \ref{tab:qualite freq}. Les filtres utilisés sont issus de la table \ref{tab:redonnet}.
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{c|c}
+Ordre & $\theta_m$ \\
+\hline
+\hline
+$10$ & $1.6695$ \\
+$8$  & $1.5165$ \\
+$6$  & $1.3045$ \\
+$4$  & $0.9851$ \\
+$2$  & $0.4510$ 
+\end{tabular}
+\caption{Fréquence à $95 \%$ de qualité pour les filtres de la table \ref{tab:redonnet}}
+\label{tab:qualite freq}
+\end{center}
+\end{table}
+
+
+\section{Filtrage adaptatif}
+
+
+
+
+\bibliographystyle{abbrv}
+\bibliography{PhDbiblio}
+\end{document}

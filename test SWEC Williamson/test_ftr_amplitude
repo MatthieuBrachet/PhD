@@ -1,0 +1,49 @@
+clc; clear all; close all;
+
+n=1000;
+dxi=(1./n);
+x=0:h:1-h;
+
+% filtre adaptatif
+opt_det='redonnet10';
+opt_ftra='redonnet4';
+[ detec ] = filtre74( n , opt_det );
+[ LAP_adap, B_adap, ftra ] = adaptative74( n, opt_ftra );
+epsilon=10^-16;
+rth=100;
+
+% filtre conventionnel
+opt_ftr='redonnet10';
+[ detec ] = filtre74( n , opt_ftr );
+
+Ea=[];
+E=[];
+N=[];
+for i=1:floor(n/2)-1
+    u=cos(2*pi*i*x);
+    
+    %% filtre adaptatif
+    % detection
+    uhf=u-ftra*u;
+    r=0.5*((B_adap*uhf).^2+((B_adap')*uhf).^2)./dxi.^2+epsilon;
+    sigma=0.5*(1-rth./r+abs(1-rth./r));
+    
+    % filtrage
+    uf=ftra*u;
+    ufa=(1-sigma).*u+sigma.*uf;
+    
+    e=norm(ufa-u,2)./norm(u,2);
+    Ea=[Ea e];
+    
+    %% filtre conventionnel
+    uf=ftr*u;
+    e=norm(uf-u,2)./norm(u,2);
+    E=[E e];
+
+end
+
+figure(1)
+plot((2*pi/n)*N,Ea,(2*pi/n)*N,E)
+legend('filtrage adaptatif',opt_ftr)
+
+

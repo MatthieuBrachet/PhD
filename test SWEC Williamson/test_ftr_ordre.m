@@ -12,12 +12,12 @@ global gp h0 u0 radius
 global alpha
 
 
-test=0;
-opt_ftr='redonnet6';
+test=1;
+opt_ftr='bogey6';
 opt_ftr1='redonnet2';
 scheme='compact4';
 
-NN=[10;20;40];
+NN=[10;20;40;80];
 E=[];
 H=[];
 for i=1:length(NN)
@@ -43,6 +43,7 @@ for i=1:length(NN)
     [ ht_fIV,   vt_fIV]  = sol_exacte(x_fIV,  y_fIV,  z_fIV,  t);
     [ ht_fV,    vt_fV]   = sol_exacte(x_fV,   y_fV,   z_fV,   t);
     [ ht_fVI,   vt_fVI]  = sol_exacte(x_fVI,  y_fVI,  z_fVI,  t);
+    
     
     [funftI,funftII,funftIII,funftIV,funftV,funftVI]=...
             ftr_test(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI,n,nn);

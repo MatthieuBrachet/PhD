@@ -1,6 +1,6 @@
 clc; clear all; close all
 
-opt_ftr='bogey6';
+opt_ftr='redonnet10';
 n=100;
 h=1./n;
 x=[h:h:1]';

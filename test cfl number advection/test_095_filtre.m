@@ -1,15 +1,15 @@
 clc; clear all; close all
 
 %% paramétres numériques
-epsi=10^-6;
+epsi=10^-10;
 itermax=10000;
 iter=0;
-qual=0.99;
+qual=0.95;
 
 %% schema testé
-order=10;
-genre='visbal';
-delta=0.49;
+order=2;
+genre='redonnet';
+delta=0;
 
 %% algorithme
 a=0;
@@ -29,6 +29,7 @@ end
 
 theta
 theta/pi*100
+iter
 
 %% courbe
 teta=0:0.001:pi;

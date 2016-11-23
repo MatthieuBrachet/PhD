@@ -38,14 +38,12 @@ global Gd11_fIV Gd12_fIV Gd22_fIV
 global Gd11_fV Gd12_fV Gd22_fV
 global Gd11_fVI Gd12_fVI Gd22_fVI
 % -----------------------------------
-global opt_ftr opt_ftr1 scheme
-global ftr 
-global ftr1 LAP_adap B_adap
+global scheme
 global omega gp
 % -----------------------------------
 global hs0_mount R_mount lambdac_mount tetac_mount
 %% physical data
-radius=6.37122d+06;
+radius=1;6.37122d+06;
 omega=7.292d-05;
 gp=9.80616;
 
@@ -604,7 +602,3 @@ for i=1:nn
     end
 end
 
-
-%% Options sur les filtres
-[ ftr ] = filtre74( na , opt_ftr );
-[ LAP_adap, B_adap, ftr1 ] = adaptative74( na, opt_ftr1 );

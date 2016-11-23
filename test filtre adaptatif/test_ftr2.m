@@ -6,7 +6,7 @@ h=1./N;
 x=[h:h:1]';
 
 %% initial function
-u=10*(x<0.5)+0.*rand(size(x));
+u=10*(x<0.5);
 
 %% classic filter
 opt_ftr1='redonnet4';
@@ -18,14 +18,11 @@ opt_ftr2='redonnet2';
 scheme='compact4';
 [ LAP, B, ftra, p, k ] = adaptative74( N, opt_ftr2 );
 
-% detection
+% 
 u1=ftr*u;
-u1=LAP*u1;
-u1=p\(k*u1);
-dmag=0.5*((B*u1).^2+((B')*u1).^2);
-epsilon=10^-16;
-c=u1+(u1==0)*epsilon;
-r=dmag./(c.^2./(h.^2))+epsilon;
+uph=u1-ftr*u1;
+r=0.5*((B*uph).^2+((B')*uph).^2)+10^-16;
+r=r./h^2;
 rth=10^-5;
 sigma=0.5*(1-rth./r+abs(1-rth./r));
 uf2=sigma.*(ftra*u1)+(1-sigma).*u1;
@@ -45,5 +42,3 @@ figure(3)
 plot(x,sigma,'x-')
 legend('detecteur')
 grid on
-
-
