@@ -1,27 +1,79 @@
 \documentclass[11pt]{beamer}
-\usetheme{Rochester}
+\usetheme{Madrid}
 \usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary[patterns]
 \author{\underline{M. Brachet}, J.-P. Croisille}
-\title{Approximation numérique d'équations aux dérivées partielles sur la sphère par un schéma compact}
+\title[Schémas compacts sur la sphère]{Approximation numérique d'équations aux dérivées partielles sur la sphère par un schéma compact}
 %\setbeamercovered{transparent} 
 %\setbeamertemplate{navigation symbols}{} 
 %\logo{} 
-\institute{IECL} 
+\institute[IECL]{Institut Elie Cartan de Lorraine (Metz)} 
 \date{28 novembre 2016} 
 %\subject{} 
 \begin{document}
 
-\begin{frame}{}
+\begin{frame}
 \titlepage
-METTRE :
+\includegraphics[scale=0.3]{iecl.jpg}
+\end{frame}
+
+%% ***********************************************************************
+\section*{Introduction}
+
+\begin{frame}{Introduction}
+\begin{block}{Physique}
+Prévisions de mouvements de l'atmosphère autour d'une planète.
+\end{block}
+
+\begin{columns}
+\column{0.45\textwidth}
+\begin{block}{}
+
+\end{block}
+
+\begin{columns}
+\column{0.45\textwidth}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{block}{Equation Shallow Water}
+\begin{equation}
+\left\lbrace
+\begin{matrix}
+\partial_t h^{\star} + \nabla \cdot \left( h^{\star} \mathbf{u} \right) & = & 0 \\
+\partial_t \mathbf{u} + \nabla \left[ \dfrac{1}{2} \mathbf{u}^2 + gh \right] + \left(f + \left( \nabla \wedge \mathbf{u} \right) \cdot \mathbf{k} \right) \mathbf{k} \wedge \mathbf{u} & = & \mathbf{0} \\
+\end{matrix}
+\right.
+\end{equation}
+
+avec $h^{\star} = h - h_s$ et $h_s$ la topographie.
+\end{block}
+
+\begin{columns}
+\column{0.45\textwidth}
+\begin{block}{Géométrie sphérique :}
+Opérateurs intrinsèques à la sphère :
 \begin{itemize}
-\item logo IECL
+\item gradient,
+\item divergence,
+\item rotationnel.
 \end{itemize}
+\end{block}
+
+\column{0.45\textwidth}
+\begin{center}
+\includegraphics[scale=0.25]{earth.jpg}
+\end{center}
+
+\end{columns}
 \end{frame}
 
 %% ***********************************************************************
@@ -30,20 +82,12 @@ METTRE :
 \end{frame}
 
 %% ***********************************************************************
-\section*{Introduction}
-\begin{frame}{Introduction}
-
-\end{frame}
-
-%% ***********************************************************************
 \section{Discrétisation des opérateurs sphériques sur la CS}
 \begin{frame}{Discrétisation des opérateurs sphériques sur la CS}
-\begin{itemize}
-\item Maillage,
-\item Formule pour le gradient, la divergence et le rotationnel,
-\item Schémas compacts,
-\item Proposition sur la précision, chiffres à l'appui.
-\end{itemize}
+
+
+
+
 
 \end{frame}
 

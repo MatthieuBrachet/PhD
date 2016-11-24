@@ -19,7 +19,7 @@ opt_ftr1='redonnet4';
 scheme='compact4';
 snapshot='yes';
 
-n=255; % for snapshot, n must be in the form 2^m-1 !
+n=127; % for snapshot, n must be in the form 2^m-1 !
 ndaymax=5;
 mod74
 

@@ -26,8 +26,8 @@ global alpha
 global ftr detec
 
 comment='.';
-test=1;
-video = 'yes';
+test=0;
+video = 'no';
 nper=1;
 sauvegarde = 1;
 filtre='adaptative';
@@ -39,7 +39,7 @@ scheme='compact4';
 snapshot='yes';
 
 n=31; % for snapshot, n must be in the form 2^m-1 !
-ndaymax=15;
+ndaymax=3;
 mod74
 
 ccor=radius*omega;
@@ -59,7 +59,7 @@ jour=date;
 %% *** test data **********************************************************
 
 if test == -1
-    alpha=0;
+    alpha=pi/4;
     u0=20;
     h0=80000;
 elseif test == 0
