@@ -9,3 +9,4 @@ altp=interp2(X,Y,rel,lambda,teta);
 sud=mean(topo(1,:));
 altp(isnan(altp))=0;
 alt=altp.*(1-(z==-rr))+sud.*(z==-rr);
+alt=alt.*(alt>0);

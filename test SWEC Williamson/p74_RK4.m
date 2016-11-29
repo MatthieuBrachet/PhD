@@ -26,19 +26,19 @@ global alpha
 global ftr detec
 
 comment='.';
-test=0;
+test=-1;
 video = 'no';
 nper=1;
 sauvegarde = 1;
 filtre='adaptative';
 opt_ftr='inf';
 opt_detec='redonnet10';
-opt_ftr1='redonnet4';
+opt_ftr1='redonnet2';
 
 scheme='compact4';
 snapshot='yes';
 
-n=31; % for snapshot, n must be in the form 2^m-1 !
+n=51; % for snapshot, n must be in the form 2^m-1 !
 ndaymax=3;
 mod74
 
@@ -47,10 +47,10 @@ cgrav=sqrt(h0*gp);
 cvit=u0;
 c=max([cgrav,ccor,cvit]);
 
-cfl=0.9;
+cfl=0.5;
 ddt=radius*dxi*cfl/c;
 Tmax=ndaymax*3600*24;
-itermax=10000;
+itermax=5000;
 
 tstart=cputime;
 ref=floor(10000*now);
@@ -59,9 +59,9 @@ jour=date;
 %% *** test data **********************************************************
 
 if test == -1
-    alpha=pi/4;
+    alpha=0;
     u0=20;
-    h0=80000;
+    h0=6500;
 elseif test == 0
     alpha=pi/7;
     u0=2*pi*radius/(12*24*3600);
@@ -556,6 +556,23 @@ if sauvegarde==1
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_gibbs']);
 end 
 
+[hs_fI]=relief(x_fI,y_fI,z_fI);
+[hs_fII]=relief(x_fII,y_fII,z_fII);
+[hs_fIII]=relief(x_fIII,y_fIII,z_fIII);
+[hs_fIV]=relief(x_fIV,y_fIV,z_fIV);
+[hs_fV]=relief(x_fV,y_fV,z_fV);
+[hs_fVI]=relief(x_fVI,y_fVI,z_fVI);
+
+figure(13)
+hFig = figure(13);
+set(gcf,'PaperPositionMode','auto')
+set(hFig, 'Position', [50 50 1000 500])
+plot_cs7(n,nn,hs_fI,hs_fII,hs_fIII,hs_fIV,hs_fV,hs_fVI)
+title('topography')
+if sauvegarde==1
+    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_relief.png'])
+    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_relief']);
+end 
 
 fig_placier
 disp(['temps de calcul (sans les graphiques) : ', num2str(tend)])

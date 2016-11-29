@@ -17,7 +17,7 @@ rth=100;
 
 E=[];
 N=[];
-for i=1:floor(n/2)-1
+for i=1:floor(n/2)
     y=cos(2*pi*i*x);
     
     uhf=y-detec*y;

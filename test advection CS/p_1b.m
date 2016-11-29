@@ -28,16 +28,16 @@ time1=cputime;
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 2;
+coef = 0;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
-film = 0;
+film = 1;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
 save_graph = 1;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
-opt_ftr =10;
+opt_ftr =0;
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be (2^n)-1 )
 snapshot = 0;
@@ -62,7 +62,7 @@ scheme='compact4'; % compact ou explicite
  if coef == 0
  %% test de Williamson
  alphad=3*pi/4;  
- lambdac=-pi/2;                                                           % longitude BUMP
+ lambdac=0;                                                           % longitude BUMP
  tetac=0;                                                                  % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;

@@ -1644,3 +1644,91 @@ coriolis parameter     : 7.292e-05
 ***********************************
   
   
+date : 27-Nov-2016
+ref. : 7366616194
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+type du filtre    : adaptative
+ordre du filtre p.: inf
+ordre du filtre   : redonnet4
+ordre du filtre   : redonnet10
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0.4488
+caracteristiv velocity : 38.6107
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 27-Nov-2016
+ref. : 7366616368
+***********************************
+test : -1
+---------- numerical data ---------
+number of points  : 31
+time step         : 336.5838
+cfl               : 0.5
+type du filtre    : adaptative
+ordre du filtre p.: inf
+ordre du filtre   : redonnet4
+ordre du filtre   : redonnet10
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0.7854
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 27-Nov-2016
+ref. : 7366619609
+***********************************
+test : -1
+---------- numerical data ---------
+number of points  : 51
+time step         : 207.1285
+cfl               : 0.5
+type du filtre    : adaptative
+ordre du filtre p.: inf
+ordre du filtre   : redonnet4
+ordre du filtre   : redonnet10
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 28-Nov-2016
+ref. : 7366626943
+***********************************
+test : -1
+---------- numerical data ---------
+number of points  : 51
+time step         : 207.1285
+cfl               : 0.5
+type du filtre    : adaptative
+ordre du filtre p.: inf
+ordre du filtre   : redonnet2
+ordre du filtre   : redonnet10
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
