@@ -148,8 +148,9 @@ for jline1=1:nn,
  funa9=va_fII(:,jline1);
  test=kxi*funa9;
  funad10=p\test;
- vad_fII(:,jline1)=funad10; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
+ vad_fII(:,jline1)=funad10; 
 end
+
 
 %% RESEAU 4: ASSEMBLAGE DES DONNEES SUR LE RESEAU II-BETA
 
@@ -193,6 +194,7 @@ for iline1=1:nn,
     funbd3=p\test;
     vbd_fII(iline1,:)=funbd3; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
 end
+
 
 %% RESEAU 5: ASSEMBLAGE DES DONNEES SUR LE RESEAU V-ALPHA
 
@@ -238,6 +240,7 @@ for jline1=1:nn,
     vad_fV(:,jline1)=funad12; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
 end
 
+
 %% RESEAU 6: ASSEMBLAGE DES DONNEES SUR LE RESEAU V-BETA
 
 vb_fV=zeros(nn,4*(nn-1)); % VALEURS =DONNEES RESEAU FACE V SELON BETA
@@ -278,6 +281,7 @@ for iline1=1:nn,
     funbd6=p\test;
     vbd_fV(iline1,:)=funbd6; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE BETA.
 end
+
 
 %% FIN ASSEMBLAGE DES DERIVEES HERMITIENNES SUR LES 6 RESEAUX DE CERCLES %%%%%%%%%%%%%%
 

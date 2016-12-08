@@ -155,13 +155,16 @@ for i=1:nn-1,
    va_fI(3*nn-3+i,1:nn)=funbIV1(1:nn);
 end
 
-vad_fI=zeros(na,nn);
-for jline1=1:nn,
-    funa7=va_fI(:,jline1); 
-    test=kxi*funa7;
-    funad7=p\test; 
-    vad_fI(:,jline1)=funad7; 
-end
+%vad_fI=zeros(na,nn);
+% for jline1=1:nn,
+%     funa7=va_fI(:,jline1); 
+%     test=kxi*funa7;
+%     funad7=p\test; 
+%     vad_fI(:,jline1)=funad7; 
+% end
+
+test=kxi*va_fI(:,1:nn);
+vad_fI=p\test;
 
 %% ************************************************************************ FRONT and BOTTOM on ETA
 xxtIb_I=zeros(nn,nn);xxtIb_V=zeros(nn,nn);
@@ -304,13 +307,16 @@ end
     vb_fI(1:nn,3*nn-3+j)=funaVI1(1:nn);
  end
 
-vbd_fI=zeros(nn,nb);
-for iline1=1:nn,
-    funb1=vb_fI(iline1,:);
-    test=kxi*funb1';
-    funbd1=p\test;
-    vbd_fI(iline1,:)=funbd1;
-end
+% vbd_fI=zeros(nn,nb);
+% for iline1=1:nn,
+%     funb1=vb_fI(iline1,:);
+%     test=kxi*funb1';
+%     funbd1=p\test;
+%     vbd_fI(iline1,:)=funbd1;
+% end
+
+test=kxi*(vb_fI(1:nn,:)');
+vbd_fI(1:nn,:)=(p\test)';
 
 %% *** assemblage *********************************************************
 dg_alfa=zeros(nn,nn,6);dg_beta=zeros(nn,nn,6);
@@ -487,13 +493,16 @@ for i=1:nn-1,
    va_fII(3*nn-3+i,1:nn)=funbI1(1:nn);
 end
 
-vad_fII=zeros(na,nn);
-for jline1=1:nn,
-    funa9=va_fII(:,jline1);
-    test=keta*funa9;
-    funad9=p\test;
-    vad_fII(:,jline1)=funad9; 
-end
+% vad_fII=zeros(na,nn);
+% for jline1=1:nn,
+%     funa9=va_fII(:,jline1);
+%     test=keta*funa9;
+%     funad9=p\test;
+%     vad_fII(:,jline1)=funad9; 
+% end
+
+test=keta*va_fII(:,1:nn);
+vad_fII(:,1:nn)=p\test;
 
 %% ************************************************************************ EAST and WEST on ETA
 xxtIIb_II=zeros(nn,nn);xxtIIb_V=zeros(nn,nn);
@@ -630,13 +639,16 @@ for i=1:nn-1
     vb_fII(1:nn,3*nn-3+i)=funbVI1(1:nn);
 end
 
-vbd_fII=zeros(nn,nb);
-for iline1=1:nn,
-    funb2=vb_fII(iline1,:);
-    test=kxi*funb2';
-    funbd2=p\test;
-    vbd_fII(iline1,:)=funbd2; 
-end
+% vbd_fII=zeros(nn,nb);
+% for iline1=1:nn,
+%     funb2=vb_fII(iline1,:);
+%     test=kxi*funb2';
+%     funbd2=p\test;
+%     vbd_fII(iline1,:)=funbd2; 
+% end
+
+test=kxi*(vb_fII(1:nn,:)');
+vbd_fII(1:nn,:)=(p\test)';
 
 %% *** Assemblage *********************************************************
 
@@ -812,13 +824,16 @@ for j=1:nn-1,
     va_fV(3*nn-3+j,1:nn)=funaIV1(1:nn);
 end 
 
-vad_fV=zeros(na,nn);
-for jline1=1:nn,
-    funa11=va_fV(:,jline1);
-    test=keta*funa11;
-    funad11=p\test;
-    vad_fV(:,jline1)=funad11; 
-end
+% vad_fV=zeros(na,nn);
+% for jline1=1:nn,
+%     funa11=va_fV(:,jline1);
+%     test=keta*funa11;
+%     funad11=p\test;
+%     vad_fV(:,jline1)=funad11; 
+% end
+
+test=keta*va_fV(:,1:nn);
+vad_fV(:,1:nn)=p\test;
 
 %% ************************************************************************ NORTH and SOUTH on ETA
 xxtVb_V=zeros(nn,nn);xxtVb_III=zeros(nn,nn);
@@ -957,13 +972,18 @@ for j=1:nn-1,
     vb_fV(1:nn,3*nn-3+j)=funaI1(1:nn);
 end 
 
-vbd_fV=zeros(nn,nb);
-for iline1=1:nn,
-    funb5=vb_fV(iline1,:);
-    test=kxi*funb5';
-    funbd5=p\test;
-    vbd_fV(iline1,:)=funbd5; 
-end
+% vbd_fV=zeros(nn,nb);
+% for iline1=1:nn,
+%     funb5=vb_fV(iline1,:);
+%     test=kxi*funb5';
+%     funbd5=p\test;
+%     vbd_fV(iline1,:)=funbd5; 
+% end
+
+test=kxi*(vb_fV(1:nn,:)');
+vbd_fV(1:nn,:)=(p\test)';
+
+
 %% *** Assemblage *********************************************************
 
 % FACE V

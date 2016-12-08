@@ -5,7 +5,7 @@ dxi=(1./n);
 x=[0:dxi:1-dxi]';
 
 % filtre adaptatif
-opt_det='redonnet10';
+opt_det='redonnet6';
 opt_ftra='redonnet4';
 [ detec ] = filtre74( n , opt_det );
 [ LAP_adap, B_adap, ftra ] = adaptative74( n, opt_ftra );

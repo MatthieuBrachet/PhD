@@ -1,18 +1,18 @@
 %% ************************************************************************
-% Resolution de SWEC sur la Cubed-Sphere.
+% Solve SWEC on the Cubed-Sphere.
 % *** options :
 % test = 0 : test 2 of Williamson & al.,
 %        1 : test 5 of Williamson & al..
 %        2 : test 5 of Williamson with smooth mountain,
-%        -1 : test maison avec véritables reliefs,
+%        3 : stationnary Galewsky (exp),
+%        4 : Galewsky with perturbation (exp),
+%        -1 : test with Earth topography
 % scheme : numerical spatial scheme used. 
 % video : 'yes' ou 'no', do a video or not,
 % nper  :  periodicity of frames in the video.
 % sauvegarde = 0 (do not save data), 1 (save all data).
-% opt_ftr : explicit (redonnet) or implicit (visbal) filtering.
-% delta_ftr : is between 0 and 1. If the filter of u is note Fu, then, the
-%             filtering action is :
-%                        (1-delta_ftr)*u + delta_ftr*Fu
+% opt_ftr : explicit (redonnet) or adaptative filtering.
+
 %% ************************************************************************
 clc; clear all; close all;
 format long
@@ -24,22 +24,23 @@ global opt_ftr opt_ftr1 opt_detec test scheme
 global gp h0 u0 radius omega
 global alpha
 global ftr detec
+global teta0 teta1
 
 comment='.';
-test=-1;
+test=4;
 video = 'no';
 nper=1;
-sauvegarde = 1;
+sauvegarde = 0;
 filtre='adaptative';
 opt_ftr='inf';
-opt_detec='redonnet10';
-opt_ftr1='redonnet2';
+opt_detec='redonnet6';
+opt_ftr1='redonnet4';
 
 scheme='compact4';
 snapshot='yes';
 
-n=51; % for snapshot, n must be in the form 2^m-1 !
-ndaymax=3;
+n=31; % for snapshot, n must be in the form 2^m-1 !
+ndaymax=6;
 mod74
 
 ccor=radius*omega;
@@ -47,10 +48,10 @@ cgrav=sqrt(h0*gp);
 cvit=u0;
 c=max([cgrav,ccor,cvit]);
 
-cfl=0.5;
+cfl=0.9;
 ddt=radius*dxi*cfl/c;
 Tmax=ndaymax*3600*24;
-itermax=5000;
+itermax=10000;
 
 tstart=cputime;
 ref=floor(10000*now);
@@ -74,6 +75,18 @@ elseif test == 2
     alpha=0;
     u0=20;
     h0=5960;
+elseif test == 3
+    alpha=0;
+    teta0=pi/7;
+    teta1=pi/2-teta0;
+    u0=80;
+    h0=10000;
+elseif test == 4
+    alpha=0;
+    teta0=pi/7;
+    teta1=pi/2-teta0;
+    u0=80;
+    h0=10000;
 end
 
 %% *** initial data *******************************************************
@@ -366,12 +379,26 @@ while t<Tmax && iter<itermax
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         close all;
         
+        [vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=...
+            vort74(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
+        
+        mm=min(min([vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]));
+        MM=max(max([vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]));
+
         figure(100)
         hFig = figure(100);
         set(gcf,'PaperPositionMode','auto')
         set(hFig, 'Position', [50 50 1000 500])
-        plot_cs7(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
-        title(['calculated solution at time = ', num2str(time(end))])
+        %plot_cs18(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI,mm,MM,5)
+        plot_cs7(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI);
+        title(['vorticity at time : ', num2str(time(end))])
+        
+%         figure(100)
+%         hFig = figure(100);
+%         set(gcf,'PaperPositionMode','auto')
+%         set(hFig, 'Position', [50 50 1000 500])
+%         plot_cs7(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
+%         title(['calculated solution at time = ', num2str(time(end))])
 
         print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire' num2str(floor(time(end))) '.png'])
         savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire_' num2str(floor(time(end))) '.fig']);
@@ -554,24 +581,6 @@ title(['detection oscillations : ', num2str(time(end))])
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_gibbs.png'])
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_gibbs']);
-end 
-
-[hs_fI]=relief(x_fI,y_fI,z_fI);
-[hs_fII]=relief(x_fII,y_fII,z_fII);
-[hs_fIII]=relief(x_fIII,y_fIII,z_fIII);
-[hs_fIV]=relief(x_fIV,y_fIV,z_fIV);
-[hs_fV]=relief(x_fV,y_fV,z_fV);
-[hs_fVI]=relief(x_fVI,y_fVI,z_fVI);
-
-figure(13)
-hFig = figure(13);
-set(gcf,'PaperPositionMode','auto')
-set(hFig, 'Position', [50 50 1000 500])
-plot_cs7(n,nn,hs_fI,hs_fII,hs_fIII,hs_fIV,hs_fV,hs_fVI)
-title('topography')
-if sauvegarde==1
-    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_relief.png'])
-    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_relief']);
 end 
 
 fig_placier

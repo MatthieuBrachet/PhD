@@ -11,10 +11,7 @@ global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
 global scheme
 
-scheme='compact4';
-
-
-n=255;
+n=127;
 mod98; 
 
 [funfI,funx,funy,funz]=fun3(x_fI,y_fI,z_fI);
@@ -26,9 +23,9 @@ mod98;
 
 tic
 for ite=1:50,
-    ite
+    clc; ite
     [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=...
-      gr98(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn);
+      gr99(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn);
 end
 toc
 
@@ -238,5 +235,3 @@ errIV_28=max(max(abs(errg_fIV)));
 errV_29=max(max(abs(errg_fV)));
 errVI_30=max(max(abs(errg_fVI)));
 err_grad_31=max([errVI_30,errV_29,errIV_28,errIII_27,errII_26,errI_25])
-
-  

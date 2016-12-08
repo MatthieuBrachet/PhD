@@ -1,7 +1,6 @@
 function [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=...
     gr98(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
 global xi eta dxi deta
-global beta betacr;
 global pg kg;
 global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
@@ -246,13 +245,6 @@ for jline1=1:nn,
 end
 
 % PANEL I:
-for i=1:nn-1, 
-   betaspline(1:nn)=beta(i,1:nn);
-   funspline(1:nn)=funfI(i,1:nn);
-   ppspline=spline(betaspline,funspline);
-   funbI1(1:nn)=ppval(ppspline,betacr(i,nn+1-[1:nn]));
-   va_fII(3*nn-3+i,1:nn)=funbI1(1:nn);
-end
 for i=1:nn-1,
     funspline(1:nn)=funfI(i,1:nn);
     %
@@ -287,7 +279,7 @@ for i=1:nn-1,
     xeta2=xeta2';
     funbI1=((xc3(jj).*xeta2+xc2(jj)).*xeta2+xc1(jj)).*xeta2+xc0(jj);
 
-    va_fI(3*nn-3+i,1:nn)=funbI1(1:nn);
+    va_fII(3*nn-3+i,1:nn)=funbI1(1:nn);
 end
 
 for jline1=1:nn,

@@ -61,6 +61,7 @@ for kk=1:3
      funad8=p\test;
      vad_fI(:,jline1,kk)=funad8;
     end
+
 end
 
 
@@ -102,6 +103,7 @@ for kk=1:3
         funbd2=p\test;
         vbd_fI(iline1,:,kk)=funbd2; 
     end
+    
 end
 
 %% RESEAU 3: ASSEMBLAGE DES DONNEES SUR LE RESEAU II-XI

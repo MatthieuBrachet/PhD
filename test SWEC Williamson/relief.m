@@ -4,10 +4,7 @@ global hs0_mount R_mount lambdac_mount tetac_mount
 
 if test == -1
     hs=topography(x,y,z);
-    
-elseif test == 0
-    hs=zeros(size(x));
-    
+
 elseif test == 1
     
     [lambda, teta, ~]=cart2sph(x,y,z);
@@ -31,5 +28,8 @@ elseif test == 2
             hs(i,j)=hs0_mount.*exp(-(2.8*r./R_mount).^2);
         end
     end
+    
+else
+    hs=sparse(zeros(size(x)));
 end
 
