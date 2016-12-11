@@ -7,7 +7,6 @@ global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
 global radius omega
 
-
 cste=2*omega/(radius*radius);
 
 %% ------ face I

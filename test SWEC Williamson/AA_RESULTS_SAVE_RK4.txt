@@ -1952,3 +1952,25 @@ coriolis parameter     : 7.292e-05
 ***********************************
   
   
+date : 10-Dec-2016
+ref. : 7366748131
+***********************************
+test : 3
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+type du filtre    : classic
+ordre du filtre p.: redonnet6
+ordre du filtre   : redonnet4
+ordre du filtre   : redonnet6
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  

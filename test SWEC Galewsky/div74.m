@@ -964,6 +964,8 @@ for iline1=1:nn,
     funbd5=p\test;
     vbd_fV(iline1,:)=funbd5; 
 end
+
+
 %% *** Assemblage *********************************************************
 
 % FACE V

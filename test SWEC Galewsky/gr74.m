@@ -1,8 +1,7 @@
 function [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=...
     gr74(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
 
-global mm na nb;
-global deta;
+global na nb;
 global alfa beta;
 global betacr;
 global alfa1;
@@ -149,8 +148,9 @@ for jline1=1:nn,
  funa9=va_fII(:,jline1);
  test=kxi*funa9;
  funad10=p\test;
- vad_fII(:,jline1)=funad10; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
+ vad_fII(:,jline1)=funad10; 
 end
+
 
 %% RESEAU 4: ASSEMBLAGE DES DONNEES SUR LE RESEAU II-BETA
 
@@ -195,6 +195,7 @@ for iline1=1:nn,
     vbd_fII(iline1,:)=funbd3; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
 end
 
+
 %% RESEAU 5: ASSEMBLAGE DES DONNEES SUR LE RESEAU V-ALPHA
 
 va_fV=zeros(4*(nn-1),nn); % VALEURS =DONNEES RESEAU FACE V SELON ALPHA
@@ -217,8 +218,6 @@ end
 
 % FACE VI: TRANSFERT OF DATA
 for jline1=1:nn,
-    jbar= jline1-mm;
-    etabar= jbar*deta;
     va_fV(2*nn-1:3*nn-3,jline1)=funfVI(nn:-1:2,jline1); % symetrie a bien regarder!
 end
 
@@ -240,6 +239,7 @@ for jline1=1:nn,
     funad12=p\test;
     vad_fV(:,jline1)=funad12; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
 end
+
 
 %% RESEAU 6: ASSEMBLAGE DES DONNEES SUR LE RESEAU V-BETA
 
@@ -281,6 +281,7 @@ for iline1=1:nn,
     funbd6=p\test;
     vbd_fV(iline1,:)=funbd6; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE BETA.
 end
+
 
 %% FIN ASSEMBLAGE DES DERIVEES HERMITIENNES SUR LES 6 RESEAUX DE CERCLES %%%%%%%%%%%%%%
 

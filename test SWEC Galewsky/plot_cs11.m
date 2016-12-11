@@ -5,10 +5,7 @@ global radius
 
 %% tracé de la courbe
 r=radius;
-% JPC
-cmin=-5; cmax=0; % TEST 0
-% cmin=0; cmax=0.8 % TEST 5
-%
+
 xi=linspace(-pi/4, pi/4, nn); 
 eta=linspace(-pi/4, pi/4, nn); 
 for i=1:nn,

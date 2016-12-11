@@ -1,6 +1,6 @@
-function [ ftr ] = filtre( na , opt_ftr )
+function [ ftr ] = filtre74( na , opt_ftr )
 
-if opt_ftr == 0
+if strcmp(opt_ftr,'inf')==1
     f0=1; 
     f1=0;
     f2=0;
@@ -8,7 +8,7 @@ if opt_ftr == 0
     f4=0;
     f5=0;
     
-elseif opt_ftr == 2
+elseif strcmp(opt_ftr,'redonnet2')==1
     f0=1/2; 
     f1=1/4;
     f2=0;
@@ -16,7 +16,7 @@ elseif opt_ftr == 2
     f4=0;
     f5=0;
 
-elseif opt_ftr == 4
+elseif strcmp(opt_ftr,'redonnet4')==1
     f0=10/16; 
     f1=4/16;
     f2=-1/16;
@@ -24,7 +24,7 @@ elseif opt_ftr == 4
     f4=0;
     f5=0;
     
-elseif opt_ftr == 6
+elseif strcmp(opt_ftr,'redonnet6')==1
     f0=44/64; 
     f1=15/64;
     f2=-6/64;
@@ -32,7 +32,7 @@ elseif opt_ftr == 6
     f4=0;
     f5=0;
     
-elseif opt_ftr == 8
+elseif strcmp(opt_ftr,'redonnet8')==1
     f0=186/256; 
     f1=56/256;
     f2=-28/256;
@@ -40,13 +40,28 @@ elseif opt_ftr == 8
     f4=-1/256;
     f5=0;
 
-elseif opt_ftr == 10
+elseif strcmp(opt_ftr,'redonnet10')==1
     f0=772/1024; 
     f1=210/1024;
     f2=-120/1024;
     f3=45/1024;
     f4=-10/1024;
     f5=1/1024;
+    
+elseif strcmp(opt_ftr,'bogey6')==1
+    d0=0.234810479761700;
+    d1=-.199250131285813;
+    d2=0.120198310245186;
+    d3=-.049303775636020;
+    d4=0.012396449873964;
+    d5=-.001446093078167;
+    
+    f0=1-d0;
+    f1=-d1;
+    f2=-d2;
+    f3=-d3;
+    f4=-d4;
+    f5=-d5;
 end
 
 

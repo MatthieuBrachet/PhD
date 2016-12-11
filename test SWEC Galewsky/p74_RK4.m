@@ -1,5 +1,5 @@
 %% ************************************************************************
-% Solve SWEC on the Cubed-Sphere.
+% Solve viscous SWEC on the Cubed-Sphere.
 % *** options :
 % test = 0 : test 2 of Williamson & al.,
 %        1 : test 5 of Williamson & al..
@@ -25,13 +25,14 @@ global gp h0 u0 radius omega
 global alpha
 global ftr detec
 global teta0 teta1
+global visc
 
 comment='.';
-test=3;
+test=4;
 video = 'no';
 nper=1;
 sauvegarde = 1;
-filtre='classic';
+filtre='inf';
 opt_ftr='redonnet6';
 opt_detec='redonnet6';
 opt_ftr1='redonnet4';
@@ -48,7 +49,7 @@ cgrav=sqrt(h0*gp);
 cvit=u0;
 c=max([cgrav,ccor,cvit]);
 
-cfl=0.5;
+cfl=0.9;
 ddt=radius*dxi*cfl/c;
 Tmax=ndaymax*3600*24;
 itermax=10000;
@@ -157,6 +158,8 @@ while t<Tmax && iter<itermax
             vt_fV(:,:,comp)=det_fV.*vtff_fV(:,:,comp)+(1-det_fV).*vtf_fV(:,:,comp);
             vt_fVI(:,:,comp)=det_fVI.*vtff_fVI(:,:,comp)+(1-det_fVI).*vtf_fVI(:,:,comp);
         end
+        
+    elseif strcmp(filtre,'inf') == 1
         
         
     else
@@ -435,6 +438,7 @@ if strcmp(video,'yes') == 1
     fprintf(fid,'%s\n',['alpha                  : ', num2str(alpha)] );
     fprintf(fid,'%s\n',['caracteristiv velocity : ', num2str(u0)] );
     fprintf(fid,'%s\n',['coriolis parameter     : ', num2str(omega)] );
+    fprintf(fid,'%s\n',['viscosity              : ', num2str(visc)] );
     fprintf(fid,'%s\n','------------ comment --------------');
     fprintf(fid,'%s\n', comment );
     fprintf(fid,'%s\n','***********************************');
@@ -462,6 +466,7 @@ if sauvegarde == 1
     fprintf(fid,'%s\n',['alpha                  : ', num2str(alpha)] );
     fprintf(fid,'%s\n',['caracteristiv velocity : ', num2str(u0)] );
     fprintf(fid,'%s\n',['coriolis parameter     : ', num2str(omega)] );
+    fprintf(fid,'%s\n',['viscosity              : ', num2str(visc)] );
     fprintf(fid,'%s\n','------------ comment --------------');
     fprintf(fid,'%s\n', comment );
     fprintf(fid,'%s\n','***********************************');
