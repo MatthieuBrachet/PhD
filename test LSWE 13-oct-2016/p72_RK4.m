@@ -26,11 +26,11 @@ global teta0 teta1
 test=0;
 video = 'no';
 sauvegarde = 1;
-opt_ftr=0;
-type_ftr='caracteristic';
-n=40;
-teta0=-3*pi/16;
-teta1=3*pi/16;
+opt_ftr=10;
+type_ftr='classic';
+n=31;
+teta0=pi/7;%-3*pi/16;
+teta1=pi/2-teta0;%3*pi/16;
 mod72
 
 cgrav=sqrt(gp*hp);
@@ -42,7 +42,7 @@ ndaymax=2;
 Tmax=ndaymax*3600*24;
 itermax=5000;
 
-comment='order 8 for divergence';
+comment='.';
 
 tstart=cputime;
 %% *** initialisation des données

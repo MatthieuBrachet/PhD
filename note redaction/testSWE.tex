@@ -47,7 +47,7 @@ Dans la suite, nous travaillerons avec cette forme de l'équation \eqref{SWEC_ne
 \begin{proposition}
 L'équation \eqref{SWEC_vectform} préserve la masse :
 \begin{equation}
-\dfrac{d}{dt}\gint_{\mathbb{S}_R^2} \eta^{\star} = 0
+\dfrac{d}{dt}\gint_{\mathbb{S}_a^2} \eta^{\star} = 0
 \end{equation}
 \end{proposition}
 
@@ -59,9 +59,25 @@ Conséquence directe de la remarque \ref{remark_stokes}.
 On note que si $\eta_s$ est indépendant du temps, on a aussi :
 
 \begin{equation}
-\dfrac{d}{dt}\gint_{\mathbb{S}_R^2} \eta = 0
+\dfrac{d}{dt}\gint_{\mathbb{S}_a^2} \eta = 0
 \end{equation}
 \end{remarque}
+
+\begin{proposition}
+L'équation \eqref{SWEC_vectform} préserve :
+\begin{itemize}
+\item l'énergie :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \left( \dfrac{1}{2} \eta^{\star} \mathbf{u}^2 + \dfrac{1}{2} \left( \eta^2 - \eta_s^2 \right) \right)
+\end{equation}
+\item l'enstrophie potentielle :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \dfrac{1}{2}\dfrac{\left(\zeta + f\right)^2}{\eta^{\star}}
+\end{equation}
+avec $\zeta=\left( \nabla \wedge \mathbf{u} \right)\cdot\mathbf{k}$.
+
+\end{itemize}
+\end{proposition}
 
 VOIR POUR LA CONSERVATION DE L'ENERGIE ET DE L'ENSTROPIE POTENTIELLE.
 
@@ -81,6 +97,7 @@ u & = & u_0 \left( cos \theta cos \alpha + cos \lambda sin \theta sin \alpha \ri
 v & = & - u_0 sin \lambda sin \alpha
 \end{array}
 \right.
+\label{eq:williamson2_u}
 \end{equation}
 
 où $u_0 = 2 \pi 0 / (12 \text{jours} )$ et $\alpha$ est l'angle d'inclinaisonde  la sphère.
@@ -89,6 +106,7 @@ La hauteur du fluide s'obtient en consèquences comme étant :
 
 \begin{equation}
 \eta = \eta_0 - \left( a \omega u_0 + \dfrac{1}{2}u_0^2 \right) \left( -cos \lambda cos \theta sin \alpha + sin \theta cos \alpha \right)^2
+\label{eq:williamson2_h}
 \end{equation}
 
 $\eta_0$ est tel que $g \eta_0 = 2.94 \times 10^{-4}$. 
@@ -102,5 +120,19 @@ $$ f = 2 \omega sin \theta' = 2 \omega \left( -cos \lambda cos \theta sin \alpha
 
 
 \section{Test 5 de D. L. Williamson \textit{et al.} : flux zonal autour d'une montagne isolée}
+
+Pour ce test, issu de \cite{Williamson1992}, aucune solution analyique n'est connue. On compare les résultats à différents temps et on observe les relations de conservations souhaitées.
+
+Le champ de vitesse itinial $\mathbf{u}$ est donnée par \eqref{eq:williamson2_u} avec $\alpha=0$ et la hauteur d'atmosphère $\eta$ par \eqref{eq:williamson2_h}. En revanche, contrairement au test précédent, on choisit ADD VALUES.
+Cette condition initiale stationnaire est perturbée par l'ajout de reliefs. On considère $\eta_s$ les reliefs de la sphère donnés par :
+
+\begin{equation}
+h_s = h_{s_0} \left( 1 - \dfrac{r}{R} \right)
+\end{equation}
+
+avec $h_{s_0}=2000m$, $R=\pi/9$ et $r = \sqrt{min\left( R^2, \left( \lambda-\lambda_c \right)^2 + \left( \theta-\theta_c \right)^2 \right)}$.
+Le centre de la montagne est positionné en $(\lambda_c, \theta_c) = (3\pi/2, \pi/6)$.
+
+On observe la solution à $5$ , $10$ et $15$ jours.
 
 \section{Test de Galewsky TBA}

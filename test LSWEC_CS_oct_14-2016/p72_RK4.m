@@ -30,8 +30,8 @@ type_ftr='caracteristic';
 n=30;
 mod72
 
-teta0=-3*pi/16;
-teta1=3*pi/16;
+teta0=pi/7;
+teta1=pi/2-teta0;
 
 cgrav=sqrt(gp*hp);
 ccor=radius*omega;

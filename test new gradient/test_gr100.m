@@ -14,7 +14,7 @@ global scheme
 scheme='compact4';
 
 
-n=63;
+n=31;
 mod98; 
 
 [funfI,funx,funy,funz]=fun3(x_fI,y_fI,z_fI);
@@ -24,7 +24,13 @@ mod98;
 [funfV,funx,funy,funz]=fun3(x_fV,y_fV,z_fV);
 [funfVI,funx,funy,funz]=fun3(x_fVI,y_fVI,z_fVI);
 
-[grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI,va1,va2]=...
+[grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI,vad_fI]=...
       gr100(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn);
   
   
+[grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI,vad_fIt]=...
+      gr100t(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn);
+  
+figure(1)
+surf(vad_fI-vad_fIt)
+title('erreur')

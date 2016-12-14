@@ -91,7 +91,7 @@ elseif test == 3
 
     elambda_x = -sin(lambda);
     elambda_y =  cos(lambda);
-    elambda_z=zeros(size(x));
+    elambda_z = zeros(size(x));
     eteta_x = -sin(teta).*cos(lambda);
     eteta_y = -sin(teta).*sin(lambda);
     eteta_z =  cos(teta);
@@ -102,7 +102,7 @@ elseif test == 3
 
     %% integrale
     n=4000;
-    a=0;
+    a=-pi/2;
     b=teta;
     h=(b-a)/n;
     %fa
@@ -144,7 +144,7 @@ elseif test == 4
 
     %% integrale
     nnn=4000;
-    a=0;
+    a=-pi/2;
     b=teta;
     h=(b-a)/nnn;
     %fa

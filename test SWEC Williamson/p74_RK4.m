@@ -27,15 +27,14 @@ global ftr detec
 global teta0 teta1
 
 comment='.';
-test=3;
+test=4;
 video = 'no';
 nper=1;
 sauvegarde = 1;
-filtre='classic';
-opt_ftr='redonnet6';
-opt_detec='redonnet6';
+filtre='adaptative';
+opt_ftr='inf';
+opt_detec='redonnet10';
 opt_ftr1='redonnet4';
-
 scheme='compact4';
 snapshot='yes';
 
@@ -48,7 +47,7 @@ cgrav=sqrt(h0*gp);
 cvit=u0;
 c=max([cgrav,ccor,cvit]);
 
-cfl=0.5;
+cfl=0.7;
 ddt=radius*dxi*cfl/c;
 Tmax=ndaymax*3600*24;
 itermax=10000;
@@ -117,47 +116,41 @@ end
 while t<Tmax && iter<itermax
     iter=iter+1;
     clc; 
-    disp([iter min(itermax,floor(Tmax/ddt)) erri(end) err_int(end)]);
+    disp([test iter min(itermax,floor(Tmax/ddt)) erri(end) err_int(end)]);
     
     %% filtrage
     if strcmp(filtre,'classic') == 1
-        [ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI]=ftr74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
-        [vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1)]=ftr74(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
-        [vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2)]=ftr74(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
-        [vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3)]=ftr74(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
+        [ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI]=ftr_mixte74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
+        [vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1)]=ftr_mixte74(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
+        [vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2)]=ftr_mixte74(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
+        [vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3)]=ftr_mixte74(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
 
     elseif strcmp(filtre,'adaptative') == 1
-        [ftr]=filtre74(na,opt_ftr);
-        [htf_fI, htf_fII, htf_fIII, htf_fIV, htf_fV, htf_fVI]=ftr74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
-        [vtf_fI(:,:,1), vtf_fII(:,:,1), vtf_fIII(:,:,1), vtf_fIV(:,:,1), vtf_fV(:,:,1), vtf_fVI(:,:,1)]=ftr74(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
-        [vtf_fI(:,:,2), vtf_fII(:,:,2), vtf_fIII(:,:,2), vtf_fIV(:,:,2), vtf_fV(:,:,2), vtf_fVI(:,:,2)]=ftr74(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
-        [vtf_fI(:,:,3), vtf_fII(:,:,3), vtf_fIII(:,:,3), vtf_fIV(:,:,3), vtf_fV(:,:,3), vtf_fVI(:,:,3)]=ftr74(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
-        
         [detec]=filtre74(na,opt_detec);
-        [det_fI,det_fII,det_fIII,det_fIV,det_fV,det_fVI]=det74(htf_fI, htf_fII, htf_fIII, htf_fIV, htf_fV, htf_fVI, n, nn);
+        [det_fI,det_fII,det_fIII,det_fIV,det_fV,det_fVI]=det74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
         
         [ftr]=filtre74(na,opt_ftr1);
-        [htff_fI, htff_fII, htff_fIII, htff_fIV, htff_fV, htff_fVI]=ftr74(htf_fI, htf_fII, htf_fIII, htf_fIV, htf_fV, htf_fVI, n, nn);
-        [vtff_fI(:,:,1), vtff_fII(:,:,1), vtff_fIII(:,:,1), vtff_fIV(:,:,1), vtff_fV(:,:,1), vtff_fVI(:,:,1)]=ftr74(vtf_fI(:,:,1), vtf_fII(:,:,1), vtf_fIII(:,:,1), vtf_fIV(:,:,1), vtf_fV(:,:,1), vtf_fVI(:,:,1),n,nn);
-        [vtff_fI(:,:,2), vtff_fII(:,:,2), vtff_fIII(:,:,2), vtff_fIV(:,:,2), vtff_fV(:,:,2), vtff_fVI(:,:,2)]=ftr74(vtf_fI(:,:,2), vtf_fII(:,:,2), vtf_fIII(:,:,2), vtf_fIV(:,:,2), vtf_fV(:,:,2), vtf_fVI(:,:,2),n,nn);
-        [vtff_fI(:,:,3), vtff_fII(:,:,3), vtff_fIII(:,:,3), vtff_fIV(:,:,3), vtff_fV(:,:,3), vtff_fVI(:,:,3)]=ftr74(vtf_fI(:,:,3), vtf_fII(:,:,3), vtf_fIII(:,:,3), vtf_fIV(:,:,3), vtf_fV(:,:,3), vtf_fVI(:,:,3),n,nn);
+        [htff_fI, htff_fII, htff_fIII, htff_fIV, htff_fV, htff_fVI]=ftr_mixte74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
+        [vtff_fI(:,:,1), vtff_fII(:,:,1), vtff_fIII(:,:,1), vtff_fIV(:,:,1), vtff_fV(:,:,1), vtff_fVI(:,:,1)]=ftr_mixte74(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
+        [vtff_fI(:,:,2), vtff_fII(:,:,2), vtff_fIII(:,:,2), vtff_fIV(:,:,2), vtff_fV(:,:,2), vtff_fVI(:,:,2)]=ftr_mixte74(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
+        [vtff_fI(:,:,3), vtff_fII(:,:,3), vtff_fIII(:,:,3), vtff_fIV(:,:,3), vtff_fV(:,:,3), vtff_fVI(:,:,3)]=ftr_mixte74(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
         
-        ht_fI=det_fI.*htff_fI+(1-det_fI).*htf_fI;
-        ht_fII=det_fII.*htff_fII+(1-det_fII).*htf_fII;
-        ht_fIII=det_fIII.*htff_fIII+(1-det_fIII).*htf_fIII;
-        ht_fIV=det_fIV.*htff_fIV+(1-det_fIV).*htf_fIV;
-        ht_fV=det_fV.*htff_fV+(1-det_fV).*htf_fV;
-        ht_fVI=det_fVI.*htff_fVI+(1-det_fVI).*htf_fVI;
+        ht_fI=det_fI.*htff_fI+(1-det_fI).*ht_fI;
+        ht_fII=det_fII.*htff_fII+(1-det_fII).*ht_fII;
+        ht_fIII=det_fIII.*htff_fIII+(1-det_fIII).*ht_fIII;
+        ht_fIV=det_fIV.*htff_fIV+(1-det_fIV).*ht_fIV;
+        ht_fV=det_fV.*htff_fV+(1-det_fV).*ht_fV;
+        ht_fVI=det_fVI.*htff_fVI+(1-det_fVI).*ht_fVI;
         
         for comp=1:3
-            vt_fI(:,:,comp)=det_fI.*vtff_fI(:,:,comp)+(1-det_fI).*vtf_fI(:,:,comp);
-            vt_fII(:,:,comp)=det_fII.*vtff_fII(:,:,comp)+(1-det_fII).*vtf_fII(:,:,comp);
-            vt_fIII(:,:,comp)=det_fIII.*vtff_fIII(:,:,comp)+(1-det_fIII).*vtf_fIII(:,:,comp);
-            vt_fIV(:,:,comp)=det_fIV.*vtff_fIV(:,:,comp)+(1-det_fIV).*vtf_fIV(:,:,comp);
-            vt_fV(:,:,comp)=det_fV.*vtff_fV(:,:,comp)+(1-det_fV).*vtf_fV(:,:,comp);
-            vt_fVI(:,:,comp)=det_fVI.*vtff_fVI(:,:,comp)+(1-det_fVI).*vtf_fVI(:,:,comp);
+            vt_fI(:,:,comp)=det_fI.*vtff_fI(:,:,comp)+(1-det_fI).*vt_fI(:,:,comp);
+            vt_fII(:,:,comp)=det_fII.*vtff_fII(:,:,comp)+(1-det_fII).*vt_fII(:,:,comp);
+            vt_fIII(:,:,comp)=det_fIII.*vtff_fIII(:,:,comp)+(1-det_fIII).*vt_fIII(:,:,comp);
+            vt_fIV(:,:,comp)=det_fIV.*vtff_fIV(:,:,comp)+(1-det_fIV).*vt_fIV(:,:,comp);
+            vt_fV(:,:,comp)=det_fV.*vtff_fV(:,:,comp)+(1-det_fV).*vt_fV(:,:,comp);
+            vt_fVI(:,:,comp)=det_fVI.*vtff_fVI(:,:,comp)+(1-det_fVI).*vt_fVI(:,:,comp);
         end
-        
+    elseif strcmp(filtre,'inf')==1
         
     else
         error('Option ''filtre'' is uncorrect.');
@@ -375,7 +368,7 @@ while t<Tmax && iter<itermax
     end
     
     % snapshot
-    if sauvegarde == 1 & mod(iter,floor(Tmax/(3*ddt))) == 0 & strcmp(snapshot,'yes')==1 
+    if sauvegarde == 1 & mod(iter,floor(Tmax/(12*ddt))) == 0 & strcmp(snapshot,'yes')==1 
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         close all;
         
@@ -400,8 +393,8 @@ while t<Tmax && iter<itermax
 %         plot_cs7(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
 %         title(['calculated solution at time = ', num2str(time(end))])
 
-        print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire' num2str(floor(time(end))) '.png'])
-        savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire_' num2str(floor(time(end))) '.fig']);
+        print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire' num2str(floor(100*time(end))) '.png'])
+        savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire_' num2str(floor(100*time(end))) '.fig']);
     end
 
     %% historique sur la divergence
@@ -412,6 +405,8 @@ while t<Tmax && iter<itermax
     
     
 end
+disp('calcul : OK');
+disp('plot...');
 tend=cputime-tstart;
 
 if strcmp(video,'yes') == 1
@@ -430,6 +425,7 @@ if strcmp(video,'yes') == 1
     fprintf(fid,'%s\n',['ordre du filtre p.: '  opt_ftr] );
     fprintf(fid,'%s\n',['ordre du filtre   : '  opt_ftr1] );
     fprintf(fid,'%s\n',['ordre du filtre   : '  opt_detec] );
+    fprintf(fid,'%s\n',['scheme            : '  scheme] );
     fprintf(fid,'%s\n','---------- physical data ----------');
     fprintf(fid,'%s\n',['gravity g              : ', num2str(gp)] );
     fprintf(fid,'%s\n',['alpha                  : ', num2str(alpha)] );
@@ -457,6 +453,7 @@ if sauvegarde == 1
     fprintf(fid,'%s\n',['ordre du filtre p.: '  opt_ftr] );
     fprintf(fid,'%s\n',['ordre du filtre   : '  opt_ftr1] );
     fprintf(fid,'%s\n',['ordre du filtre   : '  opt_detec] );
+    fprintf(fid,'%s\n',['scheme            : '  scheme] );
     fprintf(fid,'%s\n','---------- physical data ----------');
     fprintf(fid,'%s\n',['gravity g              : ', num2str(gp)] );
     fprintf(fid,'%s\n',['alpha                  : ', num2str(alpha)] );
@@ -573,15 +570,19 @@ plot(time,Mdivu)
 [det_fI,det_fII,det_fIII,det_fIV,det_fV,det_fVI]=det74(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI, n, nn);
 
 figure(12)
-hFig = figure(12);
-set(gcf,'PaperPositionMode','auto')
-set(hFig, 'Position', [50 50 1000 500])
-plot_cs7(n,nn,det_fI,det_fII,det_fIII,det_fIV,det_fV,det_fVI)
+plot_cs11(n,nn,det_fI,det_fII,det_fIII,det_fIV,det_fV,det_fVI)
 title(['detection oscillations : ', num2str(time(end))])
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_gibbs.png'])
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_gibbs']);
 end 
+
+figure(13)
+hFig = figure(13);
+set(gcf,'PaperPositionMode','auto')
+set(hFig, 'Position', [50 50 1000 500])
+plot_cs7(n,nn,det_fI,det_fII,det_fIII,det_fIV,det_fV,det_fVI)
+title(['detection oscillations : ', num2str(time(end))])
 
 fig_placier
 disp(['temps de calcul (sans les graphiques) : ', num2str(tend)])

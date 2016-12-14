@@ -20,7 +20,6 @@ global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
 global gdxi_I gdxi_II gdxi_III gdxi_IV gdxi_V gdxi_VI;
 global gdeta_I gdeta_II gdeta_III gdeta_IV gdeta_V gdeta_VI;
-global gr_I gr_II gr_III gr_IV gr_V gr_VI;
 % -----------------------------------
 global G11_fI G12_fI G22_fI
 global G11_fII G12_fII G22_fII
@@ -44,6 +43,7 @@ radius=6.37122d+06;
 omega=7.292d-05;
 hp=10;
 gp=9.80616;
+% u0=80;% JPC
 u0=(sqrt(gp*hp)/10);
 h0=0;
 %
@@ -160,8 +160,27 @@ p( na,1)=1;p(na,na-1)=1;p(na,na)=4;
 k(1,2)=1;k(1,na)=-1;
 k(na,1)=1;k(na,na-1)=-1;
 
-p_div=p;
-k_div=kxi;
+p=p/6;
+kxi=k./(2*dxi);
+keta=k./(2*deta);
+
+J=diag(ones(na-1,1),-1);
+J(1,end)=1;
+a=25/16;
+b=1/5;
+c=-1/80;
+alpha=3/8;
+k_div=(-a/(2*dxi))*J+(-b/(4*dxi))*J*J+(-c/(6*dxi))*J^3+...
+    (a/(2*dxi))*J^(na-1)+(b/(4*dxi))*J^(na-2)+(c/(6*dxi))*J^(na-3);
+k_div=sparse(k_div);
+
+p_div=diag(alpha*ones(na-1,1),1)+diag(alpha*ones(na-1,1),-1)+diag(ones(na,1));
+p_div(1,end)=alpha;
+p_div(end,1)=alpha;
+p_div=sparse(p_div);
+
+%p_div=p;
+%k_div=kxi;
 
 
 
@@ -400,34 +419,6 @@ for i=1:nn,
     end
 end
 
-for i=1:nn
-    for j=1:nn
-        gr_I(i,j,1)=x_fI(i,j)/radius;
-        gr_I(i,j,2)=y_fI(i,j)/radius;
-        gr_I(i,j,3)=z_fI(i,j)/radius;
-        %
-        gr_II(i,j,1)=x_fII(i,j)/radius;
-        gr_II(i,j,2)=y_fII(i,j)/radius;
-        gr_II(i,j,3)=z_fII(i,j)/radius;
-        %
-        gr_III(i,j,1)=x_fIII(i,j)/radius;
-        gr_III(i,j,2)=y_fIII(i,j)/radius;
-        gr_III(i,j,3)=z_fIII(i,j)/radius;
-        %
-        gr_IV(i,j,1)=x_fIV(i,j)/radius;
-        gr_IV(i,j,2)=y_fIV(i,j)/radius;
-        gr_IV(i,j,3)=z_fIV(i,j)/radius;
-        %
-        gr_V(i,j,1)=x_fV(i,j)/radius;
-        gr_V(i,j,2)=y_fV(i,j)/radius;
-        gr_V(i,j,3)=z_fV(i,j)/radius;
-        %
-        gr_VI(i,j,1)=x_fVI(i,j)/radius;
-        gr_VI(i,j,2)=y_fVI(i,j)/radius;
-        gr_VI(i,j,3)=z_fVI(i,j)/radius;
-    end
-end
-
 %% Options sur les filtres
 [ ftr ] = filtre( na , opt_ftr );
 
@@ -447,13 +438,11 @@ for i=1:nn
         G11_fI(i,j)=dot(gxi_I(i,j,1:3),gxi_I(i,j,1:3));
         G12_fI(i,j)=dot(gxi_I(i,j,1:3),geta_I(i,j,1:3));
         G22_fI(i,j)=dot(geta_I(i,j,1:3),geta_I(i,j,1:3));
-        G=[G11_fI(i,j) G12_fI(i,j); G12_fI(i,j) G22_fI(i,j)];
-        Gd=inv(G);
-        Gd11_fI(i,j)=Gd(1,1);
-        Gd12_fI(i,j)=Gd(1,2);
-        Gd22_fI(i,j)=Gd(2,2);
-        gdxi_I(i,j,1:3)=Gd11_fI(i,j)*gxi_I(i,j,1:3)+Gd12_fI(i,j)*geta_I(i,j,1:3);
-        gdeta_I(i,j,1:3)=Gd12_fI(i,j)*gxi_I(i,j,1:3)+Gd22_fI(i,j)*geta_I(i,j,1:3);
+        gdxi_I(i,j,1:3)=G11_fI(i,j)*gxi_I(i,j,1:3)+G12_fI(i,j)*geta_I(i,j,1:3);
+        gdeta_I(i,j,1:3)=G12_fI(i,j)*gxi_I(i,j,1:3)+G22_fI(i,j)*geta_I(i,j,1:3);
+        Gd11_fI(i,j)=dot(gdxi_I(i,j,1:3),gdxi_I(i,j,1:3));
+        Gd12_fI(i,j)=dot(gdxi_I(i,j,1:3),gdeta_I(i,j,1:3));
+        Gd22_fI(i,j)=dot(gdeta_I(i,j,1:3),gdeta_I(i,j,1:3));
     end
 end
 
@@ -471,13 +460,11 @@ for i=1:nn
         G11_fII(i,j)=dot(gxi_II(i,j,1:3),gxi_II(i,j,1:3));
         G12_fII(i,j)=dot(gxi_II(i,j,1:3),geta_II(i,j,1:3));
         G22_fII(i,j)=dot(geta_II(i,j,1:3),geta_II(i,j,1:3));
-        G=[G11_fII(i,j) G12_fII(i,j); G12_fII(i,j) G22_fII(i,j)];
-        Gd=inv(G);
-        Gd11_fII(i,j)=Gd(1,1);
-        Gd12_fII(i,j)=Gd(1,2);
-        Gd22_fII(i,j)=Gd(2,2);
-        gdxi_II(i,j,1:3)=Gd11_fII(i,j)*gxi_II(i,j,1:3)+Gd12_fII(i,j)*geta_II(i,j,1:3);
-        gdeta_II(i,j,1:3)=Gd12_fII(i,j)*gxi_II(i,j,1:3)+Gd22_fII(i,j)*geta_II(i,j,1:3);
+        gdxi_II(i,j,1:3)=G11_fII(i,j)*gxi_II(i,j,1:3)+G12_fII(i,j)*geta_II(i,j,1:3);
+        gdeta_II(i,j,1:3)=G12_fII(i,j)*gxi_II(i,j,1:3)+G22_fII(i,j)*geta_II(i,j,1:3);
+        Gd11_fII(i,j)=dot(gdxi_II(i,j,1:3),gdxi_II(i,j,1:3));
+        Gd12_fII(i,j)=dot(gdxi_II(i,j,1:3),gdeta_II(i,j,1:3));
+        Gd22_fII(i,j)=dot(gdeta_II(i,j,1:3),gdeta_II(i,j,1:3));
     end
 end
 
@@ -495,13 +482,11 @@ for i=1:nn
         G11_fIII(i,j)=dot(gxi_III(i,j,1:3),gxi_III(i,j,1:3));
         G12_fIII(i,j)=dot(gxi_III(i,j,1:3),geta_III(i,j,1:3));
         G22_fIII(i,j)=dot(geta_III(i,j,1:3),geta_III(i,j,1:3));
-        G=[G11_fIII(i,j) G12_fIII(i,j); G12_fIII(i,j) G22_fIII(i,j)];
-        Gd=inv(G);
-        Gd11_fIII(i,j)=Gd(1,1);
-        Gd12_fIII(i,j)=Gd(1,2);
-        Gd22_fIII(i,j)=Gd(2,2);
-        gdxi_III(i,j,1:3)=Gd11_fIII(i,j)*gxi_III(i,j,1:3)+Gd12_fIII(i,j)*geta_III(i,j,1:3);
-        gdeta_III(i,j,1:3)=Gd12_fIII(i,j)*gxi_III(i,j,1:3)+Gd22_fIII(i,j)*geta_III(i,j,1:3);
+        gdxi_III(i,j,1:3)=G11_fIII(i,j)*gxi_III(i,j,1:3)+G12_fIII(i,j)*geta_III(i,j,1:3);
+        gdeta_III(i,j,1:3)=G12_fIII(i,j)*gxi_III(i,j,1:3)+G22_fIII(i,j)*geta_III(i,j,1:3);
+        Gd11_fIII(i,j)=dot(gdxi_III(i,j,1:3),gdxi_III(i,j,1:3));
+        Gd12_fIII(i,j)=dot(gdxi_III(i,j,1:3),gdeta_III(i,j,1:3));
+        Gd22_fIII(i,j)=dot(gdeta_III(i,j,1:3),gdeta_III(i,j,1:3));
     end
 end
 
@@ -519,13 +504,11 @@ for i=1:nn
         G11_fIV(i,j)=dot(gxi_IV(i,j,1:3),gxi_IV(i,j,1:3));
         G12_fIV(i,j)=dot(gxi_IV(i,j,1:3),geta_IV(i,j,1:3));
         G22_fIV(i,j)=dot(geta_IV(i,j,1:3),geta_IV(i,j,1:3));
-        G=[G11_fIV(i,j) G12_fIV(i,j); G12_fIV(i,j) G22_fIV(i,j)];
-        Gd=inv(G);
-        Gd11_fIV(i,j)=Gd(1,1);
-        Gd12_fIV(i,j)=Gd(1,2);
-        Gd22_fIV(i,j)=Gd(2,2);
-        gdxi_IV(i,j,1:3)=Gd11_fIV(i,j)*gxi_IV(i,j,1:3)+Gd12_fIV(i,j)*geta_IV(i,j,1:3);
-        gdeta_IV(i,j,1:3)=Gd12_fIV(i,j)*gxi_IV(i,j,1:3)+Gd22_fIV(i,j)*geta_IV(i,j,1:3);
+        gdxi_IV(i,j,1:3)=G11_fIV(i,j)*gxi_IV(i,j,1:3)+G12_fIV(i,j)*geta_IV(i,j,1:3);
+        gdeta_IV(i,j,1:3)=G12_fIV(i,j)*gxi_IV(i,j,1:3)+G22_fIV(i,j)*geta_IV(i,j,1:3);
+        Gd11_fIV(i,j)=dot(gdxi_IV(i,j,1:3),gdxi_IV(i,j,1:3));
+        Gd12_fIV(i,j)=dot(gdxi_IV(i,j,1:3),gdeta_IV(i,j,1:3));
+        Gd22_fIV(i,j)=dot(gdeta_IV(i,j,1:3),gdeta_IV(i,j,1:3));
     end
 end
 
@@ -543,13 +526,11 @@ for i=1:nn
         G11_fV(i,j)=dot(gxi_V(i,j,1:3),gxi_V(i,j,1:3));
         G12_fV(i,j)=dot(gxi_V(i,j,1:3),geta_V(i,j,1:3));
         G22_fV(i,j)=dot(geta_V(i,j,1:3),geta_V(i,j,1:3));
-        G=[G11_fV(i,j) G12_fV(i,j); G12_fV(i,j) G22_fV(i,j)];
-        Gd=inv(G);
-        Gd11_fV(i,j)=Gd(1,1);
-        Gd12_fV(i,j)=Gd(1,2);
-        Gd22_fV(i,j)=Gd(2,2);
-        gdxi_V(i,j,1:3)=Gd11_fV(i,j)*gxi_V(i,j,1:3)+Gd12_fV(i,j)*geta_V(i,j,1:3);
-        gdeta_V(i,j,1:3)=Gd12_fV(i,j)*gxi_V(i,j,1:3)+Gd22_fV(i,j)*geta_V(i,j,1:3);
+        gdxi_V(i,j,1:3)=G11_fV(i,j)*gxi_V(i,j,1:3)+G12_fV(i,j)*geta_V(i,j,1:3);
+        gdeta_V(i,j,1:3)=G12_fV(i,j)*gxi_V(i,j,1:3)+G22_fV(i,j)*geta_V(i,j,1:3);
+        Gd11_fV(i,j)=dot(gdxi_V(i,j,1:3),gdxi_V(i,j,1:3));
+        Gd12_fV(i,j)=dot(gdxi_V(i,j,1:3),gdeta_V(i,j,1:3));
+        Gd22_fV(i,j)=dot(gdeta_V(i,j,1:3),gdeta_V(i,j,1:3));
     end
 end
 
@@ -567,12 +548,10 @@ for i=1:nn
         G11_fVI(i,j)=dot(gxi_VI(i,j,1:3),gxi_VI(i,j,1:3));
         G12_fVI(i,j)=dot(gxi_VI(i,j,1:3),geta_VI(i,j,1:3));
         G22_fVI(i,j)=dot(geta_VI(i,j,1:3),geta_VI(i,j,1:3));
-        G=[G11_fVI(i,j) G12_fVI(i,j); G12_fVI(i,j) G22_fVI(i,j)];
-        Gd=inv(G);
-        Gd11_fVI(i,j)=Gd(1,1);
-        Gd12_fVI(i,j)=Gd(1,2);
-        Gd22_fVI(i,j)=Gd(2,2);
-        gdxi_VI(i,j,1:3)=Gd11_fVI(i,j)*gxi_VI(i,j,1:3)+Gd12_fVI(i,j)*geta_VI(i,j,1:3);
-        gdeta_VI(i,j,1:3)=Gd12_fVI(i,j)*gxi_VI(i,j,1:3)+Gd22_fVI(i,j)*geta_VI(i,j,1:3);
+        gdxi_VI(i,j,1:3)=G11_fVI(i,j)*gxi_VI(i,j,1:3)+G12_fVI(i,j)*geta_VI(i,j,1:3);
+        gdeta_VI(i,j,1:3)=G12_fVI(i,j)*gxi_VI(i,j,1:3)+G22_fVI(i,j)*geta_VI(i,j,1:3);
+        Gd11_fVI(i,j)=dot(gdxi_VI(i,j,1:3),gdxi_VI(i,j,1:3));
+        Gd12_fVI(i,j)=dot(gdxi_VI(i,j,1:3),gdeta_VI(i,j,1:3));
+        Gd22_fVI(i,j)=dot(gdeta_VI(i,j,1:3),gdeta_VI(i,j,1:3));
     end
 end

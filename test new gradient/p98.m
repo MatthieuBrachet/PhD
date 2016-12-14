@@ -11,7 +11,7 @@ global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
 global scheme
 
-n=127;
+n=31;
 mod98; 
 
 [funfI,funx,funy,funz]=fun3(x_fI,y_fI,z_fI);
