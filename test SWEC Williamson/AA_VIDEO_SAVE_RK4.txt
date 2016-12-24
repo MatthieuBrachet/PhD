@@ -102,3 +102,26 @@ coriolis parameter     : 7.292e-05
 ***********************************
   
   
+date : 17-Dec-2016
+ref. : 7366815254
+***********************************
+test : 4
+---------- numerical data ---------
+number of points  : 51
+time step         : 289.9799
+cfl               : 0.7
+type du filtre    : adaptative
+ordre du filtre p.: inf
+ordre du filtre   : redonnet4
+ordre du filtre   : redonnet10
+scheme            : compact4
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+use Simpson integration for Galewsky test
+***********************************
+  
+  

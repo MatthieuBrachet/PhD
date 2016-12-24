@@ -1,19 +1,19 @@
 clc; clear all; close all;
 
-n=1000;
+n=200;
 dxi=(1./n);
 x=[0:dxi:1-dxi]';
 
 % filtre adaptatif
-opt_det='redonnet6';
-opt_ftra='redonnet4';
+opt_det='redonnet10';
+opt_ftra='redonnet6';
 [ detec ] = filtre74( n , opt_det );
 [ LAP_adap, B_adap, ftra ] = adaptative74( n, opt_ftra );
 epsilon=10^-16;
 rth=100;
 
 % filtre conventionnel
-opt_ftr4='redonnet4';
+opt_ftr4='redonnet6';
 [ ftr4 ] = filtre74( n , opt_ftr4 );
 
 opt_ftr10='redonnet10';
@@ -23,7 +23,7 @@ Ea=[];
 E4=[];
 E10=[];
 N=[];
-for i=1:floor(n/2)-1
+for i=1:floor(n/2)+1
     u=cos(2*pi*i*x);
     
     %% filtre adaptatif

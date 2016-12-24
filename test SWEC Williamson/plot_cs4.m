@@ -1,4 +1,5 @@
 function []=plot_cs4(n,nn)
+% images de panels
 % PLOT THE CUBED SPHERE GRID
 % J-P. CROISILLE - JULY 20 2010
 % clear all;

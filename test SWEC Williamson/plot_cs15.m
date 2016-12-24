@@ -1,5 +1,5 @@
 function []=plot_cs15(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
-% PLOT THE CUBED SPHERE GRID
+% PLOT THE CUBED SPHERE and the solution with coast.
 % J-P. CROISILLE - JULY 20 2010
 global radius
 

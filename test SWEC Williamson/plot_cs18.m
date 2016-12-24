@@ -1,5 +1,6 @@
 function []=plot_cs18(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe,mm,MM,nbr)
-% projection stereographique et tracé des contours entre mm et MM
+% projection stereographique et tracé des contours entre mm et MM en trait
+% plein
 global x_fI y_fI z_fI;
 global x_fII y_fII z_fII;
 global x_fIII y_fIII z_fIII;

@@ -1,4 +1,5 @@
 function []=plot_cs5(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
+% tracé de la CS avec maillage
 % PLOT THE CUBED SPHERE GRID
 % J-P. CROISILLE - JULY 20 2010
 global test

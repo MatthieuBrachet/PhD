@@ -101,22 +101,29 @@ elseif test == 3
     vt(:,:,3)=uu.*elambda_z + vv.*eteta_z;
 
     %% integrale
-    n=4000;
+
+    nnn=10000;
     a=-pi/2;
     b=teta;
-    h=(b-a)/n;
-    %fa
     fa=fun11(a);
-    %
-    % fb
     fb=fun11(b);
-    %
-    int=0.5*(fa+fb).*h;
-    for kk=1:n-1
-        xx=a+kk*h;
-        fxx=fun11(xx);
-        int=int+fxx.*h;
+    h=(b-a)/nnn;
+
+    s1=0;
+    for kk=1:nnn/2-1
+        x=a+(2*kk).*h;
+        fx=fun11(x);
+        s1=s1+fx;
     end
+
+    s2=0;
+    for kk=1:nnn/2
+        x=a+(2*kk-1).*h;
+        fx=fun11(x);
+        s2=s2+fx;
+    end
+
+    int=(h/3).*(fa+2*s1+4*s2+fb);
 
     %% hauteur 4
     ht=h0-int/gp;
@@ -143,22 +150,30 @@ elseif test == 4
     vt(:,:,3)=uu.*elambda_z + vv.*eteta_z;
 
     %% integrale
-    nnn=4000;
+    
+    nnn=10000;
     a=-pi/2;
     b=teta;
-    h=(b-a)/nnn;
-    %fa
     fa=fun11(a);
-    %
-    % fb
     fb=fun11(b);
-    %
-    int=0.5*(fa+fb).*h;
-    for kk=1:nnn-1
-        xx=a+kk*h;
-        fxx=fun11(xx);
-        int=int+fxx.*h;
+    h=(b-a)/nnn;
+
+    s1=0;
+    for kk=1:nnn/2-1
+        x=a+(2*kk).*h;
+        fx=fun11(x);
+        s1=s1+fx;
     end
+
+    s2=0;
+    for kk=1:nnn/2
+        x=a+(2*kk-1).*h;
+        fx=fun11(x);
+        s2=s2+fx;
+    end
+
+    int=(h/3).*(fa+2*s1+4*s2+fb);
+
 
     %% perturbation
     phihat=120;

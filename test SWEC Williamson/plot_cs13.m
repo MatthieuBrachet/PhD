@@ -25,7 +25,7 @@ MIV=min(min(funfIVe));
 MV=min(min(funfVe));
 MVI=min(min(funfVIe));
 MIN=min([MI,MII,MIII,MIV,MV,MVI]);
-v=linspace(MAX,MIN,100);
+v=linspace(MAX,MIN,26);
 dat=(MAX+MIN)/2;
 
 

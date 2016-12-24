@@ -13,11 +13,11 @@ global alpha
 
 
 test=1;
-opt_ftr='bogey6';
-opt_ftr1='redonnet2';
+opt_ftr='redonnet10';
+opt_ftr1='redonnet10';
 scheme='compact4';
 
-NN=[10;20;40;80];
+NN=[10;20;40;80;160];
 E=[];
 H=[];
 for i=1:length(NN)
@@ -46,9 +46,7 @@ for i=1:length(NN)
     
     
     [funftI,funftII,funftIII,funftIV,funftV,funftVI]=...
-            ftr_test(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI,n,nn);
-    [funftI,funftII,funftIII,funftIV,funftV,funftVI]=...
-        ftr_adapt74(funftI,funftII,funftIII,funftIV,funftV,funftVI,n,nn);
+            ftr_mixte74(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI,n,nn);
         
     ee_fI=abs(funftI-ht_fI)./abs(ht_fI);
     ee_fII=abs(funftII-ht_fII)./abs(ht_fII);
@@ -66,7 +64,7 @@ for i=1:length(NN)
 end
 
 figure(1)
-loglog(H,E,'o-',H,H.^6,'x-')
+loglog(H,E,'o-',H,H.^10,'x-')
 legend('numerical','theorical')
 grid on
 
@@ -84,3 +82,5 @@ title('initial map')
 figure(4)
 plot_cs11(n,nn,funftI,funftII,funftIII,funftIV,funftV,funftVI);
 title('filtered map')
+
+fig_placier;

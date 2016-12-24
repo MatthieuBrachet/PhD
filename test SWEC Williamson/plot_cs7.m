@@ -1,4 +1,5 @@
 function []=plot_cs7(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe)
+% classic plot en projection stéréographique
 global x_fI y_fI z_fI;
 global x_fII y_fII z_fII;
 global x_fIII y_fIII z_fIII;
@@ -319,5 +320,5 @@ plot3(lam_Ib(:,nn),the_Ib(:,nn),funfIeb(:,nn)+epsilon,'k','LineWidth',1.25); hol
 
 shading interp;
 set(gca, 'CLim', [umin, umax]);
-colorbar;
+%colorbar;
 view(2);
