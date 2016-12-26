@@ -7,7 +7,7 @@
 
 \subsection{Coordonnées et base locale}
 
-On décrit dans cette partie les coordonnées d'un point de la Cube-Sphere. Un point $\mathbf{x} \in \mathbb{S}_a^2$ est localisée exactement sur un panel $K \in \left\lbrace I, II, III, IV, V, VI \right\rbrace$ et à l'intersection de deux cercles : $C_{\xi}$ et $C_{\eta}$. $(\xi,\eta)$ correspond aux coordonnées gnonomiques, en effet si $\mathbf{x} \in (x,y,z)^T \in \mathbb{R}^3 \cap \mathbb{S}_a^2$ alors :
+On décrit dans cette partie les coordonnées d'un point de la Cube-Sphere. Un point $\mathbf{x} \in \mathbb{S}_a^2$ est localisée exactement sur un panel $K \in \left\lbrace I, II, III, IV, V, VI \right\rbrace$ et à l'intersection de deux cercles : $C_{\xi}$ et $C_{\eta}$. $(\xi,\eta)$ correspond aux coordonnées gnonomiques, en effet si $\mathbf{x} = (x,y,z)^T \in \mathbb{R}^3 \cap \mathbb{S}_a^2$ alors :
 
 \begin{equation}
 \left\lbrace
@@ -18,10 +18,48 @@ On décrit dans cette partie les coordonnées d'un point de la Cube-Sphere. Un p
 \right.
 \end{equation}
 
-Le point $\mathbf{x}$ est aussi localisé grâce à ses coordonnées $(\alpha, \beta)$ avec $\alpha$ l'absisse curviligne entre $\mathbf{x}$ et l'équateur Nord-Sud le long du cercle $C_{\eta}$ et $\beta$ entre $\mathbf{x}$ et l'équateur Est-Ouest.
+Le point $\mathbf{x}$ est aussi localisé grâce à ses coordonnées $(\alpha, \beta)$ avec $\alpha$ l'absisse curviligne entre $\mathbf{x}$ et l'équateur Nord-Sud le long du cercle $C_{\eta}$ et $\beta$ entre $\mathbf{x}$ et l'équateur Est-Ouest (Voir Figure \ref{alpha beta coord}).
+
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=1.8]
+	\draw (0,0) node {$\bullet$} ;
+	\draw [>=stealth, ->] (0,0) -- (1.5,0) ; 
+	\draw (1.5,0) node[above right]{$y$} ;   
+	\draw [>=stealth, ->] (0,0) -- (1.1,-0.8) ; 
+	\draw (1.1,-0.8) node[above right]{$x$} ; 
+	\draw [>=stealth, ->] (0,0) -- (0,1.5) ; 
+	\draw (0,1.5) node[above right]{$z$} ; 
+
+    \draw[color=green] (0.065,0.5) arc (85:68:1cm and 0.5cm);
+    \draw[color=green] (0.2,0.55) node{$\alpha$} ;
+    \draw[color=red] (0.4,-0.05) arc (-5:25:0.41cm and 1cm);
+    \draw[color=red] (0.48,0.2) node{$\beta$} ;
+    \draw (-1,0)[dotted, color=black!40] arc (180:360:1cm and -0.5cm);
+    \draw (0,1)[dotted, color=black!40] arc (90:270:-0.4cm and 1cm);
+    \draw (-1,0)[dotted, color=black!20] arc (180:360:1cm and 0.5cm);
+    \draw (0,1)[dotted, color=black!20] arc (90:270:0.4cm and 1cm);
+    
+    \draw (-1,0) arc (180:360:1cm and 0.06cm);
+    \draw (0,1) arc (90:270:-0.08cm and 1cm);
+    \draw[dashed] (-1,0) arc (180:360:1cm and -0.06cm);
+    \draw[dashed] (0,1) arc (90:270:0.08cm and 1cm);
+    
+    \draw (0.36,0.46) node {$\bullet$} ;
+	\draw (0.36,0.46) node[above right]{$\mathbf{x}$} ;
+    \draw (0,0) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
+\end{tikzpicture}
+\caption{Coordonnées sur la Cube-Sphere}
+\label{alpha beta coord}
+\end{center}
+\end{figure}
+
+
 
 Dans cette partie, on se concentre sur le panel $I$ pour le calcul.
-Entre les différents systèmes de localication, les relations suivantes sont vérifiées :
+Entre les différents systèmes de localisation, les relations suivantes sont vérifiées :
 
 \begin{equation}
 \left\lbrace
