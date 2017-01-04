@@ -17,7 +17,7 @@ L'équation Shallow Water obtenue était la suivante :
 \right.
 \end{equation}
 
-avec $\eta^{\star} = \eta - \eta_s$, $\eta_s$ représentant les reliefs sur la sphère.
+avec $\eta^{\star} = \eta - \eta_s$, $\eta_s$ représentant les reliefs sur la sphère. On suppose $\eta_s$ indépendant du temps $t$.
 
 Il peut être délicat de travailler directement avec le terme $\left( \mathbf{u} \cdot \nabla \right) \mathbf{u}$. Pour éviter de discrétiser directement ce terme, on se repose sur la formule suivante :
 
@@ -79,12 +79,33 @@ avec $\zeta=\left( \nabla \wedge \mathbf{u} \right)\cdot\mathbf{k}$.
 \end{itemize}
 \end{proposition}
 
-VOIR POUR LA CONSERVATION DE L'ENERGIE ET DE L'ENSTROPIE POTENTIELLE.
+\begin{com}
+Démontrer la conservation de l'enstrophie et de l'énergie potentielle.
+\end{com}
 
+\section{Solution stationnaire zonale}
+
+Dans cette partie, on se cherche $(\mathbf{u}, \eta)$ une solution zonale stationnaire de \eqref{SWEC_new}.
+
+On considère $\mathbf{u}$ sous la forme :
+
+\begin{equation}
+\mathbf{u}(\theta) = u(\theta) \mathbf{e}_{\lambda}
+\end{equation}
+
+et on cherche la fonction $\eta$ associée.
+
+En écrivant \eqref{SWEC_new} dans le système de coordonnées $(\lambda, \theta)$ et en considèrant que $\mathbf{u}$ indépendant de $\lambda$, comme $(\mathbf{u}, \eta)$ est une solution stationnaire :
+
+\begin{equation}
+
+\end{equation}
 
 \section{Test 2 de D. L. Williamson \textit{et al.} : Etat d'équilibre zonal}
 
-NOTE : IL SERAIT INTERESSANT DE RELIER CE TEST AVEC LA SOLUTION STATIONNAIRE DE GALEWSKI ET LES CHANGEMENTS DE REPERES DE JABLONOWSKI. JE PENSE QUE C EST POSSIBLE.
+\begin{com}
+il serait intéréssant de relier ce test avec Galewsky non?
+\end{com}
 
 Le second test de D. L. Williamson \textit{et al.} \cite{Williamson1992} est un test visant à observer la conservation d'une solution stationnaire et zonale pour un schéma numérique. On cherche à observer les conservations d'énergie, de masse et d'enstropie potentielle.
 
@@ -123,16 +144,42 @@ $$ f = 2 \omega sin \theta' = 2 \omega \left( -cos \lambda cos \theta sin \alpha
 
 Pour ce test, issu de \cite{Williamson1992}, aucune solution analyique n'est connue. On compare les résultats à différents temps et on observe les relations de conservations souhaitées.
 
-Le champ de vitesse itinial $\mathbf{u}$ est donnée par \eqref{eq:williamson2_u} avec $\alpha=0$ et la hauteur d'atmosphère $\eta$ par \eqref{eq:williamson2_h}. En revanche, contrairement au test précédent, on choisit ADD VALUES.
+Le champ de vitesse itinial $\mathbf{u}$ est donnée par \eqref{eq:williamson2_u} avec $\alpha=0$ et la hauteur d'atmosphère $\eta$ par \eqref{eq:williamson2_h}. En revanche, contrairement au test précédent, on choisit $u_0=20m/s$.
 Cette condition initiale stationnaire est perturbée par l'ajout de reliefs. On considère $\eta_s$ les reliefs de la sphère donnés par :
 
 \begin{equation}
-h_s = h_{s_0} \left( 1 - \dfrac{r}{R} \right)
+\eta_s = \eta_{s_0} \left( 1 - \dfrac{r}{R} \right)
 \end{equation}
 
-avec $h_{s_0}=2000m$, $R=\pi/9$ et $r = \sqrt{min\left( R^2, \left( \lambda-\lambda_c \right)^2 + \left( \theta-\theta_c \right)^2 \right)}$.
+avec $\eta_{s_0}=5960m$, $R=\pi/9$ et $r = \sqrt{min\left( R^2, \left( \lambda-\lambda_c \right)^2 + \left( \theta-\theta_c \right)^2 \right)}$.
 Le centre de la montagne est positionné en $(\lambda_c, \theta_c) = (3\pi/2, \pi/6)$.
 
-On observe la solution à $5$ , $10$ et $15$ jours.
+On observe la solution à $5$ , $10$ et $15$ jours en Figure \ref{Williamson 5 - visuel}. Les relations de conservations sont aussi données par : \ref{Williamson 5 - conservation}
 
-\section{Test de Galewsky TBA}
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.4]{ref_7366847796_snapshot_intermediaire499.png}\\
+\includegraphics[scale=0.4]{ref_7366847796_snapshot_intermediaire999.png}\\
+\includegraphics[scale=0.4]{ref_7366847796_snapshot_intermediaire1499.png}
+\end{center}
+\caption{Solution à $t=5$jours, $10$ jours et $15$ jours, $N=31$, $CFL=0.9$}
+\begin{com}
+NOTA BENE : ICI $(\lambda_c, \theta_c)=(\pi/4, \pi/6)$ PAR COMODITE VISUELLE.
+\end{com}
+\label{Williamson 5 - visuel} 
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.4]{ref_7366847796_conservation.png}\\
+\end{center}
+\caption{Conervation pour le test de la montagne isolée, $N=31$, $CFL=0.9$}
+\begin{com}
+NOTA BENE : ICI $(\lambda_c, \theta_c)=(\pi/4, \pi/6)$ PAR COMODITE VISUELLE ET L'INTEGRATION EST DISCUTABLE.
+\end{com}
+\label{Williamson 5 - conservation}
+\end{figure}
+
+\section{Solution stationnaire perturbée}
+
+Le test de \cite{Galewsky2004}
