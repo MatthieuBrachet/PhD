@@ -28,7 +28,7 @@ global teta0 teta1
 
 comment='.';
 test=4;
-video = 'no';
+video = 'yes';
 nper=1;
 sauvegarde = 1;
 filtre='classic';
@@ -38,8 +38,8 @@ opt_ftr1='redonnet6';
 scheme='compact4';
 snapshot='yes';
 
-n=95; % for snapshot, n must be in the form 2^m-1 !
-ndaymax=6;
+n=71; % for snapshot, n must be in the form 2^m-1 !
+ndaymax=10;
 mod74
 
 ccor=radius*omega;
