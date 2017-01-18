@@ -27,8 +27,8 @@ global ftr detec
 global teta0 teta1
 
 comment='.';
-test=4;
-video = 'yes';
+test=1;
+video = 'no';
 nper=1;
 sauvegarde = 1;
 filtre='classic';
@@ -38,9 +38,10 @@ opt_ftr1='redonnet6';
 scheme='compact4';
 snapshot='yes';
 
-n=71; % for snapshot, n must be in the form 2^m-1 !
-ndaymax=10;
+n=31; % for snapshot, n must be odd !
+ndaymax=15;
 mod74
+disp('mod74 : ok')
 
 ccor=radius*omega;
 cgrav=sqrt(h0*gp);
@@ -50,7 +51,7 @@ c=max([cgrav,ccor,cvit]);
 cfl=0.9;
 ddt=radius*dxi*cfl/c;
 Tmax=ndaymax*3600*24;
-itermax=10000;
+itermax=5000;
 
 tstart=cputime;
 ref=floor(10000*now);
@@ -360,7 +361,7 @@ while t<Tmax && iter<itermax
         hFig = figure(9);
         set(gcf,'PaperPositionMode','auto')
         set(hFig, 'Position', [50 50 1000 500])
-        plot_cs7(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI);
+        plot_cs100(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI);
         title(['vorticity at time : ', num2str(time(end))])
         hold off
 
@@ -379,16 +380,20 @@ while t<Tmax && iter<itermax
         pas=.2*10^-4;
         mmin=min(min([vort_fI vort_fII vort_fIII vort_fIV vort_fV vort_fVI]));
         mmax=max(max([vort_fI vort_fII vort_fIII vort_fIV vort_fV vort_fVI]));
+        v=mmin:pas:mmax;
  
         figure(100)
         hFig = figure(100);
         set(gcf,'PaperPositionMode','auto')
         set(hFig, 'Position', [50 50 1000 500])
         if test == 4
-            plot_cs19(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI,mmin,mmax,pas);
+            plot_cs101(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI,v);
             title(['vorticity at time : ', num2str(time(end))])
+        elseif test == 1
+            plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050:50:5950);
+            title(['solution at time : ', num2str(time(end))])
         else
-            plot_cs17(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050,5950,50);
+            plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
             title(['solution at time : ', num2str(time(end))])
         end
 
@@ -404,7 +409,7 @@ while t<Tmax && iter<itermax
     
     iter=iter+1;
     clc; 
-    disp([test iter min(itermax,floor(Tmax/ddt)) erri(end) err_enstrophy(end)]);
+    disp(real([test iter min(itermax,floor(Tmax/ddt)) erri(end) err_enstrophy(end)]));
 end
 disp('calcul : OK');
 disp('plot...');
@@ -495,7 +500,7 @@ if strcmp(snapshot,'yes')==1
     hFig = figure(4);
     set(gcf,'PaperPositionMode','auto')
     set(hFig, 'Position', [50 50 1000 500])
-    plot_cs7(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
+    plot_cs100(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
     title(['vorticity at time : ', num2str(time(end))])
     colorbar
     if sauvegarde == 1
@@ -506,12 +511,13 @@ if strcmp(snapshot,'yes')==1
     pas=.2*10^-4;
     mmin=min(min([vort_fI vort_fII vort_fIII vort_fIV vort_fV vort_fVI]));
     mmax=max(max([vort_fI vort_fII vort_fIII vort_fIV vort_fV vort_fVI]));
+    v=mmin:pas:mmax;
 
     figure(5)
     hFig = figure(5);
     set(gcf,'PaperPositionMode','auto')
     set(hFig, 'Position', [50 50 1000 500])
-    plot_cs19(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI,mmin,mmax,pas);
+    plot_cs101(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI,v);
     title(['vorticity at time : ', num2str(time(end))])
 end
 
@@ -547,7 +553,7 @@ figure(9)
 hFig = figure(9);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
-plot_cs7(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
+plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
 title(['calculated solution at time = ', num2str(time(end))])
 colorbar
 if sauvegarde==1
@@ -560,7 +566,7 @@ figure(10)
 hFig = figure(10);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
-plot_cs17(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050,5950,50);
+plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050:50:5950);
 title(['calculated solution at time = ', num2str(time(end))])
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_solution.png'])
@@ -574,7 +580,7 @@ figure(11)
 hFig = figure(11);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
-plot_cs7(n,nn,div_fI, div_fII, div_fIII, div_fIV, div_fV, div_fVI)
+plot_cs100(n,nn,div_fI, div_fII, div_fIII, div_fIV, div_fV, div_fVI)
 title(['divergence at time : ', num2str(time(end))])
 colorbar
 if sauvegarde==1
@@ -595,14 +601,6 @@ if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_gibbs.png'])
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_gibbs']);
 end 
-
-figure(14)
-hFig = figure(14);
-set(gcf,'PaperPositionMode','auto')
-set(hFig, 'Position', [50 50 1000 500])
-plot_cs7(n,nn,det_fI,det_fII,det_fIII,det_fIV,det_fV,det_fVI)
-title(['detection oscillations : ', num2str(time(end))])
-colorbar
 
 fig_placier
 disp(['temps de calcul (sans les graphiques) : ', num2str(tend)])

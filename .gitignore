@@ -21,6 +21,7 @@
 *.lof
 *.lot
 *.synctex
+*.dat
 
 
 !./test\ advection\ CS/redaction/Images/*.png

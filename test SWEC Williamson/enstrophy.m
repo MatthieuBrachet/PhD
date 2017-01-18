@@ -55,9 +55,10 @@ for i=1:n1
     end
 end
 
-
+nrm='cor_int';
+%nrm='int';
 [~,~,~,~,~,~,PE]=...
-    nrm74(xi_fI,xi_fII,xi_fIII,xi_fIV,xi_fV,xi_fVI,n,nn,'int');
+    nrm74(xi_fI,xi_fII,xi_fIII,xi_fIV,xi_fV,xi_fVI,n,nn,nrm);
 
 
 end

@@ -35,12 +35,13 @@ for i=1:n1
         norm_VI(i,j)=dot(hstar_fII(i,j)*vt_fVI(i,j,:),vt_fVI(i,j,:));
     end
 end
-
+nrm='cor_int';
+%nrm='int';
 [~,~,~,~,~,~,totalu]=...
-    nrm74(norm_I,norm_II,norm_III,norm_IV,norm_V,norm_VI,n,nn,'int');
+    nrm74(norm_I,norm_II,norm_III,norm_IV,norm_V,norm_VI,n,nn,nrm);
 
 [~,~,~,~,~,~,totalh]=...
-    nrm74(ht_fI.^2-hs_fI.^2,ht_fII.^2-hs_fII.^2,ht_fIII.^2-hs_fIII.^2,ht_fIV.^2-hs_fIV.^2,ht_fV.^2-hs_fV.^2,ht_fVI.^2-hs_fVI.^2,n,nn,'int');
+    nrm74(ht_fI.^2-hs_fI.^2,ht_fII.^2-hs_fII.^2,ht_fIII.^2-hs_fIII.^2,ht_fIV.^2-hs_fIV.^2,ht_fV.^2-hs_fV.^2,ht_fVI.^2-hs_fVI.^2,n,nn,nrm);
 
 E=0.5*totalu+0.5*totalh;
 

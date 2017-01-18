@@ -24,7 +24,9 @@ hstar_fV=ht_fV-hs_fV;
 [hs_fVI] = relief(x_fVI,y_fVI,z_fVI);
 hstar_fVI=ht_fVI-hs_fVI;
 
-M=nrm74(hstar_fI,hstar_fII,hstar_fIII,hstar_fIV,hstar_fV,hstar_fVI,n,nn,'int');
+nrm='cor_int';
+%nrm='int';
+M=nrm74(hstar_fI,hstar_fII,hstar_fIII,hstar_fIV,hstar_fV,hstar_fVI,n,nn,nrm);
 
 end
 

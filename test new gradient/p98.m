@@ -9,10 +9,16 @@ global x_fIII y_fIII z_fIII;
 global x_fIV y_fIV z_fIV;
 global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
-global scheme
+global scheme opt_ftr opt_detec opt_ftr1
 
-n=31;
-mod98; 
+
+scheme='compact4';
+opt_ftr='redonnet10';
+opt_detec='redonnet10';
+opt_ftr1='redonnet6';
+
+n=127;
+mod101; 
 
 [funfI,funx,funy,funz]=fun3(x_fI,y_fI,z_fI);
 [funfII,funx,funy,funz]=fun3(x_fII,y_fII,z_fII);
@@ -25,7 +31,7 @@ tic
 for ite=1:50,
     clc; ite
     [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=...
-      gr99(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn);
+      gr101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn);
 end
 toc
 
@@ -235,3 +241,29 @@ errIV_28=max(max(abs(errg_fIV)));
 errV_29=max(max(abs(errg_fV)));
 errVI_30=max(max(abs(errg_fVI)));
 err_grad_31=max([errVI_30,errV_29,errIV_28,errIII_27,errII_26,errI_25])
+
+% figure(1)
+% surf(errg_fI)
+% title('panel I')
+% 
+% figure(2)
+% surf(errg_fII)
+% title('panel II')
+% 
+% figure(3)
+% surf(errg_fIII)
+% title('panel III')
+% 
+% figure(4)
+% surf(errg_fIV)
+% title('panel IV')
+% 
+% figure(5)
+% surf(errg_fV)
+% title('panel V')
+% 
+% figure(6)
+% surf(errg_fVI)
+% title('panel VI')
+% 
+% fig_placier

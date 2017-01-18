@@ -82,4 +82,3 @@ sh1i5=sh1i4*sh1i;
 ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*(sh15+sh1i5);
 ftr=sparse(ftr);
 end
-

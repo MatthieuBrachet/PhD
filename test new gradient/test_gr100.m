@@ -31,6 +31,28 @@ mod98;
 [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI,vad_fIt]=...
       gr100t(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn);
   
+  
 figure(1)
 surf(vad_fI-vad_fIt)
-title('erreur')
+title('erreur globale')
+% 
+% figure(2)
+% surf(vad_fI(1:nn-1,1:nn-1)-vad_fIt(1:nn-1,1:nn-1))
+% title('erreur face A')
+% 
+% figure(3)
+% surf(vad_fI(1:nn-1,nn:2*(nn-1))-vad_fIt(1:nn-1,nn:2*(nn-1)))
+% title('erreur face B')
+% 
+% figure(4)
+% surf(vad_fI(1:nn-1,2*nn-1:3*(nn-1))-vad_fIt(1:nn-1,2*nn-1:3*(nn-1)))
+% title('erreur face C')
+% 
+% figure(5)
+% surf(vad_fI(1:nn-1,3*(nn-1)+1:end)-vad_fIt(1:nn-1,3*(nn-1)+1:end))
+% title('erreur face D')
+%  
+
+fig_placier;
+
+

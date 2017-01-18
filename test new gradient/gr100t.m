@@ -1,7 +1,6 @@
-function [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI,va_fI]=...
+function [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI,vb_fV]=...
     gr100t(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
 global xi eta dxi deta
-global beta betacr;
 global pg kg;
 global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
@@ -33,7 +32,7 @@ for i=1:nn-1,
     funspline_x(1)=(1/alfasp)*((betasp/deta)*(funspline(2)-funspline(1))... % U_x,0
         +(gamasp/(2*deta)*(funspline(3)-funspline(1)))...
         -betasp*funspline_x(2)-gamasp*funspline_x(3));
-    funspline_x(nn)=(1/alfasp)*(-(betasp/alfasp)*(funspline(nn-1)-funspline(nn))... % U_x,N
+    funspline_x(nn)=(1/alfasp)*(-(betasp/deta)*(funspline(nn-1)-funspline(nn))... % U_x,N
         -(gamasp/(2*deta))*(funspline(nn-2)-funspline(nn))...
         +betasp*funspline_x(nn-1)+gamasp*funspline_x(nn-2));
     
@@ -68,7 +67,7 @@ for i=1:nn-1,
     funspline_x(1)=(1/alfasp)*((betasp/deta)*(funspline(2)-funspline(1))... 
         +(gamasp/(2*deta)*(funspline(3)-funspline(1)))...
         -betasp*funspline_x(2)-gamasp*funspline_x(3));
-    funspline_x(nn)=(1/alfasp)*(-(betasp/alfasp)*(funspline(nn-1)-funspline(nn))...
+    funspline_x(nn)=(1/alfasp)*(-(betasp/deta)*(funspline(nn-1)-funspline(nn))...
         -(gamasp/(2*deta))*(funspline(nn-2)-funspline(nn))...
         +betasp*funspline_x(nn-1)+gamasp*funspline_x(nn-2));
 
@@ -94,7 +93,7 @@ funaI=(3/dxi)*va_fI(:,1:nn);
 xsmIa=kg*funaI;
 vad_fI(:,1:nn)=pg\xsmIa;
 
-%% RESEAU 2: ASSEMBLAGE DES DONNEES SUR LE RESEAU I-BETA
+%% SET 2
 
 vb_fI=zeros(nn,4*(nn-1));
 % PANEL I :
@@ -112,7 +111,7 @@ for j=1:nn-1,
     funspline_x(1)=(1/alfasp)*((betasp/dxi)*(funspline(2)-funspline(1))... % U_x,0
         +(gamasp/(2*dxi)*(funspline(3)-funspline(1)))...
         - betasp*funspline_x(2)-gamasp*funspline_x(3));
-    funspline_x(nn)=(1/alfasp)*(-(betasp/alfasp)*(funspline(nn-1)-funspline(nn))... % U_x,N
+    funspline_x(nn)=(1/alfasp)*(-(betasp/dxi)*(funspline(nn-1)-funspline(nn))... % U_x,N
         -(gamasp/(2*dxi))*(funspline(nn-2)-funspline(nn))...
         + betasp*funspline_x(nn-1)+gamasp*funspline_x(nn-2));
 
@@ -154,7 +153,7 @@ for j=1:nn-1,
     funspline_x(1)=(1/alfasp)*((betasp/dxi)*(funspline(2)-funspline(1))... % U_x,0
         +(gamasp/(2*dxi)*(funspline(3)-funspline(1)))...
         - betasp*funspline_x(2)-gamasp*funspline_x(3));
-    funspline_x(nn)=(1/alfasp)*(-(betasp/alfasp)*(funspline(nn-1)-funspline(nn))... % U_x,N
+    funspline_x(nn)=(1/alfasp)*(-(betasp/dxi)*(funspline(nn-1)-funspline(nn))... % U_x,N
         -(gamasp/(2*dxi))*(funspline(nn-2)-funspline(nn))...
         + betasp*funspline_x(nn-1)+gamasp*funspline_x(nn-2));
 
@@ -204,7 +203,7 @@ for i=1:nn-1,
     funspline_x(1)=(1/alfasp)*((betasp/dxi)*(funspline(2)-funspline(1))... % U_x,0
         +(gamasp/(2*dxi)*(funspline(3)-funspline(1)))...
         -betasp*funspline_x(2)-gamasp*funspline_x(3));
-    funspline_x(nn)=(1/alfasp)*(-(betasp/alfasp)*(funspline(nn-1)-funspline(nn))... % U_x,N
+    funspline_x(nn)=(1/alfasp)*(-(betasp/dxi)*(funspline(nn-1)-funspline(nn))... % U_x,N
         -(gamasp/(2*dxi))*(funspline(nn-2)-funspline(nn))...
         +betasp*funspline_x(nn-1)+gamasp*funspline_x(nn-2));
 
@@ -245,7 +244,7 @@ for i=1:nn-1,
     funspline_x(1)=(1/alfasp)*((betasp/deta)*(funspline(2)-funspline(1))... % U_x,0
         +(gamasp/(2*deta)*(funspline(3)-funspline(1)))...
         -betasp*funspline_x(2)-gamasp*funspline_x(3));
-    funspline_x(nn)=(1/alfasp)*(-(betasp/alfasp)*(funspline(nn-1)-funspline(nn))... % U_x,N
+    funspline_x(nn)=(1/alfasp)*(-(betasp/deta)*(funspline(nn-1)-funspline(nn))... % U_x,N
         -(gamasp/(2*deta))*(funspline(nn-2)-funspline(nn))...
         +betasp*funspline_x(nn-1)+gamasp*funspline_x(nn-2));
 
@@ -293,7 +292,7 @@ for i=1:nn-1,
     funspline_x(1)=(1/alfasp)*((betasp/deta)*(funspline(2)-funspline(1))... % U_x,0
         +(gamasp/(2*deta)*(funspline(3)-funspline(1)))...
         -betasp*funspline_x(2)-gamasp*funspline_x(3));
-    funspline_x(nn)=(1/alfasp)*(-(betasp/alfasp)*(funspline(nn-1)-funspline(nn))... % U_x,N
+    funspline_x(nn)=(1/alfasp)*(-(betasp/deta)*(funspline(nn-1)-funspline(nn))... % U_x,N
         -(gamasp/(2*deta))*(funspline(nn-2)-funspline(nn))...
         +betasp*funspline_x(nn-1)+gamasp*funspline_x(nn-2));
 
@@ -334,7 +333,7 @@ for i=1:nn-1
     funspline_x(1)=(1/alfasp)*((betasp/deta)*(funspline(2)-funspline(1))... % U_x,0
         +(gamasp/(2*deta)*(funspline(3)-funspline(1)))...
         -betasp*funspline_x(2)-gamasp*funspline_x(3));
-    funspline_x(nn)=(1/alfasp)*(-(betasp/alfasp)*(funspline(nn-1)-funspline(nn))... % U_x,N
+    funspline_x(nn)=(1/alfasp)*(-(betasp/deta)*(funspline(nn-1)-funspline(nn))... % U_x,N
         -(gamasp/(2*deta))*(funspline(nn-2)-funspline(nn))...
         +betasp*funspline_x(nn-1)+gamasp*funspline_x(nn-2));
 
@@ -384,7 +383,7 @@ for j=1:nn-1,
     funspline_x(1)=(1/alfasp)*((betasp/dxi)*(funspline(2)-funspline(1))... % U_x,0
         +(gamasp/(2*dxi)*(funspline(3)-funspline(1)))...
         -betasp*funspline_x(2)-gamasp*funspline_x(3));
-    funspline_x(nn)=(1/alfasp)*(-(betasp/alfasp)*(funspline(nn-1)-funspline(nn))... % U_x,N
+    funspline_x(nn)=(1/alfasp)*(-(betasp/dxi)*(funspline(nn-1)-funspline(nn))... % U_x,N
         -(gamasp/(2*dxi))*(funspline(nn-2)-funspline(nn))...
         +betasp*funspline_x(nn-1)+gamasp*funspline_x(nn-2));
 
@@ -425,7 +424,7 @@ for j=1:nn-1,
     funspline_x(1)=(1/alfasp)*((betasp/dxi)*(funspline(2)-funspline(1))... % U_x,0
         +(gamasp/(2*dxi)*(funspline(3)-funspline(1)))...
         -betasp*funspline_x(2)-gamasp*funspline_x(3));
-    funspline_x(nn)=(1/alfasp)*(-(betasp/alfasp)*(funspline(nn-1)-funspline(nn))... % U_x,N
+    funspline_x(nn)=(1/alfasp)*(-(betasp/dxi)*(funspline(nn-1)-funspline(nn))... % U_x,N
         -(gamasp/(2*dxi))*(funspline(nn-2)-funspline(nn))...
         +betasp*funspline_x(nn-1)+gamasp*funspline_x(nn-2));
 
@@ -476,7 +475,7 @@ for j=1:nn-1,
     funspline_x(1)=(1/alfasp)*((betasp/dxi)*(funspline(2)-funspline(1))... % U_x,0
         +(gamasp/(2*dxi)*(funspline(3)-funspline(1)))...
         -betasp*funspline_x(2)-gamasp*funspline_x(3));
-    funspline_x(nn)=(1/alfasp)*(-(betasp/alfasp)*(funspline(nn-1)-funspline(nn))... % U_x,N
+    funspline_x(nn)=(1/alfasp)*(-(betasp/dxi)*(funspline(nn-1)-funspline(nn))... % U_x,N
         -(gamasp/(2*dxi))*(funspline(nn-2)-funspline(nn))...
         +betasp*funspline_x(nn-1)+gamasp*funspline_x(nn-2));
     
@@ -517,7 +516,7 @@ for j=1:nn-1,
     funspline_x(1)=(1/alfasp)*((betasp/dxi)*(funspline(2)-funspline(1))... % U_x,0
         +(gamasp/(2*dxi)*(funspline(3)-funspline(1)))...
         -betasp*funspline_x(2)-gamasp*funspline_x(3));
-    funspline_x(nn)=(1/alfasp)*(-(betasp/alfasp)*(funspline(nn-1)-funspline(nn))... % U_x,N
+    funspline_x(nn)=(1/alfasp)*(-(betasp/dxi)*(funspline(nn-1)-funspline(nn))... % U_x,N
         -(gamasp/(2*dxi))*(funspline(nn-2)-funspline(nn))...
         +betasp*funspline_x(nn-1)+gamasp*funspline_x(nn-2));   
     

@@ -1,0 +1,80 @@
+date : 12-Jan-2017
+ref. : 7367077483
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 63
+time step         : 3645
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.006578
+max(er_2)         : 0.022624
+max(er_infty)     : 0.11946
+***********************************
+  
+  
+date : 12-Jan-2017
+ref. : 7367077504
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 7290
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 135
+(lambdap,thetap)  : (180,-45)
+***********************************
+max(er_1)         : 0.057172
+max(er_2)         : 0.02967
+max(er_infty)     : 0.021066
+***********************************
+  
+  
+date : 12-Jan-2017
+ref. : 7367077522
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 31
+time step         : 7290
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 60
+(lambdap,thetap)  : (180,30)
+***********************************
+max(er_1)         : 0.0041405
+max(er_2)         : 0.013843
+max(er_infty)     : 0.084324
+***********************************
+  
+  
+date : 12-Jan-2017
+ref. : 7367077536
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 31
+time step         : 7290
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 60
+(lambdap,thetap)  : (180,30)
+***********************************
+max(er_1)         : 0.0041405
+max(er_2)         : 0.013843
+max(er_infty)     : 0.084324
+***********************************
+  
+  

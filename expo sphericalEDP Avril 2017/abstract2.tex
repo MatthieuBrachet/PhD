@@ -1,0 +1,159 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%               PRIERE DE NE RIEN MODIFIER CI-DESSOUS                      %
+%       JUSQU'A LA LIGNE "PRIERE DE NE RIEN MODIFIER CI-DESSUS"            %
+%   TOUT LE BLOC QUI SUIT SERA SUPPRIME LORS DE L'EDITION FINALE DU POLY   %
+%   CONTENANT LES RESUMES                                                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[10pt]{article}
+%===  Priere de ne pas utiliser d'autres modules
+\usepackage{latexsym}
+\usepackage{bbm}              % fontes doubles (pour les ensembles, par ex.)
+\usepackage{graphicx}         % pour d'eventuelles figures 
+\usepackage{epsfig}           % (preferer graphicx, si possible)
+\usepackage{amsmath}          % AMSTEX
+\usepackage{amsfonts}
+%
+\setlength{\paperheight}{297mm}\setlength{\paperwidth}{210mm}
+\setlength{\oddsidemargin}{10mm}\setlength{\evensidemargin}{10mm}
+\setlength{\topmargin}{0mm}\setlength{\headheight}{10mm}\setlength{\headsep}{8mm}
+\setlength{\textheight}{240mm}\setlength{\textwidth}{160mm}
+\setlength{\marginparsep}{0mm}\setlength{\marginparwidth}{0mm}
+\setlength{\footskip}{10mm}
+\voffset -13mm\hoffset -10mm\parindent=0cm
+\def\titre#1{\begin{center}{\Large{\bf #1}}\end{center}}
+\def\orateur#1#2{\begin{center}{\underline{\large{\bf #1}}}, {#2}\end{center}}
+\def\auteur#1#2{\begin{center}{\large{\bf #1}}, {#2}\end{center}}
+\def\auteurenbasdepage#1#2#3{\small{\bf #1}, \small{#2}\\ \small{\tt #3}\\ }
+\def\motscles#1{%
+	\ifx#1\IsUndefined\relax\else\noindent{\normalsize{\bf Mots-cl\'es :}} #1\\ \fi}
+\renewcommand{\refname}{\normalsize R\'ef\'erences}
+%
+\begin{document}
+\thispagestyle{empty}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%               PRIERE DE NE RIEN MODIFIER CI-DESSUS                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% DANS TOUTE LA SUITE NOUS PRIONS LES AUTEURS DE BIEN VOULOIR UTILISER
+% LA SYNTAXE TeX STRICTE POUR LES LETTRES ACCENTUEES.
+% ON PEUT AU BESOIN LES REMPLACER APR\'ES LA FRAPPE DU DOCUMENT 
+% PAR LEUR \'EQUIVALENT TeX.
+% DANS LE CAS CONTRAIRE LES LETTRES ACCENTU\'ES N'APPARA\^ITRONT PAS
+% DANS LE DOCUMENT FINAL.
+%
+%                   ORATEUR ET CO-AUTEURS
+%---------------------------------------------------------------
+%
+% LES AUTEURS SONT PRIES DE FOURNIR LES BONS ARGUMENTS AUX MACROS CI-DESSOUS :
+%   \Titre         : Titre de la communication
+%   \NomOrateur    : Pr\'enom(s) NOM de l'Orateur
+%   \AdresseCourteOrateur : Exemple : Universit\'e de Rennes 1
+%   \AdresseLongueOrateur : Exemple : IRMAR, Universit\'e de Rennes 1, 263 avenue du G\'en\'eral Leclerc, 35000 Rennes
+%   \EmailOrateur : Adresse electronique
+%
+% ET DE MEME POUR LES EVENTUELS CO-AUTEURS :
+%   \NomAuteurI ...
+%   \AdresseCourteAuteurI ...
+%---------------------------------------------------------------
+% DEFINIR ICI LE TITRE DE VOTRE COMMUNICATION
+\def\Titre{Numerical approximation for convecting equation on the sphere using compact scheme}
+%
+% DEFINIR ICI LES NOMS, ADRESSES, ... DE l'ORATEUR OU UNIQUE AUTEUR
+\def\NomOrateur{Matthieu BRACHET}
+\def\AdresseCourteOrateur{IECL, Univ. Lorraine, Metz}
+\def\AdresseLongueOrateur{Inst. Elie Cartan de Lorraine, UMR 7502, Univ. Lorraine, Metz}
+\def\EmailOrateur{email}
+%
+% DEFINIR ICI LES NOMS, ADRESSES, ... DES EVENTUELS CO-AUTEURS
+\def\NomAuteurI{Jean-Pierre CROISILLE}
+\def\AdresseCourteAuteurI{IECL, Univ. Lorraine, Metz}
+\def\AdresseLongueAuteurI{Inst. Elie Cartan de Lorraine, UMR 7502, Univ. Lorraine, Metz}
+\def\EmailAuteurI{jean-pierre.croisille@univ-lorraine.fr}
+%=== et ainsi de suite II, III, IV, V ... pour les suivants
+%
+%=== Liste des mots-cles separes par des virgules si besoin
+% N'enlever le signe % que si necessaire
+%\def\listmotcles{mot-cle-1, mot-cle-2, ...}
+%
+%
+%                   DEBUT DE LA COMMUNICATION
+%---------------------------------------------------------------
+% NE PAS MODIFIER LA LIGNE SUIVANTE 
+% Le titre est a definir dans la macro \Titre (23 lignes plus haut)
+\titre{\Titre}% 
+%---------------------------------------------------------------
+% TITRE & AUTEUR(S) 
+% RETIRER LES SIGNES % SI NECESSAIRE ET PLACER DANS L'ORDRE SOUHAITE
+% DANS LES LIGNES SUIVANTES NE MODIFIER QUE LES SIGNES COMMENTAIRES '%'
+% Les noms, adresses, email de l'orateur et des co-auteurs sont a definir
+% dans les macros \NomOrateur, \AdresseCourteOrateur etc. plus haut
+%---------------------------------------------------------------
+\orateur{\NomOrateur}{\AdresseCourteOrateur}
+% NE PAS MODIFIER LES 4 LIGNES SUIVANTES sauf a retirer le signe commentaire '%'
+\auteur{\NomAuteurI}{\AdresseCourteAuteurI}
+%\auteur{\NomAuteurII}{\AdresseCourteAuteurII}
+%\auteur{\NomAuteurIII}{\AdresseCourteAuteurIII}
+%\auteur{\NomAuteurIV}{\AdresseCourteAuteurIV}
+%
+\motscles{\listmotcles}
+%---------------------------------------------------------------
+% TEXTE DE LA COMMUNICATION
+%---------------------------------------------------------------
+
+In numerical climatology, spherical propagation equations are intervening and methods for their resolution are developping.
+
+In this presentaion, we introduce a method of resolution based on a finite difference compact scheme order 4 \cite{Lele1991} on a Cubed-Sphere grid \cite{Ronchi1996}. The time discretisation is realized with an explicite Runge-Kutta method order 4 coupled with a space filtering which is attenuating the parasitic waves. This method is applied on various equation, particularly the advecting equation and the Shallow Water equations.
+
+A test case conserning the advection of two instationnary vortices aroung the sphere \cite{Nair2008} is showed. Numerical results are abtained on the Shallow Water system of equations \cite{Williamson1992}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.3]{ref_7366847796_snapshot_intermediaire1499.png}
+\includegraphics[scale=0.25]{ref_7366156130_normerreur_test_2.png}
+\end{center}
+\caption{test of the isolated mountain \cite{Williamson1992} at 15 days (left), relative error on the advective equation \cite{Nair2008} (right)}
+\end{figure}
+
+
+
+
+
+
+%---------------------------------------------------------------
+% REFERENCES BIBLIOGRAPHIQUES
+%---------------------------------------------------------------
+% NE PAS MODIFIER LES 2 LIGNES SUIVANTES
+\bibliographystyle{plain}
+\begin{thebibliography}{99}
+
+\bibitem{Brachet2016} {\sc M. Brachet, J.-P. Croisille} {\sl Numerical simulation of vortex propagation on the Cubed-Sphere using compact scheme}, Preprint, 2016.
+
+\bibitem{Lele1991} {\sc S. K. Lele}, {\sl Compact Finite Difference Schemes with Spectral-like Resolution}, J. Comput. Phys. ,103, 1992, pp 16--42.
+
+\bibitem{Nair2008} {\sc R. D. Nair, C. Jablonowski}, {\sl Moving Vortices on the Sphere : a test case for horizontal advection problem}, Mon. Wea. Rev. , 136, 2008, pp. 689--711.
+
+\bibitem{Ronchi1996} {\sc C. Ronchi, R. Iacono and P. S. Paolucci}, {\sl The Cubed Sphere : A New Method for the Solution of Partial Differential Equation in Spherical Geometry}, J. Comput. Phys. , 124, 1996, pp. 93--114.
+
+\bibitem{Williamson1992} {\sc Williamson, David L and Drake, John B and Hack, James J and Jakob, R{\"u}diger and Swarztrauber, Paul N}, {\sl A standard test set for numerical approximations to the shallow water equations in spherical geometry}, J. Comput. Phys. , 102, 1992, pp. 211--224.
+
+
+% NE PAS MODIFIER LA LIGNE SUIVANTE
+\end{thebibliography}
+%
+%---------------------------------------------------------------
+% NOM & ADRESSE COMPLETE & EMAIL DU OU DES AUTEURS
+% RETIRER LES SIGNES % SI NECESSAIRE ET PLACER DANS L'ORDRE SOUHAITE
+% DANS LES LIGNES SUIVANTES NE MODIFIER QUE LES SIGNES COMMENTAIRES '%'
+%---------------------------------------------------------------
+\vfill
+\auteurenbasdepage{BRACHET Matthieu}{Institut Elie Cartan de Lorraine, Universi\'e de Lorraine,
+Site de Metz, B\^at.  A Ile du Saulcy, F-57045 Metz Cedex 1}{matthieu.brachet@univ-lorraine.fr}
+% Les noms, adresses, email de l'orateur et des co-auteurs sont a definir
+% dans les macros \NomOrateur, \AdresseCourteOrateur etc. plus haut
+%
+%\auteurenbasdepage{\NomAuteurI}{\AdresseLongueAuteurI}{\EmailAuteurI}
+%\auteurenbasdepage{\NomAuteurII}{\AdresseLongueAuteurII}{\EmailAuteurII}
+%\auteurenbasdepage{\NomAuteurIII}{\AdresseLongueAuteurIII}{\EmailAuteurIII}
+%\auteurenbasdepage{\NomAuteurIV}{\AdresseLongueAuteurIV}{\EmailAuteurIV}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

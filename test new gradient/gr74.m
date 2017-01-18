@@ -5,7 +5,7 @@ global na nb;
 global alfa beta;
 global betacr;
 global alfa1;
-global p kxi keta;
+global kxi p_div
 global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
 
@@ -62,7 +62,7 @@ end
 for jline1=1:nn, % EACH GREAT CIRCLE OF  NETWORK I-ALPHA
  funa7=va_fI(:,jline1); % TABLEAU DE TRAVAIL VALEURS
  test=kxi*funa7;
- funad8=p\test; % TABLEAU DE TRAVAIL DERIVEES
+ funad8=p_div\test; % TABLEAU DE TRAVAIL DERIVEES
  vad_fI(:,jline1)=funad8; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
 end
 
@@ -103,8 +103,8 @@ end
 % CALCUL DES DERIVEES BETA SUR LE RESEAU DE GRANDS CERCLES I-BETA
 for iline1=1:nn,
     funb1=vb_fI(iline1,:);
-    test=keta*(funb1');
-    funbd2=p\test;
+    test=kxi*(funb1');
+    funbd2=p_div\test;
     vbd_fI(iline1,:)=funbd2; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
 end
 
@@ -147,7 +147,7 @@ vad_fII=zeros(na,nn);
 for jline1=1:nn,
  funa9=va_fII(:,jline1);
  test=kxi*funa9;
- funad10=p\test;
+ funad10=p_div\test;
  vad_fII(:,jline1)=funad10; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
 end
 
@@ -189,8 +189,8 @@ end
 
 for iline1=1:nn,
     funb2=vb_fII(iline1,:);
-    test=keta*(funb2');
-    funbd3=p\test;
+    test=kxi*(funb2');
+    funbd3=p_div\test;
     vbd_fII(iline1,:)=funbd3; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
 end
 
@@ -234,7 +234,7 @@ end
 for jline1=1:nn,
     funa11=va_fV(:,jline1);
     test=kxi*funa11;
-    funad12=p\test;
+    funad12=p_div\test;
     vad_fV(:,jline1)=funad12; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE ALFA.
 end
 
@@ -274,8 +274,8 @@ end
 
 for iline1=1:nn,
     funb5=vb_fV(iline1,:);
-    test=keta*(funb5');
-    funbd6=p\test;
+    test=kxi*(funb5');
+    funbd6=p_div\test;
     vbd_fV(iline1,:)=funbd6; % VALUE OF THE DERIVATIVE WITH RESPECT TO ANGLE BETA.
 end
 

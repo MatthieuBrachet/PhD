@@ -43,6 +43,8 @@ global ftr
 global ftr1 LAP_adap B_adap
 global omega gp
 % -----------------------------------
+global weights
+% -----------------------------------
 global hs0_mount R_mount lambdac_mount tetac_mount
 %% physical data
 radius=6.37122d+06;
@@ -52,7 +54,7 @@ gp=9.80616;
 %% data for the mountain
 hs0_mount=2000;
 R_mount=pi/9;
-lambdac_mount=pi/2;
+lambdac_mount=-pi/2;
 tetac_mount=pi/6;
 
 %% 
@@ -608,3 +610,13 @@ end
 %% Options sur les filtres
 [ ftr ] = filtre74( na , opt_ftr );
 [ LAP_adap, B_adap, ftr1 ] = adaptative74( na, opt_ftr1 );
+
+%% INTEGRALE CORRIGEE
+disp('calcul des poids...')
+nhs_max=.125*(nn-1)^2-1; % combre d'harmoniques à corriger
+%[A,err_i] = compute_A(nhs_max); sym=0;
+[A,err_i] = compute_A_sym(nhs_max); sym=1;
+err=1;
+k=0;
+res = solve_weights( A,err_i,k,err,sym );
+weights=dxi*deta*(dga+res);
