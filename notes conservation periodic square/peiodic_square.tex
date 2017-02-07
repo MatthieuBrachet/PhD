@@ -1,0 +1,543 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\newtheorem{lemme}{Lemme}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{remarque}{Remarque}
+
+\def\gint{\displaystyle\int}
+
+\author{Brachet Matthieu}
+\title{Relations de conservations sur le carré périodique}
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+Dans ce document, on s'intérésse aux relations de conservations pour l'équation suivante :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial h}{\partial t} + H \nabla \cdot \mathbf{u} & = & 0 \\
+\dfrac{\partial \mathbf{u}}{\partial t} + g \nabla h + f  \mathbf{k} \wedge \mathbf{u} & = & \mathbf{0} 
+\end{array}
+\right. \text{ sur } \Omega = ]0,1[^2
+\label{eq:wave equation}
+\end{equation}
+
+sur un carré périodique.
+Si $\mathbf{u} = u \cdot \mathbf{i} + v \cdot \mathbf{j}$ alors $h$, $u$ et $v$ sont périodiques sur le $\Omega$.
+C'est à dire que ces fonctions vérifient la propriété suivante : pour tous $(x,y) \in \Omega$ et $t\geq0$ on a
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+w(x,0,t) & = & w(x,1,t) \\
+w(0,y,t) & = & w(1,y,t) \\
+\end{array}
+\right. 
+\label{eq:periodicity}
+\end{equation}
+
+avec une condition initiale $(h_0, \mathbf{u}_0)$ donnée.
+
+\section{Cas continu}
+
+Pour l'équation \eqref{eq:wave equation}, il y a conservation exacte de la matière et de l'énergie sur le carré périodique.
+
+\begin{lemme}
+Pour tout champ de vecteur $\mathbf{u}$ satisfesant \eqref{eq:periodicity} on a :
+\begin{equation}
+\gint_{\Omega} \nabla \cdot \mathbf{u} = 0
+\end{equation}
+\label{lem:div nulle}
+\end{lemme}
+
+\begin{proof}
+D'après le théorème de Stokes :
+$$\gint_{\Omega} \nabla \cdot \mathbf{u} = \gint_{\partial \Omega} \mathbf{u} \cdot \mathbf{n}$$
+avec $\mathbf{n}$ la normale extérieure.
+
+En utilisant la périodicité du domaine $\Omega$, on aboutit directement au résultat.
+\end{proof}
+
+De plus, on admet le résultat suivant :
+
+\begin{lemme}
+Pour toute $h$ fonction de $\Omega$ dans $\mathbb{R}$ et $\mathbf{u}$ champ de vecteur définit sur $\Omega$ (le tout suffisament régulier), on a :
+\begin{equation}
+\nabla \cdot \left( h \mathbf{u} \right) = h \nabla \cdot \mathbf{u} + \mathbf{u} \cdot \nabla h 
+\end{equation}
+\label{lem:ipp}
+\end{lemme}
+
+\begin{proposition}
+Si $(h, \mathbf{u})$ est solution de \eqref{eq:wave equation} et suffisament régulier, alors les quantités suivantes sont conservées au fil du temps :
+\begin{itemize}
+\item \textit{Conservation de la matière : }
+\begin{equation}
+\gint_{\Omega} h = 0
+\end{equation}
+\item \textit{Conservation de l'énergie : }
+\begin{equation}
+\gint_{\Omega} g h^2 + H \|\mathbf{u}\|^2
+\end{equation}
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+
+\begin{itemize}
+
+\item \textit{Conservation de la matière :}
+
+On intègre directement la première équation de \eqref{eq:wave equation} sur $\Omega$. En inversant intégrale et dérivation par rapport au temps, on a :
+
+$$
+\dfrac{d}{dt} \gint_{\Omega} h = - H \gint_{Omega} \nabla \cdot \mathbf{u}
+$$
+
+et d'après le lemme \ref{lem:div nulle}, on obtient :
+
+$$
+\dfrac{d}{dt} \gint_{\Omega} h = 0
+$$
+
+\item \textit{Conservation de l'énergie :}
+En multipliant par $h$ la première équation de \eqref{eq:wave equation} et en effectuant un produit scalaire de la seconde équation par $\mathbf{u}$, on obtient :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{1}{2} \dfrac{\partial h^2}{\partial t} & = & - H h \nabla \cdot \mathbf{u} \\
+\dfrac{1}{2} \dfrac{\partial}{\partial t}\| \mathbf{u} \|^2 & = & - g \mathbf{u} \cdot \nabla h + f  \mathbf{u} \cdot \left( \mathbf{k} \wedge \mathbf{u} \right)
+\end{array}
+\right. \text{ sur } \Omega = ]0,1[^2
+\end{equation}
+
+Donc :
+
+$$\dfrac{\partial}{\partial t} \left( \dfrac{1}{2} g h^2 + \dfrac{1}{2} H \| \mathbf{u} \|^2 \right) = - gH \left(h \nabla \cdot \mathbf{u} +  \mathbf{u} \cdot \nabla h \right)$$
+
+d'après le lemme \ref{lem:ipp} :
+
+$$\dfrac{\partial}{\partial t} \left( \dfrac{1}{2} g h^2 + \dfrac{1}{2} H \| \mathbf{u} \|^2 \right) = - gH \nabla \cdot \left( h \mathbf{u} \right)$$
+
+On intègre sur $\Omega$ et on applique le lemme \ref{lem:div nulle} :
+
+$$
+\dfrac{d}{dt} \gint_{\Omega} \left( \dfrac{1}{2} g h^2 + \dfrac{1}{2} H \| \mathbf{u} \|^2 \right)  = 0
+$$
+
+\end{itemize}
+\end{proof}
+
+\section{EDP semi discrétisée en espace}
+
+\subsection{Préliminaires}
+
+On dit qu'une matrice $D$ vérifie l'hypothèse $(\mathcal{H})$ si et seulement si :
+\begin{itemize}
+\item $D$ est antisymétrique,
+\item $D \mathbf{1} = \mathbf{0}$
+\end{itemize}
+
+où $\mathbf{a} = \left[a, \ldots, a \right]^T$, $a \in \mathbb{R}$.
+
+Pour la discrétisation en espace sur un maillage régulier, on utilise le schéma compact d'ordre $4$ suivant :
+
+\begin{equation}
+\dfrac{1}{6} u_{x,i-1} + \dfrac{4}{6} u_{x,i} + \dfrac{1}{6} u_{x,i+1} = \dfrac{1}{2\Delta x}\left( u_{i+1} - u_{i-1} \right)
+\end{equation}
+
+La matrice issue de ce schéma est $D=P^{-1}Q$ avec :
+
+$$P=\dfrac{1}{6} 
+\begin{pmatrix}
+4 & 1 &   &   &   &   & 1 \\
+1 & 4 & 1 &   &   &(0)& 0 \\
+  & 1 & 4 & 1 &   &   &   \\
+  &   & \ddots & \ddots & \ddots &  & \\
+  &(0)&   &   & 1 & 4 & 1 \\
+1 &   &   &   &   & 1 & 4 \\
+\end{pmatrix}
+$$
+
+et
+
+$$Q=\dfrac{1}{2\Delta x} 
+\begin{pmatrix}
+0 & 1 &   &   &   &   & -1 \\
+-1 & 0 & 1 &   &   &(0)& 0 \\
+  & -1 & 0 & 1 &   &   &   \\
+  &   & \ddots & \ddots & \ddots &  & \\
+  &(0)&   &   & -1 & 0 & 1 \\
+1 &   &   &   &   & -1 & 0 \\
+\end{pmatrix}
+$$
+
+\begin{remarque}
+Si on pose :
+$$J=
+\begin{pmatrix}
+0 & 1 &   &   &   &   & 0 \\
+0 & 0 & 1 &   &   &(0)& 0 \\
+  & 0 & 0 & 1 &   &   &   \\
+  &   & \ddots & \ddots & \ddots &  & \\
+  &(0)&   &   & 0 & 0 & 1 \\
+1 &   &   &   &   & 0 & 0 \\
+\end{pmatrix}
+$$
+on note que :
+\begin{equation}
+P=\dfrac{1}{6}\left( 4 J^0 + J + J^{-1} \right)
+\end{equation}
+\begin{equation}
+Q=\dfrac{1}{2 \Delta x} \left( J - J^{-1} \right)
+\end{equation}
+\end{remarque}
+
+\begin{lemme}
+$P$ est symétrique définie positive et $Q$ est antisymétrique.
+\label{lem:symetriePQ}
+\end{lemme}
+
+\begin{proof}
+$P$ est trivialement symétrique, de même pour $Q$ antisymétrique.
+D'après le théorème de Gershgörin, $sp(P) \subset \left[ 1/3, 1 \right]$, d'où le résultat.
+\end{proof}
+
+\begin{lemme}
+
+\begin{itemize}
+\item $P$ et $Q$ commutent,
+\item $P^{-1}$ et $Q$ commutent.
+\end{itemize}
+\label{lem:commutation}
+\end{lemme}
+
+\begin{proof}
+\begin{itemize}
+\item Il suffit de montre que $\tilde{P} = 6 P$ et $\tilde{Q}=2 \Delta x Q$ commutent.
+$$
+\begin{array}{rcl}
+\tilde{P} \times \tilde{Q} & = & \left( 4 J^0 + J + J^-1 \right) \times \left(  J - J^{-1} \right) \\
+                           & = & J^2 + 4 J - 4 J^{-1} - J^{-2}\\
+\end{array}
+$$
+
+de même :
+
+$$\tilde{Q} \times \tilde{P} = J^2 + 4 J - 4 J^{-1} - J^{-2}$$
+
+Donc $P \times Q = Q \times P$.
+
+\item On a montré que $PQ=QP$, donc en conjuguant par $P^{-1}$, on obtient $P^{-1}Q=QP^{-1}$.
+\end{itemize}
+\end{proof}
+
+\begin{remarque}
+On aurait aussi pu simplement dire $P$ et $Q$ sont des polynômes en $J$ (en notant que $J^{-1} = J^{n-1}$ lorsque $J \in \mathcal{M}_n\left( \mathbb{R}\right)$)et donc commutent.
+\end{remarque}
+
+\begin{proposition}
+$D$ satisfait l'hypothèse $(\mathcal{H})$.
+\end{proposition}
+
+\begin{proof}
+\begin{itemize}
+\item Relation d'antisymétrie :
+$$
+\begin{array}{rcl}
+D^T                     & = & \left( P^{-1}Q \right)^T\\
+						& = & Q^T P^{-T}\\
+                         & = & -Q P^{-1} \text{  d'après le lemme \ref{lem:symetriePQ}} \\
+                         & = & -P^{-1} Q \text{  d'après le lemme \ref{lem:commutation}}\\
+                         & = & -D 
+\end{array}
+$$
+
+\item Propriété de conservation :
+
+$P$ est symétrique définie positive donc inversible et $Ker(P) = \left\lbrace \mathbf{0} \right\rbrace$.
+Comme $Q \mathbf{1} = \mathbf{0}$, on en déduit que $D \mathbf{0} = \mathbf{1}$.
+\end{itemize} 
+\end{proof}
+
+\begin{remarque}
+En notant $\otimes$ le produit de Kronecker, on remarque que si $D$ satisfait $(\mathcal{H})$ alors $D_x=D \otimes Id$ et $D_y=Id \otimes D$ vérifient $(\mathcal{H})$ aussi.
+\end{remarque}
+
+\subsection{Discrétisation en espace et conservation}
+
+Dans ce cadre, on considère $u$ discrétisée aux points de maillages $(x_i,y_j)$ avec $x_i=i \times \dfrac{1}{N+1}$ et $y_j = j \times \dfrac{1}{N+1}$ pour $i,j \in \left\lbrace 0, 1, ..., N \right\rbrace$.
+
+On note $u_{i,j}$ (resp. $v_{i,j}$ et $h_{i,j}$) l'approximation de $u$ (resp. $v$ et $h$) au point $(x_i,y_j)$ et sous sa forme vectorielle :
+
+$$U=\left( u_{1,1},u_{1,2},...,u_{2,1},u_{2,2},...,u_{N,N},v_{1,1},v_{1,2},...,v_{2,1},v_{2,2},...,v_{N,N} \right)^T$$
+
+ainsi que (par abus de notations) :
+
+$$h = \left( u_{1,1},u_{1,2},...,u_{2,1},u_{2,2},...,u_{N,N}\right)^T.$$
+
+D'où :
+
+$$\nabla \cdot \mathbf{u} = \dfrac{\partial u}{\partial x} + \dfrac{\partial v}{\partial y} \approx D_x U + D_y U = B U$$
+
+avec $B=\left( D_x, D_y \right)$.
+
+De même :
+
+$$\nabla h = \dfrac{\partial h}{\partial x} \mathbf{i} + \dfrac{\partial h}{\partial y} \mathbf{j} \approx - B^T h$$
+
+L'équation \eqref{eq:wave equation} se discrétise en espace et devient :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial h}{\partial t} + H B U & = & 0 \\
+\dfrac{\partial U}{\partial t} - g B^T h + f  U^{\perp} & = & \mathbf{0} 
+\end{array}
+\right. \text{ sur } \Omega = ]0,1[^2
+\label{eq:wave equation space disc}
+\end{equation}
+
+où $U^{\perp} = \left( -v_{1,1},-v_{1,2},...,-v_{2,1},-v_{2,2},...,-v_{N,N},u_{1,1},u_{1,2},...,u_{2,1},u_{2,2},...,u_{N,N} \right)^T$. On remarque que $U$ et $U^{\perp}$ sont orthogonaux : $<U, U^{\perp}>_2 = 0$.
+
+La masse de h vaut $\Delta x \sum_{i,j} h_{i,j}(t)$. Dire qu'il y a conservation de la masse pour \eqref{eq:wave equation space disc}, revient à vérifier $\Delta x \sum_{i,j} (BU)_{i,j}(t)=0$.
+
+\begin{proposition}
+Pour tout vecteur $U \in \mathbb{R}^{2 (N+1)^2}$ :
+\begin{equation}
+\Delta x \sum_{i,j} (BU)_{i,j}(t)=0
+\label{eq:conservation disc}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+$$
+\begin{array}{rcl}
+\Delta x \sum_{i,j} (BU)_{i,j}(t) & = & \Delta x <BU, \mathbf{1}>_2 \\
+                                  & = & \Delta x <U,B^T \mathbf{1}>_2 \\
+                                  & = & \Delta x \left( <U,D_x^T \mathbf{1}>_2 + <U,D_y^T \mathbf{1}>_2 \right)\\
+                                  & = & \Delta x \left( 0+0 \right) \text{  car $D_x$ et $D_y$ vérifient l'hypothèse $\left( \mathcal{H} \right)$}\\
+                                  & = & 0
+\end{array}
+$$
+\end{proof}
+
+\begin{proposition}
+Pour tout $U \in \mathbb{R}^{2 (N+1)^2}$ et $h \in \mathbb{R}^{(N+1)^2}$, la relation d'intégration par parties suivante est vérifiée :
+\begin{equation}
+<BU,h>_2-<U,B^Th>_2=0
+\label{eq:ipp disc}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+$$
+\begin{array}{rcl}
+<BU,h>_2 & = & <D_x U,h>_2 + <D_y U,h>_2 \\
+         & = & <U,D_x^T h>_2 + <U,D_y^T h>_2 \\
+         & = & -<U,D_x h>_2 - <U,D_y h>_2 \\
+         & = & <U,B^T h>_2
+\end{array}
+$$
+\end{proof}
+
+\begin{proposition}
+Si $(h,U)$ est solution de \eqref{eq:wave equation space disc} alors les quantités suivantes sont conservées au fil du temps :
+\begin{itemize}
+\item Conservation de la masse :
+\begin{equation}
+\Delta x <h,\mathbf{1}> = 0
+\end{equation}
+\item Conservation de l'énergie :
+\begin{equation}
+\dfrac{\Delta x}{2} \left( g<h,h>_2 + H<U ,U>_2\right)=0
+\end{equation}
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+\begin{itemize}
+\item On sait que :
+$$\dfrac{\partial h}{\partial t} + H B U = 0$$
+
+En effectuant le produit scalaire par $\mathbf{1}$ :
+
+$$
+\dfrac{\partial h}{\partial t} <h, \mathbf{1}>_2 = -H <BU, \mathbf{1}>_2 = 0
+$$
+
+par le lemme \ref{lem:div nulle}.
+
+\item De même,
+
+$$
+g \dfrac{\partial}{\partial t} <h,h>_2 = -gH <BU,h>_2
+$$
+
+ainsi, qu'avec la seconde équation de \eqref{eq:wave equation space disc} :
+
+$$
+H \dfrac{\partial}{\partial t} <U,U>_2 = -gH <BU,h>_2
+$$
+
+donc (en utilisant le lemme \ref{lem:ipp}) :
+
+$$
+\dfrac{d}{dt} \left[ g <h,h>_2 + H<U,U>_2 \right] = -gH \left[ <BU,h>_2-<u,B^Th>_2 \right] = 0
+$$
+\end{itemize}
+\end{proof}
+
+\section{EDP discrétisée}
+
+L'équation \eqref{eq:wave equation space disc} est discrétisée en temps par le schéma RK4 :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcll}
+K_1 h & = & -H B U^n & \\
+K_1 U & = & g B^T h^n - f U^{n^{\perp}} & \\
+K_2 h & = & -H B U_1 & \text{ avec } U_1 = U^n + \dfrac{\Delta t}{2} K_1 U\\
+K_2 U & = & g B^T h_1 - f U_1^{\perp} & \text{ avec } h_1 = h^n + \dfrac{\Delta t}{2} K_1 h\\
+K_3 h & = & -H B U_2 & \text{ avec } U_2 = U^n + \dfrac{\Delta t}{2} K_2 U\\
+K_3 U & = & g B^T h_2 - f U_2^{\perp} & \text{ avec } h_2 = h^n + \dfrac{\Delta t}{2} K_2 h\\
+K_4 h & = & -H B U_3 & \text{ avec } U_3 = U^n + \Delta t K_3 U\\
+K_4 U & = & g B^T h_3 - f U_3^{\perp} & \text{ avec } h_3 = h^n + \Delta t K_3 h\\
+h^{n+1} & = & h^n + \dfrac{\Delta t}{6} \left( K_1h + 2 K_2 h + 2 K_3 h + K_4 h \right) & \\
+U^{n+1} & = & U^n + \dfrac{\Delta t}{6} \left( K_1 U + 2 K_2 U + 2 K_3 U + K_4 U \right) & \\
+\end{array}
+\right.
+\label{eq:wave rk4}
+\end{equation}
+
+\begin{proposition}
+Pour tout $(h^n,U^n)$ issu de \eqref{eq:wave rk4} :
+\begin{equation}
+<h^{n+1},\mathbf{1}>_2 = <h^{n},\mathbf{1}>_2
+\end{equation}
+\label{prop:conservation rk4}
+\end{proposition}
+
+\begin{proof}
+On remarque que : 
+
+$$
+\begin{array}{rcl}
+h^{n+1} & = & h^n + \dfrac{\Delta t}{6} \left( K_1h + 2 K_2 h + 2 K_3 h + K_4 h \right) \\
+        & = & h^n - H \dfrac{\Delta t}{6} B \left( U^n + 2 U_1 + 2 U_2 + U_3 \right)
+\end{array}
+$$
+
+Après produit scalaire par $\mathbf{1}$ :
+
+$$
+<h^{n+1},\mathbf{1}>_2 = <h^{n+1},\mathbf{1}>_2 - H \dfrac{\Delta t}{6} <B \tilde{U}, \mathbf{1}>_2
+$$
+
+avec $\tilde{U} = U^n + 2 U_1 + 2 U_2 + U_3$.
+En appliquant le lemme \ref{lem:div nulle}, on a le résultat souhaité :
+
+$$
+<h^{n+1},\mathbf{1}>_2 = <h^{n},\mathbf{1}>_2
+$$
+\end{proof}
+
+\begin{remarque}
+\begin{itemize}
+\item Soit $F$ une matrice symétrique telle que $F \mathbf{1} = \mathbf{1}$. Les matrices de filtrage vérifient ces propriétés.
+
+Si $h^{n+1}$ est donné par :
+
+$$
+h^{n+1} = F \left( h^n  - H \dfrac{\Delta t}{6} B \tilde{U} \right)
+$$
+
+Alors la propriété \ref{prop:conservation rk4} est toujours vérifiée, en effet :
+$$
+\begin{array}{rcl}
+<h^{n+1},\mathbf{1}>_2 & = & <Fh^n, \mathbf{1}> - H \dfrac{\Delta t}{6} <FB\tilde{U},\mathbf{1}>_2 \\
+                       & = & <h^n, F^T \mathbf{1}> - H \dfrac{\Delta t}{6} <B\tilde{U},F^T\mathbf{1}>_2\\
+                       & = & <h^n, F \mathbf{1}> - H \dfrac{\Delta t}{6} <B\tilde{U},F\mathbf{1}>_2\\
+                       & = & <h^n, \mathbf{1}> - H \dfrac{\Delta t}{6} <B\tilde{U},\mathbf{1}>_2\\
+                       & = & <h^n, \mathbf{1}> \\
+\end{array}
+$$
+\item Le schéma \eqref{eq:wave rk4} conserve la quantité de matière.
+\end{itemize}
+
+\end{remarque}
+
+\begin{lemme}
+Si $(U^n,h^n)_n$ est suite issue de \eqref{eq:wave rk4} alors elle vérifie la relation suivante :
+\begin{equation}
+H <U^{n+1}-U^n, \tilde{U}>_2 + g <h^{n+1}-h^n, \tilde{h}>_2 = 0
+\end{equation}
+avec
+$
+\left\lbrace
+\begin{array}{rcl}
+\tilde{h} & = & h^n + 2 h_1 + 2 h_2 + h_3 \\
+\tilde{U} & = & U^n + 2 U_1 + 2 U_2 + U_3 \\
+\end{array}
+\right.
+$.
+\label{lem:energie disc} 
+\end{lemme}
+
+\begin{proof}
+Les relations suivantes sont vérifiées :
+\begin{equation}
+<h^{n+1} - h^n,\tilde{h}>_2=-H \dfrac{\Delta t}{6} <\tilde{h},B \tilde{U}>_2 
+\end{equation}
+\begin{equation}
+<U^{n+1} - U^n,\tilde{U}>_2=g \dfrac{\Delta t}{6} <B^T \tilde{h},\tilde{U}>_2 
+\end{equation}
+
+donc par combinaison, on retrouve bien :
+\begin{equation}
+H <U^{n+1}-U^n, \tilde{U}>_2 + g <h^{n+1}-h^n, \tilde{h}>_2 = 0
+\end{equation}
+\end{proof}
+
+Dans la suite, on pose :
+
+\begin{equation}
+E^n = g <h^n, h^n>_2 + H <U^n, U^n>_2
+\label{eq:energy disc}
+\end{equation}
+
+Cette énergie est conservée par l'équation semi-discrétisée. Qu'en est-il pour l'équation discrétisée avec RK4.
+
+\begin{proposition}
+\begin{equation}
+\| E^{n+1}-E^n \| \leq C \Delta t
+\end{equation}
+\end{proposition}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
