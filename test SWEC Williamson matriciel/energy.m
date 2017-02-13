@@ -4,6 +4,7 @@ global n nn
 global x_fI x_fII x_fIII x_fIV x_fV x_fVI
 global y_fI y_fII y_fIII y_fIV y_fV y_fVI
 global z_fI z_fII z_fIII z_fIV z_fV z_fVI
+global gp
 
 
 [hs_fI] = relief(x_fI,y_fI,z_fI);
@@ -32,7 +33,7 @@ for i=1:n1
         norm_III(i,j)=dot(hstar_fIII(i,j)*vt_fIII(i,j,:),vt_fIII(i,j,:));
         norm_IV(i,j)=dot(hstar_fIV(i,j)*vt_fIV(i,j,:),vt_fIV(i,j,:));
         norm_V(i,j)=dot(hstar_fV(i,j)*vt_fV(i,j,:),vt_fV(i,j,:));
-        norm_VI(i,j)=dot(hstar_fII(i,j)*vt_fVI(i,j,:),vt_fVI(i,j,:));
+        norm_VI(i,j)=dot(hstar_fVI(i,j)*vt_fVI(i,j,:),vt_fVI(i,j,:));
     end
 end
 nrm='cor_int';
@@ -43,7 +44,7 @@ nrm='cor_int';
 [~,~,~,~,~,~,totalh]=...
     nrm101(ht_fI.^2-hs_fI.^2,ht_fII.^2-hs_fII.^2,ht_fIII.^2-hs_fIII.^2,ht_fIV.^2-hs_fIV.^2,ht_fV.^2-hs_fV.^2,ht_fVI.^2-hs_fVI.^2,n,nn,nrm);
 
-E=0.5*totalu+0.5*totalh;
+E=0.5*totalu+0.5*gp*totalh;
 
 
 end

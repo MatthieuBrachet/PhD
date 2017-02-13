@@ -44,44 +44,109 @@ Dans la suite, nous travaillerons avec cette forme de l'équation \eqref{SWEC_ne
 
 \section{Relations de Conservations}
 
-\begin{proposition}
-L'équation \eqref{SWEC_vectform} préserve la masse :
-\begin{equation}
-\dfrac{d}{dt}\gint_{\mathbb{S}_a^2} \eta^{\star} = 0
-\end{equation}
-\end{proposition}
+L'équation \eqref{SWEC_vectform} vérifie certaines relations de conservations au sens continu.
 
-\begin{proof}
-Conséquence directe de la remarque \ref{remark_stokes}.
-\end{proof}
+\begin{proposition}
+Les relations de conservations suivantes sont vérifiées si $(\mathbf{u},h)$ est solution de \eqref{SWEC_vectform} :
+\begin{itemize}
+\item Conservation de la matière :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} h^{\star} = 0
+\label{eq:mass}
+\end{equation}
+ 
+\item Conservation de l'énergie :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \dfrac{1}{2} h^{\star} \mathbf{u}.^2 + \dfrac{1}{2} g \left( h^2 - h_s^2 \right) = 0
+\label{eq:energy}
+\end{equation}
+
+\item Conservation de l'enstrophie potentielle :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \dfrac{\left( \zeta + f \right)^2}{h^{\star}} = 0
+\label{eq:enstrophie}
+\end{equation}
+
+\item Conservation de la vorticité :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \zeta = 0
+\label{eq:vorticity}
+\end{equation}
+
+\item Conservation de la divergence
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \nabla \cdot \mathbf{u} = 0
+\label{eq:divergence}
+\end{equation}
+\end{itemize}
+
+avec $\zeta = \left( \nabla \wedge \mathbf{u} \right) \cdot \mathbf{k}$.
+\end{proposition}
 
 \begin{remarque}
-On note que si $\eta_s$ est indépendant du temps, on a aussi :
-
-\begin{equation}
-\dfrac{d}{dt}\gint_{\mathbb{S}_a^2} \eta = 0
-\end{equation}
+Pour prouver que $\delta$ est conservée, il suffit de montrer qu'il existe $\mathbf{F}$ tel que :
+$$
+\dfrac{\partial \delta}{\partial t} = \nabla \cdot \mathbf{F}
+$$
+puis d'intégrer et de conclure avec la remarque \ref{remark_stokes}.
+\label{rmq:int diverg nulle}
 \end{remarque}
 
-\begin{proposition}
-L'équation \eqref{SWEC_vectform} préserve :
-\begin{itemize}
-\item l'énergie :
-\begin{equation}
-\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \left( \dfrac{1}{2} \eta^{\star} \mathbf{u}^2 + \dfrac{1}{2} \left( \eta^2 - \eta_s^2 \right) \right)
-\end{equation}
-\item l'enstrophie potentielle :
-\begin{equation}
-\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \dfrac{1}{2}\dfrac{\left(\zeta + f\right)^2}{\eta^{\star}}
-\end{equation}
-avec $\zeta=\left( \nabla \wedge \mathbf{u} \right)\cdot\mathbf{k}$.
+\begin{proof}
+Pour la conservation de la masse \eqref{eq:mass} et de la divergence \eqref{eq:divergence}, le résultat est immédiat.
 
-\end{itemize}
-\end{proposition}
+De plus, en posant $q = \dfrac{\zeta+f}{h^{\star}}$ et en appliquant à \eqref{SWEC_vectform} l'opérateur de vorticité "$\mathbf{k} \cdot \left( \nabla \wedge \cdot \right)$", on obtient :
 
-\begin{com}
-Démontrer la conservation de l'enstrophie et de l'énergie potentielle.
-\end{com}
+$$
+\dfrac{\partial \zeta}{\partial t}+\nabla \wedge \left( q h^{\star} \mathbf{k} \wedge \mathbf{u} \right) \cdot\mathbf{k} + \underbrace{\nabla \wedge \nabla \left( gh + \dfrac{1}{2}\mathbf{u}^2 \right) \cdot \mathbf{k}}_{=0} = 0 
+$$
+
+Or on sait que pour tout $\mathbf{X}$ et $\mathbf{F}$, on a :
+\begin{equation}
+\nabla \cdot \left( \mathbf{X} \wedge \mathbf{F} \right) = - \left( \nabla \wedge \mathbf{F} \right) \cdot \mathbf{X}.
+\end{equation}
+
+donc :
+
+$$
+\dfrac{ \partial \zeta}{\partial t} + \nabla \cdot \left( q h^{\star} \mathbf{u} \right) = 0
+$$
+
+En utilisant la remarque \ref{rmq:int diverg nulle}, on en déduit la conservation de la vorticité \eqref{eq:vorticity}.
+
+On note, que $f$ est indépendant du temps : $\dfrac{\partial q h^{\star}}{\partial t
+} = \dfrac{\partial \zeta}{\partial t}$.
+
+$$
+\dfrac{\partial}{\partial t} \left( q h^{\star} \right) + \nabla \cdot \left( q h^{\star} \mathbf{u} \right) = 0
+$$
+
+et on a démontré la conservation de l'enstrophie potentielle \eqref{eq:enstrophie}.
+
+En ce qui conserne la conservation de l'énergie, on pose :
+\begin{equation}
+\begin{array}{rcl}
+E_1 & = & \dfrac{1}{2} h^{\star} \mathbf{u}^2 \\
+E_2 & = & \dfrac{1}{2} g \left( h^2 - h_s^2 \right)
+\end{array}
+\end{equation}
+
+par dérivation :
+\begin{equation}
+\begin{array}{rcl}
+\dfrac{\partial}{\partial t} E_1 & = & -\dfrac{1}{2} \mathbf{u}^2 \nabla \cdot \left( h^{\star} \mathbf{u} \right) - h^{\star} \mathbf{u} \cdot \nabla \left( \dfrac{1}{2} \mathbf{u}^2 + gh \right) \\
+\dfrac{\partial}{\partial t} E_2 & = & - gh \nabla \cdot \left( h^{\star} \mathbf{u} \right) - g h_s \dfrac{\partial h_s}{\partial t} 
+\end{array}
+\end{equation}
+
+par somme :
+
+$$
+\dfrac{\partial E_1 + E_2}{\partial t} = - \nabla \cdot \left( \dfrac{1}{2} \mathbf{u}^2 + gh \right) - g h_s \dfrac{\partial h_s}{\partial t} 
+$$
+
+$h_s$ est indépendant du temps donc en appliquant la remarque \ref{rmq:int diverg nulle}, on obtient la conservation de l'énergie.
+\end{proof}
 
 \section{Solution stationnaire zonale}
 
@@ -100,10 +165,6 @@ En écrivant \eqref{SWEC_new} dans le système de coordonnées $(\lambda, \theta
 
 
 \section{Test 2 de D. L. Williamson \textit{et al.} : Etat d'équilibre zonal}
-
-\begin{com}
-il serait intéréssant de relier ce test avec Galewsky non?
-\end{com}
 
 Le second test de D. L. Williamson \textit{et al.} \cite{Williamson1992} est un test visant à observer la conservation d'une solution stationnaire et zonale pour un schéma numérique. On cherche à observer les conservations d'énergie, de masse et d'enstropie potentielle.
 

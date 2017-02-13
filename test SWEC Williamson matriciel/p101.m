@@ -24,7 +24,7 @@ global gp h0 u0 radius omega
 global alpha
 global teta0 teta1
 
-comment='.';
+comment=' .';
 test=0;
 video = 'no';
 sauvegarde = 1;
@@ -34,7 +34,7 @@ scheme='compact4';
 snapshot='yes';
 
 n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=7;
+ndaymax=6;
 mod101
 disp('mod74 : ok')
 
@@ -369,6 +369,8 @@ while t<Tmax && iter<itermax
     Mdivu(iter)=max(max([div_fI div_fII div_fIII div_fIV div_fV div_fVI]));
     time(iter)=iter*ddt/3600/24;
     iter=iter+1;
+    
+    %% affichage intermédiaire
     clc; 
     disp(real([test iter min(itermax,floor(Tmax/ddt)) err_int(end) err_enstrophy(end) err_energy(end)]));
 end
