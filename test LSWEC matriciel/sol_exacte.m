@@ -1,5 +1,5 @@
 function [ht,vt] = sol_exacte(x,y,z,t)
-
+global n nn
 global test
 global omega hp gp u0 h0 radius
 global teta0 teta1
@@ -64,7 +64,28 @@ elseif test == 1
 
     %% hauteur
     ht=fun10(teta,teta0,teta1).*exp(-sigma*t);
-  
+elseif test == 2
+    [lambda, teta,aaa]=cart2sph(x,y,z);
+    lev=5;
+    waveFlag='EIG';
+    [u,v,h]=shallow_water_waves_test(lambda,teta,lev,t,waveFlag);
+    uu=u;
+    vv=v;
+
+    elambda_x = -sin(lambda);
+    elambda_y =  cos(lambda);
+    elambda_z = zeros(size(x));
+    eteta_x = -sin(teta).*cos(lambda);
+    eteta_y = -sin(teta).*sin(lambda);
+    eteta_z =  cos(teta);
+
+    vt(:,:,1)=uu.*elambda_x + vv.*eteta_x;
+    vt(:,:,2)=uu.*elambda_y + vv.*eteta_y;
+    vt(:,:,3)=uu.*elambda_z + vv.*eteta_z;
+
+    %% hauteur
+    ht=h;
+    
     
 end
 end

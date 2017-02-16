@@ -4,7 +4,8 @@
 % *** options :
 % test : 0, ..., 5 choix du test à lancer.
 %          test = 0 : solution stationnaire de type Galewsky
-%          test = 5 : solution en exp(-sigma*t) (forcage/ammortissement).
+%          test = 1 : solution en exp(-sigma*t) (forcage/ammortissement).
+%          test = 2 : N. Paldor test case.
 % video : 'yes' ou 'no', faire une video ou non.
 % sauvegarde = 0 (ne rien sauvegarder), 1 (sauvegarder toutes les valeurs
 %          finales).
@@ -22,9 +23,9 @@ global opt_ftr test scheme
 global hp gp u0 radius omega
 global teta0 teta1
 
-test=1;
+test=2;
 video = 'no';
-sauvegarde = 1;
+sauvegarde = 0;
 opt_ftr='redonnet10';
 type_ftr='classic';
 scheme='compact4';
@@ -42,7 +43,7 @@ cfl=0.9;
 ddt=radius*dxi*cfl/c;
 ndaymax=6;
 Tmax=ndaymax*3600*24;
-itermax=10000;
+itermax=1;
 
 %% *** initialisation des données
 t=0;
@@ -461,5 +462,16 @@ plot(time, maxi, time, mini)
 title('extremums')
 legend('maxi','mini')
 ylabel('time')
+
+[ vlambda_fI ,vteta_fI] = project(vt_fI,x_fI,y_fI,z_fI);
+[ vlambda_fII ,vteta_fII] = project(vt_fII,x_fII,y_fII,z_fII);
+[ vlambda_fIII ,vteta_fIII] = project(vt_fIII,x_fIII,y_fIII,z_fIII);
+[ vlambda_fIV ,vteta_fIV] = project(vt_fIV,x_fIV,y_fIV,z_fIV);
+[ vlambda_fV ,vteta_fV] = project(vt_fV,x_fV,y_fV,z_fV);
+[ vlambda_fVI ,vteta_fVI] = project(vt_fVI,x_fVI,y_fVI,z_fVI);
+
+figure(7)
+plot_cs100(n,nn,vlambda_fI,vlambda_fII,vlambda_fIII,vlambda_fIV,vlambda_fV,vlambda_fVI);
+title(['numerical projection of vt at time = ', num2str(time(end))])
 
 fig_placier

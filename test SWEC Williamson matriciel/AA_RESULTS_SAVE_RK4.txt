@@ -508,3 +508,192 @@ coriolis parameter     : 7.292e-05
 ***********************************
   
   
+date : 13-Feb-2017
+ref. : 7367396471
+***********************************
+test : 5
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+type du filtre    : classic
+ordre du filtre s.: redonnet10
+scheme            : compact4
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+ .
+***********************************
+  
+  
+date : 13-Feb-2017
+ref. : 7367396697
+***********************************
+test : 5
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+type du filtre    : classic
+ordre du filtre s.: redonnet10
+scheme            : compact4
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+ .
+***********************************
+  
+  
+date : 13-Feb-2017
+ref. : 7367396738
+***********************************
+test : 5
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+type du filtre    : classic
+ordre du filtre s.: redonnet10
+scheme            : compact4
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+ .
+***********************************
+  
+  
+date : 13-Feb-2017
+ref. : 7367396969
+***********************************
+test : 4
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+type du filtre    : classic
+ordre du filtre s.: redonnet10
+scheme            : compact4
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+ .
+***********************************
+  
+  
+date : 13-Feb-2017
+ref. : 7367397303
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+type du filtre    : classic
+ordre du filtre s.: redonnet10
+scheme            : compact4
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+ .
+***********************************
+  
+  
+date : 13-Feb-2017
+ref. : 7367397803
+***********************************
+test : 5
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+type du filtre    : classic
+ordre du filtre s.: redonnet10
+scheme            : compact4
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+ .
+***********************************
+  
+  
+date : 13-Feb-2017
+ref. : 7367398425
+***********************************
+test : 5
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+type du filtre    : classic
+ordre du filtre s.: redonnet10
+scheme            : compact4
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+ .
+***********************************
+  
+  
+date : 13-Feb-2017
+ref. : 7367398664
+***********************************
+test : 5
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+type du filtre    : classic
+ordre du filtre s.: redonnet10
+scheme            : compact4
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+ .
+***********************************
+  
+  
+date : 14-Feb-2017
+ref. : 7367404408
+***********************************
+test : 4
+---------- numerical data ---------
+number of points  : 95
+time step         : 201.9503
+cfl               : 0.9
+type du filtre    : classic
+ordre du filtre s.: redonnet10
+scheme            : compact4
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+ .
+***********************************
+  
+  

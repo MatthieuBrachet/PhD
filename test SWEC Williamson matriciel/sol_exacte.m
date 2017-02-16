@@ -6,6 +6,7 @@ global alpha
 global teta0 teta1
 
 if test == -1
+    % real reliefs.
     [lambda, teta, ~]=cart2sph(x,y,z);
     uu=u0.*(cos(teta).*cos(alpha)+cos(lambda).*sin(teta).*sin(alpha));
     vv=-u0.*sin(lambda).*sin(alpha);
@@ -63,7 +64,7 @@ elseif test == 1
     ht=h0-(1/gp)*(radius.*omega.*u0+0.5*u0.^2).*(-cos(lambda).*cos(teta).*sin(alpha)+sin(teta).*cos(alpha)).^2;
     
 elseif test == 2
-    % test 5 of Williamson & al. wxith  smooth mountain.
+    % test 5 of Williamson & al. with  smooth mountain.
     [lambda, teta, ~]=cart2sph(x,y,z);
     uu=u0.*(cos(teta).*cos(alpha)+cos(lambda).*sin(teta).*sin(alpha));
     vv=-u0.*sin(lambda).*sin(alpha);
@@ -82,6 +83,7 @@ elseif test == 2
     ht=h0-(1/gp)*(radius.*omega.*u0+0.5*u0.^2).*(-cos(lambda).*cos(teta).*sin(alpha)+sin(teta).*cos(alpha)).^2;
     
 elseif test == 3
+    % Galewsky and al. test case (stationnary).
     %% vitesse
     [n1,n2]=size(x);
     vt=zeros(n1,n2,3);
@@ -101,7 +103,6 @@ elseif test == 3
     vt(:,:,3)=uu.*elambda_z + vv.*eteta_z;
 
     %% integrale
-
     nnn=10000;
     a=-pi/2;
     b=teta;
@@ -131,6 +132,7 @@ elseif test == 3
     
     
 elseif test == 4
+    % Galewsky and al. test case (with perturbation).
     %% vitesse
     [n1,n2]=size(x);
     vt=zeros(n1,n2,3);
@@ -150,7 +152,6 @@ elseif test == 4
     vt(:,:,3)=uu.*elambda_z + vv.*eteta_z;
 
     %% integrale
-    
     nnn=10000;
     a=-pi/2;
     b=teta;
@@ -184,5 +185,37 @@ elseif test == 4
 
     %% hauteur 4
     ht=h0-int/gp+pert;
+    
+elseif test == 5
+    % Rossby-Haurwitz wave (test case 6 of Williamson & al.).
+    a=radius;
+    R=4;
+    w=7.848*10^-6;
+    K=w;
+    
+    [n1,n2]=size(x);
+    vt=zeros(n1,n2,3);
+    [lambda, teta,r]=cart2sph(x,y,z);
+    uu=a.*w.*cos(teta)+a.*K.*cos(teta).^(R-1).*(R.*sin(teta).^2-cos(teta).^2).*cos(R.*lambda);
+    vv=-a.*K.*R.*cos(teta).^(R-1).*sin(teta).*sin(R.*lambda);
+
+    elambda_x = -sin(lambda);
+    elambda_y =  cos(lambda);
+    elambda_z=zeros(size(x));
+    eteta_x = -sin(teta).*cos(lambda);
+    eteta_y = -sin(teta).*sin(lambda);
+    eteta_z =  cos(teta);
+
+    vt(:,:,1)=uu.*elambda_x + vv.*eteta_x;
+    vt(:,:,2)=uu.*elambda_y + vv.*eteta_y;
+    vt(:,:,3)=uu.*elambda_z + vv.*eteta_z;
+    
+    A=w/2.*(2*omega+w).*cos(teta).^2+.25*K^2.*cos(teta).^(2*R).*((R+1).*cos(teta).^2+(2*R^2-R-2)-2*R^2.*cos(teta).^(-2));
+    B=((2*(omega+w)*K)./((R+1).*(R+2))).*cos(teta).^R.*((R^2+2*R+2)-((R+1).^2).*cos(teta).^2);
+    C=.25*K^2*cos(teta).^(2*R).*((R+1).*cos(teta).^2-(R+2));
+    
+    ght=gp*h0+a.^2.*A+a.^2.*B.*cos(R.*lambda)+a.^2.*C.*cos(2*R*lambda);
+    ht=ght./gp;
+    
 end
 
