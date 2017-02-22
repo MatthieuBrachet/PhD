@@ -41,24 +41,22 @@ na=4*(nn-1);
 nb=na;
 
 %% physical data
-radius=6.37122d+06;
-omega=7.292d-05;
-hp=10;
-gp=9.80616;
-% u0=80;% JPC
-u0=(sqrt(gp*hp)/10);
-h0=0;
+
 
 %% physical data
-radius=6.37122d+06;
-omega=7.292d-05;
-gp=9.80616;
-
-%% data for the mountain
-hs0_mount=2000;
-R_mount=pi/9;
-lambdac_mount=-pi/2;
-tetac_mount=pi/6;
+if test == 6
+    omega = 7.29212e-5;          % Earth's angular frequency (rad/sec)
+    gp     = 10.0;                % Earth's gravitational acceleration (m/sec^2)
+    radius     = 6371220.0;           % Earth's mean radius (m)
+    hp    = 5.0e3;               % Layer's mean depth (m)
+else
+    radius=6.37122d+06;
+    omega=7.292d-05;
+    hp=10;
+    gp=9.80616;
+    u0=(sqrt(gp*hp)/10);
+    h0=0;
+end
 
 %% --- Points on the CS
 xi=linspace(-pi/4, pi/4, nn); 
@@ -627,7 +625,8 @@ ftr=sparse(ftr);
 
 %% INTEGRALE CORRIGEE
 disp('calcul des poids...')
-nhs_max=min(127,.125*(nn-1)^2-1); % nombre d'harmoniques à corriger
-[A_hs,errhs_i] = compute_A_sym(nhs_max);
-res = solve_weights( A_hs,errhs_i,0,1,1 );
-weights=dxi*deta*(dga+res);
+% nhs_max=min(127,.125*(nn-1)^2-1); % nombre d'harmoniques à corriger
+% [A_hs,errhs_i] = compute_A_sym(nhs_max);
+% res = solve_weights( A_hs,errhs_i,0,1,1 );
+% weights=dxi*deta*(dga+res);
+weights=dxi*deta*dga;

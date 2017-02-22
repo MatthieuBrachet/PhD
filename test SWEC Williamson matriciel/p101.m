@@ -1,15 +1,16 @@
 %% ************************************************************************
 % Solve SWEC on the Cubed-Sphere.
 % *** options :
-% test = 0 : test 2 of Williamson & al.,
-%        1 : test 5 of Williamson & al..
-%        2 : test 5 of Williamson with smooth mountain,
-%        3 : stationnary Galewsky (exp),
-%        4 : Galewsky with perturbation (exp),
+% test = 0  : test 2 of Williamson & al.,
+%        1  : test 5 of Williamson & al..
+%        2  : test 5 of Williamson with smooth mountain,
+%        3  : stationnary Galewsky (exp),
+%        4  : Galewsky with perturbation (exp),
+%        5  : Rossby-Haurwitz waves,
 %        -1 : test with Earth topography
 % scheme : numerical spatial scheme used. 
-% video : 'yes' ou 'no', do a video or not,
-% nper  :  periodicity of frames in the video.
+% video  : 'yes' ou 'no', do a video or not,
+% nper   :  periodicity of frames in the video.
 % sauvegarde = 0 (do not save data), 1 (save all data).
 % opt_ftr : explicit (redonnet).
 %% ************************************************************************
@@ -24,17 +25,17 @@ global gp h0 u0 radius omega
 global alpha
 global teta0 teta1
 
-comment='.';
-test=0;
+comment=' .';
+test=1;
 video = 'no';
-sauvegarde = 1;
+sauvegarde = 0;
 filtre='classic';
 opt_ftr='redonnet10';
 scheme='compact4';
 snapshot='yes';
 
 n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=7;
+ndaymax=15;
 mod101
 disp('mod74 : ok')
 
@@ -83,16 +84,19 @@ elseif test == 4
     teta1=pi/2-teta0;
     u0=80;
     h0=-1.581861685963503e+02+10000;
+elseif test == 5
+    alpha=0;
+    h0=8*10^3;
 end
 
 %% *** initial data *******************************************************
 t=0;
-[ ht_fI,    vt_fI]   = sol_exacte(x_fI,   y_fI,   z_fI,   t);1
-[ ht_fII,   vt_fII]  = sol_exacte(x_fII,  y_fII,  z_fII,  t);2
-[ ht_fIII,  vt_fIII] = sol_exacte(x_fIII, y_fIII, z_fIII, t);3
-[ ht_fIV,   vt_fIV]  = sol_exacte(x_fIV,  y_fIV,  z_fIV,  t);4
-[ ht_fV,    vt_fV]   = sol_exacte(x_fV,   y_fV,   z_fV,   t);5
-[ ht_fVI,   vt_fVI]  = sol_exacte(x_fVI,  y_fVI,  z_fVI,  t);6
+[ ht_fI,    vt_fI]   = sol_exacte(x_fI,   y_fI,   z_fI,   t);
+[ ht_fII,   vt_fII]  = sol_exacte(x_fII,  y_fII,  z_fII,  t);
+[ ht_fIII,  vt_fIII] = sol_exacte(x_fIII, y_fIII, z_fIII, t);
+[ ht_fIV,   vt_fIV]  = sol_exacte(x_fIV,  y_fIV,  z_fIV,  t);
+[ ht_fV,    vt_fV]   = sol_exacte(x_fV,   y_fV,   z_fV,   t);
+[ ht_fVI,   vt_fVI]  = sol_exacte(x_fVI,  y_fVI,  z_fVI,  t);
 
 h_fI=ht_fI; v_fI=vt_fI;
 h_fII=ht_fII; v_fII=vt_fII;
@@ -319,10 +323,11 @@ while t<Tmax && iter<itermax
 %         title(['vorticity at time : ', num2str(time(end))])
         
         figure(9)
-        plot_cs11(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
-        view([.8 -1 1.1])
+        hFig = figure(9);
+        set(gcf,'PaperPositionMode','auto')
+        set(hFig, 'Position', [50 50 1000 500])
+        plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);%,8100:100:10500);
         title(['vorticity at time : ', num2str(time(end))])
-        colorbar
         hold off
        
 
@@ -331,7 +336,7 @@ while t<Tmax && iter<itermax
     end
     
     % snapshot
-    if sauvegarde == 1 & mod(iter,floor(Tmax/(3*ddt))) == 0 & strcmp(snapshot,'yes')==1 
+    if sauvegarde == 1 & mod(iter,floor(Tmax/(3*ddt))) == 0
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         close all;
         
@@ -353,6 +358,9 @@ while t<Tmax && iter<itermax
         elseif test == 1
             plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050:50:5950);
             title(['solution at time : ', num2str(time(end))])
+        elseif test == 5
+            plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,8100:100:10500);
+            title(['solution at time : ', num2str(time(end))])
         else
             plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
             title(['solution at time : ', num2str(time(end))])
@@ -362,15 +370,22 @@ while t<Tmax && iter<itermax
         savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire_' num2str(floor(100*time(end))) '.fig']);
     end
 
-    %% historique sur la divergence
+    %% historique sur la divergence et vorticity
     [div_fI, div_fII, div_fIII, div_fIV, div_fV, div_fVI]=...
         div101(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
-    
     Mdivu(iter)=max(max([div_fI div_fII div_fIII div_fIV div_fV div_fVI]));
+    
+    [vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=...
+        vort101(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
+    Mvortu(iter)=max(max([vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]));
+    
+    %% time update
     time(iter)=iter*ddt/3600/24;
     iter=iter+1;
+    
+    %% affichage intermédiaire
     clc; 
-    disp(real([test iter min(itermax,floor(Tmax/ddt)) err_int(end) err_enstrophy(end) err_energy(end)]));
+    disp(real([test iter min(itermax,floor(Tmax/ddt)) err_int(end) err_energy(end) err_enstrophy(end)]));
 end
 disp('calcul : OK');
 disp('plot...');
@@ -502,12 +517,24 @@ xlabel('time')
 title('relative quantity')
 grid on
 if sauvegarde==1
-    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservation.png'])
-    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservation']);
+    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationA.png'])
+    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationA']);
 end 
 
 figure(9)
-hFig = figure(9);
+plot(time,Mdivu,time,Mvortu)
+title('conservation of divergence and vorticity')
+legend('divergence','vorticity')
+xlabel('time (days)')
+ylabel('conservation quantity')
+grid on
+if sauvegarde==1
+    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationB.png'])
+    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationB']);
+end 
+
+figure(10)
+hFig = figure(10);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
 plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
@@ -519,8 +546,8 @@ if sauvegarde==1
 end
 
 
-figure(10)
-hFig = figure(10);
+figure(11)
+hFig = figure(11);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
 plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050:50:5950);
@@ -533,8 +560,8 @@ end 
 [div_fI, div_fII, div_fIII, div_fIV, div_fV, div_fVI]=...
         div101(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
     
-figure(11)
-hFig = figure(11);
+figure(12)
+hFig = figure(12);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
 plot_cs100(n,nn,div_fI, div_fII, div_fIII, div_fIV, div_fV, div_fVI)
@@ -544,9 +571,6 @@ if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_divergence.png'])
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_divergence']);
 end 
-
-figure(12)
-plot(time,Mdivu)
 
 fig_placier
 disp(['temps de calcul (sans les graphiques) : ', num2str(tend)])

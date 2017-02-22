@@ -1,7 +1,7 @@
 function [PE] = enstrophy(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI)
-% Potential enstrophy
+% Potential enstrophy for SWE equation.
 global n nn
-global omega
+global omega alpha
 global x_fI x_fII x_fIII x_fIV x_fV x_fVI
 global y_fI y_fII y_fIII y_fIV y_fV y_fVI
 global z_fI z_fII z_fIII z_fIV z_fV z_fVI
@@ -30,19 +30,19 @@ hstar_fVI=ht_fVI-hs_fVI;
 
 [n1,n2]=size(x_fI);
 
-[~, teta_fI, ~]=cart2sph(x_fI, y_fI, z_fI);
-[~, teta_fII, ~]=cart2sph(x_fII, y_fII, z_fII);
-[~, teta_fIII, ~]=cart2sph(x_fIII, y_fIII, z_fIII);
-[~, teta_fIV, ~]=cart2sph(x_fIV, y_fIV, z_fIV);
-[~, teta_fV, ~]=cart2sph(x_fV, y_fV, z_fV);
-[~, teta_fVI, ~]=cart2sph(x_fVI, y_fVI, z_fVI);
+[~, teta_fI, lambda_fI]=cart2sph(x_fI, y_fI, z_fI);
+[~, teta_fII, lambda_fII]=cart2sph(x_fII, y_fII, z_fII);
+[~, teta_fIII, lambda_fIII]=cart2sph(x_fIII, y_fIII, z_fIII);
+[~, teta_fIV, lambda_fIV]=cart2sph(x_fIV, y_fIV, z_fIV);
+[~, teta_fV, lambda_fV]=cart2sph(x_fV, y_fV, z_fV);
+[~, teta_fVI, lambda_fVI]=cart2sph(x_fVI, y_fVI, z_fVI);
 
-cor_fI=2.*omega.*sin(teta_fI);
-cor_fII=2.*omega.*sin(teta_fII);
-cor_fIII=2.*omega.*sin(teta_fIII);
-cor_fIV=2.*omega.*sin(teta_fIV);
-cor_fV=2.*omega.*sin(teta_fV);
-cor_fVI=2.*omega.*sin(teta_fVI);
+cor_fI=2.*omega.*(-cos(lambda_fI).*cos(teta_fI).*sin(alpha)+sin(teta_fI).*cos(alpha));
+cor_fII=2.*omega.*(-cos(lambda_fII).*cos(teta_fII).*sin(alpha)+sin(teta_fII).*cos(alpha));
+cor_fIII=2.*omega.*(-cos(lambda_fIII).*cos(teta_fIII).*sin(alpha)+sin(teta_fIII).*cos(alpha));
+cor_fIV=2.*omega.*(-cos(lambda_fIV).*cos(teta_fIV).*sin(alpha)+sin(teta_fIV).*cos(alpha));
+cor_fV=2.*omega.*(-cos(lambda_fV).*cos(teta_fV).*sin(alpha)+sin(teta_fV).*cos(alpha));
+cor_fVI=2.*omega.*(-cos(lambda_fVI).*cos(teta_fVI).*sin(alpha)+sin(teta_fVI).*cos(alpha));
 
 for i=1:n1
     for j=1:n2
