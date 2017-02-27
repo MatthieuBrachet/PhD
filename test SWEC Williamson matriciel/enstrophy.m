@@ -46,12 +46,12 @@ cor_fVI=2.*omega.*(-cos(lambda_fVI).*cos(teta_fVI).*sin(alpha)+sin(teta_fVI).*co
 
 for i=1:n1
     for j=1:n2
-        xi_fI(i,j)=0.5*((vort_fI(i,j)+cor_fI(i,j)).^2)./hstar_fI(i,j);
-        xi_fII(i,j)=0.5*((vort_fII(i,j)+cor_fII(i,j)).^2)./hstar_fII(i,j);
-        xi_fIII(i,j)=0.5*((vort_fIII(i,j)+cor_fIII(i,j)).^2)./hstar_fIII(i,j);
-        xi_fIV(i,j)=0.5*((vort_fIV(i,j)+cor_fIV(i,j)).^2)./hstar_fIV(i,j);
-        xi_fV(i,j)=0.5*((vort_fV(i,j)+cor_fV(i,j)).^2)./hstar_fV(i,j);
-        xi_fVI(i,j)=0.5*((vort_fVI(i,j)+cor_fVI(i,j)).^2)./hstar_fVI(i,j);
+        xi_fI(i,j)=0.5*((vort_fI(i,j)+cor_fI(i,j)).^2)./gp*hstar_fI(i,j);
+        xi_fII(i,j)=0.5*((vort_fII(i,j)+cor_fII(i,j)).^2)./gp*hstar_fII(i,j);
+        xi_fIII(i,j)=0.5*((vort_fIII(i,j)+cor_fIII(i,j)).^2)./gp*hstar_fIII(i,j);
+        xi_fIV(i,j)=0.5*((vort_fIV(i,j)+cor_fIV(i,j)).^2)./gp*hstar_fIV(i,j);
+        xi_fV(i,j)=0.5*((vort_fV(i,j)+cor_fV(i,j)).^2)./gp*hstar_fV(i,j);
+        xi_fVI(i,j)=0.5*((vort_fVI(i,j)+cor_fVI(i,j)).^2)./gp*hstar_fVI(i,j);
     end
 end
 
