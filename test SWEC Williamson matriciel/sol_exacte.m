@@ -4,6 +4,7 @@ global test
 global gp u0 h0 radius omega
 global alpha
 global teta0 teta1
+global nn
 
 if test == -1
     % real reliefs.
@@ -23,6 +24,20 @@ if test == -1
     vt(:,:,3)=uu.*elambda_z + vv.*eteta_z;
 
     ht=h0-(1/gp)*(radius.*omega.*u0+0.5*u0.^2).*(-cos(lambda).*cos(teta).*sin(alpha)+sin(teta).*cos(alpha)).^2;
+    
+elseif test == -2
+    vt=zeros(nn,nn,3);
+    [lambdat,tetat,~]=cart2sph(x,y,z);
+    RR=radius/5;
+    tetac=0;
+    lambdac=3*pi/2;
+    rdt=radius*acos(sin(tetac)*sin(tetat)+cos(tetac)*(cos(tetat).*cos(lambdat-lambdac)));
+    lwkt=(rdt<RR);
+    for i=1:size(x,1)
+        for j=1:size(x,2)  
+            ht(i,j)=0.5*h0*(1+cos(pi*rdt(i,j)/RR))*lwkt(i,j);
+        end
+    end
     
 
 elseif test == 0

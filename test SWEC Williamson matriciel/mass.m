@@ -26,7 +26,7 @@ hstar_fVI=ht_fVI;%-hs_fVI;
 
 nrm='cor_int';
 %nrm='int';
-M=nrm101(hstar_fI,hstar_fII,hstar_fIII,hstar_fIV,hstar_fV,hstar_fVI,n,nn,nrm);
+[nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,M]=nrm101(hstar_fI,hstar_fII,hstar_fIII,hstar_fIV,hstar_fV,hstar_fVI,n,nn,nrm);
 
 end
 

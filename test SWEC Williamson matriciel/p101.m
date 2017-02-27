@@ -8,6 +8,7 @@
 %        4  : Galewsky with perturbation (exp),
 %        5  : Rossby-Haurwitz waves,
 %        -1 : test with Earth topography
+%        -2 : bump
 % scheme : numerical spatial scheme used. 
 % video  : 'yes' ou 'no', do a video or not,
 % nper   :  periodicity of frames in the video.
@@ -26,16 +27,16 @@ global alpha
 global teta0 teta1
 
 comment=' .';
-test=1;
-video = 'no';
-sauvegarde = 0;
+test=-2;
+video = 'yes';
+sauvegarde = 1;
 filtre='classic';
 opt_ftr='redonnet10';
 scheme='compact4';
 snapshot='yes';
 
 n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=15;
+ndaymax=5;
 mod101
 disp('mod74 : ok')
 
@@ -56,12 +57,12 @@ ref=floor(10000*now);
 jour=date;
 %% *** test data **********************************************************
 
-if test == -1
+if test == -1 || -2
     alpha=0;
     u0=20;
     h0=6500;
 elseif test == 0
-    alpha=pi/2;
+    alpha=pi/4;
     u0=2*pi*radius/(12*24*3600);
     h0=2.94*10^4/gp;
 elseif test == 1
@@ -328,8 +329,9 @@ while t<Tmax && iter<itermax
         set(hFig, 'Position', [50 50 1000 500])
         plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);%,8100:100:10500);
         title(['vorticity at time : ', num2str(time(end))])
+        caxis([0 0.1*h0])
         hold off
-       
+        
 
         currFrame = getframe;
         writeVideo(vidObj,currFrame);
@@ -361,6 +363,10 @@ while t<Tmax && iter<itermax
         elseif test == 5
             plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,8100:100:10500);
             title(['solution at time : ', num2str(time(end))])
+        elseif test == -2
+            plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,h_fVI);
+            title(['exact solution at time = ', num2str(time(end))]);
+            view([1 -1 1])
         else
             plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
             title(['solution at time : ', num2str(time(end))])
