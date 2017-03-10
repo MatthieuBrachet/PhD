@@ -1,0 +1,398 @@
+\documentclass[11pt]{beamer}
+\usetheme{CambridgeUS}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{algorithmicx}
+\usepackage[ruled]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{algpascal}
+\usepackage{algc}
+\alglanguage{pseudocode}
+
+\author[M. Brachet]{{\bf M. BRACHET}\inst{1} \& J-P. CHEHAB\inst{2}}
+
+
+\institute[IECL - LAMFA]{
+\inst{1}
+Institut Elie Cartan, Universit\'e de Lorraine - Metz, France
+(matthieu.brachet@univ-lorraine.fr)\\
+
+  
+  \inst{2}
+  LAMFA, UMR 7352, Universit\'e de Picardie Jules Verne, Amiens, France
+(jean-paul.chehab@u-picardie.fr)\\
+
+  }
+
+\title[Schémas RSS et applications]{Stabilisation de schémas pour la résolution d'EDP paraboliques - applications à la mécanique des fluides et au traitement d'images}
+\date[2-03-2017]{2 mars 2017} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\tableofcontents
+\end{frame}
+
+\section{Motivations}
+\subsection{Préconditionnement}
+\begin{frame}{Motivations}
+\begin{block}{But :}
+Résoudre :
+\begin{equation}
+Ax=b
+\end{equation}
+avec $A \in \mathcal{M}_n(\mathbb{R})$ inversible et $b \in \mathbb{R}^n$.
+\end{block}
+
+Quelle est la sensibilité aux perturbations?
+
+\end{frame}
+
+\begin{frame}
+Sensibilité aux perturbations :
+\begin{block}{Théorème :}
+Si :
+\begin{itemize}
+\item $x$ est solution de $Ax=b$,
+\item $x+\delta x$ est solution de $A(x+\delta x) = b + \delta b$.
+\end{itemize}
+Alors :
+\begin{equation}
+\dfrac{\|\delta x \|}{\|x \|} \leq \underbrace{\|A\| \|A^{-1} \|}_{Cond(A)} \dfrac{\| \delta b \|}{\|b\|}
+\end{equation}
+\end{block}
+
+Forte sensibilité du système au conditionnement de $A$ : $Cond(A)$.
+\end{frame}
+
+\begin{frame}
+Trouver $C$ une matrice :
+\begin{equation}
+C^{-1}A x = C^{-1}b
+\end{equation}
+
+$C$ est un préconditionnement de $A$ :
+\begin{itemize}
+\item $C$ est facilement inversible,
+\item $Cond(C^{-1}A) \leq Cond(A)$.
+\end{itemize}
+
+$\Rightarrow$ Diminuer l'influence des perturbations.
+\end{frame}
+
+\subsection{Stabilisation}
+\begin{frame}{}
+On souhaite résoudre numériquement l'EDO :
+\begin{equation}
+\dfrac{dU}{dt} + AU=0
+\end{equation}
+Avec $A \in \mathcal{M}_N ( \mathbb{R} )$ symétrique définie positive.
+
+\begin{block}{Schéma d'Euler Explicite}
+\begin{equation}
+\dfrac{U^{n+1}-U^n}{\Delta t} + A U^{n} = 0
+\end{equation}
+\begin{itemize}
+\item $U^{n+1}=\left( Id - \Delta t A \right)U^n$ facilement calculable,
+\item Convergence du schéma si et seulement si $$\Delta t \leq \dfrac{2}{\rho(A)}$$
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}{}
+On souhaite résoudre numériquement l'EDO :
+\begin{equation}
+\dfrac{dU}{dt} + AU=0
+\end{equation}
+Avec $A \in \mathcal{M}_N ( \mathbb{R} )$ symétrique définie positive.
+
+\begin{block}{Schéma d'Euler Implicite}
+\begin{equation}
+\dfrac{U^{n+1}-U^n}{\Delta t} + A U^{n+1} = 0
+\end{equation}
+\begin{itemize}
+\item Pas de problème de convergence (inconditionnellement stable),
+\item $U^{n+1}=\left( Id + \Delta t A \right)^{-1}U^{n}$ : coût en calcul important (inversion d'une matrice).
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Problèmatique :}
+\begin{itemize}
+\item Proposer un schéma pour discrétiser des EDP Paraboliques stable et rapide,
+\item Précision du schéma,
+\item Stabilité,
+\item Applications.
+\end{itemize}
+
+\end{frame}
+
+% **************************************************************************************************************************
+
+\section{Schémas RSS}
+\subsection{Construction du schéma RSS}
+\begin{frame}{Schéma RSS}
+Résolution de : $du/dt + Au = f$.
+\begin{block}{Solution: Residual
+Smoothing Scheme (RSS) Schemes}
+\begin{itemize}
+	\item Euler Implicite :
+	$$
+	\dfrac{u^{(k+1)}-u^{(k)}}{\Delta t} +A(u^{(k+1)}-u^{(k)})+Au^{(k)}=f
+	$$
+	\pause
+	\item Soit $B$ un préconditionnement de $A$, alors le nouveau schéma s'écrit :
+	\begin{equation}
+\begin{array}{lcl}
+\dfrac{u^{(k+1)}-u^{(k)}}{\Delta t}+&\tau
+\underbrace{B(u^{(k+1)}-u^{(k)})}&+Au^{(k)}=f,\\
+ & \mbox{Stabilization term}& \\
+ \end{array}
+\end{equation}
+Ici $\tau>0$ permettra d'ajuster la stabilité du schéma.
+       \end{itemize}	
+	\end{block}
+
+\end{frame}
+
+\subsection{Stabilité et précision linéaire}
+\begin{frame}{}
+Supposons $A$ et $B$ SPD. 
+$$
+({\mathcal{H}})\hskip 2.cm  \alpha <Bu,u>\le <Au,u> \le \beta <Bu,u>, \ \forall u \in {\mathbb R}^N.
+$$
+$\alpha$ et $\beta$ peuvent dépendre de la dimension $N$ sinon $B$ est un préconditionnement incondiionnel de $A$.
+\pause
+\begin{block}{Théorème}
+Sous l'hypothèse ${\mathcal{H}}$, on la le résultat de stabilité suivant :
+\begin{itemize}
+\item Si $\tau\ge \dfrac{\beta}{2}$, le schéma est inconditionnement stable (i.e. stable $\forall \ \Delta t >0$)
+\item Si $\tau < \dfrac{\beta}{2}$, alors le schéma est stable si :
+$
+0<\Delta t < \dfrac{2}{\left(1-\dfrac{2\tau}{\beta}\right)\rho(A)}.
+$
+\end{itemize} 
+\label{RSS_Stab_lin}
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\begin{block}{Théorème}\label{RSSPrec}
+On considère les suites :
+$$
+ \dfrac{u^{(k+1)}-u^{(k)}}{\Delta t} +\tau B (u^{(k+1)}-u^{(k)}) =f-Au^{(k)},
+ $$
+et
+$$
+ \dfrac{v^{(k+1)}-v^{(k)}}{\Delta t} +A v^{(k+1)} =f,
+ $$
+ avec  $u^{(0)}=v^{(0)}$. Soit $M=Id-\Delta t(Id+\tau \Delta t B)^{-1}A$ et supposons que $\parallel M\parallel < 1$,
+ alors, il existe $\gamma \in [0,1[$ tel que :
+ $$
+\parallel u^{(k)}- v^{(k)}\parallel \le  \Delta t^2 \parallel  \tau B-A\parallel \dfrac{1}{1-\gamma}\parallel  f-Av^{(0)} \parallel  , \forall k \ge 0.
+$$
+\end{block}
+On en déduit que le schéma RSS est d'ordre 1 en temps.
+\end{frame}
+
+\subsection{Stabilité pour l'équation d'Allen-Cahn}
+
+\begin{frame}
+Considérons l'équation de réaction-diffusion (de type Allen-Cahn) :
+\begin{equation}
+\begin{array}{rl}
+\dfrac{\partial u}{\partial t} -\Delta u +\dfrac{1}{\epsilon^2}f(u)=0, & x\in \Omega, t>0,\\
+\dfrac{\partial u}{\partial n}= 0 & \partial \Omega , t>0,\\
+u(x,0)=u_0(x) & x\in \Omega ,
+\end{array}
+\end{equation}
+ où $\epsilon >0$ est un paramètre donné. Le schéma semi-linéaire RSS appliqué est le suivant :
+\begin{equation}
+ \dfrac{u^{(k+1)}-u^{(k)}}{\Delta t} +\tau B (u^{(k+1)}-u^{(k)}) =-Au^{(k)}-\dfrac{1}{\epsilon^2}f(u^{(k)}) .
+ \label{RSSAC}
+ \end{equation}
+  Soit $E(u)=\dfrac{1}{2}<Au,u>+\dfrac{1}{\epsilon^2}<F(u),{\bf 1}>$, où $F$ est la primitive de $f$.
+ Le schéma est d'énergie décroissante si :
+ $$
+ E(u^{(k+1)}) < E(u^{(k)}).
+ $$
+ Si $F\ge 0$ (se sera le cas dans les applications) alors $E\ge 0$ et la stabilité est obtenue.
+ \end{frame}
+ %%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+ \begin{frame}
+ \begin{block}{Théorème :}
+Supposons que $f$ est ${\cal C}^1$ et $\mid f'\mid_{\infty}\le L$.Alors on a les conditions de stabilité suivantes 
+(Condition de diminution de l'énergie) :
+\begin{itemize}
+\item Si $\tau\ge \dfrac{\beta}{2}$ alors
+\begin{itemize}
+\item si $\left(\dfrac{\tau}{\beta}-\dfrac{1}{2}\right)\lambda_{min} -\dfrac{L}{2\epsilon^2}\ge 0$ le schéma est inconditionnellement stable,
+\item si $\left(\dfrac{\tau}{\beta}-\dfrac{1}{2}\right)\lambda_{min} -\dfrac{L}{2\epsilon^2}< 0$ alors le schéma est stable si :
+$$
+0<\Delta t <\dfrac{1}{\frac{L}{2\epsilon^2} -\left(\frac{\tau}{\beta}-\frac{1}{2}\right)\lambda_{min}},
+$$
+\end{itemize}
+\item Si $\tau < \dfrac{\beta}{2}$ alors le schéma est stable si :
+$$
+0<\Delta t <\dfrac{1}{\frac{L}{2\epsilon^2} -\left(\frac{\tau}{\beta}-\frac{1}{2}\right)\rho(A)}.
+$$
+\end{itemize} 
+\label{Stab_AC}
+\end{block}
+\end{frame}
+% **************************************************************************************************************************
+
+\section{Discrétisation}
+\subsection{Extrapolation de Richardson}
+\begin{frame}{Discrétisation}
+Le schéma RSS est d'ordre 1, un moyen classique pour augmenter la précision est d'utiliser l'extrapolation de Richardson :
+\begin{eqnarray*}
+\dfrac{d u }{dt}=F(u),
+\end{eqnarray*}
+Après discrétisation (Euler Explicite) on a :
+\begin{eqnarray*}
+u^{k+1}=u^{k}+\Delta t F(u^k)=G_{\Delta t}(u^k).
+\end{eqnarray*}
+L'extrapolation est donnée par :
+\begin{eqnarray*}
+v_1=G_{\Delta t}(u^k),\\
+v_{2,0}=G_{\Delta t /2}(u^k),\\
+v_{2,1}=G_{\Delta t /2}(v_{2,0}),\\
+u^{k+1}=2v_{2,1}-v_1.
+\end{eqnarray*}
+le nouveau schéma est ainsi d'ordre 2.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+ \begin{frame}
+ Résolution RSS de :
+ \begin{equation}
+ \frac{du}{dt}+Au+F(u)=0
+ \end{equation}
+ 
+ \begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: Extrapolated RSS Scheme}\label{ExtraRSS}
+    \begin{algorithmic}[1]
+        \State $u^{(0)}$ given
+            \For $k=0,1, \cdots$ until convergence
+             \State {\bf Solve} $ (Id+\tau \frac{\Delta t}{2}B) v_1=-\frac{\Delta t}{2} F(u^{(k}),$
+              \State {\bf Set} $u_1=u^{(n)} +v_1,$
+               \State {\bf Solve} $ (Id+\tau \frac{\Delta t}{2}B) v_2=-\frac{\Delta t}{2} F(u_1),$
+              \State {\bf Set}  $u_2=u_1+v_2,$
+               \State {\bf Solve} $(Id+\tau \Delta tB) v_3=-\Delta t  F(u^{(k)}),$
+               \State {\bf Set} $u_3=u^{(n)}+v_3,$
+               \State  {\bf Set}  $u^{(k+1)}=2u_2-u_3.$              
+            \EndFor
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center}
+ \end{frame}
+
+\subsection{Discrétisation spatiale}
+\begin{frame}{}
+Pour discrétiser :
+
+$$\dfrac{\partial u}{\partial t} - \Delta u = 0$$
+
+il faut discrétiser le Laplacier $-\Delta$
+
+\end{frame}
+
+\begin{frame}
+ \begin{block}{Compact Scheme (Lele's approach, '92)}
+ \begin{itemize}
+ \item moyen d'obtenur un schéma aux différences finies d'haute précision
+ \item Soit $U=(U_1,\cdots,U_n)^T$ le vecteur d'approximation de $u$ aux points du maillage $x_i=ih$, $i=1,\cdots, n$.  On construit l'approximation $V_i={\cal L}(u)(x_i)$ comme solution d'un système
+$$
+P . V= Q U,
+$$
+formellement la matrice d'approximation est $B=P^{-1}Q$.
+\end{itemize}
+ \end{block}
+ \end{frame}
+ \begin{frame}
+
+Schéma d'ordre 4 pour la dérivée seconde :
+$$ P= tridiag(\frac{1}{10},1,\frac{1}{10}),$$
+
+$$ Q = \frac{1}{h^2} \begin{pmatrix}
+a_1 & a_2 & a_3 & a_4 & a_5 &   &   \\ 
+-\frac{6}{5} & \frac{12}{5} & -\frac{6}{5} &   &   &   &   \\ 
+  & -\frac{6}{5} & \frac{12}{5} & -\frac{6}{5} &   &   &   \\ 
+  &   & \ddots & \ddots & \ddots &   &   \\ 
+  &   &   & -\frac{6}{5} & \frac{12}{5} & -\frac{6}{5} &   \\ 
+  &   &   &   & -\frac{6}{5} & \frac{12}{5} & -\frac{6}{5} \\ 
+  &   & a_{N-4} & a_{N-3} & a_{N-2} & a_{N-1} & a_N
+\end{pmatrix}, $$
+où  $a_1$, $a_2$, $a_3$, ... sont donnés par :
+$$ 
+a_1=-\frac{67}{60},   
+a_2=-\frac{7}{12},   
+a_3=\frac{13}{10},   
+a_4=-\frac{61}{120},   
+a_5=\frac{1}{12}.   
+ $$
+
+ \end{frame}
+ 
+ \begin{frame}
+ Si on pose $A_4=P^{-1}Q$, $A_4$ est préconditionné par le schéma d'ordre 2:
+ 
+ $$A_2=\dfrac{1}{h^2} \begin{pmatrix}
+2  & -1 &    &   &    &     &   \\ 
+-1 & 2 & -1 &   &    &     &   \\ 
+   & -1 & 1  & -1&    &     &   \\ 
+   &    & \ddots & \ddots & \ddots &   &   \\ 
+   &    &   & -1 & 2  & -1   &   \\ 
+   &    &   &    & -1 & 2    & -1 \\ 
+   &    &   &    &    & -1   & 2
+\end{pmatrix}$$
+
+\begin{itemize}
+\item $A_2$ est facilement inversible,
+\item Préconditionnement inconditionnel de $A_4$.
+\end{itemize}
+ \end{frame}
+
+% **************************************************************************************************************************
+
+\section{Applications}
+\subsection{Equations de Navier-Stokes 2D}
+\begin{frame}{Applications}
+
+\end{frame}
+
+\subsection{Equation d'Allen Cahn et Segmentation d'images}
+\begin{frame}{}
+
+\end{frame}
+
+\subsection{Equation de Cahn-Hilliard et Inpainting}
+\begin{frame}{}
+
+\end{frame}
+% **************************************************************************************************************************
+\section{Conclusions et perspectives}
+\begin{frame}{Conclusions et perspectives}
+
+\end{frame}
+
+\end{document}

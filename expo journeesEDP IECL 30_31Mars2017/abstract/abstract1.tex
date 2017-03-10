@@ -1,0 +1,81 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{latexsym}
+\usepackage{bbm}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\setlength{\paperheight}{297mm}\setlength{\paperwidth}{210mm}
+\setlength{\oddsidemargin}{10mm}\setlength{\evensidemargin}{10mm}
+\setlength{\topmargin}{0mm}\setlength{\headheight}{10mm}\setlength{\headsep}{8mm}
+\setlength{\textheight}{240mm}\setlength{\textwidth}{160mm}
+\setlength{\marginparsep}{0mm}\setlength{\marginparwidth}{0mm}
+\setlength{\footskip}{10mm}
+\voffset -13mm\hoffset -10mm\parindent=0cm
+\def\titre#1{\begin{center}{\Large{\bf #1}}\end{center}}
+\def\orateur#1#2{\begin{center}{\underline{\large{\bf #1}}}, {#2}\end{center}}
+\def\auteur#1#2{\begin{center}{\large{\bf #1}}, {#2}\end{center}}
+\def\auteurenbasdepage#1#2#3{\small{\bf #1}, \small{#2}\\ \small{\tt #3}\\ }
+\def\motscles#1{%
+	\ifx#1\IsUndefined\relax\else\noindent{\normalsize{\bf Mots-cl\'es :}} #1\\ \fi}
+\renewcommand{\refname}{\normalsize R\'ef\'erences}
+
+\begin{document}
+\thispagestyle{empty}
+
+\def\Titre{Approximation numérique utilisant des schémas compacts pour la résolution d'EDP}
+\def\NomOrateur{Matthieu BRACHET}
+\def\AdresseCourteOrateur{IECL, Universit\'e Lorraine, Metz}
+\def\AdresseLongueOrateur{Institut Elie Cartan de Lorraine, UMR 7502, Univ. Lorraine, Metz}
+\def\EmailOrateur{email}
+
+\def\NomAuteurI{Jean-Pierre CROISILLE}
+\def\AdresseCourteAuteurI{IECL, Universit\'e Lorraine, Metz}
+\def\AdresseLongueAuteurI{Institut Elie Cartan de Lorraine, UMR 7502, Univ. Lorraine, Metz}
+\def\EmailAuteurI{jean-pierre.croisille@univ-lorraine.fr}
+
+\titre{\Titre}% 
+
+\orateur{\NomOrateur}{\AdresseCourteOrateur}
+\auteur{\NomAuteurI}{\AdresseCourteAuteurI}
+
+\motscles{\listmotcles}
+
+Dans cet exposé, nous présenterons le schéma numérique introduit dans \cite{Croisille2013, Croisille2015} permettant de résoudre numériquement des équations issues de la mécanique des fluides sur la sphère.
+Notre schéma est basé sur un maillage de type Cubed Sphere. La discrétisation se fait via un schéma aux différences finies centré compacts d'ordre 4. Une diffusion numérique est nécéssaire. Cette diffusion consiste à un filtrage d'ordre 10 atténuant les modes +1/-1 associés au maillage. 
+De réçents progrès ont mis en évidence l'importance de la symétrie du filtrage. Des résultats numériques seront présentés concernant la propagation de vortex sur l'équation d'advection \cite{Nair2008} ou des problèmes de cisaillement \cite{Galewsky2004}. Ces résultats montrent l'intérêt de cette approche en climatologie mathématiques.
+
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[height=4.5cm]{vort_galewsky.png}
+\includegraphics[height=4.5cm]{ref_7366156130_normerreur_test_2.png}
+\end{center}
+\caption{Voricité pour le test de J. Galewsky et al. \cite{Galewsky2004} après 6 jours de simulation et  $6 \times 63^2 + 2$ points sur la grille (gauche), erreur relative pour l'éqution d'advection \cite{Nair2008} avec $6 \times 40^2 + 2$ points(droite)}
+\end{figure}
+
+\bibliographystyle{plain}
+\begin{thebibliography}{99}
+
+\bibitem{Croisille2013} {\sc J.-P. Croisille}, {\sl Hermitian compact interpolation on the cubed-sphere grid}, Jour. Sci. Comp. , 57, 2013, pp. 193-212.
+
+\bibitem{Croisille2015} {\sc J.-P. Croisille}, {\sl Hermitian approximation of the spherical divergence on the Cubed-Sphere}, J. Comp. App. Maths., 280, 2015, pp. 188-201.
+
+\bibitem{Nair2008} {\sc R. D. Nair, C. Jablonowski}, {\sl Moving Vortices on the Sphere : a test case for horizontal advection problem}, Mon. Wea. Rev. , 136, 2008, pp. 689--711.
+
+\bibitem{Galewsky2004} {\sc J. Galewsky, R. Scott, K. Richard and L. M. Polvani}, {\sl An initial-value problem for testing numerical models of the global shallow-water equations}, Tellus A , 56, 2004, pp. 429--440.
+
+\bibitem{Brachetyear} {\sc M. Brachet, J.-P. Croisille}, {\sl Numerical simulations of propagation problemes
+on the sphere using a compact scheme}, preprint.
+
+\end{thebibliography}
+
+\vfill
+\auteurenbasdepage{BRACHET Matthieu}{Institut Elie Cartan de Lorraine, Universit\'e de Lorraine,
+Site de Metz, B\^at.  A, Ile du Saulcy, F-57045 Metz Cedex 1}{matthieu.brachet@univ-lorraine.fr}
+\auteurenbasdepage{CROISILLE Jean-Pierre}{Institut Elie Cartan de Lorraine, Universit\'e de Lorraine,
+Site de Metz, B\^at.  A, Ile du Saulcy, F-57045 Metz Cedex 1}{jean-pierre.croisille@univ-lorraine.fr}
+
+\end{document}

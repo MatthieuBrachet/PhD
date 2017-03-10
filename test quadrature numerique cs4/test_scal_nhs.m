@@ -19,7 +19,7 @@ weights=dxi*deta*dga;
 % computation of weights with B. Portenelle's formula
 % disp('weights...')
 % nhs_max=100;
-% k=0;
+% k=100;
 % [A,err_i]=compute_A_sym(nhs_max);
 % eps_w=solve_weights(A,err_i,k,1,1);
 % weights=dxi*deta*(dga+eps_w);
@@ -27,7 +27,7 @@ weights=dxi*deta*dga;
 
 
 
-nhs1=11; mhs1=5;
+nhs1=3; mhs1=1;
 fun1fI=conj(sph(nhs1,mhs1,x_fI,y_fI,z_fI));
 fun1fII=conj(sph(nhs1,mhs1,x_fII,y_fII,z_fII));
 fun1fIII=conj(sph(nhs1,mhs1,x_fIII,y_fIII,z_fIII));
@@ -36,7 +36,7 @@ fun1fV=conj(sph(nhs1,mhs1,x_fV,y_fV,z_fV));
 fun1fVI=conj(sph(nhs1,mhs1,x_fVI,y_fVI,z_fVI));
 
 %nhs2=nhs1;
-nhs_max=25;%2*nhs1;
+nhs_max=4*nhs1;%2*nhs1;
 for i=1:nhs_max
     nhs2=i-1;
     nhs_test=-nhs2:1:nhs2;

@@ -39,7 +39,19 @@ elseif test == -2
         end
     end
     
-
+elseif test == -3
+    vt=zeros(nn,nn,3);
+    [lambda,teta,~]=cart2sph(x,y,z);
+    tetac=0;
+    lambdac=0;
+    RR=radius/5;
+    for i=1:nn
+        for j=1:nn
+            r=sqrt(min([RR.^2, (lambda(i,j)-lambdac).^2+(teta(i,j)-tetac).^2]));
+            ht(i,j)=h0.*exp(-(2.8*r./RR).^2);
+        end
+    end
+    
 elseif test == 0
     % test 2 of Williamson & al.
     [lambda, teta, ~]=cart2sph(x,y,z);

@@ -128,23 +128,23 @@ function []=make_cs_grid(N)
     end
     betag=alfag'; % BETAG=TRANSPOSEE DE ALFAG
     % --------------------------------------------------
-    %global p k;
-    p=zeros(na); % 
-    p=sparse(p);
-    k=zeros(na);
-    k=sparse(k);
-    %
-    for i=2:na-1
-        p(i,i)=4;
-        p(i,i+1)=1;
-        p(i,i-1)=1;
-        k(i,i+1)=1;
-        k(i,i-1)=-1;
-    end
-    p(1,1)=4;p(1,2)=1;p(1,na)=1;
-    p( na,1)=1;p(na,na-1)=1;p(na,na)=4;
-    k(1,2)=1;k(1,na)=-1;
-    k(na,1)=1;k(na,na-1)=-1;
+%     %global p k;
+%     p=zeros(na); % 
+%     p=sparse(p);
+%     k=zeros(na);
+%     k=sparse(k);
+%     %
+%     for i=2:na-1
+%         p(i,i)=4;
+%         p(i,i+1)=1;
+%         p(i,i-1)=1;
+%         k(i,i+1)=1;
+%         k(i,i-1)=-1;
+%     end
+%     p(1,1)=4;p(1,2)=1;p(1,na)=1;
+%     p( na,1)=1;p(na,na-1)=1;p(na,na)=4;
+%     k(1,2)=1;k(1,na)=-1;
+%     k(na,1)=1;k(na,na-1)=-1;
     % ----------------------------------------------------------------
     % % CARTESIAN COORDINATES OF THE POINTS OF THE 6 FACES.
     % global x_fI y_fI z_fI;
@@ -394,22 +394,22 @@ function []=make_cs_grid(N)
           geta_VI(i,j,1:3)=geta_VI(i,j,1:3)/xwk;     
         end
     end
-    p1=zeros(n); % 
-    p1=sparse(p1);
-    k1=zeros(n);
-    k1=sparse(k1);
-    %
-    for i=2:n-1
-        p1(i,i)=4;
-        p1(i,i+1)=1;
-        p1(i,i-1)=1;
-        k1(i,i+1)=1;
-        k1(i,i-1)=-1;
-    end
-    p1(1,1)=4;p1(1,2)=1;
-    p1(n,n-1)=1;p1(n,n)=4;
-    k1(1,2)=1;
-    k1(n,n-1)=-1;
+%     p1=zeros(n); % 
+%     p1=sparse(p1);
+%     k1=zeros(n);
+%     k1=sparse(k1);
+%     %
+%     for i=2:n-1
+%         p1(i,i)=4;
+%         p1(i,i+1)=1;
+%         p1(i,i-1)=1;
+%         k1(i,i+1)=1;
+%         k1(i,i-1)=-1;
+%     end
+%     p1(1,1)=4;p1(1,2)=1;
+%     p1(n,n-1)=1;p1(n,n)=4;
+%     k1(1,2)=1;
+%     k1(n,n-1)=-1;
     %
     % MATRICE DE FILTRE POUR LES RESEAUX ALPHA ET BETA
     % OPTION 0: pas de filtrage

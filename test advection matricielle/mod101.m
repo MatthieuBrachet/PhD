@@ -698,10 +698,11 @@ ftr1=sparse(ftr1);
 
 %% INTEGRALE CORRIGEE
 disp('calcul des poids...')
-nhs_max=1127;%.125*(nn-1)^2-1; % combre d'harmoniques à corriger
-%[A,err_i] = compute_A(nhs_max); sym=0;
-[A,err_i] = compute_A_sym(nhs_max); sym=1;
-err=1;
-k=0;
-res = solve_weights( A,err_i,k,err,sym );
-weights=dxi*deta*(dga+res);
+% nhs_max=min(127,.125*(nn-1)^2-1); % nombre d'harmoniques à corriger
+% [A,err_i] = compute_A_sym(nhs_max); sym=1;
+% err=1;
+% k=0;
+% res = solve_weights( A,err_i,k,err,sym );
+% weights=dxi*deta*(dga+res);
+
+weights=dxi*deta*dga;

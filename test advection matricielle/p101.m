@@ -29,33 +29,33 @@ time1=cputime;
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 2;
+coef = 1;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 0;
+save_graph = 1;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
 opt_ftr ='redonnet10';
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be odd. )
-snapshot = 0;
+snapshot = 1;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 2
 %         1 : coupe.
 coupe = 0;
 % sauvegarde = 1 : sauvegarde toutes les données,
 %            = 0 : ne les sauvegarde pas, (utiliser load('namefile') pour
 %            recharger les données).
-sauvegarde = 0;
+sauvegarde = 1;
 % choix du schéma aux différences finies
 scheme='compact4'; % compact ou explicite
 %% *** Benchmarks data ****************************************************
- n=127;
+ n=35;
  nn=n+2;
- cfl=0.9;
- ndaymax=30;
+ cfl=0.5;
+ ndaymax=12;
  err=2;
  mm=0;
  MM=1000;
@@ -63,29 +63,29 @@ scheme='compact4'; % compact ou explicite
  if coef == 0
      %% test de Williamson
      alphad=3*pi/4;  
-     lambdac=0;                                                           % longitude BUMP
-     tetac=0;                                                                  % latitude BUMP
-     lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
+     lambdac=0;                                                            % longitude BUMP
+     tetac=0;                                                              % latitude BUMP
+     lambda_p=pi;                                                          % position du pole nord, i.e. position du vortex nord
      teta_p=pi/2 - alphad;
  elseif coef == 1
      %% test de Nair et Machenhauer
-     lambda_p=pi/4;                                                            % position du pole nord, i.e. position du vortex nord
-     teta_p=-pi/4;
+     lambda_p=pi;                                                        % position du pole nord, i.e. position du vortex nord
+     teta_p=0;
      rho0=3;
      gamma=5;
  elseif coef == 2
      %% test de Nair et Jablonowski
-     alphad=pi/3; 
+     alphad=3*pi/4; 
      lambda0 = 0;
      teta0 = 0;
-     lambda_p=pi;                                                              % position du pole nord à t=0, i.e. position du vortex nord à t=0
+     lambda_p=pi;                                                          % position du pole nord à t=0, i.e. position du vortex nord à t=0
      teta_p=pi/2 - alphad;
      rho0=3;
      gamma=5;
  elseif coef == 3
      %% test de Nair et Lauritzen
-     alphad=3*pi/4;                                                                 % latitude BUMP
-     lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
+     alphad=3*pi/4;                                                        % latitude BUMP
+     lambda_p=pi;                                                          % position du pole nord, i.e. position du vortex nord
      teta_p=pi/2 - alphad;
      lambdac1=-pi/2;
      tetac1=0;
@@ -457,11 +457,14 @@ if sauvegarde == 1
 end
 
 if snapshot == 1
+    vmin=min(min([funfI,funfII,funfIII,funfIV,funfV,funfVI]));
+    vmax=max(max([funfI,funfII,funfIII,funfIV,funfV,funfVI]));
+    
     figure(11)
     hFig = figure(11);
     set(gcf,'PaperPositionMode','auto')
     set(hFig, 'Position', [50 50 1000 500])
-    plot_cs7(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe)
+    plot_cs101(n,nn,funfI-1,funfII-1,funfIII-1,funfIV-1,funfV-1,funfVI-1,linspace(vmin-1,vmax-1,25))
     if save_graph==1
         print('-dpng', ['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef) '_nday_' num2str(ndaymax) '.png'])
         savefig(['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef)]);
@@ -476,9 +479,9 @@ if save_graph==1
     print('-dpng', ['./results-' date '/ref_' num2str(ref) '_solexacte_test_' num2str(coef) '.png'])
     savefig(['./results-' date '/ref_' num2str(ref) '_solexacte_test_' num2str(coef)]);
 end
- 
+
 figure(2);
-plot_cs11(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
+plot_cs11(n,nn,funfI,funfIIe,funfIII,funfIV,funfV,funfVI);
 title('approximate solution - RK4')
 view(vvv)
 if save_graph==1

@@ -620,11 +620,11 @@ ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*
 ftr=sparse(ftr);
 
 %% INTEGRALE CORRIGEE
-% disp('calcul des poids...')
 % nhs_max=min(127,.125*(nn-1)^2-1); % nombre d'harmoniques à corriger
-% [A_hs,errhs_i] = compute_A_sym(nhs_max);
-% res = solve_weights( A_hs,errhs_i,0,1,1 );
+% [A,err_i] = compute_A_sym(nhs_max); sym=1;
+% err=1;
+% k=0;
+% res = solve_weights( A,err_i,k,err,sym );
 % weights=dxi*deta*(dga+res);
 
-
-weights=dxi*deta*(dga);
+weights=dxi*deta*dga;

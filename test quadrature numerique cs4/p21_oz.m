@@ -22,7 +22,7 @@ make_cs_grid(N);
 
 
 % 
-nhs1=9; mhs1=2;
+nhs1=0; mhs1=0;
 nhs2=9; mhs2=2;
 
 fun1fI=conj(sph(nhs1,mhs1,x_fI,y_fI,z_fI));
@@ -43,8 +43,6 @@ fun2fVI=sph(nhs2,mhs2,x_fVI,y_fVI,z_fVI);
 [scaf1f2,nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI]=...
     intsca_weights( weights,fun1fI,fun1fII,fun1fIII,fun1fIV,fun1fV,fun1fVI,...
     fun2fI,fun2fII,fun2fIII,fun2fIV,fun2fV,fun2fVI)
-
-somme=nrmI+nrmII+nrmIII+nrmIV
 
 figure(1)
 plot_cs11(n,nn,real(fun1fI),real(fun1fII),real(fun1fIII),real(fun1fIV),real(fun1fV),real(fun1fVI))

@@ -27,16 +27,16 @@ global alpha
 global teta0 teta1
 
 comment=' .';
-test=-2;
-video = 'yes';
+test=4;
+video = 'no';
 sauvegarde = 1;
 filtre='classic';
 opt_ftr='redonnet10';
 scheme='compact4';
 snapshot='yes';
 
-n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=5;
+n=127; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=6;
 mod101
 disp('mod74 : ok')
 
@@ -57,7 +57,7 @@ ref=floor(10000*now);
 jour=date;
 %% *** test data **********************************************************
 
-if test == -1 || -2
+if test < 0
     alpha=0;
     u0=20;
     h0=6500;
@@ -87,7 +87,7 @@ elseif test == 4
     h0=-1.581861685963503e+02+10000;
 elseif test == 5
     alpha=0;
-    h0=8*10^3;
+    h0=8*10^3;   
 end
 
 %% *** initial data *******************************************************
@@ -516,9 +516,39 @@ if sauvegarde==1
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_erreur']);
 end 
 
+figure(801)
+plot(time,err_int-1,'k-')
+xlabel('time')
+title('error on relative mass')
+grid on
+if sauvegarde==1
+    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_mass.png'])
+    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_mass']);
+end 
+
+figure(802)
+plot(time,err_energy-1,'k-')
+xlabel('time')
+title('error on relative energy')
+grid on
+if sauvegarde==1
+    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_energy.png'])
+    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_energy']);
+end 
+
+figure(803)
+plot(time,err_enstrophy-1,'k-')
+xlabel('time')
+title('error on relative enstrophy')
+grid on
+if sauvegarde==1
+    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_enstrophy.png'])
+    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_enstrophy']);
+end 
+
 figure(8)
-plot(time,err_int-1,time,err_energy-1,time,err_enstrophy-1)
-legend('mass','energy','potential enstrophy')
+plot(time,err_int-1,'k-',time,err_energy-1,'k-.')
+legend('mass','energy')
 xlabel('time')
 title('relative quantity')
 grid on
@@ -528,7 +558,7 @@ if sauvegarde==1
 end 
 
 figure(9)
-plot(time,Mdivu,time,Mvortu)
+plot(time,Mdivu,'k-',time,Mvortu,'k-.')
 title('conservation of divergence and vorticity')
 legend('divergence','vorticity')
 xlabel('time (days)')

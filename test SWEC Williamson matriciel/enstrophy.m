@@ -1,7 +1,7 @@
 function [PE] = enstrophy(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI)
 % Potential enstrophy for SWE equation.
 global n nn
-global omega alpha
+global omega alpha gp
 global x_fI x_fII x_fIII x_fIV x_fV x_fVI
 global y_fI y_fII y_fIII y_fIV y_fV y_fVI
 global z_fI z_fII z_fIII z_fIV z_fV z_fVI
@@ -46,18 +46,18 @@ cor_fVI=2.*omega.*(-cos(lambda_fVI).*cos(teta_fVI).*sin(alpha)+sin(teta_fVI).*co
 
 for i=1:n1
     for j=1:n2
-        xi_fI(i,j)=0.5*((vort_fI(i,j)+cor_fI(i,j)).^2)./gp*hstar_fI(i,j);
-        xi_fII(i,j)=0.5*((vort_fII(i,j)+cor_fII(i,j)).^2)./gp*hstar_fII(i,j);
-        xi_fIII(i,j)=0.5*((vort_fIII(i,j)+cor_fIII(i,j)).^2)./gp*hstar_fIII(i,j);
-        xi_fIV(i,j)=0.5*((vort_fIV(i,j)+cor_fIV(i,j)).^2)./gp*hstar_fIV(i,j);
-        xi_fV(i,j)=0.5*((vort_fV(i,j)+cor_fV(i,j)).^2)./gp*hstar_fV(i,j);
-        xi_fVI(i,j)=0.5*((vort_fVI(i,j)+cor_fVI(i,j)).^2)./gp*hstar_fVI(i,j);
+        xi_fI(i,j)=0.5*((vort_fI(i,j)+cor_fI(i,j)).^2)./(gp*hstar_fI(i,j));
+        xi_fII(i,j)=0.5*((vort_fII(i,j)+cor_fII(i,j)).^2)./(gp*hstar_fII(i,j));
+        xi_fIII(i,j)=0.5*((vort_fIII(i,j)+cor_fIII(i,j)).^2)./(gp*hstar_fIII(i,j));
+        xi_fIV(i,j)=0.5*((vort_fIV(i,j)+cor_fIV(i,j)).^2)./(gp*hstar_fIV(i,j));
+        xi_fV(i,j)=0.5*((vort_fV(i,j)+cor_fV(i,j)).^2)./(gp*hstar_fV(i,j));
+        xi_fVI(i,j)=0.5*((vort_fVI(i,j)+cor_fVI(i,j)).^2)./(gp*hstar_fVI(i,j));
     end
 end
 
 nrm='cor_int';
 %nrm='int';
-[~,~,~,~,~,~,PE]=...
+[PE_fI,PE_fII,PE_fIII,PE_fIV,PE_fV,PE_fVI,PE]=...
     nrm101(xi_fI,xi_fII,xi_fIII,xi_fIV,xi_fV,xi_fVI,n,nn,nrm);
 
 
