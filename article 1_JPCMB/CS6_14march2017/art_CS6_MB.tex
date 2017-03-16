@@ -3,18 +3,25 @@
 \documentclass[oneside,english]{amsart}
 %\documentclass[oneside,english]{article}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+\usepackage[latin9]{inputenc}
 \usepackage{amsmath,amssymb,graphicx}
 \usepackage{amsthm}
 \usepackage{graphicx}
-%\usepackage{subfigure}
-%\usepackage{epsfig}
-%\usepackage{color}
+\usepackage{subfigure}
+\usepackage{epsfig}
+\usepackage{color}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \graphicspath{{./Images/}}
 %usepackage[dvips]{color}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[left=2.5cm,right=2.5cm,top=3cm,bottom=3cm]{geometry}
+%\setlength{\textheight}{210mm}
+\setlength{\textwidth}{154mm}
+%\setlength{\headsep}{0mm}
+%\setlength{\hoffset}{0mm}
+\setlength{\oddsidemargin}{-0mm}
+\setlength{\evensidemargin}{-0mm}
+%\setlength{\topmargin}{30mm}
+\makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\newcommand{\cal}{\mathcal}
 \newcommand{\beq}{\begin{equation}}
@@ -51,13 +58,34 @@
 \newcommand{\bpsi}{\mbox{\boldmath$\psi$}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ** PERSONAL NEWTHEOREMS
+%\newtheorem{prop}{Proposition}[chapter]
+%\newtheorem{prop}{Proposition}[section]
+%\newtheorem{prop}[thm]{Proposition}
+%\newtheorem{proposition}{Proposition}[section]
+%\newtheorem{thm}{Theorem}[section]
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{theorem}{Theorem}[chapter]
+%\newtheorem{algo}{Algorithm}
 \newtheorem{thm}{Theorem}[section]
+%\newtheorem{thm}{Th\'eor\`eme}[chapter]
 \theoremstyle{definition}
 \newtheorem{defi}[thm]{Definition}
+%\newtheorem{coro}[thm]{Corollaire}
+%\newtheorem{lemma}[thm]{Lemme}
+%\newtheorem{claim}[thm]{Claim}
+%\newtheorem{example}[thm]{Exemple}
+%\newtheorem{formula}[thm]{Formule}
 \theoremstyle{remark}
 \newtheorem{remark}[thm]{Remark}
-
-\def\gint{\displaystyle\int}
+%\newtheorem{prop}[thm]{Proposition}
+%\newtheorem{fig}[thm]{chapter}
+%\newtheorem{acknowledgement}{Acknoledgement}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LyX specific LaTeX commands.
+%% Because html converters don't know tabularnewline
+%% \providecommand{\tabularnewline}{\\}
+%% A simple dot to overcome graphicx limitations
+\newcommand{\lyxdot}{.}
 
 
 \makeatother
@@ -66,7 +94,9 @@
 
 \begin{document}
 
-\title{Numerical simulation of propagation problems on the sphere using a compact scheme}
+\title[Compact Schemes for propagation problems on the sephre]{
+Using a compact scheme for propagation problems 
+on the sphere}
 
 \begin{abstract}
 New abstract: In \cite{Croisille-10} a methodology to

@@ -32,8 +32,6 @@ if coef == 0
 %% ------------------------------------------------------------------------
 
 %% solid body - test de williamson
-
-% --------------- FACE I---------------------
 [lambda,teta,radius1]=cart2sph(x_fI,y_fI,z_fI);
 elambda_x = -sin(lambda);
 elambda_y =  cos(lambda);

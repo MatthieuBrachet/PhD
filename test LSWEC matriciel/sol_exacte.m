@@ -24,14 +24,14 @@ if test == 0
     vt(:,:,3)=uu.*elambda_z + vv.*eteta_z;
 
     %% integrale
-    n=1000;
+    nnn=1000;
     a=0;
     b=teta;
-    h=(b-a)/n;
+    h=(b-a)/nnn;
     fa=radius*u0*fun10(a,teta0, teta1).*(2*omega*sin(a));
     fb=radius*u0*fun10(b,teta0, teta1).*(2*omega*sin(b));
     int=0.5*(fa+fb).*h;
-    for kk=1:n-1
+    for kk=1:nnn-1
         xx=a+kk*h;
         fxx=radius*u0*fun10(xx,teta0, teta1).*(2*omega*sin(xx));
         int=int+fxx.*h;
@@ -65,6 +65,8 @@ elseif test == 1
     %% hauteur
     ht=fun10(teta,teta0,teta1).*exp(-sigma*t);
 elseif test == 2
+    % Paldor test case (not ready).
+    error('the Paldor test case is not ready yet.')
     [lambda, teta,aaa]=cart2sph(x,y,z);
     lev=5;
     waveFlag='EIG';
@@ -86,7 +88,20 @@ elseif test == 2
     %% hauteur
     ht=h;
     
-    
+elseif test == 3
+    % personnal test case
+    vt=zeros(nn,nn,3);
+    [lambdat,tetat,~]=cart2sph(x,y,z);
+    RR=radius/2;
+    tetac=0;
+    lambdac=0;
+    rdt=radius*acos(sin(tetac)*sin(tetat)+cos(tetac)*(cos(tetat).*cos(lambdat-lambdac)));
+    lwkt=(rdt<RR);
+    for i=1:size(x,1)
+        for j=1:size(x,2)  
+            ht(i,j)=0.5*hp*(1+cos(pi*rdt(i,j)/RR))*lwkt(i,j);
+        end
+    end
 end
 end
 

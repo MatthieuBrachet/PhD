@@ -1,0 +1,103 @@
+%% *** INTRODUCTION ***************************************************************************
+
+\section{Introduction}
+\label{sec:1}
+In this paper, we continue the development
+of the compact scheme approach introduced in \cite{} and \cite{}
+for hyperbolic problems on the sphere.
+In recent years a lot of effort
+has been devoted to import
+ideas of numerical gas dynamics to numerical climatology.
+Two particular examples are finite volumes upwind schemes 
+with numerical fluxes. This approach involves
+reconstruction with piecewise cubic recontsruction.
+A variant is the Discontinuous Galerkin approach
+in which several unknowns in a single computational cells are used.
+In each of these two cases, the machinery of upwind schemes is adapted
+to the specificity of the spherical context
+and of the test cases. This involves in particular 
+slope limiting. 
+
+An important challenge for numerical schemes in numerical climatology 
+is to calculate as accurately as possible 
+the solution of linear equations up to a large physical time.
+Here we show that our compact scheme performs well
+for the three following problems:
+\begin{itemize}
+\item 
+The linear scalar equation
+advection 
+\begin{equation}
+\label{eq:adv}
+\dfrac{\partial h}{\partial t}  (t,\mathbf{x})+ \mathbf{c}(t,\mathbf{x}) \cdot \nabla_T h(t,\mathbf{x})=0
+\end{equation}
+
+The velocity $\mathbf{c}(t,\mathbf{x}) \in (0, +\infty) \times \mathbb{S}^2$ is prescribed
+so that the scalar value $h(t,\mathbf{x})$ exhibits a moving rollup vortex.
+This test case was introduced
+in \cite{Nair-Machenhauer,Nair-Jablonowski}. We refer to Sections
+\ref{sec:4.1} and \ref{sec:4.2} for setails.
+\item
+The linearized shallow water equations (LSWE). This equation
+is expressed as:
+\begin{equation}
+\label{eq:lswe}
+(LSWE) \left\{
+\begin{array}{l}
+\dfrac{\partial \mathbf{v} }{\partial t} (t,\mathbf{x})+ g \nabla_T \eta(t,\mathbf{x}) + f(\mathbf{x}) \mathbf{k}(\mathbf{x}) \wedge
+\mathbf{v}(t,\mathbf{x})=0\\
+\dfrac{\partial \eta}{\partial t} (t,\mathbf{x})+ H \nabla_T \cdot \mathbf{v}(t,\mathbf{x})=0
+\end{array}
+\right.
+\end{equation}
+
+
+This system serves as a base for spherical waves on the sphere,
+\cite{Paldor}. The state at rest is 
+$(\mathbf{v}_0,\eta_0)=(0,H)$ and the 
+The 3-components perturbation unknowns is
+the vector $(t,\mathbf{x}) \mapsto (\mathbf{v}(t,\mathbf{x}), \eta(t,\mathbf{x}))$.
+\item The shallow water equation (SWE). We use the vectorial form as following :
+\begin{equation}
+\label{eq:swe}
+(SWE) \left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial h^{\star}}{\partial t} (t,\mathbf{x}) + \nabla_T \cdot \left( h^{\star}(t,\mathbf{x}) \mathbf{v}(t,\mathbf{x}) \right) & = & 0 \\
+\dfrac{\partial \mathbf{v}}{\partial t}  (t,\mathbf{x}) + \nabla_T \left( \dfrac{1}{2} \mathbf{v}(t,\mathbf{x})^2 + g h(t,\mathbf{x}) \right) + \left( f(\mathbf{x}) + \zeta(t,\mathbf{x}) \right) \mathbf{k}(\mathbf{x}) \wedge \mathbf{v}(t,\mathbf{x}) & = & \mathbf{0} 
+\end{array}
+\right.
+\end{equation}
+
+where $\zeta = \left( \nabla_T \wedge \mathbf{v} \right) \cdot \mathbf{k}$ is the relative vorticity. $h^{\star} = h - h_s$ with $h_s$ the reliefs map.
+\end{itemize}
+
+The present approach is related to compact scheme
+approach. In this sense, it belongs 
+to a classical approach, which can
+be traced back to early works
+in approximation and interpolation theory, \cite{Collatz}.
+
+Two specific applications in CFD where compact schemes
+are  is Aeroacoustics, \cite{Visbal-Gaitonde, Tam-Webb} and Turbulence, \cite{Lele, Kim-Moin}.
+
+Finite difference schemes 
+for simulating problems in climatology have
+actually attracted interest since 
+more than 40 years, \cite{Arakawa}.
+
+In both cases, we show 
+that our purely Cartesian approach supports
+the comparison with modern conservative schemes on unstructured grids, such as 
+Discontinuous Galerkin or Finite-Volume schemes.
+Note finally that Finite Difference methods were recently used
+in numerical climatology in \cite{Ghader-Nordstrom}.
+
+The outline of the paper is as follows.
+In Section \ref{sec:2}, we recall the numerical calculation
+of the gradient introduced in \cite{Croisille-10}. Then in Section 
+\label{sec:3}, we present the numerical scheme with emphasis 
+on the role of the filtering. Dissipation and dispersion analysis 
+is given. Finally in Section \ref{sec:4}, we present 
+numerical results on two vortex advection problems mentionned above.
+These results show the accuracy of our scheme.
+The accuracy is comparable to conservative schemes such as DG schemes \cite{Nair-Jablonowski}.

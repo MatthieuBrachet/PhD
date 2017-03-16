@@ -6,6 +6,7 @@
 %          test = 0 : solution stationnaire de type Galewsky
 %          test = 1 : solution en exp(-sigma*t) (forcage/ammortissement).
 %          test = 2 : N. Paldor test case.
+%          test = 3 : personnal test case.
 % video : 'yes' ou 'no', faire une video ou non.
 % sauvegarde = 0 (ne rien sauvegarder), 1 (sauvegarder toutes les valeurs
 %          finales).
@@ -23,16 +24,16 @@ global opt_ftr test scheme
 global hp gp u0 radius omega
 global teta0 teta1
 
-test=2;
-video = 'no';
-sauvegarde = 0;
+test=3;
+video = 'yes';
+sauvegarde = 1;
 opt_ftr='redonnet10';
 type_ftr='classic';
 scheme='compact4';
-n=31;
+n=63;
 mod101
 
-teta0=-pi/5;
+teta0=-pi/4;
 teta1=pi/3;
 
 cgrav=sqrt(gp*hp);
@@ -41,9 +42,9 @@ c=max(cgrav,ccor);
 
 cfl=0.9;
 ddt=radius*dxi*cfl/c;
-ndaymax=6;
+ndaymax=15;
 Tmax=ndaymax*3600*24;
-itermax=1;
+itermax=10000;
 
 %% *** initialisation des données
 t=0;
@@ -305,7 +306,6 @@ while t<Tmax && iter<itermax
     err_fV=htnew_fV-h_fV ;
     err_fVI=htnew_fVI-h_fVI;
     
-    
     str='infty';
         [aaa,aaa,aaa,aaa,aaa,aaa,nrmger]=...
       nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
@@ -350,11 +350,15 @@ while t<Tmax && iter<itermax
 
     %% film
     if strcmp(video,'yes')==1
-        figure(100)
-        plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI)
+        hFig = figure(100);
+        set(gcf,'PaperPositionMode','auto')
+        set(hFig, 'Position', [50 50 1000 500])
+        plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI)
+        caxis([-0.05*hp 0.1*hp])
         title(['numerical solution at ', num2str(time(end)), 'days'])
         hold off;
         mov(iter) = getframe(gcf);
+        clf
     end
 
 end
@@ -437,7 +441,7 @@ if sauvegarde==1
 end 
 
 figure(4)
-semilogy(time,err_int-1,time,err_energy-1)
+plot(time,err_int-1,time,err_energy-1)
 legend('mass','energy')
 xlabel('time')
 title('error on conservation')
@@ -449,7 +453,10 @@ if sauvegarde==1
 end 
 
 figure(5)
-plot_cs11(n,nn,(h_fI-ht_fI)./nrmrefi,(h_fII-ht_fII)./nrmrefi,(h_fIII-ht_fIII)./nrmrefi,(h_fIV-ht_fIV)./nrmrefi,(h_fV-ht_fV)./nrmrefi,(h_fVI-ht_fVI)./nrmrefi);
+hFig = figure(5);
+set(gcf,'PaperPositionMode','auto')
+set(hFig, 'Position', [50 50 1000 500])
+plot_cs100(n,nn,(h_fI-ht_fI)./nrmrefi,(h_fII-ht_fII)./nrmrefi,(h_fIII-ht_fIII)./nrmrefi,(h_fIV-ht_fIV)./nrmrefi,(h_fV-ht_fV)./nrmrefi,(h_fVI-ht_fVI)./nrmrefi);
 title('relative error at final time')
 if sauvegarde==1
     mkdir(['./RK4_results-' date ]);
@@ -457,7 +464,22 @@ if sauvegarde==1
     savefig(['./RK4_results-' date '/ref_' num2str(ref) '_space_error']);
 end 
 
+mm=min(min([ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI]));
+MM=max(max([ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI]));
+
 figure(6)
+hFig = figure(6);
+set(gcf,'PaperPositionMode','auto')
+set(hFig, 'Position', [50 50 1000 500])
+plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,linspace(mm,MM,10));
+title('relative error at final time')
+if sauvegarde==1
+    mkdir(['./RK4_results-' date ]);
+    print('-dpng', ['./RK4_results-' date '/ref_' num2str(ref) '_plot.png'])
+    savefig(['./RK4_results-' date '/ref_' num2str(ref) '_plot']);
+end 
+
+figure(7)
 plot(time, maxi, time, mini)
 title('extremums')
 legend('maxi','mini')
@@ -470,7 +492,7 @@ ylabel('time')
 [ vlambda_fV ,vteta_fV] = project(vt_fV,x_fV,y_fV,z_fV);
 [ vlambda_fVI ,vteta_fVI] = project(vt_fVI,x_fVI,y_fVI,z_fVI);
 
-figure(7)
+figure(8)
 plot_cs100(n,nn,vlambda_fI,vlambda_fII,vlambda_fIII,vlambda_fIV,vlambda_fV,vlambda_fVI);
 title(['numerical projection of vt at time = ', num2str(time(end))])
 

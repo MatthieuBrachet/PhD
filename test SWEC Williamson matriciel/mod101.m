@@ -41,8 +41,6 @@ mm=((nn-1)/2)+1;
 na=4*(nn-1);
 nb=na;
 
-radius=6.37122d+06; % rayon terrestre
-
 %% physical data
 radius=6.37122d+06;
 omega=7.292d-05;

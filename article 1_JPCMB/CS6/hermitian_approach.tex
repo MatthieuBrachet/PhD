@@ -1,0 +1,210 @@
+%% *** SECTION ***************************************************************************************************************
+
+\section{Fourth order accurate spherical gradient}
+\label{sec:2}
+\subsection{Hermitian approach to partial derivatives on the sphere}
+\label{sec:2.1}
+In this section we present the principle
+behind the calculation of the high-order accurate
+approximate spherical gradient, as introduced in 
+\cite{Croisille-10, Croisille-12}.
+Consider a given function $ \mathbf{s} \in \mathbb{S}^2 \mapsto u(\mathbf{s})$ on the unit sphere
+and a point $\bar{\mathbf{s}}$ where an approximate value of the tangential gradient
+$\nabla_T u(\bar{\mathbf{s}})$ is required.
+Consider a point $\mathbf{s}_0$ close to $\bar{\mathbf{s}}$ and two orthogonal great circles
+$C_1$ and $C_2$ intersecting at $\mathbf{s}_0$. 
+Denote by $\xi$ and $\eta$ the angles along $C_1$ and $C_2$ respectively.
+The angles $(\xi,\eta)$ form a local coordinate system 
+whose $\mathbf{s}_0(0,0)$ is the center. 
+The tangential gradient $\nabla_T u(\bar{\mathbf{s}})$  is given by:
+\beq
+\label{eq:87.1}
+\nabla_T u(\bar{\mathbf{s}})=
+\Big(
+\partial_\xi u(\bar{\mathbf{s}})
+\Big)
+g^\xi(\bar{\mathbf{s}})
++
+\Big(
+\partial_\eta u(\bar{\mathbf{s}})
+\Big)
+g^\eta(\bar{\mathbf{s}}).
+\eeq
+In (\ref{eq:87.1}), $(g^\xi(\mathbf{s}),g^\eta(\mathbf{s}))$
+denotes the dual basis of the basis 
+$(g_\xi(\mathbf{s}),g_\eta(\mathbf{s}))$ where
+\beq
+\label{eq:32.19}
+g_\xi(\mathbf{s})=\frac{\partial \mathbf{s}}{\partial \xi},\;\;\;
+g_\eta(\mathbf{s})=\frac{\partial \mathbf{s}}{\partial \eta}.
+\eeq
+Consider next the iso-$\eta$ curve passing through $\bar{\mathbf{s}}$.
+This curve is locally defined as a function of the $\xi$ parameter as:
+\beq
+ \xi \in (\bar{\xi}-\varepsilon, \bar{\xi}+\varepsilon)
+ \mapsto \mathbf{s}(\xi,\bar{\eta}), \;\;\; \varepsilon >0.
+\eeq
+Due to the orthogonality of the circles $C_1$ and $C_2$, this curve
+is also an arc of great circle. We call $\bar{C}$ this great circle.
+We define a discrete grid of $\bar{C}$ 
+using the points with coordinates $\mathbf{s}_i(i\Delta \xi,\bar{\eta})$. The value
+$\Delta \xi >0 $ is the constant step defined by
+\beq
+\Delta \xi = \frac{\pi}{2N}
+\eeq 
+and $N>0$ is an integer.
+Assume for the moment that the point $\bar{\mathbf{s}}$ belongs to this grid and that 
+$\bar{\mathbf{s}}=\mathbf{s}_i$ for some integer $i$.  A simple way 
+to approximate $\nabla_T u(\bar{\mathbf{s}})$
+is obtained by approximating in (\ref{eq:87.1}) 
+the partial derivatives
+$\partial_\xi u(\mathbf{s}_i)$ and $\partial_\eta u(\mathbf{s}_i)$.
+Consider first $\partial_\xi u(\bar{\mathbf{s}})$.
+Since $\bar{\mathbf{s}}=\mathbf{s}_i$, using 
+the standard centered divided difference we have;
+\beq
+\label{eq:75.10}
+\partial_\xi u(\mathbf{s}_i) \simeq 
+\frac{u(\mathbf{s}_{i+1})- 
+u(\mathbf{s}_{i-1})}{2 \Delta \xi}.
+\eeq
+The divided difference in the right-hand-side is denoted by $\delta_\xi u_i$.
+Proceeding in the same manner in the $\eta$ direction, we set up
+a grid on the circle $\bar{C}^\prime$:
+the iso-$\xi$ great circle through by $\bar{\mathbf{s}}$ receives 
+a grid with step size $\Delta \eta = \Delta_\xi$. The points
+along this grid are numbered with index $j$ and we
+call ${\mathbf{s}}=\mathbf{s}^\prime_j$. The value
+$\partial_\eta u (\bar{s})$ is approximated by:
+\beq
+\label{eq:75.11}
+\partial_\eta u(\bar{\mathbf{s}}) \simeq 
+\delta_\eta u^\prime_j = \frac{u(\mathbf{s}^\prime_{j+1})- 
+u(\mathbf{s}^\prime_{j-1})}{2 \Delta \eta}.
+\eeq
+A first candidate for the approximate value to $\nabla_T u(\bar{\mathbf{s}})$ is therefore:
+\beq
+\label{eq:87.2}
+\nabla_{T,h} u(\bar{\mathbf{s}})=
+\left(\delta_\xi u_i\right)
+g^\xi(\bar{\mathbf{s}})
++
+\left(\delta_\eta u^\prime_j \right)
+g^\eta(\bar{\mathbf{s}}).
+\eeq
+The vector $\nabla_{T,h} u(\bar{\mathbf{s}})$ is obviously a second order 
+approximation to $\nabla_T u(\bar{\mathbf{s}})$.
+A simple way to go beyond second order
+is to modifiy $\delta_\xi u_i$ using instead
+the Hermitian derivative $\delta^H_\xi u_i$.
+It is defined in terms of $\delta_\xi u_i$ by the relation
+\beq
+\label{eq:73.10}
+\frac{1}{6} \delta_\xi^H u_{i-1}
++\frac{2}{3} \delta_\xi^H u_i
++\frac{1}{6} \delta_\xi^H u_{i+1}
+= 
+\delta_\xi u_i.
+\eeq
+The relation (\ref{eq:73.10}) defines implictely
+$ \delta_\xi^H u_i$ as a perturbation of 
+$\delta_\xi u_i$ since it can be expressed as:
+\beq
+\label{eq:73.14}
+\delta_\xi^H u_i
+= 
+\delta_\xi u_i -\frac{\Delta^2\xi}{6} \delta^2_\xi \delta^H_\xi u_i
+\eeq
+The difference with (\ref{eq:75.10}) 
+is that (\ref{eq:73.10}) involves values of $u$ along 
+the full on $\bar{C}$ and not only the two neighboor values 
+at $i\pm 1$.
+Solving (\ref{eq:73.10}) provides $\delta^H u_i$.
+This values satisfies the fourth-order consistency relation
+\beq
+\label{eq:34.18}
+\delta^H_\xi u_i=
+\partial_\xi u(\bar{\mathbf{s}})+ O(\Delta \xi^4)
+\eeq
+Proceeding in the same way along the $\eta-$ direction gives 
+the approximation
+\beq
+\label{eq:34.19}
+\delta^H_\eta u^\prime_j=
+\partial_\eta u(\bar{\mathbf{s}})+ O(\Delta \xi^4)
+\eeq
+The Hermitian approximate gradient at the point $\bar{\bs}$ 
+is therefore:
+\beq
+\label{eq:87.2.1}
+\nabla^H_{T,h} u(\bar{\mathbf{s}})=
+\left(\delta^H_\xi u_i\right)
+g^\xi(\bar{\mathbf{s}})
++
+\left(\delta^H_\eta u^\prime_j\right)
+g^\eta(\bar{\mathbf{s}})
+\eeq
+It results from (\ref{eq:34.18}-\ref{eq:34.19}) that
+$\nabla^H_{T,h} u(\bar{\mathbf{s}})$ satisfies the fourth order
+consistency relation
+\beq
+\label{eq:87.4}
+\nabla^H_{T,h} u(\bar{\mathbf{s}})=\nabla_{T} u(\bar{\mathbf{s}})+O(\Delta \xi^4)+O(\Delta \eta^4).
+\eeq
+The Hermitian approximation (\ref{eq:87.4}) is the basis of our approximate gradient on the Cubed-Sphere.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Approximate gradient on the Cubed-Sphere}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The Cubed Sphere is a grid of the sphere. This grid and variants were introduced by
+various authors. A systematic
+presentation was given in
+\cite{Ronchi-Iacono-Paolucci}.
+This grid has been widely used for numerical climatology.
+The Cubed-Sphere is composed of six panels with
+label $(k)=(I), (II), (II), (IV), (V)$ and $(VI)$. Each panel matches
+the face of the cube, in which the sphere
+is embedded. Each panel
+supports a Cartesian grid of size $N\times N$.
+It is equipped with a 
+coordinate system $(\xi,\eta)$.
+As in the preceding section,
+$\xi$ and $\eta$ are angles along a couple of orthogonal great circles
+intersecting at the center of the panel.
+A typical panel and the associated grid is represented
+on Fig. \ref{fig:1}.
+The  grid points are called $\mathbf{s}_{i,j}^{(k)}$ with $ (I) \leq (k) \leq (VI)$ and
+$ -N/2 \leq i,j \leq N/2$. 
+In panel $(k)$ and for all fixed $j$, the points  $ i \mapsto \mathbf{s}_{i,j}$ are 
+located along a great circle. This essential property of the Cubed-Sphere
+permits to follow the idea presented in Section \ref{sec:2.1}: 
+the calculation of an approximate gradient at $\mathbf{s}^{(k)}_{i,j}$
+by mean of Hermitian derivatives.
+The approximate gradient
+$\nabla_{T,h} u^{(k)}_{i,j}$ is given by
+\beq
+\label{eq:85.13}
+\nabla_{T,h} u^{(k)}_{i,j}=
+u_{\xi,i,j}^{(k)} \mathbf{g}^{\xi, (k)}_{i,j} 
++
+u_{\eta,i,j}^{(k)} \mathbf{g}^{\eta, (k)}_{i,j} 
+\eeq
+As in the preceding section, the values $ u_{\xi,i,j}^{(k)}$ and $u_{\eta,i,j}^{(k)}$
+are Hermitian approximation of the partial derivatives $\partial_\xi u(\mathbf{s}^{(k)}_{i,j})$ and
+$\partial_\eta u(\mathbf{s}^{(k)}_{i,j})$. The calculation of 
+these Hermitian derivatives are
+based on a set of data located along two great circles called $\bar{C}_{i,j}$ and $\bar{C}^\prime_{i,j}$.
+The data along $\bar{C}_{i,j}$ and $\bar{C}^\prime_{i,j}$
+are of course based on specific points of the Cubed-Sphere.
+The choice of these points is detailed in \cite{Croisille-10, Croisille-12}
+and we refer to these two references for more details.
+Even if no mathematical proof is available yet, 
+numerical evidence show a consistency close to $4$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}
+   \def\svgwidth{0.4 \textwidth}
+\input{drawing13.pdf_tex}
+\caption{The points of a typical panel of the Cubed-Sphere are classified in three categories:
+(i) Circles correspond to {\sl internal} points; (ii) Squares correspond to {\sl edge} points ;
+(iii) Pentagons correspond to {\sl corner} points}
+\label{fig:1}
+\end{figure}

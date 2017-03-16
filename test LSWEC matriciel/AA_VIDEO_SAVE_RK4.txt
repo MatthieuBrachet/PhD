@@ -1,0 +1,38 @@
+date : 11-Mar-2017
+ref. : 7367658347
+***********************************
+test : 3
+---------- numerical data ---------
+number of points  : 63
+time step         : 302.9254
+cfl               : 0.9
+ordre du filtre   : redonnet10
+schema            : compact4
+type du filtre    : classic
+---------- physical data ----------
+gravity g              : 9.8062
+equilibrium SWE hp     : 10
+caracteristiv velocity : 0.99026
+coriolis parameter     : 7.292e-05
+***********************************
+  
+  
+date : 12-Mar-2017
+ref. : 7367667699
+***********************************
+test : 3
+---------- numerical data ---------
+number of points  : 63
+time step         : 302.9254
+cfl               : 0.9
+ordre du filtre   : redonnet10
+schema            : compact4
+type du filtre    : classic
+---------- physical data ----------
+gravity g              : 9.8062
+equilibrium SWE hp     : 100
+caracteristiv velocity : 3.1315
+coriolis parameter     : 7.292e-05
+***********************************
+  
+  

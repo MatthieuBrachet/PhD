@@ -1,0 +1,216 @@
+%% *** SECTION ***********************************************************************************************************************
+
+\section{Centered compact scheme with filtering}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Our approximate scheme
+uses a centered finite-difference approximation on the Cubed-Sphere.
+In particular we do not use any kind of upwinding.
+A stabilization mechanism is a linear filtering
+at each time step. This kind of numerical 
+algorithm is stronlgy related to so-called 
+hyperviscous numerical diffusion.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
+\subsection{Method of lines}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+We consider the convection equation on the sphere
+with tangential velocity 
+$(\mathbf{x} ,t) \in \mathbb{S}^2 \times \mathbb{R}_+ \mapsto \mathbf{c}(\mathbf{x},t)$.
+\beq
+\label{eq:978.23.1}
+\left\{
+\begin{array}{l}
+\partial_t h(\mathbf{x},t)+\mathbf{c}(\mathbf{x},t) \cdot \nabla_s h(\mathbf{x},t)=0,\\
+h(\mathbf{x},0)=h_0(\mathbf{x}).
+\end{array}
+\right.
+\eeq
+Existence and uniqueness for (\ref{eq:978.23.1}) is
+obtained by the method of characteristics.
+The task is to calculate
+an approximation of $h(\mathbf{x},t)$.
+
+Let
+$t \mapsto h^{(k)}_{i,j}(t)$ be a semidiscrete approximation
+in space of (\ref{eq:978.23.1}). This semi-discrete 
+approximation is 
+the solution of the differential system:
+\beq
+\label{eq:978.23.1a}
+\left\{
+\begin{array}{l}
+{d h_{i,j}^k(t) \over dt} +\mathbf{c}^{(k)}_{i,j}(t)\cdot  \mathbf{\nabla} h h_{i,j}^k(t)=0,
+\quad -M\leq i,j\leq M,\;\;\; I\leq k\leq VI,\\
+h^{(k)}_{i,j}(0)=h_0(\mathbf{s}^{(k)}_{i,j})
+\end{array}
+\right.
+\eeq
+where $\mathbf{c}^{(k)}_{i,j}(t) \triangleq \mathbf{c}(\mathbf{s}^{(k)}_{i,j})(t)$.
+Denote by $H(t) \triangleq  h^{(k)}_{i,j}(t)$ the gridfuntion
+with components $h^{(k)}_{i,j}$. The equation (\ref{eq:978.23.1}) 
+is expressed in vector form as:
+\beq
+\label{eq:71.10.3}
+\frac{d}{dt}H(t)=J(t) H(t)
+\eeq
+where $J(t)$ is the matrix corresponding to
+\beq
+[J(t) H(t)]_{i,j}^{(k)} \triangleq 
+-\bc^{(k)}_{i,j}(t)\cdot  \bgrad_{T,h} h_{i,j}^k(t).
+\eeq
+Since fourth order accuracy in space is expected, we proceed with 
+the explicit in time RK 4 approxaimtion in time for
+(\ref{eq:71.10.3}).
+Let $\Delta t>0$ be a time-step. The RK4 time-scheme
+is applied to (\ref{eq:71.10.3}).
+
+\begin{equation}
+\label{eq:300.41-1}
+\left\{ 
+\begin{array}{l}
+K^{(0)} = J(t^n)H^{n}\\
+K^{(1)} = J(t^{n+1/2})(H^{n}+\frac{1}{2}\Delta t K^{(0)})\\
+K^{(2)} = J(t^{n+1/2})(H^{n}+\frac{1}{2}\Delta t K^{(1)})\\
+K^{(3)} = J(t^{n+1})(H^{n}+\Delta t K^{(2)})\\
+H^{n+1} = H^{n}
++\Delta t\Bigg(\frac{1}{6}K^{(0)}+\frac{1}{3}K^{(1)}
++\frac{1}{3}K^{(2)}+\frac{1}{6}K^{(3)}\Bigg).
+\end{array}\right.
+\end{equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Dissipation and dispersion analysis}
+Finite difference schemes are usually described
+by their dissipation and dispersion properties. 
+A customary analysis of this kind is the so called {\sl modified equation}
+analysis, \cite{Shokin}.  This analysis is usually 
+performed on the linear advection equation
+\beq
+\partial_t u + c \partial_x u=0
+\eeq
+We recall next the main features of this analysis.
+Consider a numerical scheme
+\beq
+\label{eq:76.10}
+\frac{u^{n+1}_j-u^n_j}{\Delta t}
++ L_h u|^n_j =0
+\eeq
+In (\ref{eq:76.10}), the operator $L_h u^n_j$ approximates $-c \partial_x u$.
+In operator form, the scheme (\ref{eq:76.10}) is rewritten as
+\beq
+\label{eq:56.10}
+\frac{e^{\Delta t \partial_t}-1}{\Delta t} u^n_j = -L_h u|^n_j
+\eeq
+The Logarithm series provides the formal expansion 
+\beq
+\label{eq:87.12}
+\partial_t = \frac{e^{\Delta t \partial_t}-1}{\Delta t}
+-\frac{\Delta t}{2}\left(\frac{e^{\Delta t \partial_t}-1}{\Delta t}\right)^2
++\frac{\Delta t}{3}\left(\frac{e^{\Delta t \partial_t}-1}{\Delta t}\right)^3
+-\frac{\Delta t}{4}\left(\frac{e^{\Delta t \partial_t}-1}{\Delta t}\right)^4
++....
+\eeq
+Using (\ref{eq:56.10}) in the right hand side of (\ref{eq:87.12}),
+we obtain an identity of the form
+\beq
+\label{eq:34.13}
+\partial_t u+ c \partial_x u=c \Big[
+  E_1 h \partial_x^{(2)}u 
++ E_2 h^2 \partial_x^{(3)}u 
++ E_3 h^3 \partial_x^{(4)}u 
++ E_4 h^4 \partial_x^{(5)}u 
++...
+\Big]
+\eeq
+This identity is called the modified equation of the scheme. It represents a transport equation
+with a perturbation in the form of an asymptotic expansion
+in powers of $h$. The coefficients $E_\alpha$ depends
+only the Courant number $\lambda= c \Delta t /h$. 
+In the case of the scheme (), the modifed equation 
+is expressed as:
+\beq
+\partial_t u+ c \partial_x u=c\Big[ \frac{h^4}{360}(3 \lambda^4+2) \partial_x^{(5)}u
++ \sum_\alpha h^{\alpha}E_\alpha \partial_x^{(\alpha+1)}u
+\eeq
+The first coefficients are 
+\beq
+\label{eq:72.10}
+\left\{
+\begin{array}{l}
+E_4= \frac{1}{360}(3 \lambda^4+2)\\
+E_5= \frac{1}{144}\lambda^5\\
+E_6= \frac{1}{3024}(-2+9\lambda^6)\\
+E_7= \frac{1}{1152}\lambda^7\\
+E_8= \frac{1}{25920}(\lambda^4-1)(5 \lambda^4-1)\\
+E_9= -\frac{1}{4320}\lambda^5
+\end{array}
+\right.
+\eeq
+As a result the scheme is $4-$order. In addition it is found to
+be dissipative for the term in $\partial_x^{(6)}$ but antidissipative
+with the terms in $\partial_x^{(8)}$ and  $\partial_x^{(10)}$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Tenth-order hyperviscosity}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:4}
+As described in the previous section, stabilisation mechanism could be useful
+to obtain a better stability profile. 
+In such a situation a high-order filtering is added at each time step. 
+Numerical practice showed
+that a tenth-order filter from \cite{Visbal-Gaitonde} gives good results.
+At each time step the value $H^{(n)}$ in (\ref{eq:300.41-1}) is replaced 
+by $\mathcal{F} H^{(n)}$ where $\mathcal{F}$ is the filtering operator
+acting on the gridfunctions defined by 
+the composition of two one-dimensional filters along the $\xi$ and the $\eta$ directions on each panel:
+\begin{equation}
+\mathcal{F}=\dfrac{1}{2} \left( \mathcal{F}_\xi \circ \mathcal{F}_{\eta} +  \mathcal{F}_{\eta} \circ \mathcal{F}_{\xi} \right)
+\end{equation}
+
+For a one-dimensional grid function $u_j$,
+The filter $\mathcal{F}$ belongs to the class 
+of the filters 
+\beq
+\label{eq:75.10.3}
+\alpha_f u_{F,i-1}+
+u_{F,i}+
+\alpha_f u_{F,i+1}=
+\sum_{^j=0}^J \frac{a_j}{2}(u_{i+j}+u_{i-j})
+\eeq
+This kind of filtering was originally introduced
+in the Atmospheric Sciences community \cite{Alpert}.
+The values of the coefficients in (\ref{eq:75.10}) are given
+in \cite{Visbal-Gaitonde}. 
+Our numerical results were performed 
+with the explicit filter, corresponding to
+$\alpha_f=0$ and to the coefficients:
+\beq
+\label{eq:978.25.3}
+\left(
+\begin{array}{c}
+a_0\\
+a_1\\
+a_2\\
+a_3\\
+a_4\\
+a_5
+\end{array}
+\right)
+=
+\left(
+\begin{array}{c}
+193/256\\
+105/256\\
+-15/64\\
+45/512\\
+-5/256\\
+1/512
+\end{array}
+\right).
+\eeq
+The fact that () acts as a filter is reflected 
+by the values of 
+coefficients in (\ref{eq:72.10}) in the modified equation modified equation.
+The term in $\partial_x^{(10)} u$ is now dissipative insted of being
+antidissitaive without filter. It is now 
+\beq
+E_9= -\frac{1}{138240}\frac{32\lambda^6-135}{\lambda}
+\eeq
+All these results were obtained with MAPLE.

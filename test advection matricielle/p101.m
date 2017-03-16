@@ -13,13 +13,9 @@ global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII;
 global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI;
 global ite aaa bbb itestop
 global coef opt_ftr scheme
-% test de Williamson
 global alphad tetac lambdac
-% test de Nair et Machenhauer
 global gamma rho0 teta_p lambda_p
-% test de Nair et Jablonowski
 global teta0 lambda0
-% test de Nair et Lauritzen
 global lambdac1 tetac1 lambdac2 tetac2
 
 time1=cputime;
@@ -54,7 +50,7 @@ scheme='compact4'; % compact ou explicite
 %% *** Benchmarks data ****************************************************
  n=35;
  nn=n+2;
- cfl=0.5;
+ cfl=0.05;
  ndaymax=12;
  err=2;
  mm=0;
@@ -62,20 +58,20 @@ scheme='compact4'; % compact ou explicite
 %% ************************************************************************
  if coef == 0
      %% test de Williamson
-     alphad=3*pi/4;  
+     alphad=11*pi/4;  
      lambdac=0;                                                            % longitude BUMP
      tetac=0;                                                              % latitude BUMP
      lambda_p=pi;                                                          % position du pole nord, i.e. position du vortex nord
      teta_p=pi/2 - alphad;
  elseif coef == 1
      %% test de Nair et Machenhauer
-     lambda_p=pi;                                                        % position du pole nord, i.e. position du vortex nord
+     lambda_p=0;                                                        % position du pole nord, i.e. position du vortex nord
      teta_p=0;
      rho0=3;
      gamma=5;
  elseif coef == 2
      %% test de Nair et Jablonowski
-     alphad=3*pi/4; 
+     alphad=0; 
      lambda0 = 0;
      teta0 = 0;
      lambda_p=pi;                                                          % position du pole nord à t=0, i.e. position du vortex nord à t=0
@@ -84,7 +80,7 @@ scheme='compact4'; % compact ou explicite
      gamma=5;
  elseif coef == 3
      %% test de Nair et Lauritzen
-     alphad=3*pi/4;                                                        % latitude BUMP
+     alphad=pi/4;                                                        % latitude BUMP
      lambda_p=pi;                                                          % position du pole nord, i.e. position du vortex nord
      teta_p=pi/2 - alphad;
      lambdac1=-pi/2;
@@ -168,9 +164,9 @@ end
 %% Boucles RK 4 avec filtrage
 xdays(1)=0;
 ite =1;
-erinfty(1)=0;
+erinfty(1)=0; er2(1)=0; er1(1)=0;
 while ite<itemax & erinfty(end)<1
-    clc; disp(num2str([ite itemax erinfty(end)]));
+    clc; disp(num2str([ite itemax erinfty(end) er2(end) er1(end)]));
 
     %% filtrage avant de commencer le calcul...
     % N.B. le filtrage est effectué sur les grands cercles complets mais une
@@ -464,8 +460,8 @@ if snapshot == 1
     hFig = figure(11);
     set(gcf,'PaperPositionMode','auto')
     set(hFig, 'Position', [50 50 1000 500])
-    plot_cs101(n,nn,funfI-1,funfII-1,funfIII-1,funfIV-1,funfV-1,funfVI-1,linspace(vmin-1,vmax-1,25))
-    if save_graph==1
+    if sauvegarde == 1
+        plot_cs101(n,nn,funfI-1,funfII-1,funfIII-1,funfIV-1,funfV-1,funfVI-1,linspace(vmin-1,vmax-1,25))
         print('-dpng', ['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef) '_nday_' num2str(ndaymax) '.png'])
         savefig(['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef)]);
     end
@@ -481,7 +477,7 @@ if save_graph==1
 end
 
 figure(2);
-plot_cs11(n,nn,funfI,funfIIe,funfIII,funfIV,funfV,funfVI);
+plot_cs11(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
 title('approximate solution - RK4')
 view(vvv)
 if save_graph==1
@@ -501,9 +497,9 @@ end
 figure(4);
 plot(xdays,er1,'k-');hold on;grid;
 plot(xdays,er2,'k--');hold on;
-plot(xdays,erinfty,'k.-');
-legend('norm 1','norm 2','norm infinity')
+plot(xdays,erinfty,'k.-');hold off
 title('relative error - RK4')
+legend('norm 1','norm 2','norm infinity','Location','NorthWest')
 if save_graph==1
     print('-dpng', ['./results-' date '/ref_' num2str(ref) '_normerreur_test_' num2str(coef) '.png'])
     savefig(['./results-' date '/ref_' num2str(ref) '_normerreur_test_' num2str(coef)]);
@@ -546,7 +542,7 @@ if coupe == 1
     [ x,f ] = coupe_eq(funfI,funfII,funfIII,funfIV);
     n=500;
     nn=n+2;
-    mod_1b
+    mod101
     funfIe=fun4_b(x_fI,y_fI,z_fI,time);
     funfIIe=fun4_b(x_fII,y_fII,z_fII,time);
     funfIIIe=fun4_b(x_fIII,y_fIII,z_fIII,time);

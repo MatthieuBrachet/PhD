@@ -1,0 +1,546 @@
+%% *** SECTION ************************************************************************************************************************
+
+\section{Numerical results}
+
+In this section, we present numerical results obtained for a familly of partial differential equation \eqref{eq:adv}, \eqref{eq:lswe} and \eqref{eq:swe} on the sphere. Firstly, with the advection equation, a known velocity is used such that an explicit solution is also known \cite{Nair-Machenhauer, Nair-Jablonowski}. Then, we present two tests for the linearized shallow water equation \eqref{eq:lswe} and numerical results for shallow water equation \eqref{eq:swe}. Most of this tests are introduced by \cite{Williamson-Drake-Hack-Jakob-Swarztrauber, Galewsky-Scott-Polvani}.
+When the analytic solution is known, we quantify the relative error (excepted for the damped case of (LSWE)) with the following formula :
+
+\begin{equation}
+\label{eq:error1}
+I_p = \dfrac{\|\psi^n - \psi_t \|_p}{\| \psi_t \|_p}
+\end{equation}
+
+$p \in \lbrace 1, 2, \infty \rbrace$, $\psi_t$ is the analytic solution at time $t$, $\psi^n$ is the calculated solution at time $t^n$. 
+$ \| . \| _p$ denote sur $\ell^p$ norm on the sphere. The numerical integral is given by \cite{Croisille-12}.
+
+\subsection{Advection equation}
+
+Numerical results are obtained on \eqref{eq:adv}. This tests case are originates from \cite{Nair-Machenhauer, Nair-Jablonowski}. The velocity fields $(t,\mathbf{x}) \mapsto \mathbf{c} ( t,\mathbf{x})$ is prescribed as follow. The simplest problem of this kind is the Cosinus-bell advection problem \cite{Williamson-Drake-Hack-Jakob-Swarztrauber, Galewsky-Scott-Polvani}. It correspond to a solid body velocity. Numerical results using the scheme (\ref{eq:300.41-1}) have been reported in  \cite{Croisille-10}. 
+Here we consider two more challenging problems of the form (\ref{eq:978.23.1}) involving transport and roll-up effects of vortices. 
+The mathematical basis leading to the analytical solution is given in \cite{Nair-Cote-Stanisforth}.
+
+\subsubsection{Nair-Machenhauer test case}
+
+\label{sec:4.1}
+This test case \cite{Nair-Machenhauer}
+considers
+as initial condition $h(0,\mathbf{x})$
+two vortices located
+at diammetrally opposite points on the sphere.
+These points are called $P$ (for North) and $P^\prime$ (for South).
+The point $P$ has coordinates $(\lambda_P,\theta_P)$ in the reference
+longitude-latitude system.
+The longitude-latitude coordinate system 
+$(\lambda^\prime,\theta^\prime)$ is associated to 
+the axis $P  P^\prime$. The two vortices evolve in a roll-up
+letting appear a finer and finer rollup structure when time increases.
+We call $\mathbb{S}^2_R$ the sphere with radius $R$, 
+\cite{Nair-Cote-Stanisforth,Nair-Machenhauer}.
+Let us define the velocity $\mathbf{x} \in \mathbb{R}^2 \mapsto V(\mathbf{x})$ 
+by
+\begin{equation}
+\left\{
+\begin{array}{l}
+\rho(\mathbf{x})=\rho_0 \cos(\theta^\prime)\\
+V(\mathbf{x}) = v_0 \dfrac{3 \sqrt{3} }{2} \sech^2 ( \rho ) \tanh ( \rho )
+\end{array}
+\right.
+\end{equation} 
+The angular velocity $\theta^\prime \mapsto \omega_r(\theta^\prime)$ 
+corresponding to $V$ 
+is defined by:
+\begin{equation}
+   \omega_r ( \theta' ) = \left\{ 
+   \begin{array}{ll}
+      V/( R \rho ) & \text{ if } \rho \neq 0 \\
+      0 & \text{ if} \rho =0
+   \end{array}
+   \right.
+\label{vitesse_angulaire}
+\end{equation}
+Define now the tangential velocity on the sphere $\mathbb{S}^2_R$ 
+appearing in (\ref{eq:978.23.1}) by
+by:
+\begin{equation}
+\mathbf{c}(\mathbf{x},t)=c_{\lambda^\prime} \mathbf{e}_{\lambda^\prime}+
+c_{\theta^\prime} \mathbf{e}_{\theta^\prime}
+\end{equation}
+with
+\begin{equation}
+\left\{
+\begin{array}{l}
+c_{\lambda^\prime}=\cos(\theta^\prime) \omega_r(\theta^\prime)\\
+c_{\theta^\prime}=0
+\end{array}
+\right.
+\end{equation}
+
+Switching back to the $(\mathbf{e}_\lambda,\mathbf{e}_\theta)$ basis, one obtains
+
+\begin{equation}
+\mathbf{c}(\mathbf{x},t)=\mathbf{c}(\mathbf{x})=c_{\lambda} \mathbf{e}_{\lambda}+
+c_{\theta} \mathbf{e}_{\theta}
+\end{equation}
+
+with
+\begin{equation}
+\left\{
+\begin{array}{l}
+c_{\lambda} = R \omega_r ( \theta' ) \left[ \sin \theta_p \cos \theta - \cos \theta_p \cos ( \lambda - \lambda_p ) \sin \theta \right]\\
+c_{\theta} = R \omega_r ( \theta' ) 
+\left[ \cos \theta_p \sin ( \lambda - \lambda_p ) \right]
+\label{eq:78.10}
+\end{array}
+\right.
+\end{equation}
+
+Now, the solution $(\mathbf{x}, t) \in \mathbb{S}_R^2 \times \mathbb{R}_{-}+ \mapsto
+\phi(\mathbf{x},t)$ is given in coordinates $(\lambda^\prime,\theta^\prime,t)$ by
+
+\begin{equation}
+\phi ( \lambda^\prime , \theta', t ) 
+= 
+1 - \tanh \left[ \dfrac{\rho_0\cos(\theta^\prime)}{\gamma} \sin ( \lambda' 
+- \omega_r(\theta^\prime) t ) \right],\;\;\; \rho(\theta^\prime)= 
+\rho_0 \cos(\theta^\prime)
+\label{NM_exacte}
+\end{equation}
+
+The constant $\gamma$ determines the strenght of $\nabla_T\phi$ and $\rho_0>0$ is a reference distance to the center of the vortex.
+Let $T>0$ be the physical time of evolution and $v_0 = 2 \pi R / T$ ($R$=radius) be a reference velocity. 
+In this article, for a smooth flow, we choose the parameters $\rho_0 = 3$ and $ \gamma = 5$.
+
+In Figures \ref{erreur_cfl=0.05} and \ref{erreur_cfl=0.5}, the error history is reported for CFL numbers $\CFL=0.05$ and $\CFL=0.5$.
+The Cubed Sphere grid has a parameter $N=35$, which corresponds to an equatorial resolution $\Delta \lambda = 2.6 \deg$. 
+This is a spatial resolution similar to the one in \cite{Nair-Jablonowski} where a Discontinuous Galerkin (DG) scheme is used.
+As can be observed, the error growth is regular.
+The error behaviour is similar for the angles $\alpha=0$ and $\alpha=45\deg$, which shows that there is no apparent influence of the corners of the Cubed Sphere.
+
+We have performed two different runs. The first corresponds to a $\CFL=0.05$. In this case, the error is dominated by the space approximation.
+The error levels that are reached are of the same order of magnitude than the ones obtained with the DG scheme in \cite{Nair-Jablonowski}.
+In the second case, we use $\CFL=0.5$.  The scheme remains stable.
+The error consists of the combination of the space and time accuracy.
+The error is slightly smaller than with $\CFL=0.05$. This is a standard behaviour for convection problems.
+
+Table \ref{table:2.4} reports the convergence rate 
+in the three norms $1$, $2$ and $\sup$. It can be observed
+that the error is of order $4$. 
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367656360_normerreur_test_1.png}
+\includegraphics[scale=0.3]{ref_7367665245_normerreur_test_1.png}
+\label{erreur_cfl=0.05}
+\caption{Error plots with $N=35$; $\CFL=0.05$. Left panel: 
+The point $P$ defining the axis has spherical coordinates  $(\lambda_P,  \theta_P) = (\pi / 4, \pi / 4)$. and $(\lambda_P, \theta_P) = (0,0)$ (right) for the Nair and Machenhauer test case.}
+\end{figure}
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367656531_normerreur_test_1.png}
+\includegraphics[scale=0.3]{ref_7367656543_normerreur_test_1.png}
+\label{erreur_cfl=0.5}
+\caption{Error curves $N=35$; $cfl=0.5$; $(\lambda_P,  \theta_P) = (\pi / 4, \pi / 4)$ (left) and $(\lambda_P, \theta_P) = (0,0)$ (right) for the Nair and Machenhauer test case.}
+\end{figure}
+
+\begin{table}[ht!]
+\label{table:2.4}
+\begin{tabular}{|c||cc|cc|cc|}
+\hline
+$N$ & $max_n |e_1^n|$ & order  & $max_n |e_2^n|$ & order  & $max_n |e_{\infty}^n|$ & order \\
+\hline
+\hline
+$40\;(2.25\deg)$ & $1.989 (-3)$ & -  & $7.255 (-3)$ & - & $4.039(-2)$  & - \\
+\hline 
+$50\;(1.80\deg)$ & $7.638 (-4)$ & $4.2891$ & $3.161(-3)$ & $3.7232$ & $1.918 (-2)$ & $3.7108$ \\
+\hline
+$60\;(1.50\deg)$ & $3.023(-4)$ & $5.2256$ & $1.313 (-3)$ & $4.8188$ & $7.556 (-3)$ & $5.1092$ \\
+\hline
+$80\;(1.125\deg)$ & $5.2979 (-5)$ & $6.0537$ & $2.391(-4)$ & $5.9204$ & $1.561(-3)$ & $5.4818$ \\
+\hline
+$100\;(0.90\deg)$ & $1.5036(-5)$ & $5.6441$ & $6.4568(-5)$ & $5.8669$ & $4.329(-4)$ & $5.7478$\\
+\hline
+$150\;(0.60\deg)$ & $1.9244(-6)$ & $5.0703$ & $9.2082(-6)$ & $4.8034$ & $7.6848(-5)$ & $4.2634$\\
+\hline
+\end{tabular}
+\caption{Convergence analysis for the Nair and Machenhauer test case \cite{Nair-Machenhauer}. 
+$N=31$; $\CFL = 0.7$; $(\lambda_p, \theta_p) = (0,0)$.}
+\end{table}
+
+\subsubsection{Nair-Jablonowski test case}
+
+\label{sec:4.2}
+In \cite{Nair-Jablonowski} a modification of the stationary vortex problem of Section \ref{sec:4.1} was suggested. It combines 
+the deformational roll-up effect of the 
+preceding case
+with a solid body rotation.
+The analytical solution is given in \cite{Nair-Jablonowski}.
+The advection velocity $\mathbf{c}(\mathbf{x},t)$ in (\ref{eq:978.23.1}) is obtained as the sum
+
+\begin{equation}
+\mathbf{c}=\mathbf{c}_s +\mathbf{c}_r
+\end{equation}
+
+where $\mathbf{c}_s$ is a solid rotation velocity and 
+$\mathbf{c}_r$ is a "static" velocity centered at the center 
+of the vortex. The velocity $\mathbf{c}_r$ is actually time dependant 
+since in \eqref{eq:78.10}
+
+$(\lambda_P, \theta_P)$ must be remplaced by the solid body advected position given  by 
+\begin{equation}
+(\lambda_s', \theta_s') = (\lambda_0' + w_s t, \theta_0')
+\end{equation}
+where $(\lambda_0', \theta_0')$ is the initial position of the vortex.
+On the other hand, the solid-body velocity is given by
+
+\begin{equation}
+c_{\lambda, r} = R \omega_s \left( \sin \theta_p \cos \theta - \cos \theta_p \cos ( \lambda - \lambda_p ) \sin \theta \right)
+\label{vitesse_lambda_bump}
+\end{equation}
+\begin{equation}
+c_{\theta, r} = - R \omega_s \cos \theta_p \sin ( \lambda - \lambda_p )
+\label{vitesse_theta_bump}
+\end{equation}
+
+where $\omega_s = v_0 / R = 2 \pi / T $ and $( \lambda_p, \theta_p$ ) is the coordinates of the point $P$.
+
+The error growth is reported on Fig. \ref{erreur_cfl=0.05a}
+and \ref{erreur_cfl=0.5a}. The magnitude of the error
+is very close from the stationary case. However it appears 
+slightly less regular. Table \ref{table:2} reports
+as before fourth-order accuracy. Note also that the level
+of error are very close to the ones reported in
+\cite{Nair-Jablonowski} with a DG scheme. Finally
+Fig. \ref{coupe-NJ-1} displays a slice of the vortex after 12 days
+withgrid sizes $N=30$ and $N=60$. 
+The matching with the finest grid
+is excellent. No dispersion or dispersion is obervable.
+
+
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367657139_snapshot_test_2_nday_0.png}
+\includegraphics[scale=0.3]{ref_7367657143_snapshot_test_2_nday_3.png}
+
+\includegraphics[scale=0.3]{ref_7367657147_snapshot_test_2_nday_6.png}
+\includegraphics[scale=0.3]{ref_7367657152_snapshot_test_2_nday_9.png}
+
+\includegraphics[scale=0.3]{ref_7367657157_snapshot_test_2_nday_12.png}
+\caption{Nair and Jablonowski test-case. Approximate solution of the vortex after 
+0, 3, 6, 9 and 12 days. The resolution is $N=31$. Numerical parameters are 
+$N=31$, $\CFL = 0.7$ and $\alpha = 3 \pi / 4$.}
+\label{SNAPSHOT_NJ}
+\end{figure}
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367657290_normerreur_test_2.png}
+\includegraphics[scale=0.3]{ref_7367657345_normerreur_test_2.png}
+\label{erreur_cfl=0.05a}
+\caption{Error curves $N=35$; $\CFL=0.05$; $\alpha = \pi / 4$ (left) et $\alpha = 0$ (right) for the Nair and Jablonowski test case \cite{Nair-Jablonowski}.}
+\end{figure}
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367657356_normerreur_test_2.png}
+\includegraphics[scale=0.3]{ref_7367657366_normerreur_test_2.png}
+\label{erreur_cfl=0.5a}
+\caption{Error curves $N=35$; $\CFL=0.5$; $\alpha = \pi / 4$ (left) et $\alpha = 0$ (right) for the Nair and Jablonowski test case \cite{Nair-Jablonowski}.}
+\end{figure}
+
+\begin{table}[ht!]
+\begin{tabular}{|c||cc|cc|cc|}
+\hline
+$N$ & $max_n |e_1^n|$ & ordre  & $max_n |e_2^n|$ & ordre  & $max_n |e_{\infty}^n|$ & ordre \\
+\hline
+\hline
+$40$ & $0.3037 (-2)$ & -  & $0.1061(-2)$ & - & $.6220 (-1)$  & - \\
+\hline 
+$50$ & $0.1471 (-2)$ & $3.2487$ & $0.5656(-2)$ & $2.8192$ & $0.3664 (-1)$ & $2.3715$ \\
+\hline
+$60$ & $0.7373(-3)$ & $3.7884$ & $0.3033(-2)$ & $3.4179$ & $0.2178(-1)$ & $2.8529$ \\
+\hline
+$80$ & $0.2311(-3) $ & $4.0327$ & $0.9921(-3)$ & $3.8841$ & $0.7691(-2)$ & $3.6184$ \\
+\hline
+$100$ & $9.4841(-5)$ & $3.9914$ & $0.4108(-3)$ & $3.9513$ & $0.3205(-2)$ & $3.9228$\\
+\hline
+$150$ & $1.8779 (-5)$ & $3.9941$ & $8.3160 (-5)$ & $3.9395$ & $0.7584(-3)$ & $3.5543$\\
+\hline
+\end{tabular}
+\label{table:2}
+\caption{Convergence analysis for the Nair and Jablonowski test case \cite{Nair-Jablonowski} ; $cfl = 0.7$ ; $\alpha = \pi /4$.}
+\end{table}
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.5]{ref_7363158648_coupefaceI_equateur_test_2.jpg}
+\label{coupe-NJ-1}
+\caption{Nair and Jablonowski test case \cite{Nair-Jablonowski}. Slice 
+of the vortex after $12$ days. Solid line: exact solution, circles:
+approximate solution with $N=30$. Crosses: approximate solution with $N=60$}
+\end{figure}
+
+\subsection{Linearized shallow water equation}
+
+The equation (LSWE) \eqref{eq:lswe} is obtained as a perturbation of $(\mathbf{0},H)$ an equilibrium of \eqref{eq:swe}. This equation is an intermediate between advection equation and shallow water equation.
+Using our numerical scheme, it permit to highlight the importance of using a symetric filter instead :
+\begin{equation}
+\mathcal{F} = \mathcal{F}_{\xi} \circ \mathcal{F}_{\eta}
+\end{equation}
+because dissymetry between panels can create instabillities.
+
+We present two test cases. The first is a damped case of LSWE, the other is a time independant zonal solution.
+
+\subsubsection{A damped case of LSWE}
+
+This test serves to assess the accuracy of the 
+gradient and divergence approximation () and () when
+used in the LSWE system (\ref{eq:lswe}). 
+Consider the two exponentially in time damped functions
+\begin{equation}
+\tilde{\mathbf{v}} (t,\mathbf{x})=\mathbf{u}_0 \varphi(\theta) e^{-\sigma t}\mathbf{e}_\lambda(\mathbf{x})\\
+\tilde{\eta}(t,\mathbf{x})= \eta_0 \varphi(\theta) \sin(\lambda)e^{-\sigma t} 
+\end{equation}
+
+The system to solve is
+\begin{equation}
+\label{eq:lswe_damped}
+(LSWE) \left\{
+\begin{array}{l}
+\dfrac{\partial \mathbf{v}}{\partial t} (t,\mathbf{x})+ \mathbf{g} \nabla_T \eta(t,\mathbf{x}) + f(\mathbf{x}) \mathbf{k}(\mathbf{x}) \times
+\mathbf{v}(t,\mathbf{x})=S_{\eta}(t,\mathbf{x})\\
+\dfrac{\partial \eta}{\partial t}(t,\mathbf{x})+ H \nabla_T . \mathbf{v}(t,\mathbf{x})=S_{\mathbf{v}}(t,\mathbf{x})
+\end{array}
+\right.
+\end{equation}
+
+In \eqref{eq:lswe_damped}, $\mathbf{g}$ is the gravity vector and $\mathbf{k}(\mathbf{x})$ is the exterior
+normal vector.
+The source terms $S_{\eta}$ and $S_{\mathbf{v}}$ are defined 
+such as the functions $(\tilde{\mathbf{v}}(t,\mathbf{x}), \tilde \eta(t,\mathbf{x}))$ be solution
+of (\ref{eq:lswe_damped}).
+\textbf{Remarks:\\
+- Gradient and divergence are calculated according to ().\\
+- Filtrage ou non ?
+- Valeurs numériques de $H,g, u_0, \eta_0$ ?
+- Autres essais  avec temps plus long ?}
+
+A numerical grid convergence analysis is reported in 
+Table \ref{table:4}.
+
+\begin{figure}[ht!]
+\begin{tabular}{|c||c|c|c|c|c|}
+\hline
+& N=40 & rate & N=60  & rate & N=80 \\
+\hline 
+\hline 
+$\vert \mathbf{v}^1_{ex}(T)-\mathbf{v}^1_{cal}(T)\vert_{h,I}$ & 2.52(-5)  &  4.15 & 4.69(-6) &  2.98 & 1.40(-6)   \\
+\hline 
+$\vert \eta_{ex}(T)-\eta_{cal}(T)\vert_{h,I}$ & 1.06(-5)  &  3.85 & 2.70(-6) &  3.32 & 1.04(-6) \\
+\hline 
+\end{tabular}
+\caption{Hermitian scheme applied to an exponential decaying solution of the LSWE. Final time = 1h30}
+\label{table:4}
+\end{figure}
+
+\textbf{Tableau a revoir}
+
+A convergence rate between $3$ and $4$ can be observed.
+
+\subsection{A time independent zonal solution 
+of LSWE}
+In this test case, we consider a time independent 
+solution of LSWE depending on the latitude only.
+Consider a tangential velocity field of the form. 
+If the parameter function $\theta \mapsto \varphi(\theta)=\exp(\frac{1}{(\theta-\theta_0)(\theta-\theta_1)})$, then
+we define the 
+spherical velocity $\mathbf{v}(\mathbf{x})$ on the sphere by:
+\begin{equation}
+\mathbf{v}(\mathbf{x})=u_0 \varphi(\theta) \mathbf{e}_\lambda(\mathbf{x})
+\end{equation}
+
+The momentum equation () is equivalent to the 
+following relation:
+
+\begin{equation}
+\eta(\mathbf{x})=\eta_{eq}-\frac{a}{g}\int_0^\theta f(s) \varphi(s) ds
+\end{equation}
+
+Our numerical test consists now in testing if the scheme preserve during time stepping 
+the time independant solution defined by .....
+This is a zonal divergence free solution
+of the LSWE depending on the latitude $\theta$ only.
+This test case is meaningful, 
+first to assess the accuracy of the spatial approximation. In particular, 
+spurious modes can pollute the numerical solution.
+Second this test allows to test the accuracy of the numerical divergence 
+preserving on 
+large intervals of time.
+The numerical results are reported in Table \ref{table:5}.
+
+\begin{figure}[ht!]
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline 
+&N=40 & rate & N=60  & rate & N=80 \\
+\hline
+\hline
+$\vert \mathbf{v}^1_{ex}(T)-\mathbf{v}^1_{cal}(T)\vert_{h,I}$ & 2.73(-5)  &  4.09 & 5.18(-6) &  4.24 & 1.53(-6) \\
+\hline 
+$\vert \eta_{ex}(T)-\eta_{cal}(T)\vert_{h,I}$ & 1.21(-5)  &  3.95 & 2.43(-6) &  3.14 & 7.38(-7) \\
+\hline 
+\end{tabular}
+\caption
+{Hermitian scheme applied to a time independent solution of the LSWE. Final time = 1h30}
+\label{table:5}
+\end{figure}
+
+\subsection{Shallow water equation}
+
+The shallow water equation \eqref{eq:swe} is solved with the previsous scheme. Numerical results are obtained on the test cases extracted from \cite{Williamson-Drake-Hack-Jakob-Swarztrauber, Galewsky-Scott-Polvani}.
+
+The following parameters are constant :
+\begin{equation}
+\begin{array}{rcll}
+a & = & 6.37122 \times 10^6m & \text{ is the Earth radius,}\\
+\Omega & = & 7.292 \times 10^{-5} s^{-1}& \text{ is the rotational velocity,}\\
+g & = & 9.80616 m \cdot s^{-2}& \text{ is the gravity constant}\\
+\end{array}
+\end{equation}
+
+Unless specification, $h^{\star} = h$.
+
+The following invariant should be present:
+\begin{itemize}
+\item mass : $I_1=\gint_{\mathbb{S}_a^2} h^{\star}d\mathbf{s}$ \\
+
+\item energy : $I_2 = \gint_{\mathbb{S}_a^2} \frac{1}{2} h^{\star} \mathbf{v}^2 + \frac{1}{2}g \left( h^2 - h_s^2 \right) d\mathbf{s}$ \\
+
+\item potential enstrophy : $I_{3}=\gint_{\mathbb{S}_a^2} \dfrac{\left( \zeta + f \right)^2}{2 h^{\star}} d\mathbf{s}$ with $\zeta$ the vorticity\\
+\end{itemize}
+We measure the error on conservation for this quantities $q$ with the normalized integral :
+\begin{equation}
+\dfrac{\gint_{\mathbb{S}_a^2} \left( q(t,\mathbf{s})-q(0,\mathbf{s}) \right) d \mathbf{s}}{\gint_{\mathbb{S}_a^2} q(0,\mathbf{s})d \mathbf{s}}
+\end{equation}
+Integral of divergence and vorticity on the sphere are theorically nul, so we can't use the normalized integral to measure error. Then, the error on conservation for this quantities $p$ are measured with:
+\begin{equation}
+\gint_{\mathbb{S}_a^2} p(t,\mathbf{s})d \mathbf{s}
+\end{equation}
+with $p = \nabla_T \cdot \mathbf{v}$ or $p = \left( \nabla_T \wedge \mathbf{v}  \right) \cdot \mathbf{k}$.
+
+\subsubsection{Test case 2 of Williamson and al. : Global steady state}
+
+The test 2 of \cite{Williamson-Drake-Hack-Jakob-Swarztrauber} is a steady state solution to the non-linear shallow water equation \eqref{eq:swe}. It's a zonal solution around an axes rotated with an angle $\alpha$ (like for the Nair-Jablonowski test case).
+Then the Coriolis parameter is given by :
+\begin{equation}
+f=2 \Omega \left( - cos \lambda cos \theta sin \alpha + sin \theta cos \alpha \right)
+\end{equation}
+
+The analytical solution is :
+\begin{equation}
+\mathbf{v} = u \mathbf{e}_{\lambda} + v \mathbf{e}_{\theta}
+\end{equation}
+with :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+u & = & u_0 \left( cos \theta cos \alpha + cos \lambda sin \theta sin \alpha \right)\\
+v & = & -u_0 sin \lambda sin \alpha
+\end{array}
+\label{eq:W2 velocity}
+\right.
+\end{equation}
+
+and the height $h$ :
+\begin{equation}
+h=h_0- \dfrac{1}{g} \left( a \Omega u_0 + \dfrac{u_0^2}{2} \right) \left( -cos \lambda cos \theta sin \alpha + sin \theta cos \alpha \right)^2 
+\label{eq:W2 height}
+\end{equation}
+
+constants are :
+\begin{equation}
+\begin{array}{rcl}
+gh_0 & = & 2.94 \times 10^4 m^2/s^2\\
+u_0 & = & 2 \pi R / (12 \text{days}) \\
+\end{array}
+\end{equation}
+
+We test differents values of parameter $\alpha$. Results with $\alpha=\pi/4$ are given in figure \ref{fig:W2 alpha=pi/4}. In table \ref{tab:W2 error order} we can observe the order of convergence close to 4 in accordance with numerical results on each operator.
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367706276_snapshot_solution.png}
+\includegraphics[scale=0.3]{ref_7367706276_erreur.png}
+\caption{Numerical results of steady state geostrophic flow in direction of $\alpha=\pi/4$ on  $32 \times 32 \times 6$ grid after $5$ model days of simulation. Contour lines are plotted between 1150 m to 2950m with step of 200m (left). Relative error (right) }
+\label{fig:W2 alpha=pi/4}
+\end{figure}
+
+The conservation relation are given by the figure \ref{fig:W2 conservation alpha=pi/4}. The conservation is fairly satisfactory but this test is independant of time. We need to obtain others results for unsteady state test case. 
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367706276_mass.png}
+\includegraphics[scale=0.3]{ref_7367706276_energy.png}\\
+\includegraphics[scale=0.3]{ref_7367706276_enstrophy.png}
+\includegraphics[scale=0.3]{ref_7367706276_conservationBdiv.png}\\
+\includegraphics[scale=0.3]{ref_7367706276_conservationBvort.png}
+\caption{Numerical conservation of steady state geostrophic flow in direction of $\alpha=\pi/4$ on  $32 \times 32 \times 6$ grid after $5$ model days of simulation.}
+\label{fig:W2 conservation alpha=pi/4}
+\end{figure}
+
+\begin{table}[ht!]
+\begin{tabular}{|c|c||cc|cc|cc|}
+\hline
+$\alpha$ & grid & $max_n |e_1^n |$ & order & $max_n |e_2^n |$ & order &  $max_n |e_{\infty}^n |$ & order \\
+\hline
+\hline
+              & $6 \times 32 \times 32$   & $1.1422 (-6)$ & - & $1.3885 (-6)$ & - & $2.4469 (-6)$ & - \\
+$\alpha = 0$  & $6 \times 64 \times 64$   & $7.1216 (-8)$ & $3.9131$ & $8.6513 (-8)$ & $3.9141$ & $1.5229 (-7)$ & $3.9157$ \\
+              & $6 \times 128 \times 128$ & $XXX$ & - & $XXX$ & - & $XXX$ & - \\
+\hline
+\hline
+                & $6 \times 32 \times 32$   & $7.5712 (-7)$ & - & $1.0446 (-6)$ & - & $2.7809 (-6)$ & - \\
+$\alpha = \pi/4$& $6 \times 64 \times 64$   & $4.7213 (-8)$ & $3.9129$ & $6.5124 (-8)$ & $3.9133$ & $1.7387 (-7)$ & $3.9092$ \\
+                & $6 \times 128 \times 128$ & $XXX$ & - & $XXX$ & - & $XXX$ & - \\
+\hline
+\end{tabular}
+\caption{Relative error afer 5 days model simulation of steady state geostrophic flow. The CFL condition is $0.9$.}
+\label{tab:W2 error order}
+\end{table}
+
+\subsubsection{Test case 5 of Williamson and al. : Isolated mountain}
+
+The test case 5 of \cite{Williamson-Drake-Hack-Jakob-Swarztrauber} is similar to the previous but with a topography. It permit to check the performance of the scheme with a topography and a time dependant solution.
+No analyical solution is not available.
+
+The initial solution is the same than the previsous \eqref{eq:W2 velocity} and \eqref{eq:W2 height} but with the following constant :
+\begin{equation}
+\begin{array}{rcl}
+h_0 & = & 5960m \\
+u_0 & = & 20 m/s \\
+\alpha & = & 0 \\
+\end{array}
+\end{equation}
+
+The bottom topography is an isolated conic mountain wih $h_{s_0}=2000m$ of height. The topography is :
+\begin{equation}
+h_s = h_{s_0} \left( 1 - \dfrac{r}{r_0} \right)
+\end{equation}
+with $r=min \left( r_0, \sqrt{\left( \lambda - \lambda_c \right)^2 + \left( \theta - \theta_c \right)^2} \right)$. $r_0=\pi/9$ and $(\lambda_c, \theta_c)$ is the location of the mountain, then $(\lambda_c, \theta_c) = (3 \pi /2, \pi /6)$.
+
+Numerical results of the height $h$ at times $5$, $10$ and $15$ days are given in figure \ref{fig:W5 snapshot} with a grid $6 \times 32 \times 32$. Conservations results are in figure \ref{fig:W5 conservation}.
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367706559_snapshot_intermediaire499.png}\\
+\includegraphics[scale=0.3]{ref_7367706559_snapshot_intermediaire999.png}\\
+\includegraphics[scale=0.3]{ref_7367706559_snapshot_intermediaire1499.png}
+\caption{Numerical results of isolated mountain test case with grid  $32 \times 32 \times 6$ at time 5, 10 and 15 days. Contour line are plotted from 5050 m to 5950 m with interval of 50 m.}
+\label{fig:W5 snapshot}
+\end{figure}
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367706559_conservationA.png}
+\includegraphics[scale=0.3]{ref_7367706559_conservationB.png}
+\caption{Conservation of isolated mountain test case with grid  $32 \times 32 \times 6$ at time 5, 10 and 15 days.}
+\label{fig:W5 conservation}
+\end{figure}
+
+\subsubsection{Test case 6 of Williamson and al. : Rossby-Haurtwitz waves}
+
+resuts ref : 7367707271
+
+\subsubsection{Test case of Galewsky}
+
+

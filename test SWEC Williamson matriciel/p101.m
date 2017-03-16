@@ -35,7 +35,7 @@ opt_ftr='redonnet10';
 scheme='compact4';
 snapshot='yes';
 
-n=127; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
 ndaymax=6;
 mod101
 disp('mod74 : ok')
@@ -49,7 +49,7 @@ c=max([cgrav,ccor,cvit]);
 cfl=0.9;
 ddt=radius*dxi*cfl/c;
 Tmax=ndaymax*3600*24;
-itermax=10000;
+itermax=100000;
 
 nper=1;
 tstart=cputime;
@@ -316,20 +316,20 @@ while t<Tmax && iter<itermax
             vort101(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
         
         clf
-%         figure(9)
-%         hFig = figure(9);
-%         set(gcf,'PaperPositionMode','auto')
-%         set(hFig, 'Position', [50 50 1000 500])
-%         plot_cs100(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI);
-%         title(['vorticity at time : ', num2str(time(end))])
-        
         figure(9)
         hFig = figure(9);
         set(gcf,'PaperPositionMode','auto')
         set(hFig, 'Position', [50 50 1000 500])
-        plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);%,8100:100:10500);
+        plot_cs100(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI);
         title(['vorticity at time : ', num2str(time(end))])
-        caxis([0 0.1*h0])
+        
+       % figure(9)
+       % hFig = figure(9);
+       % set(gcf,'PaperPositionMode','auto')
+      %  set(hFig, 'Position', [50 50 1000 500])
+      %  plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);%,8100:100:10500);
+      %  title(['vorticity at time : ', num2str(time(end))])
+      %  caxis([0 0.1*h0])
         hold off
         
 
@@ -506,7 +506,7 @@ if strcmp(snapshot,'yes')==1
 end
 
 figure(7)
-semilogy(time, erri,time, err2, time, err1)
+semilogy(time, erri,'k.',time, err2,'k--', time, err1,'k-.')
 xlabel('time')
 ylabel('relative error')
 legend('infty norm','norm 2','norm 1')
@@ -547,8 +547,8 @@ if sauvegarde==1
 end 
 
 figure(8)
-plot(time,err_int-1,'k-',time,err_energy-1,'k-.')
-legend('mass','energy')
+plot(time,err_int-1,'k-',time,err_energy-1,'k-.',time,err_enstrophy-1,'k.')
+legend('mass','energy','potential enstrophy','Location','SouthWest')
 xlabel('time')
 title('relative quantity')
 grid on
@@ -569,6 +569,30 @@ if sauvegarde==1
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationB']);
 end 
 
+figure(901)
+plot(time,Mdivu,'k-')
+title('conservation of divergence')
+legend('divergence')
+xlabel('time (days)')
+ylabel('conservation quantity')
+grid on
+if sauvegarde==1
+    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationBdiv.png'])
+    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationBdiv']);
+end 
+
+figure(902)
+plot(time,Mvortu,'k-')
+title('conservation of vorticity')
+legend('vorticity')
+xlabel('time (days)')
+ylabel('conservation quantity')
+grid on
+if sauvegarde==1
+    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationBvort.png'])
+    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationBvort']);
+end 
+
 figure(10)
 hFig = figure(10);
 set(gcf,'PaperPositionMode','auto')
@@ -586,7 +610,7 @@ figure(11)
 hFig = figure(11);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
-plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050:50:5950);
+plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,1150:200:2950);
 title(['calculated solution at time = ', num2str(time(end))])
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_solution.png'])
@@ -609,4 +633,8 @@ if sauvegarde==1
 end 
 
 fig_placier
+clc
 disp(['temps de calcul (sans les graphiques) : ', num2str(tend)])
+err1(end)
+err2(end)
+erri(end)

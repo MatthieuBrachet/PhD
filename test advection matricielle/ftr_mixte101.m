@@ -18,5 +18,12 @@ funftIV=.5*(funftIV1+funftIV2);
 funftV=.5*(funftV1+funftV2);
 funftVI=.5*(funftVI1+funftVI2);
 
+% funftI=funftI1;
+% funftII=funftII1;
+% funftIII=funftIII1;
+% funftIV=funftIV1;
+% funftV=funftV1;
+% funftVI=funftVI1;
+
 end
 

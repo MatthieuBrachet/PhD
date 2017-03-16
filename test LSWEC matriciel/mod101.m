@@ -44,7 +44,7 @@ nb=na;
 
 
 %% physical data
-if test == 6
+if test == 2
     omega = 7.29212e-5;          % Earth's angular frequency (rad/sec)
     gp     = 10.0;                % Earth's gravitational acceleration (m/sec^2)
     radius     = 6371220.0;           % Earth's mean radius (m)
@@ -52,7 +52,7 @@ if test == 6
 else
     radius=6.37122d+06;
     omega=7.292d-05;
-    hp=10;
+    hp=100;
     gp=9.80616;
     u0=(sqrt(gp*hp)/10);
     h0=0;
