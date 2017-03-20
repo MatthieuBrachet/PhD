@@ -237,7 +237,7 @@ elseif test == 5
     vt(:,:,2)=uu.*elambda_y + vv.*eteta_y;
     vt(:,:,3)=uu.*elambda_z + vv.*eteta_z;
     
-    A=w/2.*(2*omega+w).*cos(teta).^2+.25*K^2.*cos(teta).^(2*R).*((R+1).*cos(teta).^2+(2*R^2-R-2)-2*R^2.*cos(teta).^(-2));
+    A=(w/2).*(2*omega+w).*cos(teta).^2+.25*K^2.*cos(teta).^(2*R).*((R+1).*cos(teta).^2+(2*R^2-R-2)-2*R^2.*cos(teta).^(-2));
     B=((2*(omega+w)*K)./((R+1).*(R+2))).*cos(teta).^R.*((R^2+2*R+2)-((R+1).^2).*cos(teta).^2);
     C=.25*K^2*cos(teta).^(2*R).*((R+1).*cos(teta).^2-(R+2));
     

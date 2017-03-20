@@ -27,7 +27,7 @@ global alpha
 global teta0 teta1
 
 comment=' .';
-test=4;
+test=5;
 video = 'no';
 sauvegarde = 1;
 filtre='classic';
@@ -35,8 +35,8 @@ opt_ftr='redonnet10';
 scheme='compact4';
 snapshot='yes';
 
-n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=6;
+n=79; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=14;
 mod101
 disp('mod74 : ok')
 
@@ -338,7 +338,7 @@ while t<Tmax && iter<itermax
     end
     
     % snapshot
-    if sauvegarde == 1 & mod(iter,floor(Tmax/(3*ddt))) == 0
+    if sauvegarde == 1 & mod(iter,floor(Tmax/(2*ddt))) == 0
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         close all;
         
@@ -361,7 +361,7 @@ while t<Tmax && iter<itermax
             plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050:50:5950);
             title(['solution at time : ', num2str(time(end))])
         elseif test == 5
-            plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,8100:100:10500);
+            plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,8200:100:10500);
             title(['solution at time : ', num2str(time(end))])
         elseif test == -2
             plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,h_fVI);

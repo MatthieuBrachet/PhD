@@ -31,7 +31,7 @@ coef = 1;
 film = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 1;
+save_graph = 0;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
 opt_ftr ='redonnet10';
@@ -44,13 +44,13 @@ coupe = 0;
 % sauvegarde = 1 : sauvegarde toutes les données,
 %            = 0 : ne les sauvegarde pas, (utiliser load('namefile') pour
 %            recharger les données).
-sauvegarde = 1;
+sauvegarde = 0;
 % choix du schéma aux différences finies
 scheme='compact4'; % compact ou explicite
 %% *** Benchmarks data ****************************************************
- n=35;
+ n=40;
  nn=n+2;
- cfl=0.05;
+ cfl=0.7;
  ndaymax=12;
  err=2;
  mm=0;
@@ -71,7 +71,7 @@ scheme='compact4'; % compact ou explicite
      gamma=5;
  elseif coef == 2
      %% test de Nair et Jablonowski
-     alphad=0; 
+     alphad=pi/4; 
      lambda0 = 0;
      teta0 = 0;
      lambda_p=pi;                                                          % position du pole nord à t=0, i.e. position du vortex nord à t=0
@@ -166,7 +166,7 @@ xdays(1)=0;
 ite =1;
 erinfty(1)=0; er2(1)=0; er1(1)=0;
 while ite<itemax & erinfty(end)<1
-    clc; disp(num2str([ite itemax erinfty(end) er2(end) er1(end)]));
+    clc; disp(num2str([ite itemax er1(end) er2(end) erinfty(end)]));
 
     %% filtrage avant de commencer le calcul...
     % N.B. le filtrage est effectué sur les grands cercles complets mais une
