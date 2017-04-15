@@ -36,7 +36,7 @@ opt_ftr='redonnet10';
 scheme='compact4';
 snapshot='yes';
 
-n=127; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
 ndaymax=5 ;
 mod101
 disp('mod74 : ok')
@@ -503,13 +503,15 @@ plot_cs11(n,nn,h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI);
 title(['exact solution at time = ', num2str(time(end))])
 
 hmax=max(max(abs([h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI])));
+emax=max(max([err_fI./hmax, err_fII./hmax, err_fIII./hmax, err_fIV./hmax, err_fV./hmax, err_fVI./hmax]));
+emin=min(min([err_fI./hmax, err_fII./hmax, err_fIII./hmax, err_fIV./hmax, err_fV./hmax, err_fVI./hmax]));
+ev=linspace(emax,emin,10);
 figure(3)
 hFig = figure(3);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
-plot_cs102(n,nn,err_fI./hmax, err_fII./hmax, err_fIII./hmax, err_fIV./hmax, err_fV./hmax, err_fVI./hmax);
+plot_cs101(n,nn,err_fI./hmax, err_fII./hmax, err_fIII./hmax, err_fIV./hmax, err_fV./hmax, err_fVI./hmax,ev);
 title(['Relative error at time = ', num2str(time(end))])
-colorbar
 if sauvegarde == 1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_err.png'])
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_err']);
