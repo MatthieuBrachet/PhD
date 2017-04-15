@@ -243,28 +243,6 @@ elseif test == 5
     
     ght=gp*h0+a.^2.*A+a.^2.*B.*cos(R.*lambda)+a.^2.*C.*cos(2*R*lambda);
     ht=ght./gp;
-elseif test == 6
-    % Polar rotating low-high
-    %% vitesse
-    [n1,n2]=size(x);
-    vt=zeros(n1,n2,3);
-    [lambda, teta,r]=cart2sph(x,y,z);
-    uu=-u0.*sin(lambda).*sin(teta).*(4.*cos(teta).^2-1);
-    vv=u0.*sin(teta).^2.*cos(lambda);
-
-    elambda_x = -sin(lambda);
-    elambda_y =  cos(lambda);
-    elambda_z = zeros(size(x));
-    eteta_x = -sin(teta).*cos(lambda);
-    eteta_y = -sin(teta).*sin(lambda);
-    eteta_z =  cos(teta);
-
-    vt(:,:,1)=uu.*elambda_x + vv.*eteta_x;
-    vt(:,:,2)=uu.*elambda_y + vv.*eteta_y;
-    vt(:,:,3)=uu.*elambda_z + vv.*eteta_z;
-
-    %% integrale
-    ht=h0+(1/gp).*omega.*radius.*u0.*sin(teta).^3.*cos(teta).*sin(lambda);
     
 end
 

@@ -1,0 +1,650 @@
+\documentclass[11pt]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\def\gint{\displaystyle\int}
+
+\author[Matthieu Brachet]{Matthieu Brachet}
+\title[PDEs on the Sphere]{Numerical approximation of propagation problems on the sphere using a compact scheme}
+\institute[IECL]{Institut Elie Cartan de Lorraine,\newline UMR CNRS 7502, Dép. de Mathématiques,\newline Metz, France} 
+\date[Paris, April 7th, 2017]{April 7th, 2017} 
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\includegraphics[scale=0.22]{iecl.jpg}
+\includegraphics[scale=0.41]{ul.jpg}
+\end{frame}
+
+\begin{frame}{}
+\begin{itemize}
+\item Works at Institut Elie Cartan de Lorraine, UMR CNRS 7502 (Metz, France),
+\item PhD supervised by Jean-Pierre Croisille.
+\end{itemize}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Outline}
+\begin{enumerate}
+\item The Cubed-Sphere
+\item Compact differential operators on the Cubed-Sphere
+\item Numerical results
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{The Cubed-Sphere}
+\begin{columns}
+\column{0.45\textwidth}
+\begin{figure}
+   \def\svgwidth{1 \textwidth}
+\input{drawing12.pdf_tex}
+\end{figure}
+
+\column{0.5\textwidth}
+\begin{itemize}
+\item 2 sets of great circles $C_i^{(1)}$ and $C_j^{(2)}$, $-N/2 \leq i,j \leq N/2$,
+
+\item $C_0^{(1)}$ and $C_0^{(2)}$ intersect with an angle of $90$ degrees
+
+\item $\mathbf{x}_{i,j}=C_i^{(1)} \cap C_j^{(2)}$ are grid points on a panel of the Cubed-Sphere.
+\end{itemize}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{The Cubed Sphere grid: 6 panels}
+\begin{figure}
+\begin{center}
+\hspace{-1.cm}
+\includegraphics[scale=0.28]{plot_CS.png}
+\caption{\footnotesize
+The Cubed-Sphere grid with $N=16$ ($16^2$ cells by panel).
+}
+\end{center}
+\label{fig:1.4}
+\end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}{Coordinate angles on a panel}
+\begin{block}{Angles $\xi$ and $\eta$}
+\begin{itemize}
+\item \textbf{First equatorial angle} $\xi$ with $-\pi/4 \leq \xi \leq \pi/4$ ("zonal"),
+\item \textbf{Second equatorial angle} $\eta$ with $-\pi/4 \leq \eta \leq \pi/4$ ("meridional"). 
+\end{itemize}
+\end{block}
+
+%\begin{columns}
+%\column{0.25\textwidth}
+\begin{figure}
+\includegraphics[scale=0.225]{xieta.png}
+\end{figure}
+
+%\column{0.7\textwidth}
+%\begin{block}{Basis and metric}
+%\begin{itemize}
+%\item Local basis : $(\mathbf{g}_{\xi}, \mathbf{g}_{\eta} ) = ( \partial_{\xi} \mathbf{x}, \partial_{\eta} \mathbf{x} ) \in \mathbb{T}\mathbb{S}_R^2$,
+%
+%\item Metric tensor :
+%$$G = \left[ \begin{array}{rcl}
+%\mathbf{g}_{\xi} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot \mathbf{g}_{\eta} \\ 
+%\mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot \mathbf{g}_{\eta}
+%\end{array} \right] = \left[ \begin{array}{rcl}
+%G_{1,1}&G_{1,2}\\
+%G_{2,1}&G_{2,2}
+%\end{array} \right]$$
+%
+%\item Dual basis $(\mathbf{g}^{\xi},\mathbf{g}^{\eta})$ :
+%$$
+%\left\{
+%\begin{array}{ccc}
+%G_{1,1}\mathbf{g}^{\xi} + G_{1,2}\mathbf{g}^{\eta} & = & \mathbf{g}_{\xi} \\ 
+%G_{2,1}\mathbf{g}^{\xi} + G_{2,2}\mathbf{g}^{\eta} & = & \mathbf{g}_{\eta} \\ 
+%\end{array} 
+%\right.
+%$$
+%\end{itemize}
+%\end{block}
+%\end{columns}
+\end{frame}
+
+%% ****************************************************************************************************************************************
+
+
+\begin{frame}{Gradient, Divergence and Curl}
+
+\begin{block}{Differential operators}
+Let $\mathbf{u} : \mathbb{S}_R^2 \mapsto \mathbb{T}\mathbb{S}_R^2$ and $h : \mathbb{S}_R^2 \mapsto \mathbb{R}$ be regular functions. Then :
+\begin{itemize}
+\item Gradient of $h$:
+\begin{equation}
+\nabla_T h = \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\eta}
+\end{equation}
+\item Divergence of $\mathbf{u}$:
+\begin{equation}
+\nabla_T \cdot \mathbf{u} = \dfrac{\partial \mathbf{u}}{\partial \xi}\cdot \mathbf{g}^{\xi} + \dfrac{\partial \mathbf{u}}{\partial \eta} \cdot \mathbf{g}^{\eta}
+\end{equation}\\
+\item Curl of $\mathbf{u}$:
+\begin{equation}
+\nabla_T \times \mathbf{u} = \dfrac{\partial \mathbf{u}}{\partial \xi}\times \mathbf{g}^{\xi} + \dfrac{\partial \mathbf{u}}{\partial \eta} \times \mathbf{g}^{\eta}
+\end{equation}
+
+\end{itemize}
+
+\end{block}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+%\begin{frame}{Three-point Hermitian Derivative Operator}
+%\begin{block}{Local formula : }
+%Standard local finite difference scheme of a sequence $(u_j)_{j \in \mathbb{Z}}$ :
+%\begin{equation}
+%\dfrac{u_{j+1}-u_{j-1}}{2\Delta x} = \delta_x u_j \;\;\; j \in \mathbb{Z}
+%\end{equation}
+%\end{block}
+%
+%\begin{block}{Second order accuracy}
+%Approximation of $u'(x_j)$ :
+%\begin{equation}
+%\delta_x u_j = u'(x_j) + \dfrac{1}{12} \partial_x^{(3)} u(x_j) \Delta x^2 + \mathcal{O}(\Delta x^4)
+%\end{equation}
+%\end{block}
+%\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Fourth order Hermitian derivative}
+\begin{block}{Finite difference derivative}
+\begin{itemize}
+\item Periodic Data : $(u_j)_{j \in \mathbb{Z}}$ with $u_{j+J}=u_j$, $J$ the period.
+
+\item Hermitian derivative : $(u_{x,j})_{j \in \mathbb{Z}}$ solution of 
+$$
+\dfrac{1}{6}u_{x,j+1}+\dfrac{4}{6}u_{x,j}+\dfrac{1}{6}u_{x,j-1}=\dfrac{u_{j+1}-u_{j-1}}{2 \Delta x} \text{, } \Delta x > 0
+$$ 
+
+\item Fourth order accuracy.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Hermitian derivatives along great circles}
+\begin{block}{Principle}
+\begin{itemize}
+\item Calculate Hermitian derivatives along a series of great circles.  
+\end{itemize}
+\end{block}
+
+\begin{block}{Great circle = coordinate lines}
+\begin{itemize}
+\item Coordinate lines on each panel on the CS are great circles sections.
+\item Each of these sections are extended into a full great circle.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Interpolating data along a coordinate great circle}
+\begin{figure}
+\includegraphics[scale=0.18]{fig35.jpg}
+\end{figure}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Discrete differential operators}
+$\Delta = \Delta \xi = \Delta \eta = \pi / (2N)$ represents the discrete parameter,
+\begin{block}{Discrete gradient, divergence and curl}
+$$
+\bullet \hspace{0.2cm} \nabla_{T}h=\frac{\partial h}{\partial\xi}_{|\eta}\mathbf{g}^{\xi}
++\frac{\partial h}{\partial\eta}_{|\xi}\mathbf{g}^{\eta} \approx \nabla_{T,\Delta} h=h_{\xi}\mathbf{g}^{\xi}
++h_{\eta} \mathbf{g}^{\eta}
+$$
+
+$$
+\bullet \hspace{0.2cm} \nabla_{T} \cdot \mathbf{u}=\frac{\partial \mathbf{u}}{\partial\xi}_{|\eta} \cdot \mathbf{g}^{\xi}
++\frac{\partial \mathbf{u}}{\partial\eta}_{|\xi} \cdot \mathbf{g}^{\eta} \approx \nabla_{T,\Delta} \cdot \mathbf{u}=\mathbf{u}_{\xi} \cdot \mathbf{g}^{\xi}
++\mathbf{u}_{\eta} \cdot \mathbf{g}^{\eta}
+$$
+
+$$
+\bullet \hspace{0.2cm} \nabla_{T} \times \mathbf{u}=\frac{\partial \mathbf{u}}{\partial\xi}_{|\eta} \times \mathbf{g}^{\xi}
++\frac{\partial \mathbf{u}}{\partial\eta}_{|\xi} \times \mathbf{g}^{\eta} \approx \nabla_{T,\Delta} \times \mathbf{u}=\mathbf{u}_{\xi} \times \mathbf{g}^{\xi}
++\mathbf{u}_{\eta} \times \mathbf{g}^{\eta}
+$$
+
+where $(\mathbf{g}^{\xi},\mathbf{g}^{\eta})$ is the dual basis at $(\xi_i, \eta_j)$ and $h_{\xi}$, $h_{\eta}$, $\mathbf{u}_{\xi}$ and $\mathbf{u}_{\eta}$ are the Hermitian derivatives at points $(\xi_i, \eta_j)$ on each panel $(k)$.
+\end{block}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Discrete differential operators : error estimate}
+\begin{block}{Proposition :}
+Let $h:\mathbb{S}^2 \mapsto \mathbb{R}$ and $\mathbf{u}: \mathbb{S}^2 \mapsto \mathbb{T}\mathbb{S}^2$ be regular functions. Then:
+\begin{itemize}
+\item Gradient : \begin{equation}
+\| (\nabla_{T}h)^* - \nabla_{T,\Delta}h^* \|_{\infty} \leq \mathcal{O} \left( \Delta^3 \right)
+\end{equation}
+\item Divergence : \begin{equation}
+\| (\nabla_{T}\cdot \mathbf{u})^* - \nabla_{T,\Delta}\cdot \mathbf{u}^* \|_{\infty} \leq \mathcal{O} \left( \Delta^3 \right)
+\end{equation}
+\item Curl : \begin{equation}
+\| (\nabla_{T}\times \mathbf{u})^* - \nabla_{T,\Delta}\times \mathbf{u}^* \|_{\infty}  \leq  \mathcal{O} \left( \Delta^3 \right)
+\end{equation}
+\end{itemize}
+The operator "$*$" stands for : "restricted to the Cubed-Sphere".
+\end{block}
+\begin{block}{Effective order of accuracy}
+Fourth order accuracy is observed in the three cases!
+\end{block}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+%\begin{frame}{Numerical order of accuracy of approximated curl}
+%\begin{block}{Approximate curl of a tangential vector field $\mathbf{u} = u(\theta) \mathbf{e}_{\lambda}$ (zonal dependance)}
+%$u(\theta)=\left\lbrace
+%\begin{array}{ll}
+%\frac{80}{e_n} \exp\left[ \frac{1}{(\theta-\theta_0)(\theta-\theta_1)} \right] & \text{ if } \theta_0 \leq \theta \leq \theta_1 \\
+%0 & \text{ else}
+%\end{array}\right.$ 
+%
+%with $e_n$ a normalization constant.
+%\begin{figure}
+%\includegraphics[scale=0.35]{rate_vort.png}
+%\caption{\footnotesize Convergence rate of the Hermitian curl of the zonal 
+%velocity $\mathbf{u} = u(\theta) \mathbf{e}_{\lambda}$.}
+%\end{figure}
+%\end{block}
+%\end{frame}
+
+%% ***************************************************************************************************************************************
+
+%\begin{frame}{Solid Body Rotation [Williamson and al., 1992]}
+%$\bullet$ $(\lambda, \theta)$ : longitude and latitude for $(NS)$ axis,
+%
+%$\bullet$ $(\lambda', \theta')$ : longitude, latitude (axis $(NS)$ rotated by an angle $\alpha$).
+%
+%\begin{columns}
+%\column{0.45\textwidth}
+%\begin{figure}
+%\def\svgwidth{0.6 \textwidth}
+%\vspace{0.5cm}
+%\input{drawing34.pdf_tex}
+%\end{figure}
+%\column{0.45\textwidth}
+%\begin{block}{}
+%\begin{equation*}
+%\left \{
+%\begin{array}{l}
+%\dfrac{\partial h}{\partial t} + \mathbf{c} \left( \mathbf{x} \right) \cdot \nabla_T h = 0\\[6pt]
+%h(0,\mathbf{x}) = h_0(\mathbf{x})\\
+%\end{array}
+%\right.
+%\end{equation*}
+%with $\mathbf{c} \left( \lambda', \theta' \right) = \omega_0  cos \theta' \mathbf{e}_{\lambda'}$.
+%\end{block}
+%\end{columns}
+%\begin{block}{}
+%Solution :
+%$$h \left( \mathbf{x} , t \right) = h_0 \left( R_{\omega_0 t}^{-1} \mathbf{x} \right)$$
+%with $R_{\theta}$ rotation matrix with angle $\theta$.
+%\end{block}
+%\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Semi-discrete scheme}
+\begin{block}{Method of lines}
+\begin{itemize}
+\item \textbf{First step :} discretization in space,
+\item \textbf{Second step :} discretization in time.
+\end{itemize}
+\end{block}
+
+\begin{block}{Example}
+\begin{itemize}
+\item Advection equation :
+$$\partial_t h + \mathbf{c}(\mathbf{x},t) \cdot \nabla_T h = 0$$
+is discretized by a centered scheme
+$$\dfrac{d}{dt} h_{i,j}^k + \mathbf{c}(\mathbf{x}_{i,j}^k,t) \cdot \nabla_{T,\Delta} h_{i,j}^k = 0$$
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Time discretization}
+\textbf{Semi-discrete equation }(discrete in space and continuous in time):
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial q}{\partial t} & = & F(q,t), \\
+q(t=0,\mathbf{x}) & = & q_0(\mathbf{x}) \\
+\end{array}
+\right.
+\end{equation}
+
+\begin{block}{Filtering}
+$\mathcal{F}$ is a spatial filter function.
+\end{block}
+
+\begin{block}{Runge-Kutta order 4 + Spatial filtering}
+
+\begin{enumerate}
+\item $K_1 = F(q^n, t^n)$,
+\item $K_2 = F(q^n + \frac{\Delta t}{2} K_1, t^n + \frac{\Delta t}{2})$,
+\item $K_3 = F(q^n + \frac{\Delta t}{2} K_2, t^n + \frac{\Delta t}{2})$,
+\item $K_4 = F(q^n + \Delta t K_3, t^n + \Delta t)$
+\item $\hat{q}^{n+1} = q^n + \frac{\Delta t}{6} \left( K_1 + 2 K_2 + 2 K_3 + K_4 \right)$
+\item $q^{n+1} = \mathcal{F}(\hat{q}^{n+1})$
+\end{enumerate}
+\end{block}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Filtering function $\mathcal{F}$ }
+\begin{block}{High frequencies filtering \textit{(Alpert, Tam, Visbal, Bailly, ...)}}
+\begin{itemize}
+\item $\mathcal{F}(u)_j$ is the one dimensional filtering operator acting on the data $u_j$ by :
+$$
+\mathcal{F}(u)_j = \sum_{p=-M}^M f_{p} u_{j+p}\approx u_j + \mathcal{O}\left( \Delta x^{\alpha} \right)
+$$
+\item $\alpha$ : order of the filtering
+\end{itemize}
+\end{block}
+\begin{columns}
+\column{0.45\textwidth}
+\begin{block}{10-th order filtering}
+$\begin{pmatrix}
+f_0\\ f_1 = f_{-1}\\ f_2 = f_{-2} \\ f_3=f_{-3} \\ f_4=f_{-4} \\ f_5 = f_{-5}
+\end{pmatrix}=\begin{pmatrix}
+772/1024\\ 210/1024\\ -120/1024\\ 45/1024\\ -10/1024\\ 1/1024
+\end{pmatrix}$
+\end{block}
+
+\column{0.52\textwidth}
+\begin{itemize}
+\item On the Cubed-Sphere, an efficient symmetric filter is:
+\begin{block}{}
+\begin{equation*}
+\mathcal{F} = \dfrac{1}{2} \left( \mathcal{F}_{\xi} \circ \mathcal{F}_{\eta} + \mathcal{F}_{\eta} \circ \mathcal{F}_{\xi} \right)
+\end{equation*}
+\end{block}
+\item A symmetric filter gives better results than a non-symmetric one.
+\end{itemize}
+\end{columns}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Moving vortex test case [R. Nair, C. Jablonowski, 2008]}
+\begin{block}{Two antipodal vortices moving around the sphere}
+\begin{figure}
+\href{run:ref_7363145849_test_2.avi}{\includegraphics[scale=0.5]{rate_NJ.png}} 
+\caption{Convergence analysis for the R. Nair and C. Jablonowski test case; $cfl = 0.7$ ;$\alpha = \pi/4,$ for $N = 40$, $50$, $60$, $80$, $100$ and $150$.}
+\end{figure}
+\end{block}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+%\begin{frame}{Symmetric filter function}
+%\begin{block}{Numericals Observations}
+%\begin{itemize}
+%\item A symmetric filter gives significant better results than a non-symmetric one.
+%\item A good symmetric filter is given by
+%\begin{equation}
+%\mathcal{F} = \dfrac{1}{2} \left( \mathcal{F}_{\xi} \circ \mathcal{F}_{\eta} + \mathcal{F}_{\eta} \circ \mathcal{F}_{\xi} \right)
+%\end{equation}
+%\end{itemize}
+%where $\mathcal{F}_{\xi}$ (resp. $\mathcal{F}_{\eta}$) is the 10-th order filter in the $\xi$ direction (resp. $\eta$).
+%\end{block}
+%\end{frame}
+
+%% ****************************************************************************************************************************************
+
+\begin{frame}{Shallow Water equations (SW)}
+\begin{block}{SW equations in non conservative form (vector form of the momentum equation)}
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial h}{\partial t} + \nabla_T \cdot \left( h \mathbf{v} \right) & = & 0 \\
+\dfrac{\partial \mathbf{v}}{\partial t} + \nabla_T \left( \dfrac{1}{2}|\mathbf{v}|^2 + gh \right) + \left( f + \zeta \right) \mathbf{n} \times \mathbf{v} & = & 0
+\end{array}
+\right.
+\end{equation}
+where 
+\begin{itemize}
+\item $h$ is the fluid thickness and $\mathbf{v}$ the tangential velocity,
+\item $\mathbf{n}$ is the normal exterior vector, 
+\item $\zeta = \left( \nabla_T \times \mathbf{v} \right) \cdot \mathbf{n}$ is the vorticity,
+\item $f$ is the Coriolis parameter.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Conservation properties}
+\begin{block}{}
+If $(h, \mathbf{v})$ is solution of the SW equations, the following quantities are conserved :
+
+\begin{itemize}
+\item \textbf{mass :} 
+$\gint_{\mathbb{S}^2_R} h(t, \mathbf{x}) d \sigma(\mathbf{x})$
+\item \textbf{energy :}
+$ \gint_{\mathbb{S}^2_R} \left( \dfrac{1}{2}gh^2 + \dfrac{1}{2} h | \mathbf{v} |^2 \right) d \sigma(\mathbf{x})$
+\item \textbf{potential enstrophy :}
+$\gint_{\mathbb{S}^2_R} \dfrac{\left( f + \zeta \right)^2}{2gh} d \sigma(\mathbf{x})$
+\end{itemize}
+\end{block}
+
+Need of a careful evaluation of the numerical conservation!
+
+\textbf{Discrete quadrature formula :}
+
+$$I(f) = a \Delta \xi \Delta \eta   \sum_{k=(I)}^{(VI)} \sum_{i,j=-N/2}^{N/2}  \sqrt{G_{i,j}^k} f_{i,j}^{k} $$
+
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{SW time independent test case [Williamson and al., 1992]}
+
+\begin{itemize}
+\item $h = h_0 - \dfrac{1}{g} \left( R \Omega u_0 + \dfrac{u_0^2}{2} \right)\left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right)^2$
+\item $\mathbf{v} = u \mathbf{e}_{\lambda}+ v \mathbf{e}_{\theta}$ with :
+\begin{equation*}
+\left\lbrace \begin{array}{rcl}
+ u & = & u_0 ( \cos \theta \cos \alpha + \cos \lambda \sin \theta \sin \alpha)\\
+ v & = & -u_0 \sin \lambda \sin \alpha
+ \end{array} \right.
+\end{equation*}
+\end{itemize}
+is a time independent solution of the SW equations with $\alpha$ parameter angle.
+
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{SW time independent test case [Williamson and al., 1992]}
+\begin{figure}
+\includegraphics[scale=0.24]{ref_7367706276_snapshot_err.png}
+\includegraphics[scale=0.24]{ref_7367706276_solution.png}
+\end{figure}
+\begin{itemize}
+\item Steady state geostrophic flow with $\alpha=\pi/4$ on a $6 \times 32 \times 32$ grid after $5$ days.
+\item Relative error on the height $h$ at final time (left), $\sim 10^{-6}$.
+\item $h$ at final time (right),
+\item $\Delta t \approx 10$ minutes, $713$ times iterations, $6146$ grid points, $\frac{\sqrt{g h_0} \Delta t}{a \Delta \xi } \approx 0.3$
+\end{itemize}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Error Analysis}
+\begin{figure}
+\includegraphics[scale=0.55]{rate_SW2_alpha2.png}
+\end{figure}
+\begin{itemize}
+\item Relative error on $h$ after 5 days with $\alpha = \pi/4$.
+\item Spatial order of accuracy is 4.
+\end{itemize}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Conservation}
+\begin{figure}
+\includegraphics[scale=0.4]{ref_7367706276_conservationA.png}
+\end{figure}
+\begin{itemize}
+\item Relative error on conservation with $6 \times 32 \times 32$ grid and $\alpha=\pi/4$.
+\item The worst relative conservation is $4 \times 10^{-9}$ on the energy (713 it.)!
+\end{itemize}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+%\begin{frame}{Convergence Numerical Analysis}
+%\begin{figure}
+%\includegraphics[scale=0.4]{rate_SW2.png}
+%\includegraphics[scale=0.4]{rate_SW2_alpha2.png}
+%\end{figure}
+%\begin{itemize}
+%\item Relative error afer 5 days of steady state geostrophic flow. The times step are $\Delta t \approx 2.5$ ($N=128$), $5$($N=64$) and $10$($N=32$) minutes.
+%\item $\alpha = 0$ (left).
+%\item $\alpha = \pi/4$ (right).
+%\item Spatial order of accuracy is 4!
+%\end{itemize}
+%\end{frame}
+
+%% ***************************************************************************************************************
+
+\begin{frame}{Barotropic instability [J. Galewsky and al., 2004]}
+
+\begin{block}{Zonal steady state of the SW equations}
+\begin{equation}
+\begin{array}{rcl}
+\bar{h}(\theta) & = & h_0 + \dfrac{1}{g}\gint^{\theta}_{-\pi/2} R u(\tau) \left[ f + \dfrac{\tan(\tau)}{R} u(\tau) \right] d \tau \\
+\mathbf{v}(\lambda,\theta) & = & u(\theta) \mathbf{e}_{\lambda}
+\end{array}
+\end{equation}
+\end{block}
+
+with :
+
+\begin{itemize}
+\item Coriolis parameter : $f = 2 \Omega \sin \theta$,
+\item $u(\theta)=\left\lbrace
+\begin{array}{ll}
+\dfrac{u_{max}}{e_n} \exp\left( \dfrac{1}{(\theta-\theta_0)(\theta-\theta_1)} \right) & \text{ if } \theta_0 \leq \theta \leq \theta_1 \\
+0 & \text{ else}
+\end{array}\right.$\\
+ with $e_n=C^{ste}$, $u_{max} = 80 ms^{-1}$, $\theta_0 = \pi/7$ and $\theta_1 = \pi/2 - \theta_0$.
+\end{itemize}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Barotropic instability (cont.)}
+\begin{block}{Perturbation}
+The initial data is given by :
+\begin{itemize}
+\item zonal velocity:
+$$\mathbf{v}(\lambda,\theta) = u(\theta) \mathbf{e}_{\lambda}$$
+\item height = perturbation of $\bar{h}$:
+$$h(\lambda,\theta) = \bar{h}(\lambda,\theta) + \hat{h} \cos \theta \exp \left[ - \left( \dfrac{\lambda}{\alpha} \right)^2 - \left( \dfrac{\theta_2 - \theta}{\beta} \right)^2 \right] \text{, } \hat{h}/\bar{h} \approx 1 \%$$
+with $\theta_2 = \pi/4$, $\alpha = 1/3$ and $\beta = 1/15$.
+\end{itemize}
+\end{block}
+
+\begin{block}{}
+This test is particularly challenging for the Cubed-Sphere:
+
+\begin{itemize}
+\item $h$ has large variations along the boundary of panel (V)
+\item the initial perturbation is located at the boundary between panel (I) and panel (V).
+\end{itemize}
+\end{block}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{J. Galewsky and al. test case}
+\begin{figure}
+\href{run:ref_7367787500.avi}{\includegraphics[scale=0.4]{ref_7367767680_snapshot.png}} 
+\end{figure}
+\begin{itemize}
+\item Vorticity (6 days), grid: $6 \times 128 \times 128 \Rightarrow $ correct number of vortices!
+\item Results similar to high order conservative methods such as FV or DG.
+\end{itemize}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Conservation : mass and energy}
+\begin{figure}
+\includegraphics[scale=0.3]{ref_7367767680_massenergy.png}
+\includegraphics[scale=0.3]{ref_7367767680_enstrophy.png}
+\end{figure}
+\begin{itemize}
+\item Conservation of mass and energy, grid: $6 \times 128 \times 128$.
+\item Mass and energy are conserved up to $10^{-7}$ (relative error).
+\item Potential enstrophy is conserved up to $10^{-3}$ (relative error).
+\end{itemize}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Computational complexity}
+\begin{itemize}
+\item All the computations are performed with a Matlab sequential code on a work station (Intel(R) Xeon(R) CPU E5-2620 v2 @ 2.10GHz).
+\item Computational cost of $\nabla_T h$ $\approx 96N^2$ for $12N^2$ unknowns (due to the tridiagonal matrices).
+\item Typical CPU time : $1.5$ hours for $6$ days with $N=80$ ($2140$ it.).
+\end{itemize}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}{Conclusion and future works}
+\begin{itemize}
+\item Fully centered scheme in space.
+\item Explicit RK4 time scheme with filtering.
+\item Results similar to high order conservative schemes in terms of accuracy.
+\item Current work : mathematical convergence analysis for gradient, divergence, curl and the time discretization.
+\item Discretization of the Laplacian and Biharmonic to design more advanced artificial viscosity operators.
+\item Implicit time stepping required for slow wave problems (Rossby).
+\end{itemize}
+\end{frame}
+
+%% ***************************************************************************************************************************************
+
+\begin{frame}
+\begin{center}
+Thank you for your attention.
+\end{center}
+\end{frame}
+
+
+
+
+
+\end{document}

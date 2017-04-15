@@ -62,9 +62,9 @@ if strcmp(space,'explicit') == 1
 if c == 2
     s=sin(teta);
 elseif c == 4
-    s=4/3*sin(teta)-1/3*sin(2*teta);
+    s=4/3*sin(teta)-1/3*sin(2*teta)/2;
 elseif c == 6
-    s=3/2*sin(teta)-3/5*sin(2*teta)+1/10*sin(3*teta);
+    s=3/2*sin(teta)-3/5*sin(2*teta)/2+1/10*sin(3*teta)/3;
 else
     error('Invalid input argument : c must be an integer in {2,4,6} for explicit space scheme.');
 end
@@ -74,6 +74,7 @@ elseif strcmp(space,'implicit') == 1
 if c == 4
     s = sin(teta)./(2/3+2*(1/6*cos(teta)));
 elseif c == 6
+    error('error on the compact 6 term')
     s = (4/3*sin(teta)-1/3*sin(2*teta))./(4/5+2*(2/15*cos(teta)-1/30*cos(2*teta)));
 else
     error('Invalid input argument : c must be an integer in {4,6} for implicit space scheme.');

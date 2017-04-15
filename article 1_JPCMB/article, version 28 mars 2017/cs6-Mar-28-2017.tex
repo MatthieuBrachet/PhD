@@ -1,0 +1,1386 @@
+%% LyX 1.6.9 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[oneside,english]{amsart}
+%\documentclass[oneside,english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,graphicx}
+\usepackage{amsthm}
+\usepackage{graphicx}
+%\usepackage{subfigure}
+%\usepackage{epsfig}
+%\usepackage{color}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\graphicspath{{./Images/}}
+%usepackage[dvips]{color}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[left=2.5cm,right=2.5cm,top=3cm,bottom=3cm]{geometry}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newcommand{\cal}{\mathcal}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\sinc{\mathop{\rm sinc}\nolimits}  
+\def\cal{\mathop{\rm cal}\nolimits}  
+\def\CFL{\mathop{\rm CFL}\nolimits}  
+\def\ex{\mathop{\rm ex}\nolimits}  
+\def\atan{\mathop{\rm atan}\nolimits}  
+\def\sech{\mathop{\rm sech}\nolimits}  
+\def\tanh{\mathop{\rm tanh}\nolimits}  
+\def\div{\mathop{\rm div}\nolimits}  
+\def\days{\mathop{\rm days}\nolimits}  
+\def\Re{\mathop{\rm Re}\nolimits}  
+\newcommand{\bgrad}{\mbox{\boldmath$\nabla$}}
+\newcommand{\bnabla}{\mbox{\boldmath$\nabla$}}
+\newcommand{\bF}{\mbox{\boldmath$F$}}
+\newcommand{\bM}{\mbox{\boldmath$M$}}
+\newcommand{\bg}{\mbox{\boldmath$g$}}
+\newcommand{\bq}{\mbox{\boldmath$q$}}
+\newcommand{\bx}{\mbox{\boldmath$x$}}
+\newcommand{\bc}{\mbox{\boldmath$c$}}
+\newcommand{\be}{\mbox{\boldmath$e$}}
+\newcommand{\bn}{\mbox{\boldmath$n$}}
+\newcommand{\bu}{\mbox{\boldmath$u$}}
+\newcommand{\bv}{\mbox{\boldmath$v$}}
+\newcommand{\bs}{\mbox{\boldmath$s$}}
+\newcommand{\bi}{\mbox{\boldmath$i$}}
+\newcommand{\bj}{\mbox{\boldmath$j$}}
+\newcommand{\bk}{\mbox{\boldmath$k$}}
+\newcommand{\bvarphi}{\mbox{\boldmath$\varphi$}}
+\newcommand{\bomega}{\mbox{\boldmath$\omega$}}
+\newcommand{\bpsi}{\mbox{\boldmath$\psi$}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ** PERSONAL NEWTHEOREMS
+\newtheorem{thm}{Theorem}[section]
+\theoremstyle{definition}
+\newtheorem{defi}[thm]{Definition}
+\newtheorem{prop}[thm]{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}[thm]{Remark}
+
+\def\gint{\displaystyle\int}
+
+
+\makeatother
+
+\usepackage{babel}
+
+\begin{document}
+
+\title{Numerical simulation of propagation problems on the sphere using a compact scheme}
+
+
+\begin{abstract}
+In this paper we continue the study of the compact scheme 
+on the sphere introduced in 
+\cite{Croisille-10, Croisille-12}. This scheme uses 
+discrete differential operators on the Cubed Sphere. 
+Considering propagation problems, the scheme is fully centered
+and used a symmetric filer to eliminate high frequency
+oscillating modes.
+Numerical results on a broad series of numerical test cases
+in climatology are presented, including
+linar convection problems, the linearized shallow water 
+and the non linear shallow water equations. 
+These results demonstrate the
+potential of the present approach 
+in a variety of situations of interest accuracy and the 
+stability of the present approach.
+\end{abstract}
+
+\author{M. Brachet and J.-P. Croisille\dag\ddag}
+\address{\dag Universit\'e de Lorraine, D\'epartement de Math\'ematiques, F-57045 Metz, France\\
+\ddag C.N.R.S., Institut Elie Cartan de Lorraine, UMR 7502, F-57045 Metz, France}
+\email{matthieu.brachet@univ-lorraine.fr, jean-pierre.croisille@univ-lorraine.fr}
+
+%% \date\today
+\date{March 28, 2017}
+\maketitle
+
+{\sl Keywords: Cubed-Sphere grid - Compact finite difference scheme - 
+Hermitian derivative - Vortex propagation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\input{introduction.tex}
+\section{Introduction}
+\label{sec:1}
+In this paper, we continue the development
+of the compact scheme approach introduced in \cite{Croisille-10,Croisille-12}
+for partial differential equations problems on the sphere
+arising in climatology. A significant part of these problems
+consist of propagation equations related in a way or another
+to the spherical shallow water equations (SWE)
+where the unknown consist of the height 
+of the atmosphere $h$ and the wind velocity $\bv$.
+These equations represent the central hyperbolic problem
+to be solved in a spherical geometry. 
+The linearized version of SWE is called LSWE. It
+represents the simplest physicall based wave problem.
+
+In recent years efforts
+has been devoted by researchers to import and adapt
+conservative methods  
+steming from numerical gas dynamics to the spherical context.
+The particular case of the Cubed-Sphere
+is widely used,
+either in the 
+finite volume upwind context 
+\cite{Chen-Xiao, Ullrich-Jablonowski-vanLeer}
+of in the one of 
+the Discontinuous Galerkin method,
+\cite{Bao-Nair-Tufo}.
+
+Conservative schemes 
+are applied to the conservative form of the equations.
+i.e. for the SW system, the vector height/momentum 
+$q=[h,h\bv]$.Such schemes 
+guarantee by construction ensure the conservation
+of $q$. However many more quantities
+must be theoretically conserved: the energy, the potntial enstrophy
+and the angular momentum. How the scheme conserves
+these quantities for large time mainly depends of the
+numerical dissipation of the scheme. This dissipation
+must be kept as low as possible for realistic simulations.
+
+Finite difference schemes 
+for simulating problems in climatology have
+attracted interest since 
+more than 40 years, \cite{Arakawa}.
+Recently, Finite Difference methods related
+to the same approach were recently used
+in numerical climatology in \cite{Ghader-Nordstrom}.
+
+The scheme we are considering here is a fully centered
+scheme applied to the conconservative form of SWE or LSWE.
+In the realm of existing methods 
+for fluid flows, our approach is strongly connected to 
+the compact schemes for aeroacoustics \cite{Lele, Visbal-Gaitonde, 
+Tam-Webb, Bogey-Bailly} and turbulence, \cite{Kim-Moin}.
+Here, we want to show that this approach 
+isa also relevant for a wide class
+of propagation problems in numericl climatology.
+In this sense, it belongs 
+to a classical approach, which can
+be traced back to early works
+in approximation and interpolation theory, \cite{Collatz}.
+
+The convective problems over the sphere considered here 
+fall into three categories
+\begin{itemize}
+\item 
+The linear scalar equation
+advection 
+\begin{equation}
+\label{eq:adv}
+\dfrac{\partial h}{\partial t}  (t,\mathbf{x})+ \mathbf{c}(t,\mathbf{x}) 
+\cdot \nabla_T h(t,\mathbf{x})=0
+\end{equation}
+In (\ref{eq:adv}), the velocity 
+$\mathbf{c}(t,\mathbf{x}) \in (0, +\infty) \times \mathbb{S}^2$ 
+is prescribed so that the scalar value $h(t,\mathbf{x})$ 
+exhibits two moving antipodal vortices.
+This test case was introduced
+in \cite{Nair-Machenhauer,Nair-Jablonowski}. 
+This is a demanding test case, which requires
+good accuracy and stability properties.
+% We refer to Sections
+% \ref{sec:4.1} and \ref{sec:4.2} for setails.
+\item
+The LSWE system at the rest state $q_0=[H_0,\bv_0=\b0]$
+with $H_0 >0$ a constant height, 
+is expressed as:
+\begin{equation}
+\label{eq:lswe}
+(LSWE) \left\{
+\begin{array}{l}
+\dfrac{\partial \eta}{\partial t} (t,\mathbf{x})+ H \nabla_T 
+\cdot \mathbf{v}(t,\mathbf{x})=0\\
+\dfrac{\partial \mathbf{v} }{\partial t} (t,\mathbf{x})+ 
+g \nabla_T \eta(t,\mathbf{x}) + f(\mathbf{x}) \mathbf{k}(\mathbf{x}) \wedge
+\mathbf{v}(t,\mathbf{x})=0\\
+\end{array}
+\right.
+\end{equation}
+Despite its simplicity, this system still 
+is the source of many open mathematicl questions
+going back to Laplace. We refer to the recent monograph by
+\cite{Paldor} and the references therein. The state at rest is 
+$(\mathbf{v}_0,\eta_0)=(0,H)$ and the 
+The 3-components perturbation unknowns is
+the vector $(t,\mathbf{x}) \mapsto (\mathbf{v}(t,\mathbf{x}), \eta(t,\mathbf{x}))$.
+\item The SWE system is nonlinear . In vectorial form it is expressed
+as:
+\begin{equation}
+\label{eq:swe}
+(SWE) \left\lbrace
+\begin{array}{l}
+\dfrac{\partial h^{\star}}{\partial t} (t,\mathbf{x}) + \nabla_T \cdot \left( h^{\star}(t,\mathbf{x}) \mathbf{v}(t,\mathbf{x}) \right) =  0 \\
+\dfrac{\partial \mathbf{v}}{\partial t}  (t,\mathbf{x}) + \nabla_T \left( \dfrac{1}{2} \mathbf{v}(t,\mathbf{x})^2 
++ g h(t,\mathbf{x}) \right) + \left( f(\mathbf{x}) + \zeta(t,\mathbf{x}) \right) \mathbf{n}(\mathbf{x}) \wedge \mathbf{v}(t,\mathbf{x}) =  \mathbf{0} 
+\end{array}
+\right.
+\end{equation}
+
+where $\zeta = \left( \nabla_T \wedge \mathbf{v} \right) \cdot \mathbf{k}$ 
+is the {\it relative vorticity} and 
+$h^{\star} = h - h_s$ with $h_s$ the bottom topography function.
+\end{itemize}
+
+The outline of the paper is as follows.
+In Section \ref{sec:2}, we recall the numerical calculation
+of the gradient introduced in \cite{Croisille-10}. In Section 
+\label{sec:3}, our numerical scheme is presented with emphasis 
+on the role of the filtering. Dissipation and dispersion analysis 
+is given. Finally in Section \ref{sec:4}, we present 
+numerical results on a series of test cases
+for the three systems of equations above. 
+These results show the accuracy and the stability of our approach.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\input{hermitian_approach.tex}
+\section{Compact discrete differncing on the Cubed Sphere}
+\label{sec:2}
+In this section, we decribe specific properties
+of our scheme.
+After overviewing the Cubed Sphere in Section
+\ref{sec:CS}, the fundamental of
+compact differencing along great circles
+on the Cubed Sphere is summarized in Section \ref{sec:2.1}.
+In Section \ref{sec:2.2} the discrete gradient, divergence and curl
+are given.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Cubed-Sphere}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:CS}
+The Cubed Sphere is a grid of the sphere. This grid and variants were introduced by
+various authors. A systematic
+presentation was given in
+\cite{Ronchi-Iacono-Paolucci}.
+This grid has been widely used for numerical climatology.
+The Cubed-Sphere is composed of six panels with
+label $(k)=(I), (II), (II), (IV), (V)$ and $(VI)$. Each panel matches
+the face of the cube, in which the sphere
+is embedded. Each panel
+supports a Cartesian grid of size $N\times N$.
+It is equipped with a 
+coordinate system $(\xi,\eta)$.
+As in the preceding section,
+$\xi$ and $\eta$ are angles along a couple of orthogonal great circles
+intersecting at the center of the panel.
+The Cubed Sphere is represented on Fig. \ref{fig:1}
+and a typical panel is shown
+on Fig. \ref{fig:2}.
+The  grid points are called $\mathbf{s}_{i,j}^{(k)}$ with $ -N/2 \leq i,j \leq N/2$ and 
+$ (I) \leq (k) \leq (VI)$ denotes the index of the panel.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Periodic compact diffentiation along great circles}
+\label{sec:2.1}
+Let us recall the basics of compact differentiation.
+The centerded finite difference on a regular grid 
+with step $\Delta x$ is
+\beq
+\label{eq:87.13}
+\delta_x u_j =\frac{u_{j+1}-u_{j-1}}{2 \Delta x}
+\eeq
+Relation (\ref{eq:87.13}) is a second order approximation of the derivative
+$u^\prime(x_j)$ in the sense that
+\beq
+\label{eq:87.14}
+\delta_x u^\ast_j =u^\prime(x_j)+\frac{\Delta x^2}{12}
+u^{(4)}(\xi_j)
+\eeq
+for a certain value of $\xi_j \in [x_{j-1}, x_{j+1}]$.
+Consider now the {\it implicit relation} with unknown $\delta^H_x u_{j}$
+\beq
+\label{eq:73.10.27}
+\frac{1}{6} \delta_\xi^H u_{j-1}
++\frac{2}{3} \delta_\xi^H u_j
++\frac{1}{6} \delta_\xi^H u_{j+1}
+= 
+\delta_\xi u_j.
+\eeq
+The relation (\ref{eq:73.10.27}) is a three point compact relation, 
+meaning that the stencil of dependence 
+consists of the three points is $x_{j-1},x_j,x_{j+1}$. 
+It is easily proved, that in the periodic setting $\delta_x^H u_j$ satisfies the consistency relation
+\beq
+\label{eq:87.14.1}
+\delta^H_x u^\ast_j =u^\prime(x_j)
+-\frac{\Delta x^4}{180}
+u^{(6)}(\xi_j).
+\eeq
+% When (\ref{eq:87.14.1}) is considered
+% on the interval $[0, 2 \pi]$ with periodic
+% boundary conditions, then the values
+% $\delta^H_{x,j}$ are approximations
+% of order $4$ at all points $x_j$.
+We refer to \cite{Lele} and to {BenArtzi-Croisille-Fishelov-4}.
+
+The fundamental of our numerical scheme
+is to perform the calculation 
+of  Hermitian derivatives (\ref{eq:73.10.27}) 
+along a series of great circles on the sphere.
+These great circles are associated to
+coordinates lines on each panel.
+In a second time, discrete differential operators are
+deduced from thos preliminary computation 
+Details can be found in \cite{Croisille-10, Croisille-12}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Hermitian gradient, divergence and curl operators}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:2.2}
+On the panel $(k)$, $(I) \leq (k) \leq (VI)$, the local basis is 
+\beq
+\label{eq:32.19}
+g_\xi(\mathbf{s})=\frac{\partial \mathbf{s}}{\partial \xi},\;\;\;
+g_\eta(\mathbf{s})=\frac{\partial \mathbf{s}}{\partial \eta}.
+\eeq
+and the dual basis is called $(g^\xi, g^\eta)$.
+Let $\bx \in \mathbb{S}^2 \mapsto f(\bx)$ be a regular function.
+The gradient is defined by
+%, divergence and curl are expressed 
+%in local coordinates $(\xi,\eta)$ by
+\beq
+\nabla_T f= 
+\partial_\xi f \bg^\xi +\partial_\eta f \bg^\eta
+\eeq
+Let $f^k_{i,j}$ 
+be a given scalar gridfunction.
+\beq
+\label{eq:95.13}
+\nabla_{T,\Delta} f= 
+ f_{\xi,i,j}^k (\bg^\xi)_{i,j}^k 
++
+f_{\eta,i,j}^k (\bg^\eta)_{i,j}^k 
+\eeq
+
+Similarly if 
+$\bx \in \mathbb{S}^2 \mapsto \mathbb{R}^2$
+is a regular tangential vector field,
+the divergence and curl are:
+\beq
+\left\{
+\begin{array}{l}
+\nabla_T \cdot \bv= 
+\partial_\xi \bv \cdot  \bg^\xi +\partial_\eta \bv \cdot \bg^\eta\\
+(\nabla_T \times \bv = 
+\partial_\xi \bv \times \bg ^xi +\partial_\eta \bv \times \bg ^eta
+\end{array}
+\right.
+\eeq
+The discrete divergence and curl of 
+a discrete tangential vector grid function
+$\bv^k_{i,j}$ are called 
+$\nabla_{T,Delta} \dot \bv_{i,j}^k$ 
+and $\nabla_{T,Delta} \times\bv_{i,j}^k$ respectively.
+They are defined by
+\beq
+\left\{
+\begin{array}{l}
+\nabla_{T,\Delta} \cdot (\bv)_{i,j}^k= 
+(\bv)_{\xi,i,j}^k \cdot  (\bg^\xi)_{i,j}^k 
++
+\nabla_{T,Delta}
+(\bv)^k_{i,j} \cdot (\bg^\eta)^k_{i,j}\\
+\nabla_{T,\Delta} \times (\bv)_{i,j}^k = 
+(\bv)_{i,j}^k \times (\bg ^xi)^k_{i,j} 
++
+(\bv)_{i,j}^k \times (\bg ^eta)^k_{i,j}
+\end{array}
+\right.
+\eeq
+Due to (\ref{eq:87.14.1}), we expect these discrete operators
+to be fourth order accurate.
+
+\begin{prop}
+If $f(\bx)$ and $\bv(\bx)$ are any given scalar (resp. tangential vector)
+function on the sphere. If $f^\ast$ and $\bv^\ast$
+are their restriction to the Cubed Sphere, then the
+consistency relations hold:
+\beq
+\label{eq:11.91}
+\begin{aligned}
+\nabla_{T,\Delta} f^k_{i,j}-(\nabla_T f)^{\ast,k}_{i,j}&=O (\Delta^3)\\
+\nabla_{T,\Delta} \cdot \bv^k_{i,j}
+-(\nabla_T \cdot  f)^{\ast,k}_{i,j}&=O (\Delta^3)\\
+\nabla_{T,\Delta} \times \bv^k_{i,j}
+-(\nabla_T \times  \bv)^{\ast,k}_{i,j}&=O (\Delta^3)
+\end{aligned}
+\eeq
+\end{prop}
+\begin{proof}
+Suppose that in relation (\ref{eq:87.14.1}) the data $f_j$ are perturbed
+by a term of order $O(\Delta^4)$. Then the resulting
+perturbation of $f_\xi$ is at most of order $O(\Delta^3)$.
+The consistency error drops therefore from order $4$ to order $3$.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}
+\includegraphics[scale=0.3]{Images/fig6.jpg}
+\caption{
+The Cubed Sphere with grid parameter $N=16$.
+The total number of gridpoints is $6 \times N^2+2=1538$ in this case.
+The panels $(I)$, $(II)$, $(III)$ and $(IV)$ are located
+around the equatorial plane $z=0$. The index of the north panel is $(V)$ 
+and the one of the south panel is $(VI)$. 
+}
+\label{fig:1}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}
+   \def\svgwidth{0.3 \textwidth}
+\input{drawing13.pdf_tex}
+\caption{
+The points of a typical panel of the Cubed-Sphere are classified in three categories:
+(i) Circles correspond to {\sl internal} points; (ii) Squares correspond to {\sl edge} points ;
+(iii) Pentagons correspond to {\sl corner} points}
+\label{fig:2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\input{time_disc.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{A centered scheme on the Cubed Sphere}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
+\subsection{Method of lines}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+As recalled in the introduction,
+our objectives is to discretize the propagation problems
+(\ref{eq:adv}), (\ref{eq:lswe}) or (\ref{eq:swe}). 
+Our basic approximation is space is purely centered.
+In each case we adopt the discrete differential operators 
+deined in (\ref{eq:95.13}, \ref{eq:11.91}) keeping the time continuous (method of lines).
+Consider first (\ref{eq:adv}). Let
+$t \mapsto h^{k}_{i,j}(t)$ be a semidiscrete approximation
+in space of (\ref{eq:adv}), 
+solution of the differential system:
+\beq
+\label{eq:978.23.1a}
+\left\{
+\begin{array}{l}
+{d h_{i,j}^{k}(t) \over dt} +\mathbf{c}^{k}_{i,j}(t)\cdot  \mathbf{\nabla}_T h_{i,j}^{k}(t)=0,
+\quad -M\leq i,j\leq M,\;\;\; (I)\leq k\leq (VI),\\
+h^{k}_{i,j}(0)=h_0(\mathbf{s}^{k}_{i,j})
+\end{array}
+\right.
+\eeq
+where $\mathbf{c}^{k}_{i,j}(t) \triangleq \mathbf{c}(\mathbf{s}^{k}_{i,j})(t)$.
+Denote by $H(t) \triangleq  h^{(k)}_{i,j}(t)$ the gridfuntion
+with components $h^{(k)}_{i,j}$. 
+We proceed in a simlar way (\ref{eq:lswe}) and (\ref{eq:swe}). In each case the 
+unknown vector is $ t \mapsto \bq(t)=[h(t), \bv(t)]^T$ is represented on the Cubed Sphere
+by the semidiscrete function
+\beq
+t \mapsto \bq^k_{i,j}(t)=[h^k_{i,j}(t), \bv^k_{i,j}(t)]^T, \;\;\; 
+-N/2\leq i,j\leq N/2,\;\;\; (I) \leq k\leq (VI)
+\eeq
+The system (\ref{eq:lswe}) is approximated 
+by the semi-discrete scheme
+\beq
+\label{eq:978.23.2a}
+\left\{
+\begin{array}{l}
+{d h_{i,j}^k(t) \over dt} +H \nabla_{T,\Delta} \cdot \bv_{T,\Delta}=0\\
+{d \bv_{i,j}^k(t) \over dt} +g \nabla_{T,\Delta} \eta^k_{i,j}(t) 
++ f(\bs^k_{i,j}) \bn^k_{i,j} \times \bv^k_{i,j}(t)=0
+\end{array}
+\right.
+\eeq
+and the system (\ref{eq:swe}) is approximated by:
+\beq
+\label{eq:978.23.2b}
+\left\{
+\begin{array}{l}
+{d h_{i,j}^k(t) \over dt} +\nabla_{T,\Delta} \cdot h_{i,j}^k(t)\bv_{T,\Delta}=0\\
+{d \bv_{i,j}^k(t) \over dt} +\nabla_{T,\Delta}
+\left( \frac{1}{2}\vert \bv^k_{i,j}(t) \vert ^2+ g h^k_{i,j}(t)\right)
++ \left(f(\bs^k_{i,j}) + \zeta^k_{i,j}(t)\right) \bn^k_{i,j} \times \bv^k_{i,j}(t)=0
+\end{array}
+\right.
+\eeq
+The centered approximation (\ref{eq:978.23.1a}), (\ref{eq:978.23.2a}) or (\ref{eq:978.23.2b}) of course requires
+some numerical diffusion added. 
+All the numerical experiments reported in Section \ref{sec:4}
+have been performed mith a minimal numerical damping.
+In fact, these cases are not dominated 
+by shock propagation, and a minimal damping 
+is highly desirable in order to preserve fourth order accuracy.
+Our method is directly inspired from \cite{Lele, Visbal-Gaitonde, Bogey-Bailly}.
+In these works, finite difference schemes are used
+for aeroacoustics problems. The schemes are centered 
+and the numerical damping conisists only of a high frequency filtering
+hich eliminates the +1/-1 mode attached to the grid.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+\subsection{Time stepping using the RK4 time scheme and the associated modified equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Consider for example the equation (\ref{eq:978.23.1a}).
+It  is expressed in vector form as:
+\beq
+\label{eq:71.10.3}
+\frac{d}{dt}H(t)=J(t) H(t)
+\eeq
+where $J(t)$ is the matrix corresponding to
+\beq
+[J(t) H(t)]_{i,j}^{(k)} \triangleq 
+-\bc^{(k)}_{i,j}(t)\cdot  \bgrad_{T,h} h_{i,j}^k(t).
+\eeq
+The spatial approximation is perfomed using 
+the standard RK 4 time-scheme.
+Let $\Delta t>0$ be a time-step. The RK4 time-scheme
+is applied to (\ref{eq:71.10.3}).
+
+\begin{equation}
+\label{eq:300.41-1}
+\left\{ 
+\begin{array}{l}
+K^{(0)} = J(t^n)H^{n}\\
+K^{(1)} = J(t^{n+1/2})(H^{n}+\frac{1}{2}\Delta t K^{(0)})\\
+K^{(2)} = J(t^{n+1/2})(H^{n}+\frac{1}{2}\Delta t K^{(1)})\\
+K^{(3)} = J(t^{n+1})(H^{n}+\Delta t K^{(2)})\\
+H^{n+1} = H^{n}
++\Delta t\Bigg(\frac{1}{6}K^{(0)}+\frac{1}{3}K^{(1)}
++\frac{1}{3}K^{(2)}+\frac{1}{6}K^{(3)}\Bigg).
+\end{array}\right.
+\end{equation}
+The RK4 times scheme carries by itslef
+some damping. A classical analysis
+of this damping is the so called {\sl modified equation}
+analysis, \cite{Shokin}.  This analysis usually 
+relies on the linear equation
+\beq
+\partial_t u + c \partial_x u=0, \;\;\; c>0
+\eeq
+Consider a numerical scheme
+\beq
+\label{eq:76.10}
+\frac{u^{n+1}_j-u^n_j}{\Delta t}
++ L_{\Delta x} u|^n_j =0
+\eeq
+In (\ref{eq:76.10}), the operator $L_{\Delta x} u^n_j$ approximates $-c \partial_x u$.
+In operator form, the scheme (\ref{eq:76.10}) is rewritten as
+\beq
+\label{eq:56.10}
+\frac{e^{\Delta t \partial_t}-1}{\Delta t} u^n_j = -L_{\Delta x} u|^n_j
+\eeq
+The Logarithm series provides the formal expansion 
+\beq
+\label{eq:87.12}
+\partial_t = \frac{e^{\Delta t \partial_t}-1}{\Delta t}
+-\frac{\Delta t}{2}\left(\frac{e^{\Delta t \partial_t}-1}{\Delta t}\right)^2
++\frac{\Delta t}{3}\left(\frac{e^{\Delta t \partial_t}-1}{\Delta t}\right)^3
+-\frac{\Delta t}{4}\left(\frac{e^{\Delta t \partial_t}-1}{\Delta t}\right)^4
++....
+\eeq
+Using (\ref{eq:56.10}) in the right hand side of (\ref{eq:87.12}),
+we obtain an identity of the form
+\beq
+\label{eq:34.13}
+\partial_t u+ c \partial_x u=c \Big[
+  E_1 \Delta x \partial_x^{(2)}u 
++ E_2 (\Delta x)^2 \partial_x^{(3)}u 
++ E_3 (\Delta x)^3 \partial_x^{(4)}u 
++ E_4 (\Delta x)^4 \partial_x^{(5)}u 
++...
+\Big]
+\eeq
+This identity is called the modified equation of the scheme. It represents a transport equation
+with a perturbation in the form of an asymptotic expansion
+in powers of $h$. The coefficients $E_\alpha$ depends
+only the Courant number $\lambda= c \Delta t /\Delta x$. 
+In the case where $L_{\Delta x} u^n_j= -c \delta_x^H u^n_j$ (see (\ref{eq:73.10.27})), the modified equation 
+is expressed as:
+\beq
+\label{eq:11.53}
+\partial_t u+ c \partial_x u=c\Big[ \frac{(\Delta x)^4}{360}(3 \lambda^4+2) \partial_x^{(5)}u
++ \sum_\alpha (\Delta x)^{\alpha}E_\alpha \partial_x^{(\alpha+1)}u
+\eeq
+The first coefficients are 
+\beq
+\label{eq:72.10}
+\left\{
+\begin{array}{l}
+E_4= \frac{1}{360}(3 \lambda^4+2),\\
+E_5= \frac{1}{144}\lambda^5,\\
+E_6= \frac{1}{3024}(-2+9\lambda^6),\\
+E_7= \frac{1}{1152}\lambda^7,\\
+E_8= \frac{1}{25920}(\lambda^4-1)(5 \lambda^4-1),\\
+E_9= -\frac{1}{4320}\lambda^5.
+\end{array}
+\right.
+\eeq
+As a result the scheme is $4-$order. In addition it is found to
+be dissipative for the term in $\partial_x^{(6)}$ but antidissipative
+with the terms in $\partial_x^{(8)}$ and  $\partial_x^{(10)}$.
+All the calculations were performed with MAPLE.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Tenth-order filter operator}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:4.5}
+As previously mentionned a numerical dissipation in space is required 
+to obtain a better stability profile.
+Otherwise stated, the built-in numerical damping
+of the RK4 time scheme
+is not enough to ensure realistic 
+In such a situation a high-order filtering is added at each time step. 
+Numerical practice showed
+that a tenth-order filter from \cite{Visbal-Gaitonde} gives good results.
+
+For a one-dimensional grid function $u_j$,
+The filter $\mathcal{F}$ belongs to the class 
+of the filters
+\beq
+\label{eq:75.10.3}
+\alpha_f u_{F,i-1}+
+u_{F,i}+
+\alpha_f u_{F,i+1}=
+\sum_{^j=0}^J \frac{a_j}{2}(u_{i+j}+u_{i-j})
+\eeq
+This kind of filtering was in fact introduced
+in the Atmospheric Sciences community \cite{Alpert}.
+The values of the coefficients in (\ref{eq:75.10.3}) are given
+in \cite{Visbal-Gaitonde}. 
+Our numerical results in Section \ref{sec:4} were performed 
+with the explicit filter, corresponding to
+$\alpha_f=0$ and to the coefficients:
+\beq
+\label{eq:978.25.3}
+\left(
+\begin{array}{c}
+a_0\\
+a_1\\
+a_2\\
+a_3\\
+a_4\\
+a_5
+\end{array}
+\right)
+=
+\left(
+\begin{array}{c}
+193/256\\
+105/256\\
+-15/64\\
+45/512\\
+-5/256\\
+1/512
+\end{array}
+\right).
+\eeq
+The fact that (\ref{eq:978.25.3}) acts as a numerical dissipation is reflected 
+by the values of 
+coefficients in (\ref{eq:72.10}) in the modified equation (\ref{eq:11.53}):
+when $H^{n+1}$ is replaced by the filtered value
+$\mathcal{F}(H^{n+1})$, then the term in $\partial_x^{(10)} u$ becomes dissipative instead of being
+antidissitaive without filter. Its value is found as:
+\beq
+E_9= -\frac{1}{138240}\frac{32\lambda^6-135}{\lambda}
+\eeq
+
+At each time step the value $H^{(n+1)}$ in (\ref{eq:300.41-1}) is replaced 
+by $\mathcal{F} H^{(n)}$ where $\mathcal{F}$ is the filtering operator
+acting on the gridfunctions.
+
+On the Cubed Sphere, we use a symmetric filter operator of the form
+\begin{equation}
+\mathcal{F}=\dfrac{1}{2} \left( \mathcal{F}_\xi \circ \mathcal{F}_{\eta} +  \mathcal{F}_{\eta} \circ \mathcal{F}_{\xi} \right)
+\end{equation}
+This has been found as essential to preserve 
+the symmetry of the computations for large physical times.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Numerical results}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:4}
+In this section, we present numerical results obtained for a familly of partial differential equation \eqref{eq:adv}, \eqref{eq:lswe} and \eqref{eq:swe} on the sphere. Firstly, with the advection equation, a known velocity is used such that an explicit solution is also known \cite{Nair-Machenhauer, Nair-Jablonowski}. Then, we present two tests for the linearized shallow water equation \eqref{eq:lswe} and numerical results for shallow water equation \eqref{eq:swe}. Most of this tests are introduced by \cite{Williamson-Drake-Hack-Jakob-Swarztrauber, Galewski-Scott-Polvani}.
+When the analytic solution is known, we quantify the relative error (excepted for the damped case of (LSWE)) with the following formula :
+
+\begin{equation}
+\label{eq:error1}
+I_p = \dfrac{\|\psi^n - \psi_{t^n} \|_p}{\| \psi_{t^n} \|_p}
+\end{equation}
+
+$p \in \lbrace 1, 2, \infty \rbrace$, $\psi_t^n$ is the analytic solution at time $t^n$, $\psi^n$ is the calculated solution at time $t^n$. 
+$ \| . \| _p$ denote sur $\ell^p$ norm on the sphere. The numerical integration is in \cite{Croisille-12}.
+
+\subsection{Advection equation}
+
+Numerical results are obtained on \eqref{eq:adv}. This tests case are originates from \cite{Nair-Machenhauer, Nair-Jablonowski}. The velocity fields $(t,\mathbf{x}) \mapsto \mathbf{c} ( t,\mathbf{x})$ is prescribed as follow. The simplest problem of this kind is the Cosinus-bell advection problem \cite{Williamson-Drake-Hack-Jakob-Swarztrauber, Galewski-Scott-Polvani}. It correspond to a solid body velocity. Numerical results using the scheme (\ref{eq:300.41-1}) have been reported in  \cite{Croisille-10}. 
+Here we consider two more challenging problems of the form (\ref{eq:978.23.1a}) involving transport and roll-up effects of vortices. 
+The mathematical basis leading to the analytical solution is given in \cite{Nair-Machenhauer, Nair-Jablonowski}.
+
+\subsubsection{Nair-Machenhauer test case}
+
+\label{sec:4.1}
+This test case \cite{Nair-Machenhauer}
+considers
+as initial condition $h(0,\mathbf{x})$
+two vortices located
+at diammetrally opposite points on the sphere.
+These points are called $P$ (for North) and $P^\prime$ (for South).
+The point $P$ has coordinates $(\lambda_P,\theta_P)$ in the reference
+longitude-latitude system.
+The longitude-latitude coordinate system 
+$(\lambda^\prime,\theta^\prime)$ is associated to 
+the axis $P  P^\prime$. The two vortices evolve in a roll-up
+letting appear a finer and finer rollup structure when time increases.
+We call $\mathbb{S}^2_R$ the sphere with radius $R$, 
+\cite{Nair-Cote-Stanisforth,Nair-Machenhauer}.
+Let us define the velocity $\mathbf{x} \in \mathbb{R}^2 \mapsto V(\mathbf{x})$ 
+by
+\begin{equation}
+\left\{
+\begin{array}{l}
+\rho(\mathbf{x})=\rho_0 \cos(\theta^\prime)\\
+V(\mathbf{x}) = v_0 \dfrac{3 \sqrt{3} }{2} \sech^2 ( \rho ) \tanh ( \rho )
+\end{array}
+\right.
+\end{equation} 
+The angular velocity $\theta^\prime \mapsto \omega_r(\theta^\prime)$ 
+corresponding to $V$ 
+is defined by:
+\begin{equation}
+   \omega_r ( \theta' ) = \left\{ 
+   \begin{array}{ll}
+      V/( R \rho ) & \text{ if } \rho \neq 0 \\
+      0 & \text{ if} \rho =0
+   \end{array}
+   \right.
+\label{vitesse_angulaire}
+\end{equation}
+Define now the tangential velocity on the sphere $\mathbb{S}^2_R$ 
+appearing in (\ref{eq:978.23.1a}) by:
+\begin{equation}
+\mathbf{c}(\mathbf{x},t)=c_{\lambda^\prime} \mathbf{e}_{\lambda^\prime}+
+c_{\theta^\prime} \mathbf{e}_{\theta^\prime}
+\end{equation}
+with
+\begin{equation}
+\left\{
+\begin{array}{l}
+c_{\lambda^\prime}=\cos(\theta^\prime) \omega_r(\theta^\prime)\\
+c_{\theta^\prime}=0
+\end{array}
+\right.
+\end{equation}
+
+Switching back to the $(\mathbf{e}_\lambda,\mathbf{e}_\theta)$ basis, one obtains
+
+\begin{equation}
+\mathbf{c}(\mathbf{x},t)=\mathbf{c}(\mathbf{x})=c_{\lambda} \mathbf{e}_{\lambda}+
+c_{\theta} \mathbf{e}_{\theta}
+\end{equation}
+
+with
+\begin{equation}
+\left\{
+\begin{array}{l}
+c_{\lambda} = R \omega_r ( \theta' ) \left[ \sin \theta_p \cos \theta - \cos \theta_p \cos ( \lambda - \lambda_p ) \sin \theta \right]\\
+c_{\theta} = R \omega_r ( \theta' ) 
+\left[ \cos \theta_p \sin ( \lambda - \lambda_p ) \right]
+\label{eq:78.10}
+\end{array}
+\right.
+\end{equation}
+
+Now, the solution $(\mathbf{x}, t) \in \mathbb{S}_R^2 \times \mathbb{R}_{-}+ \mapsto
+\phi(\mathbf{x},t)$ is given in coordinates $(\lambda^\prime,\theta^\prime,t)$ by
+
+\begin{equation}
+\phi ( \lambda^\prime , \theta', t ) 
+= 
+1 - \tanh \left[ \dfrac{\rho_0\cos(\theta^\prime)}{\gamma} \sin ( \lambda' 
+- \omega_r(\theta^\prime) t ) \right],\;\;\; \rho(\theta^\prime)= 
+\rho_0 \cos(\theta^\prime)
+\label{NM_exacte}
+\end{equation}
+
+The constant $\gamma$ determines the strenght of $\nabla_T\phi$ and $\rho_0>0$ is a reference distance to the center of the vortex.
+Let $T>0$ be the physical time of evolution and $v_0 = 2 \pi R / T$ ($R$=radius) be a reference velocity. 
+In this article, for a smooth flow, we choose the parameters $\rho_0 = 3$ and $ \gamma = 5$.
+
+In Figures \ref{erreur_cfl=0.05} and \ref{erreur_cfl=0.5}, the error history is reported for CFL numbers $\CFL=0.05$ and $\CFL=0.5$.
+The Cubed Sphere grid has a parameter $N=35$, which corresponds to an equatorial resolution $\Delta \lambda = 2.6 \deg$. 
+This is a spatial resolution similar to the one in \cite{Nair-Jablonowski} where a Discontinuous Galerkin (DG) scheme is used.
+As can be observed, the error growth is regular.
+The error behaviour is similar for the angles $\alpha=0$ and $\alpha=45\deg$, which shows that there is no apparent influence of the corners of the Cubed Sphere.
+
+We have performed two different runs. The first corresponds to a $\CFL=0.05$. In this case, the error is dominated by the space approximation.
+The error levels that are reached are of the same order of magnitude than the ones obtained with the DG scheme in \cite{Nair-Jablonowski}.
+In the second case, we use $\CFL=0.5$.  The scheme remains stable.
+The error consists of the combination of the space and time accuracy.
+The error is slightly smaller than with $\CFL=0.05$. This is a standard behaviour for convection problems.
+
+Table \ref{table:2.4} reports the convergence rate 
+in the three norms $1$, $2$ and $\sup$. It can be observed
+that the error is of order greater or equal than $4$. 
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367656360_normerreur_test_1.png}
+\includegraphics[scale=0.3]{ref_7367665245_normerreur_test_1.png}
+\caption{Error plots with $N=35$; $\CFL=0.05$. Left panel: 
+The point $P$ defining the axis has spherical coordinates  $(\lambda_P,  \theta_P) = (\pi / 4, \pi / 4)$. and $(\lambda_P, \theta_P) = (0,0)$ (right) for the Nair and Machenhauer test case.}
+\label{erreur_cfl=0.05}
+\end{figure}
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367656531_normerreur_test_1.png}
+\includegraphics[scale=0.3]{ref_7367656543_normerreur_test_1.png}
+\caption{Error curves $N=35$; $cfl=0.5$; $(\lambda_P,  \theta_P) = (\pi / 4, \pi / 4)$ (left) and $(\lambda_P, \theta_P) = (0,0)$ (right) for the Nair and Machenhauer test case.}
+\label{erreur_cfl=0.5}
+\end{figure}
+
+\begin{table}[ht!]
+\begin{tabular}{|c||cc|cc|cc|}
+\hline
+$N$ & $max_n |e_1^n|$ & order  & $max_n |e_2^n|$ & order  & $max_n |e_{\infty}^n|$ & order \\
+\hline
+\hline
+$40\;(2.25\deg)$ & $1.989 (-3)$ & -  & $7.255 (-3)$ & - & $4.039(-2)$  & - \\
+\hline 
+$50\;(1.80\deg)$ & $7.638 (-4)$ & $4.3852$ & $3.161(-3)$ & $3.8066$ & $1.918 (-2)$ & $3.4122$ \\
+\hline
+$60\;(1.50\deg)$ & $3.023(-4)$ & $5.1767$ & $1.313 (-3)$ & $4.9069$ & $7.556 (-3)$ & $5.2026$ \\
+\hline
+$80\;(1.125\deg)$ & $5.2979 (-5)$ & $6.1413$ & $2.391(-4)$ & $6.0061$ & $1.561(-3)$ & $5.5612$ \\
+\hline
+$100\;(0.90\deg)$ & $1.5036(-5)$ & $5.7073$ & $6.4568(-5)$ & $5.9326$ & $4.329(-4)$ & $5.8121$\\
+\hline
+$150\;(0.60\deg)$ & $1.9244(-6)$ & $5.1120$ & $9.2082(-6)$ & $4.8429$ & $7.6848(-5)$ & $4.2985$\\
+\hline
+\end{tabular}
+\caption{Convergence analysis for the Nair and Machenhauer test case \cite{Nair-Machenhauer}. 
+$N=31$; $\CFL = 0.7$; $(\lambda_p, \theta_p) = (0,0)$.}
+\label{table:2.4}
+\end{table}
+
+\subsubsection{Nair-Jablonowski test case}
+
+\label{sec:4.2}
+In \cite{Nair-Jablonowski} a modification of the stationary vortex problem of Section \ref{sec:4.1} was suggested. It combines 
+the deformational roll-up effect of the 
+preceding case
+with a solid body rotation.
+The analytical solution is given in \cite{Nair-Jablonowski}.
+The advection velocity $\mathbf{c}(\mathbf{x},t)$ in (\ref{eq:978.23.1a}) is obtained as the sum
+
+\begin{equation}
+\mathbf{c}=\mathbf{c}_s +\mathbf{c}_r
+\end{equation}
+
+where $\mathbf{c}_s$ is a solid rotation velocity and 
+$\mathbf{c}_r$ is a "static" velocity centered at the center 
+of the vortex. The velocity $\mathbf{c}_r$ is actually time dependant 
+since in \eqref{eq:78.10}
+
+$(\lambda_P, \theta_P)$ must be remplaced by the solid body advected position given  by 
+\begin{equation}
+(\lambda_s', \theta_s') = (\lambda_0' + w_s t, \theta_0')
+\end{equation}
+where $(\lambda_0', \theta_0')$ is the initial position of the vortex.
+On the other hand, the solid-body velocity is given by
+
+\begin{equation}
+c_{\lambda, r} = R \omega_s \left( \sin \theta_p \cos \theta - \cos \theta_p \cos ( \lambda - \lambda_p ) \sin \theta \right)
+\label{vitesse_lambda_bump}
+\end{equation}
+\begin{equation}
+c_{\theta, r} = - R \omega_s \cos \theta_p \sin ( \lambda - \lambda_p )
+\label{vitesse_theta_bump}
+\end{equation}
+
+where $\omega_s = v_0 / R = 2 \pi / T $ and $( \lambda_p, \theta_p$ ) is the coordinates of the point $P$.
+
+The error growth is reported on Fig. \ref{erreur_cfl=0.05a}
+and \ref{erreur_cfl=0.5a}. The magnitude of the error
+is very close from the stationary case. However it appears 
+slightly less regular. Table \ref{table:2} reports
+as before fourth-order accuracy. Note also that the level
+of error are very close to the ones reported in
+\cite{Nair-Jablonowski} with a DG scheme. Finally
+Fig. \ref{coupe-NJ-1} displays a slice of the vortex after 12 days
+withgrid sizes $N=30$ and $N=60$. 
+The matching with the finest grid
+is excellent. No dispersion or dispersion is obervable.
+
+
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367657139_snapshot_test_2_nday_0.png}
+\includegraphics[scale=0.3]{ref_7367657143_snapshot_test_2_nday_3.png}
+
+\includegraphics[scale=0.3]{ref_7367657147_snapshot_test_2_nday_6.png}
+\includegraphics[scale=0.3]{ref_7367657152_snapshot_test_2_nday_9.png}
+
+\includegraphics[scale=0.3]{ref_7367657157_snapshot_test_2_nday_12.png}
+\caption{Nair and Jablonowski test-case. Approximate solution of the vortex after 
+0, 3, 6, 9 and 12 days. The resolution is $N=31$. Numerical parameters are 
+$N=31$, $\CFL = 0.7$ and $\alpha = 3 \pi / 4$.}
+\label{SNAPSHOT_NJ}
+\end{figure}
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367657290_normerreur_test_2.png}
+\includegraphics[scale=0.3]{ref_7367657345_normerreur_test_2.png}
+\caption{Error curves $N=35$; $\CFL=0.05$; $\alpha = \pi / 4$ (left) et $\alpha = 0$ (right) for the Nair and Jablonowski test case \cite{Nair-Jablonowski}.}
+\label{erreur_cfl=0.05a}
+\end{figure}
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367657356_normerreur_test_2.png}
+\includegraphics[scale=0.3]{ref_7367657366_normerreur_test_2.png}
+\caption{Error curves $N=35$; $\CFL=0.5$; $\alpha = \pi / 4$ (left) et $\alpha = 0$ (right) for the Nair and Jablonowski test case \cite{Nair-Jablonowski}.}
+\label{erreur_cfl=0.5a}
+\end{figure}
+
+\begin{table}[ht!]
+\begin{tabular}{|c||cc|cc|cc|}
+\hline
+$N$ & $max_n |e_1^n|$ & ordre  & $max_n |e_2^n|$ & ordre  & $max_n |e_{\infty}^n|$ & ordre \\
+\hline
+\hline
+$40$ & $2.2199 (-3)$ & -  & $8.1592 (-3)$ & - & $4.9298 (-2)$  & - \\
+\hline 
+$50$ & $9.9676 (-4)$ & $3.6687$ & $3.9476(-3)$ & $3.3266$ & $2.8948(-2)$ & $2.4393$ \\
+\hline
+$60$ & $4.4566(-4)$ & $4.4957$ & $1.9545(-3)$ & $3.9262$ & $1.6474(-2)$ & $3.1484$ \\
+\hline
+$80$ & $1.3189(-4) $ & $4.2937$ & $5.8682(-4)$ & $4.2429$ & $5.6752(-3)$ & $3.7580$ \\
+\hline
+$100$ & $5.3380(-5)$ & $4.0990$ & $2.3789 (-4)$ & $4.0916$ & $2.3177(-3)$ & $4.0582$\\
+\hline
+$150$ & $1.0401 (-5)$ & $4.0669$ & $4.7173 (-5)$ & $4.0232$ & $4.9192(-4)$ & $3.8542$\\
+\hline
+\end{tabular}
+\caption{Convergence analysis for the Nair and Jablonowski test case \cite{Nair-Jablonowski} ; $cfl = 0.7$ ; $\alpha = \pi /4$.}
+\label{table:2}
+\end{table}
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.5]{ref_7363158648_coupefaceI_equateur_test_2.jpg}
+\caption{Nair and Jablonowski test case \cite{Nair-Jablonowski}. Slice 
+of the vortex after $12$ days. Solid line: exact solution, circles:
+approximate solution with $N=30$. Crosses: approximate solution with $N=60$}
+\label{coupe-NJ-1}
+\end{figure}
+
+\subsection{Linearized shallow water equation}
+
+The equation (LSWE) \eqref{eq:lswe} is obtained as a perturbation of  \eqref{eq:swe} around of $(0,H)$ an equilibrium. This equation is an intermediate between advection equation and shallow water equation.
+Using our numerical scheme, it permit to highlight the importance of using a symetric filter instead of:
+\begin{equation}
+\mathcal{F} = \mathcal{F}_{\xi} \circ \mathcal{F}_{\eta}
+\end{equation}
+because dissymetry between panels can create instabillities.
+
+We present two test cases. The first is a damped case of LSWE, the other is a time independant zonal solution.
+
+\subsubsection{A damped case of LSWE}
+
+This test serves to assess the accuracy of the 
+gradient and divergence approximation () and () when
+used in the LSWE system (\ref{eq:lswe}). 
+Consider the two exponentially in time damped functions
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\tilde{\mathbf{v}} (t,\mathbf{x}) & = & \mathbf{u}_0 \varphi(\theta) e^{-\sigma t}\mathbf{e}_\lambda(\mathbf{x})\\
+\tilde{\eta}(t,\mathbf{x}) & = & \eta_0 \varphi(\theta) \sin(\lambda)e^{-\sigma t}\\
+\end{array}
+\right.
+\end{equation}
+
+The system to solve is
+\begin{equation}
+\label{eq:lswe_damped}
+(LSWE) \left\{
+\begin{array}{l}
+\dfrac{\partial \mathbf{v}}{\partial t} (t,\mathbf{x})+ \mathbf{g} \nabla_T \eta(t,\mathbf{x}) + f(\mathbf{x}) \mathbf{k}(\mathbf{x}) \times
+\mathbf{v}(t,\mathbf{x})=S_{\eta}(t,\mathbf{x})\\
+\dfrac{\partial \eta}{\partial t}(t,\mathbf{x})+ H \nabla_T . \mathbf{v}(t,\mathbf{x})=S_{\mathbf{v}}(t,\mathbf{x})
+\end{array}
+\right.
+\end{equation}
+
+In \eqref{eq:lswe_damped}, $\mathbf{g}$ is the gravity vector and $\mathbf{k}(\mathbf{x})$ is the exterior
+normal vector.
+The source terms $S_{\eta}$ and $S_{\mathbf{v}}$ are defined 
+such as the functions $(\tilde{\mathbf{v}}(t,\mathbf{x}), \tilde \eta(t,\mathbf{x}))$ be solution
+of (\ref{eq:lswe_damped}).
+\textbf{Remarks:\\
+- Gradient and divergence are calculated according to ().\\
+- Filtrage ou non ?
+- Valeurs numériques de $H,g, u_0, \eta_0$ ?
+- Autres essais  avec temps plus long ?}
+
+A numerical grid convergence analysis is reported in 
+Table \ref{table:4}.
+
+\begin{figure}[ht!]
+\begin{tabular}{|c||c|c|c|c|c|}
+\hline
+& N=40 & rate & N=60  & rate & N=80 \\
+\hline 
+\hline 
+$\vert \mathbf{v}^1_{ex}(T)-\mathbf{v}^1_{cal}(T)\vert_{h,I}$ & 2.52(-5)  &  4.15 & 4.69(-6) &  2.98 & 1.40(-6)   \\
+\hline 
+$\vert \eta_{ex}(T)-\eta_{cal}(T)\vert_{h,I}$ & 1.06(-5)  &  3.85 & 2.70(-6) &  3.32 & 1.04(-6) \\
+\hline 
+\end{tabular}
+\caption{Hermitian scheme applied to an exponential decaying solution of the LSWE. Final time = 1h30}
+\label{table:4}
+\end{figure}
+
+\textbf{Tableau a revoir}
+
+A convergence rate between $3$ and $4$ can be observed.
+
+\subsubsection{A time independent zonal solution of LSWE}
+
+In this test case, we consider a time independent 
+solution of LSWE depending on the latitude only.
+Consider a tangential velocity field of the form. 
+If the parameter function $\theta \mapsto \varphi(\theta)=\exp(\frac{1}{(\theta-\theta_0)(\theta-\theta_1)})$, then
+we define the 
+spherical velocity $\mathbf{v}(\mathbf{x})$ on the sphere by:
+\begin{equation}
+\mathbf{v}(\mathbf{x})=u_0 \varphi(\theta) \mathbf{e}_\lambda(\mathbf{x})
+\end{equation}
+
+The momentum equation () is equivalent to the 
+following relation:
+
+\begin{equation}
+\eta(\mathbf{x})=\eta_{eq}-\frac{a}{g}\int_0^\theta f(s) \varphi(s) ds
+\end{equation}
+
+Our numerical test consists now in testing if the scheme preserve during time stepping 
+the time independant solution defined by .....
+This is a zonal divergence free solution
+of the LSWE depending on the latitude $\theta$ only.
+This test case is meaningful, 
+first to assess the accuracy of the spatial approximation. In particular, 
+spurious modes can pollute the numerical solution.
+Second this test allows to test the accuracy of the numerical divergence 
+preserving on 
+large intervals of time.
+The numerical results are reported in Table \ref{table:5}.
+
+\begin{figure}[ht!]
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline 
+&N=40 & rate & N=60  & rate & N=80 \\
+\hline
+\hline
+$\vert \mathbf{v}^1_{ex}(T)-\mathbf{v}^1_{cal}(T)\vert_{h,I}$ & 2.73(-5)  &  4.09 & 5.18(-6) &  4.24 & 1.53(-6) \\
+\hline 
+$\vert \eta_{ex}(T)-\eta_{cal}(T)\vert_{h,I}$ & 1.21(-5)  &  3.95 & 2.43(-6) &  3.14 & 7.38(-7) \\
+\hline 
+\end{tabular}
+\caption
+{Hermitian scheme applied to a time independent solution of the LSWE. Final time = 1h30}
+\label{table:5}
+\end{figure}
+
+\subsection{Shallow water equation}
+
+The shallow water equation \eqref{eq:swe} is solved with the previsous scheme. Numerical results are obtained on the test cases extracted from \cite{Williamson-Drake-Hack-Jakob-Swarztrauber, Galewski-Scott-Polvani}.
+
+The following parameters are:
+\begin{equation}
+\begin{array}{rcll}
+a & = & 6.37122 \times 10^6m & \text{ is the Earth radius,}\\
+\Omega & = & 7.292 \times 10^{-5} s^{-1}& \text{ is the rotational velocity,}\\
+g & = & 9.80616 m \cdot s^{-2}& \text{ is the gravity constant}\\
+f & = & 2 \Omega sin \theta & \text{ exept for test 2 of Williamson and al. : global steady state.}
+\end{array}
+\end{equation}
+
+Unless specification, $h^{\star} = h$.
+
+The following invariant should be present:
+\begin{itemize}
+\item mass : $I_1=\gint_{\mathbb{S}_a^2} h^{\star}d\mathbf{s}$ \\
+
+\item energy : $I_2 = \gint_{\mathbb{S}_a^2} \frac{1}{2} h^{\star} \mathbf{v}^2 + \frac{1}{2}g \left( h^2 - h_s^2 \right) d\mathbf{s}$ \\
+
+\item potential enstrophy : $I_{3}=\gint_{\mathbb{S}_a^2} \dfrac{\left( \zeta + f \right)^2}{2 h^{\star}} d\mathbf{s}$ with $\zeta$ the vorticity\\
+\end{itemize}
+We measure the error on conservation for this quantities $q$ with the normalized integral :
+\begin{equation}
+\dfrac{\gint_{\mathbb{S}_a^2} \left( q(t,\mathbf{s})-q(0,\mathbf{s}) \right) d \mathbf{s}}{\gint_{\mathbb{S}_a^2} q(0,\mathbf{s})d \mathbf{s}}
+\end{equation}
+Integral of divergence and vorticity on the sphere are theorically nul, so we can't use the normalized integral to measure error. Then, the error on conservation for this quantities $p$ are measured with:
+\begin{equation}
+\gint_{\mathbb{S}_a^2} p(t,\mathbf{s})d \mathbf{s}
+\end{equation}
+with $p = \nabla_T \cdot \mathbf{v}$ or $p = \left( \nabla_T \wedge \mathbf{v}  \right) \cdot \mathbf{k}$.
+
+\subsubsection{Test case 2 of Williamson and al. : Global steady state}
+
+The test 2 of \cite{Williamson-Drake-Hack-Jakob-Swarztrauber} is a steady state solution to the non-linear shallow water equation \eqref{eq:swe}. It's a zonal solution around an axes rotated with an angle $\alpha$ (like for the Nair-Jablonowski test case). We test differents values $\alpha = 0$ or $\alpha = \pi/4$ to test the influence of corners on the cubed-sphere grid.
+The Coriolis parameter, with influence of the rotation angle $\alpha$, is given by:
+\begin{equation}
+f=2 \Omega \left( - cos \lambda cos \theta sin \alpha + sin \theta cos \alpha \right)
+\end{equation}
+
+The analytical solution is :
+\begin{equation}
+\mathbf{v} = u \mathbf{e}_{\lambda} + v \mathbf{e}_{\theta}
+\end{equation}
+with :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+u & = & u_0 \left( cos \theta cos \alpha + cos \lambda sin \theta sin \alpha \right)\\
+v & = & -u_0 sin \lambda sin \alpha
+\end{array}
+\label{eq:W2 velocity}
+\right.
+\end{equation}
+
+and the height $h$ :
+\begin{equation}
+h=h_0- \dfrac{1}{g} \left( a \Omega u_0 + \dfrac{u_0^2}{2} \right) \left( -cos \lambda cos \theta sin \alpha + sin \theta cos \alpha \right)^2 
+\label{eq:W2 height}
+\end{equation}
+
+constants are :
+\begin{equation}
+\begin{array}{rcl}
+gh_0 & = & 2.94 \times 10^4 m^2/s^2\\
+u_0 & = & 2 \pi R / (12 \text{days}) \\
+\end{array}
+\end{equation}
+
+Results with $\alpha=\pi/4$ are given in figure \ref{fig:W2 alpha=pi/4}. In table \ref{tab:W2 error order} we can observe the order of convergence close to 4 in accordance with numerical results on each operator.
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367706276_snapshot_solution.png}
+\includegraphics[scale=0.3]{ref_7367706276_erreur.png}
+\caption{Numerical results of steady state geostrophic flow in direction of $\alpha=\pi/4$ on  $32 \times 32 \times 6$ grid after $5$ model days of simulation. Contour lines are plotted between 1150 m to 2950m with step of 200m (left). Relative error (right) }
+\label{fig:W2 alpha=pi/4}
+\end{figure}
+
+The conservation relation are given by the figure \ref{fig:W2 conservation alpha=pi/4}. The conservation is fairly satisfactory but this test is independant of time. We need to obtain others results for unsteady state test case. 
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367706276_mass.png}
+\includegraphics[scale=0.3]{ref_7367706276_energy.png}\\
+\includegraphics[scale=0.3]{ref_7367706276_enstrophy.png}
+\includegraphics[scale=0.3]{ref_7367706276_conservationBdiv.png}\\
+\includegraphics[scale=0.3]{ref_7367706276_conservationBvort.png}
+\caption{Numerical conservation of steady state geostrophic flow in direction of $\alpha=\pi/4$ on  $32 \times 32 \times 6$ grid after $5$ model days of simulation.}
+\label{fig:W2 conservation alpha=pi/4}
+\end{figure}
+
+\begin{table}[ht!]
+\begin{tabular}{|c|c||cc|cc|cc|}
+\hline
+$\alpha$ & grid & $max_n |e_1^n |$ & order & $max_n |e_2^n |$ & order &  $max_n |e_{\infty}^n |$ & order \\
+\hline
+\hline
+              & $6 \times 32 \times 32$   & $1.1422 (-6)$ & - & $1.3885 (-6)$ & - & $2.4469 (-6)$ & - \\
+$\alpha = 0$  & $6 \times 64 \times 64$   & $7.1216 (-8)$ & $4.0035$ & $8.6513 (-8)$ & $4.0045$ & $1.5229 (-7)$ & $4.0061$ \\
+              & $6 \times 128 \times 128$ & $4.4469 (-9)$ & $3.9942$ & $5.4018 (-9)$ & $4.0014$ & $9.5186 (-9)$ & $3.9999$ \\
+\hline
+\hline
+                & $6 \times 32 \times 32$   & $7.5712 (-7)$ & - & $1.0446 (-6)$ & - & $2.7809 (-6)$ & - \\
+$\alpha = \pi/4$& $6 \times 64 \times 64$   & $4.7213 (-8)$ & $4.0032$ & $6.5124 (-8)$ & $4.0036$ & $1.7387 (-7)$ & $3.9995$ \\
+                & $6 \times 128 \times 128$ & $2.9487 (-9)$ & $4.0010$ & $4.0672 (-9)$ & $4.0011$ & $1.0858 (-8)$ & $4.0012$ \\
+\hline
+\end{tabular}
+\caption{Relative error afer 5 days model simulation of steady state geostrophic flow. The CFL condition is $0.9$.}
+\label{tab:W2 error order}
+\end{table}
+
+\subsubsection{Test case 5 of Williamson and al. : Isolated mountain}
+
+The test case 5 of \cite{Williamson-Drake-Hack-Jakob-Swarztrauber} is similar to the previous but with a topography. It permit to check the performance of the scheme with a topography and a time dependant solution.
+Analyical solution is not available.
+
+The initial solution is the same than the previsous \eqref{eq:W2 velocity} and \eqref{eq:W2 height} but with the following constant :
+\begin{equation}
+\begin{array}{rcl}
+h_0 & = & 5960m \\
+u_0 & = & 20 m/s \\
+\alpha & = & 0 \\
+\end{array}
+\end{equation}
+
+The bottom topography is an isolated conic mountain wih $h_{s_0}=2000m$ of height, then:
+\begin{equation}
+h_s = h_{s_0} \left( 1 - \dfrac{r}{r_0} \right)
+\end{equation}
+with $r=min \left( r_0, \sqrt{\left( \lambda - \lambda_c \right)^2 + \left( \theta - \theta_c \right)^2} \right)$. $r_0=\pi/9$ and $(\lambda_c, \theta_c)=(3 \pi /2, \pi /6)$ is the location of the mountain center. As for the previous, stationnary test case, the error on potential enstrophy conservation is greater than the energy and mass conservation error. But all are well satisfactory with relative error close to $10^{-5}$. 
+
+Numerical results of the height $h$ at times $5$, $10$ and $15$ days are given in figure \ref{fig:W5 snapshot} with a grid $6 \times 32 \times 32$. Conservations results are in figure \ref{fig:W5 conservation}.
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367706559_snapshot_intermediaire499.png}\\
+\includegraphics[scale=0.3]{ref_7367706559_snapshot_intermediaire999.png}\\
+\includegraphics[scale=0.3]{ref_7367706559_snapshot_intermediaire1499.png}
+\caption{Numerical results of isolated mountain test case with grid  $32 \times 32 \times 6$ at time 5, 10 and 15 days. Contour line are plotted from 5050 m to 5950 m with interval of 50 m.}
+\label{fig:W5 snapshot}
+\end{figure}
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367706559_conservationA.png}
+\includegraphics[scale=0.3]{ref_7367706559_conservationB.png}
+\caption{Conservation of isolated mountain test case with grid  $32 \times 32 \times 6$.}
+\label{fig:W5 conservation}
+\end{figure}
+
+\subsubsection{Test case 6 of Williamson and al. : Rossby-Haurtwitz waves}
+
+resuts ref : 7367707271
+
+The Rossby-Haurwitz waves is the 6th test case of \cite{Williamson-Drake-Hack-Jakob-Swarztrauber}. Like in the previous test case, no analytic solution is available.
+The initial velocity is $\mathbf{v}=u \cdot \mathbf{e}_{\lambda}+v \cdot \mathbf{e}_{\theta}$ with:
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+u & = & a \omega cos \theta + a K cos^{R-1} \theta \left( R sin^2 \theta - cos^2 \theta \right) cos R\lambda\\
+v & = & -a K R cos^{R-1} \theta sin \theta sin R \lambda
+\end{array}
+\label{eq:W6 velocity}
+\right.
+\end{equation} 
+
+the height $h$ is :
+\begin{equation}
+gh = gh_0 + a^2 A(\theta) + a^2 B(\theta) cos R \lambda + a^2 C(\theta) cos 2 R \lambda 
+\label{eq:W6 height}
+\end{equation}
+
+Maps $A$, $B$ and $C$ are function of the latitude $\theta$:
+
+\begin{equation}
+\begin{array}{rcl}
+A(\theta) & = & \dfrac{\omega}{2} \left( 2 \Omega + \omega \right) cos^2 \theta + \dfrac{1}{4} K^2 cos^{2R} \theta \left[ (R+1) cos^2 \theta+ (2R^2 -R -2) - 2R^2 cos^{-2} \theta \right]\\
+B(\theta) & = & \dfrac{2 (\Omega +\omega) K }{(R+1)(R+2)} cos^R \theta \left[ (R^2 + 2R +2) - (R+1)^2 cos^2 \theta  \right] \\
+C(\theta) & = & \dfrac{1}{4} K^2 cos^{2R} \theta \left[ (R+1) cos^2 \theta - (R+2) \right]
+\end{array}
+\end{equation}
+
+and constants are:
+
+\begin{equation}
+\begin{array}{rcl}
+\omega & = & 7.848 \times 10^{-6} s^{-1}\\
+K & = & 7.848 \times 10^{-6} s^{-1}\\
+h_0 & = & 8 \times 10^3 m \\
+R & = & 4
+\end{array}
+\end{equation} 
+
+We plot numerical results after 7 and 14 days model simulation in figure \ref{fig:W6 snapshot}. Conservation results are in figure \ref{fig:W6 conservation}. Mass and Energy are close to be conservative but enstrophy is greater. Potential enstrophy is difficult to be conservative. Divergence is close to $0$ and vorticity is little and close to be a constant. 
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367723128_snapshot_intermediaire699.png}
+\includegraphics[scale=0.3]{ref_7367723128_snapshot_intermediaire1399.png}\\
+\caption{Numerical results of Rossby-Haurwitz wave test case with grid  $128 \times 128 \times 6$ at time 7 and 14 days. Contour line are plotted from 8100 m to 10500 m with interval of 100 m.}
+\label{fig:W6 snapshot}
+\end{figure}
+
+\begin{figure}[ht!]
+\includegraphics[scale=0.3]{ref_7367723128_conservationB.png}
+\includegraphics[scale=0.3]{ref_7367723128_mass.png}\\
+\includegraphics[scale=0.3]{ref_7367723128_energy.png}
+\includegraphics[scale=0.3]{ref_7367723128_enstrophy.png}
+\caption{Conservation of Rossby-Haurwitz wave test case with grid  $128 \times 128 \times 6$.}
+\label{fig:W6 conservation}
+\end{figure}
+
+\subsubsection{Barotropic instability}
+
+The barotropic instability test, introduced in \cite{Galewski-Scott-Polvani}, is a perturbation of a steady state zonal solution.
+
+The zonal steady state is given by :
+
+\begin{equation}
+h(\lambda, \theta) = h_0 - \dfrac{1}{g} \gint_{-\pi/2}^{\theta} a u_{\lambda}(\tau) \left( f + \dfrac{tan(\tau)}{a}u_{\lambda}(\tau) \right) d\tau
+\label{eq:G1 steady}
+\end{equation}
+
+where $h_0$ is such that the global mean layer is equal to $10 000$ meters and $u_{\lambda}$ is given by the formula:
+
+\begin{equation}
+u_{\lambda}(\tau) = \left\lbrace
+\begin{array}{ll}
+0 & \text{ if } \tau \leq \theta_0 \\
+\dfrac{u_{max}}{e_n} exp \left[ \dfrac{1}{(\tau - \theta_0)(\tau - \theta_1)} \right] & \text{ if } \theta_0 \leq \tau \leq \theta_1 \\
+0 & \text{ if } \theta_1 \leq \tau \\
+\end{array}
+\right.
+\end{equation}
+
+which constants:
+\begin{equation}
+\begin{array}{rcl}
+u_{max} & = & 80 m/s \\
+\theta_0 & = & \pi /7 \\
+\theta_1 & = & \pi/2 - \theta_0 \\
+e_{n} & = & exp \left[ \dfrac{-4}{(\theta_1 - \theta_0)^2} \right]\\
+\end{array}
+\end{equation}
+
+the velocity is :
+\begin{equation}
+\mathbf{v} = u_{\lambda}(\theta) \mathbf{e}_{\lambda}
+\label{eq:G1 velocity}
+\end{equation}
+
+This steady state is not stable, we perturbate it by adding $h'$ to $h$ :
+
+\begin{equation}
+h'(\lambda, \theta) = \hat{h} \cos (\theta) \exp \left[ - \left( \dfrac{\lambda}{\alpha} \right)^2 - \left( \dfrac{\theta_2 - \theta}{\beta} \right)^2 \right] 
+\end{equation}
+
+with $\hat{h} = 120$ meters, $\alpha = 1/3$, $\beta = 1/15$ and $\theta_2 = \pi/4$.
+
+As we can see in figure \ref{fig:G1 snaphot}, it is necessary to use a sufficiant mesh to plot the vorticity efficiantly. 
+
+\begin{figure}
+\includegraphics[scale=0.5]{ref_7367708164_snapshot_intermediaire598.png}\\
+\includegraphics[scale=0.5]{ref_7367708686_snapshot_intermediaire599.png}\\
+\includegraphics[scale=0.5]{ref_7367709339_snapshot_intermediaire599.png}
+\caption{Numerical results of the barotropic instability at day 6 with differents mesh. $32 \times 32 \times 6$ (top), $64 \times 64 \times 6$ (2nd panel) and $128 \times 128 \times 6$ (bottom). ADD RESULTS WITH N=95}
+\label{fig:G1 snaphot}
+\end{figure}
+
+This test is very challenging for the Cubed-Sphere because the perturbation is  located at the border between to panels and $h$ change with a larger gradient at the border of the face V.
+
+Conservation of quantities are good (see figure \ref{fig:G1 conservation}), we observe perturbation of this quantities with apparition of the instability close to day 4.
+
+\begin{figure}
+\includegraphics[scale=0.3]{ref_7367709339_conservationB.png}
+\includegraphics[scale=0.3]{ref_7367709339_mass.png}\\
+\includegraphics[scale=0.3]{ref_7367709339_energy.png}
+\includegraphics[scale=0.3]{ref_7367709339_enstrophy.png}
+\caption{Conservation of Barotropic instability test case with grid  $128 \times 128 \times 6$.}
+\label{fig:G1 conservation}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% \input{conclu.tex}
+
+\section{Conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this paper, we show that compact approximations in the
+on the Cubed Sphere lead to accurate numerical simulations
+for hyperbolic problems on the sphere.
+The present approach makes use 
+of the standard finite difference design.
+Since the scheme is centered, some numerical viscosity
+needs to be added for time dependent solutions.
+In our case, a high order filter is added.
+Fourth order accuracy was numerically observed.
+The quality of the numerical results can be compared
+to the best conservative schemes on irregular grids, such as Discontinuous Galerkin schemes.
+
+Current research involves mathematical analysis
+of the scheme, in particular conservation properties.
+The same logic can be applied to any form
+of the SW system on the sphere.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{plain}
+\bibliography{../BIB/bibox_4apr11_no_issue}
+\end{document}

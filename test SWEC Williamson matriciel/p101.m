@@ -7,6 +7,7 @@
 %        3  : stationnary Galewsky (exp),
 %        4  : Galewsky with perturbation (exp),
 %        5  : Rossby-Haurwitz waves,
+%        6  : Polar rotating low-high,
 %        -1 : test with Earth topography
 %        -2 : bump
 % scheme : numerical spatial scheme used. 
@@ -15,7 +16,7 @@
 % sauvegarde = 0 (do not save data), 1 (save all data).
 % opt_ftr : explicit (redonnet).
 %% ************************************************************************
-clc; clear all; close all;
+clc; clear all; close all;timest=clock;
 format long
 
 global n nn dxi
@@ -26,8 +27,8 @@ global gp h0 u0 radius omega
 global alpha
 global teta0 teta1
 
-comment=' .';
-test=5;
+comment='.';
+test=4;
 video = 'no';
 sauvegarde = 1;
 filtre='classic';
@@ -35,23 +36,13 @@ opt_ftr='redonnet10';
 scheme='compact4';
 snapshot='yes';
 
-n=79; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=14;
+n=127; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=6 ;
 mod101
 disp('mod74 : ok')
 
 %% ************************************************************************
-
-ccor=radius*omega;
-cgrav=sqrt(h0*gp);
-cvit=u0;
-c=max([cgrav,ccor,cvit]);
-cfl=0.9;
-ddt=radius*dxi*cfl/c;
-Tmax=ndaymax*3600*24;
-itermax=100000;
-
-nper=1;
+nper=10;
 tstart=cputime;
 ref=floor(10000*now);
 jour=date;
@@ -88,7 +79,28 @@ elseif test == 4
 elseif test == 5
     alpha=0;
     h0=8*10^3;   
+elseif test == 6
+    alpha=0;
+    h0=5.768*10^4/gp;
+    u0=2*pi*radius/(12*24*3600);
 end
+%% ************************************************************************
+
+ccor=radius*omega;
+cgrav=sqrt(h0*gp);
+cvit=u0;
+c=max([cgrav,ccor,cvit]);
+cfl=0.9;
+ddt=radius*dxi*cfl/c;
+Tmax=ndaymax*3600*24;
+itermax=100000;
+
+nper=10;
+tstart=cputime;
+ref=floor(10000*now);
+jour=date;
+
+
 
 %% *** initial data *******************************************************
 t=0;
@@ -110,13 +122,16 @@ h_fVI=ht_fVI; v_fVI=vt_fVI;
 [Mref] = mass( ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI );
 [Eref] = energy(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
 [PEref] = enstrophy(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
+[Ecref] = kineticenergy(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
+[Eppref] = Potentialenergy(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI);
+[qt_xref,qt_yref,qt_zref] = qt_mvt(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
 
 iter=1;
 time(1)=t; erri(1)=0; err_int(1)=1;
 %% *** video option *******************************************************
 if strcmp(video,'yes')==1
     mkdir(['./RK4_video-' jour ])
-    vidObj=VideoWriter(['./RK4_video-' jour '/ref_' num2str(ref) '.avi']);
+    vidObj=VideoWriter(['./RK4_video-' jour '/ref_' num2str(ref) '.mpeg']);%.avi
     open(vidObj);
     set(gca,'nextplot','replacechildren');
 end
@@ -308,31 +323,42 @@ while t<Tmax && iter<itermax
     err_energy(iter)=E/Eref;
     [PE] = enstrophy(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
     err_enstrophy(iter)=PE/PEref;
+    [qt_x,qt_y,qt_z] = qt_mvt(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
+    err_qtx(iter)=qt_x/qt_xref;
+    err_qty(iter)=qt_y/qt_yref;
+    err_qtz(iter)=qt_z/qt_zref;
+    [Ec] = kineticenergy(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI);
+    [Epp] = Potentialenergy(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI);
+    err_Ec(iter)=Ec/Ecref;
+    err_Epp(iter)=Epp/Eppref;
     
     %% video
     if strcmp(video,'yes')==1 & mod(iter,nper) == 0
         
-        [vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=...
-            vort101(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
+%        [vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=...
+%            vort101(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
+%         mm=min(min([vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]));
+%         MM=max(max([vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]));
+%         v=mm:.2*10^-4:MM;
+        
+        
+        mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
+        MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
+        v=[mm 5050:50:5950 MM];
         
         clf
         figure(9)
         hFig = figure(9);
         set(gcf,'PaperPositionMode','auto')
         set(hFig, 'Position', [50 50 1000 500])
-        plot_cs100(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI);
-        title(['vorticity at time : ', num2str(time(end))])
-        
-       % figure(9)
-       % hFig = figure(9);
-       % set(gcf,'PaperPositionMode','auto')
-      %  set(hFig, 'Position', [50 50 1000 500])
-      %  plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);%,8100:100:10500);
-      %  title(['vorticity at time : ', num2str(time(end))])
-      %  caxis([0 0.1*h0])
-        hold off
-        
+        %plot_cs103(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI,v);
+        %plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
+        plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
+        title(['solution at time : ', num2str(time(end))])
+        %caxis([-1.05*10^-4 1.5*10^-4]);
+        %title(['vorticity at time : ', num2str(time(end))])
 
+        hold off
         currFrame = getframe;
         writeVideo(vidObj,currFrame);
     end
@@ -358,18 +384,26 @@ while t<Tmax && iter<itermax
             plot_cs101(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI,v);
             title(['vorticity at time : ', num2str(time(end))])
         elseif test == 1
-            plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,5050:50:5950);
+            mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
+            MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
+            v=[mm 5050:50:5950 MM];
+            plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
             title(['solution at time : ', num2str(time(end))])
         elseif test == 5
-            plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,8200:100:10500);
+            mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
+            MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
+            v=[mm 8200:100:10500 MM];
+            plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,8200:100:10500);
             title(['solution at time : ', num2str(time(end))])
         elseif test == -2
             plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,h_fVI);
             title(['exact solution at time = ', num2str(time(end))]);
+            colorbar
             view([1 -1 1])
         else
             plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
             title(['solution at time : ', num2str(time(end))])
+            colorbar
         end
 
         print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire' num2str(floor(100*time(end))) '.png'])
@@ -393,8 +427,10 @@ while t<Tmax && iter<itermax
     clc; 
     disp(real([test iter min(itermax,floor(Tmax/ddt)) err_int(end) err_energy(end) err_enstrophy(end)]));
 end
+close all;
 disp('calcul : OK');
 disp('plot...');
+timeend=clock;
 tend=cputime-tstart;
 
 if strcmp(video,'yes') == 1
@@ -466,9 +502,19 @@ figure(2)
 plot_cs11(n,nn,h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI);
 title(['exact solution at time = ', num2str(time(end))])
 
+hmax=max(max(abs([h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI])));
 figure(3)
-plot_cs11(n,nn,err_fI, err_fII, err_fIII, err_fIV, err_fV, err_fVI);
-title(['error at time = ', num2str(time(end))])
+hFig = figure(3);
+set(gcf,'PaperPositionMode','auto')
+set(hFig, 'Position', [50 50 1000 500])
+plot_cs102(n,nn,err_fI./hmax, err_fII./hmax, err_fIII./hmax, err_fIV./hmax, err_fV./hmax, err_fVI./hmax);
+title(['Relative error at time = ', num2str(time(end))])
+colorbar
+if sauvegarde == 1
+    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_err.png'])
+    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_err']);
+end
+
 
 if strcmp(snapshot,'yes')==1
     [vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=...
@@ -478,7 +524,7 @@ if strcmp(snapshot,'yes')==1
     hFig = figure(4);
     set(gcf,'PaperPositionMode','auto')
     set(hFig, 'Position', [50 50 1000 500])
-    plot_cs100(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
+    plot_cs102(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
     title(['vorticity at time : ', num2str(time(end))])
     colorbar
     if sauvegarde == 1
@@ -537,13 +583,25 @@ if sauvegarde==1
 end 
 
 figure(803)
-plot(time,err_enstrophy-1,'k-')
+plot(time,err_enstrophy-1,'k-')%,'Linewidth',2)
 xlabel('time')
-title('error on relative enstrophy')
+title('error on relative potential enstrophy')
+
 grid on
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_enstrophy.png'])
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_enstrophy']);
+end 
+
+figure(804)
+plot(time,err_int-1,'r-',time,err_energy-1,'b-','Linewidth',2)
+xlabel('time')
+title('error on relative conservation')
+legend('mass','energy','Location','SouthWest')
+grid on
+if sauvegarde==1
+    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_massenergy.png'])
+    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_massenergy']);
 end 
 
 figure(8)
@@ -597,7 +655,7 @@ figure(10)
 hFig = figure(10);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
-plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
+plot_cs102(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
 title(['calculated solution at time = ', num2str(time(end))])
 colorbar
 if sauvegarde==1
@@ -624,12 +682,34 @@ figure(12)
 hFig = figure(12);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
-plot_cs100(n,nn,div_fI, div_fII, div_fIII, div_fIV, div_fV, div_fVI)
+plot_cs102(n,nn,div_fI, div_fII, div_fIII, div_fIV, div_fV, div_fVI)
 title(['divergence at time : ', num2str(time(end))])
 colorbar
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_divergence.png'])
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_divergence']);
+end 
+
+figure(13)
+plot(time,err_qtx-1,time,err_qty-1,time,err_qtz-1,'Linewidth',2)
+xlabel('time')
+ylabel('Relative error')
+title('conservation of mvt quantities')
+legend('x-comp','y-comp','z-comp')
+if sauvegarde==1
+    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationC.png'])
+    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationC']);
+end 
+
+figure(13)
+plot(time,err_Ec-1,time,err_Epp-1,'Linewidth',2)
+xlabel('time')
+ylabel('Relative error')
+title('conservation of energies')
+legend('Kinetic Energy','Potential Energy')
+if sauvegarde==1
+    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationD.png'])
+    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationD']);
 end 
 
 fig_placier
@@ -638,3 +718,6 @@ disp(['temps de calcul (sans les graphiques) : ', num2str(tend)])
 err1(end)
 err2(end)
 erri(end)
+
+timest
+timeend

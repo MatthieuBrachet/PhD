@@ -12,7 +12,6 @@ for i=1:n1
         elseif x(i,j)>=teta1
             y(i,j)=0;
         else
-%             denom=(x(i,j)-teta0).*(x(i,j)-teta1);
             y(i,j)=exp(1/((x(i,j)-teta0)*(x(i,j)-teta1)))./en;
         end
     end

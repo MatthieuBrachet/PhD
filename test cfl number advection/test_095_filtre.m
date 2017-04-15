@@ -7,9 +7,9 @@ iter=0;
 qual=0.95;
 
 %% schema testé
-order=2;
-genre='redonnet';
-delta=0;
+order=10;
+genre='visbal';
+delta=0.45;
 
 %% algorithme
 a=0;

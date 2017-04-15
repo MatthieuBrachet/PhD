@@ -11,7 +11,7 @@ global teta0 teta1
 teta0=-3*pi/16;
 teta1=3*pi/16;
 opt_ftr=0;
-n=80;
+n=127;
 mod72;
 
 [vt_fI,rotvt_fI] = sol_exacte_rot(x_fI,y_fI,z_fI);
@@ -31,14 +31,16 @@ err_IV=abs(rotvt_fIV-rot_fIV);
 err_V=abs(rotvt_fV-rot_fV);
 err_VI=abs(rotvt_fVI-rot_fVI);
 
-e_I=max(max(max(err_I)))
-e_II=max(max(max(err_II)))
-e_III=max(max(max(err_III)))
-e_IV=max(max(max(err_IV)))
-e_V=max(max(max(err_V)))
-e_VI=max(max(max(err_VI)))
+e_I=max(max(max(err_I)));
+e_II=max(max(max(err_II)));
+e_III=max(max(max(err_III)));
+e_IV=max(max(max(err_IV)));
+e_V=max(max(max(err_V)));
+e_VI=max(max(max(err_VI)));
 
-err=max([e_I e_II e_III e_IV e_V e_VI])
+MMM=max(max(max(abs([rotvt_fI rotvt_fII rotvt_fIII rotvt_fIV rotvt_fV rotvt_fVI]))));
+
+err=max([e_I e_II e_III e_IV e_V e_VI])./MMM
 
 for pp=1:3
     figure(pp)
