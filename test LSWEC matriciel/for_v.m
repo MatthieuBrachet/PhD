@@ -11,7 +11,7 @@ if test == 1
     % u_lambda
     uu = -sigma.*sqrt(gp.*hp)./10.*fun10(teta,teta0,teta1).*exp(-sigma*t);
     % u_teta
-    vv = 2*omega.*sqrt(gp*hp)/10.*sin(teta).*fun10(teta,teta0,teta1).*exp(-sigma*t)+gp/radius.*dfun10(teta,-pi/4,pi/4).*exp(-sigma*t);
+    vv = 2*omega.*sqrt(gp*hp)/10.*sin(teta).*fun10(teta,teta0,teta1).*exp(-sigma*t)+cste*gp/radius.*dfun10(teta,teta0,teta1).*exp(-sigma*t);
 
     elambda_x = -sin(lambda);
     elambda_y =  cos(lambda);

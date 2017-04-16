@@ -28,7 +28,7 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=0;
+test=5;
 video = 'no';
 sauvegarde = 1;
 filtre='classic';
@@ -36,8 +36,8 @@ opt_ftr='redonnet10';
 scheme='compact4';
 snapshot='yes';
 
-n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=5 ;
+n=79; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=14 ;
 mod101
 disp('mod74 : ok')
 
@@ -392,8 +392,8 @@ while t<Tmax && iter<itermax
         elseif test == 5
             mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
-            v=[mm 8200:100:10500 MM];
-            plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,8200:100:10500);
+            v=[mm 8100:100:10500 MM];
+            plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,8100:100:10500);
             title(['solution at time : ', num2str(time(end))])
         elseif test == -2
             plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,h_fVI);
@@ -596,7 +596,7 @@ if sauvegarde==1
 end 
 
 figure(804)
-plot(time,err_int-1,'r-',time,err_energy-1,'b-','Linewidth',2)
+plot(time,err_int-1,'k-',time,err_energy-1,'k.')
 xlabel('time')
 title('error on relative conservation')
 legend('mass','energy','Location','SouthWest')
@@ -703,7 +703,7 @@ if sauvegarde==1
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationC']);
 end 
 
-figure(13)
+figure(14)
 plot(time,err_Ec-1,time,err_Epp-1,'Linewidth',2)
 xlabel('time')
 ylabel('Relative error')

@@ -2,8 +2,7 @@
 % Resolution de LSWEC sur la Cubed-Sphere.
 %
 % *** options :
-% test : 0, ..., 5 choix du test à lancer.
-%          test = 0 : solution stationnaire de type Galewsky
+% test :   test = 0 : solution stationnaire de type Galewsky
 %          test = 1 : solution en exp(-sigma*t) (forcage/ammortissement).
 %          test = 2 : N. Paldor test case.
 %          test = 3 : personnal test case.
@@ -24,9 +23,9 @@ global opt_ftr test scheme
 global hp gp u0 radius omega
 global teta0 teta1
 
-test=3;
-video = 'yes';
-sauvegarde = 1;
+test=1;
+video = 'no';
+sauvegarde = 0;
 opt_ftr='redonnet10';
 type_ftr='classic';
 scheme='compact4';
@@ -34,15 +33,15 @@ n=63;
 mod101
 
 teta0=-pi/4;
-teta1=pi/3;
+teta1=pi/4;
 
 cgrav=sqrt(gp*hp);
 ccor=radius*omega;
 c=max(cgrav,ccor);
 
-cfl=0.9;
+cfl=0.5;
 ddt=radius*dxi*cfl/c;
-ndaymax=15;
+ndaymax=(1/24)*1.5;
 Tmax=ndaymax*3600*24;
 itermax=10000;
 
@@ -54,6 +53,8 @@ t=0;
 [ ht_fIV,   vt_fIV] = sol_exacte(x_fIV,  y_fIV,  z_fIV,  t);
 [ ht_fV,    vt_fV] = sol_exacte(x_fV,   y_fV,   z_fV,   t);
 [ ht_fVI,   vt_fVI] = sol_exacte(x_fVI,  y_fVI,  z_fVI,  t);
+h0max=max(max(abs([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI])));
+v0max=max(max(max(abs([vt_fI vt_fII vt_fIII vt_fIV vt_fV vt_fVI]))));
 
 %% quantités a conserver
 [aaa,aaa,aaa,aaa,aaa,aaa,intref]=nrm101(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn,'cor_int');
@@ -417,6 +418,7 @@ end
 figure(1)
 plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
 title(['calculated solution at time = ', num2str(time(end))])
+colorbar
 if sauvegarde==1
     mkdir(['./RK4_results-' date ]);
     print('-dpng', ['./RK4_results-' date '/ref_' num2str(ref) '_courbe.png'])
@@ -428,6 +430,7 @@ end 
 figure(2)
 plot_cs11(n,nn,h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI);
 title(['exat solution at time = ', num2str(time(end))])
+colorbar
 
 figure(3)
 semilogy(time, erri, time, err2, time, err1)
@@ -458,6 +461,7 @@ set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
 plot_cs100(n,nn,(h_fI-ht_fI)./nrmrefi,(h_fII-ht_fII)./nrmrefi,(h_fIII-ht_fIII)./nrmrefi,(h_fIV-ht_fIV)./nrmrefi,(h_fV-ht_fV)./nrmrefi,(h_fVI-ht_fVI)./nrmrefi);
 title('relative error at final time')
+colorbar
 if sauvegarde==1
     mkdir(['./RK4_results-' date ]);
     print('-dpng', ['./RK4_results-' date '/ref_' num2str(ref) '_space_error.png'])
@@ -473,6 +477,7 @@ set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
 plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,linspace(mm,MM,10));
 title('relative error at final time')
+colorbar
 if sauvegarde==1
     mkdir(['./RK4_results-' date ]);
     print('-dpng', ['./RK4_results-' date '/ref_' num2str(ref) '_plot.png'])
@@ -485,15 +490,7 @@ title('extremums')
 legend('maxi','mini')
 ylabel('time')
 
-[ vlambda_fI ,vteta_fI] = project(vt_fI,x_fI,y_fI,z_fI);
-[ vlambda_fII ,vteta_fII] = project(vt_fII,x_fII,y_fII,z_fII);
-[ vlambda_fIII ,vteta_fIII] = project(vt_fIII,x_fIII,y_fIII,z_fIII);
-[ vlambda_fIV ,vteta_fIV] = project(vt_fIV,x_fIV,y_fIV,z_fIV);
-[ vlambda_fV ,vteta_fV] = project(vt_fV,x_fV,y_fV,z_fV);
-[ vlambda_fVI ,vteta_fVI] = project(vt_fVI,x_fVI,y_fVI,z_fVI);
-
-figure(8)
-plot_cs100(n,nn,vlambda_fI,vlambda_fII,vlambda_fIII,vlambda_fIV,vlambda_fV,vlambda_fVI);
-title(['numerical projection of vt at time = ', num2str(time(end))])
-
 fig_placier
+
+max(max(abs([h_fI-ht_fI h_fII-ht_fII h_fIII-ht_fIII h_fIV-ht_fIV h_fV-ht_fV h_fVI-ht_fVI])))./h0max
+max(max(max(abs([v_fI-vt_fI v_fII-vt_fII v_fIII-vt_fIII v_fIV-vt_fIV v_fV-vt_fV v_fVI-vt_fVI]))))./v0max

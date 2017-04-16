@@ -52,7 +52,7 @@ if test == 2
 else
     radius=6.37122d+06;
     omega=7.292d-05;
-    hp=100;
+    hp=10;
     gp=9.80616;
     u0=(sqrt(gp*hp)/10);
     h0=0;

@@ -96,7 +96,7 @@ stability of the present approach.
 \email{matthieu.brachet@univ-lorraine.fr, jean-pierre.croisille@univ-lorraine.fr}
 
 %% \date\today
-\date{April 15, 2017}
+\date{April 16, 2017}
 \maketitle
 
 {\sl Keywords: Cubed-Sphere grid - Compact finite difference scheme - 
@@ -941,29 +941,38 @@ The point $P$ defining the axis has spherical coordinates  $(\lambda_P,  \theta_
 \label{erreur_cfl=0.5}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[ht!]
-\begin{tabular}{|c||cc|cc|cc|}
-\hline
-$N$ & $max_n |e_1^n|$ & order  & $max_n |e_2^n|$ & order  & $max_n |e_{\infty}^n|$ & order \\
-\hline
-\hline
-$40\;(2.25\deg)$ & $1.989 (-3)$ & -  & $7.255 (-3)$ & - & $4.039(-2)$  & - \\
-\hline 
-$50\;(1.80\deg)$ & $7.638 (-4)$ & $4.3852$ & $3.161(-3)$ & $3.8066$ & $1.918 (-2)$ & $3.4122$ \\
-\hline
-$60\;(1.50\deg)$ & $3.023(-4)$ & $5.1767$ & $1.313 (-3)$ & $4.9069$ & $7.556 (-3)$ & $5.2026$ \\
-\hline
-$80\;(1.125\deg)$ & $5.2979 (-5)$ & $6.1413$ & $2.391(-4)$ & $6.0061$ & $1.561(-3)$ & $5.5612$ \\
-\hline
-$100\;(0.90\deg)$ & $1.5036(-5)$ & $5.7073$ & $6.4568(-5)$ & $5.9326$ & $4.329(-4)$ & $5.8121$\\
-\hline
-$150\;(0.60\deg)$ & $1.9244(-6)$ & $5.1120$ & $9.2082(-6)$ & $4.8429$ & $7.6848(-5)$ & $4.2985$\\
-\hline
-\end{tabular}
+%% M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET
+%\begin{table}[ht!]
+%\begin{tabular}{|c||cc|cc|cc|}
+%\hline
+%$N$ & $max_n |e_1^n|$ & order  & $max_n |e_2^n|$ & order  & $max_n |e_{\infty}^n|$ & order \\
+%\hline
+%\hline
+%$40\;(2.25\deg)$ & $1.989 (-3)$ & -  & $7.255 (-3)$ & - & $4.039(-2)$  & - \\
+%\hline 
+%$50\;(1.80\deg)$ & $7.638 (-4)$ & $4.3852$ & $3.161(-3)$ & $3.8066$ & $1.918 (-2)$ & $3.4122$ \\
+%\hline
+%$60\;(1.50\deg)$ & $3.023(-4)$ & $5.1767$ & $1.313 (-3)$ & $4.9069$ & $7.556 (-3)$ & $5.2026$ \\
+%\hline
+%$80\;(1.125\deg)$ & $5.2979 (-5)$ & $6.1413$ & $2.391(-4)$ & $6.0061$ & $1.561(-3)$ & $5.5612$ \\
+%\hline
+%$100\;(0.90\deg)$ & $1.5036(-5)$ & $5.7073$ & $6.4568(-5)$ & $5.9326$ & $4.329(-4)$ & $5.8121$\\
+%\hline
+%$150\;(0.60\deg)$ & $1.9244(-6)$ & $5.1120$ & $9.2082(-6)$ & $4.8429$ & $7.6848(-5)$ & $4.2985$\\
+%\hline
+%\end{tabular}
+%\caption{Convergence analysis for the Nair and Machenhauer test case \cite{Nair-Machenhauer}. 
+%$N=31$; $\CFL = 0.7$; $(\lambda_p, \theta_p) = (0,0)$.}
+%\label{table:2.4}
+%\end{table}
+\begin{figure}[ht!]
+\includegraphics[scale=0.5]{rate_NM.png}
 \caption{Convergence analysis for the Nair and Machenhauer test case \cite{Nair-Machenhauer}. 
-$N=31$; $\CFL = 0.7$; $(\lambda_p, \theta_p) = (0,0)$.}
+$\CFL = 0.7$; $(\lambda_p, \theta_p) = (0,0)$.}
 \label{table:2.4}
-\end{table}
+\end{figure}
+
+%% M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Moving vortices test case}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1044,28 +1053,35 @@ $N=31$, $\CFL = 0.7$ and $\alpha = 3 \pi / 4$.}
 \label{erreur_cfl=0.5a}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[ht!]
-\begin{tabular}{|c||cc|cc|cc|}
-\hline
-$N$ & $max_n |e_1^n|$ & ordre  & $max_n |e_2^n|$ & ordre  & $max_n |e_{\infty}^n|$ & ordre \\
-\hline
-\hline
-$40$ & $2.2199 (-3)$ & -  & $8.1592 (-3)$ & - & $4.9298 (-2)$  & - \\
-\hline 
-$50$ & $9.9676 (-4)$ & $3.6687$ & $3.9476(-3)$ & $3.3266$ & $2.8948(-2)$ & $2.4393$ \\
-\hline
-$60$ & $4.4566(-4)$ & $4.4957$ & $1.9545(-3)$ & $3.9262$ & $1.6474(-2)$ & $3.1484$ \\
-\hline
-$80$ & $1.3189(-4) $ & $4.2937$ & $5.8682(-4)$ & $4.2429$ & $5.6752(-3)$ & $3.7580$ \\
-\hline
-$100$ & $5.3380(-5)$ & $4.0990$ & $2.3789 (-4)$ & $4.0916$ & $2.3177(-3)$ & $4.0582$\\
-\hline
-$150$ & $1.0401 (-5)$ & $4.0669$ & $4.7173 (-5)$ & $4.0232$ & $4.9192(-4)$ & $3.8542$\\
-\hline
-\end{tabular}
+%% M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET
+%\begin{table}[ht!]
+%\begin{tabular}{|c||cc|cc|cc|}
+%\hline
+%$N$ & $max_n |e_1^n|$ & ordre  & $max_n |e_2^n|$ & ordre  & $max_n |e_{\infty}^n|$ & ordre \\
+%\hline
+%\hline
+%$40$ & $2.2199 (-3)$ & -  & $8.1592 (-3)$ & - & $4.9298 (-2)$  & - \\
+%\hline 
+%$50$ & $9.9676 (-4)$ & $3.6687$ & $3.9476(-3)$ & $3.3266$ & $2.8948(-2)$ & $2.4393$ \\
+%\hline
+%$60$ & $4.4566(-4)$ & $4.4957$ & $1.9545(-3)$ & $3.9262$ & $1.6474(-2)$ & $3.1484$ \\
+%\hline
+%$80$ & $1.3189(-4) $ & $4.2937$ & $5.8682(-4)$ & $4.2429$ & $5.6752(-3)$ & $3.7580$ \\
+%\hline
+%$100$ & $5.3380(-5)$ & $4.0990$ & $2.3789 (-4)$ & $4.0916$ & $2.3177(-3)$ & $4.0582$\\
+%\hline
+%$150$ & $1.0401 (-5)$ & $4.0669$ & $4.7173 (-5)$ & $4.0232$ & $4.9192(-4)$ & $3.8542$\\
+%\hline
+%\end{tabular}
+%\caption{Convergence analysis for the Nair and Jablonowski test case \cite{Nair-Jablonowski} ; $cfl = 0.7$ ; $\alpha = \pi /4$.}
+%\label{table:2}
+%\end{table}
+\begin{figure}[ht!]
+\includegraphics[scale=0.5]{rate_NJ.png}
 \caption{Convergence analysis for the Nair and Jablonowski test case \cite{Nair-Jablonowski} ; $cfl = 0.7$ ; $\alpha = \pi /4$.}
 \label{table:2}
-\end{table}
+\end{figure}
+%% M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[ht!]
 \includegraphics[scale=0.5]{ref_7363158648_coupefaceI_equateur_test_2.jpg}
@@ -1097,8 +1113,8 @@ Consider the two exponentially in time damped functions
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\tilde{\mathbf{v}} (t,\mathbf{x}) & = & \mathbf{u}_0 \varphi(\theta) e^{-\sigma t}\mathbf{e}_\lambda(\mathbf{x})\\
-\tilde{\eta}(t,\mathbf{x}) & = & \eta_0 \varphi(\theta) \sin(\lambda)e^{-\sigma t}\\
+\tilde{\mathbf{v}} (t,\mathbf{x}) & = & \dfrac{\sqrt{g H}}{10} \varphi(\theta) e^{-\sigma t}\mathbf{e}_\lambda(\mathbf{x})\\
+\tilde{\eta}(t,\mathbf{x}) & = & \varphi(\theta) e^{-\sigma t}\\
 \end{array}
 \right.
 \end{equation}
@@ -1121,33 +1137,38 @@ We solve the damped system (\ref{eq:lswe_damped}).
 The source terms $S_{\eta}$ and $S_{\mathbf{v}}$ are defined 
 such as the functions $(\tilde{\mathbf{v}}(t,\mathbf{x}), \tilde \eta(t,\mathbf{x}))$ be solution
 of (\ref{eq:lswe_damped}).
-In Table \ref{table:4}, a numerical grid convergence analysis is reported 
+In Fig. \ref{table:4}, a numerical grid convergence analysis is reported 
 using three grids. 
-The decreasing accuracy from $4$ to $3$ is attributed to
-the loss of computer accuracy near $0$.
-\begin{table}[ht!]
-\begin{tabular}{|c||c|c|c|c|c|}
-\hline
-& N=40 & rate & N=60  & rate & N=80 \\
-\hline 
-\hline 
-$\vert \mathbf{v}^1_{ex}(T)-\mathbf{v}^1_{cal}(T)\vert_{h,I}$ & 2.52(-5)  &  4.15 & 4.69(-6) &  2.98 & 1.40(-6)   \\
-\hline 
-$\vert \eta_{ex}(T)-\eta_{cal}(T)\vert_{h,I}$ & 1.06(-5)  &  3.85 & 2.70(-6) &  3.32 & 1.04(-6) \\
-\hline 
-\end{tabular}
-\caption{Hermitian scheme applied to an exponential decaying solution of the LSWE. The final time is 1.5 hour.}
+% M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET
+% The decreasing accuracy from $4$ to $3$ is attributed to the loss of computer accuracy near $0$.
+% A convergence rate between $3$ and $4$ can be observed.
+%\begin{table}[ht!]
+%\begin{tabular}{|c||c|c|c|c|c|}
+%\hline
+%& N=40 & rate & N=60  & rate & N=80 \\
+%\hline 
+%\hline 
+%$\vert \mathbf{v}^1_{ex}(T)-\mathbf{v}^1_{cal}(T)\vert_{h,I}$ & 2.52(-5)  &  4.15 & 4.69(-6) &  2.98 & 1.40(-6)   \\
+%\hline 
+%$\vert \eta_{ex}(T)-\eta_{cal}(T)\vert_{h,I}$ & 1.06(-5)  &  3.85 & 2.70(-6) &  3.32 & 1.04(-6) \\
+%\hline 
+%\end{tabular}
+%\caption{Hermitian scheme applied to an exponential decaying solution of the LSWE. The final time is 1.5 hour and $H=10$ meters.}
+%\label{table:4}
+%\end{table}
+\begin{figure}
+\includegraphics[scale=.5]{rate_lswe_exp.png}
+\caption{Hermitian scheme applied to an exponential decaying solution of the LSWE. The final time is 1.5 hour and $H=10$ meters.}
 \label{table:4}
-\end{table}
-%\textbf{Tableau a revoir}
-A convergence rate between $3$ and $4$ can be observed.
+\end{figure}
+% M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{A time independent zonal solution}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 We consider a time independent 
 solution depending on the latitude only.
 To the given 
-parameter function $\theta \mapsto \varphi(\theta)=\exp \left( \dfrac{1}{(\theta-\theta_0)(\theta-\theta_1)} \right)$, 
+parameter function $\theta \mapsto \varphi(\theta)=\exp \left( \dfrac{1}{(\theta-\theta_0)(\theta-\theta_1)} \right)$ with $\theta_0 \leq \theta \leq \theta_1$ and $\varphi(\theta)=0$ in the other cases, 
 corresponds the velocity $\mathbf{v}(\mathbf{x})$ defined by
 \begin{equation}
 \label{eq:78.123}
@@ -1168,22 +1189,28 @@ preserving on
 large intervals of time.
 The numerical results are reported in Table \ref{table:5}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[ht!]
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline 
-&N=40 & rate & N=60  & rate & N=80 \\
-\hline
-\hline
-$\vert \mathbf{v}^1_{ex}(T)-\mathbf{v}^1_{cal}(T)\vert_{h,I}$ & 2.73(-5)  &  4.09 & 5.18(-6) &  4.24 & 1.53(-6) \\
-\hline 
-$\vert \eta_{ex}(T)-\eta_{cal}(T)\vert_{h,I}$ & 1.21(-5)  &  3.95 & 2.43(-6) &  3.14 & 7.38(-7) \\
-\hline 
-\end{tabular}
-\caption
-{Hermitian scheme applied to a time independent solution of the LSWE. Final time = 1h30}
-\label{table:5}
-\end{table}
-
+% M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET
+%\begin{table}[ht!]
+%\begin{tabular}{|c|c|c|c|c|c|}
+%\hline 
+%&N=40 & rate & N=60  & rate & N=80 \\
+%\hline
+%\hline
+%$\vert \mathbf{v}^1_{ex}(T)-\mathbf{v}^1_{cal}(T)\vert_{h,I}$ & 2.73(-5)  &  4.09 & 5.18(-6) &  4.24 & 1.53(-6) \\
+%\hline 
+%$\vert \eta_{ex}(T)-\eta_{cal}(T)\vert_{h,I}$ & 1.21(-5)  &  3.95 & 2.43(-6) &  3.14 & 7.38(-7) \\
+%\hline 
+%\end{tabular}
+%\caption
+%{Hermitian scheme applied to a time independent solution of the LSWE. Final time = 1h30}
+%\label{table:5}
+%\end{table}
+\begin{figure}
+\includegraphics[scale=.5]{rate_lswe1.png}
+\caption{Hermitian scheme applied to an exponential decaying solution of the LSWE. The final time is 1.5 hour and $H=10$ meters.}
+\label{table:4}
+\end{figure}
+% M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1281,9 +1308,9 @@ Table \ref{tab:W2 error order} clearly shows fourth order accuracy
 %\label{fig:W2 alpha=pi/4}
 %\end{figure}
 \begin{figure}[ht!]
-\includegraphics[scale=0.3]{ref_7367706276_snapshot_solution.png}
-\includegraphics[scale=0.3]{ref_7367706276_snapshot_solution.png}
-\caption{Numerical results of steady state geostrophic flow in direction of $\alpha=\pi/4$ on  $32 \times 32 \times 6$ grid after $5$ model days of simulation. Contour lines are plotted between 1150 m to 2950m with step of 200m (left). Contour lines of the relative spatial error (right) }
+\includegraphics[scale=0.3]{ref_7368007944_snapshot_solution.png}
+\includegraphics[scale=0.3]{ref_7368007944_snapshot_err.png}
+\caption{Numerical results of steady state geostrophic flow in direction of $\alpha=\pi/4$ on  $32 \times 32 \times 6$ grid after $5$ model days of simulation. Contour lines are plotted between 1150 m to 2950m with step of 200m (left). Contour lines of the relative spatial error from $2.7810e-06$ to $-2.0756e-06$ with a step of $5.3962e-07$ (right). }
 \label{fig:W2 alpha=pi/4}
 \end{figure}
 
@@ -1303,35 +1330,51 @@ We refer to \cite{Portelenelle-Croisille}
 concerning the numerical quadrature formula that is used.
 \end{remark}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET
+%\begin{figure}[ht!]
+%\includegraphics[scale=0.3]{ref_7367706276_mass.png}
+%\includegraphics[scale=0.3]{ref_7367706276_energy.png}\\
+%\includegraphics[scale=0.3]{ref_7367706276_enstrophy.png}
+%\includegraphics[scale=0.3]{ref_7367706276_conservationBdiv.png}\\
+%\includegraphics[scale=0.3]{ref_7367706276_conservationBvort.png}
+%\caption{Numerical conservation of steady state geostrophic flow in direction of $\alpha=\pi/4$ on  $32 \times 32 \times 6$ grid after $5$ model days of simulation.}
+%\label{fig:W2 conservation alpha=pi/4}
+%\end{figure}
+
 \begin{figure}[ht!]
-\includegraphics[scale=0.3]{ref_7367706276_mass.png}
-\includegraphics[scale=0.3]{ref_7367706276_energy.png}\\
-\includegraphics[scale=0.3]{ref_7367706276_enstrophy.png}
-\includegraphics[scale=0.3]{ref_7367706276_conservationBdiv.png}\\
-\includegraphics[scale=0.3]{ref_7367706276_conservationBvort.png}
+\includegraphics[scale=0.4]{ref_7368007944_conservationA.png}
+\includegraphics[scale=0.4]{ref_7368007944_conservationBdiv.png}\\
+\includegraphics[scale=0.4]{ref_7368007944_conservationBvort.png}
 \caption{Numerical conservation of steady state geostrophic flow in direction of $\alpha=\pi/4$ on  $32 \times 32 \times 6$ grid after $5$ model days of simulation.}
 \label{fig:W2 conservation alpha=pi/4}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[ht!]
-\begin{tabular}{|c|c||cc|cc|cc|}
-\hline
-$\alpha$ & grid & $\max_n |e_1^n |$ & order & $\max_n |e_2^n |$ & order &  $\max_n |e_{\infty}^n |$ & order \\
-\hline
-\hline
-              & $6 \times 32 \times 32$   & $1.1422 (-6)$ & - & $1.3885 (-6)$ & - & $2.4469 (-6)$ & - \\
-$\alpha = 0$  & $6 \times 64 \times 64$   & $7.1216 (-8)$ & $4.0035$ & $8.6513 (-8)$ & $4.0045$ & $1.5229 (-7)$ & $4.0061$ \\
-              & $6 \times 128 \times 128$ & $4.4469 (-9)$ & $3.9942$ & $5.4018 (-9)$ & $4.0014$ & $9.5186 (-9)$ & $3.9999$ \\
-\hline
-\hline
-                & $6 \times 32 \times 32$   & $7.5712 (-7)$ & - & $1.0446 (-6)$ & - & $2.7809 (-6)$ & - \\
-$\alpha = \pi/4$& $6 \times 64 \times 64$   & $4.7213 (-8)$ & $4.0032$ & $6.5124 (-8)$ & $4.0036$ & $1.7387 (-7)$ & $3.9995$ \\
-                & $6 \times 128 \times 128$ & $2.9487 (-9)$ & $4.0010$ & $4.0672 (-9)$ & $4.0011$ & $1.0858 (-8)$ & $4.0012$ \\
-\hline
-\end{tabular}
-\caption{Relative error afer 5 days model simulation of steady state geostrophic flow. The CFL condition is $0.9$.}
+%\begin{table}[ht!]
+%\begin{tabular}{|c|c||cc|cc|cc|}
+%\hline
+%$\alpha$ & grid & $\max_n |e_1^n |$ & order & $\max_n |e_2^n |$ & order &  $\max_n |e_{\infty}^n |$ & order \\
+%\hline
+%\hline
+%              & $6 \times 32 \times 32$   & $1.1422 (-6)$ & - & $1.3885 (-6)$ & - & $2.4469 (-6)$ & - \\
+%$\alpha = 0$  & $6 \times 64 \times 64$   & $7.1216 (-8)$ & $4.0035$ & $8.6513 (-8)$ & $4.0045$ & $1.5229 (-7)$ & $4.0061$ \\
+%              & $6 \times 128 \times 128$ & $4.4469 (-9)$ & $3.9942$ & $5.4018 (-9)$ & $4.0014$ & $9.5186 (-9)$ & $3.9999$ \\
+%\hline
+%\hline
+%                & $6 \times 32 \times 32$   & $7.5712 (-7)$ & - & $1.0446 (-6)$ & - & $2.7809 (-6)$ & - \\
+%$\alpha = \pi/4$& $6 \times 64 \times 64$   & $4.7213 (-8)$ & $4.0032$ & $6.5124 (-8)$ & $4.0036$ & $1.7387 (-7)$ & $3.9995$ \\
+%                & $6 \times 128 \times 128$ & $2.9487 (-9)$ & $4.0010$ & $4.0672 (-9)$ & $4.0011$ & $1.0858 (-8)$ & $4.0012$ \\
+%\hline
+%\end{tabular}
+%\caption{Relative error afer 5 days model simulation of steady state geostrophic flow. The CFL condition is $0.9$.}
+%\label{tab:W2 error order}
+%\end{table}
+\begin{figure}[ht!]
+\includegraphics[scale=0.5]{rate_W2_0.png}
+\includegraphics[scale=0.5]{rate_W2_pi4.png}
+\caption{Relative error afer 5 days model simulation of steady state geostrophic flow. The CFL condition is $0.9$. $\alpha = 0$ (left) and $\alpha=\pi/4$(right)}
 \label{tab:W2 error order}
-\end{table}
+\end{figure}
+%% M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Isolated mountain test case }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1359,9 +1402,9 @@ $r_0=\pi/9$ and $(\lambda_c, \theta_c)=(3 \pi /2, \pi /6)$.
 Numerical results of the height $h$ at times $5$, $10$ and $15$ days are given in figure \ref{fig:W5 snapshot} with a grid $6 \times 32 \times 32$. Numerical conservations are represented on Fig. \ref{fig:W5 conservation}.
 
 \begin{figure}[ht!]
-\includegraphics[scale=0.3]{ref_7367706559_snapshot_intermediaire499.png}\\
-\includegraphics[scale=0.3]{ref_7367706559_snapshot_intermediaire999.png}\\
-\includegraphics[scale=0.3]{ref_7367706559_snapshot_intermediaire1499.png}
+\includegraphics[scale=0.5]{ref_7367706559_snapshot_intermediaire499.png}\\
+\includegraphics[scale=0.5]{ref_7367706559_snapshot_intermediaire999.png}\\
+\includegraphics[scale=0.5]{ref_7367706559_snapshot_intermediaire1499.png}
 \caption{Numerical results of isolated mountain test case with grid  $32 \times 32 \times 6$ at time 5, 10 and 15 days. Contour line are plotted from 5050 m to 5950 m with interval of 50 m.}
 \label{fig:W5 snapshot}
 \end{figure}
@@ -1369,7 +1412,7 @@ Numerical results of the height $h$ at times $5$, $10$ and $15$ days are given i
 \begin{figure}[ht!]
 \includegraphics[scale=0.4]{ref_7367706559_conservationA.png}
 \includegraphics[scale=0.4]{ref_7367706559_conservationB.png}
-\caption{Conservation of isolated mountain test case with grid  $32 \times 32 \times 6$. \textbf{TIME STEP?????}}
+\caption{Conservation of isolated mountain test case with grid  $32 \times 32 \times 6$.}
 \label{fig:W5 conservation}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1422,17 +1465,16 @@ On the two last figures, the error levels on the divergence and
 the vorticity are reported. Both are close to $0$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[ht!]
-\includegraphics[scale=0.3]{ref_7367723128_snapshot_intermediaire699.png}
-\includegraphics[scale=0.3]{ref_7367723128_snapshot_intermediaire1399.png}\\
-\caption{Numerical results of Rossby-Haurwitz wave test case with grid  $128 \times 128 \times 6$ at time 7 and 14 days. Contour line are plotted from 8100 m to 10500 m with interval of 100 m.}
+\includegraphics[scale=0.3]{ref_7368015325_snapshot_intermediaire699.png}
+\includegraphics[scale=0.3]{ref_7368015325_snapshot_intermediaire1399.png}\\
+\caption{Numerical results of Rossby-Haurwitz wave test case with grid  $80 \times 80 \times 6$ at time 7 and 14 days. Contour line are plotted from 8100 m to 10500 m with interval of 100 m.}
 \label{fig:W6 snapshot}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[ht!]
-\includegraphics[scale=0.4]{ref_7367723128_conservationB.png}
-\includegraphics[scale=0.4]{ref_7367723128_mass.png}\\
-\includegraphics[scale=0.4]{ref_7367723128_energy.png}
-\includegraphics[scale=0.4]{ref_7367723128_enstrophy.png}
+\includegraphics[scale=0.4]{ref_7368015325_conservationB.png}
+\includegraphics[scale=0.4]{ref_7368015325_massenergy.png}\\
+\includegraphics[scale=0.4]{ref_7368015325_enstrophy.png}
 \caption{Conservation of Rossby-Haurwitz wave test case with grid  $128 \times 128 \times 6$.}
 \label{fig:W6 conservation}
 \end{figure}
@@ -1500,22 +1542,31 @@ The value $N=128$ gives the most accurate results.
 \includegraphics[scale=0.5]{ref_7367708164_snapshot_intermediaire598.png}\\
 \includegraphics[scale=0.5]{ref_7367708686_snapshot_intermediaire599.png}\\
 \includegraphics[scale=0.5]{ref_7367709339_snapshot_intermediaire599.png}
-\caption{Numerical results of the barotropic instability at day 6 with differents mesh. $32 \times 32 \times 6$ (top), $64 \times 64 \times 6$ (2nd panel) and $128 \times 128 \times 6$ (bottom). ADD RESULTS WITH N=95}
+\caption{Numerical results of the barotropic instability at day 6 with differents mesh. $32 \times 32 \times 6$ (top), $64 \times 64 \times 6$ (2nd panel) and $128 \times 128 \times 6$ (bottom).}
 \label{fig:G1 snaphot}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Conservation of quantities are good (see figure \ref{fig:G1 conservation}), we observe perturbation of this quantities with apparition of the instability close to day 4.
 
+%% M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET 
+%\begin{figure}
+%\includegraphics[scale=0.4]{ref_7367709339_conservationB.png}
+%\includegraphics[scale=0.4]{ref_7367709339_mass.png}\\
+%\includegraphics[scale=0.4]{ref_7367709339_energy.png}
+%\includegraphics[scale=0.4]{ref_7367709339_enstrophy.png}
+%\caption{Conservation of Barotropic instability test case with grid  $128 \times 128 \times 6$. \textbf{TIME STEP????}}
+%\label{fig:G1 conservation}
+%\end{figure}
+
 \begin{figure}
+\includegraphics[scale=0.4]{ref_7367709339_massenergy.png}
+\includegraphics[scale=0.4]{ref_7367709339_enstrophy.png}\\
 \includegraphics[scale=0.4]{ref_7367709339_conservationB.png}
-\includegraphics[scale=0.4]{ref_7367709339_mass.png}\\
-\includegraphics[scale=0.4]{ref_7367709339_energy.png}
-\includegraphics[scale=0.4]{ref_7367709339_enstrophy.png}
-\caption{Conservation of Barotropic instability test case with grid  $128 \times 128 \times 6$. \textbf{TIME STEP????}}
+\caption{Conservation of barotropic instability test case with grid  $128 \times 128 \times 6$.}
 \label{fig:G1 conservation}
 \end{figure}
-
+%% M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET M. BRACHET 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
