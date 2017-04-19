@@ -32,27 +32,27 @@ scheme='compact4';
 n=63;
 mod101
 
-teta0=-pi/4;
-teta1=pi/4;
+teta0=-pi/7;
+teta1=pi/7;
 
 cgrav=sqrt(gp*hp);
 ccor=radius*omega;
 c=max(cgrav,ccor);
 
-cfl=0.5;
+cfl=0.9;
 ddt=radius*dxi*cfl/c;
-ndaymax=(1/24)*1.5;
+ndaymax=2;
 Tmax=ndaymax*3600*24;
 itermax=10000;
 
 %% *** initialisation des données
 t=0;
-[ ht_fI,    vt_fI] = sol_exacte(x_fI,   y_fI,   z_fI,   t);
-[ ht_fII,   vt_fII] = sol_exacte(x_fII,  y_fII,  z_fII,  t);
+[ ht_fI,    vt_fI]   = sol_exacte(x_fI,   y_fI,   z_fI,   t);
+[ ht_fII,   vt_fII]  = sol_exacte(x_fII,  y_fII,  z_fII,  t);
 [ ht_fIII,  vt_fIII] = sol_exacte(x_fIII, y_fIII, z_fIII, t);
-[ ht_fIV,   vt_fIV] = sol_exacte(x_fIV,  y_fIV,  z_fIV,  t);
-[ ht_fV,    vt_fV] = sol_exacte(x_fV,   y_fV,   z_fV,   t);
-[ ht_fVI,   vt_fVI] = sol_exacte(x_fVI,  y_fVI,  z_fVI,  t);
+[ ht_fIV,   vt_fIV]  = sol_exacte(x_fIV,  y_fIV,  z_fIV,  t);
+[ ht_fV,    vt_fV]   = sol_exacte(x_fV,   y_fV,   z_fV,   t);
+[ ht_fVI,   vt_fVI]  = sol_exacte(x_fVI,  y_fVI,  z_fVI,  t);
 h0max=max(max(abs([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI])));
 v0max=max(max(max(abs([vt_fI vt_fII vt_fIII vt_fIV vt_fV vt_fVI]))));
 
@@ -299,7 +299,6 @@ while t<Tmax && iter<itermax
     [h_fV,v_fV] = sol_exacte(x_fV,y_fV,z_fV,t);
     [h_fVI,v_fVI] = sol_exacte(x_fVI,y_fVI,z_fVI,t);
     
-    
     err_fI=htnew_fI-h_fI;
     err_fII=htnew_fII-h_fII;
     err_fIII=htnew_fIII-h_fIII;
@@ -484,7 +483,14 @@ if sauvegarde==1
     savefig(['./RK4_results-' date '/ref_' num2str(ref) '_plot']);
 end 
 
-figure(7)
+hFig = figure(7);
+set(gcf,'PaperPositionMode','auto')
+set(hFig, 'Position', [50 50 1000 500])
+plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
+title('relative error at final time')
+colorbar
+
+figure(8)
 plot(time, maxi, time, mini)
 title('extremums')
 legend('maxi','mini')
@@ -492,5 +498,5 @@ ylabel('time')
 
 fig_placier
 
-max(max(abs([h_fI-ht_fI h_fII-ht_fII h_fIII-ht_fIII h_fIV-ht_fIV h_fV-ht_fV h_fVI-ht_fVI])))./h0max
-max(max(max(abs([v_fI-vt_fI v_fII-vt_fII v_fIII-vt_fIII v_fIV-vt_fIV v_fV-vt_fV v_fVI-vt_fVI]))))./v0max
+max(max(abs([h_fI-ht_fI, h_fII-ht_fII, h_fIII-ht_fIII, h_fIV-ht_fIV, h_fV-ht_fV, h_fVI-ht_fVI])))./h0max
+max(max(max(abs([v_fI-vt_fI, v_fII-vt_fII, v_fIII-vt_fIII, v_fIV-vt_fIV, v_fV-vt_fV, v_fVI-vt_fVI]))))./v0max

@@ -42,7 +42,7 @@ if test == 0
     ht=h0-int/gp;
 
 elseif test == 1
-    sigma=10^-4;
+    sigma=10^-5;
     
     %% vitesse
     [n1,n2]=size(x);

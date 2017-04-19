@@ -4,14 +4,11 @@ global gp hp radius omega
 global teta0 teta1
 
 if test == 1
-    sigma=10^-4;
-    cste=sqrt(gp*hp)/10;
-
-    [lambda, teta, aaa]=cart2sph(x,y,z);
-    % u_lambda
-    uu = -sigma.*sqrt(gp.*hp)./10.*fun10(teta,teta0,teta1).*exp(-sigma*t);
-    % u_teta
-    vv = 2*omega.*sqrt(gp*hp)/10.*sin(teta).*fun10(teta,teta0,teta1).*exp(-sigma*t)+cste*gp/radius.*dfun10(teta,teta0,teta1).*exp(-sigma*t);
+    sigma=10^-5;
+    [lambda, teta, ~]=cart2sph(x,y,z);
+    
+    uu=-sigma.*(sqrt(gp*hp)/10).*fun10(teta,teta0,teta1).*exp(-sigma*t);
+    vv=(gp./radius).*dfun10(teta,teta0,teta1).*exp(-sigma*t) + 2.*omega.*sin(teta).*(sqrt(gp*hp)/10).*fun10(teta,teta0,teta1).*exp(-sigma*t);
 
     elambda_x = -sin(lambda);
     elambda_y =  cos(lambda);

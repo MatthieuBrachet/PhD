@@ -45,14 +45,14 @@ nb=na;
 
 %% physical data
 if test == 2
-    omega = 7.29212e-5;          % Earth's angular frequency (rad/sec)
+    omega  = 7.29212e-5;          % Earth's angular frequency (rad/sec)
     gp     = 10.0;                % Earth's gravitational acceleration (m/sec^2)
-    radius     = 6371220.0;           % Earth's mean radius (m)
-    hp    = 5.0e3;               % Layer's mean depth (m)
+    radius = 6371220.0;           % Earth's mean radius (m)
+    hp     = 5.0e3;               % Layer's mean depth (m)
 else
     radius=6.37122d+06;
     omega=7.292d-05;
-    hp=10;
+    hp=10000;
     gp=9.80616;
     u0=(sqrt(gp*hp)/10);
     h0=0;
@@ -630,3 +630,4 @@ disp('calcul des poids...')
 % res = solve_weights( A_hs,errhs_i,0,1,1 );
 % weights=dxi*deta*(dga+res);
 weights=dxi*deta*dga;
+clc;
