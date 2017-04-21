@@ -28,7 +28,7 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=4;
+test=1;
 video = 'no';
 sauvegarde = 0;
 filtre='classic';
@@ -36,7 +36,7 @@ opt_ftr='redonnet10';
 scheme='compact4';
 snapshot='yes';
 
-n=63; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+n=15; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
 ndaymax=6 ;
 mod101
 disp('mod74 : ok')
