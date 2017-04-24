@@ -14,13 +14,13 @@ global h0 u0
 %        -1 : test with Earth topography
 %        -2 : bump
 % *************************************************************************
-test=3;
+test=5;
 filtre='classic';
 opt_ftr='redonnet10';
 scheme='compact4';
 
-ddt=300;
-ndaymax=6;
+ddt=150;
+ndaymax=14;
 n_init=31;
 
 %% iterations
