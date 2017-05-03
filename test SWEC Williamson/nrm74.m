@@ -305,7 +305,43 @@ switch str
     nrmSE=weights(nn,1)*funfVI(nn,1);
     nrmVI=nrmint+(1/2)*(nrmW+nrmE+nrmS+nrmN)+(1/3)*(nrmNW+nrmNE+nrmSW+nrmSE);
     %
-    nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI;    
+    nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI;   
+    
+    case 'cons_int' % INTRAGE CONSERVATIVE BASEE SUR SIMPSON
+        
+    if mod(n+1,2)==1
+        error('n+1 must be odd for this quadrature formula');
+    end
+     
+    A=8*ones(nn,nn);
+    A(2:2:end-1,2:2:end-1)=16;
+    A(1:2:end,1:2:end)=4;
+
+    A(1,1:2:end)=2;
+    A(end,1:2:end)=2;
+    A(1:2:end,1)=2;
+    A(1:2:end,end)=2;
+
+    A(1,2:2:end-1)=4;
+    A(end,2:2:end-1)=4;
+    A(2:2:end-1,1)=4;
+    A(2:2:end-1,end)=4;
+
+    A(1,1)=1;
+    A(1,end)=1;
+    A(end,1)=1;
+    A(end,end)=1;
+
+    wei=A./9;
+    
+    nrmI=radius^2.*dxi.*deta.*sum(sum(dga.*wei.*funfI));
+    nrmII=radius^2.*dxi.*deta.*sum(sum(dga.*wei.*funfII));
+    nrmIII=radius^2.*dxi.*deta.*sum(sum(dga.*wei.*funfIII));
+    nrmIV=radius^2.*dxi.*deta.*sum(sum(dga.*wei.*funfIV));
+    nrmV=radius^2.*dxi.*deta.*sum(sum(dga.*wei.*funfV));
+    nrmVI=radius^2.*dxi.*deta.*sum(sum(dga.*wei.*funfVI));
+    nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI; 
+    
 end
 
 

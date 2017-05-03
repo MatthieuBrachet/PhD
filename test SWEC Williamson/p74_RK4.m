@@ -30,7 +30,7 @@ comment='.';
 test=1;
 video = 'no';
 nper=1;
-sauvegarde = 1;
+sauvegarde = 0;
 filtre='classic';
 opt_ftr='redonnet10';
 opt_detec='redonnet10';
@@ -38,8 +38,8 @@ opt_ftr1='redonnet6';
 scheme='compact4';
 snapshot='yes';
 
-n=31; % for snapshot, n must be odd !
-ndaymax=15;
+n=15; % for snapshot, n must be odd !
+ndaymax=5;
 mod74
 disp('mod74 : ok')
 

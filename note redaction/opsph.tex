@@ -3,76 +3,165 @@
 
 \chapter{Opérateurs sphériques}
 
+\section{Opérateur sphériques discrets}
 
-\section{Filtrage sur la sphère}
+La résolution d'équations aux dérivées parties de type Shallow Water nécessite de passer par le calcul des opérateurs classiques : gradient, divergence et rotationnel.
 
-\subsection{Filtrage par coordonnées}
+Si $\mathbf{u} : \mathbb{S}_a^2 \mapsto \mathbb{T}\mathbb{S}_a^2$ est un champ de vecteur régulier sur la sphère et $h : \mathbb{S}_a^2 \mapsto\mathbb{R}$ une fonction régulière sur la sphère.
+Chaque opérateur peut être écrit en coordonnées $(\xi, \eta)$ sur la sphère grâce aux formules suivantes :
 
-\subsection{Filtrage symétrisé}
+\begin{itemize}
+\item \textbf{Gradient :}
+\begin{equation}
+\nabla h = \mathbf{g}^{\xi} \dfrac{\partial h}{\partial \xi}_{|\eta} + \mathbf{g}^{\eta} \dfrac{\partial h}{\partial \eta}_{|\xi} 
+\label{eq: gradient}
+\end{equation}
+\item \textbf{Divergence :}
+\begin{equation}
+\begin{array}{rcl}
+\nabla \cdot \mathbf{u} & = & \mathbf{g}^{\xi} \cdot \dfrac{\partial \mathbf{u}}{\partial \xi}_{|\eta} + \mathbf{g}^{\eta} \cdot \dfrac{\partial \mathbf{u}}{\partial \eta}_{|\xi} \\
+	& = & \dfrac{1}{\sqrt{\bar{\mathbf{G}}}} \left( \dfrac{\partial}{\partial \xi} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\xi} \right)_{|\eta} + \dfrac{\partial}{\partial \eta} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\eta} \right)_{|\xi} \right) 
+\end{array}
+\label{eq: divergence}
+\end{equation}
+\item \textbf{Rotationnel :}
+\begin{equation}
+\nabla \wedge \mathbf{u} = \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{u}}{\partial \xi}_{|\eta} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{u}}{\partial \eta}_{|\xi}  
+\label{eq: rotationnel}
+\end{equation}
+\end{itemize}
 
-\subsection{Filtrage non-linéaire}
+\section{Quadrature sur la sphère}
 
+La quadrature numérique sur la sphère permet d'avoir une approximation numérique de l'intégrale. 
+Au sens continu, le théorème de Stokes est vérifiée sur la surface de la sphère:
 
-\section{Gradient sphèrique}
+\begin{theoreme}
+\textbf{Théorème de Stokes}
+Si $\Omega$ est une surface sur la sphère $\mathbb{S}_a^2$ (i.e. $\Omega \subset \mathbb{S}_a^2$) régulier. Alors :
+\begin{equation}
+\gint_\Omega \nabla \cdot \mathbf{u} d \sigma (\mathbf{x}) = \gint_{\partial \Omega} \mathbf{u} \cdot \mathbf{n} dl(\mathbf{x})
+\end{equation}
+où $n$ est la normale extérieure unitaire pour le produit scalaire associé à la métrique $\mathbf{G}$.
+\label{th: Stokes}
+\end{theoreme}
 
-Soit $h : \mathbb{S}^2_a \rightarrow \mathbb{R}$ une fonction sur la sphère à valeurs réelles. On peut calculer le gradient de cette fonction grâce à la formule :
+Ce théorème permet de vérifier la conservation de la matière sur la Sphère :
 
 \begin{equation}
-grad(h) = \nabla h = \mathbf{g}^{\xi} \dfrac{\partial h}{\partial \xi} + \mathbf{g}^{\eta} \dfrac{\partial h}{\partial \eta}
-\label{eq:gradient}
+\gint_{\mathbb{S}_a^2}\nabla \cdot \mathbf{u} d \sigma (\mathbf{x}) = 0
+\label{eq: Stokes global}
 \end{equation}
 
-avec $(\mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ la base duale construite précédemment.
+De plus, via le changement de variable $\mathbf{x} \in \Omega \subset \mathbb{S}_a^2 \mapsto (\xi, \eta) \in [-a a] \subset [- \pi/4, \pi/4]^2 = \hat{\Omega}$ on a, si $h$ est une fonction de $\Omega$ dans $\mathbb{R}$:
+\begin{equation}
+\gint_{\Omega} h(\mathbf{x}) d \sigma ( \mathbf{x} ) = \gint_{-a}^a \gint_{-a}^a h(\xi, \eta) \sqrt{\bar{\mathbf{G}}}d\xi d\eta
+\end{equation}
+
+\subsection{Quadrature naturelle}
+
+
+
+\subsection{Quadrature de type Simpson}
+
+La formule de Simpson appliquée dans chaque direction donne l'approximation suivante :
+
+\begin{equation}
+\begin{array}{rcl}
+\gint_{-a}^a \gint_{-a}^a f(\xi, \eta)d\xi d\eta & \approx & a^2 \left[ \dfrac{1}{9} \lbrace  f(-a,-a) + f(a,a) + f(a,-a) + f(-a,a) \rbrace \right. + ...\\
+& & ...+ \dfrac{4}{9} \lbrace  f(0,-a) + f(0,a) + f(a,0) + f(-a,0) \rbrace +  \left. \dfrac{16}{9} f(0,0) \right]
+\end{array}
+\end{equation}
+
+ainsi si $f(\xi, \eta) \approx \nabla \cdot \mathbf{u} \sqrt{\bar{\mathbf{G}}}$ on a une méthode permettant d'approché le terme de gauche dans le théorème de Stokes \ref{th: Stokes}
+
+Pour le terme de droite de \ref{th: Stokes}, on a :
+
+\begin{equation}
+\begin{array}{rcl}
+\gint_{\partial \Omega} \mathbf{u} \cdot \mathbf{n} dl(\mathbf{x}) & = & a \left[ \gint_{-a}^a \mathbf{u}(a,\eta) \cdot \mathbf{g}^{\xi} (a, \eta) \sqrt{\bar{\mathbf{G}(a,\eta)}}- \mathbf{u}(-a,\eta) \cdot \mathbf{g}^{\xi} (-a, \eta) \sqrt{\bar{\mathbf{G}(-a,\eta)}} d\eta \right]+ ...\\
+&  & ... + a \left[ \gint_{-a}^a \mathbf{u}(\xi,a) \cdot \mathbf{g}^{\xi} (\xi a) \sqrt{\bar{\mathbf{G}(\xi,a)}}- \mathbf{u}(\xi,-a) \cdot \mathbf{g}^{\xi} (\xi, -a) \sqrt{\bar{\mathbf{G}(\xi,-a)}}\right]
+\end{array}
+\label{eq: quadrature simpson L}
+\end{equation}
+
+A ce niveau, il n'y a pas eut d'approximation pour le terme de droite. On utilise la règle de Simpson pour approcher les intégrales. On pose pour tout $(\xi, \eta) \in \lbrace -a, 0, a \rbrace^2$
+
+\begin{itemize}
+\item $\psi_1(\xi, \eta) = \mathbf{u}(\xi, \eta) \cdot \mathbf{g}^{\xi}(\xi, \eta) \sqrt{\bar{\mathbf{G}(\xi, \eta)}}$,
+\item $\psi_2(\xi, \eta) = \mathbf{u}(\xi, \eta) \cdot \mathbf{g}^{\eta}(\xi, \eta) \sqrt{\bar{\mathbf{G}(\xi, \eta)}}$,
+\end{itemize}
+
+De plus, $\psi_{1,\xi}$ et $\xi_{2,\eta}$ sont donnés en chaque point par un schéma compact d'ordre 4:
+
+\begin{itemize}
+\item $\dfrac{1}{6}\psi_{1,\xi}(a, \eta)+\dfrac{2}{3}\psi_{1,\xi}(0, \eta)+\dfrac{1}{6}\psi_{1,\xi}(-a, \eta) = \dfrac{\psi_1(a,\eta)-\psi_1(-a,\eta)}{2 \Delta \xi}$,
+\item $\dfrac{1}{6}\psi_{2,\eta}(\xi,a)+\dfrac{2}{3}\psi_{2,\eta}(\xi,0)+\dfrac{1}{6}\psi_{2,\eta}(\xi,-a) = \dfrac{\psi_2(\xi,a)-\psi_2(\xi,-a)}{2 \Delta \eta}$,
+\end{itemize}
+
+D'où :
+
+\begin{equation}
+\begin{array}{rcl}
+\gint_{\partial \Omega} \mathbf{u} \cdot \mathbf{n} dl(\mathbf{x}) & \approx &  a^2 \left[ \dfrac{1}{9} \lbrace  \psi_{1,\xi}(-a,-a)+\psi_{2,\eta}(-a,-a)+\psi_{1,\xi}(a,a)+\psi_{2,\eta}(a,a) \right. \\
+& & \left. +\psi_{1,\xi}(a,-a)+\psi_{2,\eta}(a,-a)+\psi_{1,\xi}(-a,a)+\psi_{2,\eta}(-a,a)  \rbrace \right. + ...\\
+& & ...+ \dfrac{4}{9} \lbrace  \psi_{1,\xi}(-a,0)+\psi_{2,\eta}(-a,0)+\psi_{1,\xi}(a,0)+\psi_{2,\eta}(a,0) \\
+& & \left. +\psi_{1,\xi}(0,-a)+\psi_{2,\eta}(0,-a)+\psi_{1,\xi}(0,a)+\psi_{2,\eta}(0,a)   \rbrace + \dfrac{16}{9} \lbrace \psi_{1,\xi}(0,0)+\psi_{2,\eta}(0,0) \rbrace \right]
+\end{array}
+\label{eq: quadrature simpson R}
+\end{equation}
+
+Dès lors, le théorème de Stokes discret, i.e \eqref{eq: quadrature simpson L}=\eqref{eq: quadrature simpson R} si et seulement si :
+
+\begin{equation}
+f(\xi,\eta) = \psi_{1,\xi}(\xi,\eta)+\psi_{2,\eta}(\xi,\eta)
+\end{equation}
+
+ce qui revient à approcher la divergence par :
+
+\begin{equation}
+\nabla_{\Delta} \cdot \mathbf{u} =\dfrac{1}{\sqrt{\bar{\mathbf{G}}}} \left[ \delta_{\xi,4} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\xi} \right) +\delta_{\eta,4} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\eta} \right)  \right]
+\label{eq:approx divergence1}
+\end{equation}
+
+où $\delta_{\xi,4}$ et $\delta_{\eta,4}$ sont les opérateurs de schémas compacts d'ordre 4.
+
+De plus, la méthode de Simpson étant d'ordre 4, d'où le théorème suivant :
+
+\begin{theoreme}
+La formule de quadrature sur la sphère :
+\begin{equation}
+\gint_{\mathbb{S}_a^2} h(\mathbf{x}) d\sigma(\mathbf{x}) \approx I_s(h)=\sum_{-N/2 \leq i,j \leq N/2} \sum_{k=(I)}^{(VI)} \omega_{i,j} h(x_{i,j})\sqrt{\bar{\mathbf{G}}(x_{i,j}^k}
+\label{eq:quadrature simpson}
+\end{equation}
+est d'ordre 4, c'est à dire :
+\begin{equation}
+I(h)- \gint_{\mathbb{S}_a^2} h(\mathbf{x}) d\sigma(\mathbf{x}) = \mathcal{O}\left( \Delta \xi^4,\Delta \eta^4\right)
+\end{equation}
+De plus, si $h$ est l'approximation de la divergence \eqref{eq:approx divergence1}, alors la formule de Stokes globale \eqref{eq: Stokes global} est vérifiée au sens discret :
+\begin{equation}
+I_s(\nabla_{\Delta} \cdot \mathbf{u}) = 0
+\label{eq: Stokes global I_s}
+\end{equation}
+\end{theoreme}
 
 \begin{remarque}
-Le gradient de $h$ est, par construction, un champ de vecteur de $\mathbb{S}^2_a$ dans $\mathbb{T}\mathbb{S}^2_a$ :
-
-\begin{equation}
-\nabla h : \mathbb{S}^2_a \rightarrow \mathbb{T}\mathbb{S}^2_a
-\end{equation}
+Les coefficients $\omega_{i,j}$ sont donnés par la règme suivante :
+\begin{itemize}
+\item $\omega_{1,1}=\omega_{1,N+1}=\omega_{N+1,1}=\omega_{N+1,N+1}=1/9$,
+\item $\omega_{1,i}=\omega_{N+1,i}=\omega_{i,1}=\omega_{i,N+1}=4/9$ si $i$ est pair,
+\item $\omega_{1,i}=\omega_{N+1,i}=\omega_{i,1}=\omega_{i,N+1}=2/9$ si $i$ est impair,
+\item $\omega_{i,j}=16/9$ si $i$ et $j$ sont pairs,
+\item $\omega_{i,j}=4/9$ si $i$ et $j$ sont impairs,
+\item $\omega_{i,j}=8/9$ dans les autres cas.
+\end{itemize}
 \end{remarque}
 
-\subsection{Gradient initial}
-
-\subsection{Gradient itératif}
-
-\section{Rotationnel et vorticité sur la sphère}
-
-De manière similaire aux constructions précédenntes, si $\mathbf{u} : \mathbb{S}^2_a \rightarrow \mathbb{T} \mathbb{S}^2_a$ est une fonction à valeur dans le champ de vecteurs tangents à la sphère, le rotationnel de $\mathbf{u}$ est donné par :
-
-\begin{equation}
-rot( \mathbf{u} ) = \nabla \wedge \mathbf{u} = \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{u}}{\partial \xi} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{u}}{\partial \eta}
-\label{eq:rotationnel}
-\end{equation}
-
-On note que $rot( \mathbf{u} ) : \mathbb{S}^2_a \rightarrow \left[ \mathbf{T} \mathbf{S}^2_a \right]^{\bot}$. En effet ... 
-
-ADD PROOF!!!
-
-\subsection{Rotationnel}
+\begin{proof}
+La formule $I_s$ est d'ordre 4 par construction car la méthode de Simpson est d'ordre 4.
+La formule \eqref{eq: Stokes global I_s} est vérifiée en sommant \eqref{eq: quadrature simpson L} pour recouvrir la sphère et en utilisant \eqref{eq: quadrature simpson L}=\eqref{eq: quadrature simpson R}.
+\end{proof}
 
 
-\subsection{Vorticité}
 
-
-\section{Divergence sur la sphère}
-
-On peut calculer la divergence de $\mathbf{u} : \mathbb{S}^2_a \rightarrow \mathbb{T} \mathbb{S}^2_a$ grâce à la formule :
-
-\begin{equation}
-div( \mathbf{u} ) = \nabla \cdot \mathbf{u} = \mathbf{g}^{\xi} \cdot \dfrac{\partial \mathbf{u}}{\partial \xi} + \mathbf{g}^{\eta} \cdot \dfrac{\partial \mathbf{u}}{\partial \eta}
-\label{eq:divergence_old}
-\end{equation}
-
-Cette formule nécessite de calculer la dérivée en $\xi$ et en $\eta$ de chaque composante de $\mathbf{u}$. Il est possible de diminuer le coût en calcul.
-
-METTRE LA PREUVE
-
-\begin{equation}
-div( \mathbf{u} ) = \nabla \cdot \mathbf{u} = \dfrac{1}{\sqrt{\overline{\mathbf{G}}}} \left[ \dfrac{\partial}{\partial \xi} \left( \sqrt{\overline{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\xi} \right) + \dfrac{\partial}{\partial \eta} \left( \sqrt{\overline{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\xi} \right) \right]
-\label{eq:divergence}
-\end{equation}
-
-\subsection{Divergence version 1}
-
-\subsection{Divergence version 2}
+\section{Filtrage sur la sphère}
