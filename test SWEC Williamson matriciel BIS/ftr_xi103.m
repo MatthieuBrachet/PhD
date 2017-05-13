@@ -1,5 +1,5 @@
 function [funftI,funftII,funftIII,funftIV,funftV,funftVI]=...
-    ftr_xi101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
+    ftr_xi103(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
 
 global nb
 global xi eta dxi deta

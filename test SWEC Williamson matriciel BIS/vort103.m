@@ -1691,6 +1691,6 @@ vort_VI(1:nn,1:nn)=comp_xi+comp_eta;
 uwk_I=vort_I(1:nn,1:nn);uwk_II=vort_II(1:nn,1:nn);uwk_III=vort_III(1:nn,1:nn);
 uwk_IV=vort_IV(1:nn,1:nn);uwk_V=vort_V(1:nn,1:nn);uwk_VI=vort_VI(1:nn,1:nn);
 [vort_I(1:nn,1:nn),vort_II(1:nn,1:nn),vort_III(1:nn,1:nn),vort_IV(1:nn,1:nn),vort_V(1:nn,1:nn),vort_VI(1:nn,1:nn,1)]=...
-    ds101(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
+    ds103(uwk_I,uwk_II,uwk_III,uwk_IV,uwk_V,uwk_VI,n,nn);
 end
 

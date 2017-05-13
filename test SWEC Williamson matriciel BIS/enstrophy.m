@@ -1,5 +1,6 @@
 function [PE] = enstrophy(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI)
 % Potential enstrophy for SWE equation.
+global nrm
 global n nn
 global omega alpha gp
 global x_fI x_fII x_fIII x_fIV x_fV x_fVI
@@ -26,7 +27,7 @@ hstar_fV=ht_fV-hs_fV;
 hstar_fVI=ht_fVI-hs_fVI;
 
 [vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=...
-    vort101(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
+    vort103(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
 
 [n1,n2]=size(x_fI);
 
@@ -55,7 +56,6 @@ for i=1:n1
     end
 end
 
-%nrm='cons_int';
 [PE_fI,PE_fII,PE_fIII,PE_fIV,PE_fV,PE_fVI,PE]=...
     nrm103(xi_fI,xi_fII,xi_fIII,xi_fIV,xi_fV,xi_fVI,n,nn,nrm);
 

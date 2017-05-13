@@ -1,4 +1,4 @@
-function[eq1_fI, eq1_fII, eq1_fIII, eq1_fIV, eq1_fV, eq1_fVI]=eq_moment101(ht_fI,...
+function[eq1_fI, eq1_fII, eq1_fIII, eq1_fIV, eq1_fV, eq1_fVI]=eq_moment103(ht_fI,...
     ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI)
 % momentum equation (right hand side) in shallow water system.
 global nn n
@@ -32,12 +32,12 @@ norm2_VI=vt_fVI(:,:,1).^2+vt_fVI(:,:,2).^2+vt_fVI(:,:,3).^2;
 fun_VI=0.5*norm2_VI+gp*ht_fVI;
 
 [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=...
-    gr101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn);
+    gr103(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn);
 
 %% vectorial product
 % VORTICITY
 [vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=...
-    vort101(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
+    vort103(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
 
 % PDT VECT
 % FACE I

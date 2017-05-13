@@ -1,15 +1,15 @@
 function [funftI,funftII,funftIII,funftIV,funftV,funftVI]=...
-    ftr_mixte101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
+    ftr_mixte103(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn)
 
 [funftI,funftII,funftIII,funftIV,funftV,funftVI]=...
-    ftr_xi101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn);
+    ftr_xi103(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn);
 [funftI1,funftII1,funftIII1,funftIV1,funftV1,funftVI1]=...
-    ftr_eta101(funftI,funftII,funftIII,funftIV,funftV,funftVI,n,nn);
+    ftr_eta103(funftI,funftII,funftIII,funftIV,funftV,funftVI,n,nn);
 
 [funftI,funftII,funftIII,funftIV,funftV,funftVI]=...
-    ftr_eta101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn);
+    ftr_eta103(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn);
 [funftI2,funftII2,funftIII2,funftIV2,funftV2,funftVI2]=...
-    ftr_xi101(funftI,funftII,funftIII,funftIV,funftV,funftVI,n,nn);
+    ftr_xi103(funftI,funftII,funftIII,funftIV,funftV,funftVI,n,nn);
 
 funftI=.5*(funftI1+funftI2);
 funftII=.5*(funftII1+funftII2);

@@ -3,13 +3,14 @@ global test
 global radius
 
 if test == 1
+    [n1,n2]=size(x);
     [lambda, teta, ~]=cart2sph(x,y,z);
     xx=x./radius;
     yy=y./radius;
     zz=z./radius;
     
-    uu=(xx).^2+xx.*yy.^3+6*cos(zz.^3);
-    vv=sin(xx.*exp(-zz));
+    uu=zz.*yy+rand(n1,n2);
+    vv=xx+rand(n1,n2);
 
     elambda_x = -sin(lambda);
     elambda_y =  cos(lambda);
@@ -21,7 +22,6 @@ if test == 1
     vt(:,:,1)=uu.*elambda_x + vv.*eteta_x;
     vt(:,:,2)=uu.*elambda_y + vv.*eteta_y;
     vt(:,:,3)=uu.*elambda_z + vv.*eteta_z;
-    
 end
     
 end

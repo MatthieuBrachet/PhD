@@ -1,5 +1,6 @@
 function [ M ] = mass( ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI )
 %mass
+global nrm
 global n nn
 global x_fI x_fII x_fIII x_fIV x_fV x_fVI
 global y_fI y_fII y_fIII y_fIV y_fV y_fVI
@@ -24,8 +25,6 @@ hstar_fV=ht_fV;%-hs_fV;
 [hs_fVI] = relief(x_fVI,y_fVI,z_fVI);
 hstar_fVI=ht_fVI;%-hs_fVI;
 
-nrm='cons_int';
-%nrm='int';
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,M]=nrm101(hstar_fI,hstar_fII,hstar_fIII,hstar_fIV,hstar_fV,hstar_fVI,n,nn,nrm);
 
 end

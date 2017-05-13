@@ -1,5 +1,6 @@
 function [E] = energy(ht_fI,ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI)
 % Energy
+global nrm
 global n nn
 global x_fI x_fII x_fIII x_fIV x_fV x_fVI
 global y_fI y_fII y_fIII y_fIV y_fV y_fVI
@@ -36,7 +37,7 @@ for i=1:n1
         norm_VI(i,j)=dot(hstar_fVI(i,j)*vt_fVI(i,j,:),vt_fVI(i,j,:));
     end
 end
-nrm='cons_int';
+
 [~,~,~,~,~,~,totalu]=...
     nrm103(norm_I,norm_II,norm_III,norm_IV,norm_V,norm_VI,n,nn,nrm);
 
