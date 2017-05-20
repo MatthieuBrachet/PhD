@@ -9,8 +9,9 @@ if test == 1
     yy=y./radius;
     zz=z./radius;
     
-    uu=zz.*yy+rand(n1,n2);
-    vv=xx+rand(n1,n2);
+    a=0;
+    uu=zz.*yy+a*rand(n1,n2);
+    vv=cos(xx-yy).^5+a*rand(n1,n2).^2;
 
     elambda_x = -sin(lambda);
     elambda_y =  cos(lambda);

@@ -332,8 +332,6 @@ switch str
     A(end,end)=1;
 
     wei=A./9;
-
-    %wei=ones(size(wei));
     
     nrmI=dxi.*deta.*sum(sum(dga.*wei.*funfI));
     nrmII=dxi.*deta.*sum(sum(dga.*wei.*funfII));
@@ -345,21 +343,30 @@ switch str
     
     case 'test'
         
-    wei=ones(size(dga));
-    wei(1,1:end)=1/2;
-    wei(end,1:end)=1/2;
-    wei(1:end,1)=1/2;
-    wei(1:end,end)=1/2;
-    wei(1,1)=1/4;
-    wei(1,end)=1/4;
-    wei(end,1)=1/4;
-    wei(end,end)=1/4;
-    nrmI=dxi.*deta.*sum(sum(dga.*wei.*funfI));
-    nrmII=dxi.*deta.*sum(sum(dga.*wei.*funfII));
-    nrmIII=dxi.*deta.*sum(sum(dga.*wei.*funfIII));
-    nrmIV=dxi.*deta.*sum(sum(dga.*wei.*funfIV));
-    nrmV=dxi.*deta.*sum(sum(dga.*wei.*funfV));
-    nrmVI=dxi.*deta.*sum(sum(dga.*wei.*funfVI));
+%     wei=ones(size(dga));
+%     wei(1,1:end)=1/2;
+%     wei(end,1:end)=1/2;
+%     wei(1:end,1)=1/2;
+%     wei(1:end,end)=1/2;
+%     corner=1/4;
+%     wei(1,1)=corner;
+%     wei(1,end)=corner;
+%     wei(end,1)=corner;
+%     wei(end,end)=corner;
+%     nrmI=dxi.*deta.*sum(sum(dga.*wei.*funfI));
+%     nrmII=dxi.*deta.*sum(sum(dga.*wei.*funfII));
+%     nrmIII=dxi.*deta.*sum(sum(dga.*wei.*funfIII));
+%     nrmIV=dxi.*deta.*sum(sum(dga.*wei.*funfIV));
+%     nrmV=dxi.*deta.*sum(sum(dga.*wei.*funfV));
+%     nrmVI=dxi.*deta.*sum(sum(dga.*wei.*funfVI));
+%     nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI;   
+    % somme de tous les pts *dga*dxi*deta
+    nrmI=dxi.*deta.*sum(sum(dga.*funfI));
+    nrmII=dxi.*deta.*sum(sum(dga(2:nn,1:nn).*funfII(2:nn,1:nn)));
+    nrmIII=dxi.*deta.*sum(sum(dga(2:nn,1:nn).*funfIII(2:nn,1:nn)));
+    nrmIV=dxi.*deta.*sum(sum(dga(2:nn-1,1:nn).*funfIV(2:nn-1,1:nn)));
+    nrmV=dxi.*deta.*sum(sum(dga(2:nn-1,2:nn-1).*funfV(2:nn-1,2:nn-1)));
+    nrmVI=dxi.*deta.*sum(sum(dga(2:nn-1,2:nn-1).*funfVI(2:nn-1,2:nn-1)));
     nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI;   
 end
 

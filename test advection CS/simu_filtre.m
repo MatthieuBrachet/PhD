@@ -26,11 +26,7 @@ global lambdac1 tetac1 lambdac2 tetac2
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
 coef = 0;
-% si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
-%    save_graph = 0 : ne pas enregistrer
 save_graph = 1;
-% coupe = 0 : pas de coupe le long de l'équateur de la face 1
-%         1 : coupe.
 coupe = 1;
 %% *** Benchmarks data ****************************************************
  n=80;

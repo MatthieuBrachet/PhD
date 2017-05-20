@@ -30,8 +30,6 @@ str='int'
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=nrm101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn,str);
 
 
-err1=nrmg./(area/6)
-err2=(nrmg-area/6)/(area/6)
 
 
 figure(1)

@@ -11,7 +11,7 @@ opt_ftr='redonnet10';
 scheme='compact4';
 test=1;
 
-n=63; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
 mod101
 disp('mod74 : ok')
 
@@ -32,9 +32,9 @@ plot_cs11(n,nn,div_I,div_II,div_III,div_IV,div_V,div_VI)
 
 str='int'
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg1]=nrm101(div_I,div_II,div_III,div_IV,div_V,div_VI,n,nn,str);
-nrmg1/(4*pi*radius.^2)-1/6
+nrmg1
 
 str='cons_int'
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg2]=nrm101(div_I,div_II,div_III,div_IV,div_V,div_VI,n,nn,str);
-nrmg2/(4*pi*radius.^2)-1/6
+nrmg2
 

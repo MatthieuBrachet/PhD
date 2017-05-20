@@ -557,7 +557,8 @@ ref=floor(10000*now);
 
 
 
-
+figure(2)
+plot_cs11(n,nn,funfInew,funfIInew,funfIIInew,funfIVnew,funfVnew,funfVInew)
 
 
 

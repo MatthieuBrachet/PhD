@@ -1,8 +1,10 @@
 % MODULE PROBLEM FOR THE CUBED SPHERE
 % ----------------------------------
-global scheme opt_ftr ftr
+global scheme
+global opt_ftr
 % -------------------------------------------------------------------------
-global n nn mm na nb;
+global n nn;
+global mm na nb;
 global radius;
 global xi eta dxi deta xx yy delta deltab dga;
 global alfa beta;
@@ -23,21 +25,32 @@ global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
 global gr_I gr_II gr_III gr_IV gr_V gr_VI
 % -------------------------------------------------------------------------
+global ftr
+% -------------------------------------------------------------------------
 global pmat kmat
 global eta_c jeta_c xi_c ixi_c
 global alfasp betasp gamasp betas gamas
 global m1 m2
 global umat1 lmat1
 % -------------------------------------------------------------------------
-global u0
+global hs0_mount R_mount lambdac_mount tetac_mount
+global omega gp
 
 nn=n+2;
 mm=((nn-1)/2)+1;
 na=4*(nn-1);
 nb=na;
 
+%% physical data
 radius=6.37122d+06;
-u0=2*pi*radius/(12*24*3600);
+omega=7.292d-05;
+gp=9.80616;
+
+%% data for the mountain
+hs0_mount=2000;
+R_mount=pi/9;
+lambdac_mount=-pi/2;
+tetac_mount=pi/6;
 
 %% --- Points on the CS
 xi=linspace(-pi/4, pi/4, nn); 
@@ -366,247 +379,9 @@ for i=1:nn
     end
 end
 
-%% -- spline data
-
-pmat=zeros(n); % 
-pmat=sparse(pmat);
-kmat=zeros(n);
-kmat=sparse(kmat);
-% VALUE OF ETA_CROSS= VALEUR DE ETA_J SUR PANEL II
-eta_c=zeros(nn);
-for i=1:nn,
-    xwk1=sqrt(1+xx(i)^2);
-    eta_c(i,1:nn)=atan(xwk1*tan(betacr(i,1:nn)));
-end
-% ADDRESS OF THE INTERVAL WHERE ETA_C IS LOCATED
-jeta_c=zeros(nn);
-xwk=zeros(nn-1,1);
-eps1=1.e-12;
-for j=1:nn,
-   for i=1:nn,
-       jwk=abs(eta-eta_c(i,j));
-       ljwk=(jwk<eps1);
-       if sum(ljwk>0),%% eta_c(i,j) coincides with one value of eta
-           jeta_c(i,j)=find(ljwk,1);
-           jeta_c(i,j)=min(jeta_c(i,j),nn-1);
-       else 
-         for j1=1:nn-1,
-           xwk(j1)=(eta_c(i,j)-eta(j1))*(eta_c(i,j)-eta(j1+1));
-         end  
-         jeta_c(i,j)=find(xwk<0, 1 );
-       end
-    end
-end
-% VALUE OF XI_CROSS= VALEUR DE XI_I SUR PANEL V
-xi_c=zeros(nn);
-for i=1:nn,
-    for j=1:nn,
-        xi_c(i,j)=eta_c(j,i);
-    end
-end
-% ADDRESS OF THE INTERVAL WHERE XI_C IS LOCATED
-ixi_c=zeros(nn);
-xwk=zeros(nn-1,1);
-eps1=1.e-12;
-for i=1:nn,
-    for j=1:nn,
-        ixi_c(i,j)=jeta_c(j,i);
-    end
-end
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% % COEFFICIENTS POUR CONDITION NK
-%% % COEFFICIENTS POUR CONDITION AA2
-alfasp=1;betasp=2;gamasp=0;
-betas=2;gamas=1;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-for j=2:n-1,
-    pmat(j,j)=4;
-    pmat(j,j+1)=1;
-    pmat(j,j-1)=1;
-end
-pmat(1,1)=(4-betasp/alfasp);
-pmat(1,2)=(1-gamasp/alfasp);
-pmat(n,n-1)=(1-gamasp/alfasp);
-pmat(n,n)=(4-betasp/alfasp);
-%
-%% MATRICE KMAT POUR RELATION HERMITIENNE
-for j=2:n-1,
-    kmat(j,j+1)=1;
-    kmat(j,j-1)=-1;
-end
-%
-kmat(1,1)=-betas/(3*alfasp);
-kmat(1,2)=1-gamas/(6*alfasp);
-kmat(n,n)=betas/(3*alfasp);
-kmat(n,n-1)=-(1-gamas/(6*alfasp));
-%%%%%%%%%%%%%%%%
-m1=-6+(2*betas+gamas)/alfasp; %% COEFFT LIGNE 1
-m2=6-(2*betas+gamas)/alfasp; %% COEFFT LIGNE N-1
-%%%%%%%%%%%%%%%%%%%%%%
-%% LU FACTORIZATION PF PMAT
-% [lmat1,umat1,pmat1,qmat1,rmat1]=lu(pmat);
-[lmat1,umat1]=lu(pmat);
-
-%% --- MATRIX FOR DERIVATIVES
-% -------------------------------------------------------------------------
-pg=zeros(na); 
-kg=zeros(na);
-for i=2:na-1
-    pg(i,i)=4;
-    pg(i,i+1)=1;
-    pg(i,i-1)=1;
-    kg(i,i+1)=1;
-    kg(i,i-1)=-1;
-end
-pg(1,1)=4;pg(1,2)=1;pg(1,na)=1;
-pg( na,1)=1;pg(na,na-1)=1;pg(na,na)=4;
-kg(1,2)=1;kg(1,na)=-1;
-kg(na,1)=1;kg(na,na-1)=-1;
-pg=pg./6;
-kg=kg./(2*dxi);
-% -------------------------------------------------------------------------
-if strcmp(scheme,'compact4')==1
-    
-    for i=2:na-1
-        p(i,i)=4;
-        p(i,i+1)=1;
-        p(i,i-1)=1;
-        k(i,i+1)=1;
-        k(i,i-1)=-1;
-    end
-    p(1,1)=4;p(1,2)=1;p(1,na)=1;
-    p( na,1)=1;p(na,na-1)=1;p(na,na)=4;
-    k(1,2)=1;k(1,na)=-1;
-    k(na,1)=1;k(na,na-1)=-1;
-    pg=p./6;
-    kg=k./(2*deta);
-
-elseif strcmp(scheme,'compact8')==1
-    J=diag(ones(na-1,1),-1);
-    J(1,end)=1;
-
-    a=25/16;
-    b=1/5;
-    c=-1/80;
-    alpha=3/8;
-    k_div=(-a/(2*dxi))*J+(-b/(4*dxi))*J*J+(-c/(6*dxi))*J^3+...
-    (a/(2*dxi))*J^(na-1)+(b/(4*dxi))*J^(na-2)+(c/(6*dxi))*J^(na-3);
-    kg=sparse(k_div);
-
-    p_div=diag(alpha*ones(na-1,1),1)+diag(alpha*ones(na-1,1),-1)+diag(ones(na,1));
-    p_div(1,end)=alpha;
-    p_div(end,1)=alpha;
-    pg=sparse(p_div);
-    
-elseif strcmp(scheme,'explicite2')==1
-    J=diag(ones(na-1,1),-1);
-    J(1,end)=1;
-
-    a=1;
-    k=(-a/(2*dxi))*J+(a/(2*dxi))*J^(na-1);
-    kg=sparse(k);
-
-    pg=speye(na,na);
-    
-elseif strcmp(scheme,'explicite4')==1
-    J=diag(ones(na-1,1),-1);
-    J(1,end)=1;
-
-    a=4/3;
-    b=-1/3;
-    k=(-a/(2*dxi))*J+(-b/(4*dxi))*J*J+...
-    (a/(2*dxi))*J^(na-1)+(b/(4*dxi))*J^(na-2);
-    kg=sparse(k);
-    pg=speye(na,na);
-    
-else
-    error(['Error in scheme. The spatial scheme : ', scheme ,' is uncorrect'])
-end
-
-%% --- Options sur les filtres
-% classic filter
-if strcmp(opt_ftr,'inf')==1
-    f0=1; 
-    f1=0;
-    f2=0;
-    f3=0;
-    f4=0;
-    f5=0;
-    
-elseif strcmp(opt_ftr,'redonnet2')==1
-    f0=1/2; 
-    f1=1/4;
-    f2=0;
-    f3=0;
-    f4=0;
-    f5=0;
-
-elseif strcmp(opt_ftr,'redonnet4')==1
-    f0=10/16; 
-    f1=4/16;
-    f2=-1/16;
-    f3=0;
-    f4=0;
-    f5=0;
-    
-elseif strcmp(opt_ftr,'redonnet6')==1
-    f0=44/64; 
-    f1=15/64;
-    f2=-6/64;
-    f3=1/64;
-    f4=0;
-    f5=0;
-    
-elseif strcmp(opt_ftr,'redonnet8')==1
-    f0=186/256; 
-    f1=56/256;
-    f2=-28/256;
-    f3=8/256;
-    f4=-1/256;
-    f5=0;
-
-elseif strcmp(opt_ftr,'redonnet10')==1
-    f0=772/1024; 
-    f1=210/1024;
-    f2=-120/1024;
-    f3=45/1024;
-    f4=-10/1024;
-    f5=1/1024;
-    
-elseif strcmp(opt_ftr,'bogey6')==1
-    d0=0.234810479761700;
-    d1=-.199250131285813;
-    d2=0.120198310245186;
-    d3=-.049303775636020;
-    d4=0.012396449873964;
-    d5=-.001446093078167;
-    
-    f0=1-d0;
-    f1=-d1;
-    f2=-d2;
-    f3=-d3;
-    f4=-d4;
-    f5=-d5;
-end
-%
-lig1=[0,1, zeros(1,na-2)];
-col1=[zeros(na-1,1);1];
-sh1=toeplitz(col1,lig1);
-sh1i=inv(sh1);
-sh12=sh1^2;
-sh1i2=sh1i^2;
-sh13=sh12*sh1;
-sh1i3=sh1i2*sh1i;
-sh14=sh13*sh1;
-sh1i4=sh1i3*sh1i;
-sh15=sh14*sh1;
-sh1i5=sh1i4*sh1i;
-ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*(sh15+sh1i5);
-ftr=sparse(ftr);
 
 
 %% INTEGRALE CORRIGEE
-disp('calcul des poids...')
 % nhs_max=min(127,.125*(nn-1)^2-1); % nombre d'harmoniques à corriger
 % [A,err_i] = compute_A_sym(nhs_max); sym=1;
 % err=1;

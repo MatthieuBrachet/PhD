@@ -1,8 +1,10 @@
 % MODULE PROBLEM FOR THE CUBED SPHERE
 % ----------------------------------
-global scheme opt_ftr ftr
+global scheme
+global opt_ftr
 % -------------------------------------------------------------------------
-global n nn mm na nb;
+global n nn;
+global mm na nb;
 global radius;
 global xi eta dxi deta xx yy delta deltab dga;
 global alfa beta;
@@ -23,21 +25,32 @@ global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
 global gr_I gr_II gr_III gr_IV gr_V gr_VI
 % -------------------------------------------------------------------------
+global ftr
+% -------------------------------------------------------------------------
 global pmat kmat
 global eta_c jeta_c xi_c ixi_c
 global alfasp betasp gamasp betas gamas
 global m1 m2
 global umat1 lmat1
 % -------------------------------------------------------------------------
-global u0
+global hs0_mount R_mount lambdac_mount tetac_mount
+global omega gp
 
 nn=n+2;
 mm=((nn-1)/2)+1;
 na=4*(nn-1);
 nb=na;
 
+%% physical data
 radius=6.37122d+06;
-u0=2*pi*radius/(12*24*3600);
+omega=7.292d-05;
+gp=9.80616;
+
+%% data for the mountain
+hs0_mount=2000;
+R_mount=pi/9;
+lambdac_mount=-pi/2;
+tetac_mount=pi/6;
 
 %% --- Points on the CS
 xi=linspace(-pi/4, pi/4, nn); 
@@ -604,9 +617,7 @@ sh1i5=sh1i4*sh1i;
 ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*(sh15+sh1i5);
 ftr=sparse(ftr);
 
-
 %% INTEGRALE CORRIGEE
-disp('calcul des poids...')
 % nhs_max=min(127,.125*(nn-1)^2-1); % nombre d'harmoniques à corriger
 % [A,err_i] = compute_A_sym(nhs_max); sym=1;
 % err=1;

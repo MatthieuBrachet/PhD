@@ -28,7 +28,7 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=1;
+test=4;
 video = 'no';
 sauvegarde = 1;
 filtre='classic';
@@ -37,8 +37,8 @@ scheme='compact4';
 snapshot='yes';
 nrm='int';
 
-n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=15 ;
+n=255; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=6 ;
 mod101
 disp('mod74 : ok')
 
@@ -54,7 +54,7 @@ if test < 0
     u0=20;
     h0=6500;
 elseif test == 0
-    alpha=pi/4;
+    alpha=pi/6;
     u0=2*pi*radius/(12*24*3600);
     h0=2.94*10^4/gp;
 elseif test == 1
@@ -281,12 +281,12 @@ while t<Tmax && iter<itermax
     %% error on h
     t=t+ddt;
     
-    err_fI   = htnew_fI  -h_fI;
-    err_fII  = htnew_fII -h_fII;
-    err_fIII = htnew_fIII-h_fIII;
-    err_fIV  = htnew_fIV -h_fIV;
-    err_fV   = htnew_fV  -h_fV ;
-    err_fVI  = htnew_fVI -h_fVI;
+    err_fI   = htnew_fI  - h_fI;
+    err_fII  = htnew_fII - h_fII;
+    err_fIII = htnew_fIII- h_fIII;
+    err_fIV  = htnew_fIV - h_fIV;
+    err_fV   = htnew_fV  - h_fV ;
+    err_fVI  = htnew_fVI - h_fVI;
     
     errv_fI   = vtnew_fI   - v_fI;
     errv_fII  = vtnew_fII  - v_fII;
@@ -368,13 +368,13 @@ while t<Tmax && iter<itermax
         if test == 4
             plot_cs101(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI,v);
             title(['vorticity at time : ', num2str(time(end))])
-            colorbar
         elseif test == 1
             mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             v=[mm 5050:50:5950 MM];
             plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
             title(['solution at time : ', num2str(time(end))])
+            colorbar
         elseif test == 5
             mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
@@ -493,9 +493,16 @@ if sauvegarde == 1
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_err']);
 end
 
+hFig = figure(201);
+set(gcf,'PaperPositionMode','auto')
+set(hFig, 'Position', [50 50 1000 500])
+plot_cs102(n,nn,err_fI./hmax, err_fII./hmax, err_fIII./hmax, err_fIV./hmax, err_fV./hmax, err_fVI./hmax);
+title(['Relative error at time = ', num2str(time(end))])
+colorbar
+
 [vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=...
             vort101(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
-    
+   
 hFig = figure(3);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])

@@ -10,12 +10,12 @@ filtre='classic';
 opt_ftr='redonnet10';
 scheme='compact4';
 
-n=255; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-mod101
+n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+mod101b
 disp('mod74 : ok')
 
-% nhs=8;
-% mhs=3;
+% nhs=6;
+% mhs=4;
 % fun_I   = sph( nhs,mhs,x_fI  ,y_fI  ,z_fI   );
 % fun_II  = sph( nhs,mhs,x_fII ,y_fII ,z_fII  );
 % fun_III = sph( nhs,mhs,x_fIII,y_fIII,z_fIII );
@@ -24,7 +24,7 @@ disp('mod74 : ok')
 % fun_VI  = sph( nhs,mhs,x_fVI ,y_fVI ,z_fVI  );
 % int=0;
 
-test=2;
+test=1;
 [fun_I    ,int] = fun_quad(x_fI  ,y_fI  ,z_fI   ,test);
 [fun_II   ,int] = fun_quad(x_fII ,y_fII ,z_fII  ,test);
 [fun_III  ,int] = fun_quad(x_fIII,y_fIII,z_fIII ,test);
@@ -32,15 +32,14 @@ test=2;
 [fun_V    ,int] = fun_quad(x_fV  ,y_fV  ,z_fV   ,test);
 [fun_VI   ,int] = fun_quad(x_fVI ,y_fVI ,z_fVI  ,test);
 figure(1)
-plot_cs11(n,nn,fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI)
+plot_cs11(n,nn,(fun_I),(fun_II),(fun_III),(fun_IV),(fun_V),(fun_VI))
 
 
 
 str='int'
-[nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg1]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
+[nrmI1,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg1]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
 (nrmg1-int)/int
 
 str='test'
-[nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg2]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
+[nrmI2,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg2]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
 (nrmg2-int)/int
-
