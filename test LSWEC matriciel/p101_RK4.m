@@ -19,21 +19,21 @@ clc; clear all; close all; format long;
 global n nn dxi
 global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII
 global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
-global opt_ftr test scheme
+global opt_ftr test scheme detec
 global hp gp u0 radius omega
 global teta0 teta1
 
-test=1;
+test=0;
 video = 'no';
 sauvegarde = 0;
 opt_ftr='redonnet10';
-type_ftr='classic';
+type_ftr='nonsymetric';
 scheme='compact4';
-n=63;
+n=15;
 mod101
 
-teta0=-pi/7;
-teta1=pi/7;
+teta0=-pi/3;
+teta1=pi/3;
 
 cgrav=sqrt(gp*hp);
 ccor=radius*omega;
@@ -41,7 +41,7 @@ c=max(cgrav,ccor);
 
 cfl=0.9;
 ddt=radius*dxi*cfl/c;
-ndaymax=2;
+ndaymax=5;
 Tmax=ndaymax*3600*24;
 itermax=10000;
 
@@ -61,9 +61,8 @@ v0max=max(max(max(abs([vt_fI vt_fII vt_fIII vt_fIV vt_fV vt_fVI]))));
 [aaa,aaa,aaa,aaa,aaa,aaa,nrmrefi]=nrm101(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn,'infty');
 [aaa,aaa,aaa,aaa,aaa,aaa,nrmref2]=nrm101(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn,'2');
 [aaa,aaa,aaa,aaa,aaa,aaa,nrmref1]=nrm101(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn,'1');
-
-
 [ Eref ] = energy(vt_fI,vt_fII,vt_fIII,vt_fIV,vt_fV,vt_fVI,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn);
+
 %% *** video option *******************************************************
 if strcmp(video,'yes')==1
     nFrames = min(itermax,floor(Tmax/ddt));
@@ -77,15 +76,50 @@ while t<Tmax && iter<itermax
     iter=iter+1;
     clc; disp([iter min(itermax,floor(Tmax/ddt)) (erri(end))]);
 
-    %% Filtrage
-    if strcmp(type_ftr,'classic')==1
+    %% filtrage
+    if strcmp(type_ftr,'adaptatif') == 1
+        [detec]=filtre101(na,'redonnet10');
+        [det_fI,det_fII,det_fIII,det_fIV,det_fV,det_fVI]=det101(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
+        
+        %[ftr]=filtre101(na,opt_ftr);
+        [htff_fI, htff_fII, htff_fIII, htff_fIV, htff_fV, htff_fVI]=ftr72(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
+        [vtff_fI(:,:,1), vtff_fII(:,:,1), vtff_fIII(:,:,1), vtff_fIV(:,:,1), vtff_fV(:,:,1), vtff_fVI(:,:,1)]=ftr72(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
+        [vtff_fI(:,:,2), vtff_fII(:,:,2), vtff_fIII(:,:,2), vtff_fIV(:,:,2), vtff_fV(:,:,2), vtff_fVI(:,:,2)]=ftr72(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
+        [vtff_fI(:,:,3), vtff_fII(:,:,3), vtff_fIII(:,:,3), vtff_fIV(:,:,3), vtff_fV(:,:,3), vtff_fVI(:,:,3)]=ftr72(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
+        
+        ht_fI=det_fI.*htff_fI+(1-det_fI).*ht_fI;
+        ht_fII=det_fII.*htff_fII+(1-det_fII).*ht_fII;
+        ht_fIII=det_fIII.*htff_fIII+(1-det_fIII).*ht_fIII;
+        ht_fIV=det_fIV.*htff_fIV+(1-det_fIV).*ht_fIV;
+        ht_fV=det_fV.*htff_fV+(1-det_fV).*ht_fV;
+        ht_fVI=det_fVI.*htff_fVI+(1-det_fVI).*ht_fVI;
+        
+        for comp=1:3
+            vt_fI(:,:,comp)=det_fI.*vtff_fI(:,:,comp)+(1-det_fI).*vt_fI(:,:,comp);
+            vt_fII(:,:,comp)=det_fII.*vtff_fII(:,:,comp)+(1-det_fII).*vt_fII(:,:,comp);
+            vt_fIII(:,:,comp)=det_fIII.*vtff_fIII(:,:,comp)+(1-det_fIII).*vt_fIII(:,:,comp);
+            vt_fIV(:,:,comp)=det_fIV.*vtff_fIV(:,:,comp)+(1-det_fIV).*vt_fIV(:,:,comp);
+            vt_fV(:,:,comp)=det_fV.*vtff_fV(:,:,comp)+(1-det_fV).*vt_fV(:,:,comp);
+            vt_fVI(:,:,comp)=det_fVI.*vtff_fVI(:,:,comp)+(1-det_fVI).*vt_fVI(:,:,comp);
+        end
+    
+    elseif strcmp(type_ftr,'nonsymetric') == 1
+        [ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI]=ftr72(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
+        [vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1)]=ftr72(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
+        [vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2)]=ftr72(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
+        [vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3)]=ftr72(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
+    
+    elseif strcmp(type_ftr,'symetric') == 1
         [ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI]=ftr_mixte101(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
         [vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1)]=ftr_mixte101(vt_fI(:,:,1), vt_fII(:,:,1), vt_fIII(:,:,1), vt_fIV(:,:,1), vt_fV(:,:,1), vt_fVI(:,:,1),n,nn);
         [vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2)]=ftr_mixte101(vt_fI(:,:,2), vt_fII(:,:,2), vt_fIII(:,:,2), vt_fIV(:,:,2), vt_fV(:,:,2), vt_fVI(:,:,2),n,nn);
         [vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3)]=ftr_mixte101(vt_fI(:,:,3), vt_fII(:,:,3), vt_fIII(:,:,3), vt_fIV(:,:,3), vt_fV(:,:,3), vt_fVI(:,:,3),n,nn);
-    else
+    elseif strcmp(type_ftr,'inf')==1
         
+    else
+        error('Option ''filtre'' is uncorrect.');
     end
+
     %% K1
     % premiere equation
     

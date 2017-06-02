@@ -625,4 +625,4 @@ ftr=sparse(ftr);
 % res = solve_weights( A,err_i,k,err,sym );
 % weights=dxi*deta*(dga+res);
 
-weights=dxi*deta*dga;
+weights=dga;

@@ -35,6 +35,8 @@ global umat1 lmat1
 % -------------------------------------------------------------------------
 global omega hp gp u0 h0
 
+global LAP_adap B_adap ftr1
+
 nn=n+2;
 mm=((nn-1)/2)+1;
 na=4*(nn-1);
@@ -622,6 +624,9 @@ sh15=sh14*sh1;
 sh1i5=sh1i4*sh1i;
 ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*(sh15+sh1i5);
 ftr=sparse(ftr);
+
+%% Options sur les filtres
+[ LAP_adap, B_adap, ftr1 ] = adaptative101( na, opt_ftr );
 
 %% INTEGRALE CORRIGEE
 disp('calcul des poids...')

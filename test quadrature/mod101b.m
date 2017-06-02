@@ -42,7 +42,7 @@ na=4*(nn-1);
 nb=na;
 
 %% physical data
-radius=6.37122d+06;
+radius=1;%6.37122d+06;
 omega=7.292d-05;
 gp=9.80616;
 
@@ -389,4 +389,4 @@ end
 % res = solve_weights( A,err_i,k,err,sym );
 % weights=dxi*deta*(dga+res);
 
-weights=dxi*deta*dga;
+weights=dga;

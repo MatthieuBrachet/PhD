@@ -9,8 +9,6 @@ global alfasp betasp gamasp
 global m1 m2
 global umat1 lmat1
 
-betaspline=zeros(nn,1);
-alfaspline=zeros(nn,1);
 funspline=zeros(nn,1);
 funftI(1:nn,1:nn)=funfI(1:nn,1:nn);
 funftII(1:nn,1:nn)=funfII(1:nn,1:nn);

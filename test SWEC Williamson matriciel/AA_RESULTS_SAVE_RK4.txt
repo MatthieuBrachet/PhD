@@ -284,3 +284,201 @@ coriolis parameter     : 7.292e-05
 ***********************************
   
   
+date : 20-May-2017
+ref. : 7368355713
+***********************************
+test : 4
+---------- numerical data ---------
+number of points  : 255
+time step         : 75.7314
+cfl               : 0.9
+type du filtre    : classic
+ordre du filtre s.: redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 22-May-2017
+ref. : 7368374773
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 15
+time step         : 1211.7018
+cfl               : 0.9
+type du filtre    : adaptatif
+ordre du filtre s.: redonnet4
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 22-May-2017
+ref. : 7368374949
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+type du filtre    : adaptatif
+ordre du filtre s.: redonnet6
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 22-May-2017
+ref. : 7368375471
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+type du filtre    : nonsymetric
+ordre du filtre s.: redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 22-May-2017
+ref. : 7368375953
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+type du filtre    : nonsymetric
+ordre du filtre s.: redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 22-May-2017
+ref. : 7368377406
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+type du filtre    : nonsymetric
+ordre du filtre s.: redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 20
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 22-May-2017
+ref. : 7368377883
+***********************************
+test : 4
+---------- numerical data ---------
+number of points  : 95
+time step         : 201.9503
+cfl               : 0.9
+type du filtre    : nonsymetric
+ordre du filtre s.: redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 23-May-2017
+ref. : 7368384397
+***********************************
+test : 4
+---------- numerical data ---------
+number of points  : 95
+time step         : 201.9503
+cfl               : 0.9
+type du filtre    : symetric
+ordre du filtre s.: redonnet10
+scheme            : explicite4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 23-May-2017
+ref. : 7368385692
+***********************************
+test : 4
+---------- numerical data ---------
+number of points  : 95
+time step         : 201.9503
+cfl               : 0.9
+type du filtre    : symetric
+ordre du filtre s.: redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristiv velocity : 80
+coriolis parameter     : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  

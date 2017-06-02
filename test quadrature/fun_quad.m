@@ -1,5 +1,5 @@
 function [fun,int] = fun_quad(x,y,z,test)
-global radius
+global radius dga
 x=x./radius; y=y./radius; z=z./radius;
 if test == 0
     fun=ones(size(x));
@@ -23,6 +23,15 @@ elseif test == 3
 elseif test == 4
     fun=(1+sign(-9*x-9*y+9*z))/9;
     int=4*pi/9;
+    
+elseif test == 5
+    alpha=7;
+    fun=x.^alpha;
+    int=0.752180168563598;% valeur pour le panel I
+    
+elseif test == 6
+    fun=y./x;%.*(radius*radius)./dga;
+    int=14.804411307828182;
 end
 int=int.*radius.^2;
 end
