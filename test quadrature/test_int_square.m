@@ -11,21 +11,23 @@ for i=1:length(NN);
 %     F=(cos(X)+X).*Y;
 %     inte=.5*(.5+sin(1));
     
-    F=ones(size(X));
-    inte=1;
+    pp=2;
+    qq=3;
+    F=X.^pp.*Y.^qq;
+    inte=1/((pp+1)*(qq+1));
 
     wei=ones(size(X));
     border=1/2;
-    corner=1/3;
+    corner=1/4;
     
     wei(1,1:end)=border;
     wei(end,1:end)=border;
     wei(1:end,1)=border;
     wei(1:end,end)=border;
-    wei(1,1)=corner/2;
+    wei(1,1)=corner;
     wei(1,end)=corner;
     wei(end,1)=corner;
-    wei(end,end)=corner/2;
+    wei(end,end)=corner;
     
     int=h^2.*sum(sum(wei.*F));
 

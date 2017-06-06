@@ -24,7 +24,7 @@ disp('mod74 : ok')
 % fun_VI  = sph( nhs,mhs,x_fVI ,y_fVI ,z_fVI  );
 % int=0;
 
-test=1;
+test=3;
 [fun_I    ,int] = fun_quad(x_fI  ,y_fI  ,z_fI   ,test);
 [fun_II   ,int] = fun_quad(x_fII ,y_fII ,z_fII  ,test);
 [fun_III  ,int] = fun_quad(x_fIII,y_fIII,z_fIII ,test);

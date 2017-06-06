@@ -1,6 +1,6 @@
 clc; clear all; close all;
 
-NN=[3:100:3000];
+NN=[3:100:2000];
 
 for p=1:length(NN)
     n=NN(p);
@@ -8,8 +8,8 @@ for p=1:length(NN)
     [X,Y]=meshgrid(x,x);
     
     TU=triu(ones(n,n));
-    pp=6;
-    qq=7;
+    pp=3;
+    qq=2;
     Ft=(X.^pp.*Y.^qq).*TU(:,n:-1:1);
 
     MAT=ones(n,n)-.5*eye(n,n);
@@ -42,10 +42,10 @@ plot(1./(NN-1),INT-INT(1))
 title('deviation - integrale')
 grid on
 
-% figure(4)
-% surf(X,Y,Ft)
-% shading interp
-% colorbar
+figure(4)
+surf(X,Y,Ft)
+shading interp
+colorbar
 
 figure(5); spy(MAT-1);
 figure(6); spy(Ft)

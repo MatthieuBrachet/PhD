@@ -348,7 +348,7 @@ switch str
     wei(end,1:end)=1/2;
     wei(1:end,1)=1/2;
     wei(1:end,end)=1/2;
-    corner=1/3;
+    corner=1/4;
     wei(1,1)=corner;
     wei(1,end)=corner;
     wei(end,1)=corner;
