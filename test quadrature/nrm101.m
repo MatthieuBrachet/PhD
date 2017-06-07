@@ -306,7 +306,7 @@ switch str
     %
     nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI;  
     
-    case 'cons_int' %% INTEGRALE CONSERVATIVE BASEE SUR SIMPSON
+    case 'simpson' %% INTEGRALE CONSERVATIVE BASEE SUR SIMPSON
         
     if mod(n+1,2)==1
         error('n+1 must be odd for this quadrature formula.');
@@ -320,19 +320,15 @@ switch str
     A(end,1:2:end)=2;
     A(1:2:end,1)=2;
     A(1:2:end,end)=2;
-
     A(1,2:2:end-1)=4;
     A(end,2:2:end-1)=4;
     A(2:2:end-1,1)=4;
     A(2:2:end-1,end)=4;
-
     A(1,1)=1;
     A(1,end)=1;
     A(end,1)=1;
     A(end,end)=1;
-
     wei=A./9;
-    
     nrmI=dxi.*deta.*sum(sum(dga.*wei.*funfI));
     nrmII=dxi.*deta.*sum(sum(dga.*wei.*funfII));
     nrmIII=dxi.*deta.*sum(sum(dga.*wei.*funfIII));

@@ -30,8 +30,8 @@ elseif test == 5
     int=0.752180168563598;% valeur pour le panel I
     
 elseif test == 6
-    fun=y./x;%.*(radius*radius)./dga;
-    int=14.804411307828182;
+    fun=radius^2./dga;
+    int=14.804406601634039;
 end
 int=int.*radius.^2;
 end

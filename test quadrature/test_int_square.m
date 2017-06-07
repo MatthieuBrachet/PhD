@@ -1,6 +1,6 @@
 clc; clear all; close all;
 
-NN=[2:2:10 20:100:2000]+1;
+NN=[2:2:10 20:100:2000];
 E=[]; H=[]; INT=[];
 for i=1:length(NN);
     n=NN(i);
@@ -18,7 +18,7 @@ for i=1:length(NN);
 
     wei=ones(size(X));
     border=1/2;
-    corner=1/4;
+    corner=1/3;
     
     wei(1,1:end)=border;
     wei(end,1:end)=border;
@@ -31,7 +31,7 @@ for i=1:length(NN);
     
     int=h^2.*sum(sum(wei.*F));
 
-    E=[E int-inte];
+    E=[E abs(int-inte)];
     H=[H h];
     INT=[INT int];
 end

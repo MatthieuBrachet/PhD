@@ -306,7 +306,7 @@ switch str
     %
     nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI;  
     
-    case 'cons_int' % INTRAGE CONSERVATIVE BASEE SUR SIMPSON
+    case 'simpson' % INTRAGE CONSERVATIVE BASEE SUR SIMPSON
         
     if mod(n+1,2)==1
         error('n+1 must be odd for this quadrature formula');
