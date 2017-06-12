@@ -2,6 +2,9 @@ function res = sph( nhs,mhs,x,y,z )
 % res = sph( nhs,mhs,x,y,z )
 % Spherical harmonic of order nhs,mhs ( |mhs| <= nhs ) calculated on
 % (x,y,z).
+if abs(mhs)>nhs
+    error('Error in HS parameter. Condition : |mhs| <= nhs')
+end
     if nhs>0,
         [lambda,teta,rad]=cart2sph(x,y,z);
         ic=complex(0,1);

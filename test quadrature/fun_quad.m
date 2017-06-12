@@ -1,7 +1,13 @@
 function [fun,int] = fun_quad(x,y,z,test)
 global radius dga
 x=x./radius; y=y./radius; z=z./radius;
-if test == 0
+if test == -1
+    nhs=10;
+    mhs=8;
+    fun=sph(nhs,mhs,x,y,z)+1;
+    int=4*pi;
+
+elseif test == 0
     fun=ones(size(x));
     int=4*pi;
     
@@ -22,16 +28,23 @@ elseif test == 3
     
 elseif test == 4
     fun=(1+sign(-9*x-9*y+9*z))/9;
+    % fun=(1+sign(0*x+9*y+9*z))/9;
     int=4*pi/9;
     
 elseif test == 5
     alpha=7;
-    fun=x.^alpha;
-    int=0.752180168563598;% valeur pour le panel I
+    fun=(1-sign(pi*x+y))./alpha;
+    int=4*pi/alpha;
     
 elseif test == 6
     fun=radius^2./dga;
-    int=14.804406601634039;
+    int=14.804406601634035;
+    %int=2.467401100272339; % PANEL I
+    
+elseif test == 7
+    fun=(radius^2./dga).^4;
+    %int=17.579738281473187; %^2
+    int=25.368886759259134; %^4
 end
 int=int.*radius.^2;
 end

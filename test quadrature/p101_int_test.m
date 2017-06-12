@@ -10,8 +10,8 @@ filtre='classic';
 opt_ftr='redonnet10';
 scheme='compact4';
 
-n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-mod101b
+n=2047; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+mod101
 disp('mod74 : ok')
 
 % nhs=1;
@@ -24,7 +24,7 @@ disp('mod74 : ok')
 % fun_VI  = sph( nhs,mhs,x_fVI ,y_fVI ,z_fVI  );
 % int=0;
 
-test=6;
+test=7;
 [fun_I    ,int] = fun_quad(x_fI  ,y_fI  ,z_fI   ,test);
 [fun_II   ,int] = fun_quad(x_fII ,y_fII ,z_fII  ,test);
 [fun_III  ,int] = fun_quad(x_fIII,y_fIII,z_fIII ,test);
@@ -33,14 +33,19 @@ test=6;
 [fun_VI   ,int] = fun_quad(x_fVI ,y_fVI ,z_fVI  ,test);
 
 figure(1)
-plot_cs102(n,nn,(fun_I),(fun_II),(fun_III),(fun_IV),(fun_V),(fun_VI))
-%colormap colorcube
+plot_cs11(n,nn,(fun_I),(fun_II),(fun_III),(fun_IV),(fun_V),(fun_VI))
 colorbar
 
 figure(2)
-plot_cs11(n,nn,(fun_I),(fun_II),(fun_III),(fun_IV),(fun_V),(fun_VI))
-%colormap colorcube
+plot_cs102(n,nn,(fun_I),(fun_II),(fun_III),(fun_IV),(fun_V),(fun_VI))
 colorbar
+
+figure(3)
+plot_cs104(n,nn,(fun_I),(fun_II),(fun_III),(fun_IV),(fun_V),(fun_VI))
+colorbar
+
+figure(4)
+surf(fun_I)
 
 str='int'
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg1]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);

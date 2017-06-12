@@ -70,16 +70,13 @@ Chaque opérateur peut être écrit en coordonnées $(\xi, \eta)$ sur la sphère
 
 \section{Quadrature sur la Cubed-Sphere}
 
-La quadrature numérique sur la sphère permet d'avoir une approximation numérique de l'intégrale. 
 
 
 
 
+\subsection{Pré-requis}
 
-
-\subsection{Quadrature naturelle}
-
-Si $f$ est une conction de $\mathcal{C}^{\infty}([a,b])$ alors la formule d'Euler MacLaurin s'écrit ainsi :
+Si $f$ est une conction de $\mathcal{C}^{\infty}([a,b])$ alors la formule d'Euler MacLaurin s'écrit :
 
 \begin{equation}
 \dfrac{1}{b-a} \gint_a^b f(x)dx = \dfrac{f(a)+f(b)}{2} - \gsum_{j=1}^k (b-a)^{2j-1} \dfrac{b_{2j}}{(2j)!} \left( f^{(2j-1)}(b) - f^{(2j-1)}(a) \right) - \mathcal{O}\left( (b-a)^{(2k+2)} \right)
@@ -88,7 +85,7 @@ Si $f$ est une conction de $\mathcal{C}^{\infty}([a,b])$ alors la formule d'Eule
 
 avec $b_{2j}$ les nombres de Bernoulli ($b_2=1/6$, $b_4=1/30$, ...).
 
-Si on souhaite calculer $\gint_{-\pi/4}^{\pi/4} f(\xi,\eta)d\xi$ en utilisant la formule d'Euler MacLaurin \eqref{eq:euler maclaurin} sur les sous intervalles $[\xi_i, \xi_{i+1}]$ avec $\xi_i= i \times \Delta \xi$, $\Delta \xi = \dfrac{\pi}{2(N+1)}$ on obtient :
+Si on souhaite calculer $\gint_{-\pi/4}^{\pi/4} f(\xi,\eta)d\xi$ en utilisant la formule d'Euler MacLaurin \eqref{eq:euler maclaurin} sur les sous intervalles $[\xi_i, \xi_{i+1}]$ (formule d'Euler MacLaurin composite) avec $\xi_i= i \times \Delta \xi$, $\Delta \xi = \dfrac{\pi}{2(N+1)}$ on obtient :
 
 \begin{equation}
 \begin{array}{rl}
@@ -118,45 +115,99 @@ avec l'abus de notation $f_{i,j} = f(\xi_i, \eta_j)$ pour tous $i$ et $j$.
 On note l'intégrale sur le panel $(K)$ (avec $K \in \left\lbrace I, II, III, IV, V, VI \right\rbrace$) de $h$ :
 $$I^{(K)}(h) = \gint_{(K)} h(\mathbf{x}) d \sigma (\mathbf{x}).$$
 
-Après changement de variable $\mathbf{x} \in \mathbb{S}_a^2 \mapsto (\xi, \eta) \in [-\pi/4, \pi/4]^2$, on obtient :
+Après changement de variable $\psi^{(K)} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto (\xi, \eta) \in [-\pi/4, \pi/4]^2$, on obtient :
 
 \begin{equation}
-I^{(K)}(h) = \gint_{-\pi/4}^{\pi/4}\gint_{-\pi/4}^{\pi/4} h(\xi, \eta) \sqrt{\mathbf{\bar{G}}(\xi, \eta)} d \xi d \eta.
+I^{(K)}(h) = \gint_{-\pi/4}^{\pi/4}\gint_{-\pi/4}^{\pi/4} h(\xi, \eta) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi, \eta)} d \xi d \eta.
 \end{equation}
 
-La formule d'Euler MacLaurin \eqref{eq:euler maclaurin 2d composite} peut être appliquée sur chaque panel de la Cubed-Sphère et donner une formule de quadrature naturelle à l'ordre 2.
+La formule d'Euler MacLaurin \eqref{eq:euler maclaurin 2d composite} peut être appliquée sur chaque panel de la Cubed-Sphère en posant $f(\xi,\eta)=h(\xi,\eta)\sqrt{\mathbf{\bar{G}}^{(K)}(\xi, \eta)}$. On dispose alors d'une intègrale sur la sphère complète :
 
-\begin{remarque}
-Le changement de variable $\mathbf{x} \in \mathbb{S}_a^2 \mapsto (\xi, \eta) \in [-\pi/4, \pi/4]^2$ est propre au panel sur lequel on se situe. $\xi$ au sens du panel $(I)$ est différent de $\xi$ au sens du panel $(II)$ par exemple.
-\end{remarque}
+\begin{equation}
+I(h)=\gint_{\mathbb{S}_a^2} h(\mathbf{x})d\sigma(\mathbf{x}) = \gsum_{K = I}^{VI} I^{(K)}(h)
+\end{equation}
 
-$\gint_{\mathbb{S}_a^2}h(\mathbf{x}) d \sigma (\mathbf{x}) = \gsum_{K = I}^{VI} I^{(K)}(h)$. On cherche une formule de quadrature $Q(h) = \gsum_{K = I}^{VI} Q^{(K)}(h) $ où $Q^{(K)}(h) \approx I^{(K)}(h)$ et $Q^{(K)}(h) = \gsum_{-N/2 \leq i \leq N/2} \gsum_{-N/2 \leq i \leq N/2} \omega_{i,j} h_{i,j} \sqrt{\bar{\mathbf{G}_{i,j}}}$.
+\subsection{Quadrature de type Trapèzes}
 
-Les poids $\omega_{i,j}$ sont donnés par :
+On utilise une formule de quadrature $Q_{tpz}(h)$ visant à approcher $I^{(K)}(h)$ en utilisant la formule des trapèzes composites :
+
+\begin{equation}
+\gint_{a}^b f(x)dx \approx \dfrac{b-a}{N} \left[ \dfrac{f(a)+f(b)}{2} + \gsum_{k=1}^{N-1} f\left( a+k \dfrac{b-a}{N} \right) \right]
+\label{eq:trapezes composites}
+\end{equation}
+
+Il s'agit en fait de l'intégration de l'interpolation de $f$ par une fonction affine par morceaux. On note immédiatement que la formule des trapèzes est exacte par construction pour $f$ affine.
+
+En appliquant \eqref{eq:trapezes composites} sur un carré, on obtient :
+
+\begin{equation}
+\begin{split}
+\gint_{-\pi/4}^{\pi/4} \gint_{-\pi/4}^{\pi/4} f(\xi,\eta)d\xi d\eta \approx \Delta \xi \Delta \eta \gsum_{i \in I} \gsum_{j \in I} f_{i,j} +  \dfrac{\Delta \xi \Delta \eta}{2} \left[ \gsum_{i \in I} \left(  f_{i,\frac{N}{2}} + f_{i,-\frac{N}{2}}  \right) + \gsum_{j \in I} \left(  f_{\frac{N}{2},j} + f_{-\frac{N}{2},j}  \right) \right] + ... \\
+...+ \dfrac{\Delta \xi \Delta \eta}{4} \left[ f_{\frac{N}{2},\frac{N}{2}}+f_{-\frac{N}{2},\frac{N}{2}}+f_{\frac{N}{2},-\frac{N}{2}}+f_{-\frac{N}{2},-\frac{N}{2}} \right]- b_2 \dfrac{\Delta \xi \Delta \eta^2}{4} \left[ \partial_{\eta} f_{-\frac{N}{2},\frac{N}{2}} - \partial_{\eta} f_{-\frac{N}{2},-\frac{N}{2}} \right]
+\end{split}
+\label{eq:trapezes 2d composite}
+\end{equation}
+
+La formule de quadrature sur le panel $(K)$ est alors la suivante :
+
+\begin{equation}
+Q_{tpz}^{(K)}(h)=\gsum_{i = -\frac{N}{2}}^{\frac{N}{2}}\gsum_{j = -\frac{N}{2}}^{\frac{N}{2}} \Delta \xi \Delta \eta \omega_{i,j} h(\xi_i, \eta_j) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi_i, \eta_j)}
+\label{eq:trapezes par panel}
+\end{equation}
+
+avec :
+
 \begin{itemize}
-\item $\omega_{N/2,N/2}=\omega_{-N/2,N/2}=\omega_{N/2,-N/2}=\omega_{-N/2,-N/2}=1/4$,
-\item $\omega_{i,N/2}=\omega_{i,-N/2}=\omega_{N/2,i}=\omega_{-N/2,i}=1/2$ pour tout $i \in I$,
-\item $\omega_{i,j} = 1$ pour tous $(i,j) \in I^2$.
+\item $\omega_{-\frac{N}{2},-\frac{N}{2}}=\omega_{\frac{N}{2},-\frac{N}{2}}=\omega_{-\frac{N}{2},\frac{N}{2}}=\omega_{\frac{N}{2},\frac{N}{2}}=\frac{1}{4}$,
+\item $\omega_{i,\frac{N}{2}}=\omega_{i,-\frac{N}{2}}=\frac{1}{2}$ pour $-\frac{N}{2}+1 \leq i \leq \frac{N}{2}-1$,
+\item $\omega_{\frac{N}{2},j}=\omega_{-\frac{N}{2},j}=\frac{1}{2}$ pour $-\frac{N}{2}+1 \leq j \leq \frac{N}{2}-1$,
+\item $\omega_{i,j}=1$ dans tous les autres cas.
 \end{itemize}
 
-On notera $Q_T$ la formule de quadrature associée à ces poids.
-
-\begin{theoreme}
-Si $h : \mathbf{S}_a^2 \mapsto \mathbb{R}$ est une fonction suffisament régulière de la sphère alors :
+\begin{proposition}
+On suppose que $h$ est une fonction régulière sur la sphère. Alors :
 \begin{equation}
-I(h)-Q_T(h)=
+I^{(K)}(h) - Q_{tpz}^{(K)}(h) = \mathcal{O} \left( \Delta \xi^2 \right)
 \end{equation}
-\end{theoreme}
+pour tout $K \in \lbrace I, II, III, IV, V, VI \rbrace$.
+\label{prop:consistance tpz panel}
+\end{proposition}
 
+\begin{proof}
+On remarque que par contruction sur la Cubed-Sphere, on a $\Delta \xi = \Delta \eta$.
+On applique la formule d'Euler MacLaurin \eqref{eq:euler maclaurin 2d composite} à \eqref{eq:trapezes par panel}) avec :
+\begin{equation}
+h(\xi_i, \eta_j) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi_i, \eta_j)} = f(\xi_i,\eta_j)
+\end{equation}
+pour tous $-\dfrac{N}{2} \leq i,j \leq \dfrac{N}{2}$ et le résultat est immédiatement obtenu.
+\end{proof}
 
+\begin{remarque}
+La formule de quadrature $Q_{tpz}^{(K)}(h)$ n'est pas exacte pour $h$ affine.
 
+En effet, $(\xi,\eta) \mapsto h(\xi, \eta) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi, \eta)}$ n'est pas affine.
+En revanche, lorsque $h(\xi,\eta)=\dfrac{1}{\sqrt{\mathbf{\bar{G}}^{(K)}(\xi, \eta)}}$, la formule de quadrature $Q_{tpz}^{(K)}(h)$ est exacte.
+\end{remarque}
 
+\begin{proposition}
+On note :
+\begin{equation}
+Q_{tpz}=\gsum_{K=I}^{VI} Q_{tpz}^{(K)}
+\end{equation}
+Si $h$ est une fonction régulière sur la sphère alors :
+\begin{equation}
+I(h) - Q_{tpz}(h) = \mathcal{O} \left( \Delta \xi^2 \right)
+\end{equation}
+\label{prop:consistance tpz}
+\end{proposition}
 
+\begin{proof}
+Consèquence directe de la proposition \ref{prop:consistance tpz panel}.
+\end{proof}
 
+\subsection{Quadrature uniforme}
 
-
-
-
+Ici quadrature de JPC de la forme 'que des 1 sur la CS' ou '1/3 1/2 1'.
 
 
 
@@ -193,7 +244,7 @@ Ce théorème permet de vérifier la conservation de la matière sur la Sphère 
 
 De plus, via le changement de variable $\mathbf{x} \in \Omega \subset \mathbb{S}_a^2 \mapsto (\xi, \eta) \in [-a a] \subset [- \pi/4, \pi/4]^2 = \hat{\Omega}$ on a, si $h$ est une fonction de $\Omega$ dans $\mathbb{R}$:
 \begin{equation}
-\gint_{\Omega} h(\mathbf{x}) d \sigma ( \mathbf{x} ) = \gint_{-a}^a \gint_{-a}^a h(\xi, \eta) \sqrt{\bar{\mathbf{G}}}d\xi d\eta
+\gint_{\Omega} h(\mathbf{x}) d \sigma ( \mathbf{x} ) = \gint_{-a}^a \gint_{-a}^a h(\xi, \eta) \sqrt{\overline{\mathbf{G}}}d\xi d\eta
 \end{equation}
 
 La formule de Simpson appliquée dans chaque direction donne l'approximation suivante :
@@ -205,14 +256,14 @@ La formule de Simpson appliquée dans chaque direction donne l'approximation sui
 \end{array}
 \end{equation}
 
-ainsi si $f(\xi, \eta) \approx \nabla \cdot \mathbf{u} \sqrt{\bar{\mathbf{G}}}$ on a une méthode permettant d'approché le terme de gauche dans le théorème de Stokes \ref{th: Stokes}
+ainsi si $f(\xi, \eta) \approx \nabla \cdot \mathbf{u} \sqrt{\overline{\mathbf{G}}}$ on a une méthode permettant d'approché le terme de gauche dans le théorème de Stokes \ref{th: Stokes}
 
 Pour le terme de droite de \ref{th: Stokes}, on a :
 
 \begin{equation}
 \begin{array}{rcl}
-\gint_{\partial \Omega} \mathbf{u} \cdot \mathbf{n} dl(\mathbf{x}) & = & a \left[ \gint_{-a}^a \mathbf{u}(a,\eta) \cdot \mathbf{g}^{\xi} (a, \eta) \sqrt{\bar{\mathbf{G}(a,\eta)}}- \mathbf{u}(-a,\eta) \cdot \mathbf{g}^{\xi} (-a, \eta) \sqrt{\bar{\mathbf{G}(-a,\eta)}} d\eta \right]+ ...\\
-&  & ... + a \left[ \gint_{-a}^a \mathbf{u}(\xi,a) \cdot \mathbf{g}^{\xi} (\xi a) \sqrt{\bar{\mathbf{G}(\xi,a)}}- \mathbf{u}(\xi,-a) \cdot \mathbf{g}^{\xi} (\xi, -a) \sqrt{\bar{\mathbf{G}(\xi,-a)}}\right]
+\gint_{\partial \Omega} \mathbf{u} \cdot \mathbf{n} dl(\mathbf{x}) & = & a \left[ \gint_{-a}^a \mathbf{u}(a,\eta) \cdot \mathbf{g}^{\xi} (a, \eta) \sqrt{\overline{\mathbf{G}(a,\eta)}}- \mathbf{u}(-a,\eta) \cdot \mathbf{g}^{\xi} (-a, \eta) \sqrt{\overline{\mathbf{G}(-a,\eta)}} d\eta \right]+ ...\\
+&  & ... + a \left[ \gint_{-a}^a \mathbf{u}(\xi,a) \cdot \mathbf{g}^{\xi} (\xi a) \sqrt{\overline{\mathbf{G}(\xi,a)}}- \mathbf{u}(\xi,-a) \cdot \mathbf{g}^{\xi} (\xi, -a) \sqrt{\overline{\mathbf{G}(\xi,-a)}}\right]
 \end{array}
 \label{eq: quadrature simpson L}
 \end{equation}
@@ -220,8 +271,8 @@ Pour le terme de droite de \ref{th: Stokes}, on a :
 A ce niveau, il n'y a pas eut d'approximation pour le terme de droite. On utilise la règle de Simpson pour approcher les intégrales. On pose pour tout $(\xi, \eta) \in \lbrace -a, 0, a \rbrace^2$
 
 \begin{itemize}
-\item $\psi_1(\xi, \eta) = \mathbf{u}(\xi, \eta) \cdot \mathbf{g}^{\xi}(\xi, \eta) \sqrt{\bar{\mathbf{G}(\xi, \eta)}}$,
-\item $\psi_2(\xi, \eta) = \mathbf{u}(\xi, \eta) \cdot \mathbf{g}^{\eta}(\xi, \eta) \sqrt{\bar{\mathbf{G}(\xi, \eta)}}$,
+\item $\psi_1(\xi, \eta) = \mathbf{u}(\xi, \eta) \cdot \mathbf{g}^{\xi}(\xi, \eta) \sqrt{\overline{\mathbf{G}(\xi, \eta)}}$,
+\item $\psi_2(\xi, \eta) = \mathbf{u}(\xi, \eta) \cdot \mathbf{g}^{\eta}(\xi, \eta) \sqrt{\overline{\mathbf{G}(\xi, \eta)}}$,
 \end{itemize}
 
 De plus, $\psi_{1,\xi}$ et $\xi_{2,\eta}$ sont donnés en chaque point par un schéma compact d'ordre 4:
@@ -252,7 +303,7 @@ f(\xi,\eta) = \psi_{1,\xi}(\xi,\eta)+\psi_{2,\eta}(\xi,\eta)
 ce qui revient à approcher la divergence par :
 
 \begin{equation}
-\nabla_{\Delta} \cdot \mathbf{u} =\dfrac{1}{\sqrt{\bar{\mathbf{G}}}} \left[ \delta_{\xi,4} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\xi} \right) +\delta_{\eta,4} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\eta} \right)  \right]
+\nabla_{\Delta} \cdot \mathbf{u} =\dfrac{1}{\sqrt{\overline{\mathbf{G}}}} \left[ \delta_{\xi,4} \left( \sqrt{\overline{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\xi} \right) +\delta_{\eta,4} \left( \sqrt{\overline{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\eta} \right)  \right]
 \label{eq:approx divergence1}
 \end{equation}
 
@@ -263,7 +314,7 @@ De plus, la méthode de Simpson étant d'ordre 4, d'où le théorème suivant :
 \begin{theoreme}
 La formule de quadrature sur la sphère :
 \begin{equation}
-\gint_{\mathbb{S}_a^2} h(\mathbf{x}) d\sigma(\mathbf{x}) \approx I_s(h)=\gsum_{-\frac{N}{2} \leq i,j \leq \frac{N}{2}} \gsum_{k=(I)}^{(VI)} \omega_{i,j} h(x_{i,j})\sqrt{\bar{\mathbf{G}}(x_{i,j}^k}
+\gint_{\mathbb{S}_a^2} h(\mathbf{x}) d\sigma(\mathbf{x}) \approx I_s(h)=\gsum_{-\frac{N}{2} \leq i,j \leq \frac{N}{2}} \gsum_{k=(I)}^{(VI)} \omega_{i,j} h(x_{i,j})\sqrt{\overline{\mathbf{G}}(x_{i,j}^k}
 \label{eq:quadrature simpson}
 \end{equation}
 est d'ordre 4, c'est à dire :
@@ -280,9 +331,9 @@ I_s(\nabla_{\Delta} \cdot \mathbf{u}) = 0
 \begin{remarque}
 Les coefficients $\omega_{i,j}$ sont donnés par la règme suivante :
 \begin{itemize}
-\item $\omega_{1,1}=\omega_{1,N+1}=\omega_{N+1,1}=\omega_{N+1,N+1}=1/9$,
-\item $\omega_{1,i}=\omega_{N+1,i}=\omega_{i,1}=\omega_{i,N+1}=4/9$ si $i$ est pair,
-\item $\omega_{1,i}=\omega_{N+1,i}=\omega_{i,1}=\omega_{i,N+1}=2/9$ si $i$ est impair,
+\item $\omega_{\frac{N}{2},\frac{N}{2}}=\omega_{\frac{N}{2},-\frac{N}{2}}=\omega_{-\frac{N}{2},\frac{N}{2}}=\omega_{-\frac{N}{2},-\frac{N}{2}}=1/9$,
+\item $\omega_{\frac{N}{2},i}=\omega_{-\frac{N}{2},i}=\omega_{i,\frac{N}{2}}=\omega_{i,-\frac{N}{2}}=4/9$ si $i$ est pair,
+\item $\omega_{\frac{N}{2},i}=\omega_{-\frac{N}{2},i}=\omega_{i,\frac{N}{2}}=\omega_{i,-\frac{N}{2}}=2/9$ si $i$ est impair,
 \item $\omega_{i,j}=16/9$ si $i$ et $j$ sont pairs,
 \item $\omega_{i,j}=4/9$ si $i$ et $j$ sont impairs,
 \item $\omega_{i,j}=8/9$ dans les autres cas.
