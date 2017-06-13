@@ -1,0 +1,268 @@
+% quadrature.tex
+
+\chapter{Produit Scalaire et quadrature sur le Cubed-Sphere}
+
+
+\section{Produit scalaire sur la Cubed-Sphere}
+
+\begin{itemize}
+\item Harmoniques sphériques
+\item Produit scalaire continu sur la sphère
+\item Produit sclaire discret:
+\begin{itemize}
+\item Construction générale sur la CS
+\item Propriété triangulaire et consèquences (en particulier pdf scalaire nul pour les HS)
+\end{itemize}
+\end{itemize}
+
+\subsection{Harmoniques Sphériques sur la Sphère}
+
+\subsubsection{Généralités sur les Harmoniques Sphériques}
+
+\subsubsection{Construction d'une base d'Harmoniques Sphériques}
+
+\subsection{Produit Scalaire discret sur la Cubed-Sphère}
+
+\subsubsection{Généralités}
+
+\subsubsection{Propriété triangulaire}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Quadrature sur la Cubed-Sphere}
+
+
+
+
+
+\subsection{Pré-requis} %% ***************************************************************************************
+
+Si $f$ est une conction de $\mathcal{C}^{\infty}([a,b])$ alors la formule d'Euler MacLaurin s'écrit :
+
+\begin{equation}
+\dfrac{1}{b-a} \gint_a^b f(x)dx = \dfrac{f(a)+f(b)}{2} - \gsum_{j=1}^k (b-a)^{2j-1} \dfrac{b_{2j}}{(2j)!} \left( f^{(2j-1)}(b) - f^{(2j-1)}(a) \right) - \mathcal{O}\left( (b-a)^{(2k+2)} \right)
+\label{eq:euler maclaurin}
+\end{equation}
+
+avec $b_{2j}$ les nombres de Bernoulli ($b_2=1/6$, $b_4=1/30$, ...).
+
+Si on souhaite calculer $\gint_{-\pi/4}^{\pi/4} f(\xi,\eta)d\xi$ en utilisant la formule d'Euler MacLaurin \eqref{eq:euler maclaurin} sur les sous intervalles $[\xi_i, \xi_{i+1}]$ (formule d'Euler MacLaurin composite) avec $\xi_i= i \times \Delta \xi$, $\Delta \xi = \dfrac{\pi}{2(N+1)}$ on obtient :
+
+\begin{equation}
+\begin{array}{rl}
+\gint_{-\pi/4}^{\pi/4} f(\xi,\eta)d\xi & = \dfrac{\Delta \xi}{2} f(\xi_{-\frac{N}{2}},\eta) +  \Delta \xi \gsum_{i=-\frac{N}{2}+1}^{\frac{N}{2}-1} f(\xi_i,\eta) + \frac{\Delta \xi}{2} f(\xi_{\frac{N}{2}},\eta)- ...\\
+                                       & ... - \dfrac{b_2}{2!} \Delta \xi^2 \left( \partial_\xi f(\xi_{\frac{N}{2}},\eta) - \partial_\xi f(\xi_{-\frac{N}{2}},\eta) \right) + \mathcal{O} \left( \Delta \xi ^4 \right)
+\end{array}
+\end{equation}
+
+On pose : $$I = \left\lbrace i\in\mathbb{N} \text{ tels que } -\frac{N}{2}+1 \leq i \leq \frac{N}{2}-1 \right\rbrace$$ et on applique la même méthode dans la direction de $\eta$  :
+
+\begin{equation}
+\begin{array}{rl}
+\gint_{-\pi/4}^{\pi/4} \gint_{-\pi/4}^{\pi/4} f(\xi,\eta)d\xi d\eta = & \Delta \xi \Delta \eta \gsum_{i \in I} \gsum_{j \in I} f_{i,j} + ... \\
+ & ... + \dfrac{\Delta \xi \Delta \eta}{2} \left[ \gsum_{i \in I} \left(  f_{i,\frac{N}{2}} + f_{i,-\frac{N}{2}})  \right) + \gsum_{j \in I} \left(  f_{\frac{N}{2},j} + f_{-\frac{N}{2},j}  \right) \right] - ... \\
+ &  ... - \dfrac{b_2}{2!} \Delta \xi \Delta \eta \left[ \Delta \eta \gsum_{i \in I} \left(  \partial_{\eta }f_{i,\frac{N}{2}} -  \partial_{\eta }f_{i,-\frac{N}{2}}  \right) + \Delta \xi \gsum_{j \in I} \left(   \partial_{\xi }f_{\frac{N}{2},j} - \partial_{\xi }f_{-\frac{N}{2},j}  \right) \right] + ... \\
+ & ... + \dfrac{\Delta \xi \Delta \eta}{4} \left[ f_{\frac{N}{2},\frac{N}{2}}+f_{-\frac{N}{2},\frac{N}{2}}+f_{\frac{N}{2},-\frac{N}{2}}+f_{-\frac{N}{2},-\frac{N}{2}} \right] + ... \\
+ & ... - b_2 \dfrac{\Delta \xi \Delta \eta^2}{4} \left[ \partial_{\eta} f_{-\frac{N}{2},\frac{N}{2}} - \partial_{\eta} f_{-\frac{N}{2},-\frac{N}{2}} + \partial_{\eta} f_{\frac{N}{2},\frac{N}{2}} -\partial_{\eta} f_{\frac{N}{2},-\frac{N}{2}}  \right] - ... \\
+  & ... - b_2 \dfrac{\Delta \xi^2 \Delta \eta}{4} \left[ \partial_{\xi} f_{\frac{N}{2},\frac{N}{2}} + \partial_{\xi} f_{\frac{N}{2},-\frac{N}{2}} - \partial_{\xi} f_{-\frac{N}{2},\frac{N}{2}} -\partial_{\xi} f_{-\frac{N}{2},-\frac{N}{2}}  \right] + ... \\
+  & ... + b_2^2 \dfrac{\Delta \xi^2 \Delta \eta^2}{4} \left[ \partial_{\xi,\eta} f_{\frac{N}{2},\frac{N}{2}} - \partial_{\xi,\eta} f_{\frac{N}{2},-\frac{N}{2}} - \partial_{\xi,\eta} f_{-\frac{N}{2},\frac{N}{2}} + \partial_{\xi,\eta} f_{-\frac{N}{2},-\frac{N}{2}} \right] + ... \\
+  & ... + \mathcal{O} \left( \Delta \xi^6, \Delta \eta^6 \right)
+  \end{array}
+\label{eq:euler maclaurin 2d composite}
+\end{equation}
+
+avec l'abus de notation $f_{i,j} = f(\xi_i, \eta_j)$ pour tous $i$ et $j$.
+
+On note l'intégrale sur le panel $(K)$ (avec $K \in \left\lbrace I, II, III, IV, V, VI \right\rbrace$) de $h$ :
+$$I^{(K)}(h) = \gint_{(K)} h(\mathbf{x}) d \sigma (\mathbf{x}).$$
+
+Après changement de variable $\psi^{(K)} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto (\xi, \eta) \in [-\pi/4, \pi/4]^2$, on obtient :
+
+\begin{equation}
+I^{(K)}(h) = \gint_{-\pi/4}^{\pi/4}\gint_{-\pi/4}^{\pi/4} h(\xi, \eta) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi, \eta)} d \xi d \eta.
+\end{equation}
+
+La formule d'Euler MacLaurin \eqref{eq:euler maclaurin 2d composite} peut être appliquée sur chaque panel de la Cubed-Sphère en posant $f(\xi,\eta)=h(\xi,\eta)\sqrt{\mathbf{\bar{G}}^{(K)}(\xi, \eta)}$. On dispose alors d'une intègrale sur la sphère complète :
+
+\begin{equation}
+I(h)=\gint_{\mathbb{S}_a^2} h(\mathbf{x})d\sigma(\mathbf{x}) = \gsum_{K = I}^{VI} I^{(K)}(h)
+\end{equation}
+
+
+
+
+
+\subsection{Quadrature de type Trapèzes}  %% ***************************************************************************************
+
+On utilise une formule de quadrature $Q_{tpz}(h)$ visant à approcher $I^{(K)}(h)$ en utilisant la formule des trapèzes composites :
+
+\begin{equation}
+\gint_{a}^b f(x)dx \approx \dfrac{b-a}{N} \left[ \dfrac{f(a)+f(b)}{2} + \gsum_{k=1}^{N-1} f\left( a+k \dfrac{b-a}{N} \right) \right]
+\label{eq:trapezes composites}
+\end{equation}
+
+Il s'agit en fait de l'intégration de l'interpolation de $f$ par une fonction affine par morceaux. On note immédiatement que la formule des trapèzes est exacte par construction pour $f$ affine.
+
+En appliquant \eqref{eq:trapezes composites} sur un carré, on obtient :
+
+\begin{equation}
+\begin{split}
+\gint_{-\pi/4}^{\pi/4} \gint_{-\pi/4}^{\pi/4} f(\xi,\eta)d\xi d\eta \approx \Delta \xi \Delta \eta \gsum_{i \in I} \gsum_{j \in I} f_{i,j} +  \dfrac{\Delta \xi \Delta \eta}{2} \left[ \gsum_{i \in I} \left(  f_{i,\frac{N}{2}} + f_{i,-\frac{N}{2}}  \right) + \gsum_{j \in I} \left(  f_{\frac{N}{2},j} + f_{-\frac{N}{2},j}  \right) \right] + ... \\
+...+ \dfrac{\Delta \xi \Delta \eta}{4} \left[ f_{\frac{N}{2},\frac{N}{2}}+f_{-\frac{N}{2},\frac{N}{2}}+f_{\frac{N}{2},-\frac{N}{2}}+f_{-\frac{N}{2},-\frac{N}{2}} \right]- b_2 \dfrac{\Delta \xi \Delta \eta^2}{4} \left[ \partial_{\eta} f_{-\frac{N}{2},\frac{N}{2}} - \partial_{\eta} f_{-\frac{N}{2},-\frac{N}{2}} \right]
+\end{split}
+\label{eq:trapezes 2d composite}
+\end{equation}
+
+La formule de quadrature sur le panel $(K)$ est alors la suivante :
+
+\begin{equation}
+Q_{tpz}^{(K)}(h)=\gsum_{i = -\frac{N}{2}}^{\frac{N}{2}}\gsum_{j = -\frac{N}{2}}^{\frac{N}{2}} \Delta \xi \Delta \eta \omega_{i,j} h(\xi_i, \eta_j) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi_i, \eta_j)}
+\label{eq:trapezes par panel}
+\end{equation}
+
+avec :
+
+\begin{itemize}
+\item $\omega_{-\frac{N}{2},-\frac{N}{2}}=\omega_{\frac{N}{2},-\frac{N}{2}}=\omega_{-\frac{N}{2},\frac{N}{2}}=\omega_{\frac{N}{2},\frac{N}{2}}=\frac{1}{4}$,
+\item $\omega_{i,\frac{N}{2}}=\omega_{i,-\frac{N}{2}}=\frac{1}{2}$ pour $-\frac{N}{2}+1 \leq i \leq \frac{N}{2}-1$,
+\item $\omega_{\frac{N}{2},j}=\omega_{-\frac{N}{2},j}=\frac{1}{2}$ pour $-\frac{N}{2}+1 \leq j \leq \frac{N}{2}-1$,
+\item $\omega_{i,j}=1$ dans tous les autres cas.
+\end{itemize}
+
+\begin{proposition}
+On suppose que $h$ est une fonction régulière sur la sphère. Alors :
+\begin{equation}
+I^{(K)}(h) - Q_{tpz}^{(K)}(h) = \mathcal{O} \left( \Delta \xi^2 \right)
+\end{equation}
+pour tout $K \in \lbrace I, II, III, IV, V, VI \rbrace$.
+\label{prop:consistance tpz panel}
+\end{proposition}
+
+\begin{proof}
+On remarque que par contruction sur la Cubed-Sphere, on a $\Delta \xi = \Delta \eta$.
+On applique la formule d'Euler MacLaurin \eqref{eq:euler maclaurin 2d composite} à \eqref{eq:trapezes par panel}) avec :
+\begin{equation}
+h(\xi_i, \eta_j) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi_i, \eta_j)} = f(\xi_i,\eta_j)
+\end{equation}
+pour tous $-\dfrac{N}{2} \leq i,j \leq \dfrac{N}{2}$ et le résultat est immédiatement obtenu.
+\end{proof}
+
+\begin{remarque}
+La formule de quadrature $Q_{tpz}^{(K)}(h)$ n'est pas exacte pour $h$ affine.
+
+En effet, $(\xi,\eta) \mapsto h(\xi, \eta) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi, \eta)}$ n'est pas affine.
+En revanche, lorsque $h(\xi,\eta)=\dfrac{1}{\sqrt{\mathbf{\bar{G}}^{(K)}(\xi, \eta)}}$, la formule de quadrature $Q_{tpz}^{(K)}(h)$ est exacte.
+\end{remarque}
+
+\begin{proposition}
+On note :
+\begin{equation}
+Q_{tpz}=\gsum_{K=I}^{VI} Q_{tpz}^{(K)}
+\end{equation}
+Si $h$ est une fonction régulière sur la sphère alors :
+\begin{equation}
+I(h) - Q_{tpz}(h) = \mathcal{O} \left( \Delta \xi^2 \right)
+\end{equation}
+\label{prop:consistance tpz}
+\end{proposition}
+
+\begin{proof}
+Consèquence directe de la proposition \ref{prop:consistance tpz panel}.
+\end{proof}
+
+
+
+
+\subsection{Quadrature de type Simpson}
+
+La formule de quadrature de Simpson est de la forme :
+
+\begin{equation}
+\gint_a^b f(x)dx \approx \dfrac{b-a}{6} \left[ f(a)+f\left(\dfrac{a+b}{2}\right) + f(b) \right]
+\end{equation}
+
+elle est basée sur une intégration d'un polynôme d'ordre 2 interpolant $f$ en $a$, $\frac{a+b}{2}$ et $b$.
+L'erreur effectuée est de la forme :
+
+\begin{equation}
+\gint_a^b f(x)dx - \dfrac{b-a}{6} \left[ f(a)+f\left(\dfrac{a+b}{2}\right) + f(b) \right] = - \dfrac{(b-a)^5}{2880}f^{(4)}\left( \chi \right) \text{ pour un certain } \chi \in [a,b],
+\end{equation}
+
+Ainsi, la formule de Simpson composite appliquée sur l'intervalle $\left[ - \frac{\pi}{4}, \frac{\pi}{4} \right]$ donne :
+
+\begin{equation}
+\gint_{-\frac{\pi}{4}}^{\frac{\pi}{4}} f(\xi, \eta) d\xi = \dfrac{\Delta \xi}{3} \left[ f\left( - \dfrac{\pi}{4}, \eta \right) + 2 \gsum_{i=-n/4-1}^{n/4} f\left( \xi_{2i}, \eta \right) + 4\gsum_{i=-n/4}^{n/4} f\left( \xi_{2i-1}, \eta \right) + f \left( \dfrac{\pi}{4}, \eta \right) \right] + \mathcal{O}\left( \Delta \xi^4 \right)
+\end{equation}
+
+et en 2 dimensions :
+
+\begin{equation}
+\gint_{-\frac{\pi}{4}}^{\frac{\pi}{4}} \gint_{-\frac{\pi}{4}}^{\frac{\pi}{4}} f(\xi, \eta) d\xi  d\eta= \Delta\xi \Delta \eta \gsum_{i=-N/2}^{N/2}\gsum_{j=-N/2}^{N/2} \omega_{i,j} f(\xi_i, \eta_j) + \mathcal{O}\left( \Delta \xi^4, \Delta \xi^4 \right)
+\label{eq:simpson 2d}
+\end{equation}
+
+où les coefficients $\omega_{i,j}$ sont donnés par :
+\begin{itemize}
+\item $\omega_{\frac{N}{2},\frac{N}{2}}=\omega_{\frac{N}{2},-\frac{N}{2}}=\omega_{-\frac{N}{2},\frac{N}{2}}=\omega_{-\frac{N}{2},-\frac{N}{2}}=1/9$,
+\item $\omega_{\frac{N}{2},i}=\omega_{-\frac{N}{2},i}=\omega_{i,\frac{N}{2}}=\omega_{i,-\frac{N}{2}}=4/9$ si $i$ est pair,
+\item $\omega_{\frac{N}{2},i}=\omega_{-\frac{N}{2},i}=\omega_{i,\frac{N}{2}}=\omega_{i,-\frac{N}{2}}=2/9$ si $i$ est impair,
+\item $\omega_{i,j}=16/9$ si $i$ et $j$ sont pairs,
+\item $\omega_{i,j}=4/9$ si $i$ et $j$ sont impairs,
+\item $\omega_{i,j}=8/9$ dans les autres cas.
+\end{itemize}
+
+
+Ainsi, la formule de quadrature par panel issue de la méthode de Simpson est donnée par :
+
+\begin{equation}
+Q_{sps}^{(K)}(h)=\gsum_{i = -\frac{N}{2}}^{\frac{N}{2}}\gsum_{j = -\frac{N}{2}}^{\frac{N}{2}} \Delta \xi \Delta \eta \omega_{i,j} h(\xi_i, \eta_j) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi_i, \eta_j)}
+\label{eq:simpson par panel}
+\end{equation}
+
+avec les coefficients donnés dans la remarque précédente.
+
+\begin{proposition}
+Si $h$ est une fonction suffisament régulière sur la sphère et $\Delta \xi = \Delta \eta$ alors :
+\begin{equation}
+I(h) - Q_{sps}(h) = \mathcal{O} \left( \Delta \xi^4 \right)
+\end{equation}
+pour tout $K \in \lbrace I, II, III, IV, V, VI \rbrace$.
+\label{prop:consistance sps panel}
+\end{proposition}
+
+\begin{proof}
+Consèquence directe de la construction.
+\end{proof}
+
+\begin{remarque}
+\begin{itemize}
+\item Comme pour la quadrature de type trapèzes $Q_{tpz}^{(K)}$, la formule de quadrature est exacte lorsque pour tous $(\xi,\eta)$, on a :
+\begin{equation}
+h(\xi,\eta)=\dfrac{1}{\sqrt{\overline{\mathbf{G}}(\xi,\eta)}}
+\end{equation}
+\item Par construction, il est nécéssaire d'avoir $N$ pair pour que la méthode soit d'ordre 4. Si $N$ est impair, une erreur s'ajoute est la méthode est d'ordre 1.
+\end{itemize}
+\end{remarque}
+
+\begin{proposition}
+La formule de quadrature sur la Cubed-Sphère est d'ordre 4 par recouvrement :
+\begin{equation}
+Q_{sps(h)}=\gsum_{K=I}^{VI} Q_{sps(h)}^{(K)}(h) = I(h) + \mathcal{O} \left( \Delta \xi^4 \right)
+\end{equation}
+si $h$ est suffisament régulière.
+\end{proposition}
+
+\begin{proof}
+Consèquence de la proposition \ref{prop:consistance sps panel}.
+\end{proof}
+

@@ -12,7 +12,7 @@ opt_ftr='redonnet10';
 scheme='compact4';
 
 
-test=-1;
+test=2;
 NN=2.^[2:7]-1;
 
 for ii=1:length(NN)
@@ -30,13 +30,13 @@ for ii=1:length(NN)
 
     str='int';
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg1]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
-    eint(ii)=abs((nrmg1-int)/int);
+    eint(ii)=abs((nrmI-int)/int);
     str='test';
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg2]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
-    etest(ii)=abs((nrmg2-int)/int);
+    etest(ii)=abs((nrmI-int)/int);
     str='simpson';
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg3]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
-    esimpson(ii)=abs((nrmg3-int)/int);
+    esimpson(ii)=abs((nrmI-int)/int);
 end
 
 [a11,b1]=polyfit(log(hh),log(eint),1);
