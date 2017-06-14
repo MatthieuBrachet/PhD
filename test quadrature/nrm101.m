@@ -1,7 +1,7 @@
 function [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=...
     nrm101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn,str)
-global dxi deta dga;
-global weights
+global dxi deta dga radius;
+global weights corner
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NEW VERSION COMPARED TO NRM72.M : COEFFT 1/4 FOR THE 8 CORNER POINTS
 switch str
@@ -337,14 +337,46 @@ switch str
     nrmVI=dxi.*deta.*sum(sum(dga.*wei.*funfVI));
     nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI;   
     
-    case 'test'
+    case 'trapezes'
         
     wei=ones(size(dga));
     wei(1,1:end)=1/2;
     wei(end,1:end)=1/2;
     wei(1:end,1)=1/2;
     wei(1:end,end)=1/2;
-    corner=1/4;
+    wei(1,1)=1/4;
+    wei(1,end)=1/4;
+    wei(end,1)=1/4;
+    wei(end,end)=1/4;
+    nrmI=dxi.*deta.*sum(sum(dga.*wei.*funfI));
+    nrmII=dxi.*deta.*sum(sum(dga.*wei.*funfII));
+    nrmIII=dxi.*deta.*sum(sum(dga.*wei.*funfIII));
+    nrmIV=dxi.*deta.*sum(sum(dga.*wei.*funfIV));
+    nrmV=dxi.*deta.*sum(sum(dga.*wei.*funfV));
+    nrmVI=dxi.*deta.*sum(sum(dga.*wei.*funfVI));
+    nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI;   
+    nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI;   
+    
+    case 'uniforme'
+        
+    wei=(4*pi*radius^2)./(6*sum(sum(dga)));
+    nrmI=sum(sum(dga.*funfI))*wei;
+    nrmII=sum(sum(dga.*funfII))*wei;
+    nrmIII=sum(sum(dga.*funfIII))*wei;
+    nrmIV=sum(sum(dga.*funfIV))*wei;
+    nrmV=sum(sum(dga.*funfV))*wei;
+    nrmVI=sum(sum(dga.*funfVI))*wei;
+    nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI;       
+    
+    case 'test'
+        
+    corner=0;
+        
+    wei=ones(size(dga));
+    wei(1,1:end)=1/2;
+    wei(end,1:end)=1/2;
+    wei(1:end,1)=1/2;
+    wei(1:end,end)=1/2;
     wei(1,1)=corner;
     wei(1,end)=corner;
     wei(end,1)=corner;
@@ -356,7 +388,7 @@ switch str
     nrmV=dxi.*deta.*sum(sum(dga.*wei.*funfV));
     nrmVI=dxi.*deta.*sum(sum(dga.*wei.*funfVI));
     nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI;   
-    nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI;   
+    
 end
 
 

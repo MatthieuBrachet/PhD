@@ -12,7 +12,7 @@ opt_ftr='redonnet10';
 scheme='compact4';
 
 
-test=2;
+test=0;
 NN=2.^[2:7]-1;
 
 for ii=1:length(NN)
@@ -28,15 +28,15 @@ for ii=1:length(NN)
     [fun_V    ,int] = fun_quad(x_fV  ,y_fV  ,z_fV   ,test);
     [fun_VI   ,int] = fun_quad(x_fVI ,y_fVI ,z_fVI  ,test);
 
-    str='int';
+    str='uniforme';
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg1]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
-    eint(ii)=abs((nrmI-int)/int);
+    eint(ii)=abs((nrmV-int/6));
     str='test';
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg2]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
-    etest(ii)=abs((nrmI-int)/int);
+    etest(ii)=abs((nrmV-int/6));
     str='simpson';
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg3]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
-    esimpson(ii)=abs((nrmI-int)/int);
+    esimpson(ii)=abs((nrmV-int/6));
 end
 
 [a11,b1]=polyfit(log(hh),log(eint),1);

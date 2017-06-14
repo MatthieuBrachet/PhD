@@ -86,10 +86,13 @@ avec l'abus de notation $f_{i,j} = f(\xi_i, \eta_j)$ pour tous $i$ et $j$.
 On note l'intégrale sur le panel $(K)$ (avec $K \in \left\lbrace I, II, III, IV, V, VI \right\rbrace$) de $h$ :
 $$I^{(K)}(h) = \gint_{(K)} h(\mathbf{x}) d \sigma (\mathbf{x}).$$
 
-Après changement de variable $\psi^{(K)} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto (\xi, \eta) \in [-\pi/4, \pi/4]^2$, on obtient :
+Après changement de variable $\psi^{(K)} : (\xi, \eta) \in [-\pi/4, \pi/4]^2 \mapsto \mathbf{x} \in \mathbb{S}_a^2$, on obtient :
 
 \begin{equation}
-I^{(K)}(h) = \gint_{-\pi/4}^{\pi/4}\gint_{-\pi/4}^{\pi/4} h(\xi, \eta) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi, \eta)} d \xi d \eta.
+\begin{array}{rcl}
+I^{(K)}(h) & = &  \gint_{\psi^{(K)^{-1}}\left((K)\right)}  h\left( \psi^{(K)^{-1}}\right) |Jac ( \psi^{(K)} )|d\xi d\eta \\
+& = & \gint_{-\pi/4}^{\pi/4}\gint_{-\pi/4}^{\pi/4} h(\xi, \eta) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi, \eta)} d \xi d \eta.
+\end{array}
 \end{equation}
 
 La formule d'Euler MacLaurin \eqref{eq:euler maclaurin 2d composite} peut être appliquée sur chaque panel de la Cubed-Sphère en posant $f(\xi,\eta)=h(\xi,\eta)\sqrt{\mathbf{\bar{G}}^{(K)}(\xi, \eta)}$. On dispose alors d'une intègrale sur la sphère complète :
@@ -98,7 +101,7 @@ La formule d'Euler MacLaurin \eqref{eq:euler maclaurin 2d composite} peut être 
 I(h)=\gint_{\mathbb{S}_a^2} h(\mathbf{x})d\sigma(\mathbf{x}) = \gsum_{K = I}^{VI} I^{(K)}(h)
 \end{equation}
 
-
+\subsection{Quadrature uniforme}  %% ***************************************************************************************
 
 
 
@@ -152,7 +155,7 @@ pour tout $K \in \lbrace I, II, III, IV, V, VI \rbrace$.
 On remarque que par contruction sur la Cubed-Sphere, on a $\Delta \xi = \Delta \eta$.
 On applique la formule d'Euler MacLaurin \eqref{eq:euler maclaurin 2d composite} à \eqref{eq:trapezes par panel}) avec :
 \begin{equation}
-h(\xi_i, \eta_j) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi_i, \eta_j)} = f(\xi_i,\eta_j)
+f(\xi_i,\eta_j) = h(\xi_i, \eta_j) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi_i, \eta_j)} 
 \end{equation}
 pour tous $-\dfrac{N}{2} \leq i,j \leq \dfrac{N}{2}$ et le résultat est immédiatement obtenu.
 \end{proof}
@@ -234,7 +237,7 @@ avec les coefficients donnés dans la remarque précédente.
 \begin{proposition}
 Si $h$ est une fonction suffisament régulière sur la sphère et $\Delta \xi = \Delta \eta$ alors :
 \begin{equation}
-I(h) - Q_{sps}(h) = \mathcal{O} \left( \Delta \xi^4 \right)
+I^{(K)}(h) - Q^{(K)}_{sps}(h) = \mathcal{O} \left( \Delta \xi^4 \right)
 \end{equation}
 pour tout $K \in \lbrace I, II, III, IV, V, VI \rbrace$.
 \label{prop:consistance sps panel}
@@ -265,4 +268,189 @@ si $h$ est suffisament régulière.
 \begin{proof}
 Consèquence de la proposition \ref{prop:consistance sps panel}.
 \end{proof}
+
+
+
+
+\subsection{Quadrature de type \texorpdfstring{$Q_{\alpha}$}{a}}
+
+On considère dans cette partie une formule de quadrature pondérée différemment aux coins de la Cubed-Sphère. On note $Q_{\alpha}$ cette quadrature.
+
+Alors :
+
+\begin{equation}
+Q_{\alpha}(h)= \gsum_{K=I}^{VI} Q^{(K)}_{\alpha}(h)
+\end{equation}
+
+avec la quadrature par panel :
+
+\begin{equation}
+Q_{\alpha}^{(K)}(h)=\gsum_{i = -\frac{N}{2}}^{\frac{N}{2}}\gsum_{j = -\frac{N}{2}}^{\frac{N}{2}} \Delta \xi \Delta \eta \omega_{i,j} h(\xi_i, \eta_j) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi_i, \eta_j)}
+\label{eq:alpha par panel}
+\end{equation}
+
+et la pondération suivante :
+
+\begin{itemize}
+\item $\omega_{-\frac{N}{2},-\frac{N}{2}}=\omega_{\frac{N}{2},-\frac{N}{2}}=\omega_{-\frac{N}{2},\frac{N}{2}}=\omega_{\frac{N}{2},\frac{N}{2}}=\alpha$,
+\item $\omega_{i,\frac{N}{2}}=\omega_{i,-\frac{N}{2}}=\frac{1}{2}$ pour $-\frac{N}{2}+1 \leq i \leq \frac{N}{2}-1$,
+\item $\omega_{\frac{N}{2},j}=\omega_{-\frac{N}{2},j}=\frac{1}{2}$ pour $-\frac{N}{2}+1 \leq j \leq \frac{N}{2}-1$,
+\item $\omega_{i,j}=1$ dans tous les autres cas.
+\end{itemize}
+
+les valeurs sont les mêmes que pour la méthode des rectangles sauf aux coins de chaque panel où l'on utilise $\alpha$ au lieu de $1/4$.
+
+La proposition suivante est vérifiée:
+
+\begin{proposition}
+Soit $h: \mathbb{S}_a^2 \rightarrow \mathbb{C}$ et $\Delta \xi = \Delta \eta$ alors :
+\begin{equation}
+I^{(K)}(h) - Q^{(K)}_{\alpha}(h) = \mathcal{O} \left( \Delta \xi^2 \right)
+\end{equation}
+pour tout $K \in \lbrace I, II, III, IV, V, VI \rbrace$.
+\label{prop:consistance alpha panel}
+\end{proposition}
+
+\begin{proof}
+Soit $h: \mathbb{S}_a^2 \rightarrow \mathbb{C}$.
+
+Alors en notant $C=\{(\pi/4,\pi/4),(-\pi/4,\pi/4),(\pi/4,-\pi/4),(-\pi/4,-\pi/4) \}$ les coordinnées $\xi,\eta$ des coins du panel :
+
+\begin{equation*}
+\begin{array}{rcl}
+I^{(K)}(h) - Q^{(K)}_{\alpha}(h) & = & I^{(K)}(h) - Q^{(K)}_{tpz}(h) + Q^{(K)}_{tpz}(h) - Q^{(K)}_{\alpha}(h)\\
+                                 & = & \Delta \xi \Delta \eta \left( \dfrac{1}{4}-\alpha \right)\gsum_{(\xi,\eta)\in C} h(\xi, \eta) \sqrt{\overline{\mathbf{G}}(\xi,\eta)} + \mathcal{O}\left(\Delta \xi^2 \right)\\
+                                 & \leq &   4 \Delta \xi \Delta \eta \left( \dfrac{1}{4}-\alpha \right) \| h(\xi, \eta) \sqrt{\overline{\mathbf{G}}} \|_{L^{\infty}} + \mathcal{O}\left(\Delta \xi^2 \right)
+\end{array}
+\end{equation*}
+
+ainsi la méthode de quadrature $Q_{\alpha}$ est au moins d'ordre 2.
+\end{proof}
+
+En consèquence :
+
+\begin{proposition}
+Soit $h: \mathbb{S}_a^2 \rightarrow \mathbb{C}$ et $\Delta \xi = \Delta \eta$ alors :
+\begin{equation}
+I(h) - Q_{\alpha}(h) = \mathcal{O} \left( \Delta \xi^2 \right)
+\end{equation}
+\end{proposition}
+
+\begin{proposition}
+La méthode $Q_{\alpha}$ est exactement d'ordre 2.
+\end{proposition}
+
+\begin{proof}
+On choisit $h$ tel que pour tout $x \in \mathbb{S}_a^2$, on ait $h(\mathbf{x})=\dfrac{1}{\sqrt{\overline{\mathbf{G}}(\mathbf{x})}}$. Alors on on sait que l'égualité suivante est exactement vérifiée pour tout $N$ paramètre de maillage de la Sphère.
+
+\begin{equation}
+Q_{tpz}(h)-I(h)=0
+\end{equation}
+
+De plus pour tout $(\xi,\eta) \in C=\{(\pi/4,\pi/4),(-\pi/4,\pi/4),(\pi/4,-\pi/4),(-\pi/4,-\pi/4) \}$, on a :
+
+\begin{equation}
+h(\xi,\eta)\sqrt{\overline{\mathbf{G}}(\xi,\eta}=1
+\end{equation}
+
+d'où :
+
+\begin{equation*}
+\begin{array}{rcl}
+Q_{\alpha}(h)-Q_{tpz}(h) & = & 3 \Delta \xi \Delta \eta \left( \alpha - \dfrac{1}{4} \right)\gsum_{(\xi,\eta)\in C} h(\xi,\eta)\sqrt{\overline{\mathbf{G}}(\xi,\eta} \\
+                         & = & 24 \Delta \xi \Delta \eta \left( \alpha - \dfrac{1}{4} \right)
+\end{array}
+\end{equation*}
+
+donc :
+
+\begin{equation*}
+\begin{array}{rcl}
+Q_{\alpha}(h) - I(h) & = & Q_{\alpha}(h) - Q_{tpz}(h) + Q_{tpz}(h) - I(h) \\
+                    & = & 24 \Delta \xi \Delta \eta \left( \alpha - \dfrac{1}{4} \right)
+\end{array}
+\end{equation*}
+
+La méthode de quadrature $Q_{\alpha}$ est exactement d'ordre 2.
+\end{proof}
+
+
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{c||c|c|c}
+    & $Q_{tpz}$ & $Q_{sps}$ & $Q_{\alpha}$ \\
+\hline
+\hline
+Méthode basée sur & méth. trapèzes & méth. Simpson & perturbation de $Q_{tpz}$ \\
+\hline
+ordre théorique & $2$ & $4$ si $N$ pair, & $2$ \\
+                &     &      $1$ sinon   & $2$ \\
+\hline
+ordre pour $h(\mathbf{x})=1/\sqrt{\overline{\mathbf{G}}(\mathbf{x})}$ &  exacte & exacte & $2$
+\end{tabular}
+\end{center}
+\caption{Bilan des différentes erreurs pour les méthodes de quadrature.}
+\end{table}
+
+\subsection{Résultats numériques} %% ***************************************************************************************
+
+Pour tester la précision des différentes méthodes de quadrature, on s'intérésse à un ensemble particulier de fonctions sur la sphère dont les intégrales sont connues.
+
+Les résultats à retrouver sont regroupés dans le tableau ci dessous :
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+$f_i(\mathbf{x})$   &   $\gint_{\mathbb{S}_a^2} f_i(\mathbf{x}) d\sigma (\mathbf{x})$ \\
+\hline
+\hline
+$f_0(x,y,z)=1$ & $4 \pi a^2$ \\
+\hline
+$f_1(x,y,z)=1+x+y^2+y\cdot x^2+x^4+y^5+x^2 \cdot y^2 \cdot z^2$ & $\dfrac{216 \pi}{35} a^2$ \\
+\hline
+A ECRIRE & $6.6961822200736179523...  a^2$ \\
+\hline
+$f_3(x,y,z)=\frac{1+\tanh(-9x-9y+9z)}{9}$ & $\frac{4\pi}{9} a^2$\\
+\hline
+$f_4(x,y,z)=\frac{1+sign(-9x-9y+9z)}{9}$ & $\frac{4\pi}{9} a^2$\\
+\hline
+$f_5(x,y,z)=\frac{1-sign(\pi x + y)}{\alpha}$ & $\frac{4\pi}{\alpha} a^2$ \\
+\hline
+$f_6(\mathbf{x}) = 1/\sqrt{\overline{\mathbf{G}}(\mathbf{x})}$ & $14.804406601634035... a^2$ \\
+\hline
+$f_7(\mathbf{x}) = (1/\sqrt{\overline{\mathbf{G}}(\mathbf{x})})^2$ & $17.579738281473187... a^2$ \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Fonctions test pour l'intégration sur la sphère.}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
