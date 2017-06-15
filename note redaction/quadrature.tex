@@ -179,11 +179,6 @@ I(h) - Q_{tpz}(h) = \mathcal{O} \left( \Delta \xi^2 \right)
 \label{prop:consistance tpz}
 \end{proposition}
 
-\begin{proof}
-Consèquence directe de la proposition \ref{prop:consistance tpz panel}.
-\end{proof}
-
-
 
 
 \subsection{Quadrature de type Simpson}
@@ -257,19 +252,13 @@ h(\xi,\eta)=\dfrac{1}{\sqrt{\overline{\mathbf{G}}(\xi,\eta)}}
 \end{itemize}
 \end{remarque}
 
-\begin{proposition}
+\begin{corollaire}
 La formule de quadrature sur la Cubed-Sphère est d'ordre 4 par recouvrement :
 \begin{equation}
 Q_{sps(h)}=\gsum_{K=I}^{VI} Q_{sps(h)}^{(K)}(h) = I(h) + \mathcal{O} \left( \Delta \xi^4 \right)
 \end{equation}
 si $h$ est suffisament régulière.
-\end{proposition}
-
-\begin{proof}
-Consèquence de la proposition \ref{prop:consistance sps panel}.
-\end{proof}
-
-
+\end{corollaire}
 
 
 \subsection{Quadrature de type \texorpdfstring{$Q_{\alpha}$}{a}}
@@ -329,12 +318,12 @@ ainsi la méthode de quadrature $Q_{\alpha}$ est au moins d'ordre 2.
 
 En consèquence :
 
-\begin{proposition}
+\begin{corollaire}
 Soit $h: \mathbb{S}_a^2 \rightarrow \mathbb{C}$ et $\Delta \xi = \Delta \eta$ alors :
 \begin{equation}
 I(h) - Q_{\alpha}(h) = \mathcal{O} \left( \Delta \xi^2 \right)
 \end{equation}
-\end{proposition}
+\end{corollaire}
 
 \begin{proposition}
 La méthode $Q_{\alpha}$ est exactement d'ordre 2.
@@ -374,10 +363,132 @@ Q_{\alpha}(h) - I(h) & = & Q_{\alpha}(h) - Q_{tpz}(h) + Q_{tpz}(h) - I(h) \\
 La méthode de quadrature $Q_{\alpha}$ est exactement d'ordre 2.
 \end{proof}
 
+Il est intéressant d'optimiser la valeur de $\alpha$. On cherche donc $\alpha$ réalisant pour tout $K \in \lbrace I, II, III, IV, V, VI \rbrace$ le minimum de :
+
+\begin{equation}
+|Q_{\alpha}^{(K)}(1) - I^{(K)}(1) |
+\end{equation}
+
+
+\begin{proposition}
+$\alpha=1/3$ réalise le minimum de :
+\begin{equation}
+|Q_{\alpha}^{(K)}(1) - I^{(K)}(1) |
+\end{equation}
+On a alors :
+\begin{equation}
+|Q_{1/3}^{(K)}(1) - I^{(K)}(1) | = \mathcal{O}\left( \Delta \xi^4 \right)
+\end{equation}
+pour tout $K \in \lbrace I, II, III, IV, V, VI \rbrace$.
+\end{proposition}
+
+\begin{proof}
+
+Par construction $\Delta \xi = \Delta \eta$, en posant $f \equiv \sqrt{\overline{\mathbf{G}}}$ et en utilisant la formule d'Euler MacLaurin
+
+\begin{equation}
+\begin{array}{rcl}
+Q_{\alpha}^{(K)}(h) - I^{(K)}(h) & = & \Delta \xi^2 \left( \alpha - \dfrac{1}{4} \right) \left( f_{N/2,N/2} + f_{-N/2,N/2} + f_{N/2,-N/2} + f_{-N/2,-N/2} \right) +  ... \\
+&  & + \dfrac{1}{12} \Delta \xi ^3 \gsum_{i \in I} \left( \partial_{\eta} f_{i,N/2} - \partial_{\eta} f_{i,-N/2} \right) + ...\\
+&  & + \dfrac{1}{12} \Delta \xi ^3 \gsum_{j\in I} \left( \partial_{\xi} f_{N/2,j} - \partial_{\xi} f_{-N/2,j} \right) + ... \\
+&  & - \dfrac{\Delta \xi^3}{24} \left[ \partial_{\eta} f_{-\frac{N}{2},\frac{N}{2}} - \partial_{\eta} f_{-\frac{N}{2},-\frac{N}{2}} + \partial_{\eta} f_{\frac{N}{2},\frac{N}{2}} -\partial_{\eta} f_{\frac{N}{2},-\frac{N}{2}}  \right] - ... \\
+&  & - \dfrac{\Delta \xi^3}{24} \left[ \partial_{\xi} f_{\frac{N}{2},\frac{N}{2}} + \partial_{\xi} f_{\frac{N}{2},-\frac{N}{2}} - \partial_{\xi} f_{-\frac{N}{2},\frac{N}{2}} -\partial_{\xi} f_{-\frac{N}{2},-\frac{N}{2}}  \right] + ... \\
+&  & + \mathcal{O}\left( \Delta \xi^4 \right)
+ \end{array}
+ \label{eq:opimalite alpha 1}
+\end{equation}
+
+Alors :
+
+$$f_{N/2,N/2} = f_{-N/2,N/2} = f_{N/2,-N/2} = f_{-N/2,-N/2} =\sqrt{\overline{\mathbf{G}(\pi/4,\pi/4)}} = \dfrac{4}{3 \sqrt{3}} a^2$$,
+
+de plus, en dérivant $\sqrt{\overline{\mathbf{G}}} = a^2 \dfrac{(1+X^2)(1+Y^2)}{(1+X^2+Y^2)^{3/2}}$ avec $X=\tan (\xi)$ et $Y=\tan (\eta)$ on obtient les relations suivantes :
+
+$$\partial_{\xi} f = X \left(\dfrac{3Y^2}{1+X^2+Y^2}-1\right) \sqrt{\overline{\mathbf{G}}}$$
+
+$$\partial_{\eta} f = Y \left(\dfrac{3X^2}{1+X^2+Y^2}-1\right) \sqrt{\overline{\mathbf{G}}}$$
+
+ainsi :
+
+\begin{itemize}
+\item $\partial_{\xi} f_{N/2,j} = -\partial_{\xi} f_{-N/2,j} = 4 \dfrac{Y^4-1}{(Y^2+2)^{5/2}} a^2$,
+\item $\partial_{\eta} f_{i,N/2} = -\partial_{\eta} f_{i,-N/2} = 4 \dfrac{X^4-1}{(X^2+2)^{5/2}} a^2$.
+\end{itemize}
+
+d'où le terme d'ordre 2 dans \eqref{eq:opimalite alpha 1} :
+
+\begin{equation}
+\Delta \xi^2 a^2 \left( \alpha - \dfrac{1}{4} \right) \dfrac{16}{3 \sqrt{3}} + \dfrac{4}{3}S
+\label{eq:opimalite alpha 2}
+\end{equation}
+
+avec $S=\Delta \xi \gsum_{i \in I} f(i \Delta \xi)$ lorsque $f$ est la fonction $f:x \mapsto f(x)=\dfrac{\tan(x)^4 -1}{(\tan(x)^2+2)^{5/2}}$.
+
+Comme $f\left(-\frac{\pi}{4} \right)=f\left(\frac{\pi}{4} \right)=0$ et par propriété de la méthode des trapèzes, on note que :
+
+\begin{equation}
+S = \gint_{-\pi/4}^{\pi/4} f(x)dx + \mathcal{O}\left( \Delta \xi^2 \right) = -\dfrac{1}{3\sqrt{3}} + \mathcal{O}\left( \Delta \xi^2 \right)
+\end{equation}
+
+donc pour que le terme d'ordre 2 soit nul, il faut avoir (en remplacant dans  \eqref{eq:opimalite alpha 2}) :
+
+\begin{equation}
+\left(\alpha - \dfrac{1}{4} \right) \dfrac{16}{3 \sqrt{3}} - \dfrac{4}{9 \sqrt{3}} = 0
+\end{equation}
+
+c'est a dire avoir $\alpha = 1/3$.
+
+En ce qui concerne le terme d'ordre 3 :
+
+\begin{equation}
+- \dfrac{\Delta \xi^3}{24} \left[ \partial_{\eta} f_{-\frac{N}{2},\frac{N}{2}} - \partial_{\eta} f_{-\frac{N}{2},-\frac{N}{2}} + \partial_{\eta} f_{\frac{N}{2},\frac{N}{2}} -\partial_{\eta} f_{\frac{N}{2},-\frac{N}{2}}  \right] -\dfrac{\Delta \xi^3}{24} \left[ \partial_{\xi} f_{\frac{N}{2},\frac{N}{2}} + \partial_{\xi} f_{\frac{N}{2},-\frac{N}{2}} - \partial_{\xi} f_{-\frac{N}{2},\frac{N}{2}} -\partial_{\xi} f_{-\frac{N}{2},-\frac{N}{2}}  \right]
+\label{eq:opimalite alpha 3}
+\end{equation}
+
+on note que :
+
+\begin{equation}
+\partial_{\eta} f_{\frac{N}{2},\frac{N}{2}} = \partial_{\eta} f_{-\frac{N}{2},\frac{N}{2}} = \partial_{\eta} f_{\frac{N}{2},-\frac{N}{2}} = \partial_{\eta} f_{-\frac{N}{2},-\frac{N}{2}} = 0 
+\end{equation}
+
+de même en $\xi$ :
+
+\begin{equation}
+\partial_{\xi} f_{\frac{N}{2},\frac{N}{2}} = \partial_{\xi} f_{-\frac{N}{2},\frac{N}{2}} = \partial_{\xi} f_{\frac{N}{2},-\frac{N}{2}} = \partial_{\xi} f_{-\frac{N}{2},-\frac{N}{2}} = 0 
+\end{equation}
+
+D'où le résultat :
+
+\begin{equation}
+|Q_{1/3}^{(K)}(1) - I^{(K)}(1) | = \mathcal{O}\left( \Delta \xi^4 \right)
+\end{equation}
+
+\end{proof}
+
+\begin{corollaire}
+Ainsi, il est immédiat que :
+\begin{equation}
+|Q_{1/3}(1) - I(1) | = \mathcal{O}\left( \Delta \xi^4 \right)
+\end{equation}
+\end{corollaire}
 
 
 
-\begin{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{table}[ht]
 \begin{center}
 \begin{tabular}{c||c|c|c}
     & $Q_{tpz}$ & $Q_{sps}$ & $Q_{\alpha}$ \\
@@ -386,7 +497,10 @@ La méthode de quadrature $Q_{\alpha}$ est exactement d'ordre 2.
 Méthode basée sur & méth. trapèzes & méth. Simpson & perturbation de $Q_{tpz}$ \\
 \hline
 ordre théorique & $2$ & $4$ si $N$ pair, & $2$ \\
-                &     &      $1$ sinon   & $2$ \\
+                &     &      $1$ sinon   &     \\
+\hline
+ordre pour $h(\mathbf{x})=1$ &  $2$ & $4$ & $4$ si $\alpha=1/3$ \\
+                             &      &     & $2$ sinon    \\
 \hline
 ordre pour $h(\mathbf{x})=1/\sqrt{\overline{\mathbf{G}}(\mathbf{x})}$ &  exacte & exacte & $2$
 \end{tabular}
@@ -394,13 +508,35 @@ ordre pour $h(\mathbf{x})=1/\sqrt{\overline{\mathbf{G}}(\mathbf{x})}$ &  exacte 
 \caption{Bilan des différentes erreurs pour les méthodes de quadrature.}
 \end{table}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \subsection{Résultats numériques} %% ***************************************************************************************
 
 Pour tester la précision des différentes méthodes de quadrature, on s'intérésse à un ensemble particulier de fonctions sur la sphère dont les intégrales sont connues.
 
 Les résultats à retrouver sont regroupés dans le tableau ci dessous :
 
-\begin{table}
+\begin{table}[ht]
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline

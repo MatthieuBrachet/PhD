@@ -370,17 +370,17 @@ switch str
     
     case 'test'
         
-    corner=0;
+    cc=corner;
         
     wei=ones(size(dga));
     wei(1,1:end)=1/2;
     wei(end,1:end)=1/2;
     wei(1:end,1)=1/2;
     wei(1:end,end)=1/2;
-    wei(1,1)=corner;
-    wei(1,end)=corner;
-    wei(end,1)=corner;
-    wei(end,end)=corner;
+    wei(1,1)=cc;
+    wei(1,end)=cc;
+    wei(end,1)=cc;
+    wei(end,end)=cc;
     nrmI=dxi.*deta.*sum(sum(dga.*wei.*funfI));
     nrmII=dxi.*deta.*sum(sum(dga.*wei.*funfII));
     nrmIII=dxi.*deta.*sum(sum(dga.*wei.*funfIII));
