@@ -30,14 +30,19 @@ On pose : $$I = \left\lbrace i\in\mathbb{N} \text{ tels que } -\frac{N}{2}+1 \le
 
 \begin{equation}
 \begin{array}{rl}
-\gint_{-\pi/4}^{\pi/4} \gint_{-\pi/4}^{\pi/4} f(\xi,\eta)d\xi d\eta = & \Delta \xi \Delta \eta \gsum_{i \in I} \gsum_{j \in I} f_{i,j} + ... \\
+\gint_{-\pi/4}^{\pi/4} \gint_{-\pi/4}^{\pi/4} f(\xi,\eta)d\xi d\eta &  = \Delta \xi \Delta \eta \gsum_{i \in I} \gsum_{j \in I} f_{i,j} + ... \\
+
  & ... + \dfrac{\Delta \xi \Delta \eta}{2} \left[ \gsum_{i \in I} \left(  f_{i,\frac{N}{2}} + f_{i,-\frac{N}{2}})  \right) + \gsum_{j \in I} \left(  f_{\frac{N}{2},j} + f_{-\frac{N}{2},j}  \right) \right] - ... \\
- &  ... - \dfrac{b_2}{2!} \Delta \xi \Delta \eta \left[ \Delta \eta \gsum_{i \in I} \left(  \partial_{\eta }f_{i,\frac{N}{2}} -  \partial_{\eta }f_{i,-\frac{N}{2}}  \right) + \Delta \xi \gsum_{j \in I} \left(   \partial_{\xi }f_{\frac{N}{2},j} - \partial_{\xi }f_{-\frac{N}{2},j}  \right) \right] + ... \\
+ 
  & ... + \dfrac{\Delta \xi \Delta \eta}{4} \left[ f_{\frac{N}{2},\frac{N}{2}}+f_{-\frac{N}{2},\frac{N}{2}}+f_{\frac{N}{2},-\frac{N}{2}}+f_{-\frac{N}{2},-\frac{N}{2}} \right] + ... \\
- & ... - b_2 \dfrac{\Delta \xi \Delta \eta^2}{4} \left[ \partial_{\eta} f_{-\frac{N}{2},\frac{N}{2}} - \partial_{\eta} f_{-\frac{N}{2},-\frac{N}{2}} + \partial_{\eta} f_{\frac{N}{2},\frac{N}{2}} -\partial_{\eta} f_{\frac{N}{2},-\frac{N}{2}}  \right] - ... \\
+ 
+ &  ... - \dfrac{b_2}{2!} \Delta \xi \Delta \eta \left[ \Delta \eta \gsum_{i \in I} \left(  \partial_{\eta }f_{i,\frac{N}{2}} -  \partial_{\eta }f_{i,-\frac{N}{2}}  \right) + \Delta \xi \gsum_{j \in I} \left(   \partial_{\xi }f_{\frac{N}{2},j} - \partial_{\xi }f_{-\frac{N}{2},j}  \right) \right] + ... \\
+
+  & ... - b_2 \dfrac{\Delta \xi \Delta \eta^2}{4} \left[ \partial_{\eta} f_{-\frac{N}{2},\frac{N}{2}} - \partial_{\eta} f_{-\frac{N}{2},-\frac{N}{2}} + \partial_{\eta} f_{\frac{N}{2},\frac{N}{2}} -\partial_{\eta} f_{\frac{N}{2},-\frac{N}{2}}  \right] - ... \\
+ 
   & ... - b_2 \dfrac{\Delta \xi^2 \Delta \eta}{4} \left[ \partial_{\xi} f_{\frac{N}{2},\frac{N}{2}} + \partial_{\xi} f_{\frac{N}{2},-\frac{N}{2}} - \partial_{\xi} f_{-\frac{N}{2},\frac{N}{2}} -\partial_{\xi} f_{-\frac{N}{2},-\frac{N}{2}}  \right] + ... \\
-  & ... + b_2^2 \dfrac{\Delta \xi^2 \Delta \eta^2}{4} \left[ \partial_{\xi,\eta} f_{\frac{N}{2},\frac{N}{2}} - \partial_{\xi,\eta} f_{\frac{N}{2},-\frac{N}{2}} - \partial_{\xi,\eta} f_{-\frac{N}{2},\frac{N}{2}} + \partial_{\xi,\eta} f_{-\frac{N}{2},-\frac{N}{2}} \right] + ... \\
-  & ... + \mathcal{O} \left( \Delta \xi^6, \Delta \eta^6 \right)
+  
+  & ... + \mathcal{O} \left( \Delta \xi^4, \Delta \eta^4 \right)
   \end{array}
 \label{eq:euler maclaurin 2d composite}
 \end{equation}
@@ -323,7 +328,7 @@ La méthode $Q_{\alpha}$ est exactement d'ordre 2.
 \end{proposition}
 
 \begin{proof}
-On choisit $h$ tel que pour tout $x \in \mathbb{S}_a^2$, on ait $h(\mathbf{x})=\dfrac{1}{\sqrt{\overline{\mathbf{G}}(\mathbf{x})}}$. Alors on on sait que l'égualité suivante est exactement vérifiée pour tout $N$ paramètre de maillage de la Sphère.
+On choisit $h$ tel que pour tout $x \in \mathbb{S}_a^2$, on ait $h(\mathbf{x})=\dfrac{1}{\sqrt{\overline{\mathbf{G}}(\mathbf{x})}}$. Alors on sait que l'égualité suivante est exactement vérifiée pour tout $N$ paramètre de maillage de la Sphère.
 
 \begin{equation}
 Q_{tpz}(h)-I(h)=0

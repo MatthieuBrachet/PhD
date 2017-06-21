@@ -14,7 +14,7 @@ scheme='compact4';
 corner = 0;
 
 test=-1;
-NN=2.^[10:10]-1;
+NN=2.^[3:8]-1;
 
 for ii=1:length(NN)
     clc; n=NN(ii)

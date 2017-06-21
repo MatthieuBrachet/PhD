@@ -3,7 +3,7 @@ global radius dga
 x=x./radius; y=y./radius; z=z./radius;
 
 if test == -1
-    nhs=10;
+    nhs=12;%10
     mhs=4;
     fun=sph(nhs,mhs,x,y,z);
     int=0;
