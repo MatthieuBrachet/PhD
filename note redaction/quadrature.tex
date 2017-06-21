@@ -1,48 +1,9 @@
 % quadrature.tex
 
-\chapter{Produit Scalaire et quadrature sur le Cubed-Sphere}
-
-
-\section{Produit scalaire sur la Cubed-Sphere}
-
-\begin{itemize}
-\item Harmoniques sphériques
-\item Produit scalaire continu sur la sphère
-\item Produit sclaire discret:
-\begin{itemize}
-\item Construction générale sur la CS
-\item Propriété triangulaire et consèquences (en particulier pdf scalaire nul pour les HS)
-\end{itemize}
-\end{itemize}
-
-\subsection{Harmoniques Sphériques sur la Sphère}
-
-\subsubsection{Généralités sur les Harmoniques Sphériques}
-
-\subsubsection{Construction d'une base d'Harmoniques Sphériques}
-
-\subsection{Produit Scalaire discret sur la Cubed-Sphère}
-
-\subsubsection{Généralités}
-
-\subsubsection{Propriété triangulaire}
-
-
-
-
-
-
-
-
-
-
-
+\chapter{Quadrature et produit scalaire sur le Cubed-Sphere}
 
 
 \section{Quadrature sur la Cubed-Sphere}
-
-
-
 
 
 \subsection{Pré-requis} %% ***************************************************************************************
@@ -101,7 +62,39 @@ La formule d'Euler MacLaurin \eqref{eq:euler maclaurin 2d composite} peut être 
 I(h)=\gint_{\mathbb{S}_a^2} h(\mathbf{x})d\sigma(\mathbf{x}) = \gsum_{K = I}^{VI} I^{(K)}(h)
 \end{equation}
 
-\subsection{Quadrature uniforme}  %% ***************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -419,7 +412,7 @@ d'où le terme d'ordre 2 dans \eqref{eq:opimalite alpha 1} :
 
 \begin{equation}
 \Delta \xi^2 a^2 \left( \alpha - \dfrac{1}{4} \right) \dfrac{16}{3 \sqrt{3}} + \dfrac{4}{3}S
-\label{eq:opimalite alpha 2}
+\label{eq:optimalite alpha 2}
 \end{equation}
 
 avec $S=\Delta \xi \gsum_{i \in I} f(i \Delta \xi)$ lorsque $f$ est la fonction $f:x \mapsto f(x)=\dfrac{\tan(x)^4 -1}{(\tan(x)^2+2)^{5/2}}$.
@@ -427,10 +420,10 @@ avec $S=\Delta \xi \gsum_{i \in I} f(i \Delta \xi)$ lorsque $f$ est la fonction 
 Comme $f\left(-\frac{\pi}{4} \right)=f\left(\frac{\pi}{4} \right)=0$ et par propriété de la méthode des trapèzes, on note que :
 
 \begin{equation}
-S = \gint_{-\pi/4}^{\pi/4} f(x)dx + \mathcal{O}\left( \Delta \xi^2 \right) = -\dfrac{1}{3\sqrt{3}} + \mathcal{O}\left( \Delta \xi^2 \right)
+S = \dfrac{f\left(-\frac{\pi}{4} \right)+f\left(\frac{\pi}{4} \right)}{2} + \gint_{-\pi/4}^{\pi/4} f(x)dx + \mathcal{O}\left( \Delta \xi^2 \right) = -\dfrac{1}{3\sqrt{3}} + \mathcal{O}\left( \Delta \xi^2 \right)
 \end{equation}
 
-donc pour que le terme d'ordre 2 soit nul, il faut avoir (en remplacant dans  \eqref{eq:opimalite alpha 2}) :
+donc pour que le terme d'ordre 2 soit nul, il faut avoir (en remplacant dans  \eqref{eq:optimalite alpha 2}) :
 
 \begin{equation}
 \left(\alpha - \dfrac{1}{4} \right) \dfrac{16}{3 \sqrt{3}} - \dfrac{4}{9 \sqrt{3}} = 0
@@ -555,14 +548,18 @@ $f_4(x,y,z)=\frac{1+sign(-9x-9y+9z)}{9}$ & $\frac{4\pi}{9} a^2$\\
 \hline
 $f_5(x,y,z)=\frac{1-sign(\pi x + y)}{\alpha}$ & $\frac{4\pi}{\alpha} a^2$ \\
 \hline
-$f_6(\mathbf{x}) = 1/\sqrt{\overline{\mathbf{G}}(\mathbf{x})}$ & $14.804406601634035... a^2$ \\
+$f_6(\mathbf{x}) = 1/\sqrt{\overline{\mathbf{G}}(\mathbf{x})}$ & $a^2 \cdot 14.804406601634035... $ \\
 \hline
-$f_7(\mathbf{x}) = (1/\sqrt{\overline{\mathbf{G}}(\mathbf{x})})^2$ & $17.579738281473187... a^2$ \\
+$f_7(\mathbf{x}) = 1/|\overline{\mathbf{G}}(\mathbf{x})|$ & $a^2 \cdot 17.579738281473187...$ \\
 \hline
 \end{tabular}
 \end{center}
 \caption{Fonctions test pour l'intégration sur la sphère.}
 \end{table}
+
+\begin{remarque}
+On note que la fonction $f_4$ est discontinue, les fonctions $f_6$ et $f_7$ sont construites par panels. Ces dernière sont ne sont pas $\mathcal{C}^1$ sur la sphère.
+\end{remarque}
 
 
 
