@@ -11,7 +11,7 @@ filtre='classic';
 opt_ftr='redonnet10';
 scheme='compact4';
 
-test=-1;
+test=1;
 n=127;
 mod101
 
@@ -22,16 +22,16 @@ mod101
 [fun_V    ,int] = fun_quad(x_fV  ,y_fV  ,z_fV   ,test);
 [fun_VI   ,int] = fun_quad(x_fVI ,y_fVI ,z_fVI  ,test);
 
-Alpha=-1:0.0001:1;
+Alpha=-1:0.001:1;
 
 for i=1:length(Alpha)
     corner=Alpha(i);
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=nrm_alpha(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,corner);
-    err(i)=abs(nrmI-int);
+    err(i)=abs(nrmg-int);
 end
 
 figure(1)
-plot(Alpha,err/dxi^2)
+plot(Alpha,err)
 
 [E,I]=min(err);
 
