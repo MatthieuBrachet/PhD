@@ -253,8 +253,18 @@ Numériquement, nous obtenons deux types de résultats :
 \item  l'erreur relative est donnée sur $\eta$ au temps $t^n$, $e_i^n$ avec $i \in \lbrace 1, 2, \infty \rbrace$,
 \item Nous représentons aussi les relations de conservations relatives :
 \begin{equation}
-\dfrac{I^n}{I(0)}
+\dfrac{I^n}{I(0)}-1
 \end{equation}
-où  $I^n = \gint_{\mathbb{S}_a^2} \eta (t^n)$ la masse ou l'énergie $I^n = \gint_{\mathbb{S}_a^2} g \eta (t^n)^2 + H |u(t^n) |^2$ et $I(0)$ est la masse ou l'énergie initiale. Cette quantité $I^n/I(0)$ doit etre proche de $1$ si les quantités sont conservées.
+où  $I^n = \gint_{\mathbb{S}_a^2} \eta (t^n)$ la masse ou l'énergie $I^n = \gint_{\mathbb{S}_a^2} g \eta (t^n)^2 + H |u(t^n) |^2$ et $I(0)$ est la masse ou l'énergie initiale. Cette quantité $I^n/I(0)-1$ doit etre proche de $0$ si les quantités sont conservées.
 \end{itemize} 
 
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=0.4]{ref_7368697187_erreur.png}
+\includegraphics[scale=0.4]{ref_7368697187_conservation.png}
+\caption{Cas test stationnaire pour le système (LSWE) avec $N=32$, $CFL=0.9$ - Erreur relative au cours des itérations (gauche) erreur sur la conservation (droite)}
+\label{fig:err and cons lswe2}
+\end{center}
+\end{figure}
+
+La figure \ref{fig:err and cons lswe2} présente l'erreur relative au cours de itérations ainsi que la conservation. On constate que les propriétés de conservation d'une solution stationnaire sont assez bonne. 
