@@ -27,4 +27,6 @@ hold on;
 ltt=linspace(min(ldx),max(ldx),1000);
 lsq1=a11(2)+a11(1)*ltt;
 
-loglog(dx,exp(a11(2).*dx.^a11(1)),'x')
+loglog(dx,exp(a11(2).*dx.^a11(1)),'-')
+
+print('-dpng', ['rate_v_LSWE1.png'])

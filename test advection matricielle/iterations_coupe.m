@@ -6,7 +6,7 @@ global n nn;
 global radius u0 dxi;
 global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII;
 global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI;
-global ite
+global time
 
 %% ************************************************************************
 %
@@ -19,7 +19,7 @@ mod101
 cfl=.9;
 tmax=24*3600*ndaymax;
 ddt=cfl*radius*dxi/u0;
-itemax=floor(tmax/ddt);
+itemax=floor(tmax/ddt)+1;
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DEBUT BOUCLE EN TEMPS %
 % ------------------------------------------------------------------------

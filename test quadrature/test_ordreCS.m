@@ -14,7 +14,7 @@ scheme='compact4';
 corner = 0;
 
 test=-1;
-NN=2.^[3:8]-1;
+NN=2.^[3:7]-1;
 
 for ii=1:length(NN)
     clc; n=NN(ii)
@@ -34,16 +34,16 @@ for ii=1:length(NN)
 %     euni(ii)=abs((nrmg0-int));%/int);
     str='int'
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg1]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
-    eint(ii)=abs((nrmg1-int));%/int);
+    eint(ii)=abs((nrmV-int))/int;
     str='trapezes'
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg2]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
-    erect(ii)=abs((nrmg2-int));%/int);
+    erect(ii)=abs((nrmV-int))/int;
     str='simpson'
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg3]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
-    esimpson(ii)=abs((nrmg3-int));%/int);
+    esimpson(ii)=abs((nrmV-int))/int;
     str='test'
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg4]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
-    etest(ii)=abs((nrmg4-int));%/int);
+    etest(ii)=abs((nrmV-int))/int;
 end
 
 %[a10,b1]=polyfit(log(hh),log(euni),1);

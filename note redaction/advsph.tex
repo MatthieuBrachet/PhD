@@ -304,8 +304,8 @@ La solution peut être calculée en chaque instant par la formule \eqref{eq: adv
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.3]{ref_7366153815_solexacte_test_0.png}
-\includegraphics[scale=0.3]{ref_7366153815_solapprochee_test_0.png}
+\includegraphics[scale=0.3]{ref_7368694656_solexacte_test_0.png}
+\includegraphics[scale=0.3]{ref_7368694670_solapprochee_test_0.png}
 \caption{Test du Bump - $\alpha = 0$ - $N=40$ - $CFL=0.9$ - solution exacte à $t=0$ (gauche) et approchée à $t=12 jours$ (droite) }
 \label{table adv1}
 \end{center}
@@ -315,8 +315,8 @@ La solution peut être calculée en chaque instant par la formule \eqref{eq: adv
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.3]{ref_7366153815_erreur_test_0.png}
-\includegraphics[scale=0.3]{ref_7366153815_normerreur_test_0.png}
+\includegraphics[scale=0.3]{ref_7368694670_erreur_test_0.png}
+\includegraphics[scale=0.3]{ref_7368694670_normerreur_test_0.png}
 \caption{Test du Bump avec $\alpha = 0$, $N=40$, $CFL=0.9$ - à $t=12 jours$ localisation spatiale de l'erreur $( h^n - h(t^n) )$ (gauche) et erreur relative en norme (droite) }
 \label{table adv2}
 \end{center}
@@ -326,8 +326,8 @@ La solution peut être calculée en chaque instant par la formule \eqref{eq: adv
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.3]{ref_7366154078_erreur_test_0.png}
-\includegraphics[scale=0.3]{ref_7366154078_normerreur_test_0.png}
+\includegraphics[scale=0.3]{ref_7368694686_erreur_test_0.png}
+\includegraphics[scale=0.3]{ref_7368694686_normerreur_test_0.png}
 \caption{Test du Bump - $\alpha = - \pi /4$ - $N=40$ - $CFL=0.9$ - à $t=12 jours$ localisation spatiale de l'erreur $( h^n - h(t^n))$ (gauche) et erreur relative en norme (droite) }
 \label{table adv3}
 \end{center}
@@ -339,13 +339,20 @@ De plus, on peut mettre en évidence l'importance du filtre en traçant une coup
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.3]{07-Oct-2016ref_7366105937_coupefaceI_equateur_test_0.png}
-\includegraphics[scale=0.3]{ref_7366106674_normerreur_test_0.png}
-\caption{Test du Bump - $\alpha = 0$ - $N=40$ - $CFL=0.9$ - à $t=12$ coupe sur l'équateur (gauche) - erreur relative sans filtre (droite)}
+\includegraphics[scale=0.3]{coupefaceI_equateur_test_0.png}
+\caption{Test du Bump - $\alpha = 0$ - $CFL=0.9$ - à $t=12$ coupe sur l'équateur avec $N=50$ (gauche) - erreur relative pour le schéma sans filtre (droite)}
 \label{table adv4}
 \end{center}
 \end{figure}
 
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.3]{ref_7368694686_normerreur_test_0.png}
+\includegraphics[scale=0.3]{ref_7368695729_erreur_test_0.png}
+\caption{Test du Bump - $\alpha = 0$ - $CFL=0.9$ - $N=40$ - erreur relative pour le schéma sans filtre (gauche) et localisation spatiale de l'erreur $( h^n - h(t^n))$ (droite)}
+\label{table adv5}
+\end{center}
+\end{figure}
 
 
 \begin{table}[ht]
@@ -357,11 +364,11 @@ De plus, on peut mettre en évidence l'importance du filtre en traçant une coup
 \hline
 maxi. théorique & $1000$ & $1000$ & $1000$ \\ 
 \hline 
-maxi. filtre d'ordre 10 & $916.1395$& $990.8628$ & $996.1402$  \\ 
+maxi. filtre d'ordre 10 & $793.4881$& $967.8065$ & $990.1763$  \\ 
 \hline 
-maxi. filtre d'ordre 6 & $501.9189$& $834.3534$ & $995.8051$  \\ 
+maxi. filtre d'ordre 6 & $698.7946$& $962.9998$ & $990.0429$  \\ 
 \hline 
-maxi. filtre d'ordre 2 & $69.0705$ & $126.0255$ & $223.3713$  \\ 
+maxi. filtre d'ordre 2 & $66.2973$ & $123.2267$ & $221.0989$  \\ 
 \hline 
 \end{tabular} 
 \caption{Maximum du Bump après $12$ jours - $CFL=0.9$}
@@ -438,8 +445,8 @@ Les figures \ref{fig NM1}, \ref{fig NM2} présentent deux valeurs de $(\lambda_P
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.3]{ref_7366154221_solapprochee_test_1.png}
-\includegraphics[scale=0.3]{ref_7366154221_erreur_test_1.png}
+\includegraphics[scale=0.3]{ref_7368695899_solapprochee_test_1.png}
+\includegraphics[scale=0.3]{ref_7368695899_erreur_test_1.png}
 \caption{Test de R. D. Nair et B. Machenhaueur, $(\lambda_P, \theta_P) = (0,0)$, $N=40$, $CFL=0.9$, à $t=12$ coupe sur l'équateur (gauche) - localisation spatiale de l'erreur (droite)}
 \label{fig NM1}
 \end{center}
@@ -447,8 +454,8 @@ Les figures \ref{fig NM1}, \ref{fig NM2} présentent deux valeurs de $(\lambda_P
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.4]{ref_7366154508_solapprochee_test_1.png}
-\includegraphics[scale=0.4]{ref_7366154508_erreur_test_1.png}
+\includegraphics[scale=0.4]{ref_7368695916_solapprochee_test_1.png}
+\includegraphics[scale=0.4]{ref_7368695916_erreur_test_1.png}
 \caption{Test de R. D. Nair et B. Machenhaueur, $(\lambda_P, \theta_P) = (\pi/4,\pi/4)$, $N=40$, $CFL=0.9$, à $t=12$ coupe sur l'équateur (gauche) - localisation spatiale de l'erreur (droite)}
 \label{fig NM2}
 \end{center}
@@ -456,8 +463,8 @@ Les figures \ref{fig NM1}, \ref{fig NM2} présentent deux valeurs de $(\lambda_P
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.3]{ref_7366154221_normerreur_test_1.png}
-\includegraphics[scale=0.3]{ref_7366154508_normerreur_test_1.png}
+\includegraphics[scale=0.3]{ref_7368695899_normerreur_test_1.png}
+\includegraphics[scale=0.3]{ref_7368695916_normerreur_test_1.png}
 \caption{Erreur relative pour le test de R. D. Nair et B. Machenhaueur sur 12 jours,  $(\lambda_P, \theta_P) = (0,0)$ (gauche) et $(\lambda_P, \theta_P) = (\pi/4,\pi/4)$ (droite) avec $N=40$ et $CFL=0.9$}
 \label{fig NM3}
 \end{center}
@@ -467,8 +474,7 @@ En figure \ref{fig NM4}, on observe bien le lien entre le rafinement du maillage
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.3]{ref_7366148118_coupefaceI_equateur_test_1.png}
-\includegraphics[scale=0.3]{ref_7366148261_coupefaceI_equateur_test_1.png}
+\includegraphics[scale=0.3]{coupe.png}
 \caption{Coupe sur l'équateur pour le test de R. D. Nair et B. Machenhaueur, $(\lambda_P, \theta_P) = (0,0)$, $CFL=0.9$ ainsi que le filtre à l'ordre 10}
 \label{fig NM4}
 \end{center}
@@ -540,53 +546,38 @@ Ce test permet de combiner un déplacement (qui ne déforme pas la solution init
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.33]{ref_7366155784_snapshot_test_2_nday_0.png}\\
-\includegraphics[scale=0.33]{ref_7366155795_snapshot_test_2_nday_3.png}\\
-\includegraphics[scale=0.33]{ref_7366155813_snapshot_test_2_nday_6.png}\\
-\includegraphics[scale=0.33]{ref_7366156040_snapshot_test_2_nday_9.png}\\
-\includegraphics[scale=0.33]{ref_7366156069_snapshot_test_2_nday_12.png}\\
-\caption{Test de R. D. Nair et C. Jablonowski, $(\lambda_0, \theta_0) = (0,0)$, $\alpha= \pi/4$ à $t=0$, $3$, $6$, $9$ et $12$ jours.}
+\includegraphics[scale=0.33]{ref_7368696067_snapshot_test_2_nday_1.png}\\
+\includegraphics[scale=0.33]{ref_7368696067_snapshot_test_2_nday_3.png}\\
+\includegraphics[scale=0.33]{ref_7368696067_snapshot_test_2_nday_7.png}\\
+\includegraphics[scale=0.33]{ref_7368696067_snapshot_test_2_nday_11.png}\\
+\caption{Test de R. D. Nair et C. Jablonowski, $(\lambda_0, \theta_0) = (0,0)$, $\alpha= \pi/4$ à $t=0$, $4$, $8$ et $12$ jours.}
 \label{fig NJ1}
 \end{center}
 \end{figure}
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.3]{ref_7366156130_normerreur_test_2.png}
-\includegraphics[scale=0.3]{ref_7366156130_erreur_test_2.png}
-\caption{Test de R. D. Nair et C. Jablonowski, $(\lambda_0, \theta_0) = (0,0)$, $\alpha= \pi/4$ sur $12$ jours. On a choisit $N=40$ et $CFL=0.9$. Erreur relative au cours du temps (gauche), localisation spatiale de l'erreur (droite).}
+\includegraphics[scale=0.3]{ref_7368696067_normerreur_test_2.png}
+\includegraphics[scale=0.3]{ref_7368696067_erreur_test_2.png}
+\caption{Test de R. D. Nair et C. Jablonowski, $(\lambda_0, \theta_0) = (0,0)$, $\alpha= -\pi/4$ sur $12$ jours. On a choisit $N=40$ et $CFL=0.9$. Erreur relative au cours du temps (gauche), localisation spatiale de l'erreur (droite).}
 \label{fig NJ2}
 \end{center}
 \end{figure}
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.3]{ref_7366156187_normerreur_test_2.png}
-\includegraphics[scale=0.3]{ref_7366156187_erreur_test_2.png}
-\caption{Test de R. D. Nair et C. Jablonowski, $(\lambda_0, \theta_0) = (0,0)$, $\alpha= \pi/4$ sur $12$ jours. On a choisit $N=40$ et $CFL=0.9$. Erreur relative au cours du temps (gauche), localisation spatiale de l'erreur (droite).}
+\includegraphics[scale=0.3]{ref_7368696111_normerreur_test_2.png}
+\includegraphics[scale=0.3]{ref_7368696111_erreur_test_2.png}
+\caption{Test de R. D. Nair et C. Jablonowski, $(\lambda_0, \theta_0) = (0,0)$, $\alpha= 0$ sur $12$ jours. On a choisit $N=40$ et $CFL=0.9$. Erreur relative au cours du temps (gauche), localisation spatiale de l'erreur (droite).}
 \label{fig NJ3}
 \end{center}
 \end{figure}
 
-\begin{table}[ht]
+\begin{figure}[ht]
 \begin{center}
-\begin{tabular}{c|cc|cc|cc}
-$N$ & $max_n |e_1^n|$ & ordre  & $max_n |e_2^n|$ & ordre  & $max_n |e_{\infty}^n|$ & ordre \\
-\hline
-\hline
-$40$ & $2.7609 (-3)$ & -  & $9.7386 (-3)$ & - & $5.4808 (-2)$  & - \\
-\hline 
-$50$ & $1.276 (-3)$ & $3.5364$ & $5.0160 (-3)$ & $3.0399$ & $3.2035 (-2)$ & $2.4605$ \\
-\hline
-$60$ & $6.2957 (-4)$ & $3.9456$ & $2.6157 (-3)$ & $3.6365$ & $1.8218 (-2)$ & $3.1523$ \\
-\hline
-$80$ & $1.9603 (-4) $ & $4.1145$ & $8.3722 (-4)$ & $4.0173$ & $6.0931 (-3)$ & $3.8623$ \\
-\hline
-$100$ & $8.0399 (-5)$ & $4.0389$ & $3.4524 (-4)$ & $4.0143$ & $2.6514 (-3)$ & $3.7706$\\
-\hline
-$150$ & $1.5656 (-5)$ & $4.0684$ & $6.9199 (-5)$ & $3.9966$ & $5.8082 (-4)$ & $3.7756$
-\end{tabular}
-\caption{Analyse de convergence pour le test de R. D. Nair et C. Jablonowski \cite{Nair2008} ; $CFL = 0.7$ ; $\alpha = \pi /4$}
+\includegraphics[scale=0.45]{rate_NJ.png}
+\caption{Analyse de convergence pour le test de R. Nair and C. Jablonowski -
+$CFL = 0.7$ ;$ \alpha = \pi/4$, pour $N = 40$, $50$, $60$, $80$, $100$ et $150$}
 \label{table NJ1}
 \end{center}
-\end{table}
+\end{figure}

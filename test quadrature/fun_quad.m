@@ -3,12 +3,12 @@ global radius dga
 x=x./radius; y=y./radius; z=z./radius;
 
 if test == -1
-    nhs=12;%10
+    nhs=10;
     mhs=4;
     fun=sph(nhs,mhs,x,y,z);
-    int=0;
+   % int=0;
    % int=-0.024504169544522; % for panel I
-   % int=0.049008339100883; %for panel V
+    int=0.049008339100883; %for panel V
 
 elseif test == 0
     fun=ones(size(x));
