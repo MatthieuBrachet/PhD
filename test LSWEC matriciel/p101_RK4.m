@@ -29,7 +29,7 @@ sauvegarde = 0;
 opt_ftr='redonnet10';
 type_ftr='symetric';
 scheme='compact4';
-n=63;
+n=127;
 mod101
 
 teta0=-pi/3;

@@ -534,33 +534,49 @@ Pour tester la précision des différentes méthodes de quadrature, on s'intér�
 
 Les résultats à retrouver sont regroupés dans le tableau ci dessous :
 
-\begin{table}[ht]
-\begin{center}
-\begin{tabular}{|c|c|}
-\hline
-$f_i(\mathbf{x})$   &   $\gint_{\mathbb{S}_a^2} f_i(\mathbf{x}) d\sigma (\mathbf{x})$ \\
-\hline
-\hline
-$f_0(x,y,z)=1$ & $4 \pi a^2$ \\
-\hline
-$f_1(x,y,z)=1+x+y^2+y\cdot x^2+x^4+y^5+x^2 \cdot y^2 \cdot z^2$ & $\dfrac{216 \pi}{35} a^2$ \\
-\hline
-A ECRIRE & $6.6961822200736179523...  a^2$ \\
-\hline
-$f_3(x,y,z)=\frac{1+\tanh(-9x-9y+9z)}{9}$ & $\frac{4\pi}{9} a^2$\\
-\hline
-$f_4(x,y,z)=\frac{1+sign(-9x-9y+9z)}{9}$ & $\frac{4\pi}{9} a^2$\\
-\hline
-$f_5(x,y,z)=\frac{1-sign(\pi x + y)}{\alpha}$ & $\frac{4\pi}{\alpha} a^2$ \\
-\hline
-$f_6(\mathbf{x}) = 1/\sqrt{\overline{\mathbf{G}}(\mathbf{x})}$ & $a^2 \cdot 14.804406601634035... $ \\
-\hline
-$f_7(\mathbf{x}) = 1/|\overline{\mathbf{G}}(\mathbf{x})|$ & $a^2 \cdot 17.579738281473187...$ \\
-\hline
-\end{tabular}
-\end{center}
-\caption{Fonctions test pour l'intégration sur la sphère.}
-\end{table}
+
+\begin{itemize}
+\item Si : $f_0(x,y,z)=1$ alors :
+$$
+\gint_{\mathbb{S}_a^2} f_0(\mathbf{x}) d\sigma (\mathbf{x})=4 \pi a^2
+$$
+\item Si $f_1(x,y,z)=1+x+y^2+y\cdot x^2+x^4+y^5+x^2 \cdot y^2 \cdot z^2$ alors :
+$$
+\gint_{\mathbb{S}_a^2} f_1(\mathbf{x}) d\sigma (\mathbf{x})=\dfrac{216 \pi}{35} a^2
+$$
+\item Si 
+\begin{multline}
+f_2(x,y,z) = \dfrac{3}{4} \exp \left[ - \dfrac{(9x-2)^2}{4} - \dfrac{(9y-2)^2}{4} - \dfrac{(9z-2)^2}{4} \right] + ...\\
+... + \dfrac{3}{4} \exp \left[ - \dfrac{(9x+1)^2}{49} - \dfrac{9y+1}{10} - \dfrac{9z+1}{10} \right] + ...\\
+... + \dfrac{1}{2} \exp \left[ - \dfrac{(9x-7)^2}{4} - \dfrac{(9y-3)^3}{4} - \dfrac{(9z-5)^2}{4} \right] + ...\\
+... + \dfrac{1}{5} \exp \left[ - (9x-4)^2 - (9y-7)^2 - (9z-5)^2 \right]
+\end{multline}
+alors :
+$$
+\gint_{\mathbb{S}_a^2} f_2(\mathbf{x}) d\sigma (\mathbf{x})=a^2 \cdot 6.6961822200736179523...
+$$
+\item Si $f_3(x,y,z)=\frac{1+\tanh(-9x-9y+9z)}{9}$ alors :
+$$
+\gint_{\mathbb{S}_a^2} f_3(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{9} a^2
+$$
+\item Si $f_4(x,y,z)=\frac{1+sign(-9x-9y+9z)}{9}$ alors :
+$$
+\gint_{\mathbb{S}_a^2} f_4(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{9} a^2
+$$
+\item Si $f_5(x,y,z)=\frac{1-sign(\pi x + y)}{\alpha}$ alors :
+$$
+\gint_{\mathbb{S}_a^2} f_5(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{\alpha} a^2
+$$
+\item Si $f_6(x,y,z)=1/\sqrt{\overline{\mathbf{G}}(\mathbf{x})}$ alors :
+$$
+\gint_{\mathbb{S}_a^2} f_6(\mathbf{x}) d\sigma (\mathbf{x})=a^2 \cdot 14.804406601634035...
+$$
+\item Si $f_7(x,y,z)=1/|\overline{\mathbf{G}}(\mathbf{x})|$ alors :
+$$
+\gint_{\mathbb{S}_a^2} f_6(\mathbf{x}) d\sigma (\mathbf{x})=a^2 \cdot 17.579738281473187...
+$$
+\end{itemize}
+
 
 \begin{remarque}
 On note que la fonction $f_4$ est discontinue, les fonctions $f_6$ et $f_7$ sont construites par panels. Ces dernière sont ne sont pas $\mathcal{C}^1$ sur la sphère.
