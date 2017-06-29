@@ -1,7 +1,7 @@
 % LSWEC.tex
 \chapter{Linearized Shallow Water Equation with Coriolis Force}
 
-Le but de cette partie est de présenter deux test pour l'équation Shallow-Water linéarisée avec force de Coriolis (LSWEC) :
+Le but de cette partie est de présenter deux tests pour l'équation Shallow-Water linéarisée avec force de Coriolis (LSWEC) :
 
 \begin{equation}
 \label{LSWEC}
@@ -15,7 +15,7 @@ Le but de cette partie est de présenter deux test pour l'équation Shallow-Wate
 
 ici $\mathbf{F}$ et $G$ sont des fonctions de forcage.
 
-l'équation est résolue sur la sphère $\mathbb{S}_a^2$ dont le rayon est $a$. $\mathbf{x}$, un point de $\mathbb{S}_a^2$ est un point de latitude $\lambda$ et de longitude $\theta$ the longitude. Un vecteur $\mathbf{u} : \mathbb{S}_a^2 \rightarrow \mathbb{T}\mathbb{S}_a^2$ est déterminé par :
+l'équation est résolue sur la sphère $\mathbb{S}_a^2$ dont le rayon est $a$ est un réél positif. $\mathbf{x} \in \mathbb{S}_a^2$ est un point de latitude $\lambda$ et de longitude $\theta$ the longitude. Un vecteur $\mathbf{u} : \mathbb{S}_a^2 \rightarrow \mathbb{T}\mathbb{S}_a^2$ est déterminé par :
 
 $$\mathbf{u} = u \mathbf{e}_{\theta} + v \mathbf{e}_{\lambda}.$$ 
 
@@ -187,7 +187,7 @@ où :
 
 $K = e^{-\dfrac{4}{(\theta_0 - \theta_1)^2}}$ est une constante de normalisation.
 
-Pour les calculs numériques, nous choisissons $\sigma = 10^{-4}$, $\theta_0 = -\dfrac{3 \pi}{16}$ and $\theta_1 = \dfrac{3 \pi}{16}$.
+Pour les calculs numériques, nous choisissons $\sigma = 10^{-5}$, $\theta_0 = -\dfrac{\pi}{3}$ and $\theta_1 = \dfrac{\pi}{3}$.
 
 ainsi qu'une condition CFL de la forme suivante :
 
@@ -197,136 +197,21 @@ CFL = \dfrac{c \Delta t}{a \Delta \xi}
 
 avec $c = max(c_{grav}, c_{cor})$, $c_{grav} = \sqrt{gH}$ et $c_{cor} = a \omega$, $\Delta \xi = \pi / 2N$.
 
-Les tables \ref{CV_order4_hp10}, \ref{CV_order4_hp100} et \ref{CV_order4_hp1000} sont obtenues avec un schéma d'ordre 4 en temps (RK4) et d'ordre 4 en espace. Pour les Tables \ref{CV_order8_hp10}, \ref{CV_order8_hp100} et \ref{CV_order8_hp1000} le schéma est le même en temps mais nous utilisons un schéma compact à l'ordre 8 pour la divergence et 4 pour le gradient.
+La solution $\eta$ est une fonction zonale (indépendante de $\lambda$ s'atténuant au cours du temps. De même, le champ de vitesse $\mathbf{u}$ tend vers $0$.
+
+Pour se rapprocher d'un cadre physique, on choisit $H=10000$ avec $1$ jours de simulation. Les résultats de convergence sont données dans la figure \ref{fig:accuracy lswe 1}. Ainsi, un ordre de convergence proche de 4 est confirmé pour les normes 1 et 2. Pour la norme infini, on obtient un odre de l'ordre de $3.3654$ pour $\eta$ et $3.4651$ pour $\mathbf{v}$.
 
 
-\begin{table}[ht]
+\begin{figure}[ht!]
 \begin{center}
-\begin{tabular}{c|c|c|c|c|c|c}
-$N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
-\hline 
-\hline
-$20$ & $1.2920 (-4)$ & - & $5.6417 (-5)$ & - & $4.7733 (-5)$ & - \\ 
-\hline 
-$40$ & $1.9620 (-5)$ & $2.9171$ & $5.4901 (-6)$ & $3.4823$ & $3.6578 (-6)$ & $3.8394$ \\ 
-\hline 
-$60$ & $3.7239 (-6)$ & $4.1827$ & $1.1867 (-6)$ & $3.8554$ & $7.3660 (-7)$ & $4.0336$ \\
-\hline 
-$80$ & $1.0788 (-6)$ & $4.3689$ & $3.7154 (-7)$ & $4.0951$ & $2.1765 (-7)$ & $4.2992$ \\ 
-\hline 
-$100$ & $4.1779(-7)$ & $4.2988$ & $1.4789 (-7)$ & $4.1745$ & $8.5641 (-8)$ & $4.2268$  \\ 
-\end{tabular} 
-\caption{Analyse de convergence $CFL=0.5$ et $H=10$.}
-\label{CV_order4_hp10}
+\includegraphics[scale=0.4]{rate_h_LSWE1.png}
+\includegraphics[scale=0.4]{rate_v_LSWE1.png}
+\caption{Analyse de convergence pour le test avec forçage de l'équation LSWE - $CFL=0.9$ - $t_{max}=1$ jour. Convergence pour les normes $1$, $2$ et infinie sur $\eta$ (gauche), Convergence pour la norme infinie sur $\mathbf{v}$ (droite)}
+\label{fig:accuracy lswe 1}
 \end{center}
-\end{table}
+\end{figure}
 
-\begin{table}[ht]
-\begin{center}
-\begin{tabular}{c|c|c|c|c|c|c}
-$N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
-\hline 
-\hline
-$20$ & $0.0038$ & - & $0.0015$ & - & $0.0012$ & - \\ 
-\hline 
-$40$ & $3.8502 (-4)$ & $3.4220$ & $1.1233 (-4)$ & $3.8738$ & $7.0664 (-5)$ & $4.2331$ \\ 
-\hline 
-$60$ & $6.0715 (-5)$ & $4.6491$ & $1.7546 (-5)$ & $4.6731$ & $1.1497 (-5)$ & $4.5705$ \\
-\hline 
-$80$ & $1.4527 (-5)$ & $5.0434$ & $4.8548 (-6)$ & $4.5309$ & $3.2599 (-6)$ & $4.4446$ \\ 
-\hline 
-$100$ & $5.8355(-6)$ & $4.1331$ & $1.9027 (-6)$ & $4.2447$ & $1.2637 (-6)$ & $4.2944$  \\ 
-\end{tabular} 
-\caption{Analyse de convergence $CFL=0.5$ et $H=100$.}
-\label{CV_order4_hp100}
-\end{center}
-\end{table}
-
-\begin{table}[ht]
-\begin{center}
-\begin{tabular}{c|c|c|c|c|c|c}
-$N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
-\hline 
-\hline
-$20$ & $0.0629$ & - & $0.0283$ & - & $0.0277$ & - \\ 
-\hline 
-$40$ & $0.0044$ & $3.9757$ & $0.0014$ & $4.4935$ & $0.0011$ & $4.8219$ \\ 
-\hline 
-$60$ & $6.6608 (-4)$ & $4.7519$ & $1.9743 (-4)$ & $4.9304$ & $1.4907 (-4)$ & $5.0306$ \\
-\hline 
-$80$ & $1.6033 (-4)$ & $5.0222$ & $5.3660 (-5)$ & $4.5217$ & $4.2043 (-5)$ & $4.4634$ \\ 
-\hline 
-$100$ & $6.9510(-5)$ & $3.7874$ & $2.1324 (-5)$ & $4.1819$ & $1.6013 (-5)$ & $4.3743$  \\ 
-\end{tabular} 
-\caption{Analyse de convergence avec $CFL=0.5$ et $H=1000$.}
-\label{CV_order4_hp1000}
-\end{center}
-\end{table}
-
-\begin{table}[ht]
-\begin{center}
-\begin{tabular}{c|c|c|c|c|c|c}
-$N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
-\hline 
-\hline
-$20$ & $1.0303 (-4)$ & - & $5.1192 (-5)$ & - & $5.0087 (-5)$ & - \\ 
-\hline 
-$40$ & $1.1221 (-5)$ & $3.3140$ & $4.7304 (-6)$ & $3.5596$ & $3.3176 (-6)$ & $4.0573$ \\ 
-\hline 
-$60$ & $2.8566 (-6)$ & $3.4436$ & $1.0696 (-6)$ & $3.7421$ & $6.5310 (-7)$ & $4.0908$ \\
-\hline 
-$80$ & $1.0837 (-6)$ & $3.4180$ & $3.2702 (-7)$ & $4.1789$ & $1.8005 (-7)$ & $4.5438$ \\ 
-\hline 
-$100$ & $4.2901(-7)$ & $4.1993$ & $1.2667 (-7)$ & $4.2980$ & $6.7292 (-8)$ & $4.4600$  \\ 
-\end{tabular} 
-\caption{Analyse de convergence avec $CFL=0.5$ et $H=10$.}
-\label{CV_order8_hp10}
-\end{center}
-\end{table}
-
-\begin{table}[ht]
-\begin{center}
-\begin{tabular}{c|c|c|c|c|c|c}
-$N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
-\hline 
-\hline
-$20$ & $0.0025$ & - & $0.0012$ & - & $0.0011$ & - \\ 
-\hline 
-$40$ & $1.7414 (-4)$ & $3.9820$ & $6.5746 (-5)$ & $4.3409$ & $4.6314 (-5)$ & $4.7345$ \\ 
-\hline 
-$60$ & $2.7156 (-5)$ & $4.6772$ & $9.1924 (-6)$ & $4.9520$ & $5.9158 (-6)$ & $5.1795$ \\
-\hline 
-$80$ & $7.9310 (-6)$ & $4.3404$ & $2.3353 (-6)$ & $4.8320$ & $1.3738 (-6)$ & $5.1487$ \\ 
-\hline 
-$100$ & $2.7584(-6)$ & $4.7860$ & $8.5491 (-7)$ & $4.5538$ & $4.9340 (-7)$ & $4.6405$  \\ 
-\end{tabular} 
-\caption{Analyse de convergence avec $CFL=0.5$ et $H=100$.}
-\label{CV_order8_hp100}
-\end{center}
-\end{table}
-
-
-\begin{table}[ht]
-\begin{center}
-\begin{tabular}{c|c|c|c|c|c|c}
-$N$ & $e_{\infty}$ & ordre & $e_2$ & ordre & $e_1$ & ordre \\ 
-\hline 
-\hline
-$20$ & $0.0376$ & - & $0.0206$ & - & $0.0241$ & - \\ 
-\hline 
-$40$ & $0.0019$ & $4.4618$ & $7.3624 (-4)$ & $4.9794$ & $7.3567 (-4)$ & $5.2151$ \\ 
-\hline 
-$60$ & $1.5134 (-4)$ & $6.3682$ & $5.3116 (-5)$ & $6.6173$ & $5.5023 (-5)$ & $6.5266$ \\
-\hline 
-$80$ & $2.0280 (-5)$ & $7.0877$ & $7.1205 (-6)$ & $7.0863$ & $7.3563 (-6)$ & $7.0958$ \\ 
-\hline 
-$100$ & $4.9820(-6)$ & $6.3615$ & $1.9414 (-6)$ & $5.8892$ & $1.7583 (-6)$ & $6.4857$  \\ 
-\end{tabular} 
-\caption{Analyse de convergence avec $CFL=0.5$ et $H=1000$.}
-\label{CV_order8_hp1000}
-\end{center}
-\end{table}
-
+En ce qui concerne la conservation de masse et d'énergie, la propriété est fausse ici car le forçage empêche de telles conservations.
 
 \section{Test sans forcage}
 
@@ -337,7 +222,7 @@ $$\mathbf{u}(\theta, \lambda) = u(\theta) \mathbf{e}_{\lambda}$$
 
 On montre facilement que la vitesse $ \mathbf{u}$ est à divergence nulle avec ce choix.
 
-La perturbation de l'atmosphère $\eta$ est ensuite construite de telle sorte que l'on a :
+$\eta$ est construit tel que se soit une solution stationnaire, c'est a dire :
 
 \begin{equation}
 f \mathbf{k} \wedge \mathbf{u} + g \nabla \eta = 0
@@ -365,13 +250,21 @@ ainsi une solution stationnaire est donnée. Nous choisissons $u(\theta) = u_0 \
 
 Numériquement, nous obtenons deux types de résultats :
 \begin{itemize}
-\item nous représentons l'erreur relative au temps $t^n$, $e_i^n$ avec $i \in \lbrace 1, 2, \infty \rbrace$,
+\item  l'erreur relative est donnée sur $\eta$ au temps $t^n$, $e_i^n$ avec $i \in \lbrace 1, 2, \infty \rbrace$,
 \item Nous représentons aussi les relations de conservations relatives :
 \begin{equation}
-\dfrac{I^n}{I(0)}
+\dfrac{I^n}{I(0)}-1
 \end{equation}
-où  $I^n = \gint_{\mathbb{S}_a^2} \eta (t^n)$ la masse ou l'énergie $I^n = \gint_{\mathbb{S}_a^2} g \eta (t^n)^2 + H |u(t^n) |^2$ et $I(0)$ est la masse ou l'énergie initiale. Cette quantité $I^n/I(0)$ doit etre proche de $1$ si les quantités sont conservées.
+où  $I^n = \gint_{\mathbb{S}_a^2} \eta (t^n)$ la masse ou l'énergie $I^n = \gint_{\mathbb{S}_a^2} g \eta (t^n)^2 + H |u(t^n) |^2$ et $I(0)$ est la masse ou l'énergie initiale. Cette quantité $I^n/I(0)-1$ doit etre proche de $0$ si les quantités sont conservées.
 \end{itemize} 
 
-\textcolor{red}{ REMARQUE : ON POURRAIT REDIGER UN TRUC AUTOUR DE L'EQUILIBRE (V,H) NON NUL POUR V MAIS QUEL SENS DONNER A V NON NUL? V CONSTANT(ETRANGE)?
-ON NE PEUT PAS SUPPOSER DIV(V)=0 UNIQUEMENT CAR CELA IMPLIQUE V=0! ET GRAD(H)=0... }
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=0.4]{ref_7368697187_erreur.png}
+\includegraphics[scale=0.4]{ref_7368697187_conservation.png}
+\caption{Cas test stationnaire pour le système (LSWE) avec $N=32$, $CFL=0.9$ - Erreur relative au cours des itérations (gauche) erreur sur la conservation (droite)}
+\label{fig:err and cons lswe2}
+\end{center}
+\end{figure}
+
+La figure \ref{fig:err and cons lswe2} présente l'erreur relative au cours de itérations ainsi que la conservation. On constate que les propriétés de conservation d'une solution stationnaire sont assez bonne. 
