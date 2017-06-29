@@ -27,9 +27,9 @@ test=0;
 video = 'no';
 sauvegarde = 0;
 opt_ftr='redonnet10';
-type_ftr='nonsymetric';
+type_ftr='symetric';
 scheme='compact4';
-n=15;
+n=127;
 mod101
 
 teta0=-pi/3;
@@ -532,5 +532,4 @@ ylabel('time')
 
 fig_placier
 
-max(max(abs([h_fI-ht_fI, h_fII-ht_fII, h_fIII-ht_fIII, h_fIV-ht_fIV, h_fV-ht_fV, h_fVI-ht_fVI])))./h0max
-max(max(max(abs([v_fI-vt_fI, v_fII-vt_fII, v_fIII-vt_fIII, v_fIV-vt_fIV, v_fV-vt_fV, v_fVI-vt_fVI]))))./v0max
+max(max(max(abs([vt_fI-v_fI, vt_fII-v_fII,vt_fIII-v_fIII,vt_fIV-v_fIV,vt_fV-v_fV,vt_fVI-v_fVI]))))

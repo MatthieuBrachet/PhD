@@ -25,19 +25,19 @@ time1=cputime;
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 1;
+coef = 2;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 0;
+save_graph = 1;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
 opt_ftr ='redonnet10';
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be odd. )
-snapshot = 1;
+snapshot = 0;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 2
 %         1 : coupe.
 coupe = 0;
@@ -48,30 +48,30 @@ sauvegarde = 0;
 % choix du schéma aux différences finies
 scheme='compact4'; % compact ou explicite
 %% *** Benchmarks data ****************************************************
- n=40;
+ n=39;
  nn=n+2;
- cfl=0.7;
+ cfl=0.9;
  ndaymax=12;
  err=2;
  mm=0;
  MM=1000;
 %% ************************************************************************
  if coef == 0
-     %% test de Williamson
-     alphad=11*pi/4;  
+     %% test 1 de Williamson
+     alphad=-pi/4;  
      lambdac=0;                                                            % longitude BUMP
      tetac=0;                                                              % latitude BUMP
      lambda_p=pi;                                                          % position du pole nord, i.e. position du vortex nord
      teta_p=pi/2 - alphad;
  elseif coef == 1
      %% test de Nair et Machenhauer
-     lambda_p=0;                                                        % position du pole nord, i.e. position du vortex nord
-     teta_p=0;
+     lambda_p=pi/4;                                                        % position du pole nord, i.e. position du vortex nord
+     teta_p=pi/4;
      rho0=3;
      gamma=5;
  elseif coef == 2
      %% test de Nair et Jablonowski
-     alphad=pi/4; 
+     alphad=0; 
      lambda0 = 0;
      teta0 = 0;
      lambda_p=pi;                                                          % position du pole nord à t=0, i.e. position du vortex nord à t=0
@@ -80,7 +80,7 @@ scheme='compact4'; % compact ou explicite
      gamma=5;
  elseif coef == 3
      %% test de Nair et Lauritzen
-     alphad=pi/4;                                                        % latitude BUMP
+     alphad=3*pi/4;                                                        % latitude BUMP
      lambda_p=pi;                                                          % position du pole nord, i.e. position du vortex nord
      teta_p=pi/2 - alphad;
      lambdac1=-pi/2;
@@ -165,6 +165,7 @@ end
 xdays(1)=0;
 ite =1;
 erinfty(1)=0; er2(1)=0; er1(1)=0;
+ref=floor(10000*now);
 while ite<itemax & erinfty(end)<1
     clc; disp(num2str([ite itemax er1(end) er2(end) erinfty(end)]));
 
@@ -375,12 +376,25 @@ while ite<itemax & erinfty(end)<1
         nrm101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn,str);
     cons_mass(ite)=mass./mass_ref;
 
+     if snapshot == 1 && mod(ite,floor(tmax/(6*ddt))) == 0
+        clf
+        hFig = figure(floor(xdays(ite))+1);
+        set(gcf,'PaperPositionMode','auto')
+        set(hFig, 'Position', [50 50 1100 500])
+        plot_cs100(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
+        colorbar
+        print('-dpng', ['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef) '_nday_' num2str(floor(time/(24*3600))) '.png'])
+    end
+    
     ite=ite+1;
+    
+   
+    
 end
 time2=cputime-time1;
 disp(['temps de fonctionnement : ', num2str(time2)])
 
-ref=floor(10000*now);
+
 if film == 1
     mkdir(['./video-' date ])
     movie2avi(mov, ['./video-' date '/ref_' num2str(ref) '_test_' num2str(coef) '.avi'], 'compression', 'None');

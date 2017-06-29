@@ -10,7 +10,7 @@ clear all; clc; close all;
 %% construction des variables globales
 global n nn radius u0 dxi;
 global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI;
-global ite itestop coef opt_ftr ftr
+global ite itestop coef opt_ftr ftr scheme
 % test de Williamson
 global alphad tetac lambdac
 % test de Nair et Machenhauer
@@ -33,14 +33,15 @@ save_graph = 1;
 %         1 : coupe.
 coupe = 1;
 %% *** Benchmarks data ****************************************************
- n=80;
+ n=39;
  nn=n+2;
  cfl=0.9;
  ndaymax=12;
 %% *** filtres choisis ****************************************************
 ftra=10;
-ftrb=6;
+ftrb=4;
 ftrc=2;
+scheme='compact4'
 %% ************************************************************************
 opt_ftr=ftra;
  if coef == 0
@@ -79,7 +80,7 @@ opt_ftr=ftra;
 
 %% données du problème
 itestop=10000;
-mod_1b
+mod101_without_ftr
 tmax=24*3600*ndaymax;
 ddt=cfl*radius*dxi/u0;
 itemax=floor(tmax/ddt);
@@ -312,7 +313,7 @@ if coupe == 1
     [ x,f_6 ] = coupe_eq(funfI6,funfII6,funfIII6,funfIV6);
     n=100;
     nn=n+2;
-    mod_1b
+    mod101_without_ftr
     funfIe=fun4_b(x_fI,y_fI,z_fI,time);
     funfIIe=fun4_b(x_fII,y_fII,z_fII,time);
     funfIIIe=fun4_b(x_fIII,y_fIII,z_fIII,time);

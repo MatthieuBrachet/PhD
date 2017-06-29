@@ -6,9 +6,9 @@ if test == -1
     nhs=10;
     mhs=4;
     fun=sph(nhs,mhs,x,y,z);
-    int=0;
-    %int=-0.024504169544522; % for panel I
-    %int=0.049008339100883; %for panel V
+   % int=0;
+   % int=-0.024504169544522; % for panel I
+    int=0.049008339100883; %for panel V
 
 elseif test == 0
     fun=ones(size(x));
@@ -47,6 +47,13 @@ elseif test == 7
     fun=(radius^2./dga).^2;
     int=17.579738281473187; %^2
     %int= 25.368886759078510; %^4
+elseif test == 8
+    alpha=2;
+    fun=x.^alpha;
+    int=19.390862659532168;
+%     int=5.254452078030597; % panel I
+%    int=4.861694044072006; % Panel II
+%     int=2.512872108699545; % Panel V
 end
 int=int.*radius.^2;
 end

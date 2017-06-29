@@ -1,10 +1,8 @@
 % MODULE PROBLEM FOR THE CUBED SPHERE
 % ----------------------------------
-global scheme
-global opt_ftr
+global scheme opt_ftr ftr
 % -------------------------------------------------------------------------
-global n nn;
-global mm na nb;
+global n nn mm na nb;
 global radius;
 global xi eta dxi deta xx yy delta deltab dga;
 global alfa beta;
@@ -25,32 +23,21 @@ global gxi_I gxi_II gxi_III gxi_IV gxi_V gxi_VI;
 global geta_I geta_II geta_III geta_IV geta_V geta_VI;
 global gr_I gr_II gr_III gr_IV gr_V gr_VI
 % -------------------------------------------------------------------------
-global ftr
-% -------------------------------------------------------------------------
 global pmat kmat
 global eta_c jeta_c xi_c ixi_c
 global alfasp betasp gamasp betas gamas
 global m1 m2
 global umat1 lmat1
 % -------------------------------------------------------------------------
-global hs0_mount R_mount lambdac_mount tetac_mount
-global omega gp
+global u0
 
 nn=n+2;
 mm=((nn-1)/2)+1;
 na=4*(nn-1);
 nb=na;
 
-%% physical data
-radius=1;%6.37122d+06;
-omega=7.292d-05;
-gp=9.80616;
-
-%% data for the mountain
-hs0_mount=2000;
-R_mount=pi/9;
-lambdac_mount=-pi/2;
-tetac_mount=pi/6;
+radius=6.37122d+06;
+u0=2*pi*radius/(12*24*3600);
 
 %% --- Points on the CS
 xi=linspace(-pi/4, pi/4, nn); 
@@ -535,89 +522,91 @@ elseif strcmp(scheme,'explicite4')==1
 else
     error(['Error in scheme. The spatial scheme : ', scheme ,' is uncorrect'])
 end
+% 
+% %% --- Options sur les filtres
+% % classic filter
+% if strcmp(opt_ftr,'inf')==1
+%     f0=1; 
+%     f1=0;
+%     f2=0;
+%     f3=0;
+%     f4=0;
+%     f5=0;
+%     
+% elseif strcmp(opt_ftr,'redonnet2')==1
+%     f0=1/2; 
+%     f1=1/4;
+%     f2=0;
+%     f3=0;
+%     f4=0;
+%     f5=0;
+% 
+% elseif strcmp(opt_ftr,'redonnet4')==1
+%     f0=10/16; 
+%     f1=4/16;
+%     f2=-1/16;
+%     f3=0;
+%     f4=0;
+%     f5=0;
+%     
+% elseif strcmp(opt_ftr,'redonnet6')==1
+%     f0=44/64; 
+%     f1=15/64;
+%     f2=-6/64;
+%     f3=1/64;
+%     f4=0;
+%     f5=0;
+%     
+% elseif strcmp(opt_ftr,'redonnet8')==1
+%     f0=186/256; 
+%     f1=56/256;
+%     f2=-28/256;
+%     f3=8/256;
+%     f4=-1/256;
+%     f5=0;
+% 
+% elseif strcmp(opt_ftr,'redonnet10')==1
+%     f0=772/1024; 
+%     f1=210/1024;
+%     f2=-120/1024;
+%     f3=45/1024;
+%     f4=-10/1024;
+%     f5=1/1024;
+%     
+% elseif strcmp(opt_ftr,'bogey6')==1
+%     d0=0.234810479761700;
+%     d1=-.199250131285813;
+%     d2=0.120198310245186;
+%     d3=-.049303775636020;
+%     d4=0.012396449873964;
+%     d5=-.001446093078167;
+%     
+%     f0=1-d0;
+%     f1=-d1;
+%     f2=-d2;
+%     f3=-d3;
+%     f4=-d4;
+%     f5=-d5;
+% end
+% %
+% lig1=[0,1, zeros(1,na-2)];
+% col1=[zeros(na-1,1);1];
+% sh1=toeplitz(col1,lig1);
+% sh1i=inv(sh1);
+% sh12=sh1^2;
+% sh1i2=sh1i^2;
+% sh13=sh12*sh1;
+% sh1i3=sh1i2*sh1i;
+% sh14=sh13*sh1;
+% sh1i4=sh1i3*sh1i;
+% sh15=sh14*sh1;
+% sh1i5=sh1i4*sh1i;
+% ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*(sh15+sh1i5);
+% ftr=sparse(ftr);
 
-%% --- Options sur les filtres
-% classic filter
-if strcmp(opt_ftr,'inf')==1
-    f0=1; 
-    f1=0;
-    f2=0;
-    f3=0;
-    f4=0;
-    f5=0;
-    
-elseif strcmp(opt_ftr,'redonnet2')==1
-    f0=1/2; 
-    f1=1/4;
-    f2=0;
-    f3=0;
-    f4=0;
-    f5=0;
-
-elseif strcmp(opt_ftr,'redonnet4')==1
-    f0=10/16; 
-    f1=4/16;
-    f2=-1/16;
-    f3=0;
-    f4=0;
-    f5=0;
-    
-elseif strcmp(opt_ftr,'redonnet6')==1
-    f0=44/64; 
-    f1=15/64;
-    f2=-6/64;
-    f3=1/64;
-    f4=0;
-    f5=0;
-    
-elseif strcmp(opt_ftr,'redonnet8')==1
-    f0=186/256; 
-    f1=56/256;
-    f2=-28/256;
-    f3=8/256;
-    f4=-1/256;
-    f5=0;
-
-elseif strcmp(opt_ftr,'redonnet10')==1
-    f0=772/1024; 
-    f1=210/1024;
-    f2=-120/1024;
-    f3=45/1024;
-    f4=-10/1024;
-    f5=1/1024;
-    
-elseif strcmp(opt_ftr,'bogey6')==1
-    d0=0.234810479761700;
-    d1=-.199250131285813;
-    d2=0.120198310245186;
-    d3=-.049303775636020;
-    d4=0.012396449873964;
-    d5=-.001446093078167;
-    
-    f0=1-d0;
-    f1=-d1;
-    f2=-d2;
-    f3=-d3;
-    f4=-d4;
-    f5=-d5;
-end
-%
-lig1=[0,1, zeros(1,na-2)];
-col1=[zeros(na-1,1);1];
-sh1=toeplitz(col1,lig1);
-sh1i=inv(sh1);
-sh12=sh1^2;
-sh1i2=sh1i^2;
-sh13=sh12*sh1;
-sh1i3=sh1i2*sh1i;
-sh14=sh13*sh1;
-sh1i4=sh1i3*sh1i;
-sh15=sh14*sh1;
-sh1i5=sh1i4*sh1i;
-ftr=f0*eye(na)+f1*(sh1+sh1i)+f2*(sh12+sh1i2)+f3*(sh13+sh1i3)+f4*(sh14+sh1i4)+f5*(sh15+sh1i5);
-ftr=sparse(ftr);
 
 %% INTEGRALE CORRIGEE
+disp('calcul des poids...')
 % nhs_max=min(127,.125*(nn-1)^2-1); % nombre d'harmoniques à corriger
 % [A,err_i] = compute_A_sym(nhs_max); sym=1;
 % err=1;
@@ -625,4 +614,4 @@ ftr=sparse(ftr);
 % res = solve_weights( A,err_i,k,err,sym );
 % weights=dxi*deta*(dga+res);
 
-weights=dga;
+weights=dxi*deta*dga;
