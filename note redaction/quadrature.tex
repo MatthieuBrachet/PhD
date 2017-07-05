@@ -1,12 +1,9 @@
 % quadrature.tex
 
-\chapter{Quadrature et produit scalaire sur le Cubed-Sphere}
+\chapter{Quadrature numérique sur le Cubed-Sphere}
 
 
-\section{Quadrature sur la Cubed-Sphere}
-
-
-\subsection{Pré-requis} %% ***************************************************************************************
+\section{Pré-requis} %% ***************************************************************************************
 
 Si $f$ est une conction de $\mathcal{C}^{\infty}([a,b])$ alors la formule d'Euler MacLaurin s'écrit :
 
@@ -80,6 +77,208 @@ I(h)=\gint_{\mathbb{S}_a^2} h(\mathbf{x})d\sigma(\mathbf{x}) = \gsum_{K = I}^{VI
 
 
 
+\section{Généralités}
+
+Dans cette partie, on s'intéresse à des formules de quadrature numérique de la forme :
+
+\begin{equation}
+Q^{(K)}(h)= \gsum_{j=-N/2}^{N/2} \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \omega_{i,j} h(\xi_i,\eta_j) \sqrt{\overline{\mathbf{G}}(\xi_i,\eta_j)}
+\label{eq: quadrature generale}
+\end{equation}
+
+avec $(\omega_{i,j})_{i,j}$ des réels positifs vérifiant la propriété suivante :
+
+\begin{equation}
+\omega_{i,j}=\omega_{-i,j}=\omega_{i,-j}=\omega_{-i,-j} \hspace{0.8cm} \text{ pour tous } i \text{ et } j
+\label{hyp: prop triangulaire}
+\end{equation}
+
+Un produit scalaire hermitien est issu de la formule de quadrature précédente. $\mathbf{u}$ et $\mathbf{v}$ sont deux données sur la Cubed-Sphere : pour tous $K \in \lbrace I, ..., VI \rbrace$, $-\frac{N}{2} \leq i,j \leq \frac{N}{2}$ alors $\mathbf{u}_{i,j}^{(K)} \in \mathbb{C}$ et $\mathbf{v}_{i,j}^{(K)} \in \mathbb{C}$. Le produit scalaire hermitien, noté $< \cdot, \cdot >_{CS}$, est donné par :
+
+\begin{equation}
+<\mathbf{u}, \mathbf{v}>_{CS} = \Delta \xi \Delta \eta \gsum_{K=I}^{VI} \gsum_{i=-\frac{N}{2}}^{\frac{N}{2}} \gsum_{i=-\frac{N}{2}}^{\frac{N}{2}} \omega_{i,j} \sqrt{\overline{\mathbf{G}_{i,j}}} \mathbf{u}_{i,j}^{(K)} \bar{\mathbf{v}}_{i,j}^{(K)}
+\end{equation}
+
+\begin{proposition}
+$< \cdot, \cdot >_{CS}$ définit un produit scalaire hermitien sur la sphère.
+\end{proposition}
+
+\begin{proof}
+\begin{itemize}
+\item pour tout $\mathbf{x}$ donné sur la Cubed-Sphere, la forme : $<\cdot, \mathbf{x}>_{CS}$ est linéaire et $<\mathbf{x}, \cdot>_{CS}$ est semilinéaire. Ainsi $<\cdot, \cdot>_{CS}$ est sesquilinéaire.
+
+\item Pour tous $\mathbf{x}$ et $\mathbf{y}$ donnés sur la Cubed-Sphere, alors :
+\begin{equation*}
+\begin{array}{rcl}
+< \mathbf{x} , \mathbf{y} >_{CS} & = & \Delta \xi \Delta \eta \gsum_{K=I}^{VI} \gsum_{i=-\frac{N}{2}}^{\frac{N}{2}} \gsum_{i=-\frac{N}{2}}^{\frac{N}{2}} \omega_{i,j} \sqrt{\overline{\mathbf{G}}_{i,j}} \mathbf{x}_{i,j}^{(K)} \bar{\mathbf{y}}_{i,j}^{(K)} \\
+
+& $=$ & \overline{<\mathbf{y}, \mathbf{x}>_{CS}}
+\end{array}
+\end{equation*}
+donc $<\cdot,\cdot>_{CS}$ est hermitienne,
+\item Soit $\mathbf{x}$ donné sur la Cubed-Sphere, si $<\mathbf{x},\mathbf{x}>=0$ alors pour tous $i$, $j$ et $K$, on a : $\mathbf{x}_{i,j}^{(K)}\bar{\mathbf{x}}_{i,j}^{(K)} = 0$ car les coefficients de linéarité  $\Delta \xi \Delta \eta \omega_{i,j} \sqrt{\overline{\mathbf{G}}_{i,j}}$ sont tous positif et non nuls. D'où $\mathbf{x} = 0$. Et $<\cdot, \cdot >_{CS}$ est définie positive.
+\end{itemize}
+\end{proof}
+
+
+Le théorème suivant est alors vérifié :
+
+\begin{theoreme}
+Soient deux harmoniques sphériques restreintes à la sphère $\mathbf{Y}_m^l$ et $\mathbf{Y}_{m'}^{l'}$ avec $m, m' \in \mathbb{N}$, $|l| \leq m$ et $|l'| \leq m'$ alors :
+\begin{equation}
+<\mathbf{Y}_{m}^{l},\mathbf{Y}_{m'}^{l'}> = 0 
+\end{equation}
+si $m+m'$ ou $l+l'$ est impair.
+\end{theoreme}
+
+\begin{proof}
+Notons $Y_m^l$ une harmonique sphèrique et $\mathbf{Y}_m^l$ sa restriction au maillage Cubed-Sphère.
+Commençons par remarque que si $(\lambda, \theta)$ représente les coordonnées latitude-longitude d'un point de la sphère :
+\begin{itemize}
+\item $Y_m^l (\lambda, \theta) = (-1)^{m+l} Y_m^l (\lambda, - \theta)$, 
+\item $Y_m^l(\lambda, \theta) = (-1)^p Y_m^l \left( \lambda + p \frac{\pi}{m}, \theta \right)$,
+\item $Y_m^l(\lambda,\theta)=\overline{Y}_m^l(-\lambda,\theta)$.
+\end{itemize}
+
+Dans la suite de cette démonstration, nous noterons :
+
+$$
+S_(K) = \Delta \xi \Delta \eta \gsum_{i = \frac{N}{2}}^{\frac{N}{2}} \gsum_{j = \frac{N}{2}}^{\frac{N}{2}} \omega_{i,j} \sqrt{\overline{\mathbf{G}}_{i,j}} \left(\mathbf{Y}_m^l\right)_{i,j}^{(K)} \left(\bar{\mathbf{Y}}_{m'}^{l'}\right)_{i,j}^{(K)}
+$$
+
+Donc :
+
+$$
+S=<\mathbf{Y}_m^l,\mathbf{Y}_{m'}^{l'}>_{CS} = \gsum_{K=I}^{VI} S_{(K)}
+$$
+
+En utilisant les symétries évoquées ci dessous, on montre que :
+
+\begin{equation*}
+\begin{array}{rcl}
+S_I & = & \Delta \xi \Delta \eta \gsum_{i = \frac{N}{2}}^{\frac{N}{2}} \gsum_{j = \frac{N}{2}}^{\frac{N}{2}} \omega_{i,j} \sqrt{\overline{\mathbf{G}}_{i,j}} \left(\mathbf{Y}_m^l\right)_{i,j}^{(I)} \left(\bar{\mathbf{Y}}_{m'}^{l'}\right)_{i,j}^{(I)} \\
+& = & (-1)^{l+l'} \Delta \xi \Delta \eta \gsum_{i = \frac{N}{2}}^{\frac{N}{2}} \gsum_{j = \frac{N}{2}}^{\frac{N}{2}} \omega_{i,j} \sqrt{\overline{\mathbf{G}}_{i,j}} \left(\mathbf{Y}_m^l\right)_{i,j}^{(III)} \left(\bar{\mathbf{Y}}_{m'}^{l'}\right)_{i,j}^{(III)} \\
+& = & (-1)^{l+l'} S_{III}
+\end{array}
+\end{equation*}
+
+De même :
+
+\begin{itemize}
+\item $S_{II} = (-1)^{l+l'} S_{IV}$,
+\item $S_{I} = (-1)^{l+l'} S_{III}$,
+\end{itemize}
+
+et en utilisant la symétrie passant du panel V au panel VI, on a $S_{V} = (-1)^{m+m'+l+l'}S_{VI}$.
+
+De ces égalités, on peut déduire que :
+
+\begin{equation}
+S=(1+(-1)^{l+l'})(S_I+S_II)+(1+(-1)^{l+l'+m+m'})S_V
+\end{equation}
+
+Les points du panel $I$ se retrouvent par rotation d'un angle de $\frac{\pi}{2}$, or : $Y_m^l\left(\lambda + \frac{\pi}{2}, \theta \right) = \exp \left[ - i l \dfrac{\pi}{2} \right] Y_m^l(\lambda, \theta)$.
+
+Dès lors :
+
+$$
+S_{II} = \exp \left[ - i (l+l') \dfrac{\pi}{2} \right] S_I
+$$
+
+d'où :
+
+\begin{equation}
+S=\left(1+(-1)^{l+l'}\right)\left( \exp \left[ - i (l+l') \dfrac{\pi}{2} \right] +1 \right) S_I + (1+(-1)^{l+l'+m+m'})S_V
+\label{eq:pdt scal nul 1}
+\end{equation}
+
+$S=0$ si $m+m'$ et $l+l'$ sont impairs tous les deux.
+Le problème est à présent de savoir quand $S_I$ et $S_V$ s'annulent. 
+
+Pour $S_I$, on souhaite utiliser les symétries selon $(Oz)$ et $(Oy)$. On nomme $S_i$ avec $i$ entre 1 et 4 la partie de la somme $S_I$ contenant les points associés aux zones suivantes (voir Figure \ref{fig: zones panel I}) :
+
+\begin{itemize}
+\item $1$: les points $(x,y,z)$ du panel I tels que $y<0$ et $z>0$,
+\item $2$: les points $(x,y,z)$ du panel I tels que $y<0$ et $z<0$,
+\item $3$: les points $(x,y,z)$ du panel I tels que $y>0$ et $z<0$,
+\item $4$: les points $(x,y,z)$ du panel I tels que $y>0$ et $z>0$.
+\end{itemize}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+\draw (-1,-1) -- (1,-1) ;
+\draw (-1,1) -- (1,1) ;
+\draw (1,1) -- (1,-1) ;
+\draw (-1,1) -- (-1,-1) ;
+\draw [>=stealth, ->](-1.5,0) -- (1.5,0) ;
+\draw (2.1,0.25) node[below]{$(Oy)$} ;
+\draw [>=stealth, ->](0,-1.5) -- (0,1.5) ;
+\draw (0,2.1) node[below]{$(Oz)$} ;
+\draw (-0.5,0.5) node{$S_1$} ;
+\draw (-0.5,-0.5) node{$S_2$} ;
+\draw (0.5,-0.5) node{$S_3$} ;
+\draw (0.5,0.5) node{$S_4$} ;
+\end{tikzpicture}
+\end{center}
+\caption{Représentation schématique des zones $S_1$ à $S_4$ sur le panel I}
+\label{fig: zones panel I}
+\end{figure}
+
+En tenant compte des symétries autour de $(Oz)$ et $(Oy)$, il est aisé de voir que :
+
+\begin{equation*}
+\begin{array}{rcl}
+S_I & = & S_1 + S_2 + S_3 + S_4 \\
+    & = & S_1 + S_2 + \bar{S}_1 + \bar{S}_2 \\
+    & = & (1+(-1)^{l+l'+m+m'})(S_1+\bar{S}_1)
+\end{array}
+\end{equation*}
+
+Ainsi $S_I=0$ si $l+l'$ pair et $m+m'$ impair, d'où $S=0$ en tenant compte de \eqref{eq:pdt scal nul 1}.
+
+En ce qui concerne $S_V$, on nomme $S_a$ et $S_b$ les parties de la somme $S_V$ contenant les points associés aux zones suivantes (voir Figure \ref{fig: zones panel V}) :
+
+\begin{itemize}
+\item $a$: les points $(x,y,z)$ du panel V tels que $y<0$,
+\item $b$: les points $(x,y,z)$ du panel V tels que $y>0$.
+\end{itemize}
+
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+\draw (-1,-1) -- (1,-1) ;
+\draw (-1,1) -- (1,1) ;
+\draw (1,1) -- (1,-1) ;
+\draw (-1,1) -- (-1,-1) ;
+
+\draw [>=stealth, ->](-1.5,0) -- (1.5,0) ;
+\draw (2.1,0.25) node[below]{$(Oy)$} ;
+
+\draw [>=stealth, ->](0,1.5) -- (0,-1.5) ;
+\draw (0,-1.9) node[below]{$(Ox)$} ;
+
+\draw (-0.5,0.2) node{$S_a$} ;
+\draw (0.5,-0.2) node{$S_b$} ;
+
+\end{tikzpicture}
+\end{center}
+\caption{Représentation schématique des zones $S_a$ et $S_b$ sur le panel V}
+\label{fig: zones panel V}
+\end{figure}
+
+Alors $S_V=(1+(-1)^{l-l'})S_a$. $S_V=0$ si $l+l'$ est impair. Dans ce cas, $S=0$ et le résultat du théorème est prouvé.
+
+ 
+
+
+
+
+
+
+
+\end{proof}
 
 
 
@@ -98,12 +297,7 @@ I(h)=\gint_{\mathbb{S}_a^2} h(\mathbf{x})d\sigma(\mathbf{x}) = \gsum_{K = I}^{VI
 
 
 
-
-
-
-
-
-\subsection{Quadrature de type Trapèzes}  %% ***************************************************************************************
+\section{Quadrature de type Trapèzes}  %% ***************************************************************************************
 
 On utilise une formule de quadrature $Q_{tpz}(h)$ visant à approcher $I^{(K)}(h)$ en utilisant la formule des trapèzes composites :
 
@@ -165,7 +359,7 @@ En effet, $(\xi,\eta) \mapsto h(\xi, \eta) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi, \et
 En revanche, lorsque $h(\xi,\eta)=\dfrac{1}{\sqrt{\mathbf{\bar{G}}^{(K)}(\xi, \eta)}}$, la formule de quadrature $Q_{tpz}^{(K)}(h)$ est exacte.
 \end{remarque}
 
-\begin{proposition}
+\begin{corollaire}
 On note :
 \begin{equation}
 Q_{tpz}=\gsum_{K=I}^{VI} Q_{tpz}^{(K)}
@@ -175,11 +369,27 @@ Si $h$ est une fonction régulière sur la sphère alors :
 I(h) - Q_{tpz}(h) = \mathcal{O} \left( \Delta \xi^2 \right)
 \end{equation}
 \label{prop:consistance tpz}
-\end{proposition}
+\end{corollaire}
 
 
 
-\subsection{Quadrature de type Simpson}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Quadrature de type Simpson}
 
 La formule de quadrature de Simpson est de la forme :
 
@@ -259,7 +469,21 @@ si $h$ est suffisament régulière.
 \end{corollaire}
 
 
-\subsection{Quadrature de type \texorpdfstring{$Q_{\alpha}$}{a}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Quadrature de type \texorpdfstring{$Q_{\alpha}$}{a}}
 
 On considère dans cette partie une formule de quadrature pondérée différemment aux coins de la Cubed-Sphère. On note $Q_{\alpha}$ cette quadrature.
 
@@ -475,17 +699,6 @@ Ainsi, il est immédiat que :
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 \begin{table}[ht]
 \begin{center}
 \begin{tabular}{c||c|c|c}
@@ -528,7 +741,7 @@ ordre pour $h(\mathbf{x})=1/\sqrt{\overline{\mathbf{G}}(\mathbf{x})}$ &  exacte 
 
 
 
-\subsection{Résultats numériques} %% ***************************************************************************************
+\section{Résultats numériques} %% ***************************************************************************************
 
 Pour tester la précision des différentes méthodes de quadrature, on s'intérésse à un ensemble particulier de fonctions sur la sphère dont les intégrales sont connues.
 
@@ -581,6 +794,21 @@ $$
 \begin{remarque}
 On note que la fonction $f_4$ est discontinue, les fonctions $f_6$ et $f_7$ sont construites par panels. Ces dernière sont ne sont pas $\mathcal{C}^1$ sur la sphère.
 \end{remarque}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
