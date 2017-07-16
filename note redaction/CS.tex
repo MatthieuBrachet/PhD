@@ -1,24 +1,16 @@
 % CS.tex
 \chapter{Cubed-Sphere}
 
-\section{Construction}
+La Cubed-Sphere est constituée de six panels notés (I), ..., (VI) couvrant la sphère $\mathbb{S}_a^2$. Pour chacun de ces panels ils est possible d'associer des angles qui localisent un point ainsi que des bases covariantes et contravariantes qui permettent de calculer les opérateurs différentiels classiques.
 
-\section{Représentation en coordonnées}
+\section{Localisation des points et bases $(\mathbf{g}_{\xi}, \mathbf{g}_{\eta})$}
 
-\subsection{Coordonnées et base locale}
+Sur chaque panel on peut localiser un point grâce à un ensemble d'angles. De plus, une base de vecteur est donnée pour l'espace $\mathbb{T}\mathbb{S}_a^2$. Dans cette partie, on considère les points Nord : $N (0,0,a)$, Sud: $S (0,0,-a)$, Est: $E (0,a,0)$,Ouest: $W (0,-a,0)$, Front: $F(a,0,0)$ et Bottom: $B(-a,0,0)$. 
 
-On décrit dans cette partie les coordonnées d'un point de la Cube-Sphere. Un point $\mathbf{x} \in \mathbb{S}_a^2$ est localisée exactement sur un panel $K \in \left\lbrace I, II, III, IV, V, VI \right\rbrace$ et à l'intersection de deux cercles : $C_{\xi}$ et $C_{\eta}$. $(\xi,\eta)$ correspond aux coordonnées gnonomiques, en effet si $\mathbf{x} = (x,y,z)^T \in \mathbb{R}^3 \cap \mathbb{S}_a^2$ alors :
+\subsection{Panel I}
 
-\begin{equation}
-\left\lbrace
-\begin{array}{rcccl}
-\tan \xi & = & \dfrac{y}{x} & = & X\\
-\tan \eta & = & \dfrac{z}{x}& = & Y
-\end{array}
-\right.
-\end{equation}
 
-Le point $\mathbf{x}$ est aussi localisé grâce à ses coordonnées $(\alpha, \beta)$ avec $\alpha$ l'absisse curviligne entre $\mathbf{x}$ et l'équateur Nord-Sud le long du cercle $C_{\eta}$ et $\beta$ entre $\mathbf{x}$ et l'équateur Est-Ouest (Voir Figure \ref{alpha beta coord}).
+
 
 
 \begin{figure}
@@ -32,9 +24,9 @@ Le point $\mathbf{x}$ est aussi localisé grâce à ses coordonnées $(\alpha, \
 	\draw [>=stealth, ->] (0,0) -- (0,1.5) ; 
 	\draw (0,1.5) node[above right]{$z$} ; 
 
-    \draw[color=green] (0.065,0.5) arc (85:68:1cm and 0.5cm);
+    \draw[>=stealth, ->,color=green] (0.065,0.5) arc (85:68:1cm and 0.5cm);
     \draw[color=green] (0.2,0.55) node{$\alpha$} ;
-    \draw[color=red] (0.4,-0.05) arc (-5:25:0.41cm and 1cm);
+    \draw[>=stealth, ->,color=red] (0.4,-0.05) arc (-5:25:0.41cm and 1cm);
     \draw[color=red] (0.48,0.2) node{$\beta$} ;
     \draw (-1,0)[dotted, color=black!40] arc (180:360:1cm and -0.5cm);
     \draw (0,1)[dotted, color=black!40] arc (90:270:-0.4cm and 1cm);
@@ -51,7 +43,37 @@ Le point $\mathbf{x}$ est aussi localisé grâce à ses coordonnées $(\alpha, \
     \draw (0,0) circle (1cm);
     \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
 \end{tikzpicture}
-\caption{Coordonnées sur la Cube-Sphere}
+\hspace{1cm}
+\begin{tikzpicture}[scale=1.8]
+	\draw (0,0) node {$\bullet$} ;
+	\draw [>=stealth, ->] (0,0) -- (1.5,0) ; 
+	\draw (1.5,0) node[above right]{$y$} ;   
+	\draw [>=stealth, ->] (0,0) -- (1.1,-0.8) ; 
+	\draw (1.1,-0.8) node[above right]{$x$} ; 
+	\draw [>=stealth, ->] (0,0) -- (0,1.5) ; 
+	\draw (0,1.5) node[above right]{$z$} ; 
+    
+    \draw (-1,0)[dotted, color=black!40] arc (180:360:1cm and -0.5cm);
+    \draw (0,1)[dotted, color=black!40] arc (90:270:-0.4cm and 1cm);
+    \draw (-1,0)[dotted, color=black!20] arc (180:360:1cm and 0.5cm);
+    \draw (0,1)[dotted, color=black!20] arc (90:270:0.4cm and 1cm);
+    
+    \draw (-1,0) arc (180:360:1cm and 0.06cm);
+    \draw (0,1) arc (90:270:-0.08cm and 1cm);
+    \draw[dashed] (-1,0) arc (180:360:1cm and -0.06cm);
+    \draw[dashed] (0,1) arc (90:270:0.08cm and 1cm);
+    
+    \draw[>=stealth, ->,color=green] (0.09,-0.06) arc (225:247:1cm and -0.03cm);
+    \draw[color=green] (0.35,-0.2) node{$\xi$} ;
+    \draw[>=stealth, ->,color=red] (0.08,-0.05) arc (-5:28:0.1cm and 1cm);
+    \draw[color=red] (0.15,0.2) node{$\eta$} ;
+    
+    \draw (0.36,0.46) node {$\bullet$} ;
+	\draw (0.36,0.46) node[above right]{$\mathbf{x}$} ;
+    \draw (0,0) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
+\end{tikzpicture}
+\caption{Angles $(\alpha, \beta)$ (gauche) et $(\xi,\eta)$ (droite) associés au panel (I) de la Cubed-Sphere}
 \label{alpha beta coord}
 \end{center}
 \end{figure}
