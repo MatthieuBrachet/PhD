@@ -3,15 +3,17 @@
 
 La Cubed-Sphere est constituée de six panels notés (I), ..., (VI) couvrant la sphère $\mathbb{S}_a^2$. Pour chacun de ces panels ils est possible d'associer des angles qui localisent un point ainsi que des bases covariantes et contravariantes qui permettent de calculer les opérateurs différentiels classiques.
 
-\section{Localisation des points et bases $(\mathbf{g}_{\xi}, \mathbf{g}_{\eta})$}
+\section{Localisation des points et bases}
 
 Sur chaque panel on peut localiser un point grâce à un ensemble d'angles. De plus, une base de vecteur est donnée pour l'espace $\mathbb{T}\mathbb{S}_a^2$. Dans cette partie, on considère les points Nord : $N (0,0,a)$, Sud: $S (0,0,-a)$, Est: $E (0,a,0)$,Ouest: $W (0,-a,0)$, Front: $F(a,0,0)$ et Bottom: $B(-a,0,0)$. 
 
 \subsection{Panel I}
 
+On note $C_0^{(1)}$ le grand cercle à la surface de la sphère $\mathbb{S}_a^2$ passant par les points $N$ et $S$ et contenu dans le plan $(yOz)$. Une rotation de ce cercle est le cercle $C_0^{(2)}$ passant par $E$ et $W$ et contenu dans le plan $(xOy)$.
 
+Dès lors, on note $C_{\xi}^{(1)}$ le cercle obtenu par rotation de $C_0^{(1)}$ d'un angle $\xi$ autour de l'axe $(Oz)$ (égal à l'axe $(NS)$). $C_{\eta}^{(2)}$ le cercle obtenu par rotation de $C_0^{(2)}$ d'un angle $\eta$ autour de l'axe $(Ox)$ (égal à l'axe $(EW)$). $\xi$ est compté positivement vers les $y$ positifs et $\eta$ positivement vers les $z$ positifs.
 
-
+Ainsi, un point $\mathbf{x} \in \mathbb{S}_a^2$ est situé à l'intersection de deux de ces cercles : $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$. On note $\alpha$ l'absisse curviligne de $\mathbf{x}$ le long de $C_{\eta}^{(2)}$ avec $C_{0}^{(1)}\cap C_{\eta}^{(2)}$ comme origine. De même, on note $\beta$ l'absisse curviligne de $\mathbf{x}$ le long de $C_{\xi}^{(1)}$ avec $C_{0}^{(2)}\cup C_{\xi}^{(1)}$ comme origine (voir Figure \ref{fig:coord cs}). 
 
 \begin{figure}
 \begin{center}
@@ -74,18 +76,20 @@ Sur chaque panel on peut localiser un point grâce à un ensemble d'angles. De p
     \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
 \end{tikzpicture}
 \caption{Angles $(\alpha, \beta)$ (gauche) et $(\xi,\eta)$ (droite) associés au panel (I) de la Cubed-Sphere}
-\label{alpha beta coord}
+\label{fig:coord cs}
 \end{center}
 \end{figure}
 
 
+\begin{definition}
+On nomme panel (I) l'ensemble des points $\mathbf{x}=(x,y,z)$ de $\mathbf{S}_a^2$ vérifiant $x>0$ et tels que si $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$ alors $-\frac{\pi}{4}\leq \xi,\eta \leq \frac{\pi}{4}$. Avec les $\xi$ et $\eta$ associés respectivement aux axes $(NS)$ et $(EW)$.
+\end{definition}
 
-Dans cette partie, on se concentre sur le panel $I$ pour le calcul.
-Entre les différents systèmes de localisation, les relations suivantes sont vérifiées :
+Un point $\mathbf{x}$ du panel (I) peut être localisé grâce aux coordonnées cartésiennes $(x,y,z)$ mais aussi en utilisant les paires d'angles $(\alpha, \eta)$ ou $(\xi, \beta)$. Le lien peut-être fait grâce aux égalités suivantes :
 
 \begin{equation}
 \left\lbrace
-\begin{array}{rcccl}
+\begin{array}{rcccc}
 x & = & a \cos \alpha \cos \eta & = & a \cos \beta \cos \xi \\
 y & = & a \sin \alpha & = & a \cos \beta \sin \xi \\
 z & = & a \cos \alpha \sin \eta & = & a \sin \beta \\
@@ -93,22 +97,41 @@ z & = & a \cos \alpha \sin \eta & = & a \sin \beta \\
 \right.
 \end{equation}
 
-On en déduit que :
+Dès lors, on remarque les coordonnées gnomoniques :
 
 \begin{equation}
-\alpha = \arctan \left[ \dfrac{\tan \xi}{\sqrt{1 + \tan^2 \eta}} \right]
+X=\dfrac{y}{x}=\tan \xi \hspace{1cm} Y = \dfrac{z}{x} = \tan \eta
 \end{equation}
 
-ainsi que :
+De plus, $x^2+y^2=a^2 \cos \alpha$, donc :
 
 \begin{equation}
-\beta = \arctan \left[ \dfrac{\tan \eta}{\sqrt{1 + \tan^2 \xi}} \right]
+\tan^2 \alpha = \dfrac{y^2}{x^2+z^2} = \dfrac{X^2}{1+Y^2}
 \end{equation}
 
-et en dérivant :
+de même, on a :
 
 \begin{equation}
-\dfrac{\partial \alpha}{\partial \xi} = \cos \eta \dfrac{1+X^2}{1+\cos^2 \eta X^2} \hspace{1cm} \dfrac{\partial \beta}{\partial \eta} = \cos \xi \dfrac{1+Y^2}{1+\cos^2 \xi Y^2}
+\tan^2 \beta = \dfrac{z^2}{x^2+y^2} = \dfrac{Y^2}{1+X^2}
+\end{equation}
+
+Donc on peut en déduire les relations liant $\xi$, $\eta$, $\alpha$ et $\beta$ :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\alpha & = & \arctan \left( \dfrac{X}{\sqrt{1+Y^2}} \right)\\
+\beta & = & \arctan \left( \dfrac{Y}{\sqrt{1+X^2}} \right)
+\end{array}
+\right.
+\label{eq: alpha(xi) beta(eta)}
+\end{equation}
+
+et en dérivant et en notant $\delta=\sqrt{1+X^2+Y^2}$ :
+
+\begin{equation}
+\dfrac{\partial \alpha}{\partial \xi} = \cos \eta \dfrac{1+X^2}{1+\cos^2 \eta X^2} = \dfrac{1+X^2}{ \delta^2 \cos \eta}\hspace{1cm} \dfrac{\partial \beta}{\partial \eta} = \cos \xi \dfrac{1+Y^2}{1+\cos^2 \xi Y^2}= \dfrac{1+Y^2}{ \delta^2 \cos \xi }
+\label{eq; der alpha beta}
 \end{equation}
 
 La base locale $(\mathbf{g}_{\xi}, \mathbf{g}_{\eta})$ associée à $(\xi,\eta)$ est donnée par :
@@ -123,12 +146,11 @@ Ainsi, en posant $\delta = \sqrt{1+X^2+Y^2}$, $\mathbf{g}_{\xi}$ et $\mathbf{g}_
 \end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -z \\ -zX \\ x(1+X^2)
 \end{pmatrix}
-\label{base locale}
+\label{eq: base locale I}
 \end{equation}
 
-\subsection{Tenseur métrique et base duale}
 
-Pour tenir compte de la non-orthogonalité des coordonnées, il faut tenir compte de la métrique pour le calcul des opérateurs.
+Pour tenir compte de la non-orthogonalité des coordonnées, il considérer la métrique pour le calcul des opérateurs et de la base duale.
 
 Le tenseur métrique est donné par :
 
@@ -137,6 +159,7 @@ Le tenseur métrique est donné par :
 \mathbf{g}_{\xi} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot \mathbf{g}_{\eta} \\
 \mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot \mathbf{g}_{\eta}
 \end{pmatrix}
+\label{eq: metrique}
 \end{equation}
 
 Ainsi, après calcul, on a :
@@ -157,9 +180,10 @@ G^{1,1} & G^{1,2} \\ G^{2,1} & G^{2,2}
 \end{pmatrix} = \dfrac{\delta^2}{a^2 (1+X^2)(1+Y^2)} \begin{pmatrix}
 1+Y^2 & XY \\ XY & 1+X^2
 \end{pmatrix}
+\label{eq: metrique inverse}
 \end{equation}
 
-Il est important de connaitre la base duale par rapport à la métrique $\mathbf{G}$. On cherche $\mathbf{g}_{\xi}$ et $\mathbf{g}_{\eta}$ tels que :
+On cherche la base $(\mathbf{g}_{\xi},\mathbf{g}_{\eta})$ obtenue par dualité :
 
 \begin{equation}
 \left\lbrace
@@ -175,13 +199,13 @@ d'où la relation suivante :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\mathbf{g}^{\xi} & = & G^{1,1} \mathbf{g}_{\xi} + G^{1,2} \mathbf{g}_{eta} \\
-\mathbf{g}^{\eta} & = & G^{2,1} \mathbf{g}_{\xi} + G^{2,2} \mathbf{g}_{eta} \\
+\mathbf{g}^{\xi} & = & G^{1,1} \mathbf{g}_{\xi} + G^{1,2} \mathbf{g}_{\eta} \\
+\mathbf{g}^{\eta} & = & G^{2,1} \mathbf{g}_{\xi} + G^{2,2} \mathbf{g}_{\eta} \\
 \end{array}
 \right.
 \end{equation}
 
-d'où :
+ainsi, on peut calculer :
 
 \begin{equation}
 \mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{pmatrix}
@@ -189,11 +213,395 @@ d'où :
 \end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{pmatrix}
 -Y \\ 0 \\ 1
 \end{pmatrix}
+\label{eq: base duale I}
 \end{equation}
 
 $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ est la base duale de $(\mathbf{g}_{\xi}, \mathbf{g}_{\eta})$ par rapport à la métrique $\mathbf{G}$.
 
-\subsection{Symboles de Christophel}
+\begin{remarque}
+Lorsque cela portera à confusion, on notera $\mathbf{g}_{\xi}^{(K)}$, $\mathbf{g}_{\eta}^{(K)}$ ainsi que $\mathbf{g}^{(K),\xi}$ et $\mathbf{g}^{(K),\eta}$ où $K$ note la face concernée $K \in \lbrace I, II, III, IV, V, VI \rbrace$. Dans cette sous-section par exemple $K=I$.   
+\end{remarque}
+
+
+
+
+
+
+\subsection{Panel II}
+
+On construit le panel II de manière similaire en partant de cercles passants par $N$ et $S$ pour les $C_{\xi}^{(1)}$ ($C_{0}^{(1)}$ est contenu dans le plan $(yOz)$) et les cercles $C_{\eta}^{(2)}$ passant par les points $F$ et $B$ ($C_{0}^{(2)}$ est contenu dans le plan $(xOy)$). Les angles $\xi$, $\eta$, $\alpha$ et $\beta$ sont construits comme prédédemment.  $\xi$ est compté positivement lorsque $x$ est négatifs et $\eta$ positivement lorsque $z$ est positifs.
+On peut définir le panel (II) :
+
+\begin{definition}
+On nomme panel (II) l'ensemble des points $\mathbf{x}=(x,y,z)$ de $\mathbf{S}_a^2$ vérifiant $y>0$ et tels que si $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$ alors $-\frac{\pi}{4}\leq \xi,\eta \leq \frac{\pi}{4}$. Avec les $\xi$ et $\eta$ associés respectivement aux axes $(NS)$ et $(FB)$.
+\end{definition}
+
+Un point $\mathbf{x}=(x,y,z)$ du panel (II) a ses coordonnées qui vérifient la relation suivante :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcccc}
+x & = & - a \sin \alpha & = & - a \cos \beta \sin \xi \\
+y & = & a \cos \alpha \cos \eta & = & a \cos \beta \cos \xi \\
+z & = & a \cos \alpha \sin \eta & = & a \sin \beta
+\end{array}
+\right.
+\end{equation}
+
+Les coordonnées gnomoniques sont données par :
+
+\begin{equation}
+X = \tan \xi = - \dfrac{x}{y} \hspace{1cm} Y = \tan \eta = \dfrac{z}{y}
+\end{equation}
+
+les relations concernant $\alpha$ et $\beta$ (\eqref{eq: alpha(xi) beta(eta)} et \eqref{eq; der alpha beta}) sont toujours vérifiées, ainsi que celles sur la métrique \eqref{eq: metrique} et \eqref{eq: metrique inverse}.
+
+Ainsi, on peut écrire : 
+
+\begin{equation}
+\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+-y(1+Y^2) \\ x \\ xY
+\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+zX \\ -z \\ y(1+X^2)
+\end{pmatrix}
+\label{eq: base locale II}
+\end{equation}
+
+et la base dual par rapport à la métrique :
+
+\begin{equation}
+\mathbf{g}^{\xi} = \dfrac{1}{y(1+X^2)}\begin{pmatrix}
+-1 \\ -X \\ 0
+\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{y(1+Y^2)}\begin{pmatrix}
+0 \\ -Y \\ 1
+\end{pmatrix}
+\label{eq: base duale II}
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Panel III}
+
+le panel III est construit a partir de cercles passants par $N$ et $S$ pour les $C_{\xi}^{(1)}$ ($C_{0}^{(1)}$ est contenu dans le plan $(xOz)$) et les cercles $C_{\eta}^{(2)}$ passant par les points $E$ et $W$ ($C_{0}^{(2)}$ est contenu dans le plan $(xOy)$). Les angles $\xi$, $\eta$, $\alpha$ et $\beta$ sont construits comme dans le panel (I). On compte $\xi$ positivement lorsqu'il croit en même temps que $-y$ et $\eta$ positivement lorsqu'il croit en même temps que $z$.
+On peut définir le panel (III) :
+
+\begin{definition}
+On nomme panel (III) l'ensemble des points $\mathbf{x}=(x,y,z)$ de $\mathbf{S}_a^2$ vérifiant $x<0$ et tels que si $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$ alors $-\frac{\pi}{4}\leq \xi,\eta \leq \frac{\pi}{4}$. Avec les $\xi$ et $\eta$ associés respectivement aux axes $(NS)$ et $(EW)$.
+\end{definition}
+
+Un point $\mathbf{x}=(x,y,z)$ du panel (III) a ses coordonnées qui vérifient la relation suivante :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcccc}
+x & = & - a \cos \alpha \cos \eta & = & a \cos \beta \cos \xi \\
+y & = & - a \sin \alpha & = & - a \cos \beta \sin \xi \\
+z & = & a \cos \alpha \sin \eta & = & a \sin \beta
+\end{array}
+\right.
+\end{equation}
+
+Les coordonnées gnomoniques sont données par :
+
+\begin{equation}
+X = \tan \xi = - \dfrac{y}{x} \hspace{1cm} Y = \tan \eta = \dfrac{z}{x}
+\end{equation}
+
+(\ref{eq: alpha(xi) beta(eta)}, \ref{eq; der alpha beta}, \ref{eq: metrique}, \ref{eq: metrique inverse}) restent vraies. 
+
+Ainsi, on peut écrire : 
+
+\begin{equation}
+\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+-y \\ x(1+Y^2) \\ yY
+\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+-z \\ -zX \\ x(1+X^2)
+\end{pmatrix}
+\label{eq: base locale III}
+\end{equation}
+
+et la base dual par rapport à la métrique :
+
+\begin{equation}
+\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{pmatrix}
+-X \\ 1 \\ 0
+\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{pmatrix}
+-Y \\ 0 \\ -1
+\end{pmatrix}
+\label{eq: base duale III}
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Panel IV}
+
+Le panel IV est le symétrique du panel II. On utilise un réseau cercles passants par $N$ et $S$ pour les $C_{\xi}^{(1)}$ ($C_{0}^{(1)}$ est contenu dans le plan $(yOz)$) et les cercles $C_{\eta}^{(2)}$ passant par les points $F$ et $B$ ($C_{0}^{(2)}$ est contenu dans le plan $(xOy)$). Les angles $\xi$, $\eta$, $\alpha$ et $\beta$ sont construits comme dans le panel I. $\xi$ et $x$ croissent en même temps, de même $\eta$ et $z$ doivent croitre en même temps. On peut définir le panel IV :
+
+\begin{definition}
+On nomme panel IV l'ensemble des points $\mathbf{x}=(x,y,z)$ de $\mathbf{S}_a^2$ vérifiant $y<0$ et tels que si $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$ alors $-\frac{\pi}{4}\leq \xi,\eta \leq \frac{\pi}{4}$. Avec les $\xi$ et $\eta$ associés respectivement aux axes $(NS)$ et $(FB)$.
+\end{definition}
+
+Un point $\mathbf{x}=(x,y,z)$ du panel (IV) vérifie les relations suivantes :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcccc}
+x & = & a \sin \alpha & = & a \cos \beta \sin \xi \\
+y & = & - a \cos \alpha \cos \eta & = & - a \cos \beta \cos \xi \\
+z & = & a \cos \alpha \sin \eta & = & a \sin \beta
+\end{array}
+\right.
+\end{equation}
+
+Les coordonnées gnomoniques sont :
+
+\begin{equation}
+X = \tan \xi = - \dfrac{x}{y} \hspace{1cm} Y = \tan \eta = \dfrac{z}{y}
+\end{equation}
+
+(\ref{eq: alpha(xi) beta(eta)}, \ref{eq; der alpha beta}, \ref{eq: metrique}, \ref{eq: metrique inverse}) restent vraies, c'est d'ailleur le cas sur chaque panel. 
+
+Ainsi, on peut écrire : 
+
+\begin{equation}
+\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+-y(1+Y^2) \\ x \\ -xY
+\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+-zX \\ z \\ -y(1+X^2)
+\end{pmatrix}
+\label{eq: base locale IV}
+\end{equation}
+
+et la base dual par rapport à la métrique :
+
+\begin{equation}
+\mathbf{g}^{\xi} = \dfrac{1}{y(1+X^2)}\begin{pmatrix}
+-1 \\ -X \\ 0
+\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{y(1+Y^2)}\begin{pmatrix}
+0 \\ -Y \\ -1
+\end{pmatrix}
+\label{eq: base duale IV}
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Panel V}
+
+Le panel V est le panel "couvrant" le pole Nord. On utilise un réseau cercles passants par $F$ et $B$ pour les $C_{\xi}^{(1)}$ ($C_{0}^{(1)}$ est contenu dans le plan $(xOz)$) et les cercles $C_{\eta}^{(2)}$ passant par les points $E$ et $W$ ($C_{0}^{(2)}$ est contenu dans le plan $(zOy)$). Les angles $\xi$, $\eta$, $\alpha$ et $\beta$ sont construits comme dans pour les panels précédents.  On considère que $\xi$ doit croître lorsque $-y$ croit. De même pour $\eta$ et $-x$. 
+Ainsi la définition du panel V est donnée par :
+
+\begin{definition}
+On nomme panel V l'ensemble des points $\mathbf{x}=(x,y,z)$ de $\mathbf{S}_a^2$ vérifiant $z>0$ et tels que si $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$ alors $-\frac{\pi}{4}\leq \xi,\eta \leq \frac{\pi}{4}$. Avec les $\xi$ et $\eta$ associés respectivement aux axes $(FB)$ et $(EW)$.
+\end{definition}
+
+Un point $\mathbf{x}=(x,y,z)$ du panel V vérifie les relations suivantes :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcccc}
+x & = & -a \cos \alpha \sin \eta & = & - a \sin \beta \\
+y & = & a \sin \alpha & = & a \cos \beta \sin \xi \\
+z & = & a \cos \alpha \cos \eta & = & a \cos \beta \cos \xi
+\end{array}
+\right.
+\end{equation}
+
+Les coordonnées gnomoniques sont :
+
+\begin{equation}
+X = \tan \xi = \dfrac{y}{z} \hspace{1cm} Y = \tan \eta = \dfrac{x}{z}
+\end{equation}
+
+En tenant en compte les relations (ref{eq: alpha(xi) beta(eta)}, \ref{eq; der alpha beta}) on peut écrire : 
+
+\begin{equation}
+\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+-yY \\ z(1+Y^2) \\ -y
+\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+-z(1+X^2) \\ xX \\ x
+\end{pmatrix}
+\label{eq: base locale V}
+\end{equation}
+
+la base duale est donnée grâce à la métrique (\ref{eq: metrique}, \ref{eq: metrique inverse}) par :
+
+\begin{equation}
+\mathbf{g}^{\xi} = \dfrac{1}{z(1+X^2)}\begin{pmatrix}
+0 \\ 1 \\ -X
+\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{z(1+Y^2)}\begin{pmatrix}
+-1 \\ 0 \\ -Y
+\end{pmatrix}
+\label{eq: base duale V}
+\end{equation}
+
+
+
+\subsection{Panel VI}
+
+Le panel VI est le symétrique du panel V. On utilise un réseau cercles passants par $F$ et $B$ pour les $C_{\xi}^{(1)}$ ($C_{0}^{(1)}$ est contenu dans le plan $(xOz)$) et les cercles $C_{\eta}^{(2)}$ passant par les points $E$ et $W$ ($C_{0}^{(2)}$ est contenu dans le plan $(zOy)$). Comme sur les panels précédents, on construit les angles $\xi$, $\eta$, $\alpha$ et $\beta$. $\xi$ est croissant lorsque $y$ l'est. De même $\eta$ est croissant lorsque $x$ est croissant.
+Le panel VI est donné par la définition suivante :
+
+\begin{definition}
+On nomme panel VI l'ensemble des points $\mathbf{x}=(x,y,z)$ de $\mathbf{S}_a^2$ vérifiant $z<0$ et tels que si $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$ alors $-\frac{\pi}{4}\leq \xi,\eta \leq \frac{\pi}{4}$. Avec les $\xi$ et $\eta$ associés respectivement aux axes $(FB)$ et $(EW)$.
+\end{definition}
+
+Un point $\mathbf{x}=(x,y,z)$ du panel VI est tel que :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcccc}
+x & = & a \cos \alpha \sin \eta & = & a \sin \beta \\
+y & = & a \sin \alpha & = & a \cos \beta \sin \xi \\
+z & = & - a \cos \alpha \cos \eta & = & - a \cos \beta \cos \xi
+\end{array}
+\right.
+\end{equation}
+
+Les coordonnées gnomoniques sont :
+
+\begin{equation}
+X = \tan \xi = -\dfrac{y}{z} \hspace{1cm} Y = \tan \eta = -\dfrac{x}{z}
+\end{equation}
+
+Les relations sur $\alpha$, $\beta$ et leurs dérivées (ref{eq: alpha(xi) beta(eta)}, \ref{eq; der alpha beta}) permettent d'écrire :
+
+\begin{equation}
+\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+-yY \\ -z(1+Y^2) \\ y
+\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+-z(1+X^2) \\ -xX \\ x
+\end{pmatrix}
+\label{eq: base locale VI}
+\end{equation}
+
+la base duale est donnée grâce à la métrique (\ref{eq: metrique}, \ref{eq: metrique inverse}) par :
+
+\begin{equation}
+\mathbf{g}^{\xi} = \dfrac{1}{z(1+X^2)}\begin{pmatrix}
+0 \\ -1 \\ -X
+\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{z(1+Y^2)}\begin{pmatrix}
+-1 \\ 0 \\ -Y
+\end{pmatrix}
+\label{eq: base duale VI}
+\end{equation}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.6]{plot_CS}
+\end{center}
+\caption{Représentation sphérique des panels de la Cubed-Sphere}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=2.5]
+	\draw (1,3) -- (2,3) ; 
+	\draw (0,2) -- (4,2) ; 	
+	\draw (0,1) -- (4,1) ; 
+	\draw (1,0) -- (2,0) ; 
+	
+	\draw (0,2) -- (0,1) ;
+	\draw (1,3) -- (1,0) ;
+	\draw (2,3) -- (2,0) ;
+	\draw (3,2) -- (3,1) ;
+	\draw (4,2) -- (4,1) ; 
+	
+	\draw [>=stealth, ->] (0.2,1.2) -- (0.5,1.2) ; 
+	\draw (0.55,1.2) node[above]{$\xi$} ; 
+	\draw [>=stealth, ->] (0.2,1.2) -- (0.2,1.5) ; 
+	\draw (0.3,1.4) node[above]{$\eta$} ; 
+	\draw (0.7,1.7) node[above]{$(IV)$} ; 
+	
+	\draw [>=stealth, ->] (1.2,1.2) -- (1.5,1.2) ; 
+	\draw (1.55,1.2) node[above]{$\xi$} ; 
+	\draw [>=stealth, ->] (1.2,1.2) -- (1.2,1.5) ; 
+	\draw (1.3,1.4) node[above]{$\eta$} ; 
+	\draw (1.7,1.7) node[above]{$(I)$} ; 
+	
+	\draw [>=stealth, ->] (2.2,1.2) -- (2.5,1.2) ; 
+	\draw (2.55,1.2) node[above]{$\xi$} ; 
+	\draw [>=stealth, ->] (2.2,1.2) -- (2.2,1.5) ; 
+	\draw (2.3,1.4) node[above]{$\eta$} ; 
+	\draw (2.7,1.7) node[above]{$(II)$} ;
+	
+	\draw [>=stealth, ->] (3.2,1.2) -- (3.5,1.2) ; 
+	\draw (3.55,1.2) node[above]{$\xi$} ; 
+	\draw [>=stealth, ->] (3.2,1.2) -- (3.2,1.5) ; 
+	\draw (3.3,1.4) node[above]{$\eta$} ; 
+	\draw (3.7,1.7) node[above]{$(III)$} ;  
+	
+	\draw [>=stealth, ->] (1.2,2.2) -- (1.5,2.2) ; 
+	\draw (1.55,2.2) node[above]{$\xi$} ; 
+	\draw [>=stealth, ->] (1.2,2.2) -- (1.2,2.5) ; 
+	\draw (1.3,2.4) node[above]{$\eta$} ; 
+	\draw (1.7,2.7) node[above]{$(V)$} ; 
+	
+	\draw [>=stealth, ->] (1.2,0.2) -- (1.5,0.2) ; 
+	\draw (1.55,0.2) node[above]{$\xi$} ; 
+	\draw [>=stealth, ->] (1.2,0.2) -- (1.2,0.5) ; 
+	\draw (1.3,0.4) node[above]{$\eta$} ; 
+	\draw (1.7,0.7) node[above]{$(I)$} ; 
+	
+\end{tikzpicture}
+\caption{Patron de la Cubed-Sphere avec orientation des directions $\xi$ et $\eta$ par panel.}
+\label{fig:patron cs}
+\end{center}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Symboles de Christophel}
 
 Les champs de vecteur $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ et $( \mathbf{g}_ {\xi}, \mathbf{g}_{\eta})$ sont tangents à la sphère. En conséquence, ils varient (continuement) en fonction de $\xi$ et $\eta$. On définit les symboles de Christoffel par :
 
