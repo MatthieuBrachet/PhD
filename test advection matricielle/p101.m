@@ -31,7 +31,7 @@ coef = 2;
 film = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 1;
+save_graph = 0;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
 opt_ftr ='redonnet10';
@@ -90,7 +90,7 @@ scheme='compact4'; % compact ou explicite
  end
 
 %% données du problème
-itestop=10000;
+itestop=20;
 tstart=cputime;
 mod101
 tmax=24*3600*ndaymax;
@@ -456,14 +456,9 @@ end
 time_res=cputime-tstart;
 
 %% graphiques
-if save_graph==1
-    mkdir(['./results-' date ])
-end
-
-
 if sauvegarde == 1
     mkdir(['./results-' date ])
-    save(['./results-' date '/ref_' num2str(ref) '_erreurdata_test_' num2str(coef) '.mat'])
+    % save(['./results-' date '/ref_' num2str(ref) '_erreurdata_test_' num2str(coef) '.mat'])
 end
 
 if snapshot == 1

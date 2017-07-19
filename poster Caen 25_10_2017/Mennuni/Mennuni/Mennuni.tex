@@ -1,0 +1,120 @@
+%%%%%%% DO NOT MODIFFY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, 10pt]{amsart}
+
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx,color}
+\usepackage{cite}
+\usepackage{filecontents}
+
+
+\usepackage[latin1]{inputenc}  %%PC ou Unix
+\usepackage[english,francais]{babel}
+
+\newcommand{\Lp}{L^p}
+\newcommand{\N}{\mathbb{{N}}}
+\newcommand{\R}{\mathbb{{R}}}
+\newcommand{\Wp}{W^{1,p}}
+\newcommand{\Wkp}{W^{k,p}}
+\newcommand{\Ho}{H_{0}^{1}(\Omega)}
+\newcommand{\dOmega}{{\partial\Omega}}
+
+\def\myAbstract#1{
+{\vspace{0.2cm}\flushleft\sffamily\bfseries\Large  Abstract {\normalfont \sl  }\vspace{0.2cm}} 
+\\
+#1}
+
+\def\myTalk#1{
+\section*{#1}
+}
+
+\def\myMini#1{
+{\flushleft\sffamily\bfseries\LARGE #1\vspace{1cm}}  
+}
+
+\def\myAuthor#1#2#3#4{
+{\noindent #1 #2 \index{#2@#2, #1} \\ #3 \\ #4 \\}}
+
+\def\myCoauthor#1#2#3#4{  
+{\noindent #1 #2 \index{#2@#2, #1} \\ #3 \\ #4 \\}}
+
+\def\myLoc#1 {{\flushleft{\bf Chairman:   #1 \\}}}
+
+\def\myItem#1#2{\item #1\\ #2}
+
+
+ %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+\let\bb\mathbb
+\def \R {{\relax{\bb R}}}
+ \def  \N {\relax{\bb N}}
+\def \Z {\relax{\bb Z}}
+\def \C {\relax{\bb C}}
+
+
+%%%%%%% DO NOT MODIFFY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+\myTalk{\selectlanguage{english}{ Titre poster en anglais }}
+
+ 
+\bigskip
+\myAuthor{Pierre}{MENNUNI}
+{Universit\'e de Lille 1\\ Laboratoire Paul Painlevé}
+ {Pierre.Mennuni@math.univ-lille1.fr}
+
+\myCoauthor{xxx}{XXX}
+{XXXXX} {xx@xx}
+
+\myCoauthor{xxx}{XXX}
+{XXXXX} {xx@xx}
+ 
+
+\myAbstract{\selectlanguage{english}
+{ Texte en anglais \ldots\ldots  \ldots\ldots   \ldots\ldots   \ldots\ldots  
+}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\
+\\ {\bfseries Keywords}. {\small   }
+\\[5mm]
+
+
+\noindent
+\selectlanguage{french}
+\textbf{\textsf{\large R\'esum\'e.}} {\bfseries 
+Titre poster en Fran\c cais}.
+{Texte en fran\c cais  \ldots\ldots  \ldots\ldots   \ldots\ldots   \ldots\ldots   
+}
+
+
+
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \bigskip
+ \noindent
+ {\bfseries Mots cl\'es}. {\small   }
+ 
+  
+
+\bigskip
+\bigskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{abbrv}
+ \begin{thebibliography}{10}
+\bibitem{A1} {\sc Auteur}, titre \ldots 
+
+\bibitem{2} {\sc Auteur}, titre \ldots 
+
+
+\end{thebibliography}
+
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}      
+
