@@ -10,6 +10,11 @@ Un point $M$ de la sphère $ S_R = \{ (x,y,z) \in \mathbb{R}^3 \text{ s.t. } x^2
 \draw (0,0) circle (1) ;
 \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1);
 \draw (-1,0) arc (180:360:1cm and 0.25cm);
+
+\draw (-0.5,-0.25)[>=stealth, ->, color=red] arc (222.5:333:0.7cm and 0.13cm);
+\draw (0.06,-0.26)[color=red] node[below]{$\lambda$} ;
+\draw (0.65,-0.24)[color=blue] arc (-45:65:0.34cm and 0.7cm);
+
 \draw (-1,0)[dotted, color=black!40] arc (180:360:1cm and -0.25cm);
 \draw (0,1) arc (90:270:0.5cm and 1cm);
 \draw (0,1) arc (90:-90:0.6cm and 1cm);
@@ -28,7 +33,7 @@ Un point $M$ de la sphère $ S_R = \{ (x,y,z) \in \mathbb{R}^3 \text{ s.t. } x^2
 \draw (0.43,0.69) node {$\bullet$} ;
 \draw (0.43,0.69) node[left]{$M$} ;
 
-\draw (0.06,-0.23) node[below]{$\lambda$} ;
+
 \draw (0.65,0.4) node[below]{$\theta$} ;
 \end{tikzpicture}
 \end{center}
@@ -61,7 +66,7 @@ R \cos \theta \cos \lambda \\
 
 ainsi que 
 
-\begin{equation}
+\begin{equation}\label{coord_latlon}
 \mathbf{g}_{\theta} = \dfrac{\partial M}{\partial \theta} = \begin{pmatrix}
 - R \sin \theta \cos \lambda \\ 
 - R \sin \theta \sin \lambda \ \\ 
@@ -137,7 +142,7 @@ $$
 \right.
 $$
 
-d'où la divergence de $\mathbf{F}$ :
+La divergence de $\mathbf{F}$ est donnée par :
 
 \begin{equation}
 \nabla \cdot \mathbf{F} = \dfrac{1}{\sqrt{\overline{\mathbf{G}}}} \left( \dfrac{\partial}{\partial \lambda} \left( \sqrt{\overline{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\lambda}  \right) +  \dfrac{\partial}{\partial \theta} \left( \sqrt{\overline{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\theta}  \right)  \right)
@@ -149,14 +154,27 @@ d'où :
 \nabla \cdot \mathbf{F} = \dfrac{1}{R \cos \theta} \dfrac{\partial}{\partial \lambda}  F_{\lambda} + \dfrac{1}{R \cos \theta} \dfrac{\partial}{\partial \theta} \left( \cos \theta F_{\theta} \right)
 \end{equation}
 
-Le laplacien est une composition des deux opérateurs précédents : $\Delta u = \nabla \cdot \nabla u$ :
+Le rotationnel de $\mathbf{F}$ se calcule grâce aux produit vectoriel. Il est donné par :
+
+\begin{equation}
+\nabla \wedge \mathbf{F} = \mathbf{g}^{\lambda} \wedge \dfrac{\partial}{\partial \lambda}\mathbf{F} + \mathbf{g}^{\theta} \wedge \dfrac{\partial}{\partial \theta}\mathbf{F} 
+\end{equation}
+
+Après calculs, on obtient :
+
+\begin{equation}\label{rotationnel_lonlat}
+\nabla \wedge \mathbf{F} = \left[ \dfrac{1}{R \cos \theta} \left( \dfrac{\partial F_{\theta}}{\partial \lambda} - F_{\lambda} \sin \theta \right) - \dfrac{1}{R} \dfrac{\partial F_{\lambda}}{\partial \theta} \right] \mathbf{e}_{r} + \dfrac{1}{R} F_{\lambda} \mathbf{e}_{\theta} - \dfrac{1}{R} F_{\theta} \mathbf{e}_{\lambda} 
+\end{equation}
+
+
+Le Laplacien est une composition des deux opérateurs précédents : $\Delta u = \nabla \cdot \nabla u$ :
 
 \begin{equation}\label{laplacien_lonlat}
 \Delta u = \dfrac{1}{R^2 \cos^2 \theta} \dfrac{\partial^2 u }{\partial \lambda^2} + \dfrac{1}{R^2 \cos \theta} \dfrac{\partial}{\partial \theta} \left( \cos \theta \dfrac{\partial u}{\partial \theta} \right)
 \end{equation}
 
-En plus des opérateurs différentiels courants, on peut donner une formule d'intégration :
+En plus des opérateurs différentiels courants, en utilisant le changement de variable $\mathbf{x} \mapsto (\lambda, \theta)$ issu de \eqref{coord_latlon}, on peut donner une formule d'intégration :
 
 \begin{equation}\label{integrale_lonlat}
-\gint_{S_R} u = \gint_{\lambda=0}^{2 \pi} \gint_{\theta = - \pi/2}^{\pi/2} u(\lambda, \theta) \underbrace{R^2 \cos \theta}_{\sqrt{\overline{\mathbf{G}}}} d \theta d \lambda
+\gint_{\mathbb{S}_R} u(\mathbf{x})d\sigma(\mathbf{x})= = \gint_{\lambda=0}^{2 \pi} \gint_{\theta = - \pi/2}^{\pi/2} u(\lambda, \theta) \underbrace{R^2 \cos \theta}_{\sqrt{\overline{\mathbf{G}}}} d \theta d \lambda
 \end{equation}
