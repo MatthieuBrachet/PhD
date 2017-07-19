@@ -22,6 +22,8 @@
 *.lot
 *.synctex
 *.dat
+*.DS_Store
+*._Mennuni.tex
 
 
 !./test\ advection\ CS/redaction/Images/*.png
