@@ -8,18 +8,18 @@ On a montré dans le Chapitre 1 que l'équation Shallow Water était issue de l'
 L'équation Shallow Water obtenue était la suivante :
 
 \begin{equation}
-\label{SWEC_new}
+\label{eq:SWEC_new}
 \left\lbrace
 \begin{array}{rcl}
-\dfrac{\partial \mathbf{u}}{\partial t} + \left( \mathbf{u} \cdot \nabla \right) \mathbf{u} + f \mathbf{k} \wedge \mathbf{u} + g \nabla \eta & = & \mathbf{0} \\
-\dfrac{\partial \eta^{\star}}{\partial t} + \nabla \cdot \left( \eta^{\star} \mathbf{u} \right) & = & 0
+\dfrac{\partial \mathbf{u}}{\partial t} + \left( \mathbf{u} \cdot \nabla \right) \mathbf{u} + f \mathbf{k} \wedge \mathbf{u} + g \nabla h & = & \mathbf{0} \\
+\dfrac{\partial h^{\star}}{\partial t} + \nabla \cdot \left( h^{\star} \mathbf{u} \right) & = & 0
 \end{array}
 \right.
 \end{equation}
 
-avec $\eta^{\star} = \eta - \eta_s$, $\eta_s$ représentant les reliefs sur la sphère. On suppose $\eta_s$ indépendant du temps $t$.
+avec $h^{\star} = h - h_s$, $\eta_s$ représentant les reliefs sur la sphère. On suppose $h_s$ indépendant du temps $t$.
 
-Il peut être délicat de travailler directement avec le terme $\left( \mathbf{u} \cdot \nabla \right) \mathbf{u}$. Pour éviter de discrétiser directement ce terme, on se repose sur la formule suivante :
+Il peut être délicat de travailler avec le terme $\left( \mathbf{u} \cdot \nabla \right) \mathbf{u}$. Pour éviter de discrétiser directement ce terme, on se repose sur la formule suivante :
 
 \begin{equation}
 \left( \mathbf{u} \cdot \nabla \right) \mathbf{u} = \nabla \left( \dfrac{1}{2} \mathbf{u}^2 \right) + \zeta \mathbf{k} \wedge \mathbf{u}
@@ -27,27 +27,27 @@ Il peut être délicat de travailler directement avec le terme $\left( \mathbf{u
 
 avec $\zeta = \mathbf{k} \cdot \left( \nabla \wedge \mathbf{u} \right)$ la vorticité relative. On note la présence de $\nabla \wedge \mathbf{u}$ le rotationnel de $\mathbf{u}$.
 
-L'équation \eqref{SWEC_new} s'écrit alors :
+L'équation \eqref{eq:SWEC_new} s'écrit alors :
 
 \begin{equation}
-\label{SWEC_vectform}
+\label{eq:SWEC_vectform}
 \left\lbrace
 \begin{array}{rcl}
-\dfrac{\partial \mathbf{u}}{\partial t} + \nabla \left( g \eta + \dfrac{1}{2} \mathbf{u}^2  \right) + \left( \zeta + f \right) \mathbf{k} \wedge \mathbf{u} & = & \mathbf{0} \\
-\dfrac{\partial \eta^{\star}}{\partial t} + \nabla \cdot \left( \eta^{\star} \mathbf{u} \right) & = & 0
+\dfrac{\partial \mathbf{u}}{\partial t} + \nabla \left( g h + \dfrac{1}{2} \mathbf{u}^2  \right) + \left( \zeta + f \right) \mathbf{k} \wedge \mathbf{u} & = & \mathbf{0} \\
+\dfrac{\partial h^{\star}}{\partial t} + \nabla \cdot \left( h^{\star} \mathbf{u} \right) & = & 0
 \end{array}
 \right.
 \end{equation}
 
-Dans la suite, nous travaillerons avec cette forme de l'équation \eqref{SWEC_new}.
+Dans la suite, nous travaillerons avec cette forme de l'équation \eqref{eq:SWEC_new}.
 
 
 \section{Relations de Conservations}
 
-L'équation \eqref{SWEC_vectform} vérifie certaines relations de conservations au sens continu.
+L'équation \eqref{eq:SWEC_vectform} vérifie certaines relations de conservations au sens continu.
 
 \begin{proposition}
-Les relations de conservations suivantes sont vérifiées si $(\mathbf{u},h)$ est solution de \eqref{SWEC_vectform} :
+Les relations de conservations suivantes sont vérifiées si $(\mathbf{u},h)$ est solution de \eqref{eq:SWEC_vectform} :
 \begin{itemize}
 \item Conservation de la matière :
 \begin{equation}
@@ -84,7 +84,7 @@ avec $\zeta = \left( \nabla \wedge \mathbf{u} \right) \cdot \mathbf{k}$.
 \end{proposition}
 
 \begin{remarque}
-Pour prouver que $\delta$ est conservée, il suffit de montrer qu'il existe $\mathbf{F}$ tel que :
+Pour prouver que $\delta$ est conservée, il suffit de montrer qu'il existe $\mathbf{F} \mathbb{T} \mathbb{S}_a$ tel que :
 $$
 \dfrac{\partial \delta}{\partial t} = \nabla \cdot \mathbf{F}
 $$
@@ -95,7 +95,7 @@ puis d'intégrer et de conclure avec la remarque \ref{remark_stokes}.
 \begin{proof}
 Pour la conservation de la masse \eqref{eq:mass} et de la divergence \eqref{eq:divergence}, le résultat est immédiat.
 
-De plus, en posant $q = \dfrac{\zeta+f}{h^{\star}}$ et en appliquant à \eqref{SWEC_vectform} l'opérateur de vorticité "$\mathbf{k} \cdot \left( \nabla \wedge \cdot \right)$", on obtient :
+De plus, en posant $q = \dfrac{\zeta+f}{h^{\star}}$ et en appliquant à \eqref{eq:SWEC_vectform} l'opérateur de vorticité "$\mathbf{k} \cdot \left( \nabla \wedge \cdot \right)$", on obtient :
 
 $$
 \dfrac{\partial \zeta}{\partial t}+\nabla \wedge \left( q h^{\star} \mathbf{k} \wedge \mathbf{u} \right) \cdot\mathbf{k} + \underbrace{\nabla \wedge \nabla \left( gh + \dfrac{1}{2}\mathbf{u}^2 \right) \cdot \mathbf{k}}_{=0} = 0 
@@ -123,7 +123,7 @@ $$
 
 et on a démontré la conservation de l'enstrophie potentielle \eqref{eq:enstrophie}.
 
-En ce qui conserne la conservation de l'énergie, on pose :
+En ce qui concerne la conservation de l'énergie, on pose :
 \begin{equation}
 \begin{array}{rcl}
 E_1 & = & \dfrac{1}{2} h^{\star} \mathbf{u}^2 \\
@@ -148,97 +148,91 @@ $$
 $h_s$ est indépendant du temps donc en appliquant la remarque \ref{rmq:int diverg nulle}, on obtient la conservation de l'énergie.
 \end{proof}
 
-\section{Solution stationnaire zonale}
+\section{Solution stationnaire zonale -  test 2 de Williamson}
 
-Dans cette partie, on se cherche $(\mathbf{u}, \eta)$ une solution zonale stationnaire de \eqref{SWEC_new}.
+Dans cette section, on cherche $(\mathbf{u},h)$ une solution stationnaire (indépendante de $t$) de \eqref{eq:SWEC_vectform} avec $\mathbf{u}$ zonale, c'est à dire $\mathbf{u}(\lambda, \theta) = u(\theta) \mathbf{e}_{\lambda}$.
 
-On considère $\mathbf{u}$ sous la forme :
-
-\begin{equation}
-\mathbf{u}(\theta) = u(\theta) \mathbf{e}_{\lambda}
-\end{equation}
-
-et on cherche la fonction $\eta$ associée.
-
-En écrivant \eqref{SWEC_new} dans le système de coordonnées $(\lambda, \theta)$ et en considèrant que $\mathbf{u}$ indépendant de $\lambda$, comme $(\mathbf{u}, \eta)$ est une solution stationnaire :
-
-
-
-\section{Test 2 de D. L. Williamson \textit{et al.} : Etat d'équilibre zonal}
-
-Le second test de D. L. Williamson \textit{et al.} \cite{Williamson1992} est un test visant à observer la conservation d'une solution stationnaire et zonale pour un schéma numérique. On cherche à observer les conservations d'énergie, de masse et d'enstropie potentielle.
-
-Ce test reposant sur une solution stationnaire, la solution exacte est conne à chaque instant. Le champ de vitesse $\mathbf{u} = u \mathbf{e}_{\lambda} + v \mathbf{e}_{\theta}$ est donné par :
-
+\begin{proposition}
+Les solutions stationnaires zonales $(\mathbf{u},h)$ de \eqref{eq:SWEC_vectform} sont données par :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-u & = & u_0 \left( cos \theta cos \alpha + cos \lambda sin \theta sin \alpha \right)\\
-v & = & - u_0 sin \lambda sin \alpha
+\mathbf{u}(\theta) & = & u(\theta) \mathbf{e}_{\lambda}\\
+h(\theta) & = & h_0 - \dfrac{a}{g} \gint^{\theta} u(\tau) \left( u(\tau) \dfrac{\tan (\tau)}{a} + f \right) d\tau\\
 \end{array}
 \right.
-\label{eq:williamson2_u}
+\label{eq:sol. stationaire zonale de swe}
+\end{equation}
+avec $f \equiv f(\theta) = 2 \omega \sin \theta$, $u$ une fonction de classe $\mathcal{C}^1$ et $h_s \equiv 0$.
+\end{proposition}
+
+\begin{proof}
+On utilise les expression du gradient et du rotationnel \eqref{divergence_lonlat} et \eqref{rotationnel_lonlat} sur la première équation de \eqref{eq:SWEC_vectform}. On a alors :
+\begin{equation}
+\xi + f = u(\theta) \dfrac{\tan \theta}{a} - \dfrac{1}{a} u'(\theta) + f.
+\end{equation}
+Ainsi :
+\begin{equation}
+\left( \xi + f \right) \mathbf{k} \wedge \mathbf{u} = \left( u^2 (\theta) \dfrac{\tan \theta}{a} - \dfrac{1}{a} u(\theta) u'(\theta) + f(\theta) u(\theta) \right) \mathbf{e}_{\theta}
 \end{equation}
 
-où $u_0 = 2 \pi 0 / (12 \text{jours} )$ et $\alpha$ est l'angle d'inclinaisonde  la sphère.
-
-La hauteur du fluide s'obtient en consèquences comme étant :
+De même, avec l'expression du gradient, on obtient :
 
 \begin{equation}
-\eta = \eta_0 - \left( a \omega u_0 + \dfrac{1}{2}u_0^2 \right) \left( -cos \lambda cos \theta sin \alpha + sin \theta cos \alpha \right)^2
-\label{eq:williamson2_h}
+\nabla \left( gh + \dfrac{1}{2} |\mathbf{u}|^2 \right) = \dfrac{g}{a \cos \theta} \dfrac{\partial h}{\partial \lambda} \mathbf{e}_{\lambda} + \left[ \dfrac{g}{a} \dfrac{\partial h}{\partial \theta} + \dfrac{1}{a} u'(\theta) u(\theta) \right] \mathbf{e}_{\theta}
 \end{equation}
 
-$\eta_0$ est tel que $g \eta_0 = 2.94 \times 10^{-4}$. 
-
-Le terme de la force de Coriolis $f$ est adapté à l'inclinaison de l'axe Nord-Sud d'un angle $\alpha$. Ainsi on a :
-
-$$ f = 2 \omega sin \theta' = 2 \omega \left( -cos \lambda cos \theta sin \alpha + sin \theta cos \alpha \right)$$
-
-
-
-
-
-\section{Test 5 de D. L. Williamson \textit{et al.} : flux zonal autour d'une montagne isolée}
-
-Pour ce test, issu de \cite{Williamson1992}, aucune solution analyique n'est connue. On compare les résultats à différents temps et on observe les relations de conservations souhaitées.
-
-Le champ de vitesse itinial $\mathbf{u}$ est donnée par \eqref{eq:williamson2_u} avec $\alpha=0$ et la hauteur d'atmosphère $\eta$ par \eqref{eq:williamson2_h}. En revanche, contrairement au test précédent, on choisit $u_0=20m/s$.
-Cette condition initiale stationnaire est perturbée par l'ajout de reliefs. On considère $\eta_s$ les reliefs de la sphère donnés par :
+Comme la solution recherchée est stationnaire, on a $h$ et $\mathbf{u}$ indépendants de $t$. D'où :
 
 \begin{equation}
-\eta_s = \eta_{s_0} \left( 1 - \dfrac{r}{R} \right)
+\left( \xi + f \right) \mathbf{k} \wedge \mathbf{u} + \nabla \left( gh + \dfrac{1}{2} |\mathbf{u}|^2 \right) = 0
 \end{equation}
 
-avec $\eta_{s_0}=5960m$, $R=\pi/9$ et $r = \sqrt{min\left( R^2, \left( \lambda-\lambda_c \right)^2 + \left( \theta-\theta_c \right)^2 \right)}$.
-Le centre de la montagne est positionné en $(\lambda_c, \theta_c) = (3\pi/2, \pi/6)$.
+En traitant cette équation composante par composante, on peut en déduire des informations sur $h$.
 
-On observe la solution à $5$ , $10$ et $15$ jours en Figure \ref{Williamson 5 - visuel}. Les relations de conservations sont aussi données par : \ref{Williamson 5 - conservation}
+\begin{itemize}
+\item \textbf{Composante en} $\mathbf{e}_{\lambda}$ : 
 
-\begin{figure}
-\begin{center}
-\includegraphics[scale=0.4]{ref_7366847796_snapshot_intermediaire499.png}\\
-\includegraphics[scale=0.4]{ref_7366847796_snapshot_intermediaire999.png}\\
-\includegraphics[scale=0.4]{ref_7366847796_snapshot_intermediaire1499.png}
-\end{center}
-\caption{Solution à $t=5$jours, $10$ jours et $15$ jours, $N=31$, $CFL=0.9$}
-\begin{com}
-NOTA BENE : ICI $(\lambda_c, \theta_c)=(\pi/4, \pi/6)$ PAR COMODITE VISUELLE.
-\end{com}
-\label{Williamson 5 - visuel} 
-\end{figure}
+\begin{equation}
+\dfrac{g}{a \cos \theta} \dfrac{\partial h}{\partial \lambda} = 0
+\end{equation}
 
-\begin{figure}
-\begin{center}
-\includegraphics[scale=0.4]{ref_7366847796_conservation.png}\\
-\end{center}
-\caption{Conervation pour le test de la montagne isolée, $N=31$, $CFL=0.9$}
-\begin{com}
-NOTA BENE : ICI $(\lambda_c, \theta_c)=(\pi/4, \pi/6)$ PAR COMODITE VISUELLE ET L'INTEGRATION EST DISCUTABLE.
-\end{com}
-\label{Williamson 5 - conservation}
-\end{figure}
+donc $h$ est indépendant de $\lambda$.
 
-\section{Solution stationnaire perturbée}
+\item \textbf{Composante en} $\mathbf{e}_{\theta}$ :
 
-Le test de \cite{Galewsky2004}
+\begin{equation}
+u^2 (\theta) \dfrac{\tan \theta}{a}  + f(\theta) u(\theta) + \dfrac{g}{a} h'(\theta) = 0
+\end{equation}
+
+d'où l'on déduit facilement :
+
+\begin{equation}
+h'(\theta) = - u(\theta) \dfrac{a}{g} \left( u(\theta) \dfrac{\tan \theta}{a} + f(\theta) \right)
+\end{equation}
+
+que l'on intègre pour obtenir la formule de la proposition :
+
+\begin{equation}
+h(\theta) = h_0 - \dfrac{a}{g} \gint^{\theta} u(\tau) \left( u(\tau) \dfrac{\tan (\tau)}{a} + f(\tau) \right) d\tau
+\end{equation}
+
+Enfin, comme $u$ et $h$ ne dépendent que de $\theta$, il est facile de vérifier que $\nabla \cdot \left( h \mathbf{u} \right)=0$
+\end{itemize}
+\end{proof}
+
+Ainsi si on cherche une solution stationnaire zonale avec $\mathbf{u}(\theta) = u_0 \cos \theta \mathbf{e}_{\lambda}$, on obtient :
+
+\begin{equation}
+h(\theta) = h_0 - \dfrac{1}{g}\left( 2 \omega a + u_0^2 \right) \gint^{\theta} \cos \tau \sin \tau d \tau
+\end{equation}
+
+d'où :
+
+\begin{equation}
+h(\theta) = h_0 - \dfrac{1}{g} \left( 2 \omega a + u_0^2 \right) \left( - \cos \theta \right)^2
+\end{equation}
+
+
+
+

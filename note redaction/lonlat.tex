@@ -2,7 +2,7 @@
 
 \subsection{Système de coordonnées}
 
-Un point $M$ de la sphère $ S_R = \{ (x,y,z) \in \mathbb{R}^3 \text{ s.t. } x^2 + y^2 + z^2 = R^2\}$ peut être repéré par ses coordonnées longitude-latitude $(\lambda, \theta ) \in ]0, 2\pi ] \times ]- \pi/2, \pi/2 [$. $\lambda$ est la longitude du point donnée par l'angle équatorial et $\lambda$ est l'angle latitudinal (Voir figure \ref{fig:lonlat_sphere}).
+Un point $M$ de la sphère $ \mathbb{S}_R = \{ (x,y,z) \in \mathbb{R}^3 \text{ s.t. } x^2 + y^2 + z^2 = R^2\}$ peut être repéré par ses coordonnées longitude-latitude $(\lambda, \theta ) \in ]0, 2\pi ] \times ]- \pi/2, \pi/2 [$. $\lambda$ est la longitude du point donnée par l'angle équatorial et $\lambda$ est l'angle latitudinal (Voir figure \ref{fig:lonlat_sphere}).
 
 \begin{figure}
 \begin{center}
@@ -10,10 +10,6 @@ Un point $M$ de la sphère $ S_R = \{ (x,y,z) \in \mathbb{R}^3 \text{ s.t. } x^2
 \draw (0,0) circle (1) ;
 \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1);
 \draw (-1,0) arc (180:360:1cm and 0.25cm);
-
-\draw (-0.5,-0.25)[>=stealth, ->, color=red] arc (222.5:333:0.7cm and 0.13cm);
-\draw (0.06,-0.26)[color=red] node[below]{$\lambda$} ;
-\draw (0.65,-0.24)[color=blue] arc (-45:65:0.34cm and 0.7cm);
 
 \draw (-1,0)[dotted, color=black!40] arc (180:360:1cm and -0.25cm);
 \draw (0,1) arc (90:270:0.5cm and 1cm);
@@ -33,8 +29,10 @@ Un point $M$ de la sphère $ S_R = \{ (x,y,z) \in \mathbb{R}^3 \text{ s.t. } x^2
 \draw (0.43,0.69) node {$\bullet$} ;
 \draw (0.43,0.69) node[left]{$M$} ;
 
-
-\draw (0.65,0.4) node[below]{$\theta$} ;
+\draw (-0.5,-0.25)[>=stealth, ->, color=red] arc (222.5:333:0.7cm and 0.13cm);
+\draw (0.06,-0.26)[color=red] node[below]{$\lambda$} ;
+\draw (0.65,-0.24)[>=stealth, ->, color=blue] arc (-20:50:0.5cm and 0.88cm);
+\draw (0.76,0.4)[color=blue] node[below]{$\theta$} ;
 \end{tikzpicture}
 \end{center}
 \caption{Longitude-Latitude}
@@ -54,7 +52,7 @@ z & = & R \sin \theta
 \right.
 \end{equation}
 
-dès lors on peut construire une base associée sur la sphère : la base covariante $( \mathbf{g}_{\lambda}, \mathbf{g}_{\theta})$ est donnée en $M = (x,y,z) \in S$ par :
+dès lors on peut construire une base associée sur la sphère : la base covariante $( \mathbf{g}_{\lambda}, \mathbf{g}_{\theta})$ est donnée en $M = (x,y,z) \in \mathbb{S}_R$ par :
 
 \begin{equation}
 \mathbf{g}_{\lambda} = \dfrac{\partial M}{\partial \lambda} = \begin{pmatrix}
@@ -76,7 +74,7 @@ R \cos \theta
 
 \begin{remarque}
 \label{base_lonlat}
-On peut normaliser cette base en $\mathbf{e}_{\lambda} = \dfrac{1}{\| \mathbf{g}_{\lambda} \|} \mathbf{g}_{\lambda}$ et $\mathbf{e}_{\theta} = \dfrac{1}{\| \mathbf{g}_{\theta} \|} \mathbf{g}_{\theta}$. Si $\mathbf{F} \in \mathbb{T}S_R$ alors il existe $F_{\lambda}$ et $F_{\theta}$ tels que $\mathbf{F} = F_{\lambda} \mathbf{e}_{\lambda} + F_{\theta} \mathbf{e}_{\theta}$.
+On peut normaliser cette base en $\mathbf{e}_{\lambda} = \dfrac{1}{\| \mathbf{g}_{\lambda} \|} \mathbf{g}_{\lambda}$ et $\mathbf{e}_{\theta} = \dfrac{1}{\| \mathbf{g}_{\theta} \|} \mathbf{g}_{\theta}$. Si $\mathbf{F} \in \mathbb{T}\mathbb{S}_R$ alors il existe $F_{\lambda}$ et $F_{\theta}$ tels que $\mathbf{F} = F_{\lambda} \mathbf{e}_{\lambda} + F_{\theta} \mathbf{e}_{\theta}$.
 \end{remarque}
 
 Ainsi $\mathbf{G}$ le tenseur métrique est :
@@ -119,7 +117,7 @@ Depuis ces vecteurs élémentaires, on peut obtenir des formules pour calculer l
 
 \subsection{Opérateurs classiques sur la sphère}
 
-Soit $u$ une fonction de $S_R$ dans $\mathbb{R}$ dérivable pour $\lambda$ et $\theta$. On peut calculer le gradient de $u$ par :
+Soit $u$ une fonction de $\mathbb{S}_R$ dans $\mathbb{R}$ dérivable pour $\lambda$ et $\theta$. On peut calculer le gradient de $u$ par :
 
 \begin{equation}
 \nabla u = \dfrac{\partial u}{\partial \lambda} \mathbf{g}^{\lambda} + \dfrac{\partial u}{\partial \theta} \mathbf{g}^{\theta}
@@ -163,11 +161,11 @@ Le rotationnel de $\mathbf{F}$ se calcule grâce aux produit vectoriel. Il est d
 Après calculs, on obtient :
 
 \begin{equation}\label{rotationnel_lonlat}
-\nabla \wedge \mathbf{F} = \left[ \dfrac{1}{R \cos \theta} \left( \dfrac{\partial F_{\theta}}{\partial \lambda} - F_{\lambda} \sin \theta \right) - \dfrac{1}{R} \dfrac{\partial F_{\lambda}}{\partial \theta} \right] \mathbf{e}_{r} + \dfrac{1}{R} F_{\lambda} \mathbf{e}_{\theta} - \dfrac{1}{R} F_{\theta} \mathbf{e}_{\lambda} 
+\nabla \wedge \mathbf{F} = \left[ F_{\lambda} \dfrac{\tan \theta}{R} + \dfrac{1}{R \cos \theta} \dfrac{\partial F_{\theta}}{\partial \lambda} - \dfrac{1}{R} \dfrac{\partial F_{\lambda}}{\partial \theta} \right] \mathbf{e}_R - \dfrac{F_{\theta}}{R} \mathbf{e}_{\lambda}
 \end{equation}
 
 
-Le Laplacien est une composition des deux opérateurs précédents : $\Delta u = \nabla \cdot \nabla u$ :
+Avec $\mathbf{e}_{R} = \left( \cos \theta \cos \lambda, \cos \theta \sin \lambda, \sin \theta \right)^T$ .Le Laplacien est une composition des deux opérateurs précédents : $\Delta u = \nabla \cdot \nabla u$ :
 
 \begin{equation}\label{laplacien_lonlat}
 \Delta u = \dfrac{1}{R^2 \cos^2 \theta} \dfrac{\partial^2 u }{\partial \lambda^2} + \dfrac{1}{R^2 \cos \theta} \dfrac{\partial}{\partial \theta} \left( \cos \theta \dfrac{\partial u}{\partial \theta} \right)
