@@ -28,7 +28,7 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=1;
+test=4;
 video = 'no';
 sauvegarde = 1;
 filtre='symetric';
@@ -37,8 +37,8 @@ scheme='compact4';
 snapshot='yes';
 nrm='int';
 
-n=15; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=5;
+n=95; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=6;
 mod101
 disp('mod74 : ok')
 
@@ -54,7 +54,7 @@ if test < 0
     u0=20;
     h0=6500;
 elseif test == 0
-    alpha=0;
+    alpha=pi/4;
     u0=2*pi*radius/(12*24*3600);
     h0=2.94*10^4/gp;
 elseif test == 1
@@ -508,7 +508,7 @@ if sauvegarde==1
     mkdir(['./RK4_results-' jour '/' num2str(ref) ])
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_courbe.png'])
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_courbe']);
-    save(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_erreurdata_test_' num2str(test) '.mat']);
+    save(['./RK4_results-' jour '/' num2str(ref) '/ref' num2str(ref) '_test' num2str(test) '.mat']);
 end 
 
 hmax=max(max(abs([h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI])));
@@ -688,13 +688,6 @@ end 
 
 [detec]=filtre101(na,'redonnet10');
 [det_fI,det_fII,det_fIII,det_fIV,det_fV,det_fVI]=det101(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
-
-hFig = figure(14);
-set(gcf,'PaperPositionMode','auto')
-set(hFig, 'Position', [50 50 1000 500])
-plot_cs102(n,nn,det_fI,det_fII,det_fIII,det_fIV,det_fV,det_fVI);
-title(['calculated solution at time = ', num2str(time(end))])
-colorbar
 
 
 fig_placier
