@@ -1,0 +1,80 @@
+%%%%%%% DO NOT MODIFFY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, 10pt]{amsart}
+
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx,color}
+
+\usepackage[latin1]{inputenc}  %%PC ou Unix
+
+\def\myAbstract#1{
+{\vspace{0.2cm}\flushleft\sffamily\bfseries\Large Abstract\vspace{0.2cm}} 
+\\
+#1}
+
+\def\myTalk#1{
+\section*{#1}
+}
+
+\def\myMini#1{
+{\flushleft\sffamily\bfseries\LARGE #1\vspace{1cm}}  
+}
+
+\def\myAuthor#1#2#3#4{
+{\noindent #1 #2 \index{#2@#2, #1} \\ #3 \\ #4 \\}}
+
+\def\myCoauthor#1#2#3#4{  
+{\noindent #1 #2 \index{#2@#2, #1} \\ #3 \\ #4 \\}}
+
+\def\myLoc#1 {{\flushleft{\bf Chairman:   #1 \\}}}
+
+\def\myItem#1#2{\item #1\\ #2}
+%%%%%%% DO NOT MODIFFY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+\myTalk{Numerical approximation of propagation problems on the sphere using a compact scheme}
+
+
+\bigskip
+\myAuthor{M.}{Brachet}
+{Institut Elie Cartan de Lorraine} {matthieu.brachet@univ-lorraine.fr}
+
+\myCoauthor{J.-P.}{Croisille}
+{Institut Elie Cartan de Lorraine} {jean-pierre.croisille@univ-lorraine.fr}
+
+
+ \myAbstract{This poster presents numerical results for the shallow water equations on  a rotating shere  using the compact scheme introduced in \cite{C2015}. The scheme uses the Cubed-Sphere grid and is based on a centered finite difference scheme. The discretization is performed by a Runge-Kutta method combined with a high-frequencies filtering procedure. Numerical results are displayed  for several classical test cases  \cite{BCyear, G2004}. Numerical results, for an associated  quadrature method on the Cubed Sphere, permitting to assess the conservation properties of the scheme will also be displayed.}
+ 
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \bigskip
+ \noindent
+ {\bfseries Keywords}. {\small Cubed-Sphere grid, Compact scheme, Hermitian scheme, quadrature formula.  }
+ 
+ 
+
+   
+ %%\vskip10pt
+%{\bf References}
+\bibliographystyle{abbrv}
+%\bibliography{afeti}
+\begin{thebibliography}{10}
+\bibitem{BCyear} {\sc M. Brachet, J.-P. Croisille}, \textit{Numerical simulations of propagation problemes on the sphere
+using a compact scheme}, preprint.
+
+\bibitem{C2015} {\sc J.-P. Croisille}, \textit{Hermitian approximation of the spherical divergence on the Cubed-Sphere}, J.
+Comp. App. Maths., 280, 2015, pp. 188-201.
+
+\bibitem{G2004} {\sc J. Galewsky, R. Scott, K. Richard and L. M. Polvani}, \textit{An initial-value problem for testing
+numerical models of the global shallow-water equations}, Tellus A , 56, 2004, pp. 429?440.
+
+\end{thebibliography}
+%\include{mytalk}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}      
