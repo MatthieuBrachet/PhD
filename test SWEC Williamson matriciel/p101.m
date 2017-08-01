@@ -28,16 +28,16 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=4;
+test=0;
 video = 'no';
 sauvegarde = 1;
 filtre='symetric';
 opt_ftr='redonnet10';
-scheme='explicite2';
+scheme='compact4';
 snapshot='yes';
 nrm='int';
 
-n=95; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+n=255; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
 ndaymax=6;
 mod101
 disp('mod74 : ok')
@@ -532,6 +532,10 @@ set(hFig, 'Position', [50 50 1000 500])
 plot_cs102(n,nn,err_fI./hmax, err_fII./hmax, err_fIII./hmax, err_fIV./hmax, err_fV./hmax, err_fVI./hmax);
 title(['Relative error at time = ', num2str(time(end))])
 colorbar
+if sauvegarde == 1
+    print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_err_color.png'])
+    savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_err_color']);
+end
 
 [vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=...
             vort101(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);

@@ -224,5 +224,120 @@ Enfin, comme $u$ et $h$ ne dépendent que de $\theta'$, il est facile de vérifi
 Ces solutions stationnaires zonales servent de base dans de nombreux test. En particulier dans le second test de \cite{Williamson1992} où il s'agit d'un cas particulier de cette proposition. Dans le test 5 du même article, il s'agit d'une perturbation de ce cas à l'aide d'un relief.
 Le test de J. Galewsky \cite{Galewsky2004} est une perturbation d'une solution zonale stationnaire instable en perturbant la condition initiale.
 
+\section{Test 2 de D. L. Williamson et al.}
+
+Dans le second test de \cite{Williamson1992}, on considère une solution stationnaire zonale de la forme \eqref{eq:sol. stationaire zonale de swe} avec $\mathbf{u}(\theta')=u_0 \cos \theta' \mathbf{e}_{\lambda'}$. En utilisant l'équation \eqref{eq:u0*cos alpha}, on a le champ de vitesse $\mathbf{u}$ de la forme suivante :
+
+\begin{equation}
+\mathbf{u}(\lambda, \theta) = u_0 \left( \cos \theta \cos \alpha + \cos \lambda \sin \theta \sin \alpha \right) \mathbf{e}_{\lambda} - u_0 \sin \lambda \sin \alpha \mathbf{e}_{\theta}
+\end{equation} 
+
+et le paramètre de Coriolis $f$ est la fonction donnée grâce à la formule (\ref{coord_rot}.b) en considèrant $(\lambda_P, \theta_P) = (\pi, \pi/2 - \alpha)$ :
+
+\begin{equation}
+f (\lambda, \theta) = 2 \omega \sin \theta' = 2 \omega \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right).
+\end{equation}
+
+La fonction $h$ est donnée par :
+
+\begin{equation}
+h(\lambda', \theta') = h_0 - \dfrac{a}{g} \gint^{\theta'} u_0 \cos \tau \left( u_0 \dfrac{\tan \tau}{a} + 2 \omega \sin \tau \right) d \tau
+\end{equation}
+
+après intégration, on obtient :
+
+\begin{equation}
+\begin{array}{rcl}
+h(\lambda, \theta) & = & h_0 - \left( \dfrac{a}{g} \omega u_0 + \dfrac{u_0^2}{2} \right) \sin^2 \theta' \\
+                   & = & h_0 - \left( \dfrac{a}{g} \omega u_0 + \dfrac{u_0^2}{2} \right) \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right)^2
+\end{array}
+\end{equation}
+
+L'idée est d'utiliser ces fonctions $h$ et $\mathbf{u}$ en donnée initiale avec différentes valeurs de $\alpha$ pour regarder si la solution stationnaire est conservée et avec quelle précision.
+
+On observe l'erreur relative sur $h$ au temps $t^n$:
+
+\begin{equation}
+\dfrac{\| h(t^n) - h_{ex}\|_i}{\| h_ex \|_i}
+\end{equation}
+
+avec $h_ex(\lambda, \theta) = h_0 - \left( \dfrac{a}{g} \omega u_0 + \dfrac{u_0^2}{2} \right) \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right)^2$ et $i \in \lbrace 1,2,\infty \rbrace$.
+
+Ainsi que l'erreur relative sur le champs de vitesse $\mathbf{u}$ : 
+
+\begin{equation}
+\dfrac{\| \mathbf{u}(t^n) - \mathbf{u}_{ex}\|_{\infty}}{\| \mathbf{u}_ex \|_\infty}
+\end{equation}
+
+avec :
+
+\begin{equation}
+\mathbf{u}_{ex}(\lambda, \theta) = u_0 \left( \cos \theta \cos \alpha + \cos \lambda \sin \theta \sin \alpha \right) \mathbf{e}_{\lambda} - u_0 \sin \lambda \sin \alpha \mathbf{e}_{\theta}
+\end{equation}
+
+Le contrôle de la conservation de $q$ est donnée par :
+
+\begin{equation}
+\dfrac{|Q(q - q_{init})|}{|Q(q_{init})|}
+\end{equation}
+
+où $Q$ est la méthode de quadrature utilisée et $q_{init}$ la quantité à conserver au temps initial. En ce qui concerne la conservation de la divergence et de la vorticité, on doit avoir $Q(q_{init}=0$ donc on utilise la formule :
+
+\begin{equation}
+|Q(q - q_{init})|
+\end{equation}
+
+pour vérifier la conservation souhaitée. Les résultats sont donnés pour un maillage raisonnable ($N=32$)  Figures \ref{fig: williamson 2 space alpha=0} et \ref{fig: williamson 2 space alpha=pi/4} pour la représentation spatiale de l'erreur. Dans les Figures \ref{fig: williamson 2 conservation alpha=0} et \ref{fig: williamson 2 conservation alpha=pi/4}, on présente les résultats de conservation.
+
+L'erreur au cours du temps est donnée Figure \ref{fig: williamson 2 erreur}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{ref_7369088145_snapshot_intermediaire598.png}\\
+\includegraphics[scale=0.5]{ref_7369088145_snapshot_err_color.png}
+\end{center}
+\caption{Test 2 de J. L. Williamson et al. \cite{Williamson1992} avec $\alpha=0$, $N=32$ et $CFL=0.9$. $h$ à $t=6$ jours et erreur relative sur $h$ au même temps.}
+\label{fig: williamson 2 space alpha=0}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{ref_7369088145_conservationA.png}
+\includegraphics[scale=0.5]{ref_7369088145_conservationB.png}
+\end{center}
+\caption{Test 2 de J. L. Williamson et al. \cite{Williamson1992} avec $\alpha=0$, $N=32$ et $CFL=0.9$ - Erreurs relative sur la conservation de la masse, l'énergie et l'enstrophie (gauche), erreur sur la conservation de la divergence et de la vorticité (droite).}
+\label{fig: williamson 2 conservation alpha=0}
+\end{figure}
 
 
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{ref_7369088270_snapshot_intermediaire598.png}\\
+\includegraphics[scale=0.5]{ref_7369088270_snapshot_err_color.png}
+\end{center}
+\caption{Test 2 de J. L. Williamson et al. \cite{Williamson1992} avec $\alpha=\pi/4$, $N=32$ et $CFL=0.9$. $h$ à $t=6$ jours et erreur relative sur $h$ au même temps.}
+\label{fig: williamson 2 space alpha=pi/4}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{ref_7369088270_conservationA.png}
+\includegraphics[scale=0.5]{ref_7369088270_conservationB.png}
+\end{center}
+\caption{Test 2 de J. L. Williamson et al. \cite{Williamson1992} avec $\alpha=\pi/4$, $N=32$ et $CFL=0.9$ - Erreurs relative sur la conservation de la masse, l'énergie et l'enstrophie (gauche), erreur sur la conservation de la divergence et de la vorticité (droite).}
+\label{fig: williamson 2 conservation alpha=pi/4}
+\end{figure}
+
+
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{ref_7369088145_erreur.png}
+\includegraphics[scale=0.5]{ref_7369088270_erreur.png}
+\end{center}
+\caption{Test 2 de J. L. Williamson et al. \cite{Williamson1992} avec $N=32$ et $CFL=0.9$ - erreur relative au cours du temps $\alpha = 0$ (gauche) et $\alpha = \pi/4$ (droite).}
+\label{fig: williamson 2 erreur}
+\end{figure}
