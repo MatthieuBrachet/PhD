@@ -33,7 +33,7 @@ video = 'no';
 sauvegarde = 1;
 filtre='symetric';
 opt_ftr='redonnet10';
-scheme='compact4';
+scheme='explicite2';
 snapshot='yes';
 nrm='int';
 
@@ -382,7 +382,7 @@ while t<Tmax && iter<itermax
     end
     
     % snapshot
-    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(3*ddt))) == 0
+    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(2*ddt))) == 0
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         close all;
         

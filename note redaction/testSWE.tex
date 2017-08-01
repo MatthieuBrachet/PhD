@@ -148,38 +148,38 @@ $$
 $h_s$ est indépendant du temps donc en appliquant la remarque \ref{rmq:int diverg nulle}, on obtient la conservation de l'énergie.
 \end{proof}
 
-\section{Solution stationnaire zonale -  test 2 de Williamson}
+\section{Solution stationnaire zonale}
 
-Dans cette section, on cherche $(\mathbf{u},h)$ une solution stationnaire (indépendante de $t$) de \eqref{eq:SWEC_vectform} avec $\mathbf{u}$ zonale, c'est à dire $\mathbf{u}(\lambda, \theta) = u(\theta) \mathbf{e}_{\lambda}$.
+Dans cette section, on cherche $(\mathbf{u},h)$ une solution stationnaire (indépendante de $t$) de \eqref{eq:SWEC_vectform} sans reliefs ($h_s \equiv 0$) avec $\mathbf{u}$ zonale autour de l'axe tourné d'un angle $\alpha$ (Voir Figure \ref{fig:rot alpha sphere}), c'est à dire $\mathbf{u}(\lambda', \theta') = u(\theta') \mathbf{e}_{\lambda'}$.
 
 \begin{proposition}
 Les solutions stationnaires zonales $(\mathbf{u},h)$ de \eqref{eq:SWEC_vectform} sont données par :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\mathbf{u}(\theta) & = & u(\theta) \mathbf{e}_{\lambda}\\
-h(\theta) & = & h_0 - \dfrac{a}{g} \gint^{\theta} u(\tau) \left( u(\tau) \dfrac{\tan (\tau)}{a} + f \right) d\tau\\
+\mathbf{u}(\theta') & = & u(\theta') \mathbf{e}_{\lambda'}\\
+h(\theta') & = & h_0 - \dfrac{a}{g} \gint^{\theta'} u(\tau) \left( u(\tau) \dfrac{\tan (\tau)}{a} + f \right) d\tau\\
 \end{array}
 \right.
 \label{eq:sol. stationaire zonale de swe}
 \end{equation}
-avec $f \equiv f(\theta) = 2 \omega \sin \theta$, $u$ une fonction de classe $\mathcal{C}^1$ et $h_s \equiv 0$.
+avec $f \equiv f(\theta') = 2 \omega \sin \theta'$, $u$ une fonction de classe $\mathcal{C}^1$.
 \end{proposition}
 
 \begin{proof}
 On utilise les expression du gradient et du rotationnel \eqref{divergence_lonlat} et \eqref{rotationnel_lonlat} sur la première équation de \eqref{eq:SWEC_vectform}. On a alors :
 \begin{equation}
-\xi + f = u(\theta) \dfrac{\tan \theta}{a} - \dfrac{1}{a} u'(\theta) + f.
+\zeta + f = u(\theta') \dfrac{\tan \theta'}{a} - \dfrac{1}{a} u'(\theta') + f.
 \end{equation}
 Ainsi :
 \begin{equation}
-\left( \xi + f \right) \mathbf{k} \wedge \mathbf{u} = \left( u^2 (\theta) \dfrac{\tan \theta}{a} - \dfrac{1}{a} u(\theta) u'(\theta) + f(\theta) u(\theta) \right) \mathbf{e}_{\theta}
+\left( \zeta + f \right) \mathbf{k} \wedge \mathbf{u} = \left( u^2 (\theta') \dfrac{\tan \theta'}{a} - \dfrac{1}{a} u(\theta') u'(\theta') + f(\theta') u(\theta') \right) \mathbf{e}_{\theta'}
 \end{equation}
 
 De même, avec l'expression du gradient, on obtient :
 
 \begin{equation}
-\nabla \left( gh + \dfrac{1}{2} |\mathbf{u}|^2 \right) = \dfrac{g}{a \cos \theta} \dfrac{\partial h}{\partial \lambda} \mathbf{e}_{\lambda} + \left[ \dfrac{g}{a} \dfrac{\partial h}{\partial \theta} + \dfrac{1}{a} u'(\theta) u(\theta) \right] \mathbf{e}_{\theta}
+\nabla \left( gh + \dfrac{1}{2} |\mathbf{u}|^2 \right) = \dfrac{g}{a \cos \theta'} \dfrac{\partial h}{\partial \lambda'} \mathbf{e}_{\lambda'} + \left[ \dfrac{g}{a} \dfrac{\partial h}{\partial \theta'} + \dfrac{1}{a} u'(\theta') u(\theta') \right] \mathbf{e}_{\theta'}
 \end{equation}
 
 Comme la solution recherchée est stationnaire, on a $h$ et $\mathbf{u}$ indépendants de $t$. D'où :
@@ -191,48 +191,38 @@ Comme la solution recherchée est stationnaire, on a $h$ et $\mathbf{u}$ indépe
 En traitant cette équation composante par composante, on peut en déduire des informations sur $h$.
 
 \begin{itemize}
-\item \textbf{Composante en} $\mathbf{e}_{\lambda}$ : 
+\item \textbf{Composante en} $\mathbf{e}_{\lambda'}$ : 
 
 \begin{equation}
-\dfrac{g}{a \cos \theta} \dfrac{\partial h}{\partial \lambda} = 0
+\dfrac{g}{a \cos \theta'} \dfrac{\partial h}{\partial \lambda'} = 0
 \end{equation}
 
-donc $h$ est indépendant de $\lambda$.
+donc $h$ est indépendant de $\lambda'$.
 
-\item \textbf{Composante en} $\mathbf{e}_{\theta}$ :
+\item \textbf{Composante en} $\mathbf{e}_{\theta'}$ :
 
 \begin{equation}
-u^2 (\theta) \dfrac{\tan \theta}{a}  + f(\theta) u(\theta) + \dfrac{g}{a} h'(\theta) = 0
+u^2 (\theta') \dfrac{\tan \theta'}{a}  + f(\theta') u(\theta') + \dfrac{g}{a} h'(\theta') = 0
 \end{equation}
 
 d'où l'on déduit facilement :
 
 \begin{equation}
-h'(\theta) = - u(\theta) \dfrac{a}{g} \left( u(\theta) \dfrac{\tan \theta}{a} + f(\theta) \right)
+h'(\theta') = - u(\theta') \dfrac{a}{g} \left( u(\theta') \dfrac{\tan \theta'}{a} + f(\theta') \right)
 \end{equation}
 
 que l'on intègre pour obtenir la formule de la proposition :
 
 \begin{equation}
-h(\theta) = h_0 - \dfrac{a}{g} \gint^{\theta} u(\tau) \left( u(\tau) \dfrac{\tan (\tau)}{a} + f(\tau) \right) d\tau
+h(\theta') = h_0 - \dfrac{a}{g} \gint^{\theta'} u(\tau) \left( u(\tau) \dfrac{\tan (\tau)}{a} + f(\tau) \right) d\tau
 \end{equation}
 
-Enfin, comme $u$ et $h$ ne dépendent que de $\theta$, il est facile de vérifier que $\nabla \cdot \left( h \mathbf{u} \right)=0$
+Enfin, comme $u$ et $h$ ne dépendent que de $\theta'$, il est facile de vérifier que $\nabla \cdot \left( h \mathbf{u} \right)=0$
 \end{itemize}
 \end{proof}
 
-Ainsi si on cherche une solution stationnaire zonale avec $\mathbf{u}(\theta) = u_0 \cos \theta \mathbf{e}_{\lambda}$, on obtient :
-
-\begin{equation}
-h(\theta) = h_0 - \dfrac{1}{g}\left( 2 \omega a + u_0^2 \right) \gint^{\theta} \cos \tau \sin \tau d \tau
-\end{equation}
-
-d'où :
-
-\begin{equation}
-h(\theta) = h_0 - \dfrac{1}{g} \left( 2 \omega a + u_0^2 \right) \sin^2 \theta
-\end{equation}
-
+Ces solutions stationnaires zonales servent de base dans de nombreux test. En particulier dans le second test de \cite{Williamson1992} où il s'agit d'un cas particulier de cette proposition. Dans le test 5 du même article, il s'agit d'une perturbation de ce cas à l'aide d'un relief.
+Le test de J. Galewsky \cite{Galewsky2004} est une perturbation d'une solution zonale stationnaire instable en perturbant la condition initiale.
 
 
 

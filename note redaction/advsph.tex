@@ -225,9 +225,9 @@ Avec $R_{-t}$ la rotation autour de l'axe $(Oz)$ d'angle $-\Omega t$ autour de l
 \begin{equation}
 \label{rotation}
 R_{-t} = \begin{pmatrix}
-1 & 0 & 0 \\
-0 & cos \left( - \Omega t \right) & -sin \left( - \Omega t \right)\\
-0 & sin \left( - \Omega t \right) & cos \left( - \Omega t \right)\\
+cos \left( - \Omega t \right) & -sin \left( - \Omega t \right) & 0\\
+sin \left( - \Omega t \right) & cos \left( - \Omega t \right)  & 0\\
+0 & 0 & 1 \\
 \end{pmatrix}
 \end{equation}
 
@@ -237,7 +237,41 @@ On souhaite résoudre l'équation \eqref{eq:advection spherique 1} avec $\mathbf
 
 $$\mathbf{c} ( \mathbf{x} ) = u_0 ( cos ( \theta) cos ( \alpha ) + sin( \theta) cos ( \lambda) sin( \alpha) ) \mathbf{e}_{\lambda} - u_0 sin( \lambda) sin( \alpha) \mathbf{e}_{\theta}. $$
 
-On reconnait la forme donnée par \eqref{vitesse_solide_v} et \eqref{vitesse_solide_u} lorsque $u_0 = a \omega$ ainsi que $(\lambda_P, \theta_P) = (\pi, \pi/2 - \alpha)$. 
+On reconnait la forme donnée par \eqref{vitesse_solide_v} et \eqref{vitesse_solide_u} lorsque $u_0 = a \omega$ ainsi que $(\lambda_P, \theta_P) = (\pi, \pi/2 - \alpha)$ (Voir figure \ref{fig:rot alpha sphere}). 
+
+\begin{figure}[ht]
+\begin{center}
+\begin{tikzpicture}[scale=2]
+\draw (0,0) circle (1) ;
+\shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1);
+\draw (-1,0) arc (180:360:1cm and 0.25cm);
+\draw (-1,0)[dotted, color=black!70] arc (180:360:1cm and -0.25cm);
+
+\draw [>=stealth, ->] (0,0) -- (1.1,0.4) ;
+\draw [>=stealth, ->](0.4,0) arc (0:20:0.4cm);
+\draw (0.55,0.1) node{$\alpha$} ; 
+\draw [>=stealth, ->] (0,0) -- (-0.4,1.1) ;
+\draw [>=stealth, ->](0,0.4) arc (90:110:0.4cm);
+\draw (-0.1,0.55) node{$\alpha$} ; 
+
+\draw [>=stealth, ->] (0,0) -- (1.2,0) ;
+\draw (1.38,0) node[left]{$x$} ;   
+\draw [>=stealth, ->] (0,0) -- (0,1.2) ;
+\draw (0,1.4) node[left]{$z$} ;  
+
+\draw [>=stealth, ->, dotted, color=black!70] (0,0) -- (0.45,0.4) ;
+\draw (0.55,0.5) node{$y$} ; 
+\draw (0,0) node {$\bullet$} ; 
+
+\end{tikzpicture}
+\end{center}
+\caption{Axes $(NS)$ tourné d'un angle $\alpha$.}
+\label{fig:rot alpha sphere}
+\end{figure}
+
+
+
+
 
 Le gradient $\nabla_T h$ est invariant par rotation, on peut donc effectuer le changement de variable $\mathbf{x}' = P_{\alpha}^{-1} \mathbf{x}$ dans \eqref{eq:advection spherique 1}. $P_{\alpha}$ est la rotation autour de $(Oy)$ d'angle $\alpha$.
 
