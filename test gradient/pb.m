@@ -6,7 +6,7 @@ global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI;
 global opt_ftr;
 
 %% *** Benchmarks data ****************************************************
-NN=100:100:100;
+NN=100:100:200;
 E=[];
 for i=1:length(NN);
     clc; n=NN(i)

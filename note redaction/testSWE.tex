@@ -224,15 +224,35 @@ Enfin, comme $u$ et $h$ ne dépendent que de $\theta'$, il est facile de vérifi
 Ces solutions stationnaires zonales servent de base dans de nombreux test. En particulier dans le second test de \cite{Williamson1992} où il s'agit d'un cas particulier de cette proposition. Dans le test 5 du même article, il s'agit d'une perturbation de ce cas à l'aide d'un relief.
 Le test de J. Galewsky \cite{Galewsky2004} est une perturbation d'une solution zonale stationnaire instable en perturbant la condition initiale.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \section{Test 2 de D. L. Williamson et al.}
 
 Dans le second test de \cite{Williamson1992}, on considère une solution stationnaire zonale de la forme \eqref{eq:sol. stationaire zonale de swe} avec $\mathbf{u}(\theta')=u_0 \cos \theta' \mathbf{e}_{\lambda'}$. En utilisant l'équation \eqref{eq:u0*cos alpha}, on a le champ de vitesse $\mathbf{u}$ de la forme suivante :
 
 \begin{equation}
 \mathbf{u}(\lambda, \theta) = u_0 \left( \cos \theta \cos \alpha + \cos \lambda \sin \theta \sin \alpha \right) \mathbf{e}_{\lambda} - u_0 \sin \lambda \sin \alpha \mathbf{e}_{\theta}
+\label{eq: williamson 2 initial velocity}
 \end{equation} 
 
-et le paramètre de Coriolis $f$ est la fonction donnée grâce à la formule (\ref{coord_rot}.b) en considèrant $(\lambda_P, \theta_P) = (\pi, \pi/2 - \alpha)$ :
+Le paramètre de Coriolis $f$ est une fonction donnée grâce à la formule (\ref{coord_rot}.b) en considèrant $(\lambda_P, \theta_P) = (\pi, \pi/2 - \alpha)$ :
 
 \begin{equation}
 f (\lambda, \theta) = 2 \omega \sin \theta' = 2 \omega \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right).
@@ -251,9 +271,22 @@ après intégration, on obtient :
 h(\lambda, \theta) & = & h_0 - \left( \dfrac{a}{g} \omega u_0 + \dfrac{u_0^2}{2} \right) \sin^2 \theta' \\
                    & = & h_0 - \left( \dfrac{a}{g} \omega u_0 + \dfrac{u_0^2}{2} \right) \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right)^2
 \end{array}
+\label{eq: williamson 2 initial height}
 \end{equation}
 
 L'idée est d'utiliser ces fonctions $h$ et $\mathbf{u}$ en donnée initiale avec différentes valeurs de $\alpha$ pour regarder si la solution stationnaire est conservée et avec quelle précision.
+Les constantes physiques sont les suivantes :
+\begin{itemize}
+\item la constante de gravité : $g=9.80616 m \cdot s^{-2}$,
+\item la vitesse angulaire de rotation de la sphère $\omega=7.292 \times 10^{-5} s^{-1}$,
+\item le rayon terrestre $a=6.37122 \times 10^6 m$,
+\end{itemize}
+En ce qui concerne les constantes liées au test effectué, on choisit :
+\begin{itemize}
+\item $g \cdot h_0= 2.94 \times 10^4 m^2 \cdot s^{-2}$,
+\item $u_0= 2 \pi a / (12 \text{ jours})$,
+\item $h_s \equiv 0$ (absence de reliefs sur la sphère).
+\end{itemize}
 
 On observe l'erreur relative sur $h$ au temps $t^n$:
 
@@ -281,7 +314,7 @@ Le contrôle de la conservation de $q$ est donnée par :
 \dfrac{|Q(q - q_{init})|}{|Q(q_{init})|}
 \end{equation}
 
-où $Q$ est la méthode de quadrature utilisée et $q_{init}$ la quantité à conserver au temps initial. En ce qui concerne la conservation de la divergence et de la vorticité, on doit avoir $Q(q_{init}=0$ donc on utilise la formule :
+où $Q$ est la méthode de quadrature utilisée et $q_{init}$ la quantité à conserver au temps initial. En ce qui concerne la conservation de la divergence et de la vorticité, on doit avoir $Q(q_{init})=0$ donc on utilise la formule :
 
 \begin{equation}
 |Q(q - q_{init})|
@@ -289,9 +322,13 @@ où $Q$ est la méthode de quadrature utilisée et $q_{init}$ la quantité à co
 
 pour vérifier la conservation souhaitée. Les résultats sont donnés pour un maillage raisonnable ($N=32$)  Figures \ref{fig: williamson 2 space alpha=0} et \ref{fig: williamson 2 space alpha=pi/4} pour la représentation spatiale de l'erreur. Dans les Figures \ref{fig: williamson 2 conservation alpha=0} et \ref{fig: williamson 2 conservation alpha=pi/4}, on présente les résultats de conservation.
 
-L'erreur au cours du temps est donnée Figure \ref{fig: williamson 2 erreur}
+L'erreur au cours du temps est donnée Figure \ref{fig: williamson 2 erreur}.
 
-\begin{figure}
+Les résultats sur ce maillage semble très satisfaisant. La solution au temps $t^n$ s'écrate au d'environ $5 \times 10^{-7} \%$ de la solution recherchée (stationnaire).
+Les bords des panels ne semblent pas se dessiner de manière importante sur l'erreur. 
+La masse, l'énergie et l'enstrophie potentielle se conservent bien. La divergence et la vorticité se conservent parfaitement mais cela est du à des symétries et des compensations sur la sphère.
+
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.5]{ref_7369088145_snapshot_intermediaire598.png}\\
 \includegraphics[scale=0.5]{ref_7369088145_snapshot_err_color.png}
@@ -300,7 +337,7 @@ L'erreur au cours du temps est donnée Figure \ref{fig: williamson 2 erreur}
 \label{fig: williamson 2 space alpha=0}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.5]{ref_7369088145_conservationA.png}
 \includegraphics[scale=0.5]{ref_7369088145_conservationB.png}
@@ -312,7 +349,7 @@ L'erreur au cours du temps est donnée Figure \ref{fig: williamson 2 erreur}
 
 
 
-\begin{figure}
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.5]{ref_7369088270_snapshot_intermediaire598.png}\\
 \includegraphics[scale=0.5]{ref_7369088270_snapshot_err_color.png}
@@ -321,7 +358,7 @@ L'erreur au cours du temps est donnée Figure \ref{fig: williamson 2 erreur}
 \label{fig: williamson 2 space alpha=pi/4}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.5]{ref_7369088270_conservationA.png}
 \includegraphics[scale=0.5]{ref_7369088270_conservationB.png}
@@ -330,14 +367,72 @@ L'erreur au cours du temps est donnée Figure \ref{fig: williamson 2 erreur}
 \label{fig: williamson 2 conservation alpha=pi/4}
 \end{figure}
 
-
-
-
-\begin{figure}
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.5]{ref_7369088145_erreur.png}
 \includegraphics[scale=0.5]{ref_7369088270_erreur.png}
 \end{center}
 \caption{Test 2 de J. L. Williamson et al. \cite{Williamson1992} avec $N=32$ et $CFL=0.9$ - erreur relative au cours du temps $\alpha = 0$ (gauche) et $\alpha = \pi/4$ (droite).}
 \label{fig: williamson 2 erreur}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Test 5 de D. L. Williamson et al.}
+
+Le cinquième test de \cite{Williamson1992} est une perturbation du précédent.
+On considère la donnée initiale \eqref{eq: williamson 2 initial velocity} et \eqref{eq: williamson 2 initial velocity} avec $\alpha = 0$ :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\mathbf{u}(\lambda, \theta) & = & u_0 \cos \theta \mathbf{e}_{\lambda} \\
+h(\lambda, \theta) & = & h_0 - \left( \dfrac{a}{g} \omega u_0 + \dfrac{u_0^2}{2} \right) \sin^2 \theta \\
+\end{array}
+\right.
+\end{equation}
+
+La force de Coriolis est donnée via le paramètre $f = 2 \omega \sin \theta$. Les constantes physiques restent inchangées et les constantes liées au test prennent les valeurs suivantes :
+
+\begin{itemize}
+\item $h_0 = 5400 m$,
+\item $u_0 = 20 m \cdot s^{-1}$.
+\end{itemize}
+
+Cette condition initiale est perturbée à l'aide d'un reliefs.
+On considère sur la sphère la présence d'une montagne conique de $h_{s_0} = 2000$ mètres de haut donnée par la fonction $h_s$ :
+
+\begin{equation}
+h_s = h_{s_0} \left( 1 - \dfrac{r}{R} \right)
+\end{equation}
+
+avec $R= \pi / 9$, $r^2 = min \left[ R^2, \left( \lambda - \lambda_c \right)^2 + \left( \theta - \theta_c \right)^2 \right]$. $(\lambda_c, \theta_c)$ correspondant à la position du sommet de la montagne. Pour ce test, on choisit $(\lambda_c, \theta_c) = (3 \pi / 2, \pi / 6)$.
+
+Il s'agit d'une perturbation importante, puisque la montagne représente environ $37 \%$ de l'épaisseur du fluide.
+
+Pour ce test, aucune solution analytique n'est disponible. C'est pourquoi on compare la solution obtenue aux temps $t=5$ jours, $10$ jours et $15$ jours avec ceux de la littérature dans un premier temps. Pour un maillage $N=32$, on obtient les résultats des figures \ref{fig: williamson 5 space height}. Ces derniers sont tout à fait semblables à ceux obtenus par des méthodes de volumes finis \cite{Katta2015, Chen2008} d'ordre élevé ainsi que ceux obtenus par des méthodes de Galerkin Discontinues \cite{Nair2005}. 
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7368974583_snapshot_intermediaire499.png}\\
+\includegraphics[scale=0.5]{ref_7368974583_snapshot_intermediaire999.png}\\
+\includegraphics[scale=0.5]{ref_7368974583_snapshot_intermediaire1499.png}
+\end{center}
+\caption{Test 5 de J. L. Williamson et al. \cite{Williamson1992} $N=32$ et $CFL=0.9$. $h$ à $t=5$, $10$ et $15$ jours.}
+\label{fig: williamson 5 space height}
 \end{figure}

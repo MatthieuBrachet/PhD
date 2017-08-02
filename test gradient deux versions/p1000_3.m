@@ -1,0 +1,52 @@
+clc; clear all; close all;
+global n nn dxi
+global x_fI y_fI z_fI;
+global x_fII y_fII z_fII;
+global x_fIII y_fIII z_fIII;
+global x_fIV y_fIV z_fIV;
+global x_fV y_fV z_fV;
+global x_fVI y_fVI z_fVI;
+
+NN=2.^[3:7];
+HH=[]; ERR=[];
+for ii=1:length(NN)
+    n=NN(ii)-1;
+    mod_bis;
+
+    [mfunfI,gr_fI] = fun2(x_fI,y_fI,z_fI);
+    [mfunfII,gr_fII] = fun2(x_fII,y_fII,z_fII);
+    [mfunfIII,gr_fIII] = fun2(x_fIII,y_fIII,z_fIII);
+    [mfunfIV,gr_fIV] = fun2(x_fIV,y_fIV,z_fIV);
+    [mfunfV,gr_fV] = fun2(x_fV,y_fV,z_fV);
+    [mfunfVI,gr_fVI] = fun2(x_fVI,y_fVI,z_fVI);
+
+    MM=max(max(max([gr_fI gr_fII gr_fIII gr_fIV gr_fV gr_fVI])));
+
+    [grad_fI,grad_fII,grad_fIII,grad_fIV,grad_fV,grad_fVI]=grad1000(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
+    
+    err=max(max(max(abs([grad_fI-gr_fI; grad_fII-gr_fII; grad_fIII-gr_fIII; grad_fIV-gr_fIV; grad_fV-gr_fV; grad_fVI-gr_fVI]))))./MM;
+    ERR=[ERR err];
+    HH=[HH dxi];
+end
+
+figure(5)
+loglog(HH,ERR,HH,HH.^4)
+
+P=polyfit(log(HH),log(ERR),1);
+disp(['Ordre estimee : ' num2str(P(1))])
+
+for ppp=1:3
+    err_I=(grad_fI(:,:,ppp)-gr_fI(:,:,ppp))./MM;
+    err_II=(grad_fII(:,:,ppp)-gr_fII(:,:,ppp))./MM;
+    err_III=(grad_fIII(:,:,ppp)-gr_fIII(:,:,ppp))./MM;
+    err_IV=(grad_fIV(:,:,ppp)-gr_fIV(:,:,ppp))./MM;
+    err_V=(grad_fV(:,:,ppp)-gr_fV(:,:,ppp))./MM;
+    err_VI=(grad_fVI(:,:,ppp)-gr_fVI(:,:,ppp))./MM;
+    
+    figure(ppp)
+    plot_cs100(n,nn,err_I,err_II,err_III,err_IV,err_V,err_VI)
+    colorbar
+end
+
+fig_placier
+
