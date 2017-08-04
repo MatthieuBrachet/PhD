@@ -1,7 +1,7 @@
 % CS.tex
 \chapter{Cubed-Sphere}
 
-La Cubed-Sphere est constituée de six panels notés (I), ..., (VI) couvrant la sphère $\mathbb{S}_a^2$. Pour chacun de ces panels ils est possible d'associer des angles qui localisent un point ainsi que des bases covariantes et contravariantes qui permettent de calculer les opérateurs différentiels classiques.
+La sphère $\mathbb{S}_a^2$ est couverte de six panels notés (I), ..., (VI). Pour chacun de ces panels il est possible d'associer des angles qui localisent un point ainsi que des bases covariantes et contravariantes qui permettent de calculer les opérateurs différentiels classiques.
 
 \section{Localisation des points et bases}
 
@@ -9,11 +9,11 @@ Sur chaque panel on peut localiser un point grâce à un ensemble d'angles. De p
 
 \subsection{Panel I}
 
-On note $C_0^{(1)}$ le grand cercle à la surface de la sphère $\mathbb{S}_a^2$ passant par les points $N$ et $S$ et contenu dans le plan $(yOz)$. Une rotation de ce cercle est le cercle $C_0^{(2)}$ passant par $E$ et $W$ et contenu dans le plan $(xOy)$.
+On note $C_0^{(1)}$ le grand cercle à la surface de la sphère $\mathbb{S}_a^2$ passant par les points $N$ et $S$ et contenu dans le plan $(yOz)$. Le cercle $C_0^{(2)}$ est une rotation de ce cercle. Il passe par $E$ et $W$ et est contenu dans le plan $(xOy)$.
 
 Dès lors, on note $C_{\xi}^{(1)}$ le cercle obtenu par rotation de $C_0^{(1)}$ d'un angle $\xi$ autour de l'axe $(Oz)$ (égal à l'axe $(NS)$). $C_{\eta}^{(2)}$ le cercle obtenu par rotation de $C_0^{(2)}$ d'un angle $\eta$ autour de l'axe $(Ox)$ (égal à l'axe $(EW)$). $\xi$ est compté positivement vers les $y$ positifs et $\eta$ positivement vers les $z$ positifs.
 
-Ainsi, un point $\mathbf{x} \in \mathbb{S}_a^2$ est situé à l'intersection de deux de ces cercles : $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$. On note $\alpha$ l'absisse curviligne de $\mathbf{x}$ le long de $C_{\eta}^{(2)}$ avec $C_{0}^{(1)}\cap C_{\eta}^{(2)}$ comme origine. De même, on note $\beta$ l'absisse curviligne de $\mathbf{x}$ le long de $C_{\xi}^{(1)}$ avec $C_{0}^{(2)}\cup C_{\xi}^{(1)}$ comme origine (voir Figure \ref{fig:coord cs}). 
+Un point $\mathbf{x} \in \mathbb{S}_a^2$ est situé à l'intersection de deux de ces cercles : $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$. On note $\alpha$ l'absisse curviligne de $\mathbf{x}$ le long de $C_{\eta}^{(2)}$ avec $C_{0}^{(1)}\cap C_{\eta}^{(2)}$ comme origine. $\beta$ est l'absisse curviligne de $\mathbf{x}$ le long de $C_{\xi}^{(1)}$ avec $C_{0}^{(2)}\cap C_{\xi}^{(1)}$ comme origine (voir Figure \ref{fig:coord cs}). 
 
 \begin{figure}
 \begin{center}
@@ -45,7 +45,7 @@ Ainsi, un point $\mathbf{x} \in \mathbb{S}_a^2$ est situé à l'intersection de 
     \draw (0,0) circle (1cm);
     \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
 \end{tikzpicture}
-\hspace{1cm}
+\hspace{2cm}
 \begin{tikzpicture}[scale=1.8]
 	\draw (0,0) node {$\bullet$} ;
 	\draw [>=stealth, ->] (0,0) -- (1.5,0) ; 
@@ -82,10 +82,10 @@ Ainsi, un point $\mathbf{x} \in \mathbb{S}_a^2$ est situé à l'intersection de 
 
 
 \begin{definition}
-On nomme panel I l'ensemble des points $\mathbf{x}=(x,y,z)$ de $\mathbf{S}_a^2$ vérifiant $x>0$ et tels que si $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$ alors $-\frac{\pi}{4}\leq \xi,\eta \leq \frac{\pi}{4}$. Avec les $\xi$ et $\eta$ associés respectivement aux axes $(NS)$ et $(EW)$. Lorsque $-\pi \leq \xi,\eta \leq \pi$, on parle de Panel I étendu.
+On nomme panel I l'ensemble des points $\mathbf{x}=(x,y,z)$ de $\mathbb{S}_a^2$ vérifiant $x>0$ et tels que si $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$ alors $-\frac{\pi}{4}\leq \xi,\eta \leq \frac{\pi}{4}$. Avec les $\xi$ et $\eta$ associés respectivement aux axes $(NS)$ et $(EW)$. Lorsque $-\pi \leq \xi,\eta \leq \pi$, on parle de Panel I étendu.
 \end{definition}
 
-Un point $\mathbf{x}$ du panel (I) peut être localisé grâce aux coordonnées cartésiennes $(x,y,z)$ mais aussi en utilisant les paires d'angles $(\alpha, \eta)$ ou $(\xi, \beta)$. Le lien peut-être fait grâce aux égalités suivantes :
+Un point $\mathbf{x}$ du panel I est localisé grâce aux coordonnées cartésiennes $(x,y,z)$ dans $\mathbb{R}^3$ mais aussi en utilisant les paires d'angles $(\alpha, \eta)$ ou $(\xi, \beta)$. Le lien peut-être fait grâce aux égalités suivantes :
 
 \begin{equation}
 \left\lbrace
@@ -97,25 +97,25 @@ z & = & a \cos \alpha \sin \eta & = & a \sin \beta \\
 \right.
 \end{equation}
 
-Dès lors, on remarque les coordonnées gnomoniques :
+Les coordonnées gnomoniques sont données par $(X,Y)$ :
 
 \begin{equation}
 X=\dfrac{y}{x}=\tan \xi \hspace{1cm} Y = \dfrac{z}{x} = \tan \eta
 \end{equation}
 
-De plus, $x^2+y^2=a^2 \cos \alpha$, donc :
+$x^2+y^2=a^2 \cos^2 \alpha$, donc :
 
 \begin{equation}
 \tan^2 \alpha = \dfrac{y^2}{x^2+z^2} = \dfrac{X^2}{1+Y^2}
 \end{equation}
 
-de même, on a :
+de même :
 
 \begin{equation}
 \tan^2 \beta = \dfrac{z^2}{x^2+y^2} = \dfrac{Y^2}{1+X^2}
 \end{equation}
 
-Donc on peut en déduire les relations liant $\xi$, $\eta$, $\alpha$ et $\beta$ :
+On en déduit les relations liant $\xi$, $\eta$, $\alpha$ et $\beta$ :
 
 \begin{equation}
 \left\lbrace
@@ -219,7 +219,7 @@ ainsi, on peut calculer :
 $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ est la base duale de $(\mathbf{g}_{\xi}, \mathbf{g}_{\eta})$ par rapport à la métrique $\mathbf{G}$.
 
 \begin{remarque}
-Lorsque cela portera à confusion, on notera $\mathbf{g}_{\xi}^{(K)}$, $\mathbf{g}_{\eta}^{(K)}$ ainsi que $\mathbf{g}^{(K),\xi}$ et $\mathbf{g}^{(K),\eta}$ où $K$ note la face concernée $K \in \lbrace I, II, III, IV, V, VI \rbrace$. Dans cette sous-section par exemple $K=I$.   
+Lorsque cela portera à confusion, on notera $\mathbf{g}_{\xi}^{(K)}$, $\mathbf{g}_{\eta}^{(K)}$ ainsi que $\mathbf{g}^{(K),\xi}$ et $\mathbf{g}^{(K),\eta}$ où $K$ note le panel concerné $K \in \lbrace I, II, III, IV, V, VI \rbrace$. Dans cette sous-section par exemple $K=I$.   
 \end{remarque}
 
 
@@ -229,11 +229,10 @@ Lorsque cela portera à confusion, on notera $\mathbf{g}_{\xi}^{(K)}$, $\mathbf{
 
 \subsection{Panel II}
 
-On construit le panel II de manière similaire en partant de cercles passants par $N$ et $S$ pour les $C_{\xi}^{(1)}$ ($C_{0}^{(1)}$ est contenu dans le plan $(yOz)$) et les cercles $C_{\eta}^{(2)}$ passant par les points $F$ et $B$ ($C_{0}^{(2)}$ est contenu dans le plan $(xOy)$). Les angles $\xi$, $\eta$, $\alpha$ et $\beta$ sont construits comme prédédemment.  $\xi$ est compté positivement lorsque $x$ est négatifs et $\eta$ positivement lorsque $z$ est positifs.
-On peut définir le panel II :
+On construit le panel II de manière similaire en partant de cercles passants par $N$ et $S$ pour les $C_{\xi}^{(1)}$ ($C_{0}^{(1)}$ est contenu dans le plan $(yOz)$) et les cercles $C_{\eta}^{(2)}$ passant par les points $F$ et $B$ ($C_{0}^{(2)}$ est contenu dans le plan $(xOy)$). Les angles $\xi$, $\eta$, $\alpha$ et $\beta$ sont construits comme précédemment.  $\xi$ est compté positivement lorsque $x$ est négatifs et $\eta$ positivement lorsque $z$ est positifs.
 
 \begin{definition}
-On nomme panel II l'ensemble des points $\mathbf{x}=(x,y,z)$ de $\mathbf{S}_a^2$ vérifiant $y>0$ et tels que si $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$ alors $-\frac{\pi}{4}\leq \xi,\eta \leq \frac{\pi}{4}$. Avec les $\xi$ et $\eta$ associés respectivement aux axes $(NS)$ et $(FB)$. Lorsque $-\pi \leq \xi,\eta \leq \pi$, on parle de Panel II étendu.
+On nomme panel II l'ensemble des points $\mathbf{x}=(x,y,z)$ de $\mathbb{S}_a^2$ vérifiant $y>0$ et tels que si $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$ alors $-\frac{\pi}{4}\leq \xi,\eta \leq \frac{\pi}{4}$. Avec les $\xi$ et $\eta$ associés respectivement aux axes $(NS)$ et $(FB)$. Lorsque $-\pi \leq \xi,\eta \leq \pi$, on parle de Panel II étendu.
 \end{definition}
 
 Un point $\mathbf{x}=(x,y,z)$ du panel II a ses coordonnées qui vérifient la relation suivante :
@@ -293,11 +292,10 @@ et la base dual par rapport à la métrique :
 
 \subsection{Panel III}
 
-le panel III est construit a partir de cercles passants par $N$ et $S$ pour les $C_{\xi}^{(1)}$ ($C_{0}^{(1)}$ est contenu dans le plan $(xOz)$) et les cercles $C_{\eta}^{(2)}$ passant par les points $E$ et $W$ ($C_{0}^{(2)}$ est contenu dans le plan $(xOy)$). Les angles $\xi$, $\eta$, $\alpha$ et $\beta$ sont construits comme dans le panel (I). On compte $\xi$ positivement lorsqu'il croit en même temps que $-y$ et $\eta$ positivement lorsqu'il croit en même temps que $z$.
-On peut définir le panel III :
+Le panel III est construit à partir de cercles passants par $N$ et $S$ pour les $C_{\xi}^{(1)}$ ($C_{0}^{(1)}$ est contenu dans le plan $(xOz)$) et les cercles $C_{\eta}^{(2)}$ passant par les points $E$ et $W$ ($C_{0}^{(2)}$ est contenu dans le plan $(xOy)$). Les angles $\xi$, $\eta$, $\alpha$ et $\beta$ sont construits comme dans le panel I. $\xi$ croit en même temps que $-y$ et $\eta$ positivement lorsqu'il croit en même temps que $z$.
 
 \begin{definition}
-On nomme panel III l'ensemble des points $\mathbf{x}=(x,y,z)$ de $\mathbf{S}_a^2$ vérifiant $x<0$ et tels que si $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$ alors $-\frac{\pi}{4}\leq \xi,\eta \leq \frac{\pi}{4}$. Avec les $\xi$ et $\eta$ associés respectivement aux axes $(NS)$ et $(EW)$. Lorsque $-\pi \leq \xi,\eta \leq \pi$, on parle de Panel IIII étendu.
+On nomme panel III l'ensemble des points $\mathbf{x}=(x,y,z)$ de $\mathbb{S}_a^2$ vérifiant $x<0$ et tels que si $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$ alors $-\frac{\pi}{4}\leq \xi,\eta \leq \frac{\pi}{4}$. Avec les $\xi$ et $\eta$ associés respectivement aux axes $(NS)$ et $(EW)$. Lorsque $-\pi \leq \xi,\eta \leq \pi$, on parle de Panel IIII étendu.
 \end{definition}
 
 Un point $\mathbf{x}=(x,y,z)$ du panel III a ses coordonnées qui vérifient la relation suivante :
@@ -318,9 +316,9 @@ Les coordonnées gnomoniques sont données par :
 X = \tan \xi = - \dfrac{y}{x} \hspace{1cm} Y = \tan \eta = \dfrac{z}{x}
 \end{equation}
 
-(\ref{eq: alpha(xi) beta(eta)}, \ref{eq; der alpha beta}, \ref{eq: metrique}, \ref{eq: metrique inverse}) restent vraies. 
+Les équations (\ref{eq: alpha(xi) beta(eta)}, \ref{eq; der alpha beta}, \ref{eq: metrique}, \ref{eq: metrique inverse}) restent vraies. 
 
-Ainsi, on peut écrire : 
+Une base locale est :
 
 \begin{equation}
 \mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
@@ -331,7 +329,7 @@ Ainsi, on peut écrire :
 \label{eq: base locale III}
 \end{equation}
 
-et la base dual par rapport à la métrique :
+La base duale de \eqref{eq: base locale III} par rapport à la métrique $\mathbf{G}$ est :
 
 \begin{equation}
 \mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{pmatrix}
@@ -359,7 +357,7 @@ et la base dual par rapport à la métrique :
 
 \subsection{Panel IV}
 
-Le panel IV est le symétrique du panel II. On utilise un réseau cercles passants par $N$ et $S$ pour les $C_{\xi}^{(1)}$ ($C_{0}^{(1)}$ est contenu dans le plan $(yOz)$) et les cercles $C_{\eta}^{(2)}$ passant par les points $F$ et $B$ ($C_{0}^{(2)}$ est contenu dans le plan $(xOy)$). Les angles $\xi$, $\eta$, $\alpha$ et $\beta$ sont construits comme dans le panel I. $\xi$ et $x$ croissent en même temps, de même $\eta$ et $z$ doivent croitre en même temps. On peut définir le panel IV :
+Le panel IV est le symétrique du panel II. On utilise un réseau cercles passants par $N$ et $S$ pour les $C_{\xi}^{(1)}$ ($C_{0}^{(1)}$ est contenu dans le plan $(yOz)$) et les cercles $C_{\eta}^{(2)}$ passant par les points $F$ et $B$ ($C_{0}^{(2)}$ est contenu dans le plan $(xOy)$). Les angles $\xi$, $\eta$, $\alpha$ et $\beta$ sont construits comme dans le panel I. $\xi$ et $x$ croissent en même temps, de même pour $\eta$ et $z$. Le panel IV est constitué d'un ensemble de points symétriques avec le panel II.
 
 \begin{definition}
 On nomme panel IV l'ensemble des points $\mathbf{x}=(x,y,z)$ de $\mathbf{S}_a^2$ vérifiant $y<0$ et tels que si $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$ alors $-\frac{\pi}{4}\leq \xi,\eta \leq \frac{\pi}{4}$. Avec les $\xi$ et $\eta$ associés respectivement aux axes $(NS)$ et $(FB)$. Lorsque $-\pi \leq \xi,\eta \leq \pi$, on parle de Panel IV étendu.
@@ -383,9 +381,9 @@ Les coordonnées gnomoniques sont :
 X = \tan \xi = - \dfrac{x}{y} \hspace{1cm} Y = \tan \eta = \dfrac{z}{y}
 \end{equation}
 
-(\ref{eq: alpha(xi) beta(eta)}, \ref{eq; der alpha beta}, \ref{eq: metrique}, \ref{eq: metrique inverse}) restent vraies, c'est d'ailleur le cas sur chaque panel. 
+Sur chaque panel, les équations (\ref{eq: alpha(xi) beta(eta)}, \ref{eq; der alpha beta}, \ref{eq: metrique}, \ref{eq: metrique inverse}) restent vraies. 
 
-Ainsi, on peut écrire : 
+les vecteurs $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$ sont :
 
 \begin{equation}
 \mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
@@ -396,7 +394,7 @@ Ainsi, on peut écrire :
 \label{eq: base locale IV}
 \end{equation}
 
-et la base dual par rapport à la métrique :
+La base dual par rapport à la métrique est :
 
 \begin{equation}
 \mathbf{g}^{\xi} = \dfrac{1}{y(1+X^2)}\begin{pmatrix}
@@ -421,11 +419,10 @@ et la base dual par rapport à la métrique :
 
 \subsection{Panel V}
 
-Le panel V est le panel "couvrant" le pole Nord. On utilise un réseau cercles passants par $F$ et $B$ pour les $C_{\xi}^{(1)}$ ($C_{0}^{(1)}$ est contenu dans le plan $(xOz)$) et les cercles $C_{\eta}^{(2)}$ passant par les points $E$ et $W$ ($C_{0}^{(2)}$ est contenu dans le plan $(zOy)$). Les angles $\xi$, $\eta$, $\alpha$ et $\beta$ sont construits comme dans pour les panels précédents.  On considère que $\xi$ doit croître lorsque $y$ croit. De même pour $\eta$ et $-x$. Ainsi la définition du panel V est donnée par :
+Le panel V est le panel "couvrant" le pole Nord. On utilise un réseau cercles passants par $F$ et $B$ pour les $C_{\xi}^{(1)}$ ($C_{0}^{(1)}$ est contenu dans le plan $(xOz)$) et les cercles $C_{\eta}^{(2)}$ passant par les points $E$ et $W$ ($C_{0}^{(2)}$ est contenu dans le plan $(zOy)$). Les angles $\xi$, $\eta$, $\alpha$ et $\beta$ sont construits comme dans pour les panels précédents.  On considère que $\xi$ doit croître lorsque $y$ croit. De même pour $\eta$ et $-x$.
 
 \begin{definition}
 On nomme panel V l'ensemble des points $\mathbf{x}=(x,y,z)$ de $\mathbf{S}_a^2$ vérifiant $z>0$ et tels que si $\mathbf{x} \in C_{\xi}^{(1)} \cap C_{\eta}^{(2)}$ alors $-\frac{\pi}{4}\leq \xi,\eta \leq \frac{\pi}{4}$. Avec les $\xi$ et $\eta$ associés respectivement aux axes $(FB)$ et $(EW)$.
-
 Lorsque $-\pi \leq \xi,\eta \leq \pi$, on parle de Panel V étendu.
 \end{definition}
 
@@ -458,7 +455,7 @@ En tenant en compte les relations (\ref{eq: alpha(xi) beta(eta)}, \ref{eq; der a
 \label{eq: base locale V}
 \end{equation}
 
-la base duale est donnée grâce à la métrique (\ref{eq: metrique}, \ref{eq: metrique inverse}) par :
+la base duale est donnée grâce à la métrique \eqref{eq: metrique} et son inverse \eqref{eq: metrique inverse} :
 
 \begin{equation}
 \mathbf{g}^{\xi} = \dfrac{1}{z(1+X^2)}\begin{pmatrix}
@@ -616,7 +613,7 @@ la base duale est donnée grâce à la métrique (\ref{eq: metrique}, \ref{eq: m
 
 \section{Symboles de Christophel}
 
-Les champs de vecteur $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ et $( \mathbf{g}_ {\xi}, \mathbf{g}_{\eta})$ sont tangents à la sphère. En conséquence, ils varient (continuement) en fonction de $\xi$ et $\eta$. On définit les symboles de Christoffel par :
+Les champs de vecteur $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ et $( \mathbf{g}_ {\xi}, \mathbf{g}_{\eta})$ sont tangents à la sphèreen varient en fonction de $\xi$ et $\eta$. On définit les symboles de Christoffel par :
 
 \begin{equation}
 \left\lbrace
@@ -642,6 +639,9 @@ $$\Gamma_{\xi, \eta}^{\eta} = \left( \dfrac{\partial \mathbf{g}_{\eta}}{\partial
 de même pour $\Gamma_{\eta,\xi}^{\xi}=\Gamma_{\xi,\eta}^{\xi}$.
 \end{remarque}
 
+
+
+
 \begin{proposition}
 Les relations suivantes sont vérifiées :
 
@@ -665,11 +665,11 @@ Les relations suivantes sont vérifiées :
 \end{proposition}
 
 \begin{proof}
-Nous ne démontrons que la première équalité, les autres égualités se retrouvent de manière extrêmement similaire.
+Nous ne démontrons que la première égalité, les autres se retrouvent de manière extrêmement similaire.
 
 $$\left[ \dfrac{\partial \mathbf{g}_{\xi}}{\partial \xi} \right] \cdot \mathbf{g}^{\xi} = \left[ \Gamma_{\xi,\xi}^{\xi} \mathbf{g}_{\xi} + \Gamma_{\xi,\xi}^{\eta} \mathbf{g}_{\eta} \right] \cdot \mathbf{g}^{\xi}$$
 
-Or $\mathbf{g}_{\xi} \cdot \mathbf{g}^{\eta} = 1$ et $\mathbf{g}_{\eta} \cdot \mathbf{g}^{\eta} = 0$, d'où la première partie :
+Or $\mathbf{g}_{\xi} \cdot \mathbf{g}^{\xi} = 1$ et $\mathbf{g}_{\eta} \cdot \mathbf{g}^{\xi} = 0$, d'où la première partie :
 
 $$\Gamma_{\xi,\xi}^{\xi} = \left[ \dfrac{\partial \mathbf{g}_{\xi}}{\partial \xi} \right] \cdot \mathbf{g}^{\xi}.$$
 
@@ -760,27 +760,27 @@ et on retrouve l'ensemble des symboles de Christoffel.
 
 \section{Grille sur la Cubed-Sphere}
 
-Pour pouvoir faire les calculs de résolution d'équations aux dérivées partielles ou de quadrature numérique, on souhaite construire un maillage de la sphère basé sur la Cubed-Sphere.
+Pour pouvoir faire les calculs de résolution d'équations aux dérivées partielles ou de quadrature numérique, on souhaite construire un maillage de la sphère basé sur les panels définis précédemment.
 
-Si $\mathbf{x} \in \mathbb{S}_a^2$ alors $\mathbf{x}$ est sur l'un des panels I, II, ... VI et il existe $C_{\xi}^{(1)}$ et $C_{\eta}^{(2)}$ (dépendants du même panel) tel que $\mathbf{x} \in C_{\xi}^{(1)} \cup C_{\eta}^{(2)}$. Pour discrétiser la sphère, l'idée est de discrétiser ces grands cercles.
+Si $\mathbf{x} \in \mathbb{S}_a^2$ alors $\mathbf{x}$ est sur l'un des panels I, II, ... VI et il existe $C_{\xi}^{(1)}$ et $C_{\eta}^{(2)}$ (dépendants du panel) tels que $\mathbf{x} \in C_{\xi}^{(1)} \cup C_{\eta}^{(2)}$. Pour discrétiser la sphère, l'idée est de discrétiser ces grands cercles.
 
 \begin{definition}
 Soit $N$ un entier strictement positif. On pose $\Delta \xi = \Delta \eta = \dfrac{\pi}{2N}$.
 \begin{itemize}
 \item $\mathbf{x}_{i,j} \in \mathbb{S}_a^2$ est un point de la Cubed-Sphere si il existe $-\frac{N}{2} \leq i,j \leq \frac{N}{2}$ tels que $\mathbf{x}_{i,j} \in C_{i \Delta \xi}^{(1)} \cup C_{j \Delta \eta}^{(2)}$ où $C_{i \Delta \xi}^{(1)}$ et $C_{j \Delta \eta}^{(2)}$ sont des grands cercles associés au même panel.
 
-\item $\mathbf{x}_{i,j} \in \mathbb{S}_a^2$ est un point de la Cubed-Sphere étendue si il existe $-2N \leq i,j \leq 2N$ tels que $\mathbf{x}_{i,j} \in C_{i \Delta \xi}^(1) \cup C_{j \Delta \eta}^(2)$ où $C_{i \Delta \xi}^(1)$ et $C_{j \Delta \eta}^(2)$ sont des grands cercles associés au même panel étendu.
+\item $\mathbf{x}_{i,j} \in \mathbb{S}_a^2$ est un point de la Cubed-Sphere étendue si il existe $-2N \leq i,j \leq 2N$ tels que $\mathbf{x}_{i,j} \in C_{i \Delta \xi}^(1) \cup C_{j \Delta \eta}^(2)$ où $C_{i \Delta \xi}^{(1)}$ et $C_{j \Delta \eta}^{(2)}$ sont des grands cercles associés au même panel étendu.
 \end{itemize}
 \end{definition}
 
 \begin{remarque}
 \begin{itemize}
-\item La Cubed-Sphere est incluse dans la Cubed-Sphere étendue. De plus, sur la Cubed-Sphere etendue, il y a certains points comptés plusieurs fois.
-\item Il est aussi possible de construire ce maillage a partir de la projection d'une cube sur une sphere REF.
+\item La Cubed-Sphere est incluse dans la Cubed-Sphere étendue.
+\item Il est aussi possible de construire ce maillage à partir de la projection d'un cube sur une sphere REFERENCE.
 \end{itemize}
 \end{remarque}
 
-Une discrétisation de la sphère est ainsi obtenue. Une illustration de la grille Cubed-Sphere est donnée en figure \ref{fig:coord cs}.
+Une discrétisation de la sphère est obtenue. Une illustration de la grille Cubed-Sphere est donnée en figure \ref{fig:coord cs}.
 
 \begin{definition}
 Soit $f : \mathbb{S}_a^2 \mapsto \mathbb{R}$ une fonction définie sur la Sphère. On dit que $\mathbf{f}$ est une fonction de grille sur la Cubed-Sphere (resp. étendue) si $\mathbf{f}$ est une restriction de $f$ à la Cubed-Sphere (resp. étendue). 

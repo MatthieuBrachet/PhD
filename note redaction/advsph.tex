@@ -2,7 +2,7 @@
 
 \chapter{\'Equation d'advection sphérique}
 
-Nous présentons dans cette parties les tests et les résultats numériques associés pour l'équation d'advection :
+Nous présentons dans cette parties les tests et les résultats numériques pour l'équation d'advection :
 \begin{equation}
 \label{eq:advection spherique}
 \left\lbrace
@@ -10,19 +10,19 @@ Nous présentons dans cette parties les tests et les résultats numériques asso
 \dfrac{\partial h}{\partial t} + \mathbf{c} ( \mathbf{x} ) \cdot \nabla_ T h & = & 0 \\
 h(\mathbf{x},0) & = & h_0 ( \mathbf{x} )
 \end{array}
-\right. \text{ pour tout } \mathbf{x} \in \mathbf{S}_a^2 \text{ et } t \geq 0
+\right. \text{ pour tout } \mathbf{x} \in \mathbb{S}_a^2 \text{ et } t \geq 0
 \end{equation}
 
-La solution exacte est donnée pour tout ces tests, on peut mesurer l'erreur relative au temps $t^n$ avec :
+La solution exacte est donnée pour tout ces tests, on peut mesurer l'erreur relative au temps $t^n$ à l'aide de la formule :
 
 \begin{equation}
 \label{erreur relative}
 e(t^n) = \dfrac{\| h^n - h(t^n) \|_p}{\| h(t^n) \|_p}
 \end{equation}
 
-où $h^n$ est la solution numérique au temps $t^n$ et $h(t^n)$ la solution exacte au même instant. $p \in {1, 2, \infty }$ permet de choisir la norme de notre choix.
+où $h^n$ est la solution numérique au temps $t^n$ et $h(t^n)$ la solution exacte au même instant. $p \in \lbrace 1, 2, \infty \rbrace$ permet de choisir la norme de notre choix.
 
-Dans la suite, nous adoptons le schéma en temps Runge-Kutta d'ordre 4 détaillé précédemment. La discrétisation en espace se fait via les schéma hermitiens construits sur la Cubed-Sphere utilisant les schémas compacts d'ordre 4. On notera à présent la condition de Courant-Friedrich-Lewis (notée CFL) :
+Dans la suite, nous adoptons le schéma en temps Runge-Kutta d'ordre 4 détaillé précédemment. La discrétisation en espace se fait via les schémas hermitiens construits sur la Cubed-Sphere utilisant les schémas compacts d'ordre 4. Un filtrage symétrisé d'ordre 10 permet d'atténuer la dispersion numérique. Dans ce chapitre, la condition de Courant-Friedrich-Lewis (notée $CFL$) est :
 
 \begin{equation}
 CFL = \dfrac{u_0 \times \Delta t}{a \times \Delta \xi} = \dfrac{u_0 \times \Delta t}{a \times \Delta \eta}
@@ -72,19 +72,17 @@ Lorsque $\mathbf{x}$ est transporté parallèlement à l'équateur, à vitesse a
 \right.
 \end{equation}
 
-Supposont à présent que $P=( \lambda_P, \theta_P)$ est un point de $\mathbb{S}_a^2$. Un nouveau système de coordonnées est donné en placant le nouveau pôle Nord en $P$ au lieu du pôle Nord habituel. Dans ce système, les points sont positionnés en $(\lambda', \theta')$ (en longitude-latitude "tournée") et en $(\lambda, \theta)$ dans le système de coordonnés classiques (en longitude-latitude).
+Supposont à présent que $P=( \lambda_P, \theta_P)$ est un point de $\mathbb{S}_a^2$. Un nouveau système de coordonnées est donné en placant le nouveau pôle Nord en $P$ au lieu du pôle Nord habituel. Dans ce système, les points sont positionnés en $(\lambda', \theta')$ (en longitude-latitude "tournée") et en $(\lambda, \theta)$ dans le système de coordonnés classiques (en longitude-latitude). Pour des raisons pratiques, nous avons besoin des relations permettant de passer de $( \lambda', \theta')$ à $(\lambda, \theta)$ et inversement.
 
-Pour des raisons pratiques, nous avons besoin des relations permettant de passer de $( \lambda', \theta')$ à $(\lambda, \theta)$ et inversement.
-
-En utilisant les relations de trigonométrie sphèrique, on a :
+En utilisant les rotations entre les systèmes de coordonnées, on a :
 
 \begin{equation}
 \label{coord_rot}
 \left\lbrace 
 \begin{array}{rcl}
-sin ( \theta ) & = & sin( \theta_P) sin( \theta') - cos( \theta_P) cos( \theta') cos( \lambda' ) \\
-sin( \theta' ) & = & sin( \theta) sin(\theta_P) + cos( \theta ) cos( \theta_P) cos( \lambda - \lambda_P ) \\
-cos( \theta ) sin( \lambda - \lambda_P) & = & cos( \theta' ) sin( \lambda' )
+\sin ( \theta ) & = & \sin( \theta_P) \sin( \theta') - cos( \theta_P) cos( \theta') cos( \lambda' ) \\
+\sin( \theta' ) & = & \sin( \theta) \sin(\theta_P) + cos( \theta ) cos( \theta_P) cos( \lambda - \lambda_P ) \\
+cos( \theta ) \sin( \lambda - \lambda_P) & = & cos( \theta' ) \sin( \lambda' )
 \end{array}
 \right.
 \end{equation}.
@@ -92,7 +90,7 @@ cos( \theta ) sin( \lambda - \lambda_P) & = & cos( \theta' ) sin( \lambda' )
 En utilisant (\ref{coord_rot}.b), la formule suivante est immédiate :
 
 \begin{equation}
-\theta' = arcsin \left[ sin( \theta) sin(\theta_P) + cos( \theta ) cos( \theta_P) cos( \lambda - \lambda_P ) \right]
+\theta' = \arcsin \left[ \sin( \theta) \sin(\theta_P) + cos( \theta ) cos( \theta_P) cos( \lambda - \lambda_P ) \right]
 \end{equation}
 
 De plus, (\ref{coord_rot}.a) et (\ref{coord_rot}.c) donnent :
@@ -100,8 +98,8 @@ De plus, (\ref{coord_rot}.a) et (\ref{coord_rot}.c) donnent :
 \begin{equation}
 \left\lbrace 
 \begin{array}{rcl}
-cos( \theta ) sin( \lambda - \lambda_P) & = & cos( \theta' ) sin( \lambda' ) \\
-cos( \theta ) cos( \lambda - \lambda_P) & = & \frac{sin( \theta' ) sin ( \theta_P ) - sin( \theta )}{cos( \theta_P)}
+\cos( \theta ) \sin( \lambda - \lambda_P) & = & \cos( \theta' ) \sin( \lambda' ) \\
+\cos( \theta ) \cos( \lambda - \lambda_P) & = & \frac{\sin( \theta' ) \sin ( \theta_P ) - \sin( \theta )}{\cos( \theta_P)}
 \end{array}
 \right.
 \end{equation}.
@@ -110,15 +108,15 @@ Or :
 
 \begin{equation*}
 \begin{array}{rcl}
-cos( \theta ) cos( \lambda - \lambda_P) & = & \dfrac{sin( \theta' ) sin ( \theta_P ) - sin( \theta )}{cos( \theta_P)} \\
- & = & \dfrac{sin( \theta) (sin^2 ( \theta_P) -1 )}{cos( \theta_P)} + cos( \theta ) cos( \lambda- \lambda_P) sin( \theta_P)\\
- & = & cos ( \theta) cos( \lambda - \lambda_P) sin( \theta_P ) - sin( \theta) cos ( \theta_P )
+\cos( \theta ) \cos( \lambda - \lambda_P) & = & \dfrac{\sin( \theta' ) \sin ( \theta_P ) - \sin( \theta )}{\cos( \theta_P)} \\
+ & = & \dfrac{\sin( \theta) (\sin^2 ( \theta_P) -1 )}{\cos( \theta_P)} + \cos( \theta ) \cos( \lambda- \lambda_P) \sin( \theta_P)\\
+ & = & \cos ( \theta) \cos( \lambda - \lambda_P) \sin( \theta_P ) - \sin( \theta) \cos ( \theta_P )
 \end{array}
 \end{equation*}
 
 Dès lors, en remarquant que :
 
-$$tan ( \lambda' ) =  \dfrac{cos( \theta' ) sin(  \lambda' ) }{cos( \theta' ) cos(  \lambda' )}$$
+$$\tan ( \lambda' ) =  \dfrac{\cos( \theta' ) \sin(  \lambda' ) }{\cos( \theta' ) \cos(  \lambda' )}$$
 
 on a le changement de coordonnées dans un premier sens :
 
@@ -126,8 +124,11 @@ on a le changement de coordonnées dans un premier sens :
 \label{from classic to prime}
 \left\lbrace 
 \begin{array}{rcl}
-\theta' & = & arcsin \left[ sin( \theta) sin(\theta_P) + cos( \theta ) cos( \theta_P) cos( \lambda - \lambda_P ) \right] \\
-\lambda' & = & arctan \left[ \dfrac{cos ( \theta) sin( \lambda - \lambda_P)}{cos( \theta) cos( \lambda - \lambda_P) sin( \theta_P) - sin( \theta) cos( \theta_P)} \right]
+
+\theta' & = & \arcsin \left[ \sin( \theta) \sin(\theta_P) + \cos( \theta ) \cos( \theta_P) \cos( \lambda - \lambda_P ) \right] \\
+
+\lambda' & = & \arctan \left[ \dfrac{\cos ( \theta) \sin( \lambda - \lambda_P)}{\cos( \theta) \cos( \lambda - \lambda_P) \sin( \theta_P) - \sin( \theta) \cos( \theta_P)} \right]
+
 \end{array}
 \right.
 \end{equation}
@@ -138,8 +139,8 @@ Inversement et par une démonstration similaire, on a :
 \label{from prime to classic}
 \left\lbrace 
 \begin{array}{rcl}
-\theta & = & arcsin \left[ sin( \theta') sin(\theta_P) - cos( \theta' ) cos( \theta_P) cos( \lambda' ) \right] \\
-\lambda & = & \lambda_P + arctan \left[ \dfrac{cos ( \theta') sin( \lambda ')}{sin( \theta') cos( \theta_P) + cos ( \theta') cos( \lambda') sin ( \theta_P)} \right]
+\theta & = & \arcsin \left[ \sin( \theta') \sin(\theta_P) - \cos( \theta' ) \cos( \theta_P) \cos( \lambda' ) \right] \\
+\lambda & = & \lambda_P + \arctan \left[ \dfrac{\cos ( \theta') \sin( \lambda ')}{\sin( \theta') \cos( \theta_P) + \cos ( \theta') \cos( \lambda') \sin ( \theta_P)} \right]
 \end{array}
 \right.
 \end{equation}
@@ -153,7 +154,7 @@ Si le point $\mathbf{x}$ est transporté parallèlement au nouvel équateur, on 
 \dfrac{d \theta'}{dt} & = & 0
 \end{array}
 \right.
-\end{equation}.
+\end{equation}
 
 où $\omega$ est la vitesse angulaire.
 
@@ -161,9 +162,9 @@ En dérivant (\ref{coord_rot}.a) par rapport à $t$, on a :
 
 \begin{equation}
 \begin{array}{rcl}
-\dfrac{d \theta}{dt} cos ( \theta ) & = & \dfrac{d \lambda' }{dt} cos ( \theta' ) cos ( \theta_P) sin( \lambda') \\
- & = & \omega cos ( \theta' ) cos ( \theta_P) sin( \lambda') \\
- & = & \omega cos ( \theta ) cos ( \theta_P) sin( \lambda) \text{ par (\ref{coord_rot}.c)}\\
+\dfrac{d \theta}{dt} \cos ( \theta ) & = & \dfrac{d \lambda' }{dt} \cos ( \theta' ) \cos ( \theta_P) \sin( \lambda') \\
+ & = & \omega \cos ( \theta' ) \cos ( \theta_P) \sin( \lambda') \\
+ & = & \omega \cos ( \theta ) \cos ( \theta_P) \sin( \lambda) \text{ par (\ref{coord_rot}.c)}\\
 \end{array}
 \end{equation}
 
@@ -171,23 +172,23 @@ d'où par identification :
 
 \begin{equation}
 \label{vitesse_solide_v}
-v = a \omega cos ( \theta_P ) sin( \lambda - \lambda_P )
+v = a \omega \cos ( \theta_P ) \sin( \lambda - \lambda_P )
 \end{equation}
 
 De la même manière, avec \ref{coord_rot}.b), on a :
 
 \begin{equation}
 \label{vitesse_solide_u}
-u = a  \omega \left( cos ( \theta ) sin( \theta_P) - sin( \theta ) cos( \theta_P) cos( \lambda - \lambda_P) \right)
+u = a  \omega \left( \cos ( \theta ) \sin( \theta_P) - \sin( \theta ) \cos( \theta_P) \cos( \lambda - \lambda_P) \right)
 \end{equation}
 
 \section{Test de rotation solide}
 
 L'idée dans cette partie est de présenter un test pour l'équation d'advection \eqref{eq:advection spherique} transportant la condition initiale le long d'un grand cercle.
 
-\subsection{Cas 1 : transport parallère à l'équateur}
+\subsection{Cas 1 : transport parallèle à l'équateur}
 
-Le but de cette partie est de résoudre l'équation d'advection sphèrique suivante :
+Le but est de résoudre l'équation d'advection sphérique suivante :
 
 \begin{equation}
 \label{eq:advection spherique 1}
@@ -199,19 +200,19 @@ h(\mathbf{x},0) & = & h_0 ( \mathbf{x} )
 \right. \text{ pour tout } \mathbf{x} \in \mathbf{S}_a^2 \text{ et } t \geq 0
 \end{equation}
 
-Avec $\mathbf{c} ( \mathbf{x} ) = a \omega cos ( \theta ) \mathbf{e}_{\lambda}$ le vecteur de transport \footnote{Dans ce premier cas, le transport est parallèle à l'équateur et à vitesse constante.}.
-On cherche la solution par la méthode des caractéristiques, sur la caractéristique $t \rightarrow\mathbf{x}(t) = (\lambda (t), \theta(t) )$ on a :
+Avec $\mathbf{c} ( \mathbf{x} ) = a \omega \cos ( \theta ) \mathbf{e}_{\lambda}$ le vecteur de transport \footnote{Dans ce cas, le transport est parallèle à l'équateur et à vitesse constante.}.
+On cherche la solution par la méthode des caractéristiques. Sur la courbe caractéristique $t \rightarrow\mathbf{x}(t) = (\lambda (t), \theta(t) )$ on a :
 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\partial_t \lambda & = & u_0 cos ( \theta ) \\
+\partial_t \lambda & = & u_0 \cos ( \theta ) \\
 \partial_t \theta & = & 0
 \end{array}
 \right.
 \end{equation}
 
-d'où : $\lambda(t) = \lambda_0 + \Omega t$ et $\theta(t) = \theta_0$ avec $\Omega = u_0 cos ( \theta )$.
+d'où : $\lambda(t) = \lambda_0 + \Omega t$ et $\theta(t) = \theta_0$ avec $\Omega = u_0 \cos ( \theta )$.
 
 Ainsi la solution de \eqref{eq:advection spherique 1} est :
 
@@ -225,8 +226,8 @@ Avec $R_{-t}$ la rotation autour de l'axe $(Oz)$ d'angle $-\Omega t$ autour de l
 \begin{equation}
 \label{rotation}
 R_{-t} = \begin{pmatrix}
-cos \left( - \Omega t \right) & -sin \left( - \Omega t \right) & 0\\
-sin \left( - \Omega t \right) & cos \left( - \Omega t \right)  & 0\\
+\cos \left( - \Omega t \right) & -\sin \left( - \Omega t \right) & 0\\
+\sin \left( - \Omega t \right) & \cos \left( - \Omega t \right)  & 0\\
 0 & 0 & 1 \\
 \end{pmatrix}
 \end{equation}
@@ -236,11 +237,11 @@ sin \left( - \Omega t \right) & cos \left( - \Omega t \right)  & 0\\
 On souhaite résoudre l'équation \eqref{eq:advection spherique 1} avec $\mathbf{c}$ donné en chaque point par :
 
 \begin{equation}
-mathbf{c} ( \mathbf{x} ) = u_0 ( cos ( \theta) cos ( \alpha ) + sin( \theta) cos ( \lambda) sin( \alpha) ) \mathbf{e}_{\lambda} - u_0 sin( \lambda) sin( \alpha) \mathbf{e}_{\theta}
+\mathbf{c} ( \mathbf{x} ) = u_0 ( \cos ( \theta) \cos ( \alpha ) + \sin( \theta) \cos ( \lambda) \sin( \alpha) ) \mathbf{e}_{\lambda} - u_0 \sin( \lambda) \sin( \alpha) \mathbf{e}_{\theta}
 \label{eq:u0*cos alpha}
 \end{equation}
 
-On reconnait la forme donnée par \eqref{vitesse_solide_v} et \eqref{vitesse_solide_u} lorsque $u_0 = a \omega$ ainsi que $(\lambda_P, \theta_P) = (\pi, \pi/2 - \alpha)$ (Voir figure \ref{fig:rot alpha sphere}). 
+On reconnaît la forme donnée par \eqref{vitesse_solide_v} et \eqref{vitesse_solide_u} lorsque $u_0 = a \omega$ ainsi que $(\lambda_P, \theta_P) = (\pi, \pi/2 - \alpha)$ (Voir figure \ref{fig:rot alpha sphere}). 
 
 \begin{figure}[ht]
 \begin{center}
@@ -289,7 +290,7 @@ h(\mathbf{x}',0) & = & h_0 ( \mathbf{x}' )
 \right. \text{ pour tout } \mathbf{x}' \in \mathbf{S}_a^2 \text{ et } t \geq 0
 \end{equation}
 
-Avec $\mathbf{c} ( \mathbf{x}' ) = a \omega cos ( \theta' ) \mathbf{e}_{\lambda'}$ et $(\lambda', \theta')$ donnés par \eqref{from classic to prime}.
+Avec $\mathbf{c} ( \mathbf{x}' ) = a \omega \cos ( \theta' ) \mathbf{e}_{\lambda'}$ et $(\lambda', \theta')$ donnés par \eqref{from classic to prime}.
 
 La solution de cette équation a été calculée précédemment dans \eqref{eq: advection solution 1} : $h( \mathbf{x}', t )= h_0(  R_{-t} \mathbf{x}') $. Appliquant \eqref{from prime to classic} (équivalent à $P_{\alpha}$), la solution est :
 
@@ -314,7 +315,7 @@ h(\mathbf{x},0) & = & h_0 ( \mathbf{x} )
 \end{equation}
 
 $\mathbf{c}$ est donné par :
-$$\mathbf{c} ( \mathbf{x} ) = u_0 ( cos ( \theta) cos ( \alpha ) + sin( \theta) cos ( \lambda) sin( \alpha) ) \mathbf{e}_{\lambda} - u_0 sin( \lambda) sin( \alpha) \mathbf{e}_{\theta}. $$
+$$\mathbf{c} ( \mathbf{x} ) = u_0 ( \cos ( \theta) \cos ( \alpha ) + \sin( \theta) \cos ( \lambda) \sin( \alpha) ) \mathbf{e}_{\lambda} - u_0 \sin( \lambda) \sin( \alpha) \mathbf{e}_{\theta}. $$
 
 Le test 1 de l'article de David L. Williamson \textit{et al.} \cite{Williamson1992} concerne l'équation d'advection \eqref{eq:advection spherique 3} sur la sphère. La condition initiale est donnée par une fonction $\mathcal{C}^1$ constituée d'un bump localisé et nulle ailleur :
 
@@ -322,16 +323,16 @@ Le test 1 de l'article de David L. Williamson \textit{et al.} \cite{Williamson19
 h_0(\lambda, \theta) = 
 \left\lbrace
 \begin{array}{ll}
-(h_{ref}/2) \left( 1+cos \frac{3 \pi r}{a} \right) & \text{ si } r<\frac{a}{3} \\
+(h_{ref}/2) \left( 1+\cos \frac{3 \pi r}{a} \right) & \text{ si } r<\frac{a}{3} \\
 0 & \text{ sinon.}
 \end{array}
 \right.
 \end{equation}
 
-avec $h_{ref}=1000$, $r$ est la distance entre $(\lambda, \theta)$ et le centre du bump. Initialement, le centre est en $(\lambda_C, \theta_C) = (3 \pi /2, 0)$.
+%avec $h_{ref}=1000$, $r$ est la distance entre $(\lambda, \theta)$ et le centre du bump. Initialement, le centre est en $(\lambda_C, \theta_C) = (3 \pi /2, 0)$.
 
 \begin{equation}
-r = a \cdot arccos \left[ sin ( \theta_C) sin( \theta) + cos( \theta_C) cos ( \theta) cos ( \lambda - \lambda_C ) \right]
+r = a \cdot arc\cos \left[ \sin ( \theta_C) \sin( \theta) + \cos( \theta_C) \cos ( \theta) \cos ( \lambda - \lambda_C ) \right]
 \end{equation}
 
 On prend aussi $u_0 = 2  \pi a / (12 \text{jours} )\approx 40 \text{m/sec}$.
@@ -413,31 +414,6 @@ maxi. filtre d'ordre 2 & $66.2973$ & $123.2267$ & $221.0989$  \\
 \end{table}
 
 
-
-% \subsubsection{Test de Nair et Lauritzen}
-
-% En 2010, R. D. Nair et P. H. Lauritzen \cite{Nair2010} propose un test de rotation solide pour l'équation \eqref{eq:advection spherique 3} pour une solution non-régulière. Il déplace deux cylindres coupés autour de la sphère. Ce test est particulièrement difficile car la conservation de la solution aux irrégularités n'est pas naturelle pour un schéma en différences finies. La condition initiale $h_0$ est donnée par la fonction suivante :
-
-% \begin{equation}
-% h_0(\lambda, \theta) = 
-% \left\lbrace
-% \begin{array}{ll}
-% c & \text{ si } r_i < \frac{R}{3} \text{ et } |\lambda - \lambda_i| \geq a/18 \text{ pour } i=1,2 \\
-% c & \text{ si } r_1 < \frac{R}{3} \text{ et } |\lambda - \lambda_1| < a/18 \text{ et } \theta-\theta_1 < -5a/36 \\
-% c & \text{ si } r_2 < \frac{R}{3} \text{ et } |\lambda - \lambda_2| < a/18 \text{ et } \theta-\theta_2 > -5a/36 \\
-% b &\text{ dans les autres cas }
-% \end{array}
-% \right.
-% \end{equation}
-
-% On choisit $c=1$ et $b=0.1$. $(\lambda_i, \theta_i)$ donnent les position initiales des cylindres. De plus, on a 
-
-% \begin{equation}
-% r_i = a \cdot arccos \left[ sin ( \theta_i) sin( \theta) + cos( \theta_i) cos ( \theta) cos ( \lambda - \lambda_i ) \right]
-% \end{equation}
-
-% et comme pour le test précédent $u_0 = 2  \pi a / (12 \text{jours} )$.
-
 \section{Test de R. D. Nair et B. Machenhauer}
 
 L'objectif de ce test est de présenter une solution de déformation sans déplacement. On construit deux vortex placés au pôles $P$ et au point diamétralement opposé. Les centres de chaque vortex sont immobiles sur la sphère et la solution se déforme autour de ces points. Deux tourbillons se forment au fil des itérations. Ce test est présenté dans l'article de 2002 de R. D. Nair et B. Machenhauer dans \cite{Nair2002}. 
@@ -447,7 +423,7 @@ La solution en tout temps est donnée dans les coordonnées $(\lambda', \theta' 
 
 \begin{equation}
 \label{exact_machenhauer}
-h_0(\lambda', \theta') = 1- tanh \left[ \dfrac{\rho}{\gamma} sin \left( \lambda' - \omega_r(\theta') t \right) \right]
+h_0(\lambda', \theta') = 1- tanh \left[ \dfrac{\rho}{\gamma} \sin \left( \lambda' - \omega_r(\theta') t \right) \right]
 \end{equation}
 
 avec
@@ -462,7 +438,7 @@ V/a\rho \text{ si } \rho \neq 0\\
 \right.
 \end{equation}
 
-$\rho = \rho_0 cos ( \theta' )$ et $V =v_0 \dfrac{3 \sqrt{3}}{2} sech^2 ( \rho )  tanh( \rho )$. Avec $\dfrac{3 \sqrt{3}}{2}$ une constante de normalisation et $v_0 = 2 \pi a / T$ ($T$ est le temps à 12 jours en secondes ).
+$\rho = \rho_0 \cos ( \theta' )$ et $V =v_0 \dfrac{3 \sqrt{3}}{2} sech^2 ( \rho )  tanh( \rho )$. Avec $\dfrac{3 \sqrt{3}}{2}$ une constante de normalisation et $v_0 = 2 \pi a / T$ ($T$ est le temps à 12 jours en secondes ).
 
 De manière classique, pour que la solution soit suffisamment régulière, on choisit $\rho_0 = 3$ et $\gamma = 5$.
 Le point $P$, centre d'un des vortex est localisé en $( \lambda_P, \theta_P)$, ce point peut être choisit dans une zone d'intérêt particulier (un coin de la Cubed-Sphere par exemple).
@@ -472,8 +448,8 @@ Le champ de vecteur $\mathbf{c}$ est donné par $\mathbf{c}( \mathbf{x} ) = u_r 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-u_r & = & a \omega_r ( \theta' ) \left[ sin \theta_P cos \theta - cos \theta_P cos( \lambda - \lambda_P ) sin \theta \right] \\
-v_r & = & a \omega_r ( \theta' ) \left[ cos \theta_P sin ( \lambda - \lambda_P) \right]
+u_r & = & a \omega_r ( \theta' ) \left[ \sin \theta_P \cos \theta - \cos \theta_P \cos( \lambda - \lambda_P ) \sin \theta \right] \\
+v_r & = & a \omega_r ( \theta' ) \left[ \cos \theta_P \sin ( \lambda - \lambda_P) \right]
 \end{array}
 \right.
 \end{equation}
@@ -491,14 +467,15 @@ Les figures \ref{fig NM1}, \ref{fig NM2} présentent deux valeurs de $(\lambda_P
 
 \begin{figure}[ht]
 \begin{center}
-<<<<<<< HEAD
 \includegraphics[scale=0.3]{ref_7368695916_erreur_test_1.png}
 \caption{Test de R. D. Nair et B. Machenhaueur, $(\lambda_P, \theta_P) = (\pi/4,\pi/4)$, $N=40$, $CFL=0.9$, à $t=12$  localisation spatiale de l'erreur }
-=======
-\includegraphics[scale=0.4]{ref_7368695916_solapprochee_test_1.png}
+\end{center}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
 \includegraphics[scale=0.4]{ref_7368695916_erreur_test_1.png}
-\caption{Test de R. D. Nair et B. Machenhaueur, $(\lambda_P, \theta_P) = (\pi/4,\pi/4)$, $N=40$, $CFL=0.9$, à $t=12$ coupe sur l'équateur (gauche) - localisation spatiale de l'erreur (droite)}
->>>>>>> c3e4f24b17a001f81e6e7f6d2cd4aaf4f944cca0
+\caption{Test de R. D. Nair et B. Machenhaueur, $(\lambda_P, \theta_P) = (\pi/4,\pi/4)$, $N=40$, $CFL=0.9$, à $t=12$ localisation spatiale de l'erreur.}
 \label{fig NM2}
 \end{center}
 \end{figure}
@@ -512,7 +489,7 @@ Les figures \ref{fig NM1}, \ref{fig NM2} présentent deux valeurs de $(\lambda_P
 \end{center}
 \end{figure}
 
-En figure \ref{fig NM4}, on observe bien le lien entre le rafinement du maillage et la sous-résolution. On observe la sous-résolution à $t=12$ jours pour un faible maillage alors qu'un maillage plus fin suppore mieux le phénomène.
+En figure \ref{fig NM4}, on observe bien le lien entre le raffinement du maillage et la sous-résolution. On observe la sous-résolution à $t=12$ jours pour un faible maillage alors qu'un maillage plus fin supporte mieux le phénomène.
 
 \begin{figure}[ht]
 \begin{center}
@@ -532,8 +509,8 @@ Les deux vortex du test précédent sont transportés le long d'un grand cercle 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-u_s & = & u_0 ( cos \theta cos \alpha + sin \theta cos \lambda sin \alpha ) \\
-v_s & = & - u_0 sin \lambda sin \alpha 
+u_s & = & u_0 ( \cos \theta \cos \alpha + \sin \theta \cos \lambda \sin \alpha ) \\
+v_s & = & - u_0 \sin \lambda \sin \alpha 
 \end{array}
 \right.
 \end{equation}
@@ -541,8 +518,8 @@ v_s & = & - u_0 sin \lambda sin \alpha
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-u_r & = & a \omega_r  \left[ sin \theta_C(t) cos \theta - cos \theta_C(t) cos( \lambda - \lambda_C(t) ) sin \theta \right] \\
-v_r & = & a \omega_r  \left[ cos \theta_C(t) sin ( \lambda - \lambda_C(t)) \right]
+u_r & = & a \omega_r  \left[ \sin \theta_C(t) \cos \theta - \cos \theta_C(t) \cos( \lambda - \lambda_C(t) ) \sin \theta \right] \\
+v_r & = & a \omega_r  \left[ \cos \theta_C(t) \sin ( \lambda - \lambda_C(t)) \right]
 \end{array}
 \right.
 \end{equation}
@@ -584,15 +561,14 @@ La solution exacte peut être calculée par le procédé suivant :
 
 Il s'agit, comme pour le calcul de $\mathbf{c}$, d'effectuer la rotation solide puis la construction du vortex.
 
-Ce test permet de combiner un déplacement (qui ne déforme pas la solution initiale) avec un déformation. Les tests numériques sont effectués pour $\alpha = 0$ ou $\alpha = \pi/4$ pour mettre en difficultés le maillage. Les résultats sont donnés au temps 0, 3, 6, 9 et 12 jours en figure \ref{fig NJ1}. De plus, on peut observer les courbes d'erreur et la localisation spatiale en figure \ref{fig NJ2} et \ref{fig NJ3}. La table \ref{table NJ1} confirme l'ordre 4 espéré pour chaqu'une des erreurs mesurées.
+Ce test permet de combiner un déplacement (qui ne déforme pas la solution initiale) avec un déformation. Les tests numériques sont effectués pour $\alpha = 0$ ou $\alpha = \pi/4$ pour mettre en difficultés le maillage. Les résultats sont donnés au temps 0, 3, 6, 9 et 12 jours en figure \ref{fig NJ1}. De plus, on peut observer les courbes d'erreur et la localisation spatiale en figure \ref{fig NJ2} et \ref{fig NJ3}. La table \ref{table NJ1} confirme l'ordre 4 espéré pour chacune des erreurs mesurées.
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.33]{ref_7368696067_snapshot_test_2_nday_1.png}\\
-\includegraphics[scale=0.33]{ref_7368696067_snapshot_test_2_nday_3.png}\\
-\includegraphics[scale=0.33]{ref_7368696067_snapshot_test_2_nday_7.png}\\
-\includegraphics[scale=0.33]{ref_7368696067_snapshot_test_2_nday_11.png}\\
-\caption{Test de R. D. Nair et C. Jablonowski, $(\lambda_0, \theta_0) = (0,0)$, $\alpha= \pi/4$ à $t=0$, $4$, $8$ et $12$ jours.}
+\includegraphics[scale=0.5]{ref_7368696067_snapshot_test_2_nday_3.png}\\
+\includegraphics[scale=0.5]{ref_7368696067_snapshot_test_2_nday_7.png}\\
+\includegraphics[scale=0.5]{ref_7368696067_snapshot_test_2_nday_11.png}\\
+\caption{Test de R. D. Nair et C. Jablonowski, $(\lambda_0, \theta_0) = (0,0)$, $\alpha= \pi/4$ à $t=4$, $8$ et $12$ jours.}
 \label{fig NJ1}
 \end{center}
 \end{figure}

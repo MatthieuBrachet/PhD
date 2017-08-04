@@ -84,7 +84,7 @@ avec $\zeta = \left( \nabla \wedge \mathbf{u} \right) \cdot \mathbf{k}$.
 \end{proposition}
 
 \begin{remarque}
-Pour prouver que $\delta$ est conservée, il suffit de montrer qu'il existe $\mathbf{F} \mathbb{T} \mathbb{S}_a$ tel que :
+Pour prouver que $\delta$ est conservée, il suffit de montrer qu'il existe $\mathbf{F} \in \mathbb{T} \mathbb{S}_a$ tel que :
 $$
 \dfrac{\partial \delta}{\partial t} = \nabla \cdot \mathbf{F}
 $$
@@ -435,4 +435,21 @@ Pour ce test, aucune solution analytique n'est disponible. C'est pourquoi on com
 \end{center}
 \caption{Test 5 de J. L. Williamson et al. \cite{Williamson1992} $N=32$ et $CFL=0.9$. $h$ à $t=5$, $10$ et $15$ jours.}
 \label{fig: williamson 5 space height}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7368974583_conservationA.png}
+\includegraphics[scale=0.5]{ref_7368974583_conservationB.png}
+\end{center}
+\caption{Test 5 de J. L. Williamson et al. \cite{Williamson1992} $N=32$ et $CFL=0.9$. Erreurs relatives sur la conservation de la masse, de l'énergie et de l'enstrophie potentielle (gauche), erreur sur la conservation de la divergence et de la vorticité (droite).}
+\label{fig: williamson 5 conservation}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7368974583_snapshot.png}
+\end{center}
+\caption{Test 5 de J. L. Williamson et al. \cite{Williamson1992} $N=32$ et $CFL=0.9$. Vorticité à 15 jours.}
+\label{fig: williamson 5 vorticité}
 \end{figure}
