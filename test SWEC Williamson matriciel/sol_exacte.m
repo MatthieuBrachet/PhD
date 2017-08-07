@@ -211,7 +211,7 @@ elseif test == 4
     pert=phihat.*cos(teta).*exp(-(lambda./alphag).^2-((teta2-teta)./betag).^2);
 
     %% hauteur 4
-    ht=h0-int/gp+pert;
+    ht=(h0-int/gp)+pert;
     
 elseif test == 5
     % Rossby-Haurwitz wave (test case 6 of Williamson & al.).

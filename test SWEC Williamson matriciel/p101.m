@@ -28,7 +28,7 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=5;
+test=4;
 video = 'no';
 sauvegarde = 1;
 filtre='symetric';
@@ -37,8 +37,8 @@ scheme='compact4';
 snapshot='yes';
 nrm='int';
 
-n=79; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=14;
+n=95; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=6;
 mod101
 disp('mod74 : ok')
 
@@ -382,7 +382,7 @@ while t<Tmax && iter<itermax
     end
     
     % snapshot
-    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(2*ddt))) == 0
+    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(3*ddt))) == 0
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         close all;
         
@@ -399,8 +399,9 @@ while t<Tmax && iter<itermax
         set(gcf,'PaperPositionMode','auto')
         set(hFig, 'Position', [50 50 1000 500])
         if test == 4
-            plot_cs101(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI,v);
+            plot_cs102(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI);
             title(['vorticity at time : ', num2str(time(end))])
+            colorbar
         elseif test == 1
             mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
@@ -412,8 +413,9 @@ while t<Tmax && iter<itermax
             mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             v=[mm 8100:100:10500 MM];
-            plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,8100:100:10500);
+            plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,8100:100:10500);
             title(['solution at time : ', num2str(time(end))])
+            colorbar
         elseif test == -2
             plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,h_fVI);
             title(['exact solution at time = ', num2str(time(end))]);
@@ -650,7 +652,7 @@ hFig = figure(10);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
 plot_cs102(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
-title(['calculated solution at time = ', num2str(time(end))])
+title(['Solution at time = ', num2str(time(end))])
 colorbar
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_solution.png'])
@@ -689,9 +691,6 @@ if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_CSproj.png'])
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_CSproj']);
 end 
-
-[detec]=filtre101(na,'redonnet10');
-[det_fI,det_fII,det_fIII,det_fIV,det_fV,det_fVI]=det101(ht_fI, ht_fII, ht_fIII, ht_fIV, ht_fV, ht_fVI, n, nn);
 
 
 fig_placier
