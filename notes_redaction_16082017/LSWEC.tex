@@ -1,0 +1,270 @@
+% LSWEC.tex
+\chapter{Linearized Shallow Water Equation with Coriolis Force}
+
+Le but de cette partie est de présenter deux tests pour l'équation Shallow-Water linéarisée avec force de Coriolis (LSWEC) :
+
+\begin{equation}
+\label{LSWEC}
+\left\lbrace
+\begin{array}{r @{=} l}
+\partial_t \mathbf{u} & -f \mathbf{k} \wedge \mathbf{u} - g \nabla \eta + \mathbf{F} \\
+\partial_t \eta & -H \nabla \cdot \mathbf{u} + G
+\end{array}
+\right.
+\end{equation}
+
+ici $\mathbf{F}$ et $G$ sont des fonctions de forcage.
+
+l'équation est résolue sur la sphère $\mathbb{S}_a^2$ dont le rayon est $a$ est un réél positif. $\mathbf{x} \in \mathbb{S}_a^2$ est un point de latitude $\lambda$ et de longitude $\theta$ the longitude. Un vecteur $\mathbf{u} : \mathbb{S}_a^2 \rightarrow \mathbb{T}\mathbb{S}_a^2$ est déterminé par :
+
+$$\mathbf{u} = u \mathbf{e}_{\theta} + v \mathbf{e}_{\lambda}.$$ 
+
+Le paramètre de Coriolis est :
+
+\begin{equation}
+f=2 \omega sin ( \theta )
+\label{coriolis_parameter}
+\end{equation}
+
+En ce qui concerne la mesure de l'erreur, nous considérons l'erreur sous la forme suivante :
+
+$$e_{i} = max_n \dfrac{\| \eta^n - \eta(t^n) \|_{i}}{\| \eta(0) \|_{i}}$$
+
+$i \in \left\lbrace 1, 2, \infty \right\rbrace$.
+
+\section{Linéarisation de l'équation Shallow Water}
+
+On considère l'équation Shallow Water sans reliefs ($\eta^{\star} \equiv 0$) :
+
+\begin{equation}
+\label{eq:SWE_without relief}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial \mathbf{u}}{\partial t} + \left( \mathbf{u} \cdot \nabla \right) \mathbf{u} + f \mathbf{k} \wedge \mathbf{u} + g \nabla \eta & = & \mathbf{0} \\
+\dfrac{\partial \eta}{\partial t} + \nabla \cdot \left( \eta \mathbf{u} \right) & = & 0
+\end{array}
+\right.
+\end{equation}
+
+Pour linéariser ce système autour de la solution stationnaire $(H, \overline{\mathbf{u}}) = (H,\mathbf{0})$, on considère le couple de solutions :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\eta & = & H + \tilde{\eta} \\
+\mathbf{u} & = & \tilde{\mathbf{u}} \\
+\end{array}
+\right.
+\end{equation}
+
+En incorporant cette solution dans \eqref{eq:SWE_without relief} et en simplifiant les termes d'ordre 2, on obtient le nouveau système d'équations aux dérivées partielles :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{r @{=} l}
+\partial_t \tilde{\mathbf{u}}& -f \mathbf{k} \wedge \tilde{\mathbf{u}} - g \nabla \tilde{\eta}\\
+\partial_t \tilde{\eta} & -H \nabla \cdot \tilde{\mathbf{u}}
+\end{array}
+\right.
+\end{equation}
+
+Il s'agit de l'équation de Shallow Water linéarisée.
+Pour simplifier les notations, dans ce chapitre, on remplacera $\tilde{\mathbf{u}}$ par $\mathbf{u}$ ainsi que $\tilde{\eta}$ par $\eta$.
+
+
+
+
+
+\section{Quelques relations de conservation pour l'équation Shallow Water linéarisée}
+
+Dans cette partie, nous considérons l'équation \eqref{LSWEC} sans forcage (\textit{i.e.} $\mathbf{F} \equiv \mathbf{0}$ et $G \equiv 0$).
+
+\begin{remarque}
+\label{remark_stokes}
+Une remarque préliminaire est la suivante  :
+
+Si $\Omega_1$ et $\Omega_2$ sont les deux hémisphères de $\mathbb{S}^2_a$ alors :
+\begin{itemize}
+\item $\Omega_1 \cup \Omega_2 = \mathbb{S}^2_a $,
+\item $\overbrace{\Omega_1 \cap \Omega_2}^{\circ} = \varnothing$
+\end{itemize}
+
+par le théorème de Stokes, on a :
+
+\begin{equation}
+\gint_{\Omega_i}  \nabla \cdot \mathbf{u} = \gint_{\partial \Omega_i} \mathbf{u} \cdot \mathbf{n}_i
+\end{equation}
+
+pour $i \in \left\lbrace 1, 2 \right\rbrace$ et $\mathbf{n}_i$ est la normale extérieur de $\Omega_i$ sur $\mathbb{S}_a^2$ ($\mathbf{n}_i$ est tangent à la sphère).
+Alors, comme $\mathbf{n_1} = -\mathbf{n_2}$ et $\partial \Omega_1 = \partial \Omega_2$ on a :
+
+$$\gint_{\mathbb{S}_R^2}  \nabla \cdot \mathbf{u} = \gint_{\Omega_1}  \nabla \cdot \mathbf{u} + \gint_{\Omega_2}  \nabla \cdot \mathbf{u} = \gint_{\partial \Omega_1} \mathbf{u} \cdot \mathbf{n}_1 + \gint_{\partial \Omega_2} \mathbf{u} \cdot \mathbf{n}_2 = 0$$
+\end{remarque}
+
+\begin{proposition}
+(Conservation de la masse)
+La masse totale $\gint_{\mathbb{S}_a^2} \eta$ est constante au cours du temps.
+\end{proposition}
+
+\begin{proof}
+Nous intégrons sur $\mathbb{S}_a^2$ la seconde équation de \eqref{LSWEC} et tenons compte de la remarque \ref{remark_stokes}.
+
+$$\dfrac{\partial}{\partial t} \gint_{\mathbb{S}_a^2} \eta = \gint_{\mathbb{S}_a^2} \dfrac{\partial \eta}{\partial t} = \gint_{\mathbb{S}_a^2} \nabla \cdot \mathbf{u} = 0$$
+\end{proof}
+
+\begin{proposition}
+(Conservation de l'énergie)
+Si $\mathbf{F} = \mathbf{0}$, alors l'énergie totale $\gint_{\mathbf{S}_a^2 }g  \eta^2 + H | u |^2$ est constante par rapport au temps $t$.
+\end{proposition}
+
+\begin{proof}
+\begin{itemize}
+\item premièrement, notons que $\mathbf{u}$ est orthogonal à $\mathbf{k} \wedge \mathbf{u}$ alors :
+
+$$\gint_{\mathbb{S}_a^2} \dfrac{\partial \mathbf{u}}{\partial t} \cdot \mathbf{u} = \dfrac{1}{2} \dfrac{\partial}{\partial t} \gint_{\mathbb{S}_a^2} \mathbf{u}^2 = -g \gint_{\mathbb{S}_a^2} \nabla \eta \cdot \mathbf{u}$$
+
+en d'autres termes :
+
+\begin{equation}
+\dfrac{1}{2} \dfrac{\partial}{\partial t} \| u \|_{L^2(\mathbb{S}_a^2)}^2 = -g \gint_{\mathbb{S}_a^2} \nabla \eta \cdot \mathbf{u}
+\label{energy_eq1}
+\end{equation}
+
+\item avec une idée similaire :
+
+$$\dfrac{\partial \eta}{\partial t} \times \eta = -H \eta \nabla \cdot \mathbf{u} $$
+
+et après intégrations sur $\mathbb{S}_a^2$ :
+
+\begin{equation}
+\dfrac{1}{2} \dfrac{\partial}{\partial t} \| \eta \|^2_{L^2(\mathbb{S}_a^2)} = -H \gint_{\mathbb{S}_a^2} \eta \nabla \cdot \mathbf{u}
+\label{energy_eq2}
+\end{equation}
+
+\item Il est connu que :
+
+\begin{equation}
+\nabla \cdot \left( \mathbf{A} B \right) = \left( \mathbf{A} \cdot \nabla \right) B + \left( B \nabla \cdot \mathbf{A} \right)
+\label{energy_eq3}
+\end{equation}
+
+en utilisant \eqref{energy_eq3} et la remarque \ref{remark_stokes}, nous avons le résultat :
+
+\begin{equation}
+\dfrac{\partial}{\partial t} \gint_{\mathbb{S}^2_a} \left( g  \eta^2 + H | u |^2 \right) = 0
+\end{equation}
+\end{itemize}
+\end{proof}
+
+\section{Solution exponentielle}
+
+Pour ce test, $\alpha = 0$ et les fonctions de forcage $\mathbf{F}$ et $G$ sont ajustées pour que la solution exacte de \eqref{LSWEC} soit :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{r @{=} l}
+u & \frac{\sqrt{gH}}{10} \psi ( \theta )  e^{-\sigma t} \\
+v & 0 \\
+\eta & \psi( \theta ) e^{-\sigma t}
+\end{array}
+\right.
+\end{equation}
+
+où :
+
+\begin{equation*}
+\psi ( \theta ) = 
+\left\lbrace
+\begin{array}{l}
+0 \text{ if } \theta > \theta_1\\
+\frac{1}{K}e^{\frac{1}{(\theta - \theta_0)(\theta-\theta_1)}} \text{ if } \theta_0 \leq \theta \leq \theta_1 \\
+0 \text{ if } \theta < \theta_0\\
+ 
+\end{array}
+\right.
+\label{galewski_fun}
+\end{equation*}
+
+$K = e^{-\dfrac{4}{(\theta_0 - \theta_1)^2}}$ est une constante de normalisation.
+
+Pour les calculs numériques, nous choisissons $\sigma = 10^{-5}$, $\theta_0 = -\dfrac{\pi}{3}$ and $\theta_1 = \dfrac{\pi}{3}$.
+
+ainsi qu'une condition CFL de la forme suivante :
+
+\begin{equation}
+CFL = \dfrac{c \Delta t}{a \Delta \xi}
+\end{equation}
+
+avec $c = max(c_{grav}, c_{cor})$, $c_{grav} = \sqrt{gH}$ et $c_{cor} = a \omega$, $\Delta \xi = \pi / 2N$.
+
+La solution $\eta$ est une fonction zonale (indépendante de $\lambda$ s'atténuant au cours du temps. De même, le champ de vitesse $\mathbf{u}$ tend vers $0$.
+
+Pour se rapprocher d'un cadre physique, on choisit $H=10000$ avec $1$ jours de simulation. Les résultats de convergence sont données dans la figure \ref{fig:accuracy lswe 1}. Ainsi, un ordre de convergence proche de 4 est confirmé pour les normes 1 et 2. Pour la norme infini, on obtient un odre de l'ordre de $3.3654$ pour $\eta$ et $3.4651$ pour $\mathbf{v}$.
+
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=0.4]{rate_h_LSWE1.png}
+\includegraphics[scale=0.4]{rate_v_LSWE1.png}
+\caption{Analyse de convergence pour le test avec forçage de l'équation LSWE - $CFL=0.9$ - $t_{max}=1$ jour. Convergence pour les normes $1$, $2$ et infinie sur $\eta$ (gauche), Convergence pour la norme infinie sur $\mathbf{v}$ (droite)}
+\label{fig:accuracy lswe 1}
+\end{center}
+\end{figure}
+
+En ce qui concerne la conservation de masse et d'énergie, la propriété est fausse ici car le forçage empêche de telles conservations.
+
+\section{Test sans forcage}
+
+
+Ce second test est considéré sans forcage ($\mathbf{F} \equiv \mathbf{0}$ et $G \equiv 0$). Dans ce contexte, on construit une solution stationnaire telle que le champ de vitesse est zonale :
+
+$$\mathbf{u}(\theta, \lambda) = u(\theta) \mathbf{e}_{\lambda}$$
+
+On montre facilement que la vitesse $ \mathbf{u}$ est à divergence nulle avec ce choix.
+
+$\eta$ est construit tel que se soit une solution stationnaire, c'est a dire :
+
+\begin{equation}
+f \mathbf{k} \wedge \mathbf{u} + g \nabla \eta = 0
+\end{equation} 
+
+Dans la base $(\mathbf{e}_{\lambda}, \mathbf{e}_{\theta})$ :
+
+\begin{equation}
+f u \mathbf{e}_{\theta} + g \left[ \dfrac{1}{a \cdot cos \theta} \dfrac{\partial \eta}{\partial \lambda} \mathbf{e}_{\lambda} + \dfrac{1}{a}\dfrac{\partial \eta}{\partial \theta} \mathbf{e}_{\theta} \right] = 0
+\end{equation}
+
+par identification :
+
+\begin{itemize}
+\item $\dfrac{1}{a cos \theta} \dfrac{\partial \eta}{\partial \lambda} = 0$, alors $\eta$ est indépendant de $\lambda$,
+
+\item $f u + \dfrac{g}{a} \dfrac{\partial \eta}{\partial \theta} = 0$, alors (comme on a l'équation \eqref{coriolis_parameter}) :
+
+\begin{equation}
+\eta (\theta ) = \eta_0 - \dfrac{2 \omega a}{g} \gint_0^{\theta} sin(\tau) u(\tau) d \tau
+\end{equation} 
+\end{itemize}
+
+ainsi une solution stationnaire est donnée. Nous choisissons $u(\theta) = u_0 \psi( \theta )$ avec $\psi$ donné par \eqref{galewski_fun}. L'intégrale est calculée numériquement par la méthode des trapèzes composites.
+
+Numériquement, nous obtenons deux types de résultats :
+\begin{itemize}
+\item  l'erreur relative est donnée sur $\eta$ au temps $t^n$, $e_i^n$ avec $i \in \lbrace 1, 2, \infty \rbrace$,
+\item Nous représentons aussi les relations de conservations relatives :
+\begin{equation}
+\dfrac{I^n}{I(0)}-1
+\end{equation}
+où  $I^n = \gint_{\mathbb{S}_a^2} \eta (t^n)$ la masse ou l'énergie $I^n = \gint_{\mathbb{S}_a^2} g \eta (t^n)^2 + H |u(t^n) |^2$ et $I(0)$ est la masse ou l'énergie initiale. Cette quantité $I^n/I(0)-1$ doit etre proche de $0$ si les quantités sont conservées.
+\end{itemize} 
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=0.4]{ref_7368697187_erreur.png}
+\includegraphics[scale=0.4]{ref_7368697187_conservation.png}
+\caption{Cas test stationnaire pour le système (LSWE) avec $N=32$, $CFL=0.9$ - Erreur relative au cours des itérations (gauche) erreur relative sur la conservation (droite)}
+\label{fig:err and cons lswe2}
+\end{center}
+\end{figure}
+
+La figure \ref{fig:err and cons lswe2} présente l'erreur relative au cours de itérations ainsi que la conservation. On constate que les propriétés de conservation d'une solution stationnaire sont bonne avec une erreur relative avoisinant les $10 \times 10^{-2}$. 

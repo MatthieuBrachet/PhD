@@ -28,7 +28,7 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=4;
+test=5;
 video = 'no';
 sauvegarde = 1;
 filtre='symetric';
@@ -37,8 +37,8 @@ scheme='compact4';
 snapshot='yes';
 nrm='int';
 
-n=95; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=6;
+n=79; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=70;
 mod101
 disp('mod74 : ok')
 
@@ -95,7 +95,7 @@ c=max([cgrav,ccor,cvit]);
 cfl=0.9;
 ddt=radius*dxi*cfl/c;
 Tmax=ndaymax*3600*24;
-itermax=20000;
+itermax=200000;
 
 tstart=cputime;
 ref=floor(10000*now);
@@ -382,7 +382,7 @@ while t<Tmax && iter<itermax
     end
     
     % snapshot
-    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(3*ddt))) == 0
+    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(14*ddt))) == 0
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         close all;
         
@@ -413,7 +413,7 @@ while t<Tmax && iter<itermax
             mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             v=[mm 8100:100:10500 MM];
-            plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,8100:100:10500);
+            plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
             title(['solution at time : ', num2str(time(end))])
             colorbar
         elseif test == -2
