@@ -83,6 +83,7 @@ A partir de ces vecteurs $\mathbf{e}_{\alpha}$ et $\mathbf{e}_{\beta}$, une base
 \mathbf{e}_{\alpha} \cdot \mathbf{e}^{\beta} & = & 0 & = & \mathbf{e}_{\beta} \cdot \mathbf{e}^{\alpha} \\
 \end{array}
 \right.
+\label{eq: dualite alpha beta}
 \end{equation}
 
 Il est important de noter que les vecteurs $\mathbf{e}_{\alpha}$, $\mathbf{e}_{\beta}$, $\mathbf{e}^{\alpha}$ et $\mathbf{e}^{\beta}$ dépendent de la position du point $\mathbf{x}$. 
@@ -98,11 +99,67 @@ Le gradient \eqref{eq: gradient} est bien définit. Il ne dépend pas du choix d
 \end{proposition}
 
 \begin{proof}
-A FAIRE A PARTIR DU SIMMONDS.
+Soient $\tilde{C}_1$ et $\tilde{C}_2$ deux grands cercles distincts entre eux et distincts de $C_1$ et $C_2$. $\tilde{\alpha}$ et $\tilde{\beta}$ les abscisses curvilignes associées. On pose :
+\begin{equation}
+\mathbf{e}_{\tilde{\alpha}} = \dfrac{\partial \mathbf{x}}{\partial \tilde{\alpha}} \text{ et } \mathbf{e}_{\tilde{\beta}} = \dfrac{\partial \mathbf{x}}{\partial \tilde{\beta}}
+\end{equation}
+
+la base de $\mathbb{T}\mathbb{S}_a^2$ associée à $(\tilde{\alpha}$ et $\tilde{\beta}$. $\left( \mathbf{e}^{\tilde{\alpha}}, \mathbf{e}^{\tilde{\beta}} \right)$ est construite par dualité :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcccl}
+\mathbf{e}_{\tilde{\alpha}} \cdot \mathbf{e}^{\tilde{\alpha}} & = & 1 & = & \mathbf{e}_{\tilde{\beta}} \cdot \mathbf{e}^{\tilde{\beta}} \\
+\mathbf{e}_{\tilde{\alpha}} \cdot \mathbf{e}^{\tilde{\beta}} & = & 0 & = & \mathbf{e}_{\tilde{\beta}} \cdot \mathbf{e}^{\tilde{\alpha}} \\
+\end{array}
+\right.
+\end{equation}
+
+Le problème est de savoir si $\dfrac{\partial h}{\partial \alpha} \mathbf{e}^{\alpha} + \dfrac{\partial h}{\partial \beta} \mathbf{e}^{\beta}$ est égal à $\dfrac{\partial h}{\partial \tilde{\alpha}} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial h}{\partial \tilde{\beta}} \mathbf{e}^{\tilde{\beta}}$.
+
+D'un part, on a :
+
+\begin{equation}
+\begin{array}{rcl}
+\mathbf{e}_{\alpha} & = & \dfrac{\partial \tilde{\alpha}}{\partial \alpha} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial \tilde{\beta}}{\partial \alpha} \mathbf{e}^{\tilde{\beta}} \\
+\mathbf{e}_{\beta} & = & \dfrac{\partial \tilde{\alpha}}{\partial \beta} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial \tilde{\beta}}{\partial \beta} \mathbf{e}^{\tilde{\beta}} \\
+\end{array}
+\end{equation}
+
+De plus :
+
+\begin{equation}
+\dfrac{\partial h}{\partial \tilde{\alpha}} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial h}{\partial \tilde{\beta}} \mathbf{e}^{\tilde{\beta}} = \dfrac{\partial h}{\partial \alpha}  \underbrace{\left( \dfrac{\partial \alpha}{\partial \tilde{\alpha}} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial \alpha}{\partial \tilde{\beta}} \mathbf{e}^{\tilde{\beta}}  \right)} _{=\mathbf{u}} + \dfrac{\partial h}{\partial \alpha}  \underbrace{\left( \dfrac{\partial \beta}{\partial \tilde{\alpha}} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial \beta}{\partial \tilde{\beta}} \mathbf{e}^{\tilde{\beta}} \right)}_{= \mathbf{v}} 
+\label{eq: prop u v}
+\end{equation}
+
+On cherche à savoir quel est le lien entre $\mathbf{u}$, $\mathbf{v}$ avec $\mathbf{e}^{\alpha}$ et $\mathbf{e}^{\beta}$.
+
+\begin{equation}
+\mathbf{e}_{\alpha} \cdot \mathbf{u} = \dfrac{\partial \tilde{\alpha}}{\partial \alpha} \dfrac{\partial \alpha}{\partial \tilde{\alpha}} + \dfrac{\partial \tilde{\beta}}{\partial \alpha} \dfrac{\partial \alpha}{\partial \tilde{\beta}} = \dfrac{\partial \alpha}{\partial \alpha} = 1.
+\end{equation}
+
+De même : $\mathbf{e}_{\beta} \cdot \mathbf{v} = 1$.
+
+De la même manière, on a :
+
+\begin{equation}
+\mathbf{e}_{\alpha} \cdot \mathbf{v} = \dfrac{\partial \tilde{\alpha}}{\partial \alpha} \dfrac{\partial \beta}{\partial \tilde{\alpha}} + \dfrac{\partial \tilde{\beta}}{\partial \alpha} \dfrac{\partial \beta}{\partial \tilde{\beta}} = \dfrac{\partial \beta}{\partial \alpha} = 0.
+\end{equation}
+
+Ainsi que $\mathbf{e}_{\beta} \cdot \mathbf{u} = 0$.
+
+Donc $\mathbf{u}$ et $\mathbf{v}$ vérifient \eqref{eq: dualite alpha beta}. De plus, $\mathbf{u}, \mathbf{v} \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$. Donc $\mathbf{u} = \mathbf{e}^{\alpha}$ et $\mathbf{v} = \mathbf{e}^{\beta}$. Ainsi, en utilisant \eqref{eq: prop u v}, on a bien :
+
+\begin{equation}
+\dfrac{\partial h}{\partial \tilde{\alpha}} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial h}{\partial \tilde{\beta}} \mathbf{e}^{\tilde{\beta}} = \dfrac{\partial h}{\partial \alpha} \mathbf{e}^{\alpha} + \dfrac{\partial h}{\partial \beta} \mathbf{e}^{\beta}
+\end{equation}
+
+Le gradient est bien définit car indépendant du choix des grands cercles.
 \end{proof}
 
 \begin{proposition}
-Soit $\mathbf{x} \in \mathbb{S}_a^2$, alors $\nabla_{T} h (\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$. En $\mathbf{x}$, le gradient $\nabla_{\mathbb{S}_a^2} h (\mathbf{x})$ appartient au plan tangent à la sphère.
+Soit $\mathbf{x} \in \mathbb{S}_a^2$, alors $\nabla_{T} h (\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$.
 \end{proposition}
 
 \begin{proof}
@@ -110,7 +167,13 @@ $\nabla_{T} h (\mathbf{x})$ est une combinaison linéaire de $\mathbf{e}^{\alpha
 \end{proof}
 
 \begin{proposition}
-Soit $u: \mathbb{R}^3 \mapsto \mathbb{R}$ une fonction de $\mathbb{R}^3$ et $\mathbf{x} \in \mathbb{R}^3$. On pose $\hat{u} : = u_{|\mathbb{S}_a^2}$ la restriction de $u$ à la sphère $\mathbb{S}_a^2$. Alors $\nabla_{\mathbb{S}_a^2} \hat{u} (\mathbf{x})$ est la projection orthogonale de $\nabla_{\mathbb{R}^3} u (\mathbf{x})$ sur le plan tangent $\mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$.
+Soit $u: \mathbb{R}^3 \mapsto \mathbb{R}$ une fonction de $\mathbb{R}^3$ et $\mathbf{x} \in \mathbb{R}^3$. On pose $\hat{u} : = u_{|\mathbb{S}_a^2}$ la restriction de $u$ à la sphère $\mathbb{S}_a^2$. Alors $\nabla_{T} \hat{u} (\mathbf{x})$ est la projection orthogonale de $\nabla_{\mathbb{R}^3} u (\mathbf{x})$ sur le plan tangent $\mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$.
+
+\begin{equation}
+\nabla_T \hat{u} = \nabla_{\mathbb{R}^3} u - \mathbf{n} \left( \mathbf{n} \cdot \nabla_{\mathbb{R}^3} u \right)
+\end{equation}
+
+avec $\mathbf{n}$ la normale unitaire extérieure.
 \end{proposition}
 
 \begin{proof}

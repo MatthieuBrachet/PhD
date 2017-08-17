@@ -29,7 +29,7 @@ global teta0 teta1
 
 comment='.';
 test=5;
-video = 'no';
+video = 'yes';
 sauvegarde = 1;
 filtre='symetric';
 opt_ftr='redonnet10';
@@ -38,12 +38,12 @@ snapshot='yes';
 nrm='int';
 
 n=79; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=70;
+ndaymax=60;
 mod101
 disp('mod74 : ok')
 
 %% ************************************************************************
-nper=2;
+nper=10;
 tstart=cputime;
 ref=floor(10000*now);
 jour=date;
@@ -364,7 +364,7 @@ while t<Tmax && iter<itermax
     %% video
     if strcmp(video,'yes')==1 && mod(iter,nper) == 0
         
-       [fun_fI,fun_fII,fun_fIII,fun_fIV,fun_fV,fun_fVI]=div101(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
+       [fun_fI,fun_fII,fun_fIII,fun_fIV,fun_fV,fun_fVI]=vort101(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);
         
         clf
         hFig = figure(9);
@@ -372,7 +372,7 @@ while t<Tmax && iter<itermax
         set(hFig, 'Position', [50 50 1000 500])
         plot_cs102(n,nn,fun_fI,fun_fII,fun_fIII,fun_fIV,fun_fV,fun_fVI);
         title(['divergence at time : ', num2str(time(end))])
-        caxis([-1 1]*10^-6);
+        %caxis([-1 1]*10^-6);
         %axis([-2.5 .5 -.5 1.5])
 
         hold off
