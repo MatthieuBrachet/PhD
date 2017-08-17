@@ -23,9 +23,9 @@ On pose les points $\mathbf{x}_1 \in C_1$ et $\mathbf{x}_2 \in C_2$, on peut alo
 \begin{center}
 \begin{tikzpicture}[scale=1.8]
 	% \draw [color=gray] (-1.5,-1.5) grid[step=0.1] (1.5,1.5);
-	\draw [domain=0:-180] plot({cos(\x)},{0.4*sin(\x)});
+	\draw [samples=100,domain=0:-180] plot({cos(\x)},{0.4*sin(\x)});
 	\draw (0.8,0.03) node {$C_1$} ;  
-	\draw [rotate=-60,domain=0:-180] plot({cos(\x)},{0.4*sin(\x)});
+	\draw [rotate=-60,samples=100,domain=0:-180] plot({cos(\x)},{0.4*sin(\x)});
 	\draw (-0.4,0.7) node {$C_2$} ; 
 	\draw (-0.24,-0.4) node {$\bullet$} ;
 	\draw (-0.38,-0.49) node {$\mathbf{x}$} ;
@@ -54,14 +54,15 @@ En tout point $\mathbf{x} \in \mathbb{S}_a^2$, il existe un plan tangent à la s
 \begin{figure}[ht]
 \begin{center}
 \begin{tikzpicture}[scale=1.8]
-	\draw [domain=0:-180] plot({cos(\x)},{0.4*sin(\x)});
+	%\draw [color=gray] (-1.5,-1.5) grid[step=0.1] (1.5,1.5);
+	\draw [samples=100,domain=0:-180] plot({cos(\x)},{0.4*sin(\x)});
 	\draw (0.8,0.03) node {$C_1$} ;  
-	\draw [rotate=-60,domain=0:-180] plot({cos(\x)},{0.4*sin(\x)});
+	\draw [rotate=-60,samples=100,domain=0:-180] plot({cos(\x)},{0.4*sin(\x)});
 	\draw (-0.4,0.7) node {$C_2$} ; 
 	
-	\draw [>=stealth, ->, color=green] (-0.24,-0.4) -- (0.4,-0.4) ;
+	\draw [>=stealth, ->, color=green] (-0.24,-0.393) -- (0.4,-0.42) ;
 	\draw [color=green] (0.1,-0.25) node {$\mathbf{e}_{\alpha}$} ;	
-	\draw [>=stealth, ->, color=red] (-0.24,-0.4) -- (-0.55,0.2) ;	
+	\draw [>=stealth, ->, color=red] (-0.24,-0.38) -- (-0.58,0.20) ;	
 	\draw [color=red] (-0.25,0) node {$\mathbf{e}_{\beta}$} ;
 	
 	\draw (-0.24,-0.4) node {$\bullet$} ;
@@ -177,7 +178,7 @@ avec $\mathbf{n}$ la normale unitaire extérieure.
 \end{proposition}
 
 \begin{proof}
-TBA
+A DISCUTER AVEC JPC.
 \end{proof}
 
 
@@ -186,9 +187,340 @@ TBA
 
 \subsection{Construction de la Cubed-Sphère}
 
+On définit les points suivants :
+\begin{itemize}
+\item $N$ le point de coordonnées dans $\mathbb{R}^3$ : $(0,0,a)$,
+\item $S$ le point de coordonnées $(0,0,-a)$,
+\item $E$ le point de coordonnées $(0,a,0)$,
+\item $W$ le point de coordonnées $(0,-a,0)$,
+\item $F$ le point de coordonnées $(a,0,0)$,
+\item $B$ le point de coordonnées $(-a,0,0)$.
+\end{itemize}
+
+On construit la Cubed-Sphère associée à une base orthogonale de $\mathbb{R}^3$. Nous utilisons ici la base canonique $(\mathbf{i}, \mathbf{j}, \mathbf{k})$. La Cubed-Sphère est constituée de six panels couvrant la sphère. Chacun de ces panels est délimité par quatre grands cercles (Voir Figure \ref{fig: panel I to VI}) :
+
+\begin{itemize}
+\item Le panel I est déliminé par le cercle $C_V^1 = Vect(\mathbf{i}-\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$ et le cercle $C_V^2 = Vect(\mathbf{i}+\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$ ainsi que les cercles $C_{II}^1 = Vect(\mathbf{i}+\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$ et $C_{II}^2 = Vect(\mathbf{i}-\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$. Il ne contient que des points $\mathbf{x}=(x,y,z) \in \mathbb{R}^3$ avec $x>0$. Le panel III est délimité par les mêmes cercles mais avec des points tels que $x<0$.
+\item Le panel II est délimité par $C_V^2$ et $C_V^1$ ainsi que $C_I^1=Vect(\mathbf{j}+\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$ et $C_I^2=Vect(\mathbf{j}-\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$. Il est constitué de points $\mathbf{x} \in \mathbb{R}^3$ tels que $y>0$. Le panel IV est sont symétrique, délimité par les mêmes cercles, avec des $y<0$.
+\item Le panel V est délimité par les cercles $C_I^1$, $C_I^2$, $C_II^1$ et $C_II^2$. Les points $\mathbf{x} = (x,y,z) \in \mathbb{R}^3$ qui le constituent sont tels que $z>0$. Son symétrique, le panel VI, est composé de points tels que $z<0$.
+\end{itemize}
+
+\begin{figure}[ht]
+\begin{center}
+\begin{tikzpicture}[scale=2]
+	%\draw [color=gray] (-1.5,-1.5) grid[step=0.1] (1.5,1.5);
+	\draw [samples=100,domain=-180:180] plot({cos(\x)},{0.7*sin(\x)});
+	\draw [samples=100,domain=180:-180] plot({0.7*cos(\x)},{sin(\x)}); 
+	
+	\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot [smooth,domain=-35:35] ({0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=55:125] ({cos(\x)},{0.7*sin(\x)})
+	-- plot [smooth,domain=140:215] ({0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=230:305] ({cos(\x)},{0.7*sin(\x)})
+	-- cycle;
+	
+	\draw [>=stealth, ->] (0.5,1.3) -- (0.4,0.8) ;
+	\draw  (0.5,1.3) node[above] {$C_V^2$} ;
+	\draw [>=stealth, ->] (-0.7,1.3) -- (-0.4,0.8) ;
+	\draw  (-0.7,1.3) node[left] {$C_V^1$} ;
+	\draw [>=stealth, ->] (1.3,0.5) -- (0.8,0.4) ;
+	\draw  (1.3,0.5) node[right] {$C_{II}^1$} ;
+	\draw [>=stealth, ->] (1.3,-0.7) -- (0.8,-0.4) ;
+	\draw  (1.3,-0.7) node[right] {$C_{II}^2$} ;
+	
+	\draw [>=stealth, ->] (0,0) -- (0,1.4) ;
+	\draw  (0,1.4) node[right] {$z$} ;
+	\draw [>=stealth, ->] (0,0) -- (1.4,0) ;
+	\draw  (1.4,0) node[right] {$y$} ;
+	
+	\draw  (0,1) node {$\bullet$} ;
+	\draw  (-0.1,1.15) node {$N$} ;
+	\draw  (0,-1) node {$\bullet$} ;
+	\draw  (-0.1,-1.15) node {$S$} ;
+	\draw  (1,0) node {$\bullet$} ;
+	\draw  (1,0) node[below right] {$E$} ;
+	\draw  (-1,0) node {$\bullet$} ;
+	\draw  (-1,0) node[above left] {$W$} ;
+	\draw  (0,0) node {$\bullet$} ;
+	\draw  (0.1,0.1) node {$F$} ;
+	
+	\draw  (0,-1.7) node {Panel I} ;
+
+	\draw (0,0) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
 
 
 
+
+	\draw [samples=100,domain=-180:180] plot({4+cos(\x)},{0.7*sin(\x)});
+	\draw [samples=100,domain=180:-180] plot({4+0.7*cos(\x)},{sin(\x)}); 
+	
+	\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot [smooth,domain=-35:35] ({4+0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=55:125] ({4+cos(\x)},{0.7*sin(\x)})
+	-- plot [smooth,domain=140:215] ({4+0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=230:305] ({4+cos(\x)},{0.7*sin(\x)})
+	-- cycle;
+	
+	\draw [>=stealth, ->] (4.5,1.3) -- (4.4,0.8) ;
+	\draw  (4.5,1.3) node[above] {$C_V^1$} ;
+	\draw [>=stealth, ->] (3.3,1.3) -- (3.6,0.8) ;
+	\draw  (3.3,1.3) node[left] {$C_V^2$} ;
+	\draw [>=stealth, ->] (5.3,0.5) -- (4.8,0.4) ;
+	\draw  (5.3,0.5) node[right] {$C_{I}^1$} ;
+	\draw [>=stealth, ->] (5.3,-0.7) -- (4.8,-0.4) ;
+	\draw  (5.3,-0.7) node[right] {$C_{I}^2$} ;
+	
+	\draw [>=stealth, ->] (4,0) -- (4,1.4) ;
+	\draw  (4,1.4) node[right] {$z$} ;
+	\draw [>=stealth, ->] (4,0) -- (4-1.4,0) ;
+	\draw  (4-1.4,0) node[left] {$x$} ;
+	
+	\draw  (4,1) node {$\bullet$} ;
+	\draw  (4-0.1,1.15) node {$N$} ;
+	\draw  (4,-1) node {$\bullet$} ;
+	\draw  (4-0.1,-1.15) node {$S$} ;
+	\draw  (5,0) node {$\bullet$} ;
+	\draw  (5,0) node[below right] {$B$} ;
+	\draw  (4-1,0) node {$\bullet$} ;
+	\draw  (4-1,0) node[above left] {$F$} ;
+	\draw  (4,0) node {$\bullet$} ;
+	\draw  (4.1,0.1) node {$E$} ;
+	
+	\draw  (4,-1.7) node {Panel II} ;
+
+	\draw (4,0) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (4,0) circle (1cm);
+
+
+
+
+
+
+	\draw [samples=100,domain=-180:180] plot({cos(\x)},{-4+0.7*sin(\x)});
+	\draw [samples=100,domain=180:-180] plot({0.7*cos(\x)},{-4+sin(\x)}); 
+	
+	\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot [smooth,domain=-35:35] ({0.7*cos(\x)},{-4+sin(\x)})
+	-- plot [smooth,domain=55:125] ({cos(\x)},{-4+0.7*sin(\x)})
+	-- plot [smooth,domain=140:215] ({0.7*cos(\x)},{-4+sin(\x)})
+	-- plot [smooth,domain=230:305] ({cos(\x)},{-4+0.7*sin(\x)})
+	-- cycle;
+	
+	\draw [>=stealth, ->] (0.5,-4+1.3) -- (0.4,-4+0.8) ;
+	\draw  (0.5,-4+1.3) node[above] {$C_V^1$} ;
+	\draw [>=stealth, ->] (-0.7,-4+1.3) -- (-0.4,-4+0.8) ;
+	\draw  (-0.7,-4+1.3) node[left] {$C_V^2$} ;
+	\draw [>=stealth, ->] (1.3,-4+0.5) -- (0.8,-4+0.4) ;
+	\draw  (1.3,-4+0.5) node[right] {$C_{II}^2$} ;
+	\draw [>=stealth, ->] (1.3,-4-0.7) -- (0.8,-4-0.4) ;
+	\draw  (1.3,-4-0.7) node[right] {$C_{II}^1$} ;
+	
+	\draw [>=stealth, ->] (0,-4) -- (0,-4+1.4) ;
+	\draw  (0,-4+1.4) node[right] {$z$} ;
+	\draw [>=stealth, ->] (0,-4) -- (-1.4,-4) ;
+	\draw  (-1.4,-4) node[left] {$y$} ;
+	
+	\draw  (0,-4+1) node {$\bullet$} ;
+	\draw  (-0.1,-4+1.15) node {$N$} ;
+	\draw  (0,-4-1) node {$\bullet$} ;
+	\draw  (-0.1,-4-1.15) node {$S$} ;
+	\draw  (1,-4) node {$\bullet$} ;
+	\draw  (1,-4) node[below right] {$W$} ;
+	\draw  (-1,-4) node {$\bullet$} ;
+	\draw  (-1,-4) node[above left] {$E$} ;
+	\draw  (0,-4) node {$\bullet$} ;
+	\draw  (0.1,-4.1) node {$B$} ;
+	
+	\draw  (0,-4-1.7) node {Panel III} ;
+
+	\draw (0,-4) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (0,-4) circle (1cm);
+
+
+
+
+	\draw [samples=100,domain=-180:180] plot({4+cos(\x)},{-4+0.7*sin(\x)});
+	\draw [samples=100,domain=180:-180] plot({4+0.7*cos(\x)},{-4+sin(\x)}); 
+	
+	\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot [smooth,domain=-35:35] ({4+0.7*cos(\x)},{-4+sin(\x)})
+	-- plot [smooth,domain=55:125] ({4+cos(\x)},{-4+0.7*sin(\x)})
+	-- plot [smooth,domain=140:215] ({4+0.7*cos(\x)},{-4+sin(\x)})
+	-- plot [smooth,domain=230:305] ({4+cos(\x)},{-4+0.7*sin(\x)})
+	-- cycle;
+	
+	\draw [>=stealth, ->] (4+0.5,-4+1.3) -- (4+0.4,-4+0.8) ;
+	\draw  (4+0.5,-4+1.3) node[above] {$C_V^2$} ;
+	\draw [>=stealth, ->] (4-0.7,-4+1.3) -- (4-0.4,-4+.8) ;
+	\draw  (4-0.7,-4+1.3) node[left] {$C_V^1$} ;
+	\draw [>=stealth, ->] (4+1.3,-4+0.5) -- (4+0.8,-4+0.4) ;
+	\draw  (4+1.3,-4+.5) node[right] {$C_{I}^2$} ;
+	\draw [>=stealth, ->] (4+1.3,-4-0.7) -- (4+0.8,-4-0.4) ;
+	\draw  (4+1.3,-4-0.7) node[right] {$C_{I}^1$} ;
+	
+	\draw [>=stealth, ->] (4,-4) -- (4,-4+1.4) ;
+	\draw  (4,-4+1.4) node[right] {$z$} ;
+	\draw [>=stealth, ->] (4,-4) -- (5.4,-4) ;
+	\draw  (5.4,-4) node[right] {$x$} ;
+	
+	\draw  (4,-4+1) node {$\bullet$} ;
+	\draw  (4-0.1,-4+1.15) node {$N$} ;
+	\draw  (4,-4-1) node {$\bullet$} ;
+	\draw  (4-0.1,-4-1.15) node {$S$} ;
+	\draw  (5,-4) node {$\bullet$} ;
+	\draw  (5,-4) node[below right] {$F$} ;
+	\draw  (4-1,-4) node {$\bullet$} ;
+	\draw  (4-1,-4) node[above left] {$B$} ;
+	\draw  (4,-4) node {$\bullet$} ;
+	\draw  (4.1,-4.1) node {$W$} ;
+	
+	\draw  (4,-4-1.7) node {Panel IV} ;
+
+	\draw (4,-4) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (4,-4) circle (1cm);
+
+
+
+
+	\draw [samples=100,domain=-180:180] plot({cos(\x)},{-8+0.7*sin(\x)});
+	\draw [samples=100,domain=180:-180] plot({0.7*cos(\x)},{-8+sin(\x)}); 
+	
+	\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot [smooth,domain=-35:35] ({0.7*cos(\x)},{-8+sin(\x)})
+	-- plot [smooth,domain=55:125] ({cos(\x)},{0.7*sin(\x)-8})
+	-- plot [smooth,domain=140:215] ({0.7*cos(\x)},{sin(\x)-8})
+	-- plot [smooth,domain=230:305] ({cos(\x)},{0.7*sin(\x)-8})
+	-- cycle;
+	
+	\draw [>=stealth, ->] (0.5,1.3-8) -- (0.4,0.8-8) ;
+	\draw  (0.5,1.3-8) node[above] {$C_I^1$} ;
+	\draw [>=stealth, ->] (-0.7,1.3-8) -- (-0.4,0.8-8) ;
+	\draw  (-0.7,1.3-8) node[left] {$C_I^2$} ;
+	\draw [>=stealth, ->] (1.3,0.5-8) -- (0.8,0.4-8) ;
+	\draw  (1.3,0.5-8) node[right] {$C_{II}^2$} ;
+	\draw [>=stealth, ->] (1.3,-0.7-8) -- (0.8,-0.4-8) ;
+	\draw  (1.3,-0.7-8) node[right] {$C_{II}^1$} ;
+	
+	\draw [>=stealth, ->] (0,0-8) -- (0,-1.4-8) ;
+	\draw  (0,-1.4-8) node[left] {$x$} ;
+	\draw [>=stealth, ->] (0,0-8) -- (1.4,0-8) ;
+	\draw  (1.4,0-8) node[right] {$y$} ;
+	
+	\draw  (0,1-8) node {$\bullet$} ;
+	\draw  (-0.1,1.15-8) node {$B$} ;
+	\draw  (0,-1-8) node {$\bullet$} ;
+	\draw  (-0.1,-1.15-8) node {$F$} ;
+	\draw  (1,0-8) node {$\bullet$} ;
+	\draw  (1,0-8) node[below right] {$E$} ;
+	\draw  (-1,0-8) node {$\bullet$} ;
+	\draw  (-1,0-8) node[above left] {$W$} ;
+	\draw  (0,0-8) node {$\bullet$} ;
+	\draw  (0.1,0.1-8) node {$N$} ;
+	
+	\draw  (0,-1.7-8) node {Panel V} ;
+
+	\draw (0,0-8) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (0,0-8) circle (1cm);
+
+
+
+	\draw [samples=100,domain=-180:180] plot({4+cos(\x)},{0.7*sin(\x)-8});
+	\draw [samples=100,domain=180:-180] plot({4+0.7*cos(\x)},{sin(\x)-8}); 
+	
+	\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot [smooth,domain=-35:35] ({4+0.7*cos(\x)},{sin(\x)-8})
+	-- plot [smooth,domain=55:125] ({4+cos(\x)},{0.7*sin(\x)-8})
+	-- plot [smooth,domain=140:215] ({4+0.7*cos(\x)},{sin(\x)-8})
+	-- plot [smooth,domain=230:305] ({4+cos(\x)},{0.7*sin(\x)-8})
+	-- cycle;
+	
+	\draw [>=stealth, ->] (4+0.5,1.3-8) -- (4+0.4,0.8-8) ;
+	\draw  (4+0.5,1.3-8) node[above] {$C_I^2$} ;
+	\draw [>=stealth, ->] (4-0.7,1.3-8) -- (4-0.4,0.8-8) ;
+	\draw  (4-0.7,1.3-8) node[left] {$C_I^1$} ;
+	\draw [>=stealth, ->] (4+1.3,0.5-8) -- (4+0.8,0.4-8) ;
+	\draw  (4+1.3,0.5-8) node[right] {$C_{II}^1$} ;
+	\draw [>=stealth, ->] (4+1.3,-0.7-8) -- (4+0.8,-0.4-8) ;
+	\draw  (4+1.3,-0.7-8) node[right] {$C_{II}^2$} ;
+	
+	\draw [>=stealth, ->] (4,0-8) -- (4,1.4-8) ;
+	\draw  (4,1.4-8) node[right] {$x$} ;
+	\draw [>=stealth, ->] (4,0-8) -- (4+1.4,0-8) ;
+	\draw  (4+1.4,0-8) node[right] {$y$} ;
+	
+	\draw  (4,1-8) node {$\bullet$} ;
+	\draw  (4-0.1,1.15-8) node {$F$} ;
+	\draw  (4,-1-8) node {$\bullet$} ;
+	\draw  (4-0.1,-1.15-8) node {$B$} ;
+	\draw  (5,0-8) node {$\bullet$} ;
+	\draw  (5,0-8) node[below right] {$E$} ;
+	\draw  (4-1,0-8) node {$\bullet$} ;
+	\draw  (4-1,0-8) node[above left] {$W$} ;
+	\draw  (4,0-8) node {$\bullet$} ;
+	\draw  (4+0.1,0.1-8) node {$S$} ;
+	
+	\draw  (4,-1.7-8) node {Panel VI} ;
+
+	\draw (4,0-8) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (4,0-8) circle (1cm);
+\end{tikzpicture}
+
+
+\end{center}
+\caption{Délimitations des panels I à VI à l'aide des grands cercles}
+\label{fig: panel I to VI}
+\end{figure}
+
+
+
+
+
+
+
+
+
+%\begin{figure}[ht]
+%\begin{center}
+%\begin{tikzpicture}[scale=2.2]
+%	%\draw [color=gray] (-1.5,-1.5) grid[step=0.1] (1.5,1.5);
+%	\draw [samples=100,domain=180:-180] plot({cos(\x)},{0*sin(\x)});
+%	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.1*sin(\x)});
+%	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.2*sin(\x)});
+%	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.3*sin(\x)});
+%	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.4*sin(\x)});
+%	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.5*sin(\x)});
+%	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.6*sin(\x)});
+%	\draw [samples=100,domain=180:-180] plot({cos(\x)},{0.7*sin(\x)});
+%	\draw [samples=100,domain=180:-180] plot({0*cos(\x)},{sin(\x)});
+%	\draw [samples=100,domain=180:-180,color=gray] plot({0.1*cos(\x)},{sin(\x)});
+%	\draw [samples=100,domain=180:-180,color=gray] plot({0.2*cos(\x)},{sin(\x)});
+%	\draw [samples=100,domain=180:-180,color=gray] plot({0.3*cos(\x)},{sin(\x)});
+%	\draw [samples=100,domain=180:-180,color=gray] plot({0.4*cos(\x)},{sin(\x)});
+%	\draw [samples=100,domain=180:-180,color=gray] plot({0.5*cos(\x)},{sin(\x)});
+%	\draw [samples=100,domain=180:-180,color=gray] plot({0.6*cos(\x)},{sin(\x)});
+%	\draw [samples=100,domain=180:-180] plot({0.7*cos(\x)},{sin(\x)}); 
+%	
+%	\draw [>=stealth, ->] (1.3,-.35) -- (0.8,-0) ;
+%	\draw  (1.5,-.35) node {$C_0^{(2)}$} ;
+%	\draw [>=stealth, ->] (0.35,1.3) -- (0,0.8) ;
+%	\draw  (0.45,1.45) node {$C_0^{(1)}$} ;
+%	\draw  (0,1) node {$\bullet$} ;
+%	\draw  (-0.1,1.15) node {$N$} ;
+%	\draw  (0,-1) node {$\bullet$} ;
+%	\draw  (-0.1,-1.15) node {$S$} ;
+%	\draw  (1,0) node {$\bullet$} ;
+%	\draw  (1.15,0) node {$E$} ;
+%	\draw  (-1,0) node {$\bullet$} ;
+%	\draw  (-1.15,0) node {$W$} ;
+%
+%	\draw (0,0) circle (1cm);
+%    \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
+%\end{tikzpicture}
+%\end{center}
+%\caption{Le panel I est constitué des points d'intersection d'un ensemble de grands cercles.}
+%\label{fig: panel I}
+%\end{figure}
 
 
 
