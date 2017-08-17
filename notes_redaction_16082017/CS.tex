@@ -31,11 +31,11 @@ On pose les points $\mathbf{x}_1 \in C_1$ et $\mathbf{x}_2 \in C_2$, on peut alo
 	\draw (-0.38,-0.49) node {$\mathbf{x}$} ;
 	\draw (0.48,-0.35) node {$\bullet$} ;
 	\draw (0.48,-0.5) node {$\mathbf{x_1}$} ;
-	\draw [>=stealth, ->,color=green,domain=-62:-103] plot({1.1*cos(\x)},{0.44*sin(\x)});
+	\draw [>=stealth, <-,color=green,domain=-62:-103] plot({1.1*cos(\x)},{0.44*sin(\x)});
 	\draw [color=green] (0.1,-0.55) node {$\alpha$} ;
 	\draw (-0.56,0.3) node {$\bullet$} ;
 	\draw (-0.75,0.3) node {$\mathbf{x_2}$} ;
-	\draw [rotate=-60,>=stealth, <-,color=red,domain=-75:-125] plot({0.9*cos(\x)},{0.36*sin(\x)});
+	\draw [rotate=-60,>=stealth, ->,color=red,domain=-75:-125] plot({0.9*cos(\x)},{0.36*sin(\x)});
 	\draw [color=red] (-0.25,0) node {$\beta$} ;
     \draw (0,0) circle (1cm);
     \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
@@ -71,7 +71,7 @@ En tout point $\mathbf{x} \in \mathbb{S}_a^2$, il existe un plan tangent à la s
     \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
 \end{tikzpicture}
 \end{center}
-\caption{Grandes cercles sur la sphère $\mathbb{S}_a^2$.}
+\caption{Vecteurs $\mathbf{e}_{\alpha}$ et $\mathbf{e}_{\beta}$ associés au cercles $C_1$ et $C_2$ de $\mathbb{S}_a^2$.}
 \label{fig: e_alpha et e_beta}
 \end{figure}
 

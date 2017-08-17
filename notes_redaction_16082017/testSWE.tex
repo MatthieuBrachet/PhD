@@ -507,34 +507,26 @@ Les constantes sont données par :
 \item $\beta = 1/15$.
 \end{itemize}
 
-Ce test consiste à observer la vorticité au fil du temps. On l'observe en particulier au bout de $2$ jours, $4$ jours et $6$ jours. La perturbation doit commencer à être visible entre 3 et 4 jours. Au bout de 6 jours, on vérifie la forme de la solution avec celles données dans la littérature \cite{Galewsky2004, Chen2008}. Ce test est particulièrement difficile pour la Cubed-Sphere. En effet, toute l'activité est concentrée sur le bord du Panel V (Voir figure \ref{fig: CI Galewsky}), de plus la perturbation est localisée à l'intersection des panels I et V (Voir figure \ref{fig: perturbation Galewsky}).
+Ce test consiste à observer la vorticité au fil du temps. On l'observe en particulier au bout de $2$ jours, $4$ jours et $6$ jours. La perturbation doit commencer à être visible entre 3 et 4 jours. Au bout de 6 jours, on vérifie la forme de la solution avec celles données dans la littérature \cite{Galewsky2004, Chen2008}. Ce test est particulièrement difficile pour la Cubed-Sphere. En effet, toute l'activité est concentrée sur le bord du Panel V, de plus la perturbation est localisée à l'intersection des panels I et V (Voir figure \ref{fig: initiale et perturbation Galewsky}).
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.5]{ref_7369146426_solution.png}
+\includegraphics[scale=0.3]{ref_7369146426_solution.png}
+\includegraphics[scale=0.3]{ref_7369146468_solution.png}
 \end{center}
-\caption{Condition initiale $h$ pour le Flux barotropic \cite{Galewsky2004}}
-\label{fig: CI Galewsky}
-\end{figure}
-
-
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[scale=0.5]{ref_7369146468_solution.png}
-\end{center}
-\caption{Perturbation initiale pour le Flux barotropic \cite{Galewsky2004}}
-\label{fig: perturbation Galewsky}
+\caption{Condition initiale $h$ (gauche) et perturbation initiale (droite) pour le Flux barotropic \cite{Galewsky2004}}
+\label{fig: initiale et perturbation Galewsky}
 \end{figure}
 
 La vorticité au bout de 2, 4 et 6 jours sont donnés en figure REF. De plus, on vérifie les conservations en figure REF. On constate que les résultats sont bons et comparables à ceux de la littérature. La conservation de l'enstrophie potentielle est tout de fois moins bonne que les autres.
 
-Dans la figure \ref{fig: galewsky compact/explicite} est faite en utilisant le schéma compact à 3 points d'ordre 4 REF et celui d'ordre 4 non compact REF. On constate une différence sur la forme de la vorticité, en particulier dans la région de la Chine et du Japon sur la carte. L'utilisation du schéma compact permet une meilleur représentation des hautes fréquences même si l'ordre de précision est le même.
+Dans la figure \ref{fig: galewsky compact/explicite} est faite en utilisant le schéma compact à 3 points d'ordre 4 REF et celui d'ordre 4 non compact REF. On constate une différence sur la forme de la vorticité, en particulier dans la région de la Chine et du Japon sur la carte (intersection des panels II, III et V). L'utilisation du schéma compact permet une meilleur représentation des hautes fréquences même si l'ordre de précision est le même.
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.5]{ref_7369105556_snapshot.png}\\
-\includegraphics[scale=0.5]{ref_7369107124_snapshot.png}
+\includegraphics[scale=0.3]{ref_7369105556_snapshot.png}
+\includegraphics[scale=0.3]{ref_7369107124_snapshot.png}
 \end{center}
-\caption{Test du Flux barotropic \cite{Galewsky2004} à 6 jours, $N=86$ et $CFL=0.9$. En haut, utilisation d'un schéma compact d'ordre 4, en bas utilisation d'un schéma explicite d'ordre 4.}
+\caption{Test du Flux barotropic \cite{Galewsky2004} à 6 jours, $N=86$ et $CFL=0.9$. A gauche, utilisation d'un schéma compact d'ordre 4, a droite utilisation d'un schéma explicite d'ordre 4.}
 \label{fig: galewsky compact/explicite}
 \end{figure}
