@@ -41,7 +41,7 @@ On pose les points $\mathbf{x}_1 \in C_1$ et $\mathbf{x}_2 \in C_2$, on peut alo
     \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
 \end{tikzpicture}
 \end{center}
-\caption{Grandes cercles sur la sphère $\mathbb{S}_a^2$.}
+\caption{Grands cercles sur la sphère $\mathbb{S}_a^2$ et abscisses curvilignes $\alpha$ et $\beta$.}
 \label{fig: grands cercles}
 \end{figure}
 
@@ -118,7 +118,7 @@ la base de $\mathbb{T}\mathbb{S}_a^2$ associée à $(\tilde{\alpha}$ et $\tilde{
 
 Le problème est de savoir si $\dfrac{\partial h}{\partial \alpha} \mathbf{e}^{\alpha} + \dfrac{\partial h}{\partial \beta} \mathbf{e}^{\beta}$ est égal à $\dfrac{\partial h}{\partial \tilde{\alpha}} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial h}{\partial \tilde{\beta}} \mathbf{e}^{\tilde{\beta}}$.
 
-D'un part, on a :
+D'une part, on a :
 
 \begin{equation}
 \begin{array}{rcl}
@@ -134,7 +134,7 @@ De plus :
 \label{eq: prop u v}
 \end{equation}
 
-On cherche à savoir quel est le lien entre $\mathbf{u}$, $\mathbf{v}$ avec $\mathbf{e}^{\alpha}$ et $\mathbf{e}^{\beta}$.
+On cherche à savoir quel est le lien entre les vecteurs $\mathbf{u}$, $\mathbf{v}$ et les vecteurs $\mathbf{e}^{\alpha}$, $\mathbf{e}^{\beta}$.
 
 \begin{equation}
 \mathbf{e}_{\alpha} \cdot \mathbf{u} = \dfrac{\partial \tilde{\alpha}}{\partial \alpha} \dfrac{\partial \alpha}{\partial \tilde{\alpha}} + \dfrac{\partial \tilde{\beta}}{\partial \alpha} \dfrac{\partial \alpha}{\partial \tilde{\beta}} = \dfrac{\partial \alpha}{\partial \alpha} = 1.
@@ -187,7 +187,8 @@ A DISCUTER AVEC JPC.
 
 \subsection{Construction de la Cubed-Sphère}
 
-On définit les points suivants :
+Construisons la Cubed-Sphère associée à la base orthonormée $(\mathbf{i}, \mathbf{j}, \mathbf{k})$ de $\mathbb{R}^3$. La Cubed-Sphère est constituée de six panels couvrant la sphère et centrés sur 6 points. 
+On définit les points suivants (Voir Figure \ref{fig: sphere NSEWFB}) :
 \begin{itemize}
 \item $N$ le point de coordonnées dans $\mathbb{R}^3$ : $(0,0,a)$,
 \item $S$ le point de coordonnées $(0,0,-a)$,
@@ -197,12 +198,49 @@ On définit les points suivants :
 \item $B$ le point de coordonnées $(-a,0,0)$.
 \end{itemize}
 
-On construit la Cubed-Sphère associée à une base orthogonale de $\mathbb{R}^3$. Nous utilisons ici la base canonique $(\mathbf{i}, \mathbf{j}, \mathbf{k})$. La Cubed-Sphère est constituée de six panels couvrant la sphère. Chacun de ces panels est délimité par quatre grands cercles (Voir Figure \ref{fig: panel I to VI}) :
+
+\begin{figure}[ht]
+\begin{center}
+\begin{tikzpicture}[scale=2]
+	\draw [samples=100,domain=-180:0] plot({cos(\x)},{0.4*sin(\x)});
+	\draw [dotted, color=black!50, samples=100,domain=0:180] plot({cos(\x)},{0.4*sin(\x)});
+
+	\draw  (0,0) node {$\bullet$} ;
+	\draw  (0,0) node[above left] {$O$} ;
+	\draw  (0,1) node {$\bullet$} ;
+	\draw  (-0.1,1.15) node {$N$} ;
+	\draw  (0,-1) node {$\bullet$} ;
+	\draw  (-0.1,-1.15) node {$S$} ;
+	\draw  (1,0) node {$\bullet$} ;
+	\draw  (1,0) node[below right] {$E$} ;
+	\draw  (-1,0) node {$\bullet$} ;
+	\draw  (-1,0) node[left] {$W$} ;	
+	\draw  (-0.55,-0.34) node {$\bullet$} ;
+	\draw  (-0.55,-0.34) node[below] {$F$} ;	
+	\draw  (0.55,0.34) node[color=black!50] {$\bullet$} ;
+	\draw  (0.55,0.34) node[color=black!50, above left] {$B$} ;	
+	
+	\draw [>=stealth, ->] (0,0) -- (-1.2,-0.7) ;
+	\draw  (-1.2,-0.7) node[left] {$y$} ;
+	\draw [>=stealth, ->] (0,0) -- (0,1.4) ;
+	\draw  (0,1.4) node[right] {$x$} ;
+	\draw [>=stealth, ->] (0,0) -- (1.4,0) ;
+	\draw  (1.4,0) node[right] {$z$} ;
+	\draw (0,0) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
+\end{tikzpicture}
+\end{center}
+\caption{Sphère $\mathbb{S}_a^2$, points $N$, $S$, $E$, $W$, $F$ et $B$.}
+\label{fig: sphere NSEWFB}
+\end{figure}
+
+
+Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig: panel I to VI}) :
 
 \begin{itemize}
-\item Le panel I est déliminé par le cercle $C_V^1 = Vect(\mathbf{i}-\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$ et le cercle $C_V^2 = Vect(\mathbf{i}+\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$ ainsi que les cercles $C_{II}^1 = Vect(\mathbf{i}+\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$ et $C_{II}^2 = Vect(\mathbf{i}-\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$. Il ne contient que des points $\mathbf{x}=(x,y,z) \in \mathbb{R}^3$ avec $x>0$. Le panel III est délimité par les mêmes cercles mais avec des points tels que $x<0$.
-\item Le panel II est délimité par $C_V^2$ et $C_V^1$ ainsi que $C_I^1=Vect(\mathbf{j}+\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$ et $C_I^2=Vect(\mathbf{j}-\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$. Il est constitué de points $\mathbf{x} \in \mathbb{R}^3$ tels que $y>0$. Le panel IV est sont symétrique, délimité par les mêmes cercles, avec des $y<0$.
-\item Le panel V est délimité par les cercles $C_I^1$, $C_I^2$, $C_II^1$ et $C_II^2$. Les points $\mathbf{x} = (x,y,z) \in \mathbb{R}^3$ qui le constituent sont tels que $z>0$. Son symétrique, le panel VI, est composé de points tels que $z<0$.
+\item Le panel I est délimité par le cercle $C_V^1 = Vect(\mathbf{i}-\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$ et le cercle $C_V^2 = Vect(\mathbf{i}+\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$ ainsi que les cercles $C_{II}^1 = Vect(\mathbf{i}+\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$ et $C_{II}^2 = Vect(\mathbf{i}-\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$. Il ne contient que des points $\mathbf{x}=(x,y,z) \in \mathbb{S}_a^2 \subset \mathbb{R}^3$ vérifiant $x>0$. Le panel III est délimité par les mêmes cercles mais avec des points d'abscisse négative : $x<0$.
+\item Le panel II est délimité par $C_V^2$ et $C_V^1$ ainsi que $C_I^1=Vect(\mathbf{j}+\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$ et $C_I^2=Vect(\mathbf{j}-\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$. Il est constitué de points $\mathbf{x} \in \mathbb{S}_a^2$ tels que $y>0$. Le panel IV est son symétrique, délimité par les mêmes cercles, avec $y<0$.
+\item Le panel V est délimité par les cercles $C_I^1$, $C_I^2$, $C_II^1$ et $C_II^2$. Les points $\mathbf{x} = (x,y,z) \in \mathbb{S}_a^2$ qui le constituent sont tels que $z>0$. Son symétrique, le panel VI, est composé de points tels que $z<0$.
 \end{itemize}
 
 \begin{figure}[ht]
@@ -219,10 +257,17 @@ On construit la Cubed-Sphère associée à une base orthogonale de $\mathbb{R}^3
 	-- plot [smooth,domain=230:305] ({cos(\x)},{0.7*sin(\x)})
 	-- cycle;
 	
+	\draw (-0.707,0.707) -- (0.707,-0.707) ;
+	\draw [>=stealth, <-] (-0.4,0.4) -- (-1.3,0.5) ;
+	\draw  (-1.3,0.5) node[left] {$C_I^1$} ;
+	\draw (-0.707,-0.707) -- (0.707,0.707) ;
+	\draw [>=stealth, <-] (-0.4,-0.4) -- (-1.3,-0.6) ;
+	\draw  (-1.3,-0.6) node[left] {$C_I^2$} ;
+	
 	\draw [>=stealth, ->] (0.5,1.3) -- (0.4,0.8) ;
 	\draw  (0.5,1.3) node[above] {$C_V^2$} ;
 	\draw [>=stealth, ->] (-0.7,1.3) -- (-0.4,0.8) ;
-	\draw  (-0.7,1.3) node[left] {$C_V^1$} ;
+	\draw  (-0.7,1.3) node[above] {$C_V^1$} ;
 	\draw [>=stealth, ->] (1.3,0.5) -- (0.8,0.4) ;
 	\draw  (1.3,0.5) node[right] {$C_{II}^1$} ;
 	\draw [>=stealth, ->] (1.3,-0.7) -- (0.8,-0.4) ;
@@ -231,7 +276,7 @@ On construit la Cubed-Sphère associée à une base orthogonale de $\mathbb{R}^3
 	\draw [>=stealth, ->] (0,0) -- (0,1.4) ;
 	\draw  (0,1.4) node[right] {$z$} ;
 	\draw [>=stealth, ->] (0,0) -- (1.4,0) ;
-	\draw  (1.4,0) node[right] {$y$} ;
+	\draw  (1.4,0) node[right] {$x$} ;
 	
 	\draw  (0,1) node {$\bullet$} ;
 	\draw  (-0.1,1.15) node {$N$} ;
@@ -242,7 +287,7 @@ On construit la Cubed-Sphère associée à une base orthogonale de $\mathbb{R}^3
 	\draw  (-1,0) node {$\bullet$} ;
 	\draw  (-1,0) node[above left] {$W$} ;
 	\draw  (0,0) node {$\bullet$} ;
-	\draw  (0.1,0.1) node {$F$} ;
+	\draw  (0,0) node[below] {$F$} ;
 	
 	\draw  (0,-1.7) node {Panel I} ;
 
@@ -265,7 +310,7 @@ On construit la Cubed-Sphère associée à une base orthogonale de $\mathbb{R}^3
 	\draw [>=stealth, ->] (4.5,1.3) -- (4.4,0.8) ;
 	\draw  (4.5,1.3) node[above] {$C_V^1$} ;
 	\draw [>=stealth, ->] (3.3,1.3) -- (3.6,0.8) ;
-	\draw  (3.3,1.3) node[left] {$C_V^2$} ;
+	\draw  (3.3,1.3) node[above] {$C_V^2$} ;
 	\draw [>=stealth, ->] (5.3,0.5) -- (4.8,0.4) ;
 	\draw  (5.3,0.5) node[right] {$C_{I}^1$} ;
 	\draw [>=stealth, ->] (5.3,-0.7) -- (4.8,-0.4) ;
@@ -274,7 +319,7 @@ On construit la Cubed-Sphère associée à une base orthogonale de $\mathbb{R}^3
 	\draw [>=stealth, ->] (4,0) -- (4,1.4) ;
 	\draw  (4,1.4) node[right] {$z$} ;
 	\draw [>=stealth, ->] (4,0) -- (4-1.4,0) ;
-	\draw  (4-1.4,0) node[left] {$x$} ;
+	\draw  (4-1.4,0) node[left] {$y$} ;
 	
 	\draw  (4,1) node {$\bullet$} ;
 	\draw  (4-0.1,1.15) node {$N$} ;
@@ -310,7 +355,7 @@ On construit la Cubed-Sphère associée à une base orthogonale de $\mathbb{R}^3
 	\draw [>=stealth, ->] (0.5,-4+1.3) -- (0.4,-4+0.8) ;
 	\draw  (0.5,-4+1.3) node[above] {$C_V^1$} ;
 	\draw [>=stealth, ->] (-0.7,-4+1.3) -- (-0.4,-4+0.8) ;
-	\draw  (-0.7,-4+1.3) node[left] {$C_V^2$} ;
+	\draw  (-0.7,-4+1.3) node[above] {$C_V^2$} ;
 	\draw [>=stealth, ->] (1.3,-4+0.5) -- (0.8,-4+0.4) ;
 	\draw  (1.3,-4+0.5) node[right] {$C_{II}^2$} ;
 	\draw [>=stealth, ->] (1.3,-4-0.7) -- (0.8,-4-0.4) ;
@@ -319,7 +364,7 @@ On construit la Cubed-Sphère associée à une base orthogonale de $\mathbb{R}^3
 	\draw [>=stealth, ->] (0,-4) -- (0,-4+1.4) ;
 	\draw  (0,-4+1.4) node[right] {$z$} ;
 	\draw [>=stealth, ->] (0,-4) -- (-1.4,-4) ;
-	\draw  (-1.4,-4) node[left] {$y$} ;
+	\draw  (-1.4,-4) node[left] {$x$} ;
 	
 	\draw  (0,-4+1) node {$\bullet$} ;
 	\draw  (-0.1,-4+1.15) node {$N$} ;
@@ -353,7 +398,7 @@ On construit la Cubed-Sphère associée à une base orthogonale de $\mathbb{R}^3
 	\draw [>=stealth, ->] (4+0.5,-4+1.3) -- (4+0.4,-4+0.8) ;
 	\draw  (4+0.5,-4+1.3) node[above] {$C_V^2$} ;
 	\draw [>=stealth, ->] (4-0.7,-4+1.3) -- (4-0.4,-4+.8) ;
-	\draw  (4-0.7,-4+1.3) node[left] {$C_V^1$} ;
+	\draw  (4-0.7,-4+1.3) node[above] {$C_V^1$} ;
 	\draw [>=stealth, ->] (4+1.3,-4+0.5) -- (4+0.8,-4+0.4) ;
 	\draw  (4+1.3,-4+.5) node[right] {$C_{I}^2$} ;
 	\draw [>=stealth, ->] (4+1.3,-4-0.7) -- (4+0.8,-4-0.4) ;
@@ -362,7 +407,7 @@ On construit la Cubed-Sphère associée à une base orthogonale de $\mathbb{R}^3
 	\draw [>=stealth, ->] (4,-4) -- (4,-4+1.4) ;
 	\draw  (4,-4+1.4) node[right] {$z$} ;
 	\draw [>=stealth, ->] (4,-4) -- (5.4,-4) ;
-	\draw  (5.4,-4) node[right] {$x$} ;
+	\draw  (5.4,-4) node[right] {$y$} ;
 	
 	\draw  (4,-4+1) node {$\bullet$} ;
 	\draw  (4-0.1,-4+1.15) node {$N$} ;
@@ -396,16 +441,16 @@ On construit la Cubed-Sphère associée à une base orthogonale de $\mathbb{R}^3
 	\draw [>=stealth, ->] (0.5,1.3-8) -- (0.4,0.8-8) ;
 	\draw  (0.5,1.3-8) node[above] {$C_I^1$} ;
 	\draw [>=stealth, ->] (-0.7,1.3-8) -- (-0.4,0.8-8) ;
-	\draw  (-0.7,1.3-8) node[left] {$C_I^2$} ;
+	\draw  (-0.7,1.3-8) node[above] {$C_I^2$} ;
 	\draw [>=stealth, ->] (1.3,0.5-8) -- (0.8,0.4-8) ;
 	\draw  (1.3,0.5-8) node[right] {$C_{II}^2$} ;
 	\draw [>=stealth, ->] (1.3,-0.7-8) -- (0.8,-0.4-8) ;
 	\draw  (1.3,-0.7-8) node[right] {$C_{II}^1$} ;
 	
 	\draw [>=stealth, ->] (0,0-8) -- (0,-1.4-8) ;
-	\draw  (0,-1.4-8) node[left] {$x$} ;
+	\draw  (0,-1.4-8) node[left] {$y$} ;
 	\draw [>=stealth, ->] (0,0-8) -- (1.4,0-8) ;
-	\draw  (1.4,0-8) node[right] {$y$} ;
+	\draw  (1.4,0-8) node[right] {$x$} ;
 	
 	\draw  (0,1-8) node {$\bullet$} ;
 	\draw  (-0.1,1.15-8) node {$B$} ;
@@ -438,16 +483,16 @@ On construit la Cubed-Sphère associée à une base orthogonale de $\mathbb{R}^3
 	\draw [>=stealth, ->] (4+0.5,1.3-8) -- (4+0.4,0.8-8) ;
 	\draw  (4+0.5,1.3-8) node[above] {$C_I^2$} ;
 	\draw [>=stealth, ->] (4-0.7,1.3-8) -- (4-0.4,0.8-8) ;
-	\draw  (4-0.7,1.3-8) node[left] {$C_I^1$} ;
+	\draw  (4-0.7,1.3-8) node[above] {$C_I^1$} ;
 	\draw [>=stealth, ->] (4+1.3,0.5-8) -- (4+0.8,0.4-8) ;
 	\draw  (4+1.3,0.5-8) node[right] {$C_{II}^1$} ;
 	\draw [>=stealth, ->] (4+1.3,-0.7-8) -- (4+0.8,-0.4-8) ;
 	\draw  (4+1.3,-0.7-8) node[right] {$C_{II}^2$} ;
 	
 	\draw [>=stealth, ->] (4,0-8) -- (4,1.4-8) ;
-	\draw  (4,1.4-8) node[right] {$x$} ;
+	\draw  (4,1.4-8) node[right] {$y$} ;
 	\draw [>=stealth, ->] (4,0-8) -- (4+1.4,0-8) ;
-	\draw  (4+1.4,0-8) node[right] {$y$} ;
+	\draw  (4+1.4,0-8) node[right] {$x$} ;
 	
 	\draw  (4,1-8) node {$\bullet$} ;
 	\draw  (4-0.1,1.15-8) node {$F$} ;
@@ -472,6 +517,87 @@ On construit la Cubed-Sphère associée à une base orthogonale de $\mathbb{R}^3
 \label{fig: panel I to VI}
 \end{figure}
 
+La grille Cubed-Sphere est basée sur l'intersection d'un ensemble de grands cercles pour chaque panel. On commence par introduire le système de coordonnées $(\xi,\eta)$ associés aux cercles centraux de chaque panel. $\xi$ et  $\eta$ sont définis comme il suit :
+
+\begin{itemize}
+\item Les courbes $\xi = 0$ et $\eta = 0$ sont les grands cercles de référence. Notés respectivement $C_0^{(1)}$ et $C_0^{(2)}$ (en pointillés gras sur la Figure sur \ref{fig: panel I xi eta} et sur \ref{fig: panel I}). Pour le panel I, $C_0^{(1)}$ est le grands cercle passant par les points $N$ et $S$, il coupe orthogonalement $C_0^{(2)}$ qui est le grand cercle passant par $W$ et $E$,
+
+\item $\xi$ est l'angle géodésique mesuré sur $C_0^{(2)}$ et $\eta$ l'angle géodésique mesuré sur $C_0^{(1)}$,
+
+\item si $M$ est un point d'un panel, il est localisé de grâce aux angles géodésiques $\xi$ et $\eta$  (voir Figure \ref{fig: panel I xi eta}),
+
+\item un panel est définit pour :
+\begin{equation}
+- \dfrac{\pi}{4} \leq \xi\text{, }\eta \leq \dfrac{\pi}{4},
+\end{equation}
+\end{itemize}
+
+Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudinale de $2 \pi$, on peut donc insérer 4 panels notés $I$, $II$, $III$ et $IV$. De même, le long de $C_0^{(1)}$, sont présents les panels $I$, $V$, $III$ et $VI$.
+
+    
+
+\begin{figure}[ht]
+\begin{center}
+\begin{tikzpicture}[scale=2.2]
+    \draw[>=stealth, ->,color=green, domain=-79:-68] plot({1.05*cos(\x)},{0.2*sin(\x)});
+    \draw[color=green] (.45,-.3) node{$\xi$} ;
+    \draw[>=stealth, ->,color=red, domain=-7:35] plot({0.1*cos(\x)},{0.95*sin(\x)});
+    \draw[color=red] (0,0.2) node{$\eta$} ;
+
+	\draw [dashed, line width=0.8pt, samples=100, domain=-180:0] plot({cos(\x)},{0.15*sin(\x)});
+	\draw [dashed, line width=0.8pt, samples=100,domain=-90:90] plot({0.15*cos(\x)},{sin(\x)});
+	\draw [>=stealth, ->] (1.3,-.35) -- (0.8,-0.1) ;
+	\draw  (1.5,-.35) node {$C_0^{(2)}$} ;
+	\draw [>=stealth, ->] (0.35,1.3) -- (0.1,0.8) ;
+	\draw  (.45,1.45) node {$C_0^{(1)}$} ;
+    
+    
+	\draw [samples=100, domain=-180:0, color=gray] plot({cos(\x)},{-0.55*sin(\x)});
+	\draw [samples=100, domain=-90:90, color=gray] plot({0.4*cos(\x)},{sin(\x)});
+	\draw (.34,0.51) node {$\bullet$} ;
+	\draw (.34,0.51) node[right]{$\mathbf{M}$} ;
+	
+	\draw (1,0) node {$\bullet$} ;
+	\draw (1,0) node[above right]{$E$} ;
+	\draw (-1,0) node {$\bullet$} ;
+	\draw (-1,0) node[above left]{$W$} ;
+	\draw (0,1) node {$\bullet$} ;
+	\draw (0,1) node[above left]{$N$} ;
+	\draw (0,-1) node {$\bullet$} ;
+	\draw (0,-1) node[below left]{$S$} ;
+	\draw (.15,-0.15) node {$\bullet$} ;
+	\draw (.15,-0.15) node[below left]{$F$} ;
+	\draw (0,0) node {$\bullet$} ;
+	\draw (0,0) node[left]{$0$} ;
+	
+	\draw [>=stealth, ->] (0,0) -- (0,1.4) ;
+	\draw  (0,1.4) node[right] {$y$} ;
+	\draw [>=stealth, ->] (0,0) -- (1.4,0) ;
+	\draw  (1.4,0) node[right] {$z$} ;
+	\draw [>=stealth, ->] (0,0) -- (.8,-0.8) ;
+	\draw  (.8,-0.8) node[right] {$x$} ;
+	
+	
+    \draw (0,0) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
+\end{tikzpicture}
+\end{center}
+\caption{Sur un panel, un point $\mathbf{M}$ est localisé par $\xi$ et $\eta$.}
+\label{fig: panel I xi eta}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -481,54 +607,56 @@ On construit la Cubed-Sphère associée à une base orthogonale de $\mathbb{R}^3
 
 
 %\begin{figure}[ht]
-%\begin{center}
-%\begin{tikzpicture}[scale=2.2]
-%	%\draw [color=gray] (-1.5,-1.5) grid[step=0.1] (1.5,1.5);
-%	\draw [samples=100,domain=180:-180] plot({cos(\x)},{0*sin(\x)});
-%	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.1*sin(\x)});
-%	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.2*sin(\x)});
-%	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.3*sin(\x)});
-%	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.4*sin(\x)});
-%	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.5*sin(\x)});
-%	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.6*sin(\x)});
-%	\draw [samples=100,domain=180:-180] plot({cos(\x)},{0.7*sin(\x)});
-%	\draw [samples=100,domain=180:-180] plot({0*cos(\x)},{sin(\x)});
-%	\draw [samples=100,domain=180:-180,color=gray] plot({0.1*cos(\x)},{sin(\x)});
-%	\draw [samples=100,domain=180:-180,color=gray] plot({0.2*cos(\x)},{sin(\x)});
-%	\draw [samples=100,domain=180:-180,color=gray] plot({0.3*cos(\x)},{sin(\x)});
-%	\draw [samples=100,domain=180:-180,color=gray] plot({0.4*cos(\x)},{sin(\x)});
-%	\draw [samples=100,domain=180:-180,color=gray] plot({0.5*cos(\x)},{sin(\x)});
-%	\draw [samples=100,domain=180:-180,color=gray] plot({0.6*cos(\x)},{sin(\x)});
-%	\draw [samples=100,domain=180:-180] plot({0.7*cos(\x)},{sin(\x)}); 
-%	
-%	\draw [>=stealth, ->] (1.3,-.35) -- (0.8,-0) ;
-%	\draw  (1.5,-.35) node {$C_0^{(2)}$} ;
-%	\draw [>=stealth, ->] (0.35,1.3) -- (0,0.8) ;
-%	\draw  (0.45,1.45) node {$C_0^{(1)}$} ;
-%	\draw  (0,1) node {$\bullet$} ;
-%	\draw  (-0.1,1.15) node {$N$} ;
-%	\draw  (0,-1) node {$\bullet$} ;
-%	\draw  (-0.1,-1.15) node {$S$} ;
-%	\draw  (1,0) node {$\bullet$} ;
-%	\draw  (1.15,0) node {$E$} ;
-%	\draw  (-1,0) node {$\bullet$} ;
-%	\draw  (-1.15,0) node {$W$} ;
-%
-%	\draw (0,0) circle (1cm);
-%    \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
-%\end{tikzpicture}
-%\end{center}
-%\caption{Le panel I est constitué des points d'intersection d'un ensemble de grands cercles.}
-%\label{fig: panel I}
-%\end{figure}
+\begin{center}
+\begin{tikzpicture}[scale=2.2]
+	%\draw [color=gray] (-2.5,-2.5) grid[step=0.1] (2.5,2.5);
+	\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot [smooth,domain=-35:35] ({0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=55:125] ({cos(\x)},{0.7*sin(\x)})
+	-- plot [smooth,domain=140:215] ({0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=230:305] ({cos(\x)},{0.7*sin(\x)})
+	-- cycle;	
+	
+	\draw [dashed, line width=0.8pt, samples=100,domain=180:-180] plot({cos(\x)},{0*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.1*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.2*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.3*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.4*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.5*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray] plot({cos(\x)},{0.6*sin(\x)});
+	\draw [samples=100,domain=180:-180] plot({cos(\x)},{0.7*sin(\x)});
+	\draw [dashed, line width=0.8pt, samples=100,domain=180:-180] plot({0*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray] plot({0.1*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray] plot({0.2*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray] plot({0.3*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray] plot({0.4*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray] plot({0.5*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray] plot({0.6*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180] plot({0.7*cos(\x)},{sin(\x)}); 
+	
+	\draw [>=stealth, ->] (1.3,-.35) -- (0.8,-0) ;
+	\draw  (1.5,-.35) node {$C_0^{(2)}$} ;
+	\draw [>=stealth, ->] (0.35,1.3) -- (0,0.8) ;
+	\draw  (0.45,1.45) node {$C_0^{(1)}$} ;
+	\draw  (0,1) node {$\bullet$} ;
+	\draw  (-0.1,1.15) node {$N$} ;
+	\draw  (0,-1) node {$\bullet$} ;
+	\draw  (-0.1,-1.15) node {$S$} ;
+	\draw  (1,0) node {$\bullet$} ;
+	\draw  (1.15,0) node {$E$} ;
+	\draw  (-1,0) node {$\bullet$} ;
+	\draw  (-1.15,0) node {$W$} ;
 
-
-
-
-
-
-
-
+	\draw (0,0) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
+    
+    \draw  (-1.4,0) node[rotate=90] {$ C_j^{(2)}\text{ avec }-N/2\leq j \leq N/2$} ;
+    \draw  (0,-1.4) node {$ C_i^{(1)}\text{ avec }-N/2\leq i \leq N/2$} ;
+\end{tikzpicture}
+\end{center}
+\caption{Le panel I est constitué des points d'intersection d'un ensemble de grands cercles. Sur un panel, un point $\mathbf{M}$ est localisé par $\xi$ et $\eta$.}
+\label{fig: panel I}
+\end{figure}  
 
 \section{Coordonnées Gnomoniques}
 
