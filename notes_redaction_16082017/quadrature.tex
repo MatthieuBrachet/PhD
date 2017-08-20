@@ -206,7 +206,39 @@ Pour $S_I$, on souhaite utiliser les symétries selon $(Oz)$ et $(Oy)$. On nomme
 
 \begin{figure}
 \begin{center}
-\begin{tikzpicture}[scale=1.5]
+\begin{tikzpicture}[scale=2]
+\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot (-1,0)
+	-- plot (-1,1)
+	-- plot (0,1)
+	-- plot (0,0)
+	-- cycle;	
+\draw (-0.5,0.5) node{$S_1$} ;
+
+\filldraw[draw=black,fill=red!30!white,opacity=0.20]
+	plot (0,0)
+	-- plot (0,1)
+	-- plot (1,1)
+	-- plot (1,0)
+	-- cycle;	
+\draw (-0.5,-0.5) node{$S_2$} ;
+
+\filldraw[draw=black,fill=green!30!white,opacity=0.20]
+	plot (0,0)
+	-- plot (1,0)
+	-- plot (1,-1)
+	-- plot (0,-1)
+	-- cycle;	
+\draw (0.5,-0.5) node{$S_3$} ;
+
+\filldraw[draw=black,fill=Sepia!30!white,opacity=0.20]
+	plot (0,0)
+	-- plot (0,-1)
+	-- plot (-1,-1)
+	-- plot (-1,0)
+	-- cycle;	
+\draw (0.5,0.5) node{$S_4$} ;
+
 \draw (-1,-1) -- (1,-1) ;
 \draw (-1,1) -- (1,1) ;
 \draw (1,1) -- (1,-1) ;
@@ -215,10 +247,6 @@ Pour $S_I$, on souhaite utiliser les symétries selon $(Oz)$ et $(Oy)$. On nomme
 \draw (2.1,0.25) node[below]{$(Oy)$} ;
 \draw [>=stealth, ->](0,-1.5) -- (0,1.5) ;
 \draw (0,2.1) node[below]{$(Oz)$} ;
-\draw (-0.5,0.5) node{$S_1$} ;
-\draw (-0.5,-0.5) node{$S_2$} ;
-\draw (0.5,-0.5) node{$S_3$} ;
-\draw (0.5,0.5) node{$S_4$} ;
 \end{tikzpicture}
 \end{center}
 \caption{Représentation schématique des zones $S_1$ à $S_4$ sur le panel I}
@@ -247,7 +275,20 @@ En ce qui concerne $S_V$, on nomme $S_a$ et $S_b$ les parties de la somme $S_V$ 
 
 \begin{figure}
 \begin{center}
-\begin{tikzpicture}[scale=1.5]
+\begin{tikzpicture}[scale=2]
+\filldraw[draw=black,fill=red!30!white,opacity=0.20]
+	plot (-1,-1)
+	-- plot (-1,1)
+	-- plot (0,1)
+	-- plot (0,-1)
+	-- cycle;	
+\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot (0,1)
+	-- plot (1,1)
+	-- plot (1,-1)
+	-- plot (0,-1)
+	-- cycle;	
+
 \draw (-1,-1) -- (1,-1) ;
 \draw (-1,1) -- (1,1) ;
 \draw (1,1) -- (1,-1) ;
