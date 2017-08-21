@@ -240,10 +240,12 @@ Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig
 \begin{itemize}
 \item Le panel I est délimité par le cercle $C_V^1 = Vect(\mathbf{i}-\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$ et le cercle $C_V^2 = Vect(\mathbf{i}+\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$ ainsi que les cercles $C_{II}^1 = Vect(\mathbf{i}+\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$ et $C_{II}^2 = Vect(\mathbf{i}-\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$. Il ne contient que des points $\mathbf{x}=(x,y,z) \in \mathbb{S}_a^2 \subset \mathbb{R}^3$ vérifiant $x>0$. Le panel III est délimité par les mêmes cercles mais avec des points d'abscisse négative : $x<0$.
 \item Le panel II est délimité par $C_V^2$ et $C_V^1$ ainsi que $C_I^1=Vect(\mathbf{j}+\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$ et $C_I^2=Vect(\mathbf{j}-\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$. Il est constitué de points $\mathbf{x} \in \mathbb{S}_a^2$ tels que $y>0$. Le panel IV est son symétrique, délimité par les mêmes cercles, avec $y<0$.
-\item Le panel V est délimité par les cercles $C_I^1$, $C_I^2$, $C_II^1$ et $C_II^2$. Les points $\mathbf{x} = (x,y,z) \in \mathbb{S}_a^2$ qui le constituent sont tels que $z>0$. Son symétrique, le panel VI, est composé de points tels que $z<0$.
+\item Le panel V est délimité par les cercles $C_I^1$, $C_I^2$, $C_{II}^1$ et $C_{II}^2$. Les points $\mathbf{x} = (x,y,z) \in \mathbb{S}_a^2$ qui le constituent sont tels que $z>0$. Son symétrique, le panel VI, est composé de points tels que $z<0$.
+
+
 \end{itemize}
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \begin{tikzpicture}[scale=2]
 	%\draw [color=gray] (-1.5,-1.5) grid[step=0.1] (1.5,1.5);
@@ -276,7 +278,7 @@ Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig
 	\draw [>=stealth, ->] (0,0) -- (0,1.4) ;
 	\draw  (0,1.4) node[right] {$z$} ;
 	\draw [>=stealth, ->] (0,0) -- (1.4,0) ;
-	\draw  (1.4,0) node[right] {$x$} ;
+	\draw  (1.4,0) node[right] {$y$} ;
 	
 	\draw  (0,1) node {$\bullet$} ;
 	\draw  (-0.1,1.15) node {$N$} ;
@@ -319,7 +321,7 @@ Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig
 	\draw [>=stealth, ->] (4,0) -- (4,1.4) ;
 	\draw  (4,1.4) node[right] {$z$} ;
 	\draw [>=stealth, ->] (4,0) -- (4-1.4,0) ;
-	\draw  (4-1.4,0) node[left] {$y$} ;
+	\draw  (4-1.4,0) node[left] {$x$} ;
 	
 	\draw  (4,1) node {$\bullet$} ;
 	\draw  (4-0.1,1.15) node {$N$} ;
@@ -364,7 +366,7 @@ Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig
 	\draw [>=stealth, ->] (0,-4) -- (0,-4+1.4) ;
 	\draw  (0,-4+1.4) node[right] {$z$} ;
 	\draw [>=stealth, ->] (0,-4) -- (-1.4,-4) ;
-	\draw  (-1.4,-4) node[left] {$x$} ;
+	\draw  (-1.4,-4) node[left] {$y$} ;
 	
 	\draw  (0,-4+1) node {$\bullet$} ;
 	\draw  (-0.1,-4+1.15) node {$N$} ;
@@ -407,7 +409,7 @@ Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig
 	\draw [>=stealth, ->] (4,-4) -- (4,-4+1.4) ;
 	\draw  (4,-4+1.4) node[right] {$z$} ;
 	\draw [>=stealth, ->] (4,-4) -- (5.4,-4) ;
-	\draw  (5.4,-4) node[right] {$y$} ;
+	\draw  (5.4,-4) node[right] {$x$} ;
 	
 	\draw  (4,-4+1) node {$\bullet$} ;
 	\draw  (4-0.1,-4+1.15) node {$N$} ;
@@ -448,9 +450,9 @@ Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig
 	\draw  (1.3,-0.7-8) node[right] {$C_{II}^1$} ;
 	
 	\draw [>=stealth, ->] (0,0-8) -- (0,-1.4-8) ;
-	\draw  (0,-1.4-8) node[left] {$y$} ;
+	\draw  (0,-1.4-8) node[left] {$x$} ;
 	\draw [>=stealth, ->] (0,0-8) -- (1.4,0-8) ;
-	\draw  (1.4,0-8) node[right] {$x$} ;
+	\draw  (1.4,0-8) node[right] {$y$} ;
 	
 	\draw  (0,1-8) node {$\bullet$} ;
 	\draw  (-0.1,1.15-8) node {$B$} ;
@@ -490,9 +492,9 @@ Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig
 	\draw  (4+1.3,-0.7-8) node[right] {$C_{II}^2$} ;
 	
 	\draw [>=stealth, ->] (4,0-8) -- (4,1.4-8) ;
-	\draw  (4,1.4-8) node[right] {$y$} ;
+	\draw  (4,1.4-8) node[right] {$x$} ;
 	\draw [>=stealth, ->] (4,0-8) -- (4+1.4,0-8) ;
-	\draw  (4+1.4,0-8) node[right] {$x$} ;
+	\draw  (4+1.4,0-8) node[right] {$y$} ;
 	
 	\draw  (4,1-8) node {$\bullet$} ;
 	\draw  (4-0.1,1.15-8) node {$F$} ;
@@ -510,17 +512,18 @@ Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig
 	\draw (4,0-8) circle (1cm);
     \shade[ball color=blue!10!white,opacity=0.20] (4,0-8) circle (1cm);
 \end{tikzpicture}
-
-
 \end{center}
 \caption{Délimitations des panels I à VI à l'aide des grands cercles}
 \label{fig: panel I to VI}
 \end{figure}
 
-La grille Cubed-Sphere est basée sur l'intersection d'un ensemble de grands cercles pour chaque panel. On commence par introduire le système de coordonnées $(\xi,\eta)$ associés aux cercles centraux de chaque panel. $\xi$ et  $\eta$ sont définis comme il suit :
+
+
+
+La grille Cubed-Sphere est constituée de l'intersection d'un ensemble de grands cercles pour chaque panel. On commence par introduire le système de coordonnées $(\xi,\eta)$ associés aux cercles centraux de chaque panel. $\xi$ et  $\eta$ sont définis comme il suit :
 
 \begin{itemize}
-\item Les courbes $\xi = 0$ et $\eta = 0$ sont les grands cercles de référence. Notés respectivement $C_0^{(1)}$ et $C_0^{(2)}$ (en pointillés gras sur la Figure sur \ref{fig: panel I xi eta} et sur \ref{fig: panel I}). Pour le panel I, $C_0^{(1)}$ est le grands cercle passant par les points $N$ et $S$, il coupe orthogonalement $C_0^{(2)}$ qui est le grand cercle passant par $W$ et $E$,
+\item Les courbes $\xi = 0$ et $\eta = 0$ sont les grands cercles de référence, notés respectivement $C_0^{(1)}$ et $C_0^{(2)}$ (en pointillés gras sur la Figure sur \ref{fig: panel I xi eta} et sur \ref{fig: panel I}). Pour le panel I, $C_0^{(1)}$ est le grand cercle passant par les points $N$ et $S$, il coupe orthogonalement $C_0^{(2)}$ qui est le grand cercle passant par $W$ et $E$,
 
 \item $\xi$ est l'angle géodésique mesuré sur $C_0^{(2)}$ et $\eta$ l'angle géodésique mesuré sur $C_0^{(1)}$,
 
@@ -530,18 +533,22 @@ La grille Cubed-Sphere est basée sur l'intersection d'un ensemble de grands cer
 \begin{equation}
 - \dfrac{\pi}{4} \leq \xi\text{, }\eta \leq \dfrac{\pi}{4},
 \end{equation}
+
+\item Soit $\mathbf{s}_{i,j}$ est un point du panel $K$, c'est un point du maillage si il est localisé grâce à ses coordonnées $(\xi_i, \eta_j)$ données par :
+\begin{equation}
+\xi_i = i \Delta \xi \text{ et } \eta_j = j \Delta \eta \text{ avec } -\dfrac{N}{2} \leq i,j \leq \dfrac{N}{2},
+\end{equation}
+dans ce qui suit, nous supposerons $N$ pair. $\Delta \xi$ et $\Delta \eta$ représentent le pas séparant régulièrement les grands les points dans le système de coordonnées $(\xi, \eta)$. 
 \end{itemize}
 
 Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudinale de $2 \pi$, on peut donc insérer 4 panels notés $I$, $II$, $III$ et $IV$. De même, le long de $C_0^{(1)}$, sont présents les panels $I$, $V$, $III$ et $VI$.
 
-    
-
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \begin{tikzpicture}[scale=2.2]
-    \draw[>=stealth, ->,color=green, domain=-79:-68] plot({1.05*cos(\x)},{0.2*sin(\x)});
+    \draw[>=stealth, ->, samples=100, color=green, domain=-79:-68] plot({1.05*cos(\x)},{0.2*sin(\x)});
     \draw[color=green] (.45,-.3) node{$\xi$} ;
-    \draw[>=stealth, ->,color=red, domain=-7:35] plot({0.1*cos(\x)},{0.95*sin(\x)});
+    \draw[>=stealth, ->, samples=100, color=red, domain=-7:35] plot({0.1*cos(\x)},{0.95*sin(\x)});
     \draw[color=red] (0,0.2) node{$\eta$} ;
 
 	\draw [dashed, line width=0.8pt, samples=100, domain=-180:0] plot({cos(\x)},{0.15*sin(\x)});
@@ -587,26 +594,11 @@ Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudina
 \end{figure}
 
 
+Dans ce cadre, on note $C^{(1)}_i$ le grand cercle obtenu par rotation de $C^{(1)}_0$ d'un angle géodésique $i \Delta \xi$ autour de l'axe $(Oz)$ et $C^{(2)}_j$ le cercle obtenu par rotation de $C^{(2)}_0$ d'angle $j \Delta \eta$ autour de $(Oy)$.
 
+Le maillage associé au panel I est constitué des points d'intersection des $N+1$ cercles $( C_i^{(1)} )_{-N/2 \leq i \leq N/2}$ et des $N+1$ cercles $(C_j^{(2)})_{-N/2 \leq i \leq N/2}$ (Voir figure \ref{fig: panel I}). Il y a donc $(N+1)^2$ points d'intersection sur un panel.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \begin{tikzpicture}[scale=2.2]
 	%\draw [color=gray] (-2.5,-2.5) grid[step=0.1] (2.5,2.5);
@@ -657,6 +649,61 @@ Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudina
 \caption{Le panel I est constitué des points d'intersection d'un ensemble de grands cercles.}
 \label{fig: panel I}
 \end{figure}  
+
+En reproduisant le procédé pour chaque panel, on constitue la Cubed-Sphere associée à la base $(\mathbf{i},\mathbf{j},\mathbf{k})$ et de paramètre $N$.
+
+\begin{definition}
+La Cubed-Sphere est une grille de la sphère $\mathbb{S}_a^2$. Elle est constituée d'une partition de la sphère en 6 panels identiques notés panel I (Front), II (East), III (Bottom), IV (West), V (North) et VI (South). Chaque panel est équipé de son propre système de coordonnées :
+\begin{equation}
+\left( \xi^{(k)}, \eta^{(k)} \right) \text{, } -\dfrac{\pi}{4} \leq \xi^{(k)}, \eta^{(k)} \leq \dfrac{\pi}{4} \text{, } I \leq k \leq VI.
+\end{equation}
+Les points de la Cubed-Sphère sont notés $\mathbf{s}_{i,j}^{(k)}$. Ils ont pour coordonnées $\left( \xi_i^{(k)}, \eta_j^{(k)}  \right)$ avec :
+\begin{equation}
+\xi_i^{(k)} = i \Delta \xi \text{, } \eta_j^{(k)} = j \Delta \eta \text{, } -N/2 \leq i, j \leq N/2 \text{ et } I \leq k \leq VI,
+\end{equation}
+où le pas de discrétisation est :
+\begin{equation}
+\Delta \xi = \Delta \eta = \dfrac{\pi}{2 N}.
+\end{equation}
+\end{definition}
+
+Les points $\mathbf{s}_{i,j}^{(k)}$ de chaque panel se divisent en 3 catégories :
+\begin{itemize}
+\item Les points intérieurs si :
+\begin{equation}
+- \dfrac{N}{2}+1 \leq i,j \leq \dfrac{N}{2}-1
+\end{equation}
+Ils sont au nombre de $(N-1)^2$ par panel.
+\item Les $4(N-1)$ points de bords de chaque panel, si :
+\begin{equation}
+\left[ j=\pm \dfrac{N}{2} \text{ et } - \dfrac{N}{2}+1 \leq i \leq \dfrac{N}{2}-1 \right] \text{ ou } \left[ i=\pm \dfrac{N}{2} \text{ et } - \dfrac{N}{2}+1 \leq j \leq \dfrac{N}{2}-1 \right]
+\end{equation}
+\item Les $4$ points de coins si :
+\begin{equation}
+i, j = \pm \dfrac{N}{2}
+\end{equation}
+\end{itemize}
+
+\begin{proposition}
+La Cubed-Sphere est composée de $6N^2 +2$ points.
+\end{proposition}
+
+\begin{proof}
+Il y a 6 intérieurs de panels de $(N-1)^2$ points, 12 arrêtes de $N-1$ points et 8 sommets. Ainsi le nombre de points sur la Cubed-Sphere est :
+$$
+6 (N-1)^2 + 12 (N-1)+8=6N^2+2
+$$
+\end{proof}
+
+
+
+
+
+
+
+
+
+
 
 \section{Coordonnées Gnomoniques}
 

@@ -38,7 +38,7 @@ snapshot='yes';
 nrm='int';
 
 n=79; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=60;
+ndaymax=40;
 mod101
 disp('mod74 : ok')
 
