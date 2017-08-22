@@ -384,7 +384,7 @@ while t<Tmax && iter<itermax
     % snapshot
     if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(14*ddt))) == 0
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
-        close all;
+        clf;
         
         [vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=...
             vort101(vt_fI, vt_fII, vt_fIII, vt_fIV, vt_fV, vt_fVI,n,nn);

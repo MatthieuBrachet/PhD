@@ -1,6 +1,6 @@
 % CS.tex
 
-\chapter{Grille Cubed-Sphère}
+55\chapter{Grille Cubed-Sphère}
 
 \section{Définition géométrique de la Cubed-Sphère}
 
@@ -587,6 +587,61 @@ Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudina
 	
     \draw (0,0) circle (1cm);
     \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
+    
+    
+    
+    
+    
+    
+    \filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot [smooth,domain=-35:35] ({4+0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=55:125] ({4+cos(\x)},{0.7*sin(\x)})
+	-- plot [smooth,domain=140:215] ({4+0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=230:305] ({4+cos(\x)},{0.7*sin(\x)})
+	-- cycle;	
+	
+	\draw [dashed, line width=0.8pt, samples=100,domain=180:-180] plot({4+cos(\x)},{0*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({4+cos(\x)},{0.1*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({4+cos(\x)},{0.2*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({4+cos(\x)},{0.3*sin(\x)});
+	\draw [samples=100,domain=180:0,color=gray!120] plot({4+cos(\x)},{0.4*sin(\x)});
+	\draw [samples=100,domain=0:-180,color=gray!40] plot({4+cos(\x)},{0.4*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({4+cos(\x)},{0.5*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({4+cos(\x)},{0.6*sin(\x)});
+	\draw [samples=100,domain=180:-180] plot({4+cos(\x)},{0.7*sin(\x)});
+	\draw [dashed, line width=0.8pt, samples=100,domain=180:-180] plot({4+0*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({4+0.1*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({4+0.2*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=-90:90,color=gray!120] plot({4+0.3*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=90:270,color=gray!40] plot({4+0.3*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({4+0.4*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({4+0.5*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({4+0.6*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180] plot({4+0.7*cos(\x)},{sin(\x)}); 
+	
+	\draw [>=stealth, ->] (5.3,-.35) -- (4.8,-0) ;
+	\draw  (5.5,-.35) node {$C_0^{(2)}$} ;
+	\draw [>=stealth, ->] (4.35,1.3) -- (4,0.8) ;
+	\draw  (4.45,1.45) node {$C_0^{(1)}$} ;
+	\draw  (4,1) node {$\bullet$} ;
+	\draw  (3.9,1.15) node {$N$} ;
+	\draw  (4,-1) node {$\bullet$} ;
+	\draw  (3.9,-1.15) node {$S$} ;
+	\draw  (5,0) node {$\bullet$} ;
+	\draw  (5.15,0) node {$E$} ;
+	\draw  (3,0) node {$\bullet$} ;
+	\draw  (4-1.15,0) node {$W$} ;
+	
+	\draw  (4.27,0.38) node {$\bullet$} ;
+	\draw  (4.27,0.38) node[right] {$\mathbf{M}$} ;
+	\draw [>=stealth, ->, color=green] (4,-0.05) -- (4.3,-0.05) ;
+	\draw  (4.15,-0.05) node[color=green, below] {$\xi$} ;
+	\draw [>=stealth, ->, color=red] (3.95,0) -- (3.95,0.4) ;
+	\draw  (3.95,0.2) node[color=red, left] {$\eta$} ;
+
+	\draw (4,0) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (4,0) circle (1cm);  
+   
 \end{tikzpicture}
 \end{center}
 \caption{Sur un panel, un point $\mathbf{M}$ est localisé par $\xi$ et $\eta$.}
@@ -644,6 +699,7 @@ Le maillage associé au panel I est constitué des points d'intersection des $N+
     
     \draw  (-1.4,0) node[rotate=90] {$ C_j^{(2)}\text{ avec }-N/2\leq j \leq N/2$} ;
     \draw  (0,-1.4) node {$ C_i^{(1)}\text{ avec }-N/2\leq i \leq N/2$} ;
+
 \end{tikzpicture}
 \end{center}
 \caption{Le panel I est constitué des points d'intersection d'un ensemble de grands cercles.}
@@ -707,7 +763,272 @@ $$
 
 \section{Coordonnées Gnomoniques}
 
+On considère un cube inscrit dans la Sphère $\mathbb{S}_a^2$. Le demi côté de ce cube mesure $R=\frac{\sqrt{3}}{6}a$. Chaque face du cube est donnée par :
+\begin{itemize}
+\item la face centrée sur $F'=(R,0,0)$ : 
+\begin{equation}
+\left\lbrace
+\mathbf{x}' = (R,y',z') \in \mathbb{R}^3 \text{ tels que } -R  \leq y',z' \leq R
+\right\rbrace
+\end{equation}
 
+\item la face centrée sur $B'=(-R,0,0)$ : 
+\begin{equation}
+\left\lbrace
+\mathbf{x}' = (-R,y',z') \in \mathbb{R}^3 \text{ tels que } -R  \leq y',z' \leq R
+\right\rbrace
+\end{equation}
+
+\item la face centrée sur $E'=(0,R,0)$ : 
+\begin{equation}
+\left\lbrace
+\mathbf{x}' = (x',R,z') \in \mathbb{R}^3 \text{ tels que } -R  \leq x',z' \leq R
+\right\rbrace
+\end{equation}
+
+\item la face centrée sur $W'=(0,-R,0)$ : 
+\begin{equation}
+\left\lbrace
+\mathbf{x}' = (x',-R,z') \in \mathbb{R}^3 \text{ tels que } -R  \leq x',z' \leq R
+\right\rbrace
+\end{equation}
+
+\item la face centrée sur $N'=(0,0,R)$ : 
+\begin{equation}
+\left\lbrace
+\mathbf{x}' = (x',y',R) \in \mathbb{R}^3 \text{ tels que } -R  \leq x',y' \leq R
+\right\rbrace
+\end{equation}
+
+\item la face centrée sur $S'=(0,0,-R)$ : 
+\begin{equation}
+\left\lbrace
+\mathbf{x}' = (x',y',-R) \in \mathbb{R}^3 \text{ tels que } -R  \leq x',y' \leq R
+\right\rbrace
+\end{equation}
+\end{itemize}
+
+$F$ est la projection gnomonique de $F'$ sur la sphère $\mathbb{S}_a^2$, $E$ celle de $E'$, ...
+Si l'on considère par exemple le panel I, un point $\mathbf{M'}=(x',y',z')$ de la face centré sur $F'$ est projeté en $\mathbf{M} = (x,y,z)$ un point du panel I (Voir figure \ref{fig: projection gnomonique}).
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{tikzpicture}[scale=1]
+	\draw [color=gray] (0,3) -- (0,-3) ;
+	\draw [color=gray] (0,-3) -- (5,-5) ;
+	\draw [color=gray] (5,-5) -- (5,1) ;
+	\draw [color=gray] (5,1) -- (0,3) ;
+	\draw [dashed, color=gray] (0,.25) -- (5,-1.75) ;
+	\draw [dashed, color=gray] (2.5,2) -- (2.5,-4) ;
+	
+	\draw [samples=100,domain=-70:70] plot({4.5+1.5*cos(\x)},{-2+3.2*sin(\x)});
+	\draw [samples=100,domain=-53:53] plot({-0.3+0.5*cos(\x)},{3.7*sin(\x)});
+	\draw [samples=100,domain=113.2:23.2] plot({1.5+sqrt(14.5)*cos(\x)},{-.5+sqrt(14.5)*sin(\x)});
+	\draw [samples=100,domain=-96.24:-127.41] plot({6.09+sqrt(100.46)*cos(\x)},{4.96+sqrt(100.46)*sin(\x)});
+	
+	\draw [shift={(1.39,-1.34)}] plot[domain=-0.12:1.48,variable=\t]({1*4.65*cos(\t r)+0*4.65*sin(\t r)},{0*4.65*cos(\t r)+1*4.65*sin(\t r)});
+	
+	
+	\draw [color=gray] (-4,-.5) -- (4.25,-0.8) ;
+	\draw  (2.5,-.75) node {$\bullet$} ;
+	\draw  (2.5,-.75) node[below right] {$F'$} ;
+	\draw  (4.25,-0.8) node {$\bullet$} ;
+	\draw  (4.25,-0.8) node[right] {$F$} ;
+	
+	\draw [dashed, line width=0.8pt, shift={(-0.74,-0.6)}] plot[domain=-0.86:0.86,variable=\t]({1*4.99*cos(\t r)+0*4.99*sin(\t r)},{0*4.99*cos(\t r)+1*4.99*sin(\t r)});
+	\draw [dashed, line width=0.8pt, shift={(0.16,-8.64)}] plot[domain=0.85:1.56,variable=\t]({1*8.84*cos(\t r)+0*8.84*sin(\t r)},{0*8.84*cos(\t r)+1*8.84*sin(\t r)});
+	
+	\draw [color=gray] (-4,-.5) -- (1.5,2) ;
+	\draw  (1.5,2) node {$\bullet$} ;
+	\draw  (1.5,2) node[above left] {$\textbf{M}$} ;
+	
+	\draw [dotted, line width=0.8pt, shift={(1.79,-2.8)}] plot[domain=0.62:1.89,variable=\t]({1*4.81*cos(\t r)+0*4.81*sin(\t r)},{0*4.81*cos(\t r)+1*4.81*sin(\t r)});
+	\draw [dotted, line width=0.8pt, shift={(-7.75,-0.98)}] plot[domain=-0.31:0.45,variable=\t]({1*9.72*cos(\t r)+0*9.72*sin(\t r)},{0*9.72*cos(\t r)+1*9.72*sin(\t r)});
+
+	\draw [color=gray] (-4,-.5) -- (1.9,0) ;
+	\draw [color=gray] (-4,-.5) -- (3.75,1.6) ;
+	
+	\draw  (.97,1.75) node {$\bullet$} ;
+	\draw  (.97,1.75) node[above left] {$\textbf{M}'$} ;
+	\draw [dotted, color=gray] (.965,1.85) -- (2.5,1.25) ;
+	\draw [dotted, color=gray] (.975,1.73) -- (.9,0) ;
+	
+	\draw  (-4,-.5) node {$\bullet$} ;
+	\draw  (-4,-.5) node[left] {$O$} ;
+	
+	\draw [>=stealth, ->] (-1.5,-.6) -- (-2.25,-.35) ;
+	\draw  (-1.7,-.35) node {$\xi$} ;
+	\draw [>=stealth, ->,domain=-2:15] plot({-4+3*cos(\x)},{-.5+3*sin(\x)});
+	\draw  (-1,-.25) node[right] {$\eta$} ;
+	
+	\draw [>=stealth, <-] (5.5,-1.6) -- (7,-1) ;
+	\draw  (7,-1) node[right] {$C_0^{(2)}$} ;
+	\draw [>=stealth, <-] (3,2.7) -- (4,3.5) ;
+	\draw  (4,3.5) node[above right] {$C_0^{(1)}$} ;
+	\draw [>=stealth, <-] (5,-3.5) -- (7,-2.5) ;
+	\draw  (7,-2.5) node[right] {Face du cube inscrit} ;
+
+\end{tikzpicture}
+\end{center}
+\caption{Projection gnomonique.}
+\label{fig: projection gnomonique}
+\end{figure}  
+
+On constate alors les relations suivantes :
+\begin{equation}
+\tan \xi = \dfrac{y'}{x'} = \dfrac{y}{x} \text{ et } \tan \eta = \dfrac{z'}{x'} = \dfrac{z}{x}
+\end{equation}
+
+Or $\mathbf{M}'$ est un point de la face du cube centrée en $\mathbf{M}'$, donc $x'=R=\frac{\sqrt{3}}{6}a$ :
+\begin{equation}
+\tan \xi = \dfrac{y'}{R} = \dfrac{y}{x} \text{ et } \tan \eta = \dfrac{z'}{R} = \dfrac{z}{x}
+\end{equation}
+
+Quel que soit la face, on pose $(X,Y)$ les coordonnées gnomoniques:
+\begin{equation}
+X:=\tan \xi \text{ et } Y:= \tan \eta
+\end{equation}
+
+Un point de la sphère est localisé de manière unique par sa face et ses coordonnées gnomoniques. Si on se donne $(X,Y)$ un couple de coordonnées gnomoniques du panel I, on a :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+x^2+y^2+z^2 & = & a^2\\
+X & = & \dfrac{y}{x} \\
+Y & = & \dfrac{z}{x}
+\end{array}
+\right.
+\end{equation}
+
+ainsi $x^2 \left( 1+X^2+Y^2 \right) = a^2$, d'où :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rclcl}
+x & = & \pm \dfrac{a}{\sqrt{1+X^2+Y^2}}& = & \dfrac{a}{\sqrt{1+X^2+Y^2}}\\
+y & = & xX &&\\
+z & = & xY &&
+\end{array}
+\right.
+\end{equation}
+
+le signe de $x$ est donné car $\mathbf{x}$ est un point du panel I qui ne contient que des points d'abscisse positive.
+
+De là, on peut dériver chaque donnée :
+
+\begin{equation}
+\dfrac{\partial y}{\partial \xi} = \dfrac{\partial x}{\partial \xi} X + x \dfrac{\partial X}{\partial \xi} = \dfrac{\partial x}{\partial \xi} X + x(1+X^2)
+\end{equation}
+
+\begin{equation}
+\dfrac{\partial z}{\partial \xi} = \dfrac{\partial x}{\partial \xi} Y + x \dfrac{\partial Y}{\partial \xi} = \dfrac{\partial x}{\partial \xi} Y
+\end{equation}
+
+Le calcul de ces dérivées dépend de $\dfrac{\partial x}{\partial \xi}$ :
+
+\begin{equation*}
+\begin{array}{rcl}
+0 & = & \dfrac{\partial}{\partial \xi} ( x^2+y^2+z^2) \\
+  & = & 2x\dfrac{\partial x}{\partial \xi} + 2y\dfrac{\partial y}{\partial \xi}+ 2z\dfrac{\partial z}{\partial \xi} \\
+  & = & x \dfrac{\partial x}{\partial \xi} ( 1 +X^2 + Y^2) + x^2 X (1+X^2)
+\end{array}
+\end{equation*}
+
+d'où, en posant $\delta = \sqrt{1+X^2+Y^2}$, sur le panel I :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial x}{\partial \xi} & = & -\dfrac{y(1+X^2)}{\delta^2}\\
+\dfrac{\partial y}{\partial \xi} & = & x \dfrac{1+X^2}{\delta^2} (1+Y^2)\\
+\dfrac{\partial z}{\partial \xi} & = & - \dfrac{yY(1+X^2)}{\delta^2}
+\end{array}
+\right.
+\end{equation}
+
+De la même manière, on a sur le panel I :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial x}{\partial \eta} & = & - z\dfrac{1+Y^2}{\delta^2}\\
+\dfrac{\partial y}{\partial \eta} & = & - zX\dfrac{1+Y^2}{\delta^2}\\
+\dfrac{\partial z}{\partial \eta} & = & - x(1+X^2) \dfrac{1+Y^2}{\delta^2}
+\end{array}
+\right.
+\end{equation}
+
+On en déduit la base sur le panel I $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$ donnée par :
+
+\begin{equation}
+\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+-y \\ x(1+Y^2) \\ -yY
+\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+-z \\ -zX \\ x(1+X^2)
+\end{pmatrix}
+\label{eq: base locale I}
+\end{equation}
+
+Des calculs similaires peuvent être effectuées sur les autres panels. Les résultats sont donnés dans le tableau \ref{tab: base g_xi g_eta}.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{equation*}
+\begin{array}{|c|c|}
+\hline
+\textbf{Panel} & \textbf{Base } \left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)\\
+
+\hline
+\hline
+I & \mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+-y \\ x(1+Y^2) \\ -yY
+\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+-z \\ -zX \\ x(1+X^2)
+\end{pmatrix} \\
+
+\hline
+II & \mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+-y(1+Y^2) \\ x \\ xY
+\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+zX \\ -z \\ y(1+X^2)
+\end{pmatrix} \\
+
+\hline
+III & \mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+-y \\ x(1+Y^2) \\ yY
+\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+-z \\ -zX \\ x(1+X^2)
+\end{pmatrix} \\
+
+\hline
+IV & \mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+-y(1+Y^2) \\ x \\ -xY
+\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+-zX \\ z \\ -y(1+X^2)
+\end{pmatrix} \\
+
+\hline
+V & \mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+-yY \\ z(1+Y^2) \\ -y
+\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+-z(1+X^2) \\ xX \\ x
+\end{pmatrix} \\
+
+\hline
+VI & \mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+-yY \\ -z(1+Y^2) \\ y
+\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+-z(1+X^2) \\ -xX \\ x
+\end{pmatrix}\\
+\hline
+
+\end{array}
+\end{equation*}
+\end{center}
+\caption{Bases $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$ sur chaque panel.}
+\label{tab: base g_xi g_eta}
+\end{table}
 
 
 
