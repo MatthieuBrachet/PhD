@@ -1060,7 +1060,7 @@ Si $\mathbf{x}$ est un point d'un panel $K$ de la Cubed-Sphère de coordonnées 
 \end{equation}
 Cette rotation est indépendante de $\xi$ et de $\eta$. Donc :
 \begin{equation}
-\mathbf{g'}_{\xi} = \dfrac{\partial}{\partial \xi} \left( R_f \mathbf{x} \right) = R_f \dfrac{\partial \mathbf{x}}{\partial \xi}  = \mathbf{g}_{\xi}
+\mathbf{g'}_{\xi} = \dfrac{\partial}{\partial \xi} \left( R_f \mathbf{x} \right) = R_f \dfrac{\partial \mathbf{x}}{\partial \xi}  = R_f \mathbf{g}_{\xi}
 \end{equation}
 De même, on a $\mathbf{g'}_{\eta} = R_f\mathbf{g}_{\eta}$.
 Ainsi, si $\mathbf{G}$ est la métrique en $\mathbf{x}$ et $\mathbf{G}'$ la métrique en $\mathbf{x}'$, on a :
@@ -1091,127 +1091,290 @@ R_f \mathbf{g}_{\eta} \cdot R_f \mathbf{g}_{\xi} & R_f \mathbf{g}_{\eta} \cdot R
 Donc la métrique $\mathbf{G}$ est invariante par changement de panel.
 \end{proof}
 
+Les calculs de produits scalaire se font facilement et donnent :
+
+\begin{equation}
+\mathbf{G} = \begin{pmatrix}
+G_{1,1} & G_{1,2} \\ G_{2,1} & G_{2,2}
+\end{pmatrix} 
+= a^2 \dfrac{(1+X^2)(1+Y^2)}{\delta^4} \begin{pmatrix}
+1+X^2 & -XY \\ -XY & 1+Y^2
+\end{pmatrix}
+\end{equation}
+
+qui s'inverse en :
+
+\begin{equation}
+\mathbf{G}^{-1} = \begin{pmatrix}
+G^{1,1} & G^{1,2} \\ G^{2,1} & G^{2,2}
+\end{pmatrix} = \dfrac{\delta^2}{a^2 (1+X^2)(1+Y^2)} \begin{pmatrix}
+1+Y^2 & XY \\ XY & 1+X^2
+\end{pmatrix}
+\label{eq: metrique inverse}
+\end{equation}
+
+La base duale $(\mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ sur le panel I est donnée par :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\mathbf{g}^{\xi} & = & G^{1,1} \mathbf{g}_{\xi} + G^{1,2} \mathbf{g}_{\eta} \\
+\mathbf{g}^{\eta} & = & G^{2,1} \mathbf{g}_{\eta} + G^{2,2} \mathbf{g}_{\eta}
+\end{array}
+\right.
+\end{equation}
+
+d'où :
+
+\begin{equation}
+\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{pmatrix}
+-X \\ 1 \\ 0
+\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{pmatrix}
+-Y \\ 0 \\ 1
+\end{pmatrix}
+\label{eq: base duale I}
+\end{equation}
+
+
+
+
+
+
 
 \begin{table}[htbp]
 \begin{center}
 %\rotatebox{90}{
 \begin{tabular}{|c|c|c|}
 \hline
-\textbf{Panel} & Coord. Gnomoniques $(X,Y)$ & \textbf{Base } $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$\\
+\textbf{Panel} & Coord. Gnomoniques $(X,Y)$ & \textbf{Bases } $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$ et $\left( \mathbf{g}^{\xi}, \mathbf{g}^{\eta} \right)$\\
 
 \hline
 \hline
-$I$ & $X=\dfrac{y}{x} \text{, } Y=\dfrac{z}{x}$ & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+\multirow{2}{*}[-.5cm]{$I$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{y}{x} \text{, } Y=\dfrac{z}{x}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -y \\ x(1+Y^2) \\ -yY
 \end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -z \\ -zX \\ x(1+X^2)
 \end{pmatrix}$ \\
 
+\cline{3-3}
+& &  $\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{pmatrix}
+-X \\ 1 \\ 0
+\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{pmatrix}
+-Y \\ 0 \\ 1
+\end{pmatrix}$ \\
 \hline
-$II$ & $X=-\dfrac{x}{y} \text{, } Y=\dfrac{z}{y}$ & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+\hline
+\multirow{2}{*}[-.5cm]{$II$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{x}{y} \text{, } Y=\dfrac{z}{y}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -y(1+Y^2) \\ x \\ xY
-\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+\end{pmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 zX \\ -z \\ y(1+X^2)
 \end{pmatrix}$ \\
 
+\cline{3-3}
+ & & $\mathbf{g}^{\xi} = \dfrac{1}{y(1+X^2)}\begin{pmatrix}
+-1 \\ -X \\ 0
+\end{pmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{y(1+Y^2)}\begin{pmatrix}
+0 \\ -Y \\ 1
+\end{pmatrix}$ \\
 \hline
-$III$ & $X=-\dfrac{y}{x} \text{, } Y=-\dfrac{z}{x}$ & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+\hline
+\multirow{2}{*}[-.5cm]{$III$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{y}{x} \text{, } Y=-\dfrac{z}{x}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -y \\ x(1+Y^2) \\ yY
-\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+\end{pmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -z \\ -zX \\ x(1+X^2)
 \end{pmatrix}$ \\
 
+ \cline{3-3}
+ &  & $\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{pmatrix}
+-X \\ 1 \\ 0
+\end{pmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{pmatrix}
+-Y \\ 0 \\ -1
+\end{pmatrix}$ \\
 \hline
-$IV$ & $X=-\dfrac{x}{y} \text{, } Y=\dfrac{z}{y}$ & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+\hline
+\multirow{2}{*}[-.5cm]{$IV$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{x}{y} \text{, } Y=\dfrac{z}{y}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -y(1+Y^2) \\ x \\ -xY
-\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+\end{pmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -zX \\ z \\ -y(1+X^2)
 \end{pmatrix}$ \\
 
+\cline{3-3}
+&  & $\mathbf{g}^{\xi} = \dfrac{1}{y(1+X^2)}\begin{pmatrix}
+-1 \\ -X \\ 0
+\end{pmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{y(1+Y^2)}\begin{pmatrix}
+0 \\ -Y \\ -1
+\end{pmatrix}$ \\
 \hline
-$V$ & $X=\dfrac{y}{z} \text{, } Y=\dfrac{x}{z}$ & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+\hline
+\multirow{2}{*}[-.5cm]{$V$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{y}{z} \text{, } Y=\dfrac{x}{z}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -yY \\ z(1+Y^2) \\ -y
-\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+\end{pmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -z(1+X^2) \\ xX \\ x
 \end{pmatrix}$ \\
 
+\cline{3-3}
+ &  & $\mathbf{g}^{\xi} = \dfrac{1}{z(1+X^2)}\begin{pmatrix}
+0 \\ 1 \\ -X
+\end{pmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{z(1+Y^2)}\begin{pmatrix}
+-1 \\ 0 \\ -Y
+\end{pmatrix}$ \\
 \hline
-$VI$ & $X=-\dfrac{y}{z} \text{, } Y=-\dfrac{x}{z}$ & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+\hline
+\multirow{2}{*}[-.5cm]{$VI$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{y}{z} \text{, } Y=-\dfrac{x}{z}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -yY \\ -z(1+Y^2) \\ y
-\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+\end{pmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -z(1+X^2) \\ -xX \\ x
+\end{pmatrix}$ \\
+
+\cline{3-3}
+ &  & $\mathbf{g}^{\xi} = \dfrac{1}{z(1+X^2)}\begin{pmatrix}
+0 \\ -1 \\ -X
+\end{pmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{z(1+Y^2)}\begin{pmatrix}
+-1 \\ 0 \\ -Y
 \end{pmatrix}$ \\
 \hline
 
 \end{tabular}
 %}
 \end{center}
-\caption{Coordonnées gnomoniques et base $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$ sur chaque panel.}
+\caption{Coordonnées gnomoniques et bases $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$ et $\left( \mathbf{g}^{\xi}, \mathbf{g}^{\eta} \right)$ sur chaque panel.}
 \label{tab: base g_xi g_eta}
 \end{table}
 
 
 
-\begin{table}[htbp]
-\begin{center}
-%\rotatebox{90}{
-\begin{tabular}{|c|c|c|}
-\hline
-\textbf{Panel} & \textbf{Tenseur métrique } $\mathbf{G}$ & \textbf{Base } $\left( \mathbf{g}^{\xi}, \mathbf{g}^{\eta} \right)$\\
 
-\hline
-\hline
-$I$ &  & $\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{pmatrix}
+
+
+
+
+
+
+
+
+Les champs de vecteur $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ et $( \mathbf{g}_ {\xi}, \mathbf{g}_{\eta})$ sont tangents à la sphère en varient en fonction de $\xi$ et $\eta$. On définit les symboles de Christoffel par :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial \mathbf{g}_{\xi}}{\partial \xi} & = & \Gamma_{\xi,\xi}^{\xi} \mathbf{g}_{\xi} + \Gamma_{\xi,\xi}^{\eta} \mathbf{g}_{\eta}\\
+
+\dfrac{\partial \mathbf{g}_{\xi}}{\partial \eta} & = & \Gamma_{\eta,\xi}^{\xi} \mathbf{g}_{\xi} + \Gamma_{\eta,\xi}^{\eta} \mathbf{g}_{\eta}\\
+
+\dfrac{\partial \mathbf{g}_{\eta}}{\partial \xi} & = & \Gamma_{\xi,\eta}^{\xi} \mathbf{g}_{\xi} + \Gamma_{\xi,\eta}^{\eta} \mathbf{g}_{\eta}\\
+
+\dfrac{\partial \mathbf{g}_{\eta}}{\partial \eta} & = & \Gamma_{\eta,\eta}^{\xi} \mathbf{g}_{\xi} + \Gamma_{\eta,\eta}^{\eta} \mathbf{g}_{\eta}\\
+\end{array}
+\right.
+\end{equation}
+
+\begin{remarque}
+On note que $\Gamma_{\eta,\xi}^{\xi}=\Gamma_{\xi,\eta}^{\xi}$ et $\Gamma_{\eta,\xi}^{\eta}=\Gamma_{\xi,\eta}^{\eta}$.
+
+En effet :
+
+$$\Gamma_{\xi, \eta}^{\eta} = \left( \dfrac{\partial \mathbf{g}_{\eta}}{\partial \xi} \right) \cdot \mathbf{g}^{\eta} = \left( \dfrac{\partial}{\partial \xi} \dfrac{\partial \mathbf{x}}{\partial \eta} \right) \cdot \mathbf{g}^{\eta} = \left( \dfrac{\partial}{\partial \eta} \dfrac{\partial \mathbf{x}}{\partial \xi} \right) \cdot \mathbf{g}^{\eta} = \left( \dfrac{\partial \mathbf{g}_{\xi}}{\partial \eta} \right) \cdot \mathbf{g}^{\eta} = \Gamma_{\eta, \xi}^{\eta}$$
+
+de même pour $\Gamma_{\eta,\xi}^{\xi}=\Gamma_{\xi,\eta}^{\xi}$.
+\end{remarque}
+
+
+
+
+\begin{proposition}
+Les relations suivantes sont vérifiées :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcccl}
+\Gamma_{\xi,\xi}^{\xi} & = & \left[ \dfrac{\partial \mathbf{g}_{\xi}}{\partial \xi} \right] \cdot \mathbf{g}^{\xi} & = & - \left[ \dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} \right] \cdot \mathbf{g}_ {\xi}\\
+
+\Gamma_{\xi,\xi}^{\eta} & = & \left[ \dfrac{\partial \mathbf{g}_{\xi}}{\partial \xi} \right] \cdot \mathbf{g}^{\eta} & = & - \left[ \dfrac{\partial \mathbf{g}^{\eta}}{\partial \xi} \right] \cdot \mathbf{g}_ {\xi}\\
+
+\Gamma_{\xi,\eta}^{\xi} & = & \left[ \dfrac{\partial \mathbf{g}_{\eta}}{\partial \xi} \right] \cdot \mathbf{g}^{\xi} & = & - \left[ \dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} \right] \cdot \mathbf{g}_ {\eta}\\
+
+\Gamma_{\xi,\eta}^{\eta} & = & \left[ \dfrac{\partial \mathbf{g}_{\eta}}{\partial \xi} \right] \cdot \mathbf{g}^{\eta} & = & - \left[ \dfrac{\partial \mathbf{g}^{\eta}}{\partial \xi} \right] \cdot \mathbf{g}_ {\eta}\\
+
+\Gamma_{\eta,\eta}^{\eta} & = & \left[ \dfrac{\partial \mathbf{g}_{\eta}}{\partial \eta} \right] \cdot \mathbf{g}^{\eta} & = & - \left[ \dfrac{\partial \mathbf{g}^{\eta}}{\partial \eta} \right] \cdot \mathbf{g}_ {\eta}\\
+
+\Gamma_{\eta,\eta}^{\xi} & = & \left[ \dfrac{\partial \mathbf{g}_{\eta}}{\partial \eta} \right] \cdot \mathbf{g}^{\xi} & = & - \left[ \dfrac{\partial \mathbf{g}^{\xi}}{\partial \eta} \right] \cdot \mathbf{g}_ {\eta}\\
+\end{array}
+\right.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Nous ne démontrons que la première égalité, les autres se retrouvent de manière extrêmement similaire.
+
+$$\left[ \dfrac{\partial \mathbf{g}_{\xi}}{\partial \xi} \right] \cdot \mathbf{g}^{\xi} = \left[ \Gamma_{\xi,\xi}^{\xi} \mathbf{g}_{\xi} + \Gamma_{\xi,\xi}^{\eta} \mathbf{g}_{\eta} \right] \cdot \mathbf{g}^{\xi}$$
+
+Or $\mathbf{g}_{\xi} \cdot \mathbf{g}^{\xi} = 1$ et $\mathbf{g}_{\eta} \cdot \mathbf{g}^{\xi} = 0$, d'où la première partie :
+
+$$\Gamma_{\xi,\xi}^{\xi} = \left[ \dfrac{\partial \mathbf{g}_{\xi}}{\partial \xi} \right] \cdot \mathbf{g}^{\xi}.$$
+
+D'autres part, on a :
+
+$$\Gamma_{\xi,\xi}^{\xi} = \left[ \dfrac{\partial \mathbf{g}_{\xi}}{\partial \xi} \right] \cdot \mathbf{g}^{\xi} = \dfrac{\partial}{\partial \xi}  \underbrace{\left(\mathbf{g}_{\xi} \cdot \mathbf{g}^{\xi}\right)}_{=1}  - \left[ \dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi}  \right] \cdot \mathbf{g}_{\xi} = - \left[ \dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi}  \right] \cdot \mathbf{g}_{\xi}$$
+
+et la relation est démontrée.
+\end{proof}
+
+On peut calculer les dérivées suivantes :
+
+\begin{equation}
+\dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} = \dfrac{1}{x} \begin{pmatrix}
+-\dfrac{X^2}{\delta^2}+2X \cos \xi \sin \xi -1 \\ \dfrac{X}{\delta^2}-2 \cos \xi \sin \xi \\ 0
+\end{pmatrix}
+\text{ et }
+\dfrac{\partial \mathbf{g}^{\xi}}{\partial \eta} = \dfrac{1+Y^2}{\delta^2 x^2 (1+X^2)} \begin{pmatrix}
 -X \\ 1 \\ 0
-\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{pmatrix}
+\end{pmatrix}
+\end{equation}
+
+de même :
+
+\begin{equation}
+\dfrac{\partial \mathbf{g}^{\eta}}{\partial \xi} = \dfrac{X(1+X^2)}{x \delta^2 (1+Y^2)} \begin{pmatrix}
 -Y \\ 0 \\ 1
-\end{pmatrix}$ \\
+\end{pmatrix}
+\text{ et }
+\dfrac{\partial \mathbf{g}^{\eta}}{\partial \eta} = \dfrac{1}{x} \begin{pmatrix}
+- \dfrac{Y^2}{\delta^2} + 2 Y \cos \eta \sin \eta -1 \\ 0 \\ \dfrac{Y}{\delta^2}- 2 \cos \eta \sin \eta
+\end{pmatrix}
+\end{equation}
 
-\cline{1-1} \cline{3-3}
-$II$ &  & $\mathbf{g}^{\xi} = \dfrac{1}{y(1+X^2)}\begin{pmatrix}
--1 \\ -X \\ 0
-\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{y(1+Y^2)}\begin{pmatrix}
-0 \\ -Y \\ 1
-\end{pmatrix}$ \\
+d'où les symboles de Christoffel :
 
-\cline{1-1} \cline{3-3}
-$III$ &  & $\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{pmatrix}
--X \\ 1 \\ 0
-\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{pmatrix}
--Y \\ 0 \\ -1
-\end{pmatrix}$ \\
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\Gamma_{\xi,\eta}^{\xi} & = & - \dfrac{Y ( 1+Y^2)}{\delta^2}\\
+\Gamma_{\xi,\eta}^{\eta} & = & - \dfrac{X(1+X^2)}{\delta^2}\\
+\Gamma_{\eta,\eta}^{\xi} & = & 0 \\
+\Gamma_{\xi,\xi}^{\eta} & = & 0 \\
+\Gamma_{\eta,\eta}^{\eta} & = & \dfrac{1+Y^2}{\delta^2} \left[ 2 \delta^2 \cos \eta \sin \eta - Y \right]\\
+\Gamma_{\xi,\xi}^{\xi} & = & \dfrac{1+X^2}{\delta^2} \left[ 2 \delta^2 \cos \xi \sin \xi - X \right]
+\end{array}
+\right.
+\end{equation}
 
-\cline{1-1} \cline{3-3}
-$IV$ &  & $\mathbf{g}^{\xi} = \dfrac{1}{y(1+X^2)}\begin{pmatrix}
--1 \\ -X \\ 0
-\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{y(1+Y^2)}\begin{pmatrix}
-0 \\ -Y \\ -1
-\end{pmatrix}$ \\
+\begin{proposition}
+Les symboles de Christoffel sont invariants par changement de face
+\end{proposition}
 
-\cline{1-1} \cline{3-3}
-$V$ &  & $\mathbf{g}^{\xi} = \dfrac{1}{z(1+X^2)}\begin{pmatrix}
-0 \\ 1 \\ -X
-\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{z(1+Y^2)}\begin{pmatrix}
--1 \\ 0 \\ -Y
-\end{pmatrix}$ \\
+\begin{proof}
+Soit $R_f$ la rotation permettant de passer d'une face à une autre. On note en particulier que $R_f$ est indépendant de $\xi$ et $\eta$.
 
-\cline{1-1} \cline{3-3}
-$VI$ & \multirow{-5}{*}[2.5cm]{$a^2 \dfrac{(1+X^2)(1+Y^2)}{\delta^4} \begin{pmatrix}
-1+X^2 & -XY \\ -XY & 1+Y^2
-\end{pmatrix}$} & $\mathbf{g}^{\xi} = \dfrac{1}{z(1+X^2)}\begin{pmatrix}
-0 \\ -1 \\ -X
-\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{z(1+Y^2)}\begin{pmatrix}
--1 \\ 0 \\ -Y
-\end{pmatrix}$ \\
-\hline
+Alors soit $K$ et $L$ dans $\left\lbrace I, II, III, IV, V, VI \right\rbrace$ et $\tau$, $\upsilon \in \left\lbrace \xi, \eta \right\rbrace$. Alors par propriété du produit scalaire :
 
-\end{tabular}
-%}
-\end{center}
-\caption{Tenseur métrique et base $\left( \mathbf{g}^{\xi}, \mathbf{g}^{\eta} \right)$ sur chaque panel.}
-\label{tab: base g^xi g^eta}
-\end{table}
+$$\left( \dfrac{\partial}{\partial \tau}  R_f \mathbf{g}_{\tau} \right) \cdot \left( R_f \mathbf{g}_{\upsilon} \right) = \left( R_f \dfrac{\partial}{\partial \tau}   \mathbf{g}_{\tau} \right) \cdot \left( R_f \mathbf{g}_{\upsilon} \right) =  \left( \dfrac{\partial}{\partial \tau}  \mathbf{g}_{\tau} \right) \cdot \left( R_f^{-1} R_f \mathbf{g}_{\upsilon} \right) =  \left( \dfrac{\partial}{\partial \tau}  \mathbf{g}_{\tau} \right) \cdot \left( \mathbf{g}_{\upsilon} \right)$$
 
+de même :
+
+$$\left( \dfrac{\partial}{\partial \upsilon}  R_f \mathbf{g}_{\tau} \right) \cdot \left( R_f \mathbf{g}_{\upsilon} \right) =  \left( \dfrac{\partial}{\partial \upsilon} \mathbf{g}_{\tau} \right) \cdot \left( \mathbf{g}_{\upsilon} \right)$$
+
+et on retrouve l'ensemble des symboles de Christoffel.
+\end{proof}
 
 
 
