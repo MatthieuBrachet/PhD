@@ -1,8 +1,8 @@
 % CS.tex
 
-\chapter{Grille Cubed-Sphère}
+\chapter{Grille Cubed-Sphere}
 
-\section{Définition géométrique de la Cubed-Sphère}
+\section{Définition géométrique de la Cubed-Sphere}
 
 \subsection{La sphère $\mathbb{S}_a^2$}
 
@@ -926,7 +926,7 @@ z & = & xY &&
 \right.
 \end{equation}
 
-le signe de $x$ est donné car $\mathbf{x}$ est un point du panel I qui ne contient que des points d'abscisse positive.
+le signe de $x$ est donné car $\mathbf{x}$ est un point du panel I qui ne contient que des points d'abscisse positive. Pour chaque panel $(X,Y)$ est un système de coordonnées admissible.
 
 De là, on peut dériver chaque donnée :
 
@@ -985,6 +985,111 @@ On en déduit la base sur le panel I $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta}
 \end{equation}
 
 Des calculs similaires peuvent être effectuées sur les autres panels. Les résultats sont donnés dans le tableau \ref{tab: base g_xi g_eta}.
+
+$(\mathbf{g}^{\xi}$ et $\mathbf{g}^{\eta})$ est un couple de vecteurs de $\mathbb{T}_{\mathbf{x}}\mathbb{S}_a^2$ obtenue par dualité à l'aide de $(\mathbf{g}_{\xi}, \mathbf{g}_{\eta})$. Il doit vérifier les relations suivantes :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcccl}
+\mathbf{g}^{\xi} \cdot \mathbf{g}_{\xi} & = & 1 & = & \mathbf{g}^{\eta} \cdot \mathbf{g}_{\eta} \\
+\mathbf{g}^{\xi} \cdot \mathbf{g}_{\eta} & = & 0 & = & \mathbf{g}^{\eta} \cdot \mathbf{g}_{\xi} \\
+\end{array}
+\right.
+\label{eq: normalisation g_xi g_eta}
+\end{equation}
+
+$(\mathbf{g}^{\xi}$ et $\mathbf{g}^{\eta})$ sont des vecteurs de $\mathbb{T}_{\mathbf{x}}\mathbb{S}_a^2$. Il existe $A$, $B$, $C$ et $D$ tels que :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\mathbf{g}^{\xi} & = & A \mathbf{g}_{\xi} + B \mathbf{g}_{\eta} \\
+\mathbf{g}^{\eta} & = & C \mathbf{g}_{\xi} + D \mathbf{g}_{\eta} \\
+\end{array}
+\right.
+\label{eq: A B C D}
+\end{equation}
+
+En effectuant des produit scalaires de \eqref{eq: A B C D} par $\mathbf{g}_{\xi}$ et $\mathbf{g}_{\eta}$, on montre que :
+
+\begin{equation}
+\begin{pmatrix}
+A & B \\ C &  D
+\end{pmatrix}
+\times
+\begin{pmatrix}
+\mathbf{g}_{\xi} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot \mathbf{g}_{\eta} \\
+\mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot \mathbf{g}_{\eta}
+\end{pmatrix}
+= \begin{pmatrix}
+1 & 0 \\ 0 &  0
+\end{pmatrix}
+\end{equation}
+
+On peut directement déduire :
+\begin{equation}
+\begin{pmatrix}
+A & B \\ C &  D
+\end{pmatrix} 
+=
+\begin{pmatrix}
+\mathbf{g}_{\xi} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot \mathbf{g}_{\eta} \\
+\mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot \mathbf{g}_{\eta}
+\end{pmatrix}^{-1}
+\end{equation}
+
+
+\begin{definition}
+$\mathbf{G}$ est la métrique associée à $(\mathbf{g}_{\xi}, \mathbf{g}_{\eta})$ en $\mathbf{x}$:
+\begin{equation}
+\mathbf{G} = \begin{pmatrix}
+\mathbf{g}_{\xi} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot \mathbf{g}_{\eta} \\
+\mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot \mathbf{g}_{\eta}
+\end{pmatrix}
+\end{equation}
+\end{definition}
+
+\begin{proposition}
+La métrique $\mathbf{G}$ est invariante par changement de panel.
+\end{proposition}
+
+\begin{proof}
+Si $\mathbf{x}$ est un point d'un panel $K$ de la Cubed-Sphère de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ est un point d'un autre panel $K'$ de la Cubed-Sphère ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer $\mathbf{x}$ en $\mathbf{x}'$ :
+\begin{equation}
+\mathbf{x}' = R_f \mathbf{x}
+\end{equation}
+Cette rotation est indépendante de $\xi$ et de $\eta$. Donc :
+\begin{equation}
+\mathbf{g'}_{\xi} = \dfrac{\partial}{\partial \xi} \left( R_f \mathbf{x} \right) = R_f \dfrac{\partial \mathbf{x}}{\partial \xi}  = \mathbf{g}_{\xi}
+\end{equation}
+De même, on a $\mathbf{g'}_{\eta} = R_f\mathbf{g}_{\eta}$.
+Ainsi, si $\mathbf{G}$ est la métrique en $\mathbf{x}$ et $\mathbf{G}'$ la métrique en $\mathbf{x}'$, on a :
+
+\begin{equation*}
+\begin{array}{rcl}
+\mathbf{G}' &=& \begin{pmatrix}
+\mathbf{g'}_{\xi} \cdot \mathbf{g'}_{\xi} & \mathbf{g'}_{\xi} \cdot \mathbf{g'}_{\eta} \\
+\mathbf{g'}_{\eta} \cdot \mathbf{g'}_{\xi} & \mathbf{g'}_{\eta} \cdot \mathbf{g'}_{\eta}
+\end{pmatrix}\\
+&=&
+\begin{pmatrix}
+R_f \mathbf{g}_{\xi} \cdot R_f \mathbf{g}_{\xi} & R_f \mathbf{g}_{\xi} \cdot R_f \mathbf{g}_{\eta} \\
+R_f \mathbf{g}_{\eta} \cdot R_f \mathbf{g}_{\xi} & R_f \mathbf{g}_{\eta} \cdot R_f \mathbf{g}_{\eta}
+\end{pmatrix}\\
+&=&
+\begin{pmatrix}
+\mathbf{g}_{\xi} \cdot R_f^{T} R_f \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot  R_f^{T} R_f \mathbf{g}_{\eta} \\
+\mathbf{g}_{\eta} \cdot  R_f^{T} R_f \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot  R_f^{T} R_f \mathbf{g}_{\eta}
+\end{pmatrix}\\
+&=& \begin{pmatrix}
+\mathbf{g}_{\xi} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot \mathbf{g}_{\eta} \\
+\mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot \mathbf{g}_{\eta}
+\end{pmatrix}\\
+& = & \mathbf{G}
+\end{array}
+\end{equation*}
+Donc la métrique $\mathbf{G}$ est invariante par changement de panel.
+\end{proof}
 
 
 \begin{table}[htbp]
