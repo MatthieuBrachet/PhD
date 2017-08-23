@@ -1,6 +1,6 @@
 % CS.tex
 
-55\chapter{Grille Cubed-Sphère}
+\chapter{Grille Cubed-Sphère}
 
 \section{Définition géométrique de la Cubed-Sphère}
 
@@ -562,7 +562,7 @@ Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudina
 	\draw [samples=100, domain=-180:0, color=gray] plot({cos(\x)},{-0.55*sin(\x)});
 	\draw [samples=100, domain=-90:90, color=gray] plot({0.4*cos(\x)},{sin(\x)});
 	\draw (.34,0.51) node {$\bullet$} ;
-	\draw (.34,0.51) node[right]{$\mathbf{M}$} ;
+	\draw (.34,0.51) node[right]{$\mathbf{x}$} ;
 	
 	\draw (1,0) node {$\bullet$} ;
 	\draw (1,0) node[above right]{$E$} ;
@@ -633,7 +633,7 @@ Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudina
 	\draw  (4-1.15,0) node {$W$} ;
 	
 	\draw  (4.27,0.38) node {$\bullet$} ;
-	\draw  (4.27,0.38) node[right] {$\mathbf{M}$} ;
+	\draw  (4.27,0.38) node[right] {$\mathbf{x}$} ;
 	\draw [>=stealth, ->, color=green] (4,-0.05) -- (4.3,-0.05) ;
 	\draw  (4.15,-0.05) node[color=green, below] {$\xi$} ;
 	\draw [>=stealth, ->, color=red] (3.95,0) -- (3.95,0.4) ;
@@ -644,7 +644,7 @@ Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudina
    
 \end{tikzpicture}
 \end{center}
-\caption{Sur un panel, un point $\mathbf{M}$ est localisé par $\xi$ et $\eta$.}
+\caption{Sur un panel, un point $\mathbf{x}$ est localisé par $\xi$ et $\eta$.}
 \label{fig: panel I xi eta}
 \end{figure}
 
@@ -713,7 +713,7 @@ La Cubed-Sphere est une grille de la sphère $\mathbb{S}_a^2$. Elle est constitu
 \begin{equation}
 \left( \xi^{(k)}, \eta^{(k)} \right) \text{, } -\dfrac{\pi}{4} \leq \xi^{(k)}, \eta^{(k)} \leq \dfrac{\pi}{4} \text{, } I \leq k \leq VI.
 \end{equation}
-Les points de la Cubed-Sphère sont notés $\mathbf{s}_{i,j}^{(k)}$. Ils ont pour coordonnées $\left( \xi_i^{(k)}, \eta_j^{(k)}  \right)$ avec :
+Les points de la Cubed-Sphère sont notés $\mathbf{x}_{i,j}^{(k)}$. Ils ont pour coordonnées $\left( \xi_i^{(k)}, \eta_j^{(k)}  \right)$ avec :
 \begin{equation}
 \xi_i^{(k)} = i \Delta \xi \text{, } \eta_j^{(k)} = j \Delta \eta \text{, } -N/2 \leq i, j \leq N/2 \text{ et } I \leq k \leq VI,
 \end{equation}
@@ -723,7 +723,7 @@ où le pas de discrétisation est :
 \end{equation}
 \end{definition}
 
-Les points $\mathbf{s}_{i,j}^{(k)}$ de chaque panel se divisent en 3 catégories :
+Les points $\mathbf{x}_{i,j}^{(k)}$ de chaque panel se divisent en 3 catégories :
 \begin{itemize}
 \item Les points intérieurs si :
 \begin{equation}
@@ -739,6 +739,19 @@ Ils sont au nombre de $(N-1)^2$ par panel.
 i, j = \pm \dfrac{N}{2}
 \end{equation}
 \end{itemize}
+
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.6]{plot_CS}
+\end{center}
+\caption{Cubed-Sphere avec $N=16$.}
+\end{figure}
+
+
+
+
 
 \begin{proposition}
 La Cubed-Sphere est composée de $6N^2 +2$ points.
@@ -809,7 +822,7 @@ On considère un cube inscrit dans la Sphère $\mathbb{S}_a^2$. Le demi côté d
 \end{itemize}
 
 $F$ est la projection gnomonique de $F'$ sur la sphère $\mathbb{S}_a^2$, $E$ celle de $E'$, ...
-Si l'on considère par exemple le panel I, un point $\mathbf{M'}=(x',y',z')$ de la face centré sur $F'$ est projeté en $\mathbf{M} = (x,y,z)$ un point du panel I (Voir figure \ref{fig: projection gnomonique}).
+Si l'on considère par exemple le panel I, un point $\mathbf{x}'=(x',y',z')$ de la face centré sur $F'$ est projeté en $\mathbf{x} = (x,y,z)$ un point du panel I (Voir figure \ref{fig: projection gnomonique}).
 
 \begin{figure}[htbp]
 \begin{center}
@@ -840,7 +853,7 @@ Si l'on considère par exemple le panel I, un point $\mathbf{M'}=(x',y',z')$ de 
 	
 	\draw [color=gray] (-4,-.5) -- (1.5,2) ;
 	\draw  (1.5,2) node {$\bullet$} ;
-	\draw  (1.5,2) node[above left] {$\textbf{M}$} ;
+	\draw  (1.5,2) node[above left] {$\textbf{x}$} ;
 	
 	\draw [dotted, line width=0.8pt, shift={(1.79,-2.8)}] plot[domain=0.62:1.89,variable=\t]({1*4.81*cos(\t r)+0*4.81*sin(\t r)},{0*4.81*cos(\t r)+1*4.81*sin(\t r)});
 	\draw [dotted, line width=0.8pt, shift={(-7.75,-0.98)}] plot[domain=-0.31:0.45,variable=\t]({1*9.72*cos(\t r)+0*9.72*sin(\t r)},{0*9.72*cos(\t r)+1*9.72*sin(\t r)});
@@ -849,7 +862,7 @@ Si l'on considère par exemple le panel I, un point $\mathbf{M'}=(x',y',z')$ de 
 	\draw [color=gray] (-4,-.5) -- (3.75,1.6) ;
 	
 	\draw  (.97,1.75) node {$\bullet$} ;
-	\draw  (.97,1.75) node[above left] {$\textbf{M}'$} ;
+	\draw  (.97,1.75) node[above left] {$\textbf{x}'$} ;
 	\draw [dotted, color=gray] (.965,1.85) -- (2.5,1.25) ;
 	\draw [dotted, color=gray] (.975,1.73) -- (.9,0) ;
 	
@@ -879,7 +892,7 @@ On constate alors les relations suivantes :
 \tan \xi = \dfrac{y'}{x'} = \dfrac{y}{x} \text{ et } \tan \eta = \dfrac{z'}{x'} = \dfrac{z}{x}
 \end{equation}
 
-Or $\mathbf{M}'$ est un point de la face du cube centrée en $\mathbf{M}'$, donc $x'=R=\frac{\sqrt{3}}{6}a$ :
+Or $\mathbf{x}'$ est un point de la face du cube centrée en $\mathbf{x}'$, donc $x'=R=\frac{\sqrt{3}}{6}a$ :
 \begin{equation}
 \tan \xi = \dfrac{y'}{R} = \dfrac{y}{x} \text{ et } \tan \eta = \dfrac{z'}{R} = \dfrac{z}{x}
 \end{equation}
@@ -931,11 +944,12 @@ Le calcul de ces dérivées dépend de $\dfrac{\partial x}{\partial \xi}$ :
 \begin{array}{rcl}
 0 & = & \dfrac{\partial}{\partial \xi} ( x^2+y^2+z^2) \\
   & = & 2x\dfrac{\partial x}{\partial \xi} + 2y\dfrac{\partial y}{\partial \xi}+ 2z\dfrac{\partial z}{\partial \xi} \\
-  & = & x \dfrac{\partial x}{\partial \xi} ( 1 +X^2 + Y^2) + x^2 X (1+X^2)
+  & = & x \dfrac{\partial x}{\partial \xi} ( 1 +X^2 + Y^2) + x^2 X (1+X^2)\\
+  & = & x \dfrac{\partial x}{\partial \xi} \delta^2 + xy (1+X^2)
 \end{array}
 \end{equation*}
 
-d'où, en posant $\delta = \sqrt{1+X^2+Y^2}$, sur le panel I :
+en posant $\delta = \sqrt{1+X^2+Y^2}$. Ainsi, chaque dérivée est connue et :
 
 \begin{equation}
 \left\lbrace
@@ -962,9 +976,9 @@ De la même manière, on a sur le panel I :
 On en déduit la base sur le panel I $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$ donnée par :
 
 \begin{equation}
-\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+\mathbf{g}_{\xi} := \dfrac{\partial \mathbf{x}}{\partial \xi}= \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -y \\ x(1+Y^2) \\ -yY
-\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+\end{pmatrix} \text{ et } \mathbf{g}_{\eta} := \dfrac{\partial \mathbf{x}}{\partial \xi}= \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -z \\ -zX \\ x(1+X^2)
 \end{pmatrix}
 \label{eq: base locale I}
@@ -972,68 +986,126 @@ On en déduit la base sur le panel I $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta}
 
 Des calculs similaires peuvent être effectuées sur les autres panels. Les résultats sont donnés dans le tableau \ref{tab: base g_xi g_eta}.
 
+
 \begin{table}[htbp]
 \begin{center}
-\begin{equation*}
-\begin{array}{|c|c|}
+%\rotatebox{90}{
+\begin{tabular}{|c|c|c|}
 \hline
-\textbf{Panel} & \textbf{Base } \left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)\\
+\textbf{Panel} & Coord. Gnomoniques $(X,Y)$ & \textbf{Base } $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$\\
 
 \hline
 \hline
-I & \mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+$I$ & $X=\dfrac{y}{x} \text{, } Y=\dfrac{z}{x}$ & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -y \\ x(1+Y^2) \\ -yY
 \end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -z \\ -zX \\ x(1+X^2)
-\end{pmatrix} \\
+\end{pmatrix}$ \\
 
 \hline
-II & \mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+$II$ & $X=-\dfrac{x}{y} \text{, } Y=\dfrac{z}{y}$ & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -y(1+Y^2) \\ x \\ xY
 \end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 zX \\ -z \\ y(1+X^2)
-\end{pmatrix} \\
+\end{pmatrix}$ \\
 
 \hline
-III & \mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+$III$ & $X=-\dfrac{y}{x} \text{, } Y=-\dfrac{z}{x}$ & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -y \\ x(1+Y^2) \\ yY
 \end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -z \\ -zX \\ x(1+X^2)
-\end{pmatrix} \\
+\end{pmatrix}$ \\
 
 \hline
-IV & \mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+$IV$ & $X=-\dfrac{x}{y} \text{, } Y=\dfrac{z}{y}$ & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -y(1+Y^2) \\ x \\ -xY
 \end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -zX \\ z \\ -y(1+X^2)
-\end{pmatrix} \\
+\end{pmatrix}$ \\
 
 \hline
-V & \mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+$V$ & $X=\dfrac{y}{z} \text{, } Y=\dfrac{x}{z}$ & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -yY \\ z(1+Y^2) \\ -y
 \end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -z(1+X^2) \\ xX \\ x
-\end{pmatrix} \\
+\end{pmatrix}$ \\
 
 \hline
-VI & \mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+$VI$ & $X=-\dfrac{y}{z} \text{, } Y=-\dfrac{x}{z}$ & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -yY \\ -z(1+Y^2) \\ y
 \end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -z(1+X^2) \\ -xX \\ x
-\end{pmatrix}\\
+\end{pmatrix}$ \\
 \hline
 
-\end{array}
-\end{equation*}
+\end{tabular}
+%}
 \end{center}
-\caption{Bases $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$ sur chaque panel.}
+\caption{Coordonnées gnomoniques et base $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$ sur chaque panel.}
 \label{tab: base g_xi g_eta}
 \end{table}
 
 
 
+\begin{table}[htbp]
+\begin{center}
+%\rotatebox{90}{
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Panel} & \textbf{Tenseur métrique } $\mathbf{G}$ & \textbf{Base } $\left( \mathbf{g}^{\xi}, \mathbf{g}^{\eta} \right)$\\
 
+\hline
+\hline
+$I$ &  & $\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{pmatrix}
+-X \\ 1 \\ 0
+\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{pmatrix}
+-Y \\ 0 \\ 1
+\end{pmatrix}$ \\
 
+\cline{1-1} \cline{3-3}
+$II$ &  & $\mathbf{g}^{\xi} = \dfrac{1}{y(1+X^2)}\begin{pmatrix}
+-1 \\ -X \\ 0
+\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{y(1+Y^2)}\begin{pmatrix}
+0 \\ -Y \\ 1
+\end{pmatrix}$ \\
+
+\cline{1-1} \cline{3-3}
+$III$ &  & $\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{pmatrix}
+-X \\ 1 \\ 0
+\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{pmatrix}
+-Y \\ 0 \\ -1
+\end{pmatrix}$ \\
+
+\cline{1-1} \cline{3-3}
+$IV$ &  & $\mathbf{g}^{\xi} = \dfrac{1}{y(1+X^2)}\begin{pmatrix}
+-1 \\ -X \\ 0
+\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{y(1+Y^2)}\begin{pmatrix}
+0 \\ -Y \\ -1
+\end{pmatrix}$ \\
+
+\cline{1-1} \cline{3-3}
+$V$ &  & $\mathbf{g}^{\xi} = \dfrac{1}{z(1+X^2)}\begin{pmatrix}
+0 \\ 1 \\ -X
+\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{z(1+Y^2)}\begin{pmatrix}
+-1 \\ 0 \\ -Y
+\end{pmatrix}$ \\
+
+\cline{1-1} \cline{3-3}
+$VI$ & \multirow{-5}{*}[2.5cm]{$a^2 \dfrac{(1+X^2)(1+Y^2)}{\delta^4} \begin{pmatrix}
+1+X^2 & -XY \\ -XY & 1+Y^2
+\end{pmatrix}$} & $\mathbf{g}^{\xi} = \dfrac{1}{z(1+X^2)}\begin{pmatrix}
+0 \\ -1 \\ -X
+\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{z(1+Y^2)}\begin{pmatrix}
+-1 \\ 0 \\ -Y
+\end{pmatrix}$ \\
+\hline
+
+\end{tabular}
+%}
+\end{center}
+\caption{Tenseur métrique et base $\left( \mathbf{g}^{\xi}, \mathbf{g}^{\eta} \right)$ sur chaque panel.}
+\label{tab: base g^xi g^eta}
+\end{table}
 
 
 
