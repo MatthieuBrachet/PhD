@@ -6,46 +6,69 @@
 
 \subsection{La sphère $\mathbb{S}_a^2$}
 
-Soit $a > 0$ un réel strictement positif. $\mathbb{S}_a^2$ est la sphère de centre $O : (0,0,0) \in \mathbb{R}^3$ et de rayon $a$ :
+On note $\mathbb{S}_a^2$ \textit{la sphère} de centre $O (0,0,0) \in \mathbb{R}^3$ et de rayon $a>0$ :
 
 \begin{equation}
 \mathbb{S}_a^2 := \left\lbrace
-\mathbf{x} = (x,y,z)^T \in \mathbb{R}^3 \text{ tels que } x^2+y^2+z^2 = a^2
-\right\rbrace
+\mathbf{x} (x,y,z)^T \in \mathbb{R}^3 / x^2+y^2+z^2 = a^2
+\right\rbrace.
 \end{equation} 
 
-On nomme grand cercle, un cercle de centre $O$ et de rayon $a$. Un grand cercle est inclus dans la sphère $\mathbb{S}_a^2$.
-Soient $C_1$ et $C_2$ deux grands cercles distincts, $\mathbf{x} \in C_1 \cap C_2$ alors $\mathbf{x} \in \mathbb{S}_a^2$.
-On pose les points $\mathbf{x}_1 \in C_1$ et $\mathbf{x}_2 \in C_2$, on peut alors définir $\alpha$ (resp. $\beta$) l’abscisse curviligne de $\mathbf{x}$ le long de $C_1$ (resp. $C_2$) avec $\mathbf{x}_1$ (resp. $\mathbf{x}_2$) comme origine (Voir figure \ref{fig: grands cercles}).
+\textit{Un grand cercle} est un cercle de centre $O$ et de rayon $a$. Un grand cercle est inclus dans la sphère $\mathbb{S}_a^2$.
+Soit $C$ un grand cercle fixé et $\mathbf{x}_0 \in C$ un point fixé. On choisit l'un des deux sens de parcours le long de $C$ à partir de $\mathbf{x}_0$ et on définit \textit{l'abscisse curviligne} de $\mathbf{x} \in C$ par :
 
+\begin{equation}
+arg \longarc{\mathbf{x}_0  \mathbf{x}} := a \alpha
+\end{equation}
+
+où $\alpha \in [ 0, 2 \pi[$ désigne la l'angle $\widehat{\mathbf{x}_0  \mathbf{x}}$ dans le sens choisit (Voir figure \ref{fig: grand cercle}).
 
 \begin{figure}[ht]
 \begin{center}
 \begin{tikzpicture}[scale=1.8]
-	% \draw [color=gray] (-1.5,-1.5) grid[step=0.1] (1.5,1.5);
-	\draw [samples=100,domain=0:-180] plot({cos(\x)},{0.4*sin(\x)});
-	\draw (0.8,0.03) node {$C_1$} ;  
+	% \draw [color=gray] (-1.5,-1.5) grid[step=0.1] (1.5,1.5); 
 	\draw [rotate=-60,samples=100,domain=0:-180] plot({cos(\x)},{0.4*sin(\x)});
-	\draw (-0.4,0.7) node {$C_2$} ; 
+	\draw [rotate=-60,samples=100,domain=0:-180,color=gray,dotted] plot({cos(\x)},{-0.4*sin(\x)});
+	\draw (-0.4,0.7) node {$C$} ; 
 	\draw (-0.24,-0.4) node {$\bullet$} ;
-	\draw (-0.38,-0.49) node {$\mathbf{x}$} ;
-	\draw (0.48,-0.35) node {$\bullet$} ;
-	\draw (0.48,-0.5) node {$\mathbf{x_1}$} ;
-	\draw [>=stealth, <-,color=green,domain=-62:-103] plot({1.1*cos(\x)},{0.44*sin(\x)});
-	\draw [color=green] (0.1,-0.55) node {$\alpha$} ;
+	\draw (-0.38,-0.49) node {$\mathbf{x}_0$} ;
+	\draw (0,0) node {$\bullet$} ;
+	\draw (0,0) node[right] {$O$} ;
+	\draw (0,0) -- (-0.56,0.3) ;
+	\draw (0,0) -- (-0.24,-0.4) ;
 	\draw (-0.56,0.3) node {$\bullet$} ;
-	\draw (-0.75,0.3) node {$\mathbf{x_2}$} ;
-	\draw [rotate=-60,>=stealth, ->,color=red,domain=-75:-125] plot({0.9*cos(\x)},{0.36*sin(\x)});
-	\draw [color=red] (-0.25,0) node {$\beta$} ;
+	\draw (-0.75,0.3) node {$\mathbf{x}$} ;
+	\draw [rotate=-60,>=stealth, ->,color=red,domain=-78:-122] plot({0.5*cos(\x)},{0.18*sin(\x)});
+	\draw [color=red] (-0.125,0) node {$\alpha$} ;
     \draw (0,0) circle (1cm);
     \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
+    
+    
+    
+    
+    
+
+    \draw (4,0) circle (1cm);
+    \draw (4,0) node {$\bullet$};
+    \draw (4,0) node[right] {$O$};
+    \draw (3,0) node {$\bullet$};
+    \draw (3,0) node[below left] {$\mathbf{x}_0$};
+    \draw (4-.81,.58) node {$\bullet$};
+    \draw (4-.81,.58) node[above left] {$\mathbf{x}$};
+    \draw (3,0) -- (4,0);
+    \draw (4-.81,.58) -- (4,0);
+    \draw [>=stealth, <-,color=red,domain=145:180] plot({4+.4*cos(\x)},{.4*sin(\x)});
+    \draw (3.5,.2) node[color=red] {$\alpha$};
+    \draw [>=stealth, <-,color=blue,domain=145:180] plot({4+1.1*cos(\x)},{1.1*sin(\x)});
+    \draw (2.8,.3) node[left, color=blue] {$\alpha a$};
+    \draw (4.8,-.8) node {$C$};
 \end{tikzpicture}
 \end{center}
-\caption{Grands cercles sur la sphère $\mathbb{S}_a^2$ et abscisses curvilignes $\alpha$ et $\beta$.}
-\label{fig: grands cercles}
+\caption{Un grand cercle sur la sphère $\mathbb{S}_a^2$, l'angle $\alpha$  et l'abscisse curviligne de $\mathbf{x}_0$.}
+\label{fig: grand cercle}
 \end{figure}
-
-En tout point $\mathbf{x} \in \mathbb{S}_a^2$, il existe un plan tangent à la sphère noté $\mathbb{T}_{\mathbf{x}}\mathbb{S}_a^2$. Il est engendré par les vecteurs $\mathbf{e}_{\alpha}$ et $\mathbf{e}_{\beta}$ (Voir figure \ref{fig: e_alpha et e_beta}) donnés par :
+%%%%%%%%%%%%%%%%% FAIRE DE MEME POUR UN SECOND CERCLE
+Soit $\overline{\mathbf{x}} \in \mathbb{S}_a^2$, il existe un plan tangent à la sphère noté $\mathbb{T}_{\overline{\mathbf{x}}}\mathbb{S}_a^2$. Il est engendré par les vecteurs $\mathbf{e}_{\alpha}$ et $\mathbf{e}_{\beta}$ (Voir figure \ref{fig: e_alpha et e_beta}) donnés par :
 
 \begin{equation}
 \mathbf{e}_{\alpha} := \dfrac{\partial \mathbf{x}}{\partial \alpha} \text{ et } \mathbf{e}_{\beta} := \dfrac{\partial \mathbf{x}}{\partial \beta}
