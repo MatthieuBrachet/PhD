@@ -1,18 +1,19 @@
 % CS.tex
 \chapter{Grille Cubed-Sphere}
+
 \section{Définition géométrique de la Cubed-Sphere}
 
 \subsection{La sphère $\mathbb{S}_a^2$}
 
-On note $\mathbb{S}_a^2$ \textit{la sphère} de centre $O (0,0,0) \in \mathbb{R}^3$ et de rayon $a>0$ :
+On note $\mathbb{S}_a^2$ \textit{la sphère} de centre $\mathbf{O} (0,0,0) \in \mathbb{R}^3$ et de rayon $a>0$ :
 
 \begin{equation}
 \mathbb{S}_a^2 := \left\lbrace
-\mathbf{x} (x,y,z)^T \in \mathbb{R}^3 / x^2+y^2+z^2 = a^2
+\mathbf{x} (x,y,z) \in \mathbb{R}^3 / x^2+y^2+z^2 = a^2
 \right\rbrace.
 \end{equation} 
 
-\textit{Un grand cercle} est un cercle de centre $O$ et de rayon $a$. Un grand cercle est inclus dans la sphère $\mathbb{S}_a^2$.
+Un \textit{grand cercle} est un cercle de centre $\mathbf{O}$ et de rayon $a$. Un grand cercle est inclus dans la sphère $\mathbb{S}_a^2$.
 Soit $C$ un grand cercle fixé et $\mathbf{x}_0 \in C$ un point fixé. On choisit l'un des deux sens de parcours le long de $C$ à partir de $\mathbf{x}_0$ et on définit \textit{l'abscisse curviligne} de $\mathbf{x} \in C$ par :
 
 \begin{equation}
@@ -21,7 +22,7 @@ arg \longarc{\mathbf{x}_0  \mathbf{x}} := a \alpha
 
 où $\alpha \in [ 0, 2 \pi[$ désigne la l'angle $\widehat{\mathbf{x}_0  \mathbf{x}}$ dans le sens choisit (Voir figure \ref{fig: grand cercle}).
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \begin{tikzpicture}[scale=1.8]
 	% \draw [color=gray] (-1.5,-1.5) grid[step=0.1] (1.5,1.5); 
@@ -31,7 +32,7 @@ où $\alpha \in [ 0, 2 \pi[$ désigne la l'angle $\widehat{\mathbf{x}_0  \mathbf
 	\draw (-0.24,-0.4) node {$\bullet$} ;
 	\draw (-0.38,-0.49) node {$\mathbf{x}_0$} ;
 	\draw (0,0) node {$\bullet$} ;
-	\draw (0,0) node[right] {$O$} ;
+	\draw (0,0) node[right] {$\mathbf{O}$} ;
 	\draw (0,0) -- (-0.56,0.3) ;
 	\draw (0,0) -- (-0.24,-0.4) ;
 	\draw (-0.56,0.3) node {$\bullet$} ;
@@ -48,7 +49,7 @@ où $\alpha \in [ 0, 2 \pi[$ désigne la l'angle $\widehat{\mathbf{x}_0  \mathbf
 
     \draw (4,0) circle (1cm);
     \draw (4,0) node {$\bullet$};
-    \draw (4,0) node[right] {$O$};
+    \draw (4,0) node[right] {$\mathbf{O}$};
     \draw (3,0) node {$\bullet$};
     \draw (3,0) node[below left] {$\mathbf{x}_0$};
     \draw (4-.81,.58) node {$\bullet$};
@@ -68,17 +69,17 @@ où $\alpha \in [ 0, 2 \pi[$ désigne la l'angle $\widehat{\mathbf{x}_0  \mathbf
 \label{fig: grand cercle}
 \end{figure}
 
-Soit $\overline{\mathbf{x}} \in \mathbb{S}_a^2$ fixé. Soient $C_1$ et $C_2$ deux grands cercles distincts arbitraires tels que $\overline{\mathbf{x}} \in C_1 \cup C_2$.
+Soit $\overline{\mathbf{x}} \in \mathbb{S}_a^2$ fixé. Soient $C_1$ et $C_2$ deux grands cercles distincts arbitraires tels que $\overline{\mathbf{x}} \in C_1 \cap C_2$.
 
 Soit $\alpha$ et $\beta$ les abscisses curvilignes le long de $C_1$ et $C_2$, définis à partir de $\mathbf{x}_{1,0} \in C_1$ et $\mathbf{x}_{2,0} \in C_2$ arbitrairement choisis. On définit les vecteurs $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ (Voir figure \ref{fig: e_alpha et e_beta}) par
 
 \begin{equation}
-\mathbf{e}_{\alpha}(\overline{\mathbf{x}}) := \dfrac{d \mathbf{x}}{d \alpha} \text{ et } \mathbf{e}_{\beta}(\overline{\mathbf{x}}) := \dfrac{d \mathbf{x}}{d \beta}
+\mathbf{e}_{\alpha}(\overline{\mathbf{x}}) := \dfrac{d \mathbf{x}}{d \alpha}(\overline{\mathbf{x}}) \text{ et } \mathbf{e}_{\beta}(\overline{\mathbf{x}}) := \dfrac{d \mathbf{x}}{d \beta}(\overline{\mathbf{x}})
 \end{equation}
 
-deux vecteurs tangents aux cercles $C_1$ et $C_2$ et où $\alpha \rightarrow \mathbf{x}(\alpha)$ (resp.  $\beta \rightarrow \mathbf{x}(\beta)$) désigne le paramétrage du cercle $C_1$ (resp. $C_2$) par l'angle $\alpha$ (resp. $\beta$)
+$\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ sont tangents aux cercles $C_1$ et $C_2$. $\alpha \rightarrow \mathbf{x}(\alpha)$ (resp.  $\beta \rightarrow \mathbf{x}(\beta)$) désigne le paramétrage du cercle $C_1$ (resp. $C_2$) par l'angle $\alpha$ (resp. $\beta$).
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \begin{tikzpicture}[scale=1.8]
 	\draw [rotate=-60,samples=100,domain=0:-180] plot({cos(\x)},{0.4*sin(\x)});
@@ -233,7 +234,7 @@ Donc $\mathbf{u}$ et $\mathbf{v}$ vérifient \eqref{eq: dualite alpha beta}. De 
 \dfrac{\partial h}{\partial \tilde{\alpha}} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial h}{\partial \tilde{\beta}} \mathbf{e}^{\tilde{\beta}} = \dfrac{\partial h}{\partial \alpha} \mathbf{e}^{\alpha} + \dfrac{\partial h}{\partial \beta} \mathbf{e}^{\beta}
 \end{equation}
 
-Le gradient est bien définit car indépendant du choix des grands cercles.
+Le gradient est bien défini car indépendant du choix des grands cercles.
 \end{proof}
 
 \begin{proposition}
@@ -260,66 +261,64 @@ A DISCUTER AVEC JPC.
 
 
 
-
-
-\subsection{Construction de la Cubed-Sphere}
+\subsection{Définition de la Cubed-Sphere}
 
 Définissons la Cubed-Sphere associée à la base orthonormée $(\mathbf{i}, \mathbf{j}, \mathbf{k})$ de $\mathbb{R}^3$.
 On définit les points suivants (Voir Figure \ref{fig: sphere NSEWFB}) :
 \begin{itemize}
-\item $N$ le point de coordonnées dans $\mathbb{R}^3$ : $(0,0,a)$,
-\item $S$ le point de coordonnées $(0,0,-a)$,
-\item $E$ le point de coordonnées $(0,a,0)$,
-\item $W$ le point de coordonnées $(0,-a,0)$,
-\item $F$ le point de coordonnées $(a,0,0)$,
-\item $B$ le point de coordonnées $(-a,0,0)$.
+\item $\mathbf{N}$ le point de coordonnées dans $\mathbb{R}^3$ : $(0,0,a)$,
+\item $\mathbf{S}$ le point de coordonnées $(0,0,-a)$,
+\item $\mathbf{E}$ le point de coordonnées $(0,a,0)$,
+\item $\mathbf{W}$ le point de coordonnées $(0,-a,0)$,
+\item $\mathbf{F}$ le point de coordonnées $(a,0,0)$,
+\item $\mathbf{B}$ le point de coordonnées $(-a,0,0)$.
 \end{itemize}
 
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \begin{tikzpicture}[scale=2]
 	\draw [samples=100,domain=-180:0] plot({cos(\x)},{0.4*sin(\x)});
 	\draw [dotted, color=black!50, samples=100,domain=0:180] plot({cos(\x)},{0.4*sin(\x)});
 
 	\draw  (0,0) node {$\bullet$} ;
-	\draw  (0,0) node[above left] {$O$} ;
+	\draw  (0,0) node[above left] {$\mathbf{O}$} ;
 	\draw  (0,1) node {$\bullet$} ;
-	\draw  (-0.1,1.15) node {$N$} ;
+	\draw  (-0.1,1.15) node {$\mathbf{N}$} ;
 	\draw  (0,-1) node {$\bullet$} ;
-	\draw  (-0.1,-1.15) node {$S$} ;
+	\draw  (-0.1,-1.15) node {$\mathbf{S}$} ;
 	\draw  (1,0) node {$\bullet$} ;
-	\draw  (1,0) node[below right] {$E$} ;
+	\draw  (1,0) node[below right] {$\mathbf{E}$} ;
 	\draw  (-1,0) node {$\bullet$} ;
-	\draw  (-1,0) node[left] {$W$} ;	
+	\draw  (-1,0) node[left] {$\mathbf{W}$} ;	
 	\draw  (-0.55,-0.34) node {$\bullet$} ;
-	\draw  (-0.55,-0.34) node[below] {$F$} ;	
+	\draw  (-0.55,-0.34) node[below] {$\mathbf{F}$} ;	
 	\draw  (0.55,0.34) node[color=black!50] {$\bullet$} ;
-	\draw  (0.55,0.34) node[color=black!50, above left] {$B$} ;	
+	\draw  (0.55,0.34) node[color=black!50, above left] {$\mathbf{B}$} ;	
 	
 	\draw [>=stealth, ->] (0,0) -- (-1.2,-0.7) ;
-	\draw  (-1.2,-0.7) node[left] {$y$} ;
+	\draw  (-1.2,-0.7) node[left] {$x$} ;
 	\draw [>=stealth, ->] (0,0) -- (0,1.4) ;
-	\draw  (0,1.4) node[right] {$x$} ;
+	\draw  (0,1.4) node[right] {$z$} ;
 	\draw [>=stealth, ->] (0,0) -- (1.4,0) ;
-	\draw  (1.4,0) node[right] {$z$} ;
+	\draw  (1.4,0) node[right] {$y$} ;
 	\draw (0,0) circle (1cm);
     \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
 \end{tikzpicture}
 \end{center}
-\caption{Sphère $\mathbb{S}_a^2$, points $N$, $S$, $E$, $W$, $F$ et $B$.}
+\caption{Sphère $\mathbb{S}_a^2$, points $\mathbf{N}$, $\mathbf{S}$, $\mathbf{E}$, $\mathbf{W}$, $\mathbf{F}$ et $\mathbf{B}$.}
 \label{fig: sphere NSEWFB}
 \end{figure}
 
-
-Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig: panel I to VI}) :
+Un grand cercle est constitué de l'intersection de la sphère $\mathbb{S}_a^2$ avec un plan contenant le point $\mathbf{O}$. On défini les grands cercles suivants (Voir figure \ref{fig: grands cercles panel I}) :
 
 \begin{itemize}
-\item Le panel I est délimité par le cercle $C_V^1 = Vect(\mathbf{i}-\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$ et le cercle $C_V^2 = Vect(\mathbf{i}+\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$ ainsi que les cercles $C_{II}^1 = Vect(\mathbf{i}+\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$ et $C_{II}^2 = Vect(\mathbf{i}-\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$. Il ne contient que des points $\mathbf{x}=(x,y,z) \in \mathbb{S}_a^2 \subset \mathbb{R}^3$ vérifiant $x>0$. Le panel III est délimité par les mêmes cercles mais avec des points d'abscisse négative : $x<0$.
-\item Le panel II est délimité par $C_V^2$ et $C_V^1$ ainsi que $C_I^1=Vect(\mathbf{j}+\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$ et $C_I^2=Vect(\mathbf{j}-\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$. Il est constitué de points $\mathbf{x} \in \mathbb{S}_a^2$ tels que $y>0$. Le panel IV est son symétrique, délimité par les mêmes cercles, avec $y<0$.
-\item Le panel V est délimité par les cercles $C_I^1$, $C_I^2$, $C_{II}^1$ et $C_{II}^2$. Les points $\mathbf{x} = (x,y,z) \in \mathbb{S}_a^2$ qui le constituent sont tels que $z>0$. Son symétrique, le panel VI, est composé de points tels que $z<0$.
-
-
+\item $C_V^1 = Vect(\mathbf{i}-\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$,
+\item $C_V^2 = Vect(\mathbf{i}+\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$,
+\item $C_{II}^1 = Vect(\mathbf{i}+\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$,
+\item $C_{II}^2 = Vect(\mathbf{i}-\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$,
+\item $C_I^1=Vect(\mathbf{j}-\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$,
+\item $C_I^2=Vect(\mathbf{j}+\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$.
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -358,15 +357,78 @@ Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig
 	\draw  (1.4,0) node[right] {$y$} ;
 	
 	\draw  (0,1) node {$\bullet$} ;
-	\draw  (-0.1,1.15) node {$N$} ;
+	\draw  (-0.1,1.15) node {$\mathbf{N}$} ;
 	\draw  (0,-1) node {$\bullet$} ;
-	\draw  (-0.1,-1.15) node {$S$} ;
+	\draw  (-0.1,-1.15) node {$\mathbf{S}$} ;
 	\draw  (1,0) node {$\bullet$} ;
-	\draw  (1,0) node[below right] {$E$} ;
+	\draw  (1,0) node[below right] {$\mathbf{E}$} ;
 	\draw  (-1,0) node {$\bullet$} ;
-	\draw  (-1,0) node[above left] {$W$} ;
+	\draw  (-1,0) node[above left] {$\mathbf{W}$} ;
 	\draw  (0,0) node {$\bullet$} ;
-	\draw  (0,0) node[below] {$F$} ;
+	\draw  (0,0) node[below] {$\mathbf{F}$} ;
+	
+	\draw  (0,-1.7) node {Panel I} ;
+
+	\draw (0,0) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
+
+\end{tikzpicture}
+\caption{Grands cercles visibles sur le Panel I de la sphère $\mathbb{S}_a^2$.}
+\end{center}
+\label{fig: grands cercles panel I}
+\end{figure}
+
+La construction de la Cubed-Sphère fait intervenir six panels recouvrant la sphère $\mathbb{S}_a^2$. Chaque panel est délimité par quatre grands cercles (voir figure \ref{fig: panel I to VI}) :
+
+\begin{itemize}
+\item les panel I et III sont délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{II}^1$ et $C_{II}^2$. Le panel III est le symétrique du panel I par la symétrie ponctuelle de centre $\mathbf{O}$. Ainsi le panel I ne contient que des points $(x,y,z)$ tels que $x>0$, le panel III ne contient que des points tels que $x<0$,
+\item les panel II et IV sont délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{I}^1$ et $C_{I}^2$. Le panel IV est le symétrique du panel II par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel II ne contient que des points $(x,y,z)$ tels que $y>0$, le panel IV ne contient que des points tels que $y<0$,
+\item les panel V et VI sont délimités par les grands cercles $C_I^1$, $C_I^2$, $C_{II}^1$ et $C_{II}^2$. Le panel VI est le symétrique du panel V par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel V ne contient que des points $(x,y,z)$ tels que $z>0$, le panel VI ne contient que des points tels que $z<0$.
+\end{itemize}
+
+
+
+
+
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{tikzpicture}[scale=2]
+	%\draw [color=gray] (-1.5,-1.5) grid[step=0.1] (1.5,1.5);
+	\draw [samples=100,domain=-180:180] plot({cos(\x)},{0.7*sin(\x)});
+	\draw [samples=100,domain=180:-180] plot({0.7*cos(\x)},{sin(\x)}); 
+	
+	\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot [smooth,domain=-35:35] ({0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=55:125] ({cos(\x)},{0.7*sin(\x)})
+	-- plot [smooth,domain=140:215] ({0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=230:305] ({cos(\x)},{0.7*sin(\x)})
+	-- cycle;
+	
+	\draw [>=stealth, ->] (0.5,1.3) -- (0.4,0.8) ;
+	\draw  (0.5,1.3) node[above] {$C_V^2$} ;
+	\draw [>=stealth, ->] (-0.7,1.3) -- (-0.4,0.8) ;
+	\draw  (-0.7,1.3) node[above] {$C_V^1$} ;
+	\draw [>=stealth, ->] (1.3,0.5) -- (0.8,0.4) ;
+	\draw  (1.3,0.5) node[right] {$C_{II}^1$} ;
+	\draw [>=stealth, ->] (1.3,-0.7) -- (0.8,-0.4) ;
+	\draw  (1.3,-0.7) node[right] {$C_{II}^2$} ;
+	
+	\draw [>=stealth, ->] (0,0) -- (0,1.4) ;
+	\draw  (0,1.4) node[right] {$z$} ;
+	\draw [>=stealth, ->] (0,0) -- (1.4,0) ;
+	\draw  (1.4,0) node[right] {$y$} ;
+	
+	\draw  (0,1) node {$\bullet$} ;
+	\draw  (-0.1,1.15) node {$\mathbf{N}$} ;
+	\draw  (0,-1) node {$\bullet$} ;
+	\draw  (-0.1,-1.15) node {$\mathbf{S}$} ;
+	\draw  (1,0) node {$\bullet$} ;
+	\draw  (1,0) node[below right] {$\mathbf{E}$} ;
+	\draw  (-1,0) node {$\bullet$} ;
+	\draw  (-1,0) node[above left] {$\mathbf{W}$} ;
+	\draw  (0,0) node {$\bullet$} ;
+	\draw  (0,0) node[below] {$\mathbf{F}$} ;
 	
 	\draw  (0,-1.7) node {Panel I} ;
 
@@ -401,15 +463,15 @@ Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig
 	\draw  (4-1.4,0) node[left] {$x$} ;
 	
 	\draw  (4,1) node {$\bullet$} ;
-	\draw  (4-0.1,1.15) node {$N$} ;
+	\draw  (4-0.1,1.15) node {$\mathbf{N}$} ;
 	\draw  (4,-1) node {$\bullet$} ;
-	\draw  (4-0.1,-1.15) node {$S$} ;
+	\draw  (4-0.1,-1.15) node {$\mathbf{S}$} ;
 	\draw  (5,0) node {$\bullet$} ;
-	\draw  (5,0) node[below right] {$B$} ;
+	\draw  (5,0) node[below right] {$\mathbf{B}$} ;
 	\draw  (4-1,0) node {$\bullet$} ;
-	\draw  (4-1,0) node[above left] {$F$} ;
+	\draw  (4-1,0) node[above left] {$\mathbf{F}$} ;
 	\draw  (4,0) node {$\bullet$} ;
-	\draw  (4.1,0.1) node {$E$} ;
+	\draw  (4.1,0.1) node {$\mathbf{E}$} ;
 	
 	\draw  (4,-1.7) node {Panel II} ;
 
@@ -446,15 +508,15 @@ Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig
 	\draw  (-1.4,-4) node[left] {$y$} ;
 	
 	\draw  (0,-4+1) node {$\bullet$} ;
-	\draw  (-0.1,-4+1.15) node {$N$} ;
+	\draw  (-0.1,-4+1.15) node {$\mathbf{N}$} ;
 	\draw  (0,-4-1) node {$\bullet$} ;
-	\draw  (-0.1,-4-1.15) node {$S$} ;
+	\draw  (-0.1,-4-1.15) node {$\mathbf{S}$} ;
 	\draw  (1,-4) node {$\bullet$} ;
-	\draw  (1,-4) node[below right] {$W$} ;
+	\draw  (1,-4) node[below right] {$\mathbf{W}$} ;
 	\draw  (-1,-4) node {$\bullet$} ;
-	\draw  (-1,-4) node[above left] {$E$} ;
+	\draw  (-1,-4) node[above left] {$\mathbf{E}$} ;
 	\draw  (0,-4) node {$\bullet$} ;
-	\draw  (0.1,-4.1) node {$B$} ;
+	\draw  (0.1,-4.1) node {$\mathbf{B}$} ;
 	
 	\draw  (0,-4-1.7) node {Panel III} ;
 
@@ -489,15 +551,15 @@ Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig
 	\draw  (5.4,-4) node[right] {$x$} ;
 	
 	\draw  (4,-4+1) node {$\bullet$} ;
-	\draw  (4-0.1,-4+1.15) node {$N$} ;
+	\draw  (4-0.1,-4+1.15) node {$\mathbf{N}$} ;
 	\draw  (4,-4-1) node {$\bullet$} ;
-	\draw  (4-0.1,-4-1.15) node {$S$} ;
+	\draw  (4-0.1,-4-1.15) node {$\mathbf{S}$} ;
 	\draw  (5,-4) node {$\bullet$} ;
-	\draw  (5,-4) node[below right] {$F$} ;
+	\draw  (5,-4) node[below right] {$\mathbf{F}$} ;
 	\draw  (4-1,-4) node {$\bullet$} ;
-	\draw  (4-1,-4) node[above left] {$B$} ;
+	\draw  (4-1,-4) node[above left] {$\mathbf{B}$} ;
 	\draw  (4,-4) node {$\bullet$} ;
-	\draw  (4.1,-4.1) node {$W$} ;
+	\draw  (4.1,-4.1) node {$\mathbf{W}$} ;
 	
 	\draw  (4,-4-1.7) node {Panel IV} ;
 
@@ -532,15 +594,15 @@ Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig
 	\draw  (1.4,0-8) node[right] {$y$} ;
 	
 	\draw  (0,1-8) node {$\bullet$} ;
-	\draw  (-0.1,1.15-8) node {$B$} ;
+	\draw  (-0.1,1.15-8) node {$\mathbf{B}$} ;
 	\draw  (0,-1-8) node {$\bullet$} ;
-	\draw  (-0.1,-1.15-8) node {$F$} ;
+	\draw  (-0.1,-1.15-8) node {$\mathbf{F}$} ;
 	\draw  (1,0-8) node {$\bullet$} ;
-	\draw  (1,0-8) node[below right] {$E$} ;
+	\draw  (1,0-8) node[below right] {$\mathbf{E}$} ;
 	\draw  (-1,0-8) node {$\bullet$} ;
-	\draw  (-1,0-8) node[above left] {$W$} ;
+	\draw  (-1,0-8) node[above left] {$\mathbf{W}$} ;
 	\draw  (0,0-8) node {$\bullet$} ;
-	\draw  (0.1,0.1-8) node {$N$} ;
+	\draw  (0.1,0.1-8) node {$\mathbf{N}$} ;
 	
 	\draw  (0,-1.7-8) node {Panel V} ;
 
@@ -574,15 +636,15 @@ Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig
 	\draw  (4+1.4,0-8) node[right] {$y$} ;
 	
 	\draw  (4,1-8) node {$\bullet$} ;
-	\draw  (4-0.1,1.15-8) node {$F$} ;
+	\draw  (4-0.1,1.15-8) node {$\mathbf{F}$} ;
 	\draw  (4,-1-8) node {$\bullet$} ;
-	\draw  (4-0.1,-1.15-8) node {$B$} ;
+	\draw  (4-0.1,-1.15-8) node {$\mathbf{B}$} ;
 	\draw  (5,0-8) node {$\bullet$} ;
-	\draw  (5,0-8) node[below right] {$E$} ;
+	\draw  (5,0-8) node[below right] {$\mathbf{E}$} ;
 	\draw  (4-1,0-8) node {$\bullet$} ;
-	\draw  (4-1,0-8) node[above left] {$W$} ;
+	\draw  (4-1,0-8) node[above left] {$\mathbf{W}$} ;
 	\draw  (4,0-8) node {$\bullet$} ;
-	\draw  (4+0.1,0.1-8) node {$S$} ;
+	\draw  (4+0.1,0.1-8) node {$\mathbf{S}$} ;
 	
 	\draw  (4,-1.7-8) node {Panel VI} ;
 
@@ -594,28 +656,28 @@ Chacun des panels est délimité par quatre grands cercles (Voir Figure \ref{fig
 \label{fig: panel I to VI}
 \end{figure}
 
-
-
-
-La grille Cubed-Sphere est constituée de l'intersection d'un ensemble de grands cercles pour chaque panel. On commence par introduire le système de coordonnées $(\xi,\eta)$ associés aux cercles centraux de chaque panel. $\xi$ et  $\eta$ sont définis comme il suit :
+La grille Cubed-Sphere est constituée de l'intersection d'un ensemble de grands cercles sur chaque panel. On commence par introduire le système de coordonnées $(\xi,\eta)$ associés aux cercles centraux de chaque panel. $\xi$ et  $\eta$ sont définis comme il suit :
 
 \begin{itemize}
-\item Les courbes $\xi = 0$ et $\eta = 0$ sont les grands cercles de référence, notés respectivement $C_0^{(1)}$ et $C_0^{(2)}$ (en pointillés gras sur la Figure sur \ref{fig: panel I xi eta} et sur \ref{fig: panel I}). Pour le panel I, $C_0^{(1)}$ est le grand cercle passant par les points $N$ et $S$, il coupe orthogonalement $C_0^{(2)}$ qui est le grand cercle passant par $W$ et $E$,
+\item Les courbes $\xi = 0$ et $\eta = 0$ sont les grands cercles de référence, notés respectivement $C_0^{(1)}$ et $C_0^{(2)}$ (en pointillés gras sur la Figure sur \ref{fig: panel I xi eta} et sur \ref{fig: panel I}). Pour le panel I, $C_0^{(1)}$ est le grand cercle passant par les points $\mathbf{N}$, $\mathbf{F}$ et $\mathbf{S}$, il coupe orthogonalement $C_0^{(2)}$ qui est le grand cercle passant par $\mathbf{W}$, $\mathbf{F}$ et $\mathbf{E}$,
 
 \item $\xi$ est l'angle géodésique mesuré sur $C_0^{(2)}$ et $\eta$ l'angle géodésique mesuré sur $C_0^{(1)}$,
 
-\item si $M$ est un point d'un panel, il est localisé de grâce aux angles géodésiques $\xi$ et $\eta$  (voir Figure \ref{fig: panel I xi eta}),
+\item si $\mathbf{x}$ est un point d'un panel, il est localisé de grâce aux angles géodésiques $\xi$ et $\eta$  (voir Figure \ref{fig: panel I xi eta}),
 
 \item un panel est définit pour :
 \begin{equation}
 - \dfrac{\pi}{4} \leq \xi\text{, }\eta \leq \dfrac{\pi}{4},
 \end{equation}
 
-\item Soit $\mathbf{s}_{i,j}$ est un point du panel $K$, c'est un point du maillage si il est localisé grâce à ses coordonnées $(\xi_i, \eta_j)$ données par :
+\item Soit $\mathbf{x}_{i,j}$ est un point du panel $K \in \lbrace I, II, III, IV, V, VI \rbrace$, c'est un point du maillage si il est localisé grâce à ses coordonnées $(\xi_i, \eta_j)$ données par :
 \begin{equation}
 \xi_i = i \Delta \xi \text{ et } \eta_j = j \Delta \eta \text{ avec } -\dfrac{N}{2} \leq i,j \leq \dfrac{N}{2},
 \end{equation}
-dans ce qui suit, nous supposerons $N$ pair. $\Delta \xi$ et $\Delta \eta$ représentent le pas séparant régulièrement les grands les points dans le système de coordonnées $(\xi, \eta)$. 
+dans ce qui suit, nous supposerons $N$ pair. $\Delta \xi$ et $\Delta \eta$ représentent le pas séparant régulièrement les grands les grandsc ercles dans le système de coordonnées $(\xi, \eta)$. Ainsi, 
+\begin{equation}
+\Delta \xi = \Delta \eta = \dfrac{\pi}{2N}
+\end{equation} 
 \end{itemize}
 
 Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudinale de $2 \pi$, on peut donc insérer 4 panels notés $I$, $II$, $III$ et $IV$. De même, le long de $C_0^{(1)}$, sont présents les panels $I$, $V$, $III$ et $VI$.
@@ -629,7 +691,9 @@ Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudina
     \draw[color=red] (0,0.2) node{$\eta$} ;
 
 	\draw [dashed, line width=0.8pt, samples=100, domain=-180:0] plot({cos(\x)},{0.15*sin(\x)});
+	\draw [dotted, line width=0.8pt, samples=100, domain=-180:0, color=gray] plot({cos(\x)},{-0.15*sin(\x)});
 	\draw [dashed, line width=0.8pt, samples=100,domain=-90:90] plot({0.15*cos(\x)},{sin(\x)});
+	\draw [dotted, line width=0.8pt, samples=100,domain=-90:90, color=gray] plot({-0.15*cos(\x)},{sin(\x)});
 	\draw [>=stealth, ->] (1.3,-.35) -- (0.8,-0.1) ;
 	\draw  (1.5,-.35) node {$C_0^{(2)}$} ;
 	\draw [>=stealth, ->] (0.35,1.3) -- (0.1,0.8) ;
@@ -637,22 +701,24 @@ Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudina
     
     
 	\draw [samples=100, domain=-180:0, color=gray] plot({cos(\x)},{-0.55*sin(\x)});
+	\draw [dotted, samples=100, domain=-180:0, color=gray!80] plot({cos(\x)},{0.55*sin(\x)});
 	\draw [samples=100, domain=-90:90, color=gray] plot({0.4*cos(\x)},{sin(\x)});
+	\draw [dotted, samples=100, domain=-90:90, color=gray!80] plot({-0.4*cos(\x)},{sin(\x)});
 	\draw (.34,0.51) node {$\bullet$} ;
 	\draw (.34,0.51) node[right]{$\mathbf{x}$} ;
 	
 	\draw (1,0) node {$\bullet$} ;
-	\draw (1,0) node[above right]{$E$} ;
+	\draw (1,0) node[above right]{$\mathbf{E}$} ;
 	\draw (-1,0) node {$\bullet$} ;
-	\draw (-1,0) node[above left]{$W$} ;
+	\draw (-1,0) node[above left]{$\mathbf{W}$} ;
 	\draw (0,1) node {$\bullet$} ;
-	\draw (0,1) node[above left]{$N$} ;
+	\draw (0,1) node[above left]{$\mathbf{N}$} ;
 	\draw (0,-1) node {$\bullet$} ;
-	\draw (0,-1) node[below left]{$S$} ;
+	\draw (0,-1) node[below left]{$\mathbf{S}$} ;
 	\draw (.15,-0.15) node {$\bullet$} ;
-	\draw (.15,-0.15) node[below left]{$F$} ;
+	\draw (.15,-0.15) node[below left]{$\mathbf{F}$} ;
 	\draw (0,0) node {$\bullet$} ;
-	\draw (0,0) node[left]{$0$} ;
+	\draw (0,0) node[left]{$\mathbf{0}$} ;
 	
 	\draw [>=stealth, ->] (0,0) -- (0,1.4) ;
 	\draw  (0,1.4) node[right] {$y$} ;
@@ -701,13 +767,13 @@ Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudina
 	\draw [>=stealth, ->] (4.35,1.3) -- (4,0.8) ;
 	\draw  (4.45,1.45) node {$C_0^{(1)}$} ;
 	\draw  (4,1) node {$\bullet$} ;
-	\draw  (3.9,1.15) node {$N$} ;
+	\draw  (3.9,1.15) node {$\mathbf{N}$} ;
 	\draw  (4,-1) node {$\bullet$} ;
-	\draw  (3.9,-1.15) node {$S$} ;
+	\draw  (3.9,-1.15) node {$\mathbf{S}$} ;
 	\draw  (5,0) node {$\bullet$} ;
-	\draw  (5.15,0) node {$E$} ;
+	\draw  (5.15,0) node {$\mathbf{E}$} ;
 	\draw  (3,0) node {$\bullet$} ;
-	\draw  (4-1.15,0) node {$W$} ;
+	\draw  (4-1.15,0) node {$\mathbf{W}$} ;
 	
 	\draw  (4.27,0.38) node {$\bullet$} ;
 	\draw  (4.27,0.38) node[right] {$\mathbf{x}$} ;
@@ -763,13 +829,13 @@ Le maillage associé au panel I est constitué des points d'intersection des $N+
 	\draw [>=stealth, ->] (0.35,1.3) -- (0,0.8) ;
 	\draw  (0.45,1.45) node {$C_0^{(1)}$} ;
 	\draw  (0,1) node {$\bullet$} ;
-	\draw  (-0.1,1.15) node {$N$} ;
+	\draw  (-0.1,1.15) node {$\mathbf{N}$} ;
 	\draw  (0,-1) node {$\bullet$} ;
-	\draw  (-0.1,-1.15) node {$S$} ;
+	\draw  (-0.1,-1.15) node {$\mathbf{S}$} ;
 	\draw  (1,0) node {$\bullet$} ;
-	\draw  (1.15,0) node {$E$} ;
+	\draw  (1.15,0) node {$\mathbf{E}$} ;
 	\draw  (-1,0) node {$\bullet$} ;
-	\draw  (-1.15,0) node {$W$} ;
+	\draw  (-1.15,0) node {$\mathbf{W}$} ;
 
 	\draw (0,0) circle (1cm);
     \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
@@ -779,7 +845,7 @@ Le maillage associé au panel I est constitué des points d'intersection des $N+
 
 \end{tikzpicture}
 \end{center}
-\caption{Le panel I est constitué des points d'intersection d'un ensemble de grands cercles.}
+\caption{Le panel I est constitué des points d'intersections d'un ensemble de grands cercles.}
 \label{fig: panel I}
 \end{figure}  
 
@@ -853,7 +919,7 @@ $$
 
 \section{Coordonnées Gnomoniques}
 
-On considère un cube inscrit dans la Sphère $\mathbb{S}_a^2$. Le demi côté de ce cube mesure $R=\frac{\sqrt{3}}{6}a$. Chaque face du cube est donnée par :
+On considère un cube inscrit dans la Sphère $\mathbb{S}_a^2$. Le demi côté de ce cube mesure $R=\frac{\sqrt{3}}{3}a$. Chaque face du cube est donnée par :
 \begin{itemize}
 \item la face centrée sur $F'=(R,0,0)$ : 
 \begin{equation}
@@ -898,7 +964,7 @@ On considère un cube inscrit dans la Sphère $\mathbb{S}_a^2$. Le demi côté d
 \end{equation}
 \end{itemize}
 
-$F$ est la projection gnomonique de $F'$ sur la sphère $\mathbb{S}_a^2$, $E$ celle de $E'$, ...
+$\mathbf{F}$ est la projection gnomonique de $F'$ sur la sphère $\mathbb{S}_a^2$, $\mathbf{E}$ celle de $E'$, ...
 Si l'on considère par exemple le panel I, un point $\mathbf{x}'=(x',y',z')$ de la face centré sur $F'$ est projeté en $\mathbf{x} = (x,y,z)$ un point du panel I (Voir figure \ref{fig: projection gnomonique}).
 
 \begin{figure}[htbp]
@@ -923,7 +989,7 @@ Si l'on considère par exemple le panel I, un point $\mathbf{x}'=(x',y',z')$ de 
 	\draw  (2.5,-.75) node {$\bullet$} ;
 	\draw  (2.5,-.75) node[below right] {$F'$} ;
 	\draw  (4.25,-0.8) node {$\bullet$} ;
-	\draw  (4.25,-0.8) node[right] {$F$} ;
+	\draw  (4.25,-0.8) node[right] {$\mathbf{F}$} ;
 	
 	\draw [dashed, line width=0.8pt, shift={(-0.74,-0.6)}] plot[domain=-0.86:0.86,variable=\t]({1*4.99*cos(\t r)+0*4.99*sin(\t r)},{0*4.99*cos(\t r)+1*4.99*sin(\t r)});
 	\draw [dashed, line width=0.8pt, shift={(0.16,-8.64)}] plot[domain=0.85:1.56,variable=\t]({1*8.84*cos(\t r)+0*8.84*sin(\t r)},{0*8.84*cos(\t r)+1*8.84*sin(\t r)});
@@ -944,7 +1010,7 @@ Si l'on considère par exemple le panel I, un point $\mathbf{x}'=(x',y',z')$ de 
 	\draw [dotted, color=gray] (.975,1.73) -- (.9,0) ;
 	
 	\draw  (-4,-.5) node {$\bullet$} ;
-	\draw  (-4,-.5) node[left] {$O$} ;
+	\draw  (-4,-.5) node[left] {$\mathbf{O}$} ;
 	
 	\draw [>=stealth, ->] (-1.5,-.6) -- (-2.25,-.35) ;
 	\draw  (-1.7,-.35) node {$\xi$} ;
