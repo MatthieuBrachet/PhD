@@ -14,13 +14,13 @@ On note $\mathbb{S}_a^2$ \textit{la sphère} de centre $\mathbf{O} (0,0,0) \in \
 \end{equation} 
 
 Un \textit{grand cercle} est un cercle de centre $\mathbf{O}$ et de rayon $a$. Un grand cercle est inclus dans la sphère $\mathbb{S}_a^2$.
-Soit $C$ un grand cercle fixé et $\mathbf{x}_0 \in C$ un point fixé. On choisit l'un des deux sens de parcours le long de $C$ à partir de $\mathbf{x}_0$ et on définit \textit{l'abscisse curviligne} de $\mathbf{x} \in C$ par :
+Soit $C$ un grand cercle fixé et $\mathbf{x}_0 \in C$ un point fixé. On choisit l'un des deux sens de parcours le long de $C$ à partir de $\mathbf{x}_0$ et on définit \textit{l'abscisse curviligne} de $\mathbf{x} \in C$ par la distance séparant $\mathbf{x}$ de $\mathbf{x}_0$ le long de $C$. Alors la relation suivante est vérifiée :
 
 \begin{equation}
-arg \longarc{\mathbf{x}_0  \mathbf{x}} := a \alpha
+arg \longarc{\mathbf{x}_0  \mathbf{x}} = a \alpha
 \end{equation}
 
-où $\alpha \in [ 0, 2 \pi[$ désigne la l'angle $\widehat{\mathbf{x}_0  \mathbf{x}}$ dans le sens choisit (Voir figure \ref{fig: grand cercle}).
+où $\alpha \in [ 0, 2 \pi[$ désigne la l'angle $\widehat{\mathbf{x}_0  \mathbf{x}}$ dans le sens choisit (Voir figure \ref{fig: grand cercle}). $\alpha$ est \textit{l'angle géodésique} entre $\mathbf{x}_0$ et $\mathbf{x}$.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -173,6 +173,14 @@ Soit $h : \mathbb{S}_a^2 \mapsto \mathbb{R}$ est une fonction régulière, son g
 \end{equation}
 
 \begin{proposition}
+Soit $\mathbf{x} \in \mathbb{S}_a^2$, alors $\nabla_{T} h (\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$.
+\end{proposition}
+
+\begin{proof}
+$\nabla_{T} h (\mathbf{x})$ est une combinaison linéaire de $\mathbf{e}^{\alpha}(\mathbf{x})$ et $\mathbf{e}^{\beta}(\mathbf{x})$. Ces deux vecteurs engendrent le plan $\mathbb{T}_{\mathbf{x}}\mathbb{S}_a^2$, d'où le résultat.
+\end{proof}
+
+\begin{proposition}
 Le gradient \eqref{eq: gradient} est bien défini. Il ne dépend pas du choix des deux grands cercles $C_1$ et $C_2$ choisis.
 \end{proposition}
 
@@ -237,13 +245,7 @@ Donc $\mathbf{u}$ et $\mathbf{v}$ vérifient \eqref{eq: dualite alpha beta}. De 
 Le gradient est bien défini car indépendant du choix des grands cercles.
 \end{proof}
 
-\begin{proposition}
-Soit $\mathbf{x} \in \mathbb{S}_a^2$, alors $\nabla_{T} h (\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$.
-\end{proposition}
 
-\begin{proof}
-$\nabla_{T} h (\mathbf{x})$ est une combinaison linéaire de $\mathbf{e}^{\alpha}(\mathbf{x})$ et $\mathbf{e}^{\beta}(\mathbf{x})$. Ces deux vecteurs engendrent le plan $\mathbb{T}_{\mathbf{x}}\mathbb{S}_a^2$, d'où le résultat.
-\end{proof}
 
 \begin{proposition}
 Soit $u: \mathbb{R}^3 \mapsto \mathbb{R}$ une fonction de $\mathbb{R}^3$ et $\mathbf{x} \in \mathbb{R}^3$. On pose $\hat{u} : = u_{|\mathbb{S}_a^2}$ la restriction de $u$ à la sphère $\mathbb{S}_a^2$. Alors $\nabla_{T} \hat{u} (\mathbf{x})$ est la projection orthogonale de $\nabla_{\mathbb{R}^3} u (\mathbf{x})$ sur le plan tangent $\mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$.
@@ -314,11 +316,11 @@ Un grand cercle est constitué de l'intersection de la sphère $\mathbb{S}_a^2$ 
 
 \begin{itemize}
 \item $C_V^1 = Vect(\mathbf{i}-\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$,
-\item $C_V^2 = Vect(\mathbf{i}+\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$,
-\item $C_{II}^1 = Vect(\mathbf{i}+\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$,
+\item $C_V^2 = Vect(\mathbf{i}+\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$, il s'agit d'une rotation de $C_V^1$ d'un angle de $\pi/2$ autour de $(Oz)$,
+\item $C_{II}^1 = Vect(\mathbf{i}+\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$, $C_{II}^2$ est une rotation de $C_{II}^1$ d'un angle de $\pi/2$ autour de $(Oy)$,
 \item $C_{II}^2 = Vect(\mathbf{i}-\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$,
 \item $C_I^1=Vect(\mathbf{j}-\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$,
-\item $C_I^2=Vect(\mathbf{j}+\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$.
+\item $C_I^2=Vect(\mathbf{j}+\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$, $C_I^2$ est une rotation de $C_I^1$ autour de $(Ox)$ d'un angle de $\pi/2$
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -378,13 +380,16 @@ Un grand cercle est constitué de l'intersection de la sphère $\mathbb{S}_a^2$ 
 \label{fig: grands cercles panel I}
 \end{figure}
 
-La construction de la Cubed-Sphère fait intervenir six panels recouvrant la sphère $\mathbb{S}_a^2$. Chaque panel est délimité par quatre grands cercles (voir figure \ref{fig: panel I to VI}) :
+La construction de la Cubed-Sphère fait intervenir six zones recouvrant la sphère $\mathbb{S}_a^2$, il s'agit des \textit{panels}. Chaque panel est délimité par quatre grands cercles (voir figure \ref{fig: panel I to VI}).
 
+\begin{definition}
+Les panels I, II, III, IV, V et VI sont définis par :
 \begin{itemize}
-\item les panel I et III sont délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{II}^1$ et $C_{II}^2$. Le panel III est le symétrique du panel I par la symétrie ponctuelle de centre $\mathbf{O}$. Ainsi le panel I ne contient que des points $(x,y,z)$ tels que $x>0$, le panel III ne contient que des points tels que $x<0$,
-\item les panel II et IV sont délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{I}^1$ et $C_{I}^2$. Le panel IV est le symétrique du panel II par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel II ne contient que des points $(x,y,z)$ tels que $y>0$, le panel IV ne contient que des points tels que $y<0$,
-\item les panel V et VI sont délimités par les grands cercles $C_I^1$, $C_I^2$, $C_{II}^1$ et $C_{II}^2$. Le panel VI est le symétrique du panel V par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel V ne contient que des points $(x,y,z)$ tels que $z>0$, le panel VI ne contient que des points tels que $z<0$.
+\item Les panel I et III sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{II}^1$ et $C_{II}^2$. Le panel III est le symétrique du panel I par la symétrie ponctuelle de centre $\mathbf{O}$.Le panel I ne contient que des points $(x,y,z)$ tels que $x>0$, le panel III ne contient que des points tels que $x<0$.
+\item Les panel II et IV sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{I}^1$ et $C_{I}^2$. Le panel IV est le symétrique du panel II par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel II ne contient que des points $(x,y,z)$ tels que $y>0$, le panel IV ne contient que des points tels que $y<0$.
+\item Les panel V et VI sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_I^1$, $C_I^2$, $C_{II}^1$ et $C_{II}^2$. Le panel VI est le symétrique du panel V par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel V ne contient que des points $(x,y,z)$ tels que $z>0$, le panel VI ne contient que des points tels que $z<0$.
 \end{itemize}
+\end{definition}
 
 
 
@@ -685,8 +690,8 @@ Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudina
 \begin{figure}[htbp]
 \begin{center}
 \begin{tikzpicture}[scale=2.2]
-    \draw[>=stealth, ->, samples=100, color=green, domain=-79:-68] plot({1.05*cos(\x)},{0.2*sin(\x)});
-    \draw[color=green] (.45,-.3) node{$\xi$} ;
+    \draw[>=stealth, ->, samples=100, color=blue, domain=-79:-68] plot({1.05*cos(\x)},{0.2*sin(\x)});
+    \draw[color=blue] (.45,-.3) node{$\xi$} ;
     \draw[>=stealth, ->, samples=100, color=red, domain=-7:35] plot({0.1*cos(\x)},{0.95*sin(\x)});
     \draw[color=red] (0,0.2) node{$\eta$} ;
 
@@ -777,8 +782,8 @@ Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudina
 	
 	\draw  (4.27,0.38) node {$\bullet$} ;
 	\draw  (4.27,0.38) node[right] {$\mathbf{x}$} ;
-	\draw [>=stealth, ->, color=green] (4,-0.05) -- (4.3,-0.05) ;
-	\draw  (4.15,-0.05) node[color=green, below] {$\xi$} ;
+	\draw [>=stealth, ->, color=blue] (4,-0.05) -- (4.3,-0.05) ;
+	\draw  (4.15,-0.05) node[color=blue, below] {$\xi$} ;
 	\draw [>=stealth, ->, color=red] (3.95,0) -- (3.95,0.4) ;
 	\draw  (3.95,0.2) node[color=red, left] {$\eta$} ;
 
@@ -866,6 +871,17 @@ où le pas de discrétisation est :
 \end{equation}
 \end{definition}
 
+\begin{proposition}
+La Cubed-Sphere est composée de $6N^2 +2$ points.
+\end{proposition}
+
+\begin{proof}
+Il y a 6 intérieurs de panels de $(N-1)^2$ points, 12 arrêtes de $N-1$ points et 8 sommets. Ainsi le nombre de points sur la Cubed-Sphere est :
+$$
+6 (N-1)^2 + 12 (N-1)+8=6N^2+2
+$$
+\end{proof}
+
 Les points $\mathbf{x}_{i,j}^{(k)}$ de chaque panel se divisent en 3 catégories :
 \begin{itemize}
 \item Les points intérieurs si :
@@ -896,16 +912,7 @@ i, j = \pm \dfrac{N}{2}
 
 
 
-\begin{proposition}
-La Cubed-Sphere est composée de $6N^2 +2$ points.
-\end{proposition}
 
-\begin{proof}
-Il y a 6 intérieurs de panels de $(N-1)^2$ points, 12 arrêtes de $N-1$ points et 8 sommets. Ainsi le nombre de points sur la Cubed-Sphere est :
-$$
-6 (N-1)^2 + 12 (N-1)+8=6N^2+2
-$$
-\end{proof}
 
 
 
@@ -965,7 +972,7 @@ On considère un cube inscrit dans la Sphère $\mathbb{S}_a^2$. Le demi côté d
 \end{itemize}
 
 $\mathbf{F}$ est la projection gnomonique de $F'$ sur la sphère $\mathbb{S}_a^2$, $\mathbf{E}$ celle de $E'$, ...
-Si l'on considère par exemple le panel I, un point $\mathbf{x}'=(x',y',z')$ de la face centré sur $F'$ est projeté en $\mathbf{x} = (x,y,z)$ un point du panel I (Voir figure \ref{fig: projection gnomonique}).
+Si l'on considère par exemple le panel I, un point $\mathbf{x}'=(x',y',z')$ de la face centré sur $F'$ est projeté en $\mathbf{x} = (x,y,z)$ un point du panel I (Voir figure \ref{fig: projection gnomonique}). Chaque panel est la projection de l'un des face du cube.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1069,7 +1076,17 @@ z & = & xY &&
 \right.
 \end{equation}
 
-le signe de $x$ est donné car $\mathbf{x}$ est un point du panel I qui ne contient que des points d'abscisse positive. Pour chaque panel $(X,Y)$ est un système de coordonnées admissible.
+le signe de $x$ est donné car $\mathbf{x}$ est un point du panel I qui ne contient que des points d'abscisse positive.
+
+\begin{theoreme}
+Pour chaque panel, les coordonnées gnomoniques $(X,Y)$ forment un système de coordonnées admissible.
+\end{theoreme}
+
+$\tan$ étant une bijection de $\left[ -\dfrac{\pi}{4}, \dfrac{\pi}{4} \right]$ dans $\left[-1,1\right]$, on en déduit le corollaire suivant :
+
+\begin{corollaire}
+$(\xi, \eta)$ est un système de coordonnées admissible pour chaque panel.
+\end{corollaire}
 
 De là, on peut dériver chaque donnée :
 
@@ -1141,7 +1158,7 @@ $(\mathbf{g}^{\xi}$ et $\mathbf{g}^{\eta})$ est un couple de vecteurs de $\mathb
 \label{eq: normalisation g_xi g_eta}
 \end{equation}
 
-$(\mathbf{g}^{\xi}$ et $\mathbf{g}^{\eta})$ sont des vecteurs de $\mathbb{T}_{\mathbf{x}}\mathbb{S}_a^2$. Il existe $A$, $B$, $C$ et $D$ tels que :
+$\mathbf{g}^{\xi}$ et $\mathbf{g}^{\eta}$ sont des vecteurs de $\mathbb{T}_{\mathbf{x}}\mathbb{S}_a^2$. Il existe $A$, $B$, $C$ et $D$ tels que :
 
 \begin{equation}
 \left\lbrace
@@ -1197,7 +1214,7 @@ La métrique $\mathbf{G}$ est invariante par changement de panel.
 \end{proposition}
 
 \begin{proof}
-Si $\mathbf{x}$ est un point d'un panel $K$ de la Cubed-Sphère de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ est un point d'un autre panel $K'$ de la Cubed-Sphère ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer $\mathbf{x}$ en $\mathbf{x}'$ :
+Soit $\mathbf{x}$ est un point d'un panel $K$ de la Cubed-Sphère de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ est un point d'un autre panel $K'$ de la Cubed-Sphère ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer $\mathbf{x}$ en $\mathbf{x}'$ :
 \begin{equation}
 \mathbf{x}' = R_f \mathbf{x}
 \end{equation}
@@ -1289,13 +1306,13 @@ d'où :
 %\rotatebox{90}{
 \begin{tabular}{|c|c|c|}
 \hline
-\textbf{Panel} & Coord. Gnomoniques $(X,Y)$ & \textbf{Bases } $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$ et $\left( \mathbf{g}^{\xi}, \mathbf{g}^{\eta} \right)$\\
+\textbf{Panel} & \textbf{Coord. Gnomoniques} $(X,Y)$ & \textbf{Bases } $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$ et $\left( \mathbf{g}^{\xi}, \mathbf{g}^{\eta} \right)$\\
 
 \hline
 \hline
 \multirow{2}{*}[-.5cm]{$I$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{y}{x} \text{, } Y=\dfrac{z}{x}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -y \\ x(1+Y^2) \\ -yY
-\end{pmatrix} \text{ et } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+\end{pmatrix} \text{,} \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -z \\ -zX \\ x(1+X^2)
 \end{pmatrix}$ \\
 
@@ -1380,7 +1397,7 @@ zX \\ -z \\ y(1+X^2)
 \end{tabular}
 %}
 \end{center}
-\caption{Coordonnées gnomoniques et bases $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$ et $\left( \mathbf{g}^{\xi}, \mathbf{g}^{\eta} \right)$ sur chaque panel.}
+\caption{Coordonnées gnomoniques en fonction de $x$, $y$ et $z$ et bases $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$ et $\left( \mathbf{g}^{\xi}, \mathbf{g}^{\eta} \right)$ en fonction de $x$, $y$ et $z$  sur chaque panel.}
 \label{tab: base g_xi g_eta}
 \end{table}
 
@@ -1395,8 +1412,10 @@ zX \\ -z \\ y(1+X^2)
 
 
 
-Les champs de vecteur $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ et $( \mathbf{g}_ {\xi}, \mathbf{g}_{\eta})$ sont tangents à la sphère en varient en fonction de $\xi$ et $\eta$. On définit les symboles de Christoffel par :
+Les champs de vecteur $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ et $( \mathbf{g}_ {\xi}, \mathbf{g}_{\eta})$ sont tangents à la sphère et sont fonction de $\xi$ et $\eta$. On défini les \textit{symboles de Christoffel} par :
 
+\begin{definition}
+Les symboles de Christoffel $\Gamma_{\kappa,\nu}^{\tau}$ (avec $\kappa$, $\nu$ et $\tau$ dans $\lbrace \xi, \eta \rbrace$), sont définis par :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -1410,6 +1429,8 @@ Les champs de vecteur $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ et $( \mathbf{g}_
 \end{array}
 \right.
 \end{equation}
+
+\end{definition}
 
 \begin{remarque}
 On note que $\Gamma_{\eta,\xi}^{\xi}=\Gamma_{\xi,\eta}^{\xi}$ et $\Gamma_{\eta,\xi}^{\eta}=\Gamma_{\xi,\eta}^{\eta}$.
@@ -1447,7 +1468,7 @@ Les relations suivantes sont vérifiées :
 \end{proposition}
 
 \begin{proof}
-Nous ne démontrons que la première égalité, les autres se retrouvent de manière extrêmement similaire.
+Nous ne démontrons que la première égalité, les autres se retrouvent la même manière.
 
 $$\left[ \dfrac{\partial \mathbf{g}_{\xi}}{\partial \xi} \right] \cdot \mathbf{g}^{\xi} = \left[ \Gamma_{\xi,\xi}^{\xi} \mathbf{g}_{\xi} + \Gamma_{\xi,\xi}^{\eta} \mathbf{g}_{\eta} \right] \cdot \mathbf{g}^{\xi}$$
 
@@ -1502,22 +1523,63 @@ d'où les symboles de Christoffel :
 \end{equation}
 
 \begin{proposition}
-Les symboles de Christoffel sont invariants par changement de face
+Les symboles de Christoffel sont invariants par changement de panel.
 \end{proposition}
 
 \begin{proof}
-Soit $R_f$ la rotation permettant de passer d'une face à une autre. On note en particulier que $R_f$ est indépendant de $\xi$ et $\eta$.
+Soit $\mathbf{x}$ est un point d'un panel $K$ de la Cubed-Sphère de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ est un point d'un autre panel $K'$ de la Cubed-Sphère ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer $\mathbf{x}$ en $\mathbf{x}'$ :
+\begin{equation}
+\mathbf{x}' = R_f \mathbf{x}
+\end{equation}
+Cette rotation est indépendante de $\xi$ et de $\eta$.
 
-Alors soit $K$ et $L$ dans $\left\lbrace I, II, III, IV, V, VI \right\rbrace$ et $\tau$, $\upsilon \in \left\lbrace \xi, \eta \right\rbrace$. Alors par propriété du produit scalaire :
+Soient $\tau$, $\upsilon \in \left\lbrace \xi, \eta \right\rbrace$. Alors :
 
 $$\left( \dfrac{\partial}{\partial \tau}  R_f \mathbf{g}_{\tau} \right) \cdot \left( R_f \mathbf{g}_{\upsilon} \right) = \left( R_f \dfrac{\partial}{\partial \tau}   \mathbf{g}_{\tau} \right) \cdot \left( R_f \mathbf{g}_{\upsilon} \right) =  \left( \dfrac{\partial}{\partial \tau}  \mathbf{g}_{\tau} \right) \cdot \left( R_f^{-1} R_f \mathbf{g}_{\upsilon} \right) =  \left( \dfrac{\partial}{\partial \tau}  \mathbf{g}_{\tau} \right) \cdot \left( \mathbf{g}_{\upsilon} \right)$$
 
-de même :
+donc :
 
-$$\left( \dfrac{\partial}{\partial \upsilon}  R_f \mathbf{g}_{\tau} \right) \cdot \left( R_f \mathbf{g}_{\upsilon} \right) =  \left( \dfrac{\partial}{\partial \upsilon} \mathbf{g}_{\tau} \right) \cdot \left( \mathbf{g}_{\upsilon} \right)$$
+$$\Gamma_{\tau, \mu}^{\tau}(\mathbf{x})=\Gamma_{\tau, \mu}^{\tau}(\mathbf{x}')$$
 
-et on retrouve l'ensemble des symboles de Christoffel.
+d'où l'invariance par changement de panel.
 \end{proof}
+
+
+\begin{table}[htbp]
+\begin{center}
+%\rotatebox{90}{
+\begin{tabular}{|c|c|}
+\hline
+$\mathbf{G}$ \textbf{et} $\mathbf{G}^{-1}$ & \textbf{Symboles de Christoffels}\\
+\hline
+\hline
+                 &  $\Gamma_{\xi,\eta}^{\xi} = - \dfrac{Y ( 1+Y^2)}{\delta^2}$ \\ 
+$\mathbf{G}=a^2 \dfrac{(1+X^2)(1+Y^2)}{\delta^4} \begin{pmatrix}
+1+X^2 & -XY \\ -XY & 1+Y^2
+\end{pmatrix}$   & $\Gamma_{\xi,\eta}^{\eta} = - \dfrac{X(1+X^2)}{\delta^2}$ \\
+                 & $\Gamma_{\eta,\eta}^{\xi} = 0$ \\
+                 &  $\Gamma_{\xi,\xi}^{\eta} = 0$\\
+$\mathbf{G}^{-1}=\dfrac{\delta^2}{a^2 (1+X^2)(1+Y^2)} \begin{pmatrix}
+1+Y^2 & XY \\ XY & 1+X^2
+\end{pmatrix}$   & $\Gamma_{\eta,\eta}^{\eta} = \dfrac{1+Y^2}{\delta^2} \left[ 2 \delta^2 \cos \eta \sin \eta - Y \right]$\\
+                 &  $\Gamma_{\xi,\xi}^{\xi} = \dfrac{1+X^2}{\delta^2} \left[ 2 \delta^2 \cos \xi \sin \xi - X \right]$ \\
+\hline
+
+\end{tabular}
+%}
+\end{center}
+\caption{Quelques invariants par changement de panels}
+\label{tab: bmetrique G et symboles de christoffel}
+\end{table}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1530,9 +1592,151 @@ et on retrouve l'ensemble des symboles de Christoffel.
 
 \section{Calcul intrinsèque sur la Cubed-Sphère}
 
+On a vu que les coordonnées gnomoniques $(X,Y)$ ainsi que les données $(\xi,\eta)$ forment des systèmes de coordonnées admissibles sur chaque panel.  Pour tout point $\mathbf{x}_{i,j}^{(K)} \in \mathbb{S}_a^2$ d'un point du panel $K$ de la Cubed-Sphere, il existe deux cercles $C_i^{(1)}$ et $C_j^{(2)}$ tels que :
+
+\begin{equation}
+\mathbf{x}_{i,j}^{(K)} \in C_i^{(1)} \cap C_j^{(2)}
+\end{equation}
+
+On pose $\alpha$ l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\mathbf{x}_{0,j}^{(K)}$. $\beta$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\mathbf{x}_{i,0}^{(K)}$ (Voir figure \ref{fig: alpha beta}). Ainsi, les relations suivantes sont vérifiées :
+
+\begin{equation}
+arg \longarc{\mathbf{x}_0  \mathbf{x}} = a \alpha
+\end{equation}
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{tikzpicture}[scale=2.2]
+    \filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot [smooth,domain=-35:35] ({0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=55:125] ({cos(\x)},{0.7*sin(\x)})
+	-- plot [smooth,domain=140:215] ({0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=230:305] ({cos(\x)},{0.7*sin(\x)})
+	-- cycle;	
+	
+	\draw [dashed, line width=0.8pt, samples=100,domain=180:-180] plot({cos(\x)},{0*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({cos(\x)},{0.1*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({cos(\x)},{0.2*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({cos(\x)},{0.3*sin(\x)});
+	\draw [samples=100,domain=180:0,color=gray!120] plot({cos(\x)},{0.4*sin(\x)});
+	\draw [samples=100,domain=0:-180,color=gray!40] plot({cos(\x)},{0.4*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({cos(\x)},{0.5*sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({cos(\x)},{0.6*sin(\x)});
+	\draw [samples=100,domain=180:-180] plot({cos(\x)},{0.7*sin(\x)});
+	\draw [dashed, line width=0.8pt, samples=100,domain=180:-180] plot({0*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({0.1*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({0.2*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=-90:90,color=gray!120] plot({0.3*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=90:270,color=gray!40] plot({0.3*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({0.4*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({0.5*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180,color=gray!40] plot({0.6*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=180:-180] plot({0.7*cos(\x)},{sin(\x)}); 
+	
+	\draw [>=stealth, ->] (1.3,-.35) -- (.8,-0) ;
+	\draw  (1.5,-.35) node {$C_0^{(2)}$} ;
+	\draw [>=stealth, ->] (.35,1.3) -- (0,0.8) ;
+	\draw  (.45,1.45) node {$C_0^{(1)}$} ;
+	
+	\draw [>=stealth, ->] (1.3,.45) -- (.77,0.25) ;
+	\draw  (1.5,.45) node {$C_j^{(2)}$} ;
+	
+	\draw [>=stealth, ->] (.85,1.3) -- (.17,0.8) ;
+	\draw  (.85,1.26) node[above right] {$C_i^{(1)}$} ;
+	
+	\draw  (0,1) node {$\bullet$} ;
+	\draw  (0,-1) node {$\bullet$} ;
+	\draw  (1,0) node {$\bullet$} ;
+	\draw  (-1,0) node {$\bullet$} ;
+	
+	\draw  (.27,0.38) node {$\bullet$} ;
+	\draw  (.27,0.38) node[above right] {$\mathbf{x}_{i,j}^{(K)}$} ;
+	\draw  (0,0.4) node {$\bullet$} ;
+	\draw  (0,0.4) node[above left] {$\mathbf{x}_{0,j}^{(K)}$} ;
+	\draw  (0.3,0) node {$\bullet$} ;
+	\draw  (.3,0) node[below] {$\mathbf{x}_{i,0}^{(K)}$} ;
+	
+	\draw [>=stealth, ->,samples=100,domain=90:75,color=blue] plot({1.05*cos(\x)},{0.45*sin(\x)});
+	\draw  (.15,.65) node[color=blue, below] {$\alpha$} ;
+	
+	\draw [>=stealth, ->,samples=100,domain=0:21,color=red] plot({.35*cos(\x)},{1.05*sin(\x)});
+	\draw  (.45,.3) node[color=red, below] {$\beta$} ;
+
+	\draw (0,0) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);  
+   
+\end{tikzpicture}
+\end{center}
+\caption{Angles géodésiques $\alpha$ et $\beta$.}
+\label{fig: alpha beta}
+\end{figure}
+
+\begin{theoreme}
+$(\alpha, \beta)$ n'est pas un système de coordonnées admissible.
+\end{theoreme}
+
+\begin{proof}
+TBA.
+\end{proof}
+
+Si $K=I$, $\mathbf{x}_{i,j}^{(K)}=\mathbf{x}_{i,j}^{(I)}$ est un point du panel I de coordonnées $(x,y,z)$ dans $\mathbb{R}^3$. Alors les relations suivantes sont vérifiées :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcccc}
+x & = & a \cos \alpha \cos \eta & = & a \cos \beta \cos \xi \\
+y & = & a \sin \alpha & = & a \cos \beta \sin \xi \\
+z & = & a \cos \alpha \sin \eta & = & a \sin \beta \\
+\end{array}
+\right.
+\end{equation}
+
+Des relations similaires existent sur tous les panels (Voir tableau \ref{tab: x y z fct de xi eta alfa beta}). On en déduit le résultat suivant :
+
+\begin{theoreme}
+$(\alpha, \eta)$ et $(\xi, \beta)$ sont des systèmes de coordonnées admissibles.
+\end{theoreme} 
 
 
+\begin{table}[htbp]
+\begin{center}
+%\rotatebox{90}{
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Panel} & $(x,y,z)$ \textbf{fonction de} $(\alpha, \eta)$ \textbf{et de} $(\xi, \beta)$ \\
 
+\hline
+\hline
+    & $x=a \cos \alpha \cos \eta  =  a \cos \beta \cos \xi$ \\ 
+$I$ & $y=a \sin \alpha  =  a \cos \beta \sin \xi$ \\
+    & $z=a \cos \alpha \sin \eta  =  a \sin \beta$ \\
+\hline
+      & $x=- a \sin \alpha  = - a \cos \beta \sin \xi$ \\ 
+$II$  & $y=a \cos \alpha \cos \eta  =  a \cos \beta \cos \xi$ \\
+      & $z=a \cos \alpha \sin \eta  =  a \sin \beta$ \\
+\hline
+      & $x=- a \cos \alpha \cos \eta = a \cos \beta \cos \xi$ \\ 
+$III$ & $y=- a \sin \alpha = - a \cos \beta \sin \xi$ \\
+      & $z=a \cos \alpha \sin \eta = a \sin \beta$ \\
+\hline
+      & $x=a \sin \alpha = a \cos \beta \sin \xi$ \\ 
+$IV$  & $y=- a \cos \alpha \cos \eta = - a \cos \beta \cos \xi$ \\
+      & $z=a \cos \alpha \sin \eta = a \sin \beta$ \\
+\hline
+    & $x=-a \cos \alpha \sin \eta = - a \sin \beta$ \\ 
+$V$ & $y=a \sin \alpha = a \cos \beta \sin \xi$ \\
+    & $z=a \cos \alpha \cos \eta = a \cos \beta \cos \xi$ \\
+\hline
+     & $x=a \cos \alpha \sin \eta = a \sin \beta$ \\ 
+$VI$ & $y=a \sin \alpha = a \cos \beta \sin \xi$ \\
+     & $z=- a \cos \alpha \cos \eta = - a \cos \beta \cos \xi$ \\
+\hline
+\end{tabular}
+%}
+\end{center}
+\caption{$(x,y,z)$ fonction de $(\alpha, \eta)$ et de $(\xi, \beta)$  sur chaque panel.}
+\label{tab: x y z fct de xi eta alfa beta}
+\end{table}
 
 
 
