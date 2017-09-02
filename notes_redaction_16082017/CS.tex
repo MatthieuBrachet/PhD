@@ -180,6 +180,8 @@ Soit $\mathbf{x} \in \mathbb{S}_a^2$, alors $\nabla_{T} h (\mathbf{x}) \in \math
 $\nabla_{T} h (\mathbf{x})$ est une combinaison linéaire de $\mathbf{e}^{\alpha}(\mathbf{x})$ et $\mathbf{e}^{\beta}(\mathbf{x})$. Ces deux vecteurs engendrent le plan $\mathbb{T}_{\mathbf{x}}\mathbb{S}_a^2$, d'où le résultat.
 \end{proof}
 
+Pour alléger les notations, nous ne noterons plus $(\mathbf{x})$ où sont évaluées les quantités $h$, $\mathbf{e}_{\alpha}$
+
 \begin{proposition}
 Le gradient \eqref{eq: gradient} est bien défini. Il ne dépend pas du choix des deux grands cercles $C_1$ et $C_2$ choisis.
 \end{proposition}
@@ -258,7 +260,39 @@ avec $\mathbf{n}$ la normale unitaire extérieure.
 \end{proposition}
 
 \begin{proof}
-A DISCUTER AVEC JPC.
+Pour montrer cette égalité, on montre que les deux termes sont égaux dans trois directions distinctes.
+\begin{itemize}
+\item Direction $\mathbf{e}_{\alpha}$ :
+d'une part on a :
+\begin{equation}
+\nabla_T \hat{u} \cdot \mathbf{e}_{\alpha} = \dfrac{\partial \hat{u}}{\partial \alpha}_{| \mathbf{x} \in C_1}= \dfrac{\partial u}{\partial \alpha}_{| \mathbf{x} \in C_1}.
+\end{equation}
+D'autres part, on a :
+\begin{equation}
+\left( \nabla_{\mathbb{R}^3} u - \mathbf{n} \left( \mathbf{n} \cdot \nabla_{\mathbb{R}^3} u \right) \right) \cdot \mathbf{e}_{\alpha} = \nabla_{\mathbb{R}^3} u \cdot \mathbf{e}_{\alpha}
+\end{equation}
+car $\mathbf{n}$ est normal à la sphère donc $\mathbf{n}$ est normal à $\mathbf{e}_{\alpha}$.
+Or :
+\begin{equation}
+\nabla_{\mathbb{R}^3} u \cdot \mathbf{e}_{\alpha} = \dfrac{\partial u}{\partial \alpha}_{| \mathbf{x} \in C_1} = \nabla_T \hat{u} \cdot \mathbf{e}_{\alpha}.
+\end{equation}
+
+\item Dans la direction $\mathbf{e}_{\beta}$, on a de la même manière :
+\begin{equation}
+\nabla_{\mathbb{R}^3} u \cdot \mathbf{e}_{\beta} = \nabla_T \hat{u} \cdot \mathbf{e}_{\beta}.
+\end{equation}
+
+\item Dans la direction $\mathbf{n}$ on a d'une part :
+\begin{equation}
+\nabla_T \hat{u} \cdot \mathbf{n} = 0 
+\end{equation}
+car $\nabla_T \hat{u}$ est tangent à la sphère. D'autres part :
+\begin{equation}
+\left( \nabla_{\mathbb{R}^3} u - \mathbf{n} \left( \mathbf{n} \cdot \nabla_{\mathbb{R}^3} u \right) \right) \cdot \mathbf{n} = \nabla_{\mathbb{R}^3} u \cdot \mathbf{n}- \mathbf{n} \cdot \nabla_{\mathbb{R}^3} u = 0
+\end{equation}
+car $\mathbf{n}\cdot \mathbf{n} = 1$.
+\end{itemize}
+D'où l'égalité souhaitée.
 \end{proof}
 
 
@@ -1297,10 +1331,6 @@ d'où :
 
 
 
-
-
-
-
 \begin{table}[htbp]
 \begin{center}
 %\rotatebox{90}{
@@ -1400,17 +1430,6 @@ zX \\ -z \\ y(1+X^2)
 \caption{Coordonnées gnomoniques en fonction de $x$, $y$ et $z$ et bases $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$ et $\left( \mathbf{g}^{\xi}, \mathbf{g}^{\eta} \right)$ en fonction de $x$, $y$ et $z$  sur chaque panel.}
 \label{tab: base g_xi g_eta}
 \end{table}
-
-
-
-
-
-
-
-
-
-
-
 
 Les champs de vecteur $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ et $( \mathbf{g}_ {\xi}, \mathbf{g}_{\eta})$ sont tangents à la sphère et sont fonction de $\xi$ et $\eta$. On défini les \textit{symboles de Christoffel} par :
 
@@ -1675,7 +1694,7 @@ $(\alpha, \beta)$ n'est pas un système de coordonnées admissible.
 TBA.
 \end{proof}
 
-Si $K=I$, $\mathbf{x}_{i,j}^{(K)}=\mathbf{x}_{i,j}^{(I)}$ est un point du panel I de coordonnées $(x,y,z)$ dans $\mathbb{R}^3$. Alors les relations suivantes sont vérifiées :
+On se concentre ici sur le panel I, alors $K=I$ et $\mathbf{x}_{i,j}^{(K)}=\mathbf{x}_{i,j}^{(I)}$ est un point du panel I de coordonnées $(x,y,z)$ dans $\mathbb{R}^3$. Alors les relations suivantes sont vérifiées :
 
 \begin{equation}
 \left\lbrace
@@ -1685,13 +1704,18 @@ y & = & a \sin \alpha & = & a \cos \beta \sin \xi \\
 z & = & a \cos \alpha \sin \eta & = & a \sin \beta \\
 \end{array}
 \right.
+\label{eq: panel I xyz xi eta alpha beta}
 \end{equation}
 
 Des relations similaires existent sur tous les panels (Voir tableau \ref{tab: x y z fct de xi eta alfa beta}). On en déduit le résultat suivant :
 
 \begin{theoreme}
-$(\alpha, \eta)$ et $(\xi, \beta)$ sont des systèmes de coordonnées admissibles.
+$(\alpha, \eta)$ et $(\xi, \beta)$ sont des systèmes de coordonnées admissibles par panel.
 \end{theoreme} 
+
+\begin{proof}
+Conséquence des relations entre $(x,y,z)$ et des relations $(\xi, \beta)$ et $(\alpha, \eta)$ par panel (tableau \ref{tab: x y z fct de xi eta alfa beta}).
+\end{proof}
 
 
 \begin{table}[htbp]
@@ -1734,10 +1758,134 @@ $VI$ & $y=a \sin \alpha = a \cos \beta \sin \xi$ \\
 \label{tab: x y z fct de xi eta alfa beta}
 \end{table}
 
+Pour chaque panel, on peut déduire de \eqref{eq: panel I xyz xi eta alpha beta} les expressions de $\alpha$ et $\beta$ en fonction de $\xi$ et $\eta$. 
 
 
+\begin{proposition}
+Expression de $\alpha$ (à $\bar{\eta}$ fixé) et $\beta$ (à $\bar{\xi}$ fixé) en fonction de $\xi$ et $\eta$ :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\alpha(\xi) & = & \arctan \left[ \dfrac{\tan \xi}{\sqrt{1+\tan^2 \bar{\eta}}} \right] \\
+\beta(\eta) & = & \arctan \left[ \dfrac{\tan \eta}{\sqrt{1+\tan^2 \bar{\xi}}} \right] 
+\end{array}
+\right.
+\label{eq: alpha et beta fct de xi et eta}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Sur le panel I, $\alpha$ est une fonction construite sur un grand cercle, donc $\alpha$ sur le cercle constitué des points avec $\eta=\bar{\eta}$ constant. De même, $\beta$ varie avec $\xi= \bar{\xi}$ constant. 
+
+A $\xi= \bar{\xi}$ fixé, on a :
+\begin{equation}
+x^2 + y^2 = a^2 \cos^2 \beta
+\end{equation}
+
+donc on déduit facilement :
+
+\begin{equation}
+\tan^2 \beta = \dfrac{z^2}{x^2+y^2} = \dfrac{Y^2}{1+X^2}
+\end{equation}
+
+d'où l'expression de $\beta$ suivante :
+
+\begin{equation}
+\beta(\eta) = \arctan \left[ \dfrac{\tan \eta}{\sqrt{1+\tan^2 \bar{\xi}}} \right]
+\end{equation}
+
+De la même manière on obtient :
+
+\begin{equation}
+\alpha(\xi) = \arctan \left[ \dfrac{\tan \xi}{\sqrt{1+\tan^2 \bar{\eta}}} \right].
+\end{equation}
+
+De plus, ces équations se retrouvent sur chaque panel.
+\end{proof}
+
+De plus, on peut calculer les vecteurs $\mathbf{g}_{\alpha}$, $\mathbf{g}_{\beta}$, $\mathbf{g}^{\alpha}$ et $\mathbf{g}^{\beta}$. Par commodité, on écrira ces vecteurs en fonction de $\mathbf{g}_{\xi}$, $\mathbf{g}_{\eta}$, $\mathbf{g}^{\xi}$ et $\mathbf{g}^{\eta}$ :
+
+\begin{proposition}
+Les expressions suivantes sont vérifiées :
+\begin{itemize}
+\item $\mathbf{e}_{\alpha} = \dfrac{1}{\alpha'(\xi)} \mathbf{g}_{\xi}$,
+\item $\mathbf{e}_{\beta} = \dfrac{1}{\beta'(\eta)} \mathbf{g}_{\eta}$,
+\item $\mathbf{e}^{\alpha} = \alpha'(\xi) \mathbf{g}^{\xi}$,
+\item $\mathbf{e}^{\beta} = \beta'(\eta) \mathbf{g}^{\eta}$.
+\end{itemize}
+\label{eq: g_alpha g_beta fct de g_xi g_eta}
+\end{proposition}
+
+\begin{proof}
+\begin{itemize}
+\item Par définition et composition, avec $\eta = \bar{\eta}$ fixé, on a :
+
+\begin{equation}
+\mathbf{g}_{\xi} = \dfrac{d \mathbf{x}}{d \xi} = \alpha'(\xi) \dfrac{d \mathbf{x}}{d \alpha} = \alpha'(\xi) \mathbf{e}_{\alpha}.
+\end{equation}
+
+d'où le premier résultat :
+
+\begin{equation}
+\mathbf{e}_{\alpha} = \dfrac{1}{\alpha'(\xi)} \mathbf{g}_{\xi}
+\end{equation}
+
+De la même manière :
+
+\begin{equation}
+\mathbf{e}_{\beta} = \dfrac{1}{\beta'(\eta)} \mathbf{g}_{\eta}
+\end{equation}
+
+\item On pose $\mathbf{u} = \alpha'(\xi) \mathbf{g}^{\xi}$ et $\mathbf{v} = \beta'(\eta) \mathbf{g}^{\eta}$. Alors :
+
+\begin{equation}
+\mathbf{e}_{\alpha} \cdot \mathbf{u} = \dfrac{\alpha'(\xi)}{\alpha'(\xi)} \mathbf{g}_{\xi} \cdot \mathbf{g}^{\xi} = 1.
+\end{equation}
+
+De plus :
+
+\begin{equation}
+\mathbf{e}_{\beta} \cdot \mathbf{u} = \dfrac{\alpha'(\xi)}{\beta'(\eta)} \mathbf{g}_{\eta} \cdot \mathbf{g}^{\xi} = 0
+\end{equation}
+
+Donc $\mathbf{e}^{\alpha} = \mathbf{u}$. De la même manière, on montre que $\mathbf{e}^{\beta} = \mathbf{v}$.
+\end{itemize}
+\end{proof}
+
+On peut aussi calculer les dérivées partielles $\dfrac{\partial h}{\partial \alpha}_{|C_1}$ et $\dfrac{\partial h}{\partial \beta}_{|C_2}$ en fonction des paramètres $\xi$ et $\eta$. Comme précédemment, lorsque $\alpha$ varie ($\mathbf{x} \in C_1$), $\eta = \bar{\eta}$ est fixé. De même, lorsque $\beta$ varie ($\mathbf{x} \in C_2$), $\xi = \bar{\xi}$ est fixé. Donc, par composition, les relations suivantes sont vérifiées :
+
+\begin{equation}
+\begin{array}{rcl}
+\dfrac{\partial h}{\partial \alpha} & = &  \dfrac{1}{\alpha'(\xi)} \dfrac{\partial h}{\partial \xi} \\
+\dfrac{\partial h}{\partial \beta} & = &  \dfrac{1}{\beta'(\eta)} \dfrac{\partial h}{\partial \beta} \\
+\end{array}
+\label{eq: derivee partiel link}
+\end{equation}
+
+\begin{theoreme}
+Si $h : \mathbb{S}_a^2 \rightarrow \mathbb{R}$ est une fonction régulière, alors :
+\begin{equation}
+\nabla_T h = \dfrac{\partial h}{\partial \xi}_{|\eta = \bar{\eta}} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta}_{|\xi = \bar{\xi}} \mathbf{g}^{\eta}
+\end{equation}
+\end{theoreme}
 
 
+\begin{proof}
+Les égalités suivantes est vérifiées grâce à \eqref{eq: g_alpha g_beta fct de g_xi g_eta} et \eqref{eq: derivee partiel link} :
+
+\begin{equation}
+\dfrac{\partial h}{\partial \alpha}_{|C_1} \mathbf{e}^{\alpha} = \dfrac{1}{\alpha'(\xi)} \dfrac{\partial h}{\partial \xi}_{|\eta = \bar{\eta}} \alpha'(\xi) \mathbf{g}^{\xi} = \dfrac{\partial h}{\partial \xi}_{|\eta = \bar{\eta}} \mathbf{g}^{\xi}
+\end{equation}
+
+De même :
+
+\begin{equation}
+\dfrac{\partial h}{\partial \beta}_{|C_2} \mathbf{e}^{\beta} =  \dfrac{\partial h}{\partial \eta}_{|\xi = \bar{\xi}} \mathbf{g}^{\eta}
+\end{equation}
+
+d'où le résultat immédiat à l'aide de la formule \eqref{eq: gradient}.
+\end{proof}
 
 
 
