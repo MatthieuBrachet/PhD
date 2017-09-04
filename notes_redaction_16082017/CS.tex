@@ -1617,7 +1617,7 @@ On a vu que les coordonnées gnomoniques $(X,Y)$ ainsi que les données $(\xi,\e
 \mathbf{x}_{i,j}^{(K)} \in C_i^{(1)} \cap C_j^{(2)}
 \end{equation}
 
-On pose $\alpha$ l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\mathbf{x}_{0,j}^{(K)}$. $\beta$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\mathbf{x}_{i,0}^{(K)}$ (Voir figure \ref{fig: alpha beta}).
+On pose $\alpha$ l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\mathbf{x}_{0,j}^{(K)}$ dans la direction Est pour le panel I. $\beta$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\mathbf{x}_{i,0}^{(K)}$ dans la direction Nord pour le panel I(Voir figure \ref{fig: alpha beta}). Des angles géodésiques $\alpha$ et $\beta$ peuvent être construits sur chaque panel, l'orientation de ces angles est donnée en figure \ref{fig:patron cs}. Ainsi, chaque panel est construit à partir de portions de grands cercles.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1688,7 +1688,73 @@ On pose $\alpha$ l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\mathbf
 
 
 
-On se concentre ici sur le panel I, alors $K=I$ et $\mathbf{x}_{i,j}^{(K)}=\mathbf{x}_{i,j}^{(I)}$ est un point du panel I de coordonnées $(x,y,z)$ dans $\mathbb{R}^3$. Alors les relations suivantes sont vérifiées :
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=2.5]
+	\draw (1,3) -- (2,3) ; 
+	\draw (0,2) -- (4,2) ; 	
+	\draw (0,1) -- (4,1) ; 
+	\draw (1,0) -- (2,0) ; 
+	
+	\draw (0,2) -- (0,1) ;
+	\draw (1,3) -- (1,0) ;
+	\draw (2,3) -- (2,0) ;
+	\draw (3,2) -- (3,1) ;
+	\draw (4,2) -- (4,1) ; 
+	
+	\draw [>=stealth, ->] (0.2,1.2) -- (0.5,1.2) ; 
+	\draw (0.55,1.2) node[above]{$\alpha$} ; 
+	\draw [>=stealth, ->] (0.2,1.2) -- (0.2,1.5) ; 
+	\draw (0.3,1.4) node[above]{$\beta$} ; 
+	\draw (0.7,1.7) node[above]{$(IV)$} ; 
+	
+	\draw [>=stealth, ->] (1.2,1.2) -- (1.5,1.2) ; 
+	\draw (1.55,1.2) node[above]{$\alpha$} ; 
+	\draw [>=stealth, ->] (1.2,1.2) -- (1.2,1.5) ; 
+	\draw (1.3,1.4) node[above]{$\beta$} ; 
+	\draw (1.7,1.7) node[above]{$(I)$} ; 
+	
+	\draw [>=stealth, ->] (2.2,1.2) -- (2.5,1.2) ; 
+	\draw (2.55,1.2) node[above]{$\alpha$} ; 
+	\draw [>=stealth, ->] (2.2,1.2) -- (2.2,1.5) ; 
+	\draw (2.3,1.4) node[above]{$\beta$} ; 
+	\draw (2.7,1.7) node[above]{$(II)$} ;
+	
+	\draw [>=stealth, ->] (3.2,1.2) -- (3.5,1.2) ; 
+	\draw (3.55,1.2) node[above]{$\alpha$} ; 
+	\draw [>=stealth, ->] (3.2,1.2) -- (3.2,1.5) ; 
+	\draw (3.3,1.4) node[above]{$\beta$} ; 
+	\draw (3.7,1.7) node[above]{$(III)$} ;  
+	
+	\draw [>=stealth, ->] (1.2,2.2) -- (1.5,2.2) ; 
+	\draw (1.55,2.2) node[above]{$\alpha$} ; 
+	\draw [>=stealth, ->] (1.2,2.2) -- (1.2,2.5) ; 
+	\draw (1.3,2.4) node[above]{$\beta$} ; 
+	\draw (1.7,2.7) node[above]{$(V)$} ; 
+	
+	\draw [>=stealth, ->] (1.2,0.2) -- (1.5,0.2) ; 
+	\draw (1.55,0.2) node[above]{$\alpha$} ; 
+	\draw [>=stealth, ->] (1.2,0.2) -- (1.2,0.5) ; 
+	\draw (1.3,0.4) node[above]{$\beta$} ; 
+	\draw (1.7,0.7) node[above]{$(VI)$} ; 
+	
+\end{tikzpicture}
+\caption{Patron de la Cubed-Sphere avec orientation des directions $\alpha$ et $\beta$ par panel.}
+\label{fig:patron cs}
+\end{center}
+\end{figure}
+
+Le grand cercle $C_i^{(1)}$ correspond à une iso-ligne $\xi$ constante et le grand cercle $C_j^{(2)}$ à une iso-ligne $\eta$ constante. Considérons l'iso-ligne $\eta$ constante sur le panel I. Sur ce panel, l'angle $\alpha$ est tel que :
+
+\begin{equation}
+- \alpha_0 (\eta) \leq \alpha \leq \alpha_0(\eta) \text{ avec } \alpha_0( \eta) = \arctan \left( \dfrac{\sqrt{2}}{2} \tan \eta \right).
+\end{equation}
+
+Cependant le grand cercle $C_j^{(2)}$ passe sur les autres panels II, III et IV dans cet ordre. On peut donc prolonger $\alpha$ comme étant l'angle curviligne le long du grand cercle complet. Sur le panel II, le grand cercle $C_j^{(2)}$ coupe d'autres grands cercles (ceux permettant de construire le panel II) en $\mathbf{M}_k$ de coordonnées $(\xi, \eta) = ()$.
+
+
+
+Soit $\mathbf{x}_{i,j}^{(K)}=\mathbf{x}_{i,j}^{(I)}$ un point du panel I de coordonnées $(x,y,z)$ dans $\mathbb{R}^3$. Alors les relations suivantes sont vérifiées :
 
 \begin{equation}
 \left\lbrace
@@ -1708,7 +1774,7 @@ $(\alpha, \eta)$ et $(\xi, \beta)$ sont des systèmes de coordonnées admissible
 \end{theoreme} 
 
 \begin{proof}
-Conséquence des relations entre $(x,y,z)$ et des relations $(\xi, \beta)$ et $(\alpha, \eta)$ par panel (tableau \ref{tab: x y z fct de xi eta alfa beta}).
+Conséquence des relations entre $(x,y,z)$ et $(\xi, \beta)$, $(\alpha, \eta)$ par panel (Voir tableau \ref{tab: x y z fct de xi eta alfa beta}).
 \end{proof}
 
 
