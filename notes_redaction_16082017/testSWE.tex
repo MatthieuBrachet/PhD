@@ -17,7 +17,7 @@ L'équation Shallow Water obtenue était la suivante :
 \right.
 \end{equation}
 
-avec $h^{\star} = h - h_s$, $\eta_s$ représentant les reliefs sur la sphère. On suppose $h_s$ indépendant du temps $t$.
+avec $h^{\star} = h - h_s$, $h_s$ représentant les reliefs sur la sphère. On suppose $h_s$ indépendant du temps $t$, pas de déformation des reliefs.
 
 Il peut être délicat de travailler avec le terme $\left( \mathbf{u} \cdot \nabla \right) \mathbf{u}$. Pour éviter de discrétiser directement ce terme, on se repose sur la formule suivante :
 
@@ -153,6 +153,20 @@ $$
 $h_s$ est indépendant du temps donc en appliquant la remarque \ref{rmq:int diverg nulle}, on obtient la conservation de l'énergie.
 \end{proof}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \section{Solution stationnaire zonale}
 
 Dans cette section, on cherche $(\mathbf{u},h)$ une solution stationnaire (indépendante de $t$) de \eqref{eq:SWEC_vectform} sans reliefs ($h_s \equiv 0$) avec $\mathbf{u}$ zonale autour de l'axe tourné d'un angle $\alpha$ (Voir Figure \ref{fig:rot alpha sphere}), c'est à dire $\mathbf{u}(\lambda', \theta') = u(\theta') \mathbf{e}_{\lambda'}$.
@@ -249,7 +263,7 @@ Le test de J. Galewsky \cite{Galewsky2004} est une perturbation d'une solution z
 
 
 
-Dans le second test de \cite{Williamson1992}, on considère une solution stationnaire zonale de la forme \eqref{eq:sol. stationaire zonale de swe} avec $\mathbf{u}(\theta')=u_0 \cos \theta' \mathbf{e}_{\lambda'}$. En utilisant l'équation \eqref{eq:u0*cos alpha}, on a le champ de vitesse $\mathbf{u}$ de la forme suivante :
+Dans le second test de \cite{Williamson1992}, on considère une solution stationnaire zonale de la forme \eqref{eq:sol. stationaire zonale de swe} avec $\mathbf{u}(\theta')=u_0 \cos \theta' \mathbf{e}_{\lambda'}$. En utilisant l'équation \eqref{eq:u0*cos alpha}, le champ de vitesse $\mathbf{u}$ sous la forme suivante :
 
 \begin{equation}
 \mathbf{u}(\lambda, \theta) = u_0 \left( \cos \theta \cos \alpha + \cos \lambda \sin \theta \sin \alpha \right) \mathbf{e}_{\lambda} - u_0 \sin \lambda \sin \alpha \mathbf{e}_{\theta}
@@ -278,20 +292,20 @@ h(\lambda, \theta) & = & h_0 - \dfrac{a}{g} \left( \omega u_0 + \dfrac{u_0^2}{2}
 \label{eq: williamson 2 initial height}
 \end{equation}
 
-L'idée est d'utiliser ces fonctions $h$ et $\mathbf{u}$ en donnée initiale avec différentes valeurs de $\alpha$ pour regarder si la solution stationnaire est conservée et avec quelle précision. En ce qui concerne les constantes liées au test effectué, on choisit :
+On utilise $h$ et $\mathbf{u}$ comme données initiales avec différentes valeurs de $\alpha$ pour pour observer l'influence de ce paramètre. En ce qui concerne les constantes liées au test effectué, on choisit :
 \begin{itemize}
-\item $g \cdot h_0= 2.94 \times 10^4 m^2 \cdot s^{-2}$,
+\item $g h_0= 2.94 \times 10^4 m^2 \cdot s^{-2}$,
 \item $u_0= 2 \pi a / (12 \text{ jours})$,
 \item $h_s \equiv 0$ (absence de reliefs sur la sphère).
 \end{itemize}
 
-On observe l'erreur relative sur $h$ au temps $t^n$:
+L'erreur relative sur $h$ au temps $t^n$ est calculée par la formule suivante :
 
 \begin{equation}
 \dfrac{\| h(t^n) - h_{ex}\|_i}{\| h_ex \|_i}
 \end{equation}
 
-avec $h_ex(\lambda, \theta) = h_0 - \left( \dfrac{a}{g} \omega u_0 + \dfrac{u_0^2}{2} \right) \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right)^2$ et $i \in \lbrace 1,2,\infty \rbrace$.
+avec $h_{ex}(\lambda, \theta) = h_0 - \left( \dfrac{a}{g} \omega u_0 + \dfrac{u_0^2}{2} \right) \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right)^2$ et $i \in \lbrace 1,2,\infty \rbrace$.
 
 Ainsi que l'erreur relative sur le champs de vitesse $\mathbf{u}$ : 
 
@@ -311,21 +325,21 @@ Le contrôle de la conservation de $q$ est donnée par :
 \dfrac{|Q(q - q_{init})|}{|Q(q_{init})|}
 \end{equation}
 
-où $Q$ est la méthode de quadrature utilisée et $q_{init}$ la quantité à conserver au temps initial. En ce qui concerne la conservation de la divergence et de la vorticité, on doit avoir $Q(q_{init})=0$ donc on utilise la formule :
+où $Q$ est la méthode de quadrature utilisée et $q_{init}$ la quantité à conserver au temps initial. En ce qui concerne la conservation de la divergence et de la vorticité, on doit avoir $Q(q_{init})=0$ donc on utilise la formule d'erreur :
 
 \begin{equation}
 |Q(q - q_{init})|
 \end{equation}
 
-pour vérifier la conservation souhaitée. Les résultats sont donnés pour un maillage raisonnable ($N=32$)  Figures \ref{fig: williamson 2 space alpha=0} et \ref{fig: williamson 2 space alpha=pi/4} pour la représentation spatiale de l'erreur. Dans les Figures \ref{fig: williamson 2 conservation alpha=0} et \ref{fig: williamson 2 conservation alpha=pi/4}, on présente les résultats de conservation.
+Les résultats sont donnés pour un maillage raisonnable ($N=32$)  Figures \ref{fig: williamson 2 space alpha=0} et \ref{fig: williamson 2 space alpha=pi/4} pour la représentation spatiale de l'erreur. Dans les Figures \ref{fig: williamson 2 conservation alpha=0} et \ref{fig: williamson 2 conservation alpha=pi/4}, on présente les résultats de conservation.
 
 L'erreur au cours du temps est donnée Figure \ref{fig: williamson 2 erreur}.
 
-Les résultats sur ce maillage semble très satisfaisant. La solution au temps $t^n$ s'écrate au d'environ $5 \times 10^{-7} \%$ de la solution recherchée (stationnaire).
+Les résultats est très satisfaisant. La solution au temps $t^n$ contient une erreur d'environ $5 \times 10^{-4} \%$ de la solution recherchée (stationnaire).
 Les bords des panels ne semblent pas se dessiner de manière importante sur l'erreur. 
 La masse, l'énergie et l'enstrophie potentielle se conservent bien. La divergence et la vorticité se conservent parfaitement mais cela est du à des symétries et des compensations sur la sphère.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=0.5]{ref_7369088145_snapshot_intermediaire598.png}\\
 \includegraphics[scale=0.5]{ref_7369088145_snapshot_err_color.png}
@@ -334,7 +348,7 @@ La masse, l'énergie et l'enstrophie potentielle se conservent bien. La divergen
 \label{fig: williamson 2 space alpha=0}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=0.5]{ref_7369088145_conservationA.png}
 \includegraphics[scale=0.5]{ref_7369088145_conservationB.png}
@@ -346,7 +360,7 @@ La masse, l'énergie et l'enstrophie potentielle se conservent bien. La divergen
 
 
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=0.5]{ref_7369088270_snapshot_intermediaire598.png}\\
 \includegraphics[scale=0.5]{ref_7369088270_snapshot_err_color.png}
@@ -355,7 +369,7 @@ La masse, l'énergie et l'enstrophie potentielle se conservent bien. La divergen
 \label{fig: williamson 2 space alpha=pi/4}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=0.5]{ref_7369088270_conservationA.png}
 \includegraphics[scale=0.5]{ref_7369088270_conservationB.png}
@@ -364,7 +378,7 @@ La masse, l'énergie et l'enstrophie potentielle se conservent bien. La divergen
 \label{fig: williamson 2 conservation alpha=pi/4}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=0.5]{ref_7369088145_erreur.png}
 \includegraphics[scale=0.5]{ref_7369088270_erreur.png}
@@ -393,7 +407,7 @@ La masse, l'énergie et l'enstrophie potentielle se conservent bien. La divergen
 \section{Test de la Montagne Isolée}
 
 Le cinquième test de \cite{Williamson1992} est une perturbation du précédent.
-On considère la donnée initiale \eqref{eq: williamson 2 initial velocity} et \eqref{eq: williamson 2 initial velocity} avec $\alpha = 0$ :
+On considère les données initiales \eqref{eq: williamson 2 initial velocity} et \eqref{eq: williamson 2 initial velocity} avec $\alpha = 0$ :
 
 \begin{equation}
 \left\lbrace
@@ -404,7 +418,7 @@ h(\lambda, \theta) & = & h_0 - \dfrac{a}{g} \left( \omega u_0 + \dfrac{u_0^2}{2}
 \right.
 \end{equation}
 
-La force de Coriolis est donnée via le paramètre $f = 2 \omega \sin \theta$. Les constantes physiques restent inchangées et les constantes liées au test prennent les valeurs suivantes :
+La force de Coriolis est donnée par le paramètre $f = 2 \omega \sin \theta$. Les constantes physiques restent inchangées et les constantes liées au test sont :
 
 \begin{itemize}
 \item $h_0 = 5400 m$,
@@ -422,9 +436,9 @@ avec $R= \pi / 9$, $r^2 = min \left[ R^2, \left( \lambda - \lambda_c \right)^2 +
 
 Il s'agit d'une perturbation importante, puisque la montagne représente environ $37 \%$ de l'épaisseur du fluide.
 
-Pour ce test, aucune solution analytique n'est disponible. C'est pourquoi on compare la solution obtenue aux temps $t=5$ jours, $10$ jours et $15$ jours avec ceux de la littérature dans un premier temps. Pour un maillage $N=32$, on obtient les résultats des figures \ref{fig: williamson 5 space height}. Ces derniers sont tout à fait semblables à ceux obtenus par des méthodes de volumes finis \cite{Katta2015, Chen2008} d'ordre élevé ainsi que ceux obtenus par des méthodes de Galerkin Discontinues \cite{Nair2005}. 
+Pour ce test, aucune solution analytique n'est disponible, c'est pourquoi on compare la solution obtenue aux temps $t=5$ jours, $10$ jours et $15$ jours avec ceux de la littérature dans un premier temps. Pour un maillage $N=32$, on obtient les résultats des figures \ref{fig: williamson 5 space height}. Ces derniers sont tout à fait semblables à ceux obtenus par des méthodes de volumes finis \cite{Katta2015, Chen2008} d'ordre élevé ainsi que ceux obtenus par des méthodes de Galerkin Discontinues \cite{Nair2005}. 
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=0.5]{ref_7368974583_snapshot_intermediaire499.png}\\
 \includegraphics[scale=0.5]{ref_7368974583_snapshot_intermediaire999.png}\\
@@ -434,7 +448,7 @@ Pour ce test, aucune solution analytique n'est disponible. C'est pourquoi on com
 \label{fig: williamson 5 space height}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=0.5]{ref_7368974583_conservationA.png}
 \includegraphics[scale=0.5]{ref_7368974583_conservationB.png}
@@ -443,14 +457,13 @@ Pour ce test, aucune solution analytique n'est disponible. C'est pourquoi on com
 \label{fig: williamson 5 conservation}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=0.5]{ref_7368974583_snapshot.png}
 \end{center}
 \caption{Test de la Montagne isolée \cite{Williamson1992} $N=32$ et $CFL=0.9$. Vorticité à 15 jours.}
 \label{fig: williamson 5 vorticité}
 \end{figure}
-
 
 
 
@@ -485,7 +498,7 @@ u(\theta) = \left\lbrace
 \right.
 \end{equation}
 
-$e_n$ est une constante de normalisation,on pose $e_n = \exp\left[ - \dfrac{4}{(\theta_1-\theta_0)^2} \right]$. On choisit, pour les constantes, les valeurs suivantes :
+$e_n$ est une constante de normalisation. On pose $e_n = \exp\left[ - \dfrac{4}{(\theta_1-\theta_0)^2} \right]$. On choisi, pour les constantes, les valeurs suivantes :
 \begin{itemize}
 \item $u_{max}=80 m \cdot s^{-1}$,
 \item $\theta_0 = \pi/7$,
@@ -493,7 +506,7 @@ $e_n$ est une constante de normalisation,on pose $e_n = \exp\left[ - \dfrac{4}{(
 \item $h_0$ est choisit de telle manière que $h$ ait pour moyenne $10000 m$, soit approximativement $h_0 \approx 9841.8139 m$.
 \end{itemize}
 
-Ainsi donnée, cette condition intiale est stationnaire mais elle semble instable et les erreurs numériques effectuées par le schéma semble suffisante pour la perturber. Le test repose sur cette instabilité. On ajoute initiale la condition initiale $h$ une perturbation locale $h'$ :
+Ainsi donnée, cette condition initiale est stationnaire mais elle semble instable et les erreurs numériques effectuées par le schéma semble suffisante pour la perturber. Le test repose sur cette instabilité. On ajoute à la condition initiale $h$ une perturbation locale $h'$ :
 
 \begin{equation}
 h'(\lambda, \theta) = \hat{h} \cos ( \theta ) \exp \left[ - \left( \dfrac{\lambda_2 - \lambda}{\alpha} \right)^2 - \left( \dfrac{\theta_2 - \theta}{\beta} \right)^2 \right]
@@ -502,14 +515,14 @@ h'(\lambda, \theta) = \hat{h} \cos ( \theta ) \exp \left[ - \left( \dfrac{\lambd
 Les constantes sont données par :
 \begin{itemize}
 \item $\hat{h} = 120m$, ce qui représente une perturbation de $1.2 \%$ de la condition initiale, la perturbation est donc faible,
-\item $\lambda_2 = 0$ et $\theta_2 = \pi /4$ ce qui donne la localisation de la perturbation en $(\lambda_2, \theta_2) = (0, \pi/4)$,
+\item La perturbation est localisée en $(\lambda_2, \theta_2) = (0, \pi/4)$,
 \item $\alpha = 1/3$,
 \item $\beta = 1/15$.
 \end{itemize}
 
-Ce test consiste à observer la vorticité au fil du temps. On l'observe en particulier au bout de $2$ jours, $4$ jours et $6$ jours. La perturbation doit commencer à être visible entre 3 et 4 jours. Au bout de 6 jours, on vérifie la forme de la solution avec celles données dans la littérature \cite{Galewsky2004, Chen2008}. Ce test est particulièrement difficile pour la Cubed-Sphere. En effet, toute l'activité est concentrée sur le bord du Panel V, de plus la perturbation est localisée à l'intersection des panels I et V (Voir figure \ref{fig: initiale et perturbation Galewsky}).
+Ce test consiste à observer la vorticité au fil du temps. On l'observe en particulier au bout de $2$ jours, $4$ jours et $6$ jours. La perturbation doit commencer à être visible entre 3 et 4 jours. Au bout de 6 jours, on compare la forme de la solution numérique avec celles données dans la littérature \cite{Galewsky2004, Chen2008}. Ce test est particulièrement difficile pour la Cubed-Sphere. En effet, toute l'activité est concentrée sur le bord du Panel V, de plus la perturbation est localisée à l'intersection des panels I et V (Voir figure \ref{fig: initiale et perturbation Galewsky}).
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=0.3]{ref_7369146426_solution.png}
 \includegraphics[scale=0.3]{ref_7369146468_solution.png}
@@ -518,15 +531,145 @@ Ce test consiste à observer la vorticité au fil du temps. On l'observe en part
 \label{fig: initiale et perturbation Galewsky}
 \end{figure}
 
-La vorticité au bout de 2, 4 et 6 jours sont donnés en figure REF. De plus, on vérifie les conservations en figure REF. On constate que les résultats sont bons et comparables à ceux de la littérature. La conservation de l'enstrophie potentielle est tout de fois moins bonne que les autres.
+La vorticité au bout de 2, 4 et 6 jours sont donnés en figure \ref{fig: galewsky 246}. De plus, on vérifie les conservations en figure REF. On constate que les résultats sont bons et comparables à ceux de la littérature. La conservation de l'enstrophie potentielle est tout de fois moins bonne que les autres.
 
-Dans la figure \ref{fig: galewsky compact/explicite} est faite en utilisant le schéma compact à 3 points d'ordre 4 REF et celui d'ordre 4 non compact REF. On constate une différence sur la forme de la vorticité, en particulier dans la région de la Chine et du Japon sur la carte (intersection des panels II, III et V). L'utilisation du schéma compact permet une meilleur représentation des hautes fréquences même si l'ordre de précision est le même.
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7369105556_snapshot.png}
+\includegraphics[scale=0.5]{ref_7369107124_snapshot.png}
+\includegraphics[scale=0.5]{ref_7369107124_snapshot.png}
+\end{center}
+\caption{Test du Flux barotropic \cite{Galewsky2004} à 2, 4 et 6 jours, $N=86$ et $CFL=0.9$. TBA}
+\label{fig: galewsky 246}
+\end{figure}
 
-\begin{figure}[ht]
+La figure \ref{fig: galewsky compact/explicite} est faite en utilisant le schéma compact à 3 points d'ordre 4 REF et celui d'ordre 4 non compact REF. On constate une différence sur la forme de la vorticité, en particulier dans la région de la Chine et du Japon sur la carte (intersection des panels II, III et V). L'utilisation du schéma compact permet une meilleur représentation des hautes fréquences.
+
+\begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=0.3]{ref_7369105556_snapshot.png}
 \includegraphics[scale=0.3]{ref_7369107124_snapshot.png}
 \end{center}
 \caption{Test du Flux barotropic \cite{Galewsky2004} à 6 jours, $N=86$ et $CFL=0.9$. A gauche, utilisation d'un schéma compact d'ordre 4, a droite utilisation d'un schéma explicite d'ordre 4.}
 \label{fig: galewsky compact/explicite}
+\end{figure}
+
+Les résultats concernant la conservation au temps final sont donnés en figure \ref{fig: galewsky conservation}.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7368974583_conservationA.png}
+\includegraphics[scale=0.5]{ref_7368974583_conservationB.png}
+\end{center}
+\caption{Blux barotropic instable, $N=96$ et $CFL=0.9$. Erreurs relatives sur la conservation de la masse, de l'énergie et de l'enstrophie potentielle (gauche), erreur sur la conservation de la divergence et de la vorticité (droite).}
+\label{fig: galewsky conservation}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Ondes de Rossby-Haurwitz}
+
+Les ondes de Rossby-Haurwitz sont les solutions analytiques d'une équation non linéaire sur la sphère \cite{Haurwitz1940}, il s'agit du sixième test de \cite{Williamson1992}. Elles peuvent être considérées comme un test classique sur la sphère. Cependant, il n'existe pas de solution analytique pour l'équation Shallow Water sur la sphère \eqref{eq:SWEC_new} pour ces ondes. Haurwitz montre que ces ondes se déplacent d'Ouest en Est.
+
+On se place dans le cadre $\alpha = 0$, la force de Coriolis est donnée par le paramètre $f(\theta) = 2 \Omega \sin \theta$.
+
+Le champ de vitesse $\mathbf{u}$ au temps $t=0$ est donné par :
+
+\begin{equation}
+\mathbf{u} = u \mathbf{e}_{\lambda} + v \mathbf{e}_{\theta}
+\end{equation}
+
+avec :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+u & = & a \omega \cos \theta + a K \cos^{R-1} \theta \left( R \sin^2 \theta - \cos^2 \theta \right) \cos R \lambda\\
+v & = & - a K R \cos^{R-1} \theta \sin \theta \sin R \lambda
+\end{array}
+\right.
+\end{equation}
+
+la fonction $h$ est initialement donnée par :
+
+\begin{equation}
+gh = gh_0 + a^2 A(\theta) + a^2 B(\theta) \cos R \lambda + a^2 C(\theta) \cos 2 R \lambda 
+\end{equation}
+
+avec
+
+\begin{equation}
+\left\{
+\begin{array}{rcl}
+A(\theta) & = & \dfrac{\omega}{2} \left( 2 \Omega + \omega \right) \cos^2 \theta + \dfrac{1}{4} K^2 \cos^{2R} \theta 
+\left[ (R+1) \cos^2 \theta+ (2R^2 -R -2) - 2R^2 \cos^{-2} \theta \right]\\
+B(\theta) & = & \dfrac{2 (\Omega +\omega) K }{(R+1)(R+2)} \cos^R \theta 
+\left[ (R^2 + 2R +2) - (R+1)^2 \cos^2 \theta  \right] \\
+C(\theta) & = & \dfrac{1}{4} K^2 \cos^{2R} \theta \left[ (R+1) \cos^2 \theta - (R+2) \right]
+\end{array}
+\right.
+\end{equation}
+
+Les constantes sont les suivantes :
+
+\begin{equation}
+\begin{array}{rcl}
+\omega & = & 7.848 \times 10^{-6} \si{s^{-1}}\\
+K & = & 7.848 \times 10^{-6} \si{s^{-1}}\\
+h_0 & = & 8 \times 10^3 \si{m}.
+\end{array}.
+\end{equation} 
+
+Seul le cas $R=4$ est considéré comme l'un des test de \cite{Williamson1992}. Nous ne traitons que ce cas ici.
+
+En figure \ref{fig: rossby 714}, nous présentons la solution obtenue après résolution numérique aux temps $t=7$ jours et $t=14$ jours. Les résultats sont similaires avec ceux obtenus par éléments finies ou volumes finis \cite{Galewsky2004, Chen2008}. Les erreurs de conservation pour la masse, l'énergie et l'enstrophie potentielle (en relatif), ainsi que celles pour la divergence et la vorticité sont données en figure \ref{fig: rossby conservation}.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7369145763_snapshot_intermediaire699.png}
+\includegraphics[scale=0.5]{ref_7369145763_snapshot_intermediaire1399.png}
+\end{center}
+\caption{Ondes de Rossby-Haurwitz à 7 et 14 jours, $N=79$ et $CFL=0.9$.}
+\label{fig: rossby 714}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7369145763_massenergy.png}
+\includegraphics[scale=0.5]{ref_7369145763_enstrophy.png}
+\includegraphics[scale=0.5]{ref_7369145763_conservationB.png}
+\end{center}
+\caption{Ondes de Rossby-Haurwitz, $N=80$ et $CFL=0.9$. Erreurs relatives sur la conservation de la masse, de l'énergie et de l'enstrophie potentielle (haut), erreur sur la conservation de la divergence et de la vorticité (bas).}
+\label{fig: rossby conservation}
+\end{figure}
+
+Il est possible de faire fonctionner ce cas test sur des temps plus longs. Cependant, la structure fini par se perdre à cause des erreurs numériques (Voir figure \ref{fig: rossby 4550}).
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.3]{ref_7369234281_snapshot_intermediaire4498.png}
+\includegraphics[scale=0.3]{ref_7369234281_snapshot_intermediaire4997.png}
+\end{center}
+\caption{Ondes de Rossby-Haurwitz à 45 et 50 jours, $N=79$ et $CFL=0.9$.}
+\label{fig: rossby 4550}
 \end{figure}

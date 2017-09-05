@@ -28,8 +28,8 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=5;
-video = 'yes';
+test=4;
+video = 'no';
 sauvegarde = 1;
 filtre='symetric';
 opt_ftr='redonnet10';
@@ -37,8 +37,8 @@ scheme='compact4';
 snapshot='yes';
 nrm='int';
 
-n=79; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=40;
+n=63; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=6;
 mod101
 disp('mod74 : ok')
 
@@ -49,15 +49,7 @@ ref=floor(10000*now);
 jour=date;
 %% *** test data **********************************************************
 
-if test < 0
-    alpha=0;
-    u0=20;
-    h0=6500;
-elseif test == 0
-    alpha=pi/4;
-    u0=2*pi*radius/(12*24*3600);
-    h0=2.94*10^4/gp;
-elseif test == 1
+if test == 1
     alpha=0;
     u0=20;
     h0=5960;
@@ -85,6 +77,10 @@ elseif test == 6
     alpha=0;
     h0=5.768*10^4/gp;
     u0=2*pi*radius/(12*24*3600);
+else
+    alpha=0;
+    u0=20;
+    h0=6500;
 end
 %% ************************************************************************
 
@@ -382,7 +378,7 @@ while t<Tmax && iter<itermax
     end
     
     % snapshot
-    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(14*ddt))) == 0
+    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(6*ddt))) == 0
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         clf;
         
@@ -422,14 +418,14 @@ while t<Tmax && iter<itermax
             colorbar
             view([1 -1 1])
         else
-            plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
+            plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
             title(['solution at time : ', num2str(time(end))])
             colorbar
         end
-
-        print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire' num2str(floor(100*time(end))) '.png'])
-        savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire_' num2str(floor(100*time(end))) '.fig']);
+            print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire' num2str(floor(100*time(end))) '.png'])
+            savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire_' num2str(floor(100*time(end))) '.fig']);
     end
+end
 
     
     %% time update

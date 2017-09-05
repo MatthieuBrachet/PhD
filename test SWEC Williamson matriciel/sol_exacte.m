@@ -52,6 +52,7 @@ elseif test == -3
         end
     end
     
+    
 elseif test == 0
     % test 2 of Williamson & al.
     [lambda, teta, ~]=cart2sph(x,y,z);
