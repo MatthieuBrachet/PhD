@@ -41,9 +41,9 @@ L'équation \eqref{eq:SWEC_new} s'écrit alors :
 
 Dans la suite, nous travaillerons avec cette forme de l'équation \eqref{eq:SWEC_new}. Les constantes physiques sont les suivantes :
 \begin{itemize}
-\item la constante de gravité : $g=9.80616 m \cdot s^{-2}$,
-\item la vitesse angulaire de rotation de la sphère $\omega=7.292 \times 10^{-5} s^{-1}$,
-\item le rayon terrestre $a=6.37122 \times 10^6 m$,
+\item la constante de gravité : $g=9.80616 m \cdot \si{s^{-2}}$,
+\item la vitesse angulaire de rotation de la sphère $\Omega=7.292 \times 10^{-5} \si{s^{-1}}$,
+\item le rayon terrestre $a=6.37122 \times 10^6 \si{m}$,
 \end{itemize}
 
 
@@ -182,7 +182,7 @@ h(\theta') & = & h_0 - \dfrac{a}{g} \gint^{\theta'} u(\tau) \left( u(\tau) \dfra
 \right.
 \label{eq:sol. stationaire zonale de swe}
 \end{equation}
-avec $f \equiv f(\theta') = 2 \omega \sin \theta'$, $u$ une fonction de classe $\mathcal{C}^1$.
+avec $f \equiv f(\theta') = 2 \Omega \sin \theta'$, $u$ une fonction de classe $\mathcal{C}^1$.
 \end{proposition}
 
 \begin{proof}
@@ -273,28 +273,28 @@ Dans le second test de \cite{Williamson1992}, on considère une solution station
 Le paramètre de Coriolis $f$ est une fonction donnée grâce à la formule (\ref{coord_rot}.b) en considèrant $(\lambda_P, \theta_P) = (\pi, \pi/2 - \alpha)$ :
 
 \begin{equation}
-f (\lambda, \theta) = 2 \omega \sin \theta' = 2 \omega \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right).
+f (\lambda, \theta) = 2 \Omega \sin \theta' = 2 \Omega \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right).
 \end{equation}
 
 La fonction $h$ est donnée par :
 
 \begin{equation}
-h(\lambda', \theta') = h_0 - \dfrac{a}{g} \gint^{\theta'} u_0 \cos \tau \left( u_0 \dfrac{\tan \tau}{a} + 2 \omega \sin \tau \right) d \tau
+h(\lambda', \theta') = h_0 - \dfrac{a}{g} \gint^{\theta'} u_0 \cos \tau \left( u_0 \dfrac{\tan \tau}{a} + 2 \Omega \sin \tau \right) d \tau
 \end{equation}
 
 après intégration, on obtient :
 
 \begin{equation}
 \begin{array}{rcl}
-h(\lambda, \theta) & = & h_0 - \dfrac{a}{g} \left( \omega u_0 + \dfrac{u_0^2}{2} \right) \sin^2 \theta' \\
-                   & = & h_0 - \dfrac{a}{g} \left( \omega u_0 + \dfrac{u_0^2}{2} \right) \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right)^2
+h(\lambda, \theta) & = & h_0 - \dfrac{a}{g} \left( \Omega u_0 + \dfrac{u_0^2}{2} \right) \sin^2 \theta' \\
+                   & = & h_0 - \dfrac{a}{g} \left( \Omega u_0 + \dfrac{u_0^2}{2} \right) \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right)^2
 \end{array}
 \label{eq: williamson 2 initial height}
 \end{equation}
 
 On utilise $h$ et $\mathbf{u}$ comme données initiales avec différentes valeurs de $\alpha$ pour pour observer l'influence de ce paramètre. En ce qui concerne les constantes liées au test effectué, on choisit :
 \begin{itemize}
-\item $g h_0= 2.94 \times 10^4 m^2 \cdot s^{-2}$,
+\item $g h_0= 2.94 \times 10^4 m^2 \cdot \si{s^{-2}}$,
 \item $u_0= 2 \pi a / (12 \text{ jours})$,
 \item $h_s \equiv 0$ (absence de reliefs sur la sphère).
 \end{itemize}
@@ -305,7 +305,7 @@ L'erreur relative sur $h$ au temps $t^n$ est calculée par la formule suivante :
 \dfrac{\| h(t^n) - h_{ex}\|_i}{\| h_ex \|_i}
 \end{equation}
 
-avec $h_{ex}(\lambda, \theta) = h_0 - \left( \dfrac{a}{g} \omega u_0 + \dfrac{u_0^2}{2} \right) \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right)^2$ et $i \in \lbrace 1,2,\infty \rbrace$.
+avec $h_{ex}(\lambda, \theta) = h_0 - \left( \dfrac{a}{g} \Omega u_0 + \dfrac{u_0^2}{2} \right) \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right)^2$ et $i \in \lbrace 1,2,\infty \rbrace$.
 
 Ainsi que l'erreur relative sur le champs de vitesse $\mathbf{u}$ : 
 
@@ -413,7 +413,7 @@ On considère les données initiales \eqref{eq: williamson 2 initial velocity} e
 \left\lbrace
 \begin{array}{rcl}
 \mathbf{u}(\lambda, \theta) & = & u_0 \cos \theta \mathbf{e}_{\lambda} \\
-h(\lambda, \theta) & = & h_0 - \dfrac{a}{g} \left( \omega u_0 + \dfrac{u_0^2}{2} \right) \sin^2 \theta \\
+h(\lambda, \theta) & = & h_0 - \dfrac{a}{g} \left( \Omega u_0 + \dfrac{u_0^2}{2} \right) \sin^2 \theta \\
 \end{array}
 \right.
 \end{equation}
@@ -421,8 +421,8 @@ h(\lambda, \theta) & = & h_0 - \dfrac{a}{g} \left( \omega u_0 + \dfrac{u_0^2}{2}
 La force de Coriolis est donnée par le paramètre $f = 2 \omega \sin \theta$. Les constantes physiques restent inchangées et les constantes liées au test sont :
 
 \begin{itemize}
-\item $h_0 = 5400 m$,
-\item $u_0 = 20 m \cdot s^{-1}$.
+\item $h_0 = 5400 \si{m}$,
+\item $u_0 = 20 m \cdot \si{s^{-1}}$.
 \end{itemize}
 
 Cette condition initiale est perturbée à l'aide d'un reliefs.
@@ -500,10 +500,10 @@ u(\theta) = \left\lbrace
 
 $e_n$ est une constante de normalisation. On pose $e_n = \exp\left[ - \dfrac{4}{(\theta_1-\theta_0)^2} \right]$. On choisi, pour les constantes, les valeurs suivantes :
 \begin{itemize}
-\item $u_{max}=80 m \cdot s^{-1}$,
+\item $u_{max}=80 m \cdot  \si{s^{-1}}$,
 \item $\theta_0 = \pi/7$,
 \item $\theta_1 = \pi/2 - \theta_0$,
-\item $h_0$ est choisit de telle manière que $h$ ait pour moyenne $10000 m$, soit approximativement $h_0 \approx 9841.8139 m$.
+\item $h_0$ est choisit de telle manière que $h$ ait pour moyenne $10000 \si{m}$, soit approximativement $h_0 \approx 9841.8139 \si{m}$.
 \end{itemize}
 
 Ainsi donnée, cette condition initiale est stationnaire mais elle semble instable et les erreurs numériques effectuées par le schéma semble suffisante pour la perturber. Le test repose sur cette instabilité. On ajoute à la condition initiale $h$ une perturbation locale $h'$ :
@@ -531,7 +531,7 @@ Ce test consiste à observer la vorticité au fil du temps. On l'observe en part
 \label{fig: initiale et perturbation Galewsky}
 \end{figure}
 
-La vorticité au bout de 2, 4 et 6 jours sont donnés en figure \ref{fig: galewsky 246}. De plus, on vérifie les conservations en figure REF. On constate que les résultats sont bons et comparables à ceux de la littérature. La conservation de l'enstrophie potentielle est tout de fois moins bonne que les autres.
+La vorticité au bout de 2, 4 et 6 jours sont donnés en figure \ref{fig: galewsky 246}. De plus, on vérifie les conservations en figure {fig: galewsky conservation}. On constate que les résultats sont bons et comparables à ceux de la littérature. La conservation de l'enstrophie potentielle est tout de fois moins bonne que les autres.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -553,8 +553,6 @@ La figure \ref{fig: galewsky compact/explicite} est faite en utilisant le schém
 \caption{Test du Flux barotropic \cite{Galewsky2004} à 6 jours, $N=86$ et $CFL=0.9$. A gauche, utilisation d'un schéma compact d'ordre 4, a droite utilisation d'un schéma explicite d'ordre 4.}
 \label{fig: galewsky compact/explicite}
 \end{figure}
-
-Les résultats concernant la conservation au temps final sont donnés en figure \ref{fig: galewsky conservation}.
 
 \begin{figure}[htbp]
 \begin{center}
