@@ -28,7 +28,7 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=4;
+test=5;
 video = 'no';
 sauvegarde = 1;
 filtre='symetric';
@@ -37,8 +37,8 @@ scheme='compact4';
 snapshot='yes';
 nrm='int';
 
-n=63; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=6;
+n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=14;
 mod101
 disp('mod74 : ok')
 
@@ -377,8 +377,8 @@ while t<Tmax && iter<itermax
         
     end
     
-    % snapshot
-    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(6*ddt))) == 0
+    %% snapshot
+    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(14*ddt))) == 0
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         clf;
         
@@ -425,7 +425,7 @@ while t<Tmax && iter<itermax
             print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire' num2str(floor(100*time(end))) '.png'])
             savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire_' num2str(floor(100*time(end))) '.fig']);
     end
-end
+
 
     
     %% time update
@@ -436,6 +436,8 @@ end
     clc; 
     disp(real([test iter min(itermax,floor(Tmax/ddt)) err_int(end)-1 err_energy(end)-1 err_enstrophy(end)-1]));
 end
+
+
 close all;
 disp('calcul : OK');
 disp('plot...');
