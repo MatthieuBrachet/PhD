@@ -28,6 +28,7 @@ surf(lam_II,the_II,funfIIe);hold on;axis([lmin lmax temin temax umin umax]);
 %% -- FACE III
 [lam_III,the_III,xwk]=cart2sph(x_fIII,y_fIII,z_fIII);
 lam_IIIa=lam_III((nn+1)/2:nn,1:nn);
+lam_IIIa(1,1:nn)=lam_IIIa(1,1:nn)-2*pi;
 the_IIIa=the_III((nn+1)/2:nn,1:nn);
 funfIIIea=funfIIIe((nn+1)/2:nn,1:nn);
 surf(lam_IIIa,the_IIIa,funfIIIea);hold on;axis([lmin lmax temin temax umin umax]);
@@ -113,11 +114,14 @@ lam_V_qIII(1:nn,(nn+1)/2)=lam_V_qIII(1:nn,1);
 lam_V_a=lam_V_qIII((nn+1)/2:nn,:)+pi;
 the_V_a=the_V_qIII((nn+1)/2:nn,:);
 funfVa=funfVsIII((nn+1)/2:nn,:);
-surf(lam_V_a,the_V_a,funfVa);hold on;axis([lmin lmax temin temax umin umax]);
+surf(lam_V_a,the_V_a,funfVa);
+hold on;axis([lmin lmax temin temax umin umax]);
+
 lam_V_b=lam_V_qIII(1:(nn+1)/2,:)-pi;
 the_V_b=the_V_qIII(1:(nn+1)/2,:);
 funfVb=funfVsIII(1:(nn+1)/2,:);
-surf(lam_V_b,the_V_b,funfVb);hold on;axis([lmin lmax temin temax umin umax]);
+surf(lam_V_b,the_V_b,funfVb);
+hold on;axis([lmin lmax temin temax umin umax]);
 
 % QUADRANT IV
 funfVsIV=zeros((nn+1)/2,nn); % 

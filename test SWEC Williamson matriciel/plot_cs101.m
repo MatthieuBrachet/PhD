@@ -29,6 +29,7 @@ contour(lam_II,the_II,funfIIe.*(funfIIe<0),v,'k--');hold on;
 %% -- FACE III
 [lam_III,the_III,xwk]=cart2sph(x_fIII,y_fIII,z_fIII);
 lam_IIIa=lam_III((nn+1)/2:nn,1:nn);
+lam_IIIa(1,1:nn)=lam_IIIa(1,1:nn)-2*pi;
 the_IIIa=the_III((nn+1)/2:nn,1:nn);
 funfIIIea=funfIIIe((nn+1)/2:nn,1:nn);
 contour(lam_IIIa,the_IIIa,funfIIIea.*(funfIIIea>0),v,'k-');hold on;

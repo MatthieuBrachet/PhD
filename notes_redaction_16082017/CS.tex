@@ -14,7 +14,7 @@ On note $\mathbb{S}_a^2$ \textit{la sphère} de centre $\mathbf{O} (0,0,0) \in \
 \end{equation} 
 
 Un \textit{grand cercle} est un cercle de centre $\mathbf{O}$ et de rayon $a$. Un grand cercle est inclus dans la sphère $\mathbb{S}_a^2$.
-Soit $C$ un grand cercle fixé et $\mathbf{x}_0 \in C$ un point fixé. On choisit l'un des deux sens de parcours le long de $C$ à partir de $\mathbf{x}_0$ et on définit \textit{l'abscisse curviligne} de $\mathbf{x} \in C$ par la distance séparant $\mathbf{x}$ de $\mathbf{x}_0$ le long de $C$. Alors la relation suivante est vérifiée :
+Soient $C$ un grand cercle fixé et $\mathbf{x}_0 \in C$ un point fixé. On choisit l'un des deux sens de parcours le long de $C$ à partir de $\mathbf{x}_0$ et on définit \textit{l'abscisse curviligne} de $\mathbf{x} \in C$ par la distance séparant $\mathbf{x}$ de $\mathbf{x}_0$ le long de $C$. Alors la relation suivante est vérifiée :
 
 \begin{equation}
 arg \longarc{\mathbf{x}_0  \mathbf{x}} = a \alpha
@@ -120,7 +120,7 @@ On appelle \textit{plan tangent} à la sphère $\mathbb{S}_a^2$ au point $\overl
 \end{equation}
 \end{definition}
 
-On a :
+Les vecteurs $\mathbf{e}_{\alpha}(\mathbf{x})$ et $\mathbf{e}_{\beta}(\mathbf{x})$ appartiennent au plan tangent $\mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$.
 
 \begin{proposition}
 Soit $\overline{\mathbf{x}} \in \mathbb{S}_a^2$, alors :
@@ -151,9 +151,11 @@ Ainsi en particulier en $\overline{\mathbf{x}}$, on a :
 d'où : $\mathbf{e}_{\alpha}(\overline{\mathbf{x}}) \in \mathbb{T}_{\overline{\mathbf{x}}} \mathbb{S}_a^2$. En dérivant par rapport à $\beta$, on a $\mathbf{e}_{\beta}(\overline{\mathbf{x}}) \in \mathbb{T}_{\overline{\mathbf{x}}} \mathbb{S}_a^2$.
 \end{proof}
 
-Donc $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ engendrent $\mathbb{T}_{\overline{\mathbf{x}}}\mathbb{S}_a^2$ car $C_1 \neq C_2$ donc $\mathbf{e}_{\alpha} \neq \mathbf{e}_{\beta}$. De plus, ils sont dans le plan $\mathbb{T}_{\overline{\mathbf{x}}}\mathbb{S}_a^2$.
+$\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ sont dans le plan $\mathbb{T}_{\overline{\mathbf{x}}}\mathbb{S}_a^2$. De plus, $C_1 \neq C_2$ donc $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ ne sont pas colinéaires. On en déduit que $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ engendrent $\mathbb{T}_{\overline{\mathbf{x}}} \mathbb{S}_a^2$. Cependant, ces deux vecteurs ne sont, a priori, pas orthogonaux non plus.
 
-Une base duale, formée des vecteurs  $\mathbf{e}^{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}^{\beta}(\overline{\mathbf{x}})$ de $\mathbb{T}_{\overline{\mathbf{x}}} \mathbb{S}_a^2$, est donnée grâce aux relations suivantes :
+\begin{definition}
+On définit $(\mathbf{e}^{\alpha}(\overline{\mathbf{x}}), \mathbf{e}^{\beta}(\overline{\mathbf{x}}))$ la \textit{base duale} de $(\mathbf{e}_{\alpha}(\overline{\mathbf{x}}), \mathbf{e}_{\beta}(\overline{\mathbf{x}}))$.
+Les vecteurs $\mathbf{e}^{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}^{\beta}(\overline{\mathbf{x}})$ sont les vecteurs de $\mathbb{T}_{\overline{\mathbf{x}}}\mathbb{S}_a^2$ vérifiant :
 
 \begin{equation}
 \left\lbrace
@@ -165,12 +167,54 @@ Une base duale, formée des vecteurs  $\mathbf{e}^{\alpha}(\overline{\mathbf{x}}
 \label{eq: dualite alpha beta}
 \end{equation}
 
-Soit $h : \mathbb{S}_a^2 \mapsto \mathbb{R}$ est une fonction régulière, son gradient est donné par :
+\end{definition}
+
+\begin{proposition}
+$(\mathbf{e}^{\alpha}(\overline{\mathbf{x}}), \mathbf{e}^{\beta}(\overline{\mathbf{x}}))$ la base duale de $(\mathbf{e}_{\alpha}(\overline{\mathbf{x}}), \mathbf{e}_{\beta}(\overline{\mathbf{x}}))$ est unique.
+\end{proposition}
+
+\begin{proof}
+Soit $(\mathbf{u}, \mathbf{v})$ une base duale de  $(\mathbf{e}_{\alpha}(\overline{\mathbf{x}}), \mathbf{e}_{\beta}(\overline{\mathbf{x}}))$ distincte de $(\mathbf{e}^{\alpha}(\overline{\mathbf{x}}), \mathbf{e}^{\beta}(\overline{\mathbf{x}}))$. Montrons que l'on a nécessairement $\mathbf{u} = \mathbf{e}^{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{v} = \mathbf{e}^{\beta}(\overline{\mathbf{x}})$. Pour cela, évaluons $\mathbf{u}$ et $\mathbf{v}$ dans trois directions distinctes de $\mathbb{R}^3$ :
+
+\begin{itemize}
+\item \textbf{Direction } $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$, par construction, on a :
+
+$$
+\begin{array}{rcccl}
+\mathbf{u} \cdot \mathbf{e}_{\alpha}(\overline{\mathbf{x}}) & = & 1 & = & \mathbf{e}^{\alpha}(\overline{\mathbf{x}}) \cdot \mathbf{e}_{\alpha}(\overline{\mathbf{x}})\\
+\mathbf{v} \cdot \mathbf{e}_{\alpha}(\overline{\mathbf{x}}) & = & 0 & = & \mathbf{e}^{\beta}(\overline{\mathbf{x}}) \cdot \mathbf{e}_{\alpha}(\overline{\mathbf{x}})\\
+\end{array}
+$$
+
+\item \textbf{Direction } $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$, de la même manière
+
+$$
+\begin{array}{rcccl}
+\mathbf{u} \cdot \mathbf{e}_{\beta}(\overline{\mathbf{x}}) & = & 0 & = & \mathbf{e}^{\alpha}(\overline{\mathbf{x}}) \cdot \mathbf{e}_{\beta}(\overline{\mathbf{x}})\\
+\mathbf{v} \cdot \mathbf{e}_{\beta}(\overline{\mathbf{x}}) & = & 1 & = & \mathbf{e}^{\beta}(\overline{\mathbf{x}}) \cdot \mathbf{e}_{\beta}(\overline{\mathbf{x}})\\
+\end{array}
+$$
+
+\item \textbf{Dans la direction normale :} $\mathbf{u}$, $\mathbf{v}$, $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}}) \in \mathbb{T}_{\overline{\mathbf{x}}} \mathbb{S}_a^2$ donc :
+
+$$
+\mathbf{u} \cdot \overline{\mathbf{x}}=\mathbf{v} \cdot \overline{\mathbf{x}}=\mathbf{e}_{\alpha}(\overline{\mathbf{x}}) \cdot \overline{\mathbf{x}}=\mathbf{e}_{\beta}(\overline{\mathbf{x}}) \cdot \overline{\mathbf{x}}
+$$ 
+\end{itemize}
+
+Or, $(\mathbf{e}_{\alpha}(\overline{\mathbf{x}}), \mathbf{e}_{\beta}(\overline{\mathbf{x}}), \overline{\mathbf{x}})$ est une base de $\mathbb{R}^3$, donc $\mathbf{u} = \mathbf{e}^{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{v} = \mathbf{e}^{\beta}(\overline{\mathbf{x}})$.
+\end{proof}
+
+A partir de ces différentes bases, on définit le \textit{gradient}.
+
+\begin{definition}
+Soit $h : \mathbb{S}_a^2 \mapsto \mathbb{R}$ est une fonction régulière, le gradient de $h$ est donné par :
 
 \begin{equation}
 \nabla_{T} h(\overline{\mathbf{x}}) := \dfrac{\partial}{\partial \alpha} \left( h(\overline{\mathbf{x}}) \right)_{| \mathbf{x} \in C_1} \mathbf{e}^{\alpha}(\overline{\mathbf{x}}) + \dfrac{\partial}{\partial \beta}\left(  h(\overline{\mathbf{x}}) \right)_{| \mathbf{x} \in C_2} \mathbf{e}^{\beta}(\overline{\mathbf{x}}).
 \label{eq: gradient}
 \end{equation}
+\end{definition}
 
 \begin{proposition}
 Soit $\mathbf{x} \in \mathbb{S}_a^2$, alors $\nabla_{T} h (\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$.
@@ -180,7 +224,7 @@ Soit $\mathbf{x} \in \mathbb{S}_a^2$, alors $\nabla_{T} h (\mathbf{x}) \in \math
 $\nabla_{T} h (\mathbf{x})$ est une combinaison linéaire de $\mathbf{e}^{\alpha}(\mathbf{x})$ et $\mathbf{e}^{\beta}(\mathbf{x})$. Ces deux vecteurs engendrent le plan $\mathbb{T}_{\mathbf{x}}\mathbb{S}_a^2$, d'où le résultat.
 \end{proof}
 
-Pour alléger les notations, nous ne noterons plus $(\mathbf{x})$ où sont évaluées les quantités $h$, $\mathbf{e}_{\alpha}$
+Pour alléger les notations, nous ne noterons abusivement les quantités $h$, $\mathbf{e}_{\alpha}$, $\mathbf{e}^{\alpha}$... au lieu de $h(\mathbf{x})$, $\mathbf{e}_{\alpha}(\mathbf{x})$, $\mathbf{e}^{\alpha}(\mathbf{x})$...
 
 \begin{proposition}
 Le gradient \eqref{eq: gradient} est bien défini. Il ne dépend pas du choix des deux grands cercles $C_1$ et $C_2$ choisis.
@@ -190,16 +234,16 @@ Le gradient \eqref{eq: gradient} est bien défini. Il ne dépend pas du choix de
 Soit $(\tilde{C}_1, \tilde{C}_2)$ un couple de grands cercles tels que  $(\tilde{C}_1, \tilde{C}_2) \neq (C_1, C_2$). $\tilde{\alpha}$ et $\tilde{\beta}$ les abscisses curvilignes associées. On pose :
 
 \begin{equation}
-\mathbf{e}_{\tilde{\alpha}}(\overline{\mathbf{x}}) = \dfrac{\partial \mathbf{x}}{\partial \tilde{\alpha}} \text{ et } \mathbf{e}_{\tilde{\beta}}(\overline{\mathbf{x}}) = \dfrac{\partial \mathbf{x}}{\partial \tilde{\beta}}
+\mathbf{e}_{\tilde{\alpha}} = \dfrac{\partial \mathbf{x}}{\partial \tilde{\alpha}} \text{ et } \mathbf{e}_{\tilde{\beta}} = \dfrac{\partial \mathbf{x}}{\partial \tilde{\beta}}
 \end{equation}
 
-la base de $\mathbb{T}_{\overline{\mathbf{x}}}\mathbb{S}_a^2$ associée à $(\tilde{\alpha}$ et $\tilde{\beta}$. $\left( \mathbf{e}^{\tilde{\alpha}}(\overline{\mathbf{x}}), \mathbf{e}^{\tilde{\beta}}(\overline{\mathbf{x}}) \right)$ est construite par dualité :
+la base de $\mathbb{T}_{\overline{\mathbf{x}}}\mathbb{S}_a^2$ associée à $(\tilde{\alpha}$ et $\tilde{\beta}$. $\left( \mathbf{e}^{\tilde{\alpha}}, \mathbf{e}^{\tilde{\beta}} \right)$ est construite comme base duale de $\left( \mathbf{e}_{\tilde{\alpha}}, \mathbf{e}_{\tilde{\beta}} \right)$ :
 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcccl}
-\mathbf{e}_{\tilde{\alpha}}(\overline{\mathbf{x}}) \cdot \mathbf{e}^{\tilde{\alpha}}(\overline{\mathbf{x}}) & = & 1 & = & \mathbf{e}_{\tilde{\beta}}(\overline{\mathbf{x}}) \cdot \mathbf{e}^{\tilde{\beta}}(\overline{\mathbf{x}}) \\
-\mathbf{e}_{\tilde{\alpha}}(\overline{\mathbf{x}}) \cdot \mathbf{e}^{\tilde{\beta}}(\overline{\mathbf{x}}) & = & 0 & = & \mathbf{e}_{\tilde{\beta}}(\overline{\mathbf{x}}) \cdot \mathbf{e}^{\tilde{\alpha}}(\overline{\mathbf{x}}) \\
+\mathbf{e}_{\tilde{\alpha}} \cdot \mathbf{e}^{\tilde{\alpha}} & = & 1 & = & \mathbf{e}_{\tilde{\beta}} \cdot \mathbf{e}^{\tilde{\beta}} \\
+\mathbf{e}_{\tilde{\alpha}} \cdot \mathbf{e}^{\tilde{\beta}} & = & 0 & = & \mathbf{e}_{\tilde{\beta}} \cdot \mathbf{e}^{\tilde{\alpha}} \\
 \end{array}
 \right.
 \end{equation}
@@ -222,7 +266,7 @@ De plus :
 \label{eq: prop u v}
 \end{equation}
 
-On cherche à savoir quel est le lien entre les vecteurs $\mathbf{u}$, $\mathbf{v}$ et les vecteurs $\mathbf{e}^{\alpha}$, $\mathbf{e}^{\beta}$.
+On cherche le lien entre les vecteurs $\mathbf{u}$, $\mathbf{v}$ et les vecteurs $\mathbf{e}^{\alpha}$, $\mathbf{e}^{\beta}$.
 
 \begin{equation}
 \mathbf{e}_{\alpha} \cdot \mathbf{u} = \dfrac{\partial \tilde{\alpha}}{\partial \alpha} \dfrac{\partial \alpha}{\partial \tilde{\alpha}} + \dfrac{\partial \tilde{\beta}}{\partial \alpha} \dfrac{\partial \alpha}{\partial \tilde{\beta}} = \dfrac{\partial \alpha}{\partial \alpha} = 1.
@@ -250,7 +294,7 @@ Le gradient est bien défini car indépendant du choix des grands cercles.
 
 
 \begin{proposition}
-Soit $u: \mathbb{R}^3 \mapsto \mathbb{R}$ une fonction de $\mathbb{R}^3$ et $\mathbf{x} \in \mathbb{R}^3$. On pose $\hat{u} : = u_{|\mathbb{S}_a^2}$ la restriction de $u$ à la sphère $\mathbb{S}_a^2$. Alors $\nabla_{T} \hat{u} (\mathbf{x})$ est la projection orthogonale de $\nabla_{\mathbb{R}^3} u (\mathbf{x})$ sur le plan tangent $\mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$.
+Soit $u: \mathbb{R}^3 \mapsto \mathbb{R}$ et $\mathbf{x} \in \mathbb{R}^3$. On pose $\hat{u} : = u_{|\mathbb{S}_a^2}$ la restriction de $u$ à la sphère $\mathbb{S}_a^2$. Alors $\nabla_{T} \hat{u} (\mathbf{x})$ est la projection orthogonale de $\nabla_{\mathbb{R}^3} u (\mathbf{x})$ sur le plan tangent $\mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$.
 
 \begin{equation}
 \nabla_T \hat{u} = \nabla_{\mathbb{R}^3} u - \mathbf{n} \left( \mathbf{n} \cdot \nabla_{\mathbb{R}^3} u \right)
@@ -260,7 +304,7 @@ avec $\mathbf{n}$ la normale unitaire extérieure.
 \end{proposition}
 
 \begin{proof}
-Pour montrer cette égalité, on montre que les deux termes sont égaux dans trois directions distinctes.
+Pour montrer cette égalité, on montre que les deux termes sont égaux dans trois directions distinctes. on pose $\mathbf{n}$ la normale unitaire extérieure à la sphère $\mathbb{S}_a^2$.
 \begin{itemize}
 \item Direction $\mathbf{e}_{\alpha}$ :
 d'une part on a :
@@ -290,17 +334,33 @@ car $\nabla_T \hat{u}$ est tangent à la sphère. D'autres part :
 \begin{equation}
 \left( \nabla_{\mathbb{R}^3} u - \mathbf{n} \left( \mathbf{n} \cdot \nabla_{\mathbb{R}^3} u \right) \right) \cdot \mathbf{n} = \nabla_{\mathbb{R}^3} u \cdot \mathbf{n}- \mathbf{n} \cdot \nabla_{\mathbb{R}^3} u = 0
 \end{equation}
-car $\mathbf{n}\cdot \mathbf{n} = 1$.
 \end{itemize}
-D'où l'égalité souhaitée.
+$(\mathbf{e}_{\alpha}, \mathbf{e}_{\beta}, \mathbf{n})$ est une base de $\mathbb{R}^3$, d'où l'égalité souhaitée.
 \end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 \subsection{Définition de la Cubed-Sphere}
 
 Définissons la Cubed-Sphere associée à la base orthonormée $(\mathbf{i}, \mathbf{j}, \mathbf{k})$ de $\mathbb{R}^3$.
-On définit les points suivants (Voir Figure \ref{fig: sphere NSEWFB}) :
+On définit les points suivants (Voir Figure \ref{fig: sphere NSEWFB}) sur la sphère $\mathbb{S}_a^2$ :
 \begin{itemize}
 \item $\mathbf{N}$ le point de coordonnées dans $\mathbb{R}^3$ : $(0,0,a)$,
 \item $\mathbf{S}$ le point de coordonnées $(0,0,-a)$,
@@ -346,7 +406,7 @@ On définit les points suivants (Voir Figure \ref{fig: sphere NSEWFB}) :
 \label{fig: sphere NSEWFB}
 \end{figure}
 
-Un grand cercle est constitué de l'intersection de la sphère $\mathbb{S}_a^2$ avec un plan contenant le point $\mathbf{O}$. On défini les grands cercles suivants (Voir figure \ref{fig: grands cercles panel I}) :
+Un grand cercle est constitué de l'intersection de la sphère $\mathbb{S}_a^2$ avec un plan contenant le point $\mathbf{O}$. On définit les grands cercles suivants (Voir figure \ref{fig: grands cercles panel I}) :
 
 \begin{itemize}
 \item $C_V^1 = Vect(\mathbf{i}-\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$,
@@ -419,9 +479,9 @@ La construction de la Cubed-Sphère fait intervenir six zones recouvrant la sph�
 \begin{definition}
 Les panels I, II, III, IV, V et VI sont définis par :
 \begin{itemize}
-\item Les panel I et III sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{II}^1$ et $C_{II}^2$. Le panel III est le symétrique du panel I par la symétrie ponctuelle de centre $\mathbf{O}$.Le panel I ne contient que des points $(x,y,z)$ tels que $x>0$, le panel III ne contient que des points tels que $x<0$.
-\item Les panel II et IV sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{I}^1$ et $C_{I}^2$. Le panel IV est le symétrique du panel II par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel II ne contient que des points $(x,y,z)$ tels que $y>0$, le panel IV ne contient que des points tels que $y<0$.
-\item Les panel V et VI sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_I^1$, $C_I^2$, $C_{II}^1$ et $C_{II}^2$. Le panel VI est le symétrique du panel V par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel V ne contient que des points $(x,y,z)$ tels que $z>0$, le panel VI ne contient que des points tels que $z<0$.
+\item Les panels I et III sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{II}^1$ et $C_{II}^2$. Le panel III est le symétrique du panel I par la symétrie ponctuelle de centre $\mathbf{O}$.Le panel I ne contient que des points $(x,y,z)$ tels que $x>0$, le panel III ne contient que des points tels que $x<0$.
+\item Les panels II et IV sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{I}^1$ et $C_{I}^2$. Le panel IV est le symétrique du panel II par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel II ne contient que des points $(x,y,z)$ tels que $y>0$, le panel IV ne contient que des points tels que $y<0$.
+\item Les panels V et VI sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_I^1$, $C_I^2$, $C_{II}^1$ et $C_{II}^2$. Le panel VI est le symétrique du panel V par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel V ne contient que des points $(x,y,z)$ tels que $z>0$, le panel VI ne contient que des points tels que $z<0$.
 \end{itemize}
 \end{definition}
 
@@ -695,16 +755,16 @@ Les panels I, II, III, IV, V et VI sont définis par :
 \label{fig: panel I to VI}
 \end{figure}
 
-La grille Cubed-Sphere est constituée de l'intersection d'un ensemble de grands cercles sur chaque panel. On commence par introduire le système de coordonnées $(\xi,\eta)$ associés aux cercles centraux de chaque panel. $\xi$ et  $\eta$ sont définis comme il suit :
+La grille Cubed-Sphere est constituée de l'intersection d'un ensemble de grands cercles sur chaque panel. On commence par introduire le système de coordonnées $(\xi,\eta)$ associés aux cercles centraux de chaque panel. Les paramètres $\xi$ et  $\eta$ sont définis comme il suit :
 
 \begin{itemize}
-\item Les courbes $\xi = 0$ et $\eta = 0$ sont les grands cercles de référence, notés respectivement $C_0^{(1)}$ et $C_0^{(2)}$ (en pointillés gras sur la Figure sur \ref{fig: panel I xi eta} et sur \ref{fig: panel I}). Pour le panel I, $C_0^{(1)}$ est le grand cercle passant par les points $\mathbf{N}$, $\mathbf{F}$ et $\mathbf{S}$, il coupe orthogonalement $C_0^{(2)}$ qui est le grand cercle passant par $\mathbf{W}$, $\mathbf{F}$ et $\mathbf{E}$,
+\item Les courbes $\xi = 0$ et $\eta = 0$ sont les grands cercles de référence, notés respectivement $C_0^{(1)}$ et $C_0^{(2)}$ (en pointillés gras sur la Figure sur \ref{fig: panel I xi eta} et sur \ref{fig: panel I}), ils passent par les points centraux de certains panels. Pour le panel I, $C_0^{(1)}$ est le grand cercle passant par les points $\mathbf{N}$, $\mathbf{F}$ et $\mathbf{S}$, il coupe orthogonalement $C_0^{(2)}$ qui est le grand cercle passant par $\mathbf{W}$, $\mathbf{F}$ et $\mathbf{E}$,
 
 \item $\xi$ est l'angle géodésique mesuré sur $C_0^{(2)}$ et $\eta$ l'angle géodésique mesuré sur $C_0^{(1)}$,
 
 \item si $\mathbf{x}$ est un point d'un panel, il est localisé de grâce aux angles géodésiques $\xi$ et $\eta$  (voir Figure \ref{fig: panel I xi eta}),
 
-\item un panel est définit pour :
+\item un panel est défini pour :
 \begin{equation}
 - \dfrac{\pi}{4} \leq \xi\text{, }\eta \leq \dfrac{\pi}{4},
 \end{equation}
@@ -713,13 +773,13 @@ La grille Cubed-Sphere est constituée de l'intersection d'un ensemble de grands
 \begin{equation}
 \xi_i = i \Delta \xi \text{ et } \eta_j = j \Delta \eta \text{ avec } -\dfrac{N}{2} \leq i,j \leq \dfrac{N}{2},
 \end{equation}
-dans ce qui suit, nous supposerons $N$ pair. $\Delta \xi$ et $\Delta \eta$ représentent le pas séparant régulièrement les grands les grandsc ercles dans le système de coordonnées $(\xi, \eta)$. Ainsi, 
+dans ce qui suit, nous supposerons $N$ pair. $\Delta \xi$ et $\Delta \eta$ représentent le pas séparant régulièrement les grands les grands cercles dans le système de coordonnées $(\xi, \eta)$ :
 \begin{equation}
-\Delta \xi = \Delta \eta = \dfrac{\pi}{2N}
+\Delta \xi = \Delta \eta = \dfrac{\pi}{2N}.
 \end{equation} 
 \end{itemize}
 
-Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudinale de $2 \pi$, on peut donc insérer 4 panels notés $I$, $II$, $III$ et $IV$. De même, le long de $C_0^{(1)}$, sont présents les panels $I$, $V$, $III$ et $VI$.
+Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudinale de $2 \pi$, on peut donc insérer les 4 panels notés $I$, $II$, $III$ et $IV$. De même, le long de $C_0^{(1)}$, sont présents les panels $I$, $V$, $III$ et $VI$.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -833,7 +893,7 @@ Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudina
 
 Dans ce cadre, on note $C^{(1)}_i$ le grand cercle obtenu par rotation de $C^{(1)}_0$ d'un angle géodésique $i \Delta \xi$ autour de l'axe $(Oz)$ et $C^{(2)}_j$ le cercle obtenu par rotation de $C^{(2)}_0$ d'angle $j \Delta \eta$ autour de $(Oy)$.
 
-Le maillage associé au panel I est constitué des points d'intersection des $N+1$ cercles $( C_i^{(1)} )_{-N/2 \leq i \leq N/2}$ et des $N+1$ cercles $(C_j^{(2)})_{-N/2 \leq i \leq N/2}$ (Voir figure \ref{fig: panel I}). Il y a donc $(N+1)^2$ points d'intersection sur un panel.
+Le maillage associé au panel I est constitué des points d'intersections des $N+1$ cercles $( C_i^{(1)} )_{-N/2 \leq i \leq N/2}$ et des $N+1$ cercles $(C_j^{(2)})_{-N/2 \leq i \leq N/2}$ (Voir figure \ref{fig: panel I}) sur le panel I. Le même procédé est reproduit sur chaque panel, il y a donc $(N+1)^2$ points d'intersections sur un panel.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -891,11 +951,11 @@ Le maillage associé au panel I est constitué des points d'intersection des $N+
 En reproduisant le procédé pour chaque panel, on constitue la Cubed-Sphere associée à la base $(\mathbf{i},\mathbf{j},\mathbf{k})$ et de paramètre $N$.
 
 \begin{definition}
-La Cubed-Sphere est une grille de la sphère $\mathbb{S}_a^2$. Elle est constituée d'une partition de la sphère en 6 panels identiques notés panel I (Front), II (East), III (Bottom), IV (West), V (North) et VI (South). Chaque panel est équipé de son propre système de coordonnées :
+La Cubed-Sphere est une grille de la sphère $\mathbb{S}_a^2$. Elle est constituée d'une partition de la sphère en 6 panels identiques notés panel I (Front), II (East), III (Bottom), IV (West), V (North) et VI (South). Chaque panel est doté d'un système de coordonnées :
 \begin{equation}
-\left( \xi^{(k)}, \eta^{(k)} \right) \text{, } -\dfrac{\pi}{4} \leq \xi^{(k)}, \eta^{(k)} \leq \dfrac{\pi}{4} \text{, } I \leq k \leq VI.
+\left( \xi^{(k)}, \eta^{(k)} \right) \text{, } -\dfrac{\pi}{4} \leq \xi^{(k)}, \eta^{(k)} \leq \dfrac{\pi}{4} \text{, } I \leq k \leq VI
 \end{equation}
-Les points de la Cubed-Sphère sont notés $\mathbf{x}_{i,j}^{(k)}$. Ils ont pour coordonnées $\left( \xi_i^{(k)}, \eta_j^{(k)}  \right)$ avec :
+définis précédemment. Les points de la Cubed-Sphere sont notés $\mathbf{x}_{i,j}^{(k)}$. Ils ont pour coordonnées $\left( \xi_i^{(k)}, \eta_j^{(k)}  \right)$ avec :
 \begin{equation}
 \xi_i^{(k)} = i \Delta \xi \text{, } \eta_j^{(k)} = j \Delta \eta \text{, } -N/2 \leq i, j \leq N/2 \text{ et } I \leq k \leq VI,
 \end{equation}
@@ -929,7 +989,7 @@ Ils sont au nombre de $(N-1)^2$ par panel.
 \end{equation}
 \item Les $4$ points de coins si :
 \begin{equation}
-i, j = \pm \dfrac{N}{2}
+i, j = \pm \dfrac{N}{2}.
 \end{equation}
 \end{itemize}
 
@@ -1004,7 +1064,7 @@ On considère un cube inscrit dans la Sphère $\mathbb{S}_a^2$. Le demi côté d
 \end{itemize}
 
 $\mathbf{F}$ est la projection gnomonique de $F'$ sur la sphère $\mathbb{S}_a^2$, $\mathbf{E}$ celle de $E'$, ...
-Si l'on considère par exemple le panel I, un point $\mathbf{x}'=(x',y',z')$ de la face centré sur $F'$ est projeté en $\mathbf{x} = (x,y,z)$ un point du panel I (Voir figure \ref{fig: projection gnomonique}). Chaque panel est la projection de l'un des face du cube.
+Si l'on considère par exemple le panel I, un point $\mathbf{x}'=(x',y',z')$ de la face centré sur $F'$ est projeté en $\mathbf{x} = (x,y,z)$ un point du panel I (Voir figure \ref{fig: projection gnomonique}). Chaque panel est la projection de l'une des face du cube.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1074,15 +1134,19 @@ On constate alors les relations suivantes :
 \tan \xi = \dfrac{y'}{x'} = \dfrac{y}{x} \text{ et } \tan \eta = \dfrac{z'}{x'} = \dfrac{z}{x}
 \end{equation}
 
-Or $\mathbf{x}'$ est un point de la face du cube centrée en $\mathbf{x}'$, donc $x'=R=\frac{\sqrt{3}}{6}a$ :
+Or $\mathbf{x}'(x',y',z')$ est un point de la face du cube centrée en $F'$, donc $x'=R=\frac{\sqrt{3}}{6}a$ :
 \begin{equation}
 \tan \xi = \dfrac{y'}{R} = \dfrac{y}{x} \text{ et } \tan \eta = \dfrac{z'}{R} = \dfrac{z}{x}
 \end{equation}
 
-Quel que soit la face, on pose $(X,Y)$ les coordonnées gnomoniques:
+Quel que soit la face, on définit $(X,Y)$ les coordonnées gnomoniques.
+
+\begin{definition}
+Les coordonnées gnomoniques $(X,Y) \in [-1,1]^2$ sont définies par :
 \begin{equation}
-X:=\tan \xi \text{ et } Y:= \tan \eta
+X:=\tan \xi \text{ et } Y:= \tan \eta.
 \end{equation}
+\end{definition}
 
 Un point de la sphère est localisé de manière unique par sa face et ses coordonnées gnomoniques. Si on se donne $(X,Y)$ un couple de coordonnées gnomoniques du panel I, on a :
 
@@ -1109,18 +1173,13 @@ z & = & xY &&
 \end{equation}
 
 le signe de $x$ est donné car $\mathbf{x}$ est un point du panel I qui ne contient que des points d'abscisse positive.
+De plus, $\tan$ est une bijection de $\left[ -\dfrac{\pi}{4}, \dfrac{\pi}{4} \right]$ dans $\left[-1,1\right]$, donc
 
 \begin{theoreme}
-Pour chaque panel, les coordonnées gnomoniques $(X,Y)$ forment un système de coordonnées admissible.
+Pour chaque panel, les coordonnées gnomoniques $(X,Y) \in [-1,1]^2$ et $(\xi, \eta) \in \left[ - \dfrac{\pi}{4}, \dfrac{\pi}{4} \right]^2$ forment des systèmes de coordonnées admissibles.
 \end{theoreme}
 
-$\tan$ étant une bijection de $\left[ -\dfrac{\pi}{4}, \dfrac{\pi}{4} \right]$ dans $\left[-1,1\right]$, on en déduit le corollaire suivant :
-
-\begin{corollaire}
-$(\xi, \eta)$ est un système de coordonnées admissible pour chaque panel.
-\end{corollaire}
-
-De là, on peut dériver chaque donnée :
+De là, on peut dériver les coordonnées de $\mathbb{R}^3$ d'un point $\mathbf{x}(x,y,z)$ en fonction de $\xi$ et $\eta$ :
 
 \begin{equation}
 \dfrac{\partial y}{\partial \xi} = \dfrac{\partial x}{\partial \xi} X + x \dfrac{\partial X}{\partial \xi} = \dfrac{\partial x}{\partial \xi} X + x(1+X^2)
@@ -1153,7 +1212,7 @@ en posant $\delta = \sqrt{1+X^2+Y^2}$. Ainsi, chaque dérivée est connue et :
 \right.
 \end{equation}
 
-De la même manière, on a sur le panel I :
+De la même manière, en dérivant par rapport à $\eta$ :
 
 \begin{equation}
 \left\lbrace
@@ -1178,7 +1237,7 @@ On en déduit la base sur le panel I $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta}
 
 Des calculs similaires peuvent être effectuées sur les autres panels. Les résultats sont donnés dans le tableau \ref{tab: base g_xi g_eta}.
 
-$(\mathbf{g}^{\xi}$ et $\mathbf{g}^{\eta})$ est un couple de vecteurs de $\mathbb{T}_{\mathbf{x}}\mathbb{S}_a^2$ obtenue par dualité à l'aide de $(\mathbf{g}_{\xi}, \mathbf{g}_{\eta})$. Il doit vérifier les relations suivantes :
+$(\mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ est la base duale de $(\mathbf{g}_{\xi}, \mathbf{g}_{\eta})$. Cette base doit vérifier les relations suivantes :
 
 \begin{equation}
 \left\lbrace
@@ -1246,7 +1305,7 @@ La métrique $\mathbf{G}$ est invariante par changement de panel.
 \end{proposition}
 
 \begin{proof}
-Soit $\mathbf{x}$ est un point d'un panel $K$ de la Cubed-Sphère de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ est un point d'un autre panel $K'$ de la Cubed-Sphère ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer $\mathbf{x}$ en $\mathbf{x}'$ :
+Soit $\mathbf{x}$ est un point d'un panel $K$ de la Cubed-Sphère de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ est un point d'un autre panel $K'$ de la Cubed-Sphère ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer tout point du panel $K$ en un point du panel $K'$ de mêmes coordonnées gnomoniques. De là, il découle :
 \begin{equation}
 \mathbf{x}' = R_f \mathbf{x}
 \end{equation}
@@ -1262,21 +1321,21 @@ Ainsi, si $\mathbf{G}$ est la métrique en $\mathbf{x}$ et $\mathbf{G}'$ la mét
 \mathbf{G}' &=& \begin{pmatrix}
 \mathbf{g'}_{\xi} \cdot \mathbf{g'}_{\xi} & \mathbf{g'}_{\xi} \cdot \mathbf{g'}_{\eta} \\
 \mathbf{g'}_{\eta} \cdot \mathbf{g'}_{\xi} & \mathbf{g'}_{\eta} \cdot \mathbf{g'}_{\eta}
-\end{pmatrix}\\
+\end{pmatrix}\\[10pt]
 &=&
 \begin{pmatrix}
 R_f \mathbf{g}_{\xi} \cdot R_f \mathbf{g}_{\xi} & R_f \mathbf{g}_{\xi} \cdot R_f \mathbf{g}_{\eta} \\
 R_f \mathbf{g}_{\eta} \cdot R_f \mathbf{g}_{\xi} & R_f \mathbf{g}_{\eta} \cdot R_f \mathbf{g}_{\eta}
-\end{pmatrix}\\
+\end{pmatrix}\\[10pt]
 &=&
 \begin{pmatrix}
 \mathbf{g}_{\xi} \cdot R_f^{T} R_f \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot  R_f^{T} R_f \mathbf{g}_{\eta} \\
 \mathbf{g}_{\eta} \cdot  R_f^{T} R_f \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot  R_f^{T} R_f \mathbf{g}_{\eta}
-\end{pmatrix}\\
+\end{pmatrix}\\[10pt]
 &=& \begin{pmatrix}
 \mathbf{g}_{\xi} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot \mathbf{g}_{\eta} \\
 \mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot \mathbf{g}_{\eta}
-\end{pmatrix}\\
+\end{pmatrix}\\[10pt]
 & = & \mathbf{G}
 \end{array}
 \end{equation*}
@@ -1342,84 +1401,84 @@ d'où :
 -y \\ x(1+Y^2) \\ -yY
 \end{pmatrix} \text{,} \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -z \\ -zX \\ x(1+X^2)
-\end{pmatrix}$ \\
+\end{pmatrix}$ \\[16pt]
 
 \cline{3-3}
 & &  $\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{pmatrix}
 -X \\ 1 \\ 0
 \end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{pmatrix}
 -Y \\ 0 \\ 1
-\end{pmatrix}$ \\
+\end{pmatrix}$ \\[16pt]
 \hline
 \hline
 \multirow{2}{*}[-.5cm]{$II$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{x}{y} \text{, } Y=\dfrac{z}{y}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -y(1+Y^2) \\ x \\ xY
 \end{pmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 zX \\ -z \\ y(1+X^2)
-\end{pmatrix}$ \\
+\end{pmatrix}$ \\[16pt]
 
 \cline{3-3}
  & & $\mathbf{g}^{\xi} = \dfrac{1}{y(1+X^2)}\begin{pmatrix}
 -1 \\ -X \\ 0
 \end{pmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{y(1+Y^2)}\begin{pmatrix}
 0 \\ -Y \\ 1
-\end{pmatrix}$ \\
+\end{pmatrix}$ \\[16pt]
 \hline
 \hline
 \multirow{2}{*}[-.5cm]{$III$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{y}{x} \text{, } Y=-\dfrac{z}{x}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -y \\ x(1+Y^2) \\ yY
 \end{pmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -z \\ -zX \\ x(1+X^2)
-\end{pmatrix}$ \\
+\end{pmatrix}$ \\[16pt]
 
  \cline{3-3}
  &  & $\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{pmatrix}
 -X \\ 1 \\ 0
 \end{pmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{pmatrix}
 -Y \\ 0 \\ -1
-\end{pmatrix}$ \\
+\end{pmatrix}$ \\[16pt]
 \hline
 \hline
 \multirow{2}{*}[-.5cm]{$IV$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{x}{y} \text{, } Y=\dfrac{z}{y}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -y(1+Y^2) \\ x \\ -xY
 \end{pmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -zX \\ z \\ -y(1+X^2)
-\end{pmatrix}$ \\
+\end{pmatrix}$ \\[16pt]
 
 \cline{3-3}
 &  & $\mathbf{g}^{\xi} = \dfrac{1}{y(1+X^2)}\begin{pmatrix}
 -1 \\ -X \\ 0
 \end{pmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{y(1+Y^2)}\begin{pmatrix}
 0 \\ -Y \\ -1
-\end{pmatrix}$ \\
+\end{pmatrix}$ \\[16pt]
 \hline
 \hline
 \multirow{2}{*}[-.5cm]{$V$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{y}{z} \text{, } Y=\dfrac{x}{z}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -yY \\ z(1+Y^2) \\ -y
 \end{pmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -z(1+X^2) \\ xX \\ x
-\end{pmatrix}$ \\
+\end{pmatrix}$ \\[16pt]
 
 \cline{3-3}
  &  & $\mathbf{g}^{\xi} = \dfrac{1}{z(1+X^2)}\begin{pmatrix}
 0 \\ 1 \\ -X
 \end{pmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{z(1+Y^2)}\begin{pmatrix}
 -1 \\ 0 \\ -Y
-\end{pmatrix}$ \\
+\end{pmatrix}$ \\[16pt]
 \hline
 \hline
 \multirow{2}{*}[-.5cm]{$VI$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{y}{z} \text{, } Y=-\dfrac{x}{z}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
 -yY \\ -z(1+Y^2) \\ y
 \end{pmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
 -z(1+X^2) \\ -xX \\ x
-\end{pmatrix}$ \\
+\end{pmatrix}$ \\[16pt]
 
 \cline{3-3}
  &  & $\mathbf{g}^{\xi} = \dfrac{1}{z(1+X^2)}\begin{pmatrix}
 0 \\ -1 \\ -X
 \end{pmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{z(1+Y^2)}\begin{pmatrix}
 -1 \\ 0 \\ -Y
-\end{pmatrix}$ \\
+\end{pmatrix}$ \\[16pt]
 \hline
 
 \end{tabular}
@@ -1429,7 +1488,7 @@ zX \\ -z \\ y(1+X^2)
 \label{tab: base g_xi g_eta}
 \end{table}
 
-Les champs de vecteur $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ et $( \mathbf{g}_ {\xi}, \mathbf{g}_{\eta})$ sont tangents à la sphère et sont fonction de $\xi$ et $\eta$. On défini les \textit{symboles de Christoffel} par :
+Les champs de vecteur $( \mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ et $( \mathbf{g}_ {\xi}, \mathbf{g}_{\eta})$ sont tangents à la sphère et sont fonctions de $\xi$ et $\eta$. On définit les \textit{symboles de Christoffel} par :
 
 \begin{definition}
 Les symboles de Christoffel $\Gamma_{\kappa,\nu}^{\tau}$ (avec $\kappa$, $\nu$ et $\tau$ dans $\lbrace \xi, \eta \rbrace$), sont définis par :
@@ -1446,14 +1505,12 @@ Les symboles de Christoffel $\Gamma_{\kappa,\nu}^{\tau}$ (avec $\kappa$, $\nu$ e
 \end{array}
 \right.
 \end{equation}
-
 \end{definition}
 
 \begin{remarque}
 On note que $\Gamma_{\eta,\xi}^{\xi}=\Gamma_{\xi,\eta}^{\xi}$ et $\Gamma_{\eta,\xi}^{\eta}=\Gamma_{\xi,\eta}^{\eta}$.
 
 En effet :
-
 $$\Gamma_{\xi, \eta}^{\eta} = \left( \dfrac{\partial \mathbf{g}_{\eta}}{\partial \xi} \right) \cdot \mathbf{g}^{\eta} = \left( \dfrac{\partial}{\partial \xi} \dfrac{\partial \mathbf{x}}{\partial \eta} \right) \cdot \mathbf{g}^{\eta} = \left( \dfrac{\partial}{\partial \eta} \dfrac{\partial \mathbf{x}}{\partial \xi} \right) \cdot \mathbf{g}^{\eta} = \left( \dfrac{\partial \mathbf{g}_{\xi}}{\partial \eta} \right) \cdot \mathbf{g}^{\eta} = \Gamma_{\eta, \xi}^{\eta}$$
 
 de même pour $\Gamma_{\eta,\xi}^{\xi}=\Gamma_{\xi,\eta}^{\xi}$.
@@ -1544,7 +1601,7 @@ Les symboles de Christoffel sont invariants par changement de panel.
 \end{proposition}
 
 \begin{proof}
-Soit $\mathbf{x}$ est un point d'un panel $K$ de la Cubed-Sphère de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ est un point d'un autre panel $K'$ de la Cubed-Sphère ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer $\mathbf{x}$ en $\mathbf{x}'$ :
+Soit $\mathbf{x}$ est un point d'un panel $K$ de la Cubed-Sphère de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ est un point d'un autre panel $K'$ de la Cubed-Sphère ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer tout point du panel $K$ en un point du panel $K'$ de mêmes coordonnées gnomoniques :
 \begin{equation}
 \mathbf{x}' = R_f \mathbf{x}
 \end{equation}
@@ -1609,13 +1666,13 @@ $\mathbf{G}^{-1}=\dfrac{\delta^2}{a^2 (1+X^2)(1+Y^2)} \begin{pmatrix}
 
 \section{Calcul intrinsèque sur la Cubed-Sphère}
 
-On a vu que les coordonnées gnomoniques $(X,Y)$ ainsi que les données $(\xi,\eta)$ forment des systèmes de coordonnées admissibles sur chaque panel.  Pour tout point $\mathbf{x}_{i,j}^{(K)} \in \mathbb{S}_a^2$ du panel $K$ de la Cubed-Sphere, il existe deux cercles $C_i^{(1)}$ et $C_j^{(2)}$ tels que :
+On a vu que les coordonnées gnomoniques $(X,Y)$ ainsi que les coordonnées $(\xi,\eta)$ forment des systèmes de coordonnées admissibles sur chaque panel.  Pour tout point $\mathbf{x}_{i,j}^{(K)} \in \mathbb{S}_a^2$ du panel $K$ de la Cubed-Sphere, il existe deux cercles $C_i^{(1)}$ et $C_j^{(2)}$ tels que :
 
 \begin{equation}
 \mathbf{x}_{i,j}^{(K)} \in C_i^{(1)} \cap C_j^{(2)}
 \end{equation}
 
-On pose $\alpha$ l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\mathbf{x}_{0,j}^{(K)}$ dans la direction Est pour le panel I. $\beta$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\mathbf{x}_{i,0}^{(K)}$ dans la direction Nord pour le panel I(Voir figure \ref{fig: alpha beta}). Des angles géodésiques $\alpha$ et $\beta$ peuvent être construits sur chaque panel, l'orientation de ces angles est donnée en figure \ref{fig:patron cs}. Ainsi, chaque panel est construit à partir de portions de grands cercles.
+L'angle $\alpha$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\mathbf{x}_{0,j}^{(K)}$ dans la direction Est pour le panel I. $\beta$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\mathbf{x}_{i,0}^{(K)}$ dans la direction Nord pour le panel I (Voir figure \ref{fig: alpha beta}). Des angles géodésiques $\alpha$ et $\beta$ peuvent être construits sur chaque panel, l'orientation de ces angles est donnée en figure \ref{fig:patron cs}. Ainsi, chaque panel est construit à partir de portions de grands cercles.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1742,7 +1799,7 @@ On pose $\alpha$ l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\mathbf
 \end{center}
 \end{figure}
 
-Soit $\mathbf{x}_{i,j}^{(K)}=\mathbf{x}_{i,j}^{(I)}$ un point du panel I de coordonnées $(x,y,z)$ dans $\mathbb{R}^3$. Alors les relations suivantes sont vérifiées :
+Si $\mathbf{x}_{i,j}^{(I)}$ un point du panel I de coordonnées $(x,y,z)$ dans $\mathbb{R}^3$. Alors les relations suivantes sont vérifiées :
 
 \begin{equation}
 \left\lbrace
@@ -1755,27 +1812,7 @@ z & = & a \cos \alpha \sin \eta & = & a \sin \beta \\
 \label{eq: panel I xyz xi eta alpha beta}
 \end{equation}
 
-Des relations similaires existent sur tous les panels (Voir tableau \ref{tab: x y z fct de xi eta alfa beta}). On en déduit le résultat suivant :
-
-\begin{theoreme}
-$(\alpha, \eta)$ et $(\xi, \beta)$ sont des systèmes de coordonnées admissibles par panel.
-\end{theoreme} 
-
-\begin{proof}
-Conséquence des relations entre $(x,y,z)$ et $(\xi, \beta)$, $(\alpha, \eta)$ par panel (Voir tableau \ref{tab: x y z fct de xi eta alfa beta}).
-\end{proof}
-
-
-\begin{theoreme}
-$(\alpha, \beta)$ n'est pas un système de coordonnées admissible.
-\end{theoreme}
-
-\begin{proof}
-Sur le panel I, fixer $\alpha$ et $\beta$ puis choisir deux couples $(\xi, \eta)$. On trouve deux points du panel I avec la formule de \eqref{eq: panel I xyz xi eta alpha beta} qui ont les mêmes $\alpha$ et $\beta$.
-
-A REDIGER PROPREMENT.
-\end{proof}
-
+Des relations similaires existent sur tous les panels (Voir tableau \ref{tab: x y z fct de xi eta alfa beta}).
 
 \begin{table}[htbp]
 \begin{center}
@@ -1824,6 +1861,14 @@ $VI$ & $y=a \sin \alpha = a \cos \beta \sin \xi$ \\
 
 Pour chaque panel, on peut déduire de \eqref{eq: panel I xyz xi eta alpha beta} les expressions de $\alpha$ et $\beta$ en fonction de $\xi$ et $\eta$. 
 
+\begin{theoreme}
+$(\alpha, \eta)$ et $(\xi, \beta)$ sont des systèmes de coordonnées admissibles par panel.
+\end{theoreme} 
+
+\begin{proof}
+Conséquence des relations entre $(x,y,z)$ et $(\xi, \beta)$, $(\alpha, \eta)$ par panel (Voir tableau \ref{tab: x y z fct de xi eta alfa beta}).
+\end{proof}
+
 
 \begin{proposition}
 Expression de $\alpha$ (à $\bar{\eta}$ fixé) et $\beta$ (à $\bar{\xi}$ fixé) en fonction de $\xi$ et $\eta$ :
@@ -1869,20 +1914,78 @@ De plus, ces équations se retrouvent sur chaque panel.
 \end{proof}
 
 
+\begin{theoreme}
+$(\alpha, \beta)$ est un système de coordonnées admissible par panel.
+\end{theoreme}
+
+\begin{proof}
+
+$\alpha$ et $\beta$ s'expriment en fonction de $X$ et $Y$ par :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\alpha & = & \arctan \left[ \dfrac{X}{\sqrt{1+ Y^2}} \right] \\
+\beta & = & \arctan \left[ \dfrac{Y}{\sqrt{1+X^2}} \right] 
+\end{array}
+\right.
+\label{eq: alpha et beta fct de X et Y}
+\end{equation}
+
+On pose $F : (X,Y) \mapsto (\alpha,  \beta)$, montrons que $F$ est bijective. La jacobienne de $F$ en $(X,Y)$, notée $J_{(X,Y)}F$, est :
+
+\begin{equation}
+J_{(X,Y)}F = \dfrac{1}{\delta^2} 
+\begin{pmatrix}
+\sqrt{1+Y^2} & - \dfrac{XY}{\sqrt{1+Y^2}} \\
+- \dfrac{XY}{\sqrt{1+X^2}} & \sqrt{1+X^2}
+\end{pmatrix}
+\end{equation}
+
+avec $\delta = \sqrt{1+X^2+Y^2}$. $F$ est bijective si $det \left( J_{(X,Y)}F \right) \neq 0$ pour tous $X,Y \in [-1,1]^2$.
+
+\begin{equation}
+det \left( J_{(X,Y)}F \right) = \dfrac{1}{\delta^2 \sqrt{(1+X^2)(1+Y^2)}} \neq 0
+\end{equation}
+
+donc $F$ est une bijection, $(X,Y)$ est un système de coordonnées admissible par panel donc $(\alpha, \beta)$ aussi.
+
+\end{proof}
 
 
 
-Chacune des portions de grands cercles peut être complétée en un grand cercle. Le grand cercle $C_i^{(1)}$ correspond à une iso-ligne $\xi$ constante et le grand cercle $C_j^{(2)}$ à une iso-ligne $\eta$ constante. Considérons l'iso-ligne $\eta$ constante sur le panel I. Sur ce panel, l'angle $\alpha$ est tel que :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Chacune des portions de grands cercles peut être complétée en un grand cercle. Le grand cercle $C_i^{(1)}$ correspond à une isocline $\xi$ constante et le grand cercle $C_j^{(2)}$ à une isocline $\eta$ constante. Considérons l'isocline $\eta$ constante sur le panel I. Sur ce panel, l'angle $\alpha$ est tel que :
 
 \begin{equation}
 - \alpha_0 (\eta) \leq \alpha \leq \alpha_0(\eta) \text{ avec } \alpha_0( \eta) = \arctan \left( \dfrac{\sqrt{2}}{2} \tan \eta \right).
 \end{equation}
 
-Cependant le grand cercle $C_j^{(2)}$ passe aussi sur les panels II, III et IV dans cet ordre. On peut prolonger $\alpha$ comme étant l'angle curviligne le long du grand cercle complet. Sur le panel II, le grand cercle $C_j^{(2)}$ coupe d'autres grands cercles (ceux permettant de construire le panel II) en $\mathbf{M}_k$ ($-N/2 \leq k \leq N/2$) de coordonnées $(\xi^E_k = k \Delta \xi, \eta^E_k)$. Il coupe aussi le panel III mais correspond au points de maillage par symétrie, soit le grand cercle du panel III correspondant à l'iso-ligne $\eta^B_k = \frac{\pi}{2} - \eta$. Enfin, le grand cercle $C_j^{(2)}$ intersecte le panel IV aux points de coordonnées $(\xi^W_k = k \Delta \xi, \eta^W_k)$. 
+
+Cependant le grand cercle $C_j^{(2)}$ passe aussi sur les panels II, III et IV dans cet ordre. On peut prolonger $\alpha$ comme étant l'angle curviligne le long du grand cercle complet. Sur le panel II, le grand cercle $C_j^{(2)}$ coupe d'autres grands cercles (ceux permettant de construire le panel II) en $\mathbf{M}_k$ ($-N/2 \leq k \leq N/2$) de coordonnées $(\xi^E_k = k \Delta \xi, \eta^E_k)$. Il coupe aussi le panel III mais correspond au points de maillage par symétrie, soit le grand cercle du panel III correspondant à l'isocline $\eta^B_k = \frac{\pi}{2} - \eta$. Enfin, le grand cercle $C_j^{(2)}$ intersecte le panel IV aux points de coordonnées $(\xi^W_k = k \Delta \xi, \eta^W_k)$. 
 
 De la même manière, le grand cercle $C_i^{(1)}$ passe par les panels V, III et VI dans cet ordre et est paramétré par un angle $\beta$.
 
-Les autres panels II, III, IV, V, VI sont traités de la même manière. Compte tenu des symétries de la Cubed-Sphère, 6 familles de grands cercles sont suffisantes. On définis les ensembles de grands cercles suivants :
+Les autres panels II, III, IV, V, VI sont traités de la même manière. Compte tenu des symétries de la Cubed-Sphere, 6 familles de grands cercles sont suffisantes. On définis les ensembles de grands cercles suivants :
 
 \begin{itemize}
 \item $(I_{\alpha})$ et $(I_{\beta})$ sont les grands cercles passant par le panel I. Ils sont définis comme les isolignes en $\eta$ et en $\xi$ (du panel I) respectivement,
@@ -1890,8 +1993,16 @@ Les autres panels II, III, IV, V, VI sont traités de la même manière. Compte 
 \item $(V_{\alpha})$ et $(V_{\beta})$ sont les grands cercles passant par le panel V. Ils sont définis comme les isolignes en $\eta$ et en $\xi$ (du panel V) respectivement.
 \end{itemize}
 
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.3]{fig21.jpg}
+\includegraphics[scale=0.3]{fig22.jpg}
+\end{center}
+\caption{L'ensemble $(I_{\alpha})$ de grands cercles correspond aux isoclines $\eta$ constant du panel I et du panel III.}
+\end{figure}
 
-La structure de la Cubed-Sphere issus de grands cercles est la base du procédé de calcul de dérivée hermitienne que nous utilisons dans ce travail. Le calcul du gradient suis la procédure suivante :
+
+La structure de la Cubed-Sphere issus de grands cercles est la base du procédé de calcul de dérivées hermitiennes que nous utilisons dans ce travail. Le calcul du gradient suis la procédure suivante :
 
 \begin{enumerate}
 \item Construction de données le long de grands cercles complets,
@@ -1904,7 +2015,7 @@ La structure de la Cubed-Sphere issus de grands cercles est la base du procédé
 
 Pour calculer $\dfrac{\partial h}{\partial \alpha}_{|C_1}$ et $\dfrac{\partial h}{\partial \beta}_{|C_2}$ aux points de maillage, il sera utile de connaître les coordonnées des points d'intersections de grands cercles entre les panels.
 
-Soit $h_{i,j}^k$ donné avec $-N/2 \leq i,j \leq N/2$ et $k = I, II, III, IV, V, VI$. Considérons le grand cercle $C_1 \in (I_{\alpha})$. Il correspond à l'iso-valeur $\eta = \eta_0^F = j_0 \Delta \eta$. Les valeurs $h_{i,j_0}^F$ sont localisée sur un grand cercle avec $-N/2 \leq i \leq N/2$. En continuant sur le cercle $C_1$, on traverse le panel II sur lequel il faudra interpoler les données pour compléter les valeurs le long de $C_1$. Le cercle $C_1$ coupe chaque isovaleur $\xi = \xi^E_{i_0} = i_0 \Delta \xi$ au point de coordonnées $(\xi_{i_0}^E, \beta_{i_0,j_0})$ dans le système de coordonnées $(\xi^E, \beta)$ du panel II. Un point $(x,y,z)\in \mathbb{R}^3$ d'un cercle de $(II_{\beta})$ est donné par :
+Soit $h_{i,j}^k$ donné avec $-N/2 \leq i,j \leq N/2$ et $k = I, II, III, IV, V, VI$. Considérons le grand cercle $C_1 \in (I_{\alpha})$. Il correspond à l'isocline $\eta = \eta_0^F = j_0 \Delta \eta$. Les valeurs $h_{i,j_0}^F$ sont localisée sur un grand cercle avec $-N/2 \leq i \leq N/2$. En continuant sur le cercle $C_1$, on traverse le panel II sur lequel il faudra interpoler les données pour compléter les valeurs le long de $C_1$. Le cercle $C_1$ coupe chaque isocline $\xi = \xi^E_{i_0} = i_0 \Delta \xi$ au point de coordonnées $(\xi_{i_0}^E, \beta_{i_0,j_0})$ dans le système de coordonnées $(\xi^E, \beta)$ du panel II. Un point $(x,y,z)\in \mathbb{R}^3$ d'un cercle de $(II_{\beta})$ est donné par :
 
 \begin{equation}
 \left\lbrace
@@ -1916,7 +2027,7 @@ z & = & a \sin \beta
 \right.
 \end{equation}
 
-Le point $\mathbf{x}(x,y,z)$ est se situe à l'intersection de $C_1$ (isovaleur $\eta^F_{j_0}$ du panel I) avec le grand cercle correspondant à l'isovaleur $\xi = \xi^E_{i_0} = i_0 \Delta \xi$ si $x$, $y$ et $z$ sont solutions du système suivant :
+Le point $\mathbf{x}(x,y,z)$ est se situe à l'intersection de $C_1$ (isocline $\eta^F_{j_0}$ du panel I) avec le grand cercle correspondant à l'isocline $\xi = \xi^E_{i_0} = i_0 \Delta \xi$ si $x$, $y$ et $z$ sont solutions du système suivant :
 
 \begin{equation}
 \left\lbrace
@@ -1940,7 +2051,7 @@ donc :
 \beta_{i_0, j_0} = \arctan \left[ - \tan \eta^F_{j_0} \sin \xi^E_{i_0} \right]
 \end{equation}
 
-Ainsi, le point du panel II de coordonnées $(\xi, \beta)$, représentant l'intersection de l'isoligne $\eta^F_{j_0}$ du panel I avec l'isoligne $\xi_{i_0}^E$ du panel II, est donné par $(\xi^E_{i_0}, \beta_{i_0, j_0})$. En général, il ne s'agit pas d'un point de la Cubed-Sphere. Nous utiliserons une méthode de spline cubique pour obtenir des valeurs $u_{i_0,j}^{II}$ le long de $C$.
+Ainsi, le point du panel II de coordonnées $(\xi, \beta)$, représentant l'intersection de l'isocline $\eta^F_{j_0}$ du panel I avec l'isocline $\xi_{i_0}^E$ du panel II, est donné par $(\xi^E_{i_0}, \beta_{i_0, j_0})$. En général, il ne s'agit pas d'un point de la Cubed-Sphere. Nous utiliserons une méthode de spline cubique pour obtenir des valeurs $u_{i_0,j}^{II}$ le long de $C$.
 En continuant ce procédé, nous obtenons des valeurs tout du long du cercle $C$.
 
 

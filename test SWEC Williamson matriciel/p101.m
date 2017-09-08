@@ -37,8 +37,8 @@ scheme='compact4';
 snapshot='yes';
 nrm='int';
 
-n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=14;
+n=59; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=80;
 mod101
 disp('mod74 : ok')
 
@@ -49,7 +49,11 @@ ref=floor(10000*now);
 jour=date;
 %% *** test data **********************************************************
 
-if test == 1
+if test == 0
+    alpha = pi/4;
+    u0=(2*pi*radius)/(12*24*3600);
+    h0=2.94*10^4/gp;
+elseif test == 1
     alpha=0;
     u0=20;
     h0=5960;
@@ -378,7 +382,7 @@ while t<Tmax && iter<itermax
     end
     
     %% snapshot
-    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(14*ddt))) == 0
+    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(16*ddt))) == 0
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         clf;
         
@@ -697,6 +701,7 @@ disp(['temps de calcul (sans les graphiques) : ', num2str(tend)])
 err1(end)
 err2(end)
 erri(end)
+max(max(max(abs([vt_fI-v_fI vt_fII-v_fII vt_fIII-v_fIII vt_fIV-v_fIV vt_fV-v_fV vt_fVI-v_fVI]))))./max(max(max(abs([v_fI v_fII v_fIII v_fIV v_fV v_fVI]))))
 
 timest
 timeend
