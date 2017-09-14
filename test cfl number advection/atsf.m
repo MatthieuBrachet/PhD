@@ -89,7 +89,7 @@ end
 elseif strcmp(space,'implicit') == 1
 
 if c == 4
-    s = sin(teta)./(2/3+2*(1/6*cos(teta)));
+    s = 3*sin(teta)./(2+(cos(teta)));
 elseif c == 6
     s = (4/3*sin(teta)-1/3*sin(2*teta))./(4/5+2*(2/15*cos(teta)-1/30*cos(2*teta)));
 else
