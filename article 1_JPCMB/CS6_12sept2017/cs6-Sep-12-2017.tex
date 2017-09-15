@@ -743,12 +743,19 @@ The scheme is stable if and only if :
 \Sp (r(-\lambda J)) \subset \mathcal{B}(0,1)
 \eeq
 If $\mathcal{D}_{RK4}$ is the domain of stability
-of the RK4 scheme indicated on Fig. \ref{}.
+of the RK4 scheme indicated on Fig. \ref{fig:stab_rk4}.
 The scheme (\ref{}) is stable under the condition
 \beq
 \label{eq:55.12}
 \Sp (-\lambda J) \subset \mathcal{D}_{RK4}
 \eeq
+
+\begin{figure}[htbp]
+\includegraphics[scale=.2]{stabilityarea_NB.jpeg}
+\caption{Domain of stability of the Backward Euler method (dotted point), Runge Kutta order 2 (dashed points), ordre 3 (mixed dotted and dashed points) and order 4 (continuous line) in the compex plan.}
+\label{fig:stab_rk4}
+\end{figure}
+
 \begin{prop}
 The condition (\ref{eq:55.12}) is satisfied
 under the CFL condition
@@ -815,7 +822,7 @@ of the form \cite{Alpert}
 \eeq
 with the consistency condition
 \beq
-1+2 \alpha_f = \dfrac{1}{2} a_0 + \sum_{j=1}^J a_j
+1+2 \alpha_f = \sum_{j=0}^J a_j
 \eeq
 Let $\beta(z)$ be the function associated with $\mathcal{F}$ 
 given by

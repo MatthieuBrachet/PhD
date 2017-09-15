@@ -5,7 +5,7 @@ time='rk4';
 c=4;
 space='implicit';
 f=10;
-delta=.48;
+delta=0.499;
 filtre='visbal';
 
 %% research of cfl number max
