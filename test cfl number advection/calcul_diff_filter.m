@@ -2,7 +2,7 @@ clc; clear all; close all
 format long
 
 %% schema testé
-order=10;
+order=6;
 genre='visbal';
 
 %% courbe
