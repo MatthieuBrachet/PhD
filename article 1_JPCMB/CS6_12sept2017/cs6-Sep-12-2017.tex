@@ -111,7 +111,7 @@ stability of the present approach.
 \email{matthieu.brachet@univ-lorraine.fr, jean-pierre.croisille@univ-lorraine.fr}
 
 %%\date\today
-\date{September 12, 2017}
+\date{September 17, 2017}
 \maketitle
 
 {\sl Keywords: Cubed-Sphere grid - Compact finite difference scheme - 
@@ -166,7 +166,7 @@ scheme over the Cubed Sphere grid.
 %in the climatology community.
 Aming the methods 
 for fluid flows, this approach is related to 
-the approximation of aeroacoustics equations by compact schemes,
+the approximation of aeroacoustic equations by compact schemes,
 along the lines of \cite{Lele, Visbal-Gaitonde, 
 Tam-Webb, Bogey-Bailly}. This kind of approximation is also used
 in the direct simulation of turbulence 
@@ -676,28 +676,7 @@ where
 \eeq
 We compare (\ref{}) and (\ref{}) at $x_j$ (....)
 \end{proof}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 Consider now the time stepping of (\ref{eq:71.10.3.4}) by the RK4 scheme.
 %For the ODE
 %\beq
@@ -737,6 +716,17 @@ the following formula for $V^n$
 V^n=\sum_{k=-\frac{N}{2}+1}^{\frac{N}{2}} 
 [r(-\lambda m(\omega^k))]^n \left((R^k)^T V_0\right) R^k
 \eeq
+
+
+
+
+
+
+
+
+
+
+
 %%%%% START MATTHIEU BRACHET %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 The scheme is stable if and only if :
 \beq
@@ -804,7 +794,7 @@ where a filtering step is added at the end of
 each time step.
 at the end of each time step (\ref{}) in the form
 \beq
-\label{eq:55.19}
+\label{eq:SF.55.19}
 U^{n+1} = \mathcal{F}\left(
 U^{n}
 +\Delta t\Bigg(\frac{1}{6}K^{(0)}+\frac{1}{3}K^{(1)}
@@ -823,6 +813,7 @@ of the form \cite{Alpert}
 with the consistency condition
 \beq
 1+2 \alpha_f = \sum_{j=0}^J a_j
+\label{eq:consistency_condition_filter}
 \eeq
 Let $\beta(z)$ be the function associated with $\mathcal{F}$ 
 given by
@@ -841,10 +832,70 @@ The CFL stability condition becomes
 \eeq
 A sufficient condition on $\lambda$ for (\ref{eq:33.09}) is given by
 \begin{prop}
+The scheme \eqref{eq:SF.55.19} is stable under the condition :
 \beq
-\lambda \leq (...)
+\lambda \leq \dfrac{K_{RK4}}{\sqrt{3}}
 \eeq
 \end{prop}
+
+\begin{proof}
+The proof is based on \eqref{eq:33.09} and the some inequalities concerning the map $F: \theta \mapsto F(\theta) = \beta(e^{i \theta})$. Let $\theta \in [0;\pi)$ and $\alpha_f \in [0; 0.5)$. With the inequality \eqref{eq:consistency_condition_filter}, we show that :
+\beq
+F(\theta) \leq \dfrac{1}{1+2\alpha_f \cos \theta} \sum_{j=0}^J a_j = \dfrac{1+2 \alpha_f}{1+2\alpha_f \cos \theta}.
+\eeq
+
+
+
+(.....)
+\end{proof}
+
+That's to say, the scheme with filtering is, at least, as good as the scheme without filtering. Different filter are used in this study, it's summarized in the tabular REF.
+Using a dichotomy method we estimate an optimal CFL condition in the meaning :
+\beq
+CFL= \max \left\lbrace \lambda \in \mathbb{R}^+ \text{ s.t. } \max_{\theta \in [0,\pi)}
+\left(
+\vert \beta(e^{i \theta}) \vert \vert r(-\lambda m(e^{i\theta})) \vert
+\right)
+\leq
+1
+\right\rbrace.
+\eeq
+The results are given in the tabular \ref{tab:CFL_explicit_filter} for the explicit filter (\textit{i.e. } $\alpha_f = 0$) and in tabular \ref{tab:CFL_implicit_filter} for implicit filter order 10 in function of $\alpha_f$.
+\begin{table}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Filter order} & \textbf{CFL} \\
+\hline \hline
+$\infty$ & $1.6329$ \\
+$10$ & $1.6883$ \\
+$8$ & $1.7114$ \\
+$6$ & $1.7485$ \\
+$4$ & $1.8156$ \\
+$2$ & $1.9749$ \\
+\hline
+\end{tabular}
+\caption{CFL condition for the scheme \eqref{eq:SF.55.19} in function of the explicit filter order. $\infty$ denotes the no filter scheme. The CFL is obtained numerically.}
+\label{tab:CFL_explicit_filter}
+\end{table}
+
+\begin{table}
+\begin{tabular}{|c|c|}
+\hline
+$\alpha_f$ & \textbf{CFL} \\
+\hline \hline
+$0$ & $1.6883$ \\
+$0.1$ & $1.6815$ \\
+$0.3$ & $1.6635$ \\
+$0.45$ & $1.6427$ \\
+$0.49$ & $1.6351$ \\
+\hline
+\end{tabular}
+\caption{CFL condtion for the scheme \eqref{eq:SF.55.19} in function of $\alpha_f$. The CFL is obtained numerically.}
+\label{tab:CFL_implicit_filter}
+\end{table}
+
+In the tabular \ref{tab:CFL_explicit_filter}, we see that the CFL condition seems to converge to the CFL condition without filter. It's a consequence of the better representation of hight frequencies of the hight order filter. A filter with a low order permit to take a greater $\Delta t$ than an hight order filter.
+For an implicit filter ($\alpha_f \in ]0; 0.5[$), the tabular \ref{tab:CFL_implicit_filter} permit to see that the CFL number converge to the CFL number for the no filtering scheme when $\alpha_f$ converge to $0.5$. If $\alpha_f = 0$, the filter is explicit. 
 
 
 
