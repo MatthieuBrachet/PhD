@@ -29,7 +29,7 @@ if strcmp(filtre,'redonnet') == 1
 if f==0
     ftr=1;
 elseif f==2
-    ftr = 0.5+2*(1/4*cos(teta));
+    ftr = 2/4+2*(1/4*cos(teta));
 elseif f==4
     ftr = 10/16+2*(4/16*cos(teta)-1/16*cos(2*teta));
 elseif f==6
