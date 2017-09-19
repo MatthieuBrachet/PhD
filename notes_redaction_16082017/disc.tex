@@ -4,6 +4,119 @@
 
 \section{Notations}
 
+\subsection{Cadre en dimension 1}
+
+On considère $\Omega = [a,b]$, $a<b$, un intervalle de $\mathbb{R}$ de longueur $L=b-a$. Dans la suite, nous utilisons les lettres latines pour noter les fonctions continues : $f(x)$, $u(x)$, ... $x \in \Omega$. Si $u$ et $v$ sont des fonctions définies sur $\Omega$, leur produit scalaire dans $L^2 ( \Omega )$ est donné par :
+\begin{equation}
+(u,v) = \gint_{\Omega} u(x) \bar{v}(x) dx = \gint_{a}^b u(x) \bar{v}(x) dx.
+\end{equation}
+Nous travaillerons, sauf mention contraire, avec des fonctions à valeur dans $\mathbb{R}$, on a :
+\begin{equation}
+(u,v) = \gint_{a}^b u(x) v(x) dx.
+\end{equation}
+La norme sur $L^2(\Omega)$ est donnée par :
+\begin{equation}
+\| u \|_{L^2(\Omega)} = \sqrt{(u,u)} = \left( \gint_{a}^b u(x) u(x) dx \right)^{1/2}.
+\end{equation}
+La norme infinie sur $L^{\infty}(\Omega)$ est donnée par :
+\begin{equation}
+\| u \|_{\infty} = \sup_{x\in\Omega} |u(x)|.
+\end{equation}
+On considère une grille régulière sur $\Omega$ constituée de $N \in \mathbb{N}^{\star}$ points :
+\begin{equation}
+a=x_0 < x_1 < \ldots < x_{N-1} < x_N = b,
+\end{equation}
+où les valeurs de $(x_i)_{0\leq i \leq N}$ sont données par :
+\begin{equation}
+x_i = a + ih\text{, } i = 0,1, \ldots,N \text{ et } h = \dfrac{b-a}{N}. 
+\end{equation}
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{tikzpicture}[scale=1.8]
+	\draw [>=stealth, <->] (-2,0.2) -- (-1,.2) ;
+	\draw (-1.5,.3) node[above] {$h$} ;
+	\draw (-3,0) -- (3,0) ;
+	\draw (-3,0) node {$\times$} ;
+	\draw (-3,-.2) node[below] {$x_0=a$} ;
+	\draw (-2,0) node {$\bullet$} ;
+	\draw (-2,-.2) node[below] {$x_1$} ;
+	\draw (-1,0) node {$\bullet$} ;
+	\draw (-1,-.2) node[below] {$x_2$} ;
+	\draw (0,-.2) node[below] {$\ldots$} ;
+	\draw (1,0) node {$\bullet$} ;
+	\draw (1,-.2) node[below] {$x_{N-2}$} ;
+	\draw (2,0) node {$\bullet$} ;
+	\draw (2,-.2) node[below] {$x_{N-1}$} ;
+	\draw (3,0) node {$\times$} ;
+	\draw (3,-.2) node[below] {$x_N =b$} ;
+\end{tikzpicture}
+\end{center}
+\caption{Grille en dimension 1. Les symboles $\times$ désignent les points de bords, les symboles $\bullet$ désignent les points intérieurs de la grille.}
+\label{fig:maillage1D}
+\end{figure}
+
+Les points $x_0=a$ et $x_N = a + L = b$ désignent les points de bords du domaines alors que les points $(x_i)_{1 \leq i \leq N-1}$ désignent les points intérieurs. Une fonction $x \in \Omega \mapsto u(x)$ est discrétisée par la donnée de ses valeurs en chaque points de grille.
+Nous distinguons trois niveaux de représentation des fonctions aux points de grille.
+\begin{itemize}
+\item On note $\mathfrak{u}$ la \textit{fonction de grille} définie sur la grille discrète $(x_i)_{0 \leq i \leq}$. Les fonctions de grilles seront notées avec cette typographie : $\mathfrak{u}$, $\mathfrak{v}$, ... 
+On a alors :
+\begin{equation}
+\mathfrak{u} = (\mathfrak{u}(x_0), \mathfrak{u}(x_1), \mathfrak{u}(x_2), ... , \mathfrak{u}(x_N)).
+\end{equation}
+On note $l^2_h$ l'espace des fonctions de grille, $h>0$ fixé. On munit cet espace d'un produit scalaire et de la norme associée :
+\begin{equation}
+(\mathfrak{u},\mathfrak{v})_h = h \gsum_{i=0}^N \mathfrak{u}(x_i) \mathfrak{v}(x_i) \text{,  } |\mathfrak{u}|_h^2 = h \gsum_{i=0}^N \mathfrak{u}(x_i)^2.
+\end{equation}
+On définit aussi la norme infinie pour les fonctions de grille :
+\begin{equation}
+\| \mathfrak{u} \|_{\infty} = \max_{0\leq i \leq N} |\mathfrak{u}(x_i)|.
+\end{equation}
+
+\item Les lettres latines capitales permettent de noter les vecteurs de $\mathbb{R}^{N+1}$ et matrices de $\mathcal{M}_{N+1}(\mathbb{R})$. Par exemple, soit le vecteur $U \in \mathbb{R}^{N+1}$ des composantes de $\mathfrak{u} \in l^2_h$, alors :
+\begin{equation}
+U = \begin{bmatrix}
+\mathfrak{u}_0 \\ \mathfrak{u}_1 \\ \vdots \\ \mathfrak{u}_N
+\end{bmatrix} =
+\begin{bmatrix}
+\mathfrak{u}(x_0) \\ \mathfrak{u}(x_1) \\ \vdots \\ \mathfrak{u}(x_N)
+\end{bmatrix}
+\end{equation}
+La norme Euclidienne sur $\mathbb{R}^{N+1}$ est notée $|U|$. Elle induit une norme pour les matrices $A \in \mathcal{M}_{N+1}(\mathbb{R})$ de taille $(N+1) \times (N+1)$ :
+\begin{equation}
+|A|_2 = \sup_{U \neq 0} \dfrac{|AU|}{|U|}
+\end{equation}
+On remarque que si $A$ est symétrique alors :
+\begin{equation}
+|A|_2 = \rho(A) := \max \left\lbrace |\lambda| \ \lambda \in Sp(A) \right\rbrace.
+\end{equation}
+$\rho(A)$ est nommé \textit{rayon spectrale} de $A$.
+La norme infinie de $U$ est donnée par :
+\begin{equation}
+|U|_{\infty} = \max_{1 \leq i \leq N+1} |U_i|.
+\end{equation}
+La norme de $A$ subordonnée à la norme vectorielle infinie est :
+\begin{equation}
+|A|_{\infty} = \sup_{U \neq 0} \dfrac{|AU|_{\infty}}{|U|_{\infty}} = \max_{1 \leq i \leq N+1} \gsum_{j=1}^{N+1} |A_{i,j}|.
+\end{equation}
+
+\item Soit $u: x \in \Omega \mapsto u(x)$, on définit la fonction de grille associée $u^*$ par :
+\begin{equation}
+u^* = u^*(x_i) \text{ pour } 0 \leq i \leq N.
+\end{equation}
+$u^*$ est la restriction de $u$ aux points de la grille.
+\end{itemize}
+
+Nous distinguons $l^2_h$, l'espace des fonctions de grilles, de $\mathbb{R}^{N+1}$ même si ces deux espaces sont isomorphes. Cette distinction permet de faire une claire différences entre :
+\begin{itemize}
+\item les opérateurs aux différences finies, qui agissent sur les fonctions de grilles,
+\item les matrices, qui agissent sur les vecteurs.
+\end{itemize}
+Les fonctions de grilles contiennent toutes les échelles nécessaires dans le contexte physique alors que les vecteurs sont sans dimension. De plus, le raisonnement au niveau discret est plus naturel avec les fonctions de grilles. Il s'effectue d'une façon abstraite à l'aide d'opérateurs aux différences. En revanche, le codage est effectuée dans le cadre de l'algèbre linéaire.
+
+
+\subsection{Cadre en dimension 2}
+
 
 \section{Opérateurs aux différences}
 
