@@ -5,12 +5,13 @@
 \section{Notations}
 
 \subsection{Cadre en dimension 1}
+\label{sec:notation_1D}
 
 On considère $\Omega = [a,b]$, $a<b$, un intervalle de $\mathbb{R}$ de longueur $L=b-a$. Dans la suite, nous utilisons les lettres latines pour noter les fonctions continues : $f(x)$, $u(x)$, ... $x \in \Omega$. Si $u$ et $v$ sont des fonctions définies sur $\Omega$, leur produit scalaire dans $L^2 ( \Omega )$ est donné par :
 \begin{equation}
 (u,v) = \gint_{\Omega} u(x) \bar{v}(x) dx = \gint_{a}^b u(x) \bar{v}(x) dx.
 \end{equation}
-Nous travaillerons, sauf mention contraire, avec des fonctions à valeur dans $\mathbb{R}$. Dans ce cadre, le produit scalaire devient :
+Nous travaillerons, sauf mention contraire, avec des fonctions à valeurs dans $\mathbb{R}$. Dans ce cadre, le produit scalaire devient :
 \begin{equation}
 (u,v) = \gint_{a}^b u(x) v(x) dx.
 \end{equation}
@@ -22,6 +23,12 @@ La norme infinie sur $L^{\infty}(\Omega)$ est donnée par :
 \begin{equation}
 \| u \|_{\infty} = \sup_{x\in\Omega} |u(x)|.
 \end{equation}
+On dit qu'une fonction $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est \textit{périodique} sur $\Omega$ de période $L$ si pour tout $x \in \Omega$, on a 
+\begin{equation}
+u(x+L) = u(x).
+\end{equation}
+En particulier, on a $u(a)=u(b)$. Dans le contexte périodique, on considère que $x_0 = x_N$.
+
 On considère une grille régulière sur $\Omega$ constituée de $N \in \mathbb{N}^{\star}$ points :
 \begin{equation}
 a=x_0 < x_1 < \ldots < x_{N-1} < x_N = b,
@@ -64,7 +71,8 @@ On a alors :
 \begin{equation}
 \mathfrak{u} = (\mathfrak{u}(x_0), \mathfrak{u}(x_1), \mathfrak{u}(x_2), ... , \mathfrak{u}(x_N)).
 \end{equation}
-On note $l^2_h$ l'espace des fonctions de grille, $h>0$ fixé. On munit cet espace d'un produit scalaire et de la norme associée :
+On note $l^2_h$ l'espace des fonctions de grille, $h>0$ fixé.
+On munit cet espace d'un produit scalaire et de la norme associée :
 \begin{equation}
 (\mathfrak{u},\mathfrak{v})_h = h \gsum_{i=0}^N \mathfrak{u}(x_i) \mathfrak{v}(x_i) \text{,  } |\mathfrak{u}|_h^2 = h \gsum_{i=0}^N \mathfrak{u}(x_i)^2.
 \end{equation}
@@ -102,11 +110,12 @@ La norme de $A$ subordonnée à la norme vectorielle infinie est :
 
 \item Soit $u: x \in \Omega \mapsto u(x)$, on définit la fonction de grille associée $u^*$ par :
 \begin{equation}
-u^* = u^*(x_i) \text{ pour } 0 \leq i \leq N.
+u^*_i = u^*(x_i) \text{ pour } 0 \leq i \leq N.
 \end{equation}
 $u^*$ est la restriction de $u$ aux points de la grille.
 \end{itemize}
 
+Dans un contexte périodique, on considère que $x_0 = x_N$.
 Nous distinguons $l^2_h$, l'espace des fonctions de grilles, de $\mathbb{R}^{N+1}$ même si ces deux espaces sont isomorphes. Cette distinction permet de faire une claire différences entre :
 \begin{itemize}
 \item les opérateurs aux différences finies, qui agissent sur les fonctions de grilles,
@@ -114,7 +123,15 @@ Nous distinguons $l^2_h$, l'espace des fonctions de grilles, de $\mathbb{R}^{N+1
 \end{itemize}
 Les fonctions de grilles contiennent toutes les échelles nécessaires dans le contexte physique alors que les vecteurs sont sans dimension. De plus, le raisonnement au niveau discret est plus naturel avec les fonctions de grilles. Il s'effectue d'une façon abstraite à l'aide d'opérateurs aux différences. En revanche, le codage est effectuée dans le cadre de l'algèbre linéaire.
 
-
+Définissons \textit{l'opérateur de translation} $\tau_p$, $p \in \mathbb{Z}$, tel que si $\mathfrak{u}$ est une fonction de grille périodique alors pour tout $0 \leq i \leq N$
+\begin{equation}
+(\tau_p \mathfrak{u})_i = \mathfrak{u}_{i+p}.
+\end{equation}
+Cet opérateur permettra de définir les opérateurs aux différences dans la suite. Abusivement, nous noterons que cet opérateur agit sur les fonctions de grille périodiques $u^*$ par :
+\begin{equation}
+(\tau_p u^*)_i = u^*_{i+p} = u(x_{i+p}).
+\end{equation}
+En considérant les propriétés de périodicités si $i+p > N$ ou $i+p<0$.
 
 
 
@@ -125,6 +142,7 @@ Les fonctions de grilles contiennent toutes les échelles nécessaires dans le c
 
 
 \subsection{Cadre en dimension 2}
+\label{sec:notation_2D}
 
 En dimension 2, les notations sont une extension de celles utilisées en dimension 1. Pour des questions de simplicité, on se limite au cas d'une géométrie carrée. Si $a$ et $b$ sont des réels positifs, nous travaillons dans le carré $\Omega = [a,b]^2$. Chaque côté du carré est de longueur $L=b-a$. 
 Soient $u$ et $v$ deux fonctions de $\Omega$ dans $\mathbb{R}$. On définit le produit scalaire usuel dans $L^2 ( \Omega ) $ par :
@@ -230,33 +248,25 @@ On note $L^2_h$ l'espace des fonctions de grilles. Cet espace est équipé d'un 
 \begin{equation}
 (\mathbf{u}, \mathbf{v})_h = h^2 \gsum_{i,j=0}^N \mathbf{u}(x_i,y_j) \mathbf{v}(x_i,y_j) \text{ et } |\mathbf{u}|_h = \sqrt{(\mathbf{u},\mathbf{u})_h}.
 \end{equation}
-Si $\mathbf{u}$ est périodique, on a :
-\begin{equation}
-(\mathbf{u}, \mathbf{v})_h = h^2 \gsum_{i,j=1}^N \mathbf{u}(x_i,y_j) \mathbf{v}(x_i,y_j) \text{ et } |\mathbf{u}|_h = \sqrt{(\mathbf{u},\mathbf{u})_h}.
-\end{equation}
 La norme infinie de $\mathbf{u}$ est donnée par :
 \begin{equation}
 | \mathbf{u} |_{\infty} = \max_{0 \leq i,j \leq N} |\mathbf{u}(x_i,y_j)|.
 \end{equation}
-Cette norme $| \cdot |_{\infty}$ vaut :
-\begin{equation}
-| \mathbf{u} |_{\infty} = \max_{10 \leq i,j \leq N} |\mathbf{u}(x_i,y_j)|.
-\end{equation}
-si $\mathbf{u}$ est périodique.
 
 \item Soit $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$, nous définissons la fonction associée, notée $u^*$ par la restriction de $u$ au maillage :
 \begin{equation}
 u^*_{i,j} = u(x_i, y_j) \text{ pour tous } 0 \leq i,j \leq N.
 \end{equation}
 
-D'une manière générale, dans un contexte périodique, les données sur des bords opposés du carrés coïncident. On note alors $x_0 = x_N$ et $y_0 = y_N$.
+Si $u$ est périodique, on a $u^*_{i,0}=u^*_{i,N}$ et $u^*_{0,j}=u^*_{N,j}$ pour tous $0 \leq i,j \leq N$.
+D'une manière générale, dans un contexte périodique, les données sur des bords opposés du carrés coïncident. On considère alors $x_0 = x_N$ et $y_0 = y_N$.
 \end{itemize}
 
 \begin{figure}[htbp]
 \begin{center}
 \begin{tikzpicture}[scale=.7]
-	\draw [>=stealth, ->,color=blue,thick] (-3,-3) -- (-3,3) ;
-	\draw [>=stealth, ->,color=blue,thick] (3,-3) -- (3,3) ;
+	\draw [>=stealth, ->,color=green,thick] (-3,-3) -- (-3,3) ;
+	\draw [>=stealth, ->,color=green,thick] (3,-3) -- (3,3) ;
 	\draw [>=stealth, ->,color=red,thick] (-3,-3) -- (3,-3) ;
 	\draw [>=stealth, ->,color=red,thick] (-3,3) -- (3,3) ;
 	\draw (-3.3,-3.45) node {$(a,a)$} ;
@@ -276,13 +286,29 @@ D'une manière générale, dans un contexte périodique, les données sur des bo
 	\draw (-4.2,-4) node[below] {$x$} ;
 	\draw [>=stealth, ->] (-5,-4) -- (-5,-3.2) ;
 	\draw (-5,-3.2) node[above] {$y$} ;
+
+	\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot (-3,-3) -- (-3,3)
+	-- plot (-3,3) -- (3,3)
+	-- plot (3,3) -- (3,-3)
+	-- plot (3,-3) -- (-3,-3)
+	-- cycle;	
+	
 \end{tikzpicture}
 \end{center}
 \caption{Carré périodique. Dans le contexte périodique, les bords de couleurs identiques coïncident. Les quatres coins du carré représentent la même donnée.}
 \label{fig:period2D}
 \end{figure}
 
-
+L'\textit{opérateur de translation} s'étant en dimension 2 par : $\tau_{p,q}$, $p,q \in \mathbb{Z}$, tel que si $\mathfrak{u}$ est une fonction de grille périodique alors pour tout $0 \leq i,j \leq N$
+\begin{equation}
+(\tau_{p,q} \mathbf{u})_{i,j} = \mathfrak{u}_{i+p,j+q}.
+\end{equation}
+Il agit, abusivement sur $u^*$  fonction associée à $u$ périodique par :
+\begin{equation}
+(\tau_{p,q} u^*)_{i,j} = u^*_{i+p,j+q} = u(x_{i+p,j+q}),
+\end{equation}
+en considérant les propriétés de périodicités besoin.
 
 
 
@@ -298,6 +324,71 @@ D'une manière générale, dans un contexte périodique, les données sur des bo
 
 
 \section{Opérateurs aux différences}
+
+\subsection{Opérateurs en dimension 1}
+
+On considère $\Omega = [a,b]$ avec $a<b$ deux réels distincts. Les notations employées sont celles de la partie \ref{sec:notation_1D} dans le contexte périodique.
+Commençons par introduire quelques opérateurs aux différences usuels :
+\begin{itemize}
+\item \textit{Opérateur de dérivation centré :}
+\begin{equation}
+\delta_x = \dfrac{\tau_1 - \tau_{-1}}{2h}
+\end{equation}
+Appliqué à $\mathfrak{u}$, cet opérateur vérifie 
+\begin{equation}
+\delta_x \mathfrak{u}_i = \dfrac{\mathfrak{u}_{i+1} - \mathfrak{u}_{i-1}}{2h} \text{ pour } 1 \leq i \leq N.
+\end{equation}
+
+\item \textit{Laplacien à trois points :}
+\begin{equation}
+\delta_x^2 = \dfrac{\tau_1 - 2 \tau_{0} + \tau_{-1}}{h^2}.
+\end{equation}
+Ce qui donne directement :
+\begin{equation}
+\delta_x^2 \mathfrak{u}_i = \dfrac{\mathfrak{u}_{i+1} - 2 \mathfrak{u}_i + \mathfrak{u}_{i-1}}{h^2}.
+\end{equation}
+
+\item \textit{Opérateur de Simpson :}
+\begin{equation}
+\sigma_x = \dfrac{1}{6} \tau_1 + \dfrac{2}{3} \tau_0 + \dfrac{1}{6} \tau_{-1}
+\end{equation}
+ainsi :
+\begin{equation}
+\sigma_x \mathfrak{u}_i = \dfrac{1}{6} \mathfrak{u}_{i+1} + \dfrac{2}{3} \mathfrak{u}_i + \dfrac{1}{6} \mathfrak{u}_{i-1} \text{ pour } 1 \leq i \leq N.
+\end{equation}
+\end{itemize}
+
+\begin{proposition}
+Soit $u: x \in \Omega \mapsto u(x) \in \mathbb{R}$ et $u^*$ sa fonction de grille correspondante.On a :
+\begin{itemize}
+\item Si $u \in \mathcal{C}^3 (\Omega)$ alors 
+\begin{equation}
+\delta_x u^*_i - u'(x_i) = \dfrac{h^2}{12} \left[ u^{(3)}(\xi_i) + u^{(3)}(\eta_i) \right]  \text{ avec } \xi_i , \eta_i \in [x_{i-1}, x_{i+1}],
+\end{equation}
+\item Si $u \in \mathcal{C}^4 (\Omega)$ alors 
+\begin{equation}
+\delta^2_x u^*_i - u''(x_i) = \dfrac{h^2}{24} \left[ u^{(4)}(\xi_i) + u^{(4)}(\eta_i) \right]  \text{ avec } \xi_i, \eta_i \in [x_{i-1}, x_{i+1}],
+\end{equation}
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+Comme $u$ est de classe $\mathcal{C}^3$, on considère les développements de Taylor :
+\begin{equation}
+u(x_i+h) = u(x_i) + h u'(x_i) + \dfrac{h^2}{2} u''(x_i) + \dfrac{h^3}{6} u^{(3)} (\eta_i) \text{ avec } \eta_i \in [x_i, x_{i+1}]
+\end{equation}
+et celui en $x-h$ :
+\begin{equation}
+u(x_i-h) = u(x_i) - h u'(x_i) + \dfrac{h^2}{2} u''(x_i) - \dfrac{h^3}{6}u^{(3)}(\xi_i) \text{ avec } \xi_i \in [x_{i-1}, x_{i}]
+\end{equation}
+Alors par différence, on retrouve la formule souhaitée : 
+\begin{equation}
+\delta_x u^*_i = u'(x_i) + \dfrac{h^2}{12} \left[ u^{(3)}(\xi_i) + u^{(3)}(\eta_i) \right]  \text{ avec } \xi_i, \eta_i \in [x_{i-1}, x_{i+1}],
+\end{equation}
+
+La seconde formule se retrouve de la même manière en continuant le développement de Taylor de $u$.
+\end{proof}
+
 
 
 

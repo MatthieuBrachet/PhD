@@ -2,14 +2,14 @@ clc; clear all; close all
 
 theta = linspace(0,pi,50);
 f=10;
-filtre = 'redonnet';
-delta=0.48;
+filtre = 'visbal';
+delta=0.0;
 
-[ ftr3 ] = ftr( theta,2,filtre,0 );
-[ ftr4 ] = ftr( theta,4,filtre,0 );
-[ ftr5 ] = ftr( theta,6,filtre,0 );
-[ ftr6 ] = ftr( theta,8,filtre,0 );
-[ ftr7 ] = ftr( theta,10,filtre,0 );
+[ ftr3 ] = ftr( theta,2,filtre,delta );
+[ ftr4 ] = ftr( theta,4,filtre,delta );
+[ ftr5 ] = ftr( theta,6,filtre,delta );
+[ ftr6 ] = ftr( theta,8,filtre,delta );
+[ ftr7 ] = ftr( theta,10,filtre,delta );
 
 
 figure(1)
