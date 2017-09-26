@@ -1,15 +1,19 @@
 clc; clear all; close all;
 
 teta=linspace(0,pi,100);
+
 se2=sin(teta);
 se4=(4/3)*sin(teta)-(1/3)*sin(2*teta)/2;
 se6=3/2*sin(teta)-3/5*sin(2*teta)/2+1/10*sin(3*teta)/3;
+se8=8/5*sin(teta)-4/5*sin(2*teta)/2+8/35*sin(3*teta)/3-1/35*sin(4*teta)/4;
+
 sc4=sin(teta)./(2/3+2*(1/6*cos(teta)));
 sc6=(14/9*sin(teta)+1/18*sin(2*teta))./(1+(2/3)*cos(teta));
+sc8=((25/16)*sin(teta)+(1/5)*sin(2*teta)/2-(1/80)*sin(3*teta)/3)./(1+2*(3/8)*cos(teta));
 
 figure(1)
-plot(teta,se2,'b-',teta,se4,'r-',teta,se6,'g-',teta,sc4,'m-',teta,sc6,'-',teta,teta,'k-','Linewidth',2)
-legend('expl. 2','expl. 4','expl. 6','compact 4','compact 6','theoric.','Location','northwest')
+plot(teta,se2,'--',teta,se4,'--',teta,se6,'--',teta,se8,'--',teta,sc4,'-',teta,sc6,'-',teta,sc8,'-',teta,teta,'k-','Linewidth',2)
+legend('expl. 2','expl. 4','expl. 6','expl. 8','herm. 4','herm. 6','herm. 8','theoric.','Location','northwest')
 xlabel('\theta= \Deltax \xi')
 ylabel('modified \theta : \theta_m')
 grid on

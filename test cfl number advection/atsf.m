@@ -82,8 +82,10 @@ elseif c == 4
     s=4/3*sin(teta)-1/3*sin(2*teta);
 elseif c == 6
     s=3/2*sin(teta)-3/5*sin(2*teta)+1/10*sin(3*teta);
+elseif c == 8
+    s=14/5*sin(teta)-14/5*sin(2*teta)+6/5*sin(3*teta)-1/5*sin(4*teta);
 else
-    error('Invalid input argument : c must be an integer in {2,4,6} for explicit space scheme.');
+    error('Invalid input argument : c must be an integer in {2,4,6,8} for explicit space scheme.');
 end
 
 elseif strcmp(space,'implicit') == 1

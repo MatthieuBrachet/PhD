@@ -24,18 +24,11 @@
 \newtheorem{lemme}[proposition]{Lemme}
 \newtheorem{corollaire}[proposition]{Corollaire}
 
-%\input{package_amiens.tex}
+\input{package_amiens.tex}
 
 \def\gint{\displaystyle\int}
 \def\gsum{\displaystyle\sum\limits}
-\newcommand{\longarc}[1]{%
-    \raisebox{-3.3pt}{%
-   \begin{tikzpicture}%
-       \node at (0,0) {$#1$};%
-      \draw[>=stealth,<-,yshift=-0.2cm,xshift=-0.04cm] (45:0.5cm) arc (45:135:0.4cm);%
-   \end{tikzpicture}%
-   }%
-}
+\newcommand{\longarc}[1]{longarc}
 
 \author{Brachet Matthieu}
 \title{Schémas compacts hermitiens sur la Sphère - applications en climatologie et océanographie numérique}
@@ -53,29 +46,29 @@
 %\newpage
 
 %\section*{Introduction}
-%\input{introduction}
+%%\input{introduction}
 
 \part{Rapport de thèse}
 
-%\input{SWE.tex}
+\input{SWE.tex}
 \input{disc.tex}
 \input{CS.tex}
-%\input{opsph.tex}
-%\input{advsph.tex}
-%\input{LSWEC.tex}
-%\input{testSWE.tex}
-%\input{quadrature.tex}
-%
-%\part{Annexes}
-%\chapter{Annexes}
-%\section{Coordonnées Longitude-Latitude}
-%\input{lonlat.tex}
-%\section{Invariants de Riemann}
-%\input{IR.tex}
-%\part{Travaux parallèles}
-%\input{art1amiens.tex}
+\input{opsph.tex}
+\input{advsph.tex}
+\input{LSWEC.tex}
+\input{testSWE.tex}
+\input{quadrature.tex}
 
-\bibliographystyle{abbrv}
+\part{Annexes}
+\chapter{Annexes}
+\section{Coordonnées Longitude-Latitude}
+\input{lonlat.tex}
+\section{Invariants de Riemann}
+\input{IR.tex}
+\part{Travaux parallèles}
+\input{art1amiens.tex}
+
+\bibliographystyle{plain}
 \bibliography{PhDbiblio}
 
 \end{document}

@@ -1,0 +1,325 @@
+\documentclass[portrait,final,a0paper,fontscale=0.34]{baposter}%0.277
+\usepackage[utf8]{inputenc}
+\usepackage{calc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{relsize}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{bm}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{palatino}
+
+%\graphicspath{{images/}{../images/}}
+\usetikzlibrary{calc}
+
+\newcommand{\captionfont}{\footnotesize}
+\newcommand{\SET}[1]  {\ensuremath{\mathcal{#1}}}
+\newcommand{\MAT}[1]  {\ensuremath{\boldsymbol{#1}}}
+\newcommand{\VEC}[1]  {\ensuremath{\boldsymbol{#1}}}
+\newcommand{\Video}{\SET{V}}
+\newcommand{\video}{\VEC{f}}
+\newcommand{\track}{x}
+\newcommand{\Track}{\SET T}
+\newcommand{\LMs}{\SET L}
+\newcommand{\lm}{l}
+\newcommand{\PosE}{\SET P}
+\newcommand{\posE}{\VEC p}
+\newcommand{\negE}{\VEC n}
+\newcommand{\NegE}{\SET N}
+\newcommand{\Occluded}{\SET O}
+\newcommand{\occluded}{o}
+
+\def\gint{\displaystyle\int}
+\def\gsum{\displaystyle\sum\limits}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Some math symbols used in the text
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Multicol Settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\columnsep}{1.5em}
+\setlength{\columnseprule}{0mm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Save space in lists. Use this after the opening of the list
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\compresslist}{%
+\setlength{\itemsep}{1pt}%
+\setlength{\parskip}{0pt}%
+\setlength{\parsep}{0pt}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Begin of Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Here starts the poster
+%%%---------------------------------------------------------------------------
+%%% Format it to your taste with the options
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define some colors
+
+\definecolor{lightergreen}{rgb}{0.7843,0.9568,1}
+\definecolor{lightgreen}{rgb}{0.2921,0.3921,0.6843}
+\definecolor{white}{rgb}{1,1,1}
+
+\hyphenation{resolution occlusions} 
+
+\begin{poster}%
+  % Poster Options
+  {
+  % Show grid to help with alignment
+  grid=false,
+  % Column spacing
+  colspacing=1em,
+  % Color style
+  bgColorOne=white,
+  bgColorTwo=white,
+  borderColor=lightgreen,
+  headerColorOne=black,
+  headerColorTwo=lightgreen,
+  headerFontColor=white,
+  boxColorOne=white,
+  boxColorTwo=lightgreen,
+  % Format of textbox
+  textborder=roundedleft,
+  % Format of text header
+  eyecatcher=false,
+  headerborder=closed,
+  headerheight=0.1\textheight,
+%  textfont=\sc, An example of changing the text font
+  headershape=roundedright,
+  headershade=shadelr,
+  headerfont=\Large\bf\textsc, %Sans Serif
+  textfont={\setlength{\parindent}{1.5em}},
+  boxshade=plain,
+%  background=shade-tb,
+  background=plain,
+  linewidth=2pt
+  }
+  % Eye Catcher
+  {\includegraphics[height=5em]{images/graph_occluded.pdf}} 
+  % Title
+  {\bf\textsc{Numerical approximation of propagation problems on the sphere using a compact scheme}\vspace{0.4em}}
+  % Authors
+  {\textsc{ M. BRACHET, J.-P. Croisille (Supervisor)}}
+  % University logo
+  {% The makebox allows the title to flow into the logo, this is a hack because of the L shaped logo.
+    \includegraphics[height=8.0em]{images/logo_iecl_ul.png}
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Now define the boxes that make up the poster
+%%%---------------------------------------------------------------------------
+%%% Each box has a name and can be placed absolutely or relatively.
+%%% The only inconvenience is that you can only specify a relative position 
+%%% towards an already declared box. So if you have a box attached to the 
+%%% bottom, one to the top and a third one which should be in between, you 
+%%% have to specify the top and bottom boxes before you specify the middle 
+%%% box.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %
+    % A coloured circle useful as a bullet with an adjustably strong filling
+    \newcommand{\colouredcircle}{%
+      \tikz{\useasboundingbox (-0.2em,-0.32em) rectangle(0.2em,0.32em); \draw[draw=black,fill=lightblue,line width=0.03em] (0,0) circle(0.18em);}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \headerbox{Problem :}{name=problem,column=0, span=3,row=0}{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   Propose a method based on hermitian scheme to solve equations from fluid mechanics. A particular interest is on the Shallow Water equations \eqref{SWEC} with the unknowns $(\mathbf{u},h)$
+
+\begin{equation}
+  \label{SWEC}
+  \left\lbrace
+  \begin{array}{rcl}
+  \dfrac{\partial \mathbf{u}}{\partial t} + \mathbf{u} \cdot \nabla \mathbf{u} + g \nabla h + f \mathbf{k} \wedge \mathbf{u} & = & \mathbf{0} \\
+  \dfrac{\partial h}{\partial t} + \nabla \cdot \left( h \mathbf{u} \right) & = & 0
+  \end{array}
+  \right.\text{ pour } \mathbf{x} \in \mathbb{S}_R^2 \text{ et } t>0.
+\end{equation}
+ }
+ 
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \headerbox{Geometry :}{name=geometry,column=0,span=1,below=problem}{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\textbf{Mesh grid : } the "Cubed-Sphere"
+
+\begin{center}
+\includegraphics[scale=0.25]{CS2.png}
+\end{center}
+
+The \textbf{Cubed-Sphere grid} is composed of six panels on the sphere. Each panel is obtain like intersection points of greats circles.
+
+Each operator can be expressed in a coordinate system $(\xi,\eta)$ associated with a panel.
+
+\begin{itemize}
+\item The \textbf{gradient} operator is given by 
+\begin{equation}
+\nabla h = \mathbf{g}^{\xi} \dfrac{\partial h}{\partial \xi} + \mathbf{g}^{\eta} \dfrac{\partial h}{\partial \eta}
+\end{equation}
+\item The \textbf{divergence} operator is given by 
+\begin{equation}
+\nabla \cdot \mathbf{u} = \mathbf{g}^{\xi} \cdot \dfrac{\partial \mathbf{u}}{\partial \xi} + \mathbf{g}^{\eta} \cdot \dfrac{\partial \mathbf{u}}{\partial \eta}
+\end{equation}
+\item The \textbf{curl} operator is given by 
+\begin{equation}
+\nabla \wedge \mathbf{u} = \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{u}}{\partial \xi} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{u}}{\partial \eta}
+\end{equation}
+\end{itemize}
+
+where $(\mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ is the dual basis of $(\partial_{\xi} \mathbf{x},\partial_{\eta} \mathbf{x})$.
+  }
+  
+  
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \headerbox{Discretization :}{name=discretization,column=0,span=1,below=geometry}{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The discretization use the following procedure [Croisille, 2015] :
+\begin{itemize}
+\item \textbf{Space discretization :} partial derivative $\dfrac{\partial h}{\partial \xi}$ is approximated by $h_{\xi}$ on each grid point. $h_{\xi}$ is calculated by solving a system in the form 
+\begin{equation}
+\dfrac{1}{6} h_{\xi,i+1} + \dfrac{4}{6} h_{\xi,i} + \dfrac{1}{6} h_{\xi,i-1} = \dfrac{h_{i+1} - h_{i-1}}{2 \Delta \xi}
+\end{equation}
+This \textbf{Hermitian scheme} is 4-th order accuracy. It permit to assemble each operator.
+
+\item \textbf{Time discretization} The semi-discretized equation
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+q'(t) &=& F(q(t),t)\\
+q(0)  &=& q_0 
+\end{array}
+\right.
+\end{equation}
+is solved with a \textbf{4-th order Runge Kutta method} :
+\begin{center}
+\begin{enumerate}
+\item $K^{(1)} = F \left( q^n, t^n \right)$,
+\item $K^{(2)} = F \left( q^n + \dfrac{\Delta t}{2} K^{(1)}, t^n + \dfrac{\Delta t}{t}\right)$,
+\item $K^{(3)} = F \left( q^n + \dfrac{\Delta t}{2} K^{(2)}, t^n + \dfrac{\Delta t}{t}\right)$,
+\item $K^{(4)} = F \left( V^n + \Delta t K^{(3)}, t^n + \Delta t\right)$,  
+\item $S = K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)}$,
+\item $q^{n+1} = \mathcal{F} \left( q^n  + \frac{\Delta t}{6} S \right)$.
+\end{enumerate}
+\end{center}
+
+where $\mathcal{F}$ is a high-frequencies filtering procedure.
+In practice, we choice a 10-th order filter $\mathcal{F}$ to suppress the stray waves but other filters are available. 
+\end{itemize}
+  }
+  
+  
+
+  
+  
+  
+  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \headerbox{1D Advection equation:}{name=toymodel,column=1,span=2,below=problem}{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Condider the 1D advection equation :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial h}{\partial t} + c \dfrac{\partial h}{\partial x} & = & 0 \\
+h(t=0,x) & = & h_0(x)
+\end{array}
+\right. \text{ with } x \in [0,1] \text{ and } t>0,
+\label{eq:advection1D}
+\end{equation}
+The context is periodic : $h(t,x+1) = h(t,x)$ for all $t>0$ and $x \in [0,1]$.
+
+For all $1 \leq i \leq N$ and $n=0,1,...$, the quantity $h_i^n$ is an approximation of $h(t^n, x_i)$ obtained with the previous scheme on the equation \eqref{eq:advection1D}.
+
+\textbf{Proposition 1 :}
+Without filtering procedure, the scheme is numerically fouth order and stable if 
+\begin{equation}
+\lambda = \dfrac{c \Delta t}{\Delta x} \leq \lambda_{\infty} = 2 \sqrt{\dfrac{2}{3}} \approx 1.6329
+\end{equation}
+With a filtering procedure order 10, the scheme is numerically stable if $\lambda \leq \lambda_{10} \approx 1.6883$ with
+$\lambda_{10}$ estimated numerically.
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Filter's order $p$} & $\lambda_p$ \\
+\hline \hline
+$10$ & $1.6883$ \\
+$8$ & $1.7114$ \\
+$6$ & $1.7485$ \\
+$4$ & $1.8156$ \\
+$2$ & $1.9749$ \\
+\hline
+\end{tabular}
+\textbf{Table 1: } Stability condition function of order of $\mathcal{F}$.
+\end{center}
+
+\textbf{Proposition 2 :}
+With or without filtering procedure $\mathcal{F}$, the scheme is conservative. For all $n = 0,1, ...$
+\begin{equation}
+\Delta x \gsum_{i} h_i^{n+1} =  \Delta x \gsum_{i} h_i^{n}.
+\end{equation}
+
+  }
+  
+  
+  
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \headerbox{Spherical Shallow Water:}{name=swe,column=1,span=2,below=toymodel}{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+We use the previous scheme on the equation \eqref{SWEC} with a 10-th order filter. The Galewsky test case [Galewsky, Scott, \textit{et al.} 2004] use the initial condition :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\bar{h}_0(\lambda, \theta) & = & h_0 - \dfrac{1}{g} \gint_{-\pi/2}^{\theta} a u_{\lambda}(\tau) 
+\left( f + \dfrac{\tan(\tau)}{a}u_{\lambda}(\tau) \right) d\tau\\
+\mathbf{v} & = & u_{\lambda}(\theta) \mathbf{e}_{\lambda}
+\end{array}
+\right.
+\end{equation}
+$(\lambda, \theta)$ is the longitud-latitud coordinate system, $u_{\lambda}(\tau) = \dfrac{1}{e_n} \exp \left[ \dfrac{1}{(\tau - \theta_0)(\tau - \theta_1)} \right] $ if $\tau \in [ \theta_0, \theta_1]$ avec $0$ outside of this domain. This initial data is stationnary, we perturbate it using $h_0$ instead of $\bar{h}_0$ :
+\begin{equation}
+h_0(\lambda, \theta) = \bar{h}_0(\lambda, \theta ) + \hat{h} \cos \theta \exp \left[ - (\lambda/\alpha)^2 - ((\theta-\theta_0)/\beta)^2 \right].
+\end{equation}
+
+\begin{center}
+\includegraphics[scale=.38]{ref_7369437806_snapshot_intermediaire599.png}\\
+\includegraphics[scale=.39]{ref_7369437806_massenergy.png}
+\includegraphics[scale=.36]{ref_7369437806_enstrophy.png}
+
+\textbf{Figure 1 : } Vorticity at $6$ days, conservation error for mass, energy and potential enstrophy on a $6 \times 128 \times 128$ grid.
+\end{center}
+
+  }
+  
+  
+  
+   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \headerbox{Conclusion:}{name=conclusion,column=1,span=2,below=swe}{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+For a periodic $1D$ problem, the scheme is stable under a condition and accurate order 4. The scheme is conservative even if we add a filtering procedure. This filter permit to remove parasitic waves.
+
+On the sphere, the method give good results on several tests cases [Brachet, Croisille, preprint]. The Cubed-Sphere grid has not singularities problems like on a Longitud-Latitud grid. The geometry is practically cartesian. This property permit to use this efficiant and accurate method.
+
+
+  }
+
+
+\end{poster}
+\end{document}
+
+

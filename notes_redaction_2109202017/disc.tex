@@ -325,7 +325,9 @@ en considérant les propriétés de périodicités besoin.
 
 \section{Opérateurs aux différences}
 
-\subsection{Opérateurs en dimension 1}
+\subsection{Approximation des opérateurs dérivées en dimension 1}
+
+\subsubsection{Opérateurs classiques périodiques}
 
 On considère $\Omega = [a,b]$ avec $a<b$ deux réels distincts. Les notations employées sont celles de la partie \ref{sec:notation_1D} dans le contexte périodique.
 Commençons par introduire quelques opérateurs aux différences usuels :
@@ -350,11 +352,11 @@ Ce qui donne directement :
 
 \item \textit{Opérateur de Simpson :}
 \begin{equation}
-\sigma_x = \dfrac{1}{6} \tau_1 + \dfrac{2}{3} \tau_0 + \dfrac{1}{6} \tau_{-1}
+\sigma_x = \dfrac{1}{6} \tau_1 + \dfrac{4}{6} \tau_0 + \dfrac{1}{6} \tau_{-1}
 \end{equation}
-ainsi :
+qui agit sur $\mathfrak{u}$ :
 \begin{equation}
-\sigma_x \mathfrak{u}_i = \dfrac{1}{6} \mathfrak{u}_{i+1} + \dfrac{2}{3} \mathfrak{u}_i + \dfrac{1}{6} \mathfrak{u}_{i-1} \text{ pour } 1 \leq i \leq N.
+\sigma_x \mathfrak{u}_i = \dfrac{1}{6} \mathfrak{u}_{i+1} + \dfrac{4}{6} \mathfrak{u}_i + \dfrac{1}{6} \mathfrak{u}_{i-1}.
 \end{equation}
 \end{itemize}
 
@@ -389,6 +391,115 @@ Alors par différence, on retrouve la formule souhaitée :
 La seconde formule se retrouve de la même manière en continuant le développement de Taylor de $u$.
 \end{proof}
 
+Ainsi, $\delta_x$ est vu comme un opérateur d'approximation de la dérivée première à l'ordre 2 et $\delta_x^2$ un opérateur d'approximation du Laplacien au même ordre. 
+
+Concernant la dérivée première, on peut noter $\delta_{P,x}$ un opérateur d'approximation de la dérivée première à l'ordre $P \in \mathbb{N}^{\star}$. On cherche $\delta_{P,x}$ sous la forme
+
+\begin{equation}
+\delta_{P,x} = \gsum_{j=0}^P a_j \dfrac{\tau_j - \tau_{-j}}{2 j h}
+\end{equation}
+où  pour tout $1 \leq j \leq P$, on a $a_j \in \mathbb{R}$. 
+
+\begin{definition}
+Soit $u :  x \in \Omega \mapsto u(x) \in \mathbb{R}$ une fonction de classe $\mathcal{C}^{2P+1} ( \Omega )$ et $u^*$ sa fonction de grille correspondante. On dit que $\delta_{P,x}$ est un \textit{opérateur d'approximation de la dérivée première} à l'ordre $2P$ si les coefficients $(a_j)_{1 \leq j \leq P}$ sont tels que :
+\begin{equation}
+\delta_{P,x} u^*_i - u'(x_i) = C h^{2P}
+\label{eq:consistance_delta_x_order_2P}
+\end{equation}
+où $C$ est une constante indépendante de $h$ (mais dépendant de $u$ et des points de maillage). 
+\end{definition}
+
+L'\textit{erreurs de troncature} d'un tel opérateur est notée $t(x_i)$ 
+\begin{equation}
+t(x_i) = u'(x_i) - \delta_{P,x} u^*_i.
+\end{equation}
+où $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$.
+
+\begin{theoreme}
+L'opérateur $\delta_{P,x}$ est un opérateur d'approximation de la dérivée première à l'ordre $2P$ si et seulement si les coefficients $(a_j)_{1 \leq j \leq P}$ sont solutions de :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcll}
+\gsum_{j=1}^P a_j & = & 1 & \\
+\gsum_{j=1}^P j^{2k} a_j & = & 0 \text{ pour tous } 1 \leq k \leq P-1.
+\end{array}
+\right.
+\end{equation}
+L'erreur de troncature est de la forme :
+\begin{equation}
+u'(x_i) - \delta_{P,x} u^*_i = h^{2P}\sum_{j=1}^P a_j \dfrac{j^{2P}}{2(2P+1)!} \left( u^{(2P+1)}(\xi_j) + u^{(2P+1)}(\eta_j) \right).
+\end{equation}
+\label{th:consistance_delta_x_explicite}
+\end{theoreme}
+
+\begin{proof}
+Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ une fonction de classe $\mathcal{C}^{2P+1}( \Omega)$ et $u^*$ la fonction de grille correspondante.
+
+On considère les développements de Taylor :
+\begin{equation}
+\begin{array}{rcl}
+u(x_i + jh) & = & u(x_i) + j h u'(x_j) + \cdots + \dfrac{(jh)^k}{k!}u^{(k)}(x_i) + \cdots +\dfrac{(jh)^{2P+1}}{(2P+1)!} u^{(2P+1)}(\xi_j)\\
+u(x_i - jh) & = & u(x_i) - j h u'(x_j) + \cdots + \dfrac{(-jh)^k}{k!}u^{(k)}(x_i) + \cdots +\dfrac{(-jh)^{2P+1}}{(2P+1)!} u^{(2P+1)}(\eta_j)
+\end{array}
+\end{equation}
+avec $\xi_j \in [x_i, x_i+jh]$ et $\eta_j \in [x_i-jh, x_i]$. En combinant ces deux égalités, on a
+\begin{equation}
+\dfrac{\tau_ju^*_i - \tau_{-j} u^*_i}{2jh} = u'(x_i) + \cdots + \dfrac{(jh)^{k-1}(1 - (-1)^k)}{2 \cdot k!} u^{(k)}(x_i) + \dfrac{(jh)^{2P}}{2(2P+1)!} \left( u^{(2P+1)}(\xi_j) + u^{(2P+1)}(\eta_j) \right)
+\end{equation}
+Donc la combinaison linéaire de ces termes pondérés par les coefficients $(a_j)_{1 \leq j \leq P}$ vérifie \eqref{eq:consistance_delta_x_order_2P} si et seulement si :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcll}
+\gsum_{j=1}^P a_j & = & 1 & \\
+\gsum_{j=1}^P j^{k-1} \dfrac{(1 - (-1)^k)}{k!} a_j & = & 0 \text{ pour tous } 1 \leq k \leq 2P-1.
+\end{array}
+\right.
+\end{equation}
+Or, cette seconde égalité est vérifiée pour tout $k$ pair. Ce système se simplifie en :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcll}
+\gsum_{j=1}^P a_j & = & 1 & \\
+\gsum_{j=1}^P j^{2k} a_j & = & 0 \text{ pour tous } 1 \leq k \leq P-1.
+\end{array}
+\right.
+\end{equation}
+L'erreur de troncature prend la forme
+\begin{equation}
+u'(x_i) - \delta_{P,x} u^*_i = h^{2P} \sum_{j=1}^P a_j \dfrac{j^{2P}}{2(2P+1)!} \left( u^{(2P+1)}(\xi_j) + u^{(2P+1)}(\eta_j) \right).
+\end{equation}
+\end{proof}
+
+On en déduit quelques opérateurs d'approximation de la dérivée première.
+\begin{corollaire}
+Soit $u :  x \in \Omega \mapsto u(x) \in \mathbb{R}$ une fonction donnée. 
+\begin{itemize}
+\item Si $u \in \mathcal{C}^3 (\Omega)$ alors l'opérateur :
+\begin{equation}
+\delta_{2,x} = \delta_x = \dfrac{\tau_1 - \tau_{-1}}{2h}
+\label{eq:derprem_order2}
+\end{equation}
+est un opérateur d'approximation de la dérivée première à l'ordre 2 ($P=1$),
+\item Si $u \in \mathcal{C}^5 (\Omega)$ alors l'opérateur :
+\begin{equation}
+\delta_{4,x} = \dfrac{4}{3} \dfrac{\tau_1 - \tau_{-1}}{2h} - \dfrac{1}{3} \dfrac{\tau_2 - \tau_{-2}}{4h}
+\label{eq:derprem_order4}
+\end{equation}
+est un opérateur d'approximation de la dérivée première à l'ordre 4 ($P=2$),
+\item Si $u \in \mathcal{C}^7 (\Omega)$ alors l'opérateur :
+\begin{equation}
+\delta_{6,x} = \dfrac{3}{2} \dfrac{\tau_1 - \tau_{-1}}{2h} - \dfrac{3}{5} \dfrac{\tau_2 - \tau_{-2}}{4h} + \dfrac{1}{10} \dfrac{\tau_3 - \tau_{-3}}{6h}
+\label{eq:derprem_order6}
+\end{equation}
+est un opérateur d'approximation de la dérivée première à l'ordre 6 ($P=3$),
+\item Si $u \in \mathcal{C}^9 (\Omega)$ alors l'opérateur :
+\begin{equation}
+\delta_{8,x} = \dfrac{8}{5} \dfrac{\tau_1 - \tau_{-1}}{2h} - \dfrac{4}{5} \dfrac{\tau_2 - \tau_{-2}}{4h} + \dfrac{8}{35} \dfrac{\tau_3 - \tau_{-3}}{6h} - \dfrac{1}{35} \dfrac{\tau_4 - \tau_{-4}}{8h}
+\label{eq:derprem_order8}
+\end{equation}
+est un opérateur d'approximation de la dérivée première à l'ordre 8 ($P=4$).
+\end{itemize}
+\end{corollaire}
 
 
 
@@ -402,12 +513,26 @@ La seconde formule se retrouve de la même manière en continuant le développem
 
 
 
+\subsubsection{Opérateurs Hermitiens périodiques}
 
 
 
 
 
-\section{Opérateur de filtrage}
+
+\subsubsection{Opérateur Hermitien non-périodique}
+
+
+
+
+
+
+\subsection{Opérateur de filtrage en dimension 1}
+
+\subsubsection{Opérateur de filtrage explicite}
+
+
+\subsubsection{Opérateur de filtrage hermitien}
 
 
 \section{Opérateurs d'interpolation}
