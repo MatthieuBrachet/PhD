@@ -1,0 +1,358 @@
+\documentclass{sciposter}
+%\documentclass[a0,portrait]{sciposter}
+%\documentclass[draft]{a0poster}
+%\documentclass[portrait]{sciposter}
+%\documentclass[a0paper,portrait]{sciposter}
+%\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}  %%PC ou Unix
+
+\usepackage{a0size}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multicol}
+%\usepackage[francais,english]{babel} 
+\usepackage[english]{babel}
+\usepackage{setspace}
+\usepackage[pdftex,final]{graphicx}
+ \graphicspath{Figures/}
+\usepackage{epsfig}
+\usepackage{dsfont}
+\usepackage{bm}
+\usepackage{pstricks,pst-grad}
+\usepackage{color}
+  
+\usepackage{relsize}
+\usepackage{url}			% For \url
+%\usepackage{epstopdf}	% Included EPS files automatically converted to PDF to include with pdflatex
+%%%%%%
+
+\definecolor{BoxCol}{rgb}{0.2921,0.3921,0.6843}
+
+
+\definecolor{SectionCol}{rgb}{1,1,1}
+% uncomment for dark blue \section text 
+\definecolor{TextColG}{rgb}{0,0.5,0}
+\definecolor{TextColR}{rgb}{0.5,0,0}
+\newcommand{\Rcolor}{\textcolor{TextColR}}
+\newcommand{\Gcolor}{\textcolor{TextColG}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thesection}{\arabic{section}}
+\newcommand{\sect}[1]{\setcounter{equation}{0}\section{#1}}
+\renewcommand{\theequation}{\arabic{equation}} 
+ \newcommand{\seqna}{\begin{eqnarray}}
+\newcommand{\eeqna}{\end{eqnarray}}
+  
+\newcounter{Theo}[section]  %\setcounter{noEx}{1}  
+\def\theTheo{\arabic{Theo} de la section \thesection}
+\def\numeroTheo{\arabic{Theo}}
+\newenvironment{Theo}[1]{\vspace{-\lastskip}\vspace{1em}
+\refstepcounter{Theo}\noindent{\bf Th\'eor\`eme \numeroTheo. #1}
+\endgraf \leftskip1em{\parskip0pt\noindent}\ignorespaces
+}{\par\vspace{1pt}}
+
+\newcounter{Lemme}[section]  %\setcounter{noEx}{1}  
+\def\theLemme{\arabic{Lemme} de la section \thesection}
+\def\numeroLemme{\arabic{Lemme}}
+\newenvironment{Lemme}[1]{\vspace{-\lastskip}\vspace{1em}
+\refstepcounter{Lemme}\noindent{\bf Lemme \numeroLemme. #1}
+\endgraf \leftskip1em{\parskip0pt\noindent}\ignorespaces
+}{\par\vspace{1pt}}
+
+\newcounter{Corollaire}[section]  %\setcounter{noEx}{1}  
+\def\theCorollaire{\arabic{Corollaire} de la section \thesection}
+\def\numeroCorollaire{\arabic{Corollaire}}
+\newenvironment{Corollaire}[1]{\vspace{-\lastskip}\vspace{1em}
+\refstepcounter{Corollaire}\noindent{\bf Corollaire \numeroCorollaire. #1}
+\endgraf \leftskip1em{\parskip0pt\noindent}\ignorespaces
+}{\par\vspace{1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \let\bb\mathbb
+  \def \R {\mathbb{R}}
+ \def \N {\mathbb{N}}
+\def \T {\mathbb{T}}
+\def \L {\mathbb{L}}
+ \def \Z{\mathbb{Z}}
+ 
+ \def\gint{\displaystyle\int}
+\def\gsum{\displaystyle\sum\limits}
+
+%-------------------------------------------------------------------------------------------------------
+\title{Numerical approximation of propagation problems on the sphere using a compact scheme}
+%\title{Behaviour of BDF in High-frequency modes}
+
+\bigskip
+%%\author{Christian Dogbe \hspace{2 in}
+%%Michael Pucher \hspace{4 in}
+%%Junichi Yamagishi \hspace{3 in}
+%}
+
+\smallskip
+\institute{{\LARGE\bfseries M. Brachet, J.-P. Croisille}\hspace{9.5 in}  \\\hspace{0.5 in}
+Institut Elie Cartan de Lorraine,  Université de Lorraine\hspace{1 in}\\\hspace{0 in}
+B.P. 70239, F-54506 Vandoeuvre-lès-Nancy Cedex, France\hspace{6.5 in}\\}
+
+\email{\hspace{1 in}  matthieu.brachet@univ-lorraine.fr\hspace{0.1 in}  }
+
+% The following commands can be used to alter the default logo settings
+\leftlogo[1.1]{Figures/LogoFNM}  % defines logo to left of title (with scale factor)
+\rightlogo[1.4]{Figures/unicaen3}   % same but on right
+
+%-------------------------------------------------------------------------------------------------------
+\begin{document}
+
+%define conference poster is presented at (appears as footer)
+\conference{VI$^{\mbox{e}}$ Colloque EDP-Normandie, Caen 2017}
+
+\maketitle
+%\renewcommand{\abstractname}{Abstract} 
+%\renewcommand{\abstractname}{R\'esum\'e} 
+
+
+\vspace{0.5 cm}
+
+%\vskip-1.5cm
+\begin{abstract}
+\begin{center}
+\parbox{\hsize}{
+ \textcolor{blue}{We present numerical results for the shallow water equations on  a rotating sphere  using the compact scheme introduced in \cite{C2015}. The scheme uses the Cubed-Sphere grid and is based on a centered finite difference scheme. The discretization is performed by a Runge-Kutta method combined with a high-frequencies filtering procedure. Numerical results are displayed  for several classical test cases  \cite{BCyear, G2004}. Numerical results, for an associated  quadrature method on the Cubed Sphere, permitting to assess the conservation properties of the scheme will also be displayed.}}
+\end{center}
+\end{abstract}
+
+\vskip1cm
+
+\begin{multicols}{3} %%%DETERMINE LE NOMBRE DE COLONNES ****************************************************************
+
+%-------------------------------------------------------------------------------------------------------
+\section{Problem}
+   Propose a method based on hermitian schemes to solve equations from fluid mechanics. A particular interest is on the Shallow Water equations \eqref{SWEC} with the unknowns $(\mathbf{u},h)$
+
+\begin{equation}
+  \label{SWEC}
+  \left\lbrace
+  \begin{array}{rcl}
+  \dfrac{\partial \mathbf{u}}{\partial t} + \mathbf{u} \cdot \nabla \mathbf{u} + g \nabla h + f \mathbf{k} \wedge \mathbf{u} & = & \mathbf{0} \\
+  \dfrac{\partial h}{\partial t} + \nabla \cdot \left( h \mathbf{u} \right) & = & 0
+  \end{array}
+  \right.\text{ for all } \mathbf{x} \in \mathbb{S}_R^2 \text{ and } t>0.
+\end{equation}
+
+
+%-------------------------------------------------------------------------------------------------------
+\section{Geometry}
+\textbf{Mesh grid : } the "Cubed-Sphere"
+
+\begin{center}
+\includegraphics[scale=0.8]{CS2.png}
+
+\textbf{Figure 1 :} The Cubed-Sphere grid.
+\end{center}
+
+The \textbf{Cubed-Sphere grid} is composed of six panels on the sphere. Each panel is obtained as intersection points of great circles.
+
+Each operator can be expressed in a coordinate system $(\xi,\eta)$ associated with a panel.
+
+\begin{itemize}
+\item The \textbf{gradient} operator :
+\begin{equation}
+\nabla h = \mathbf{g}^{\xi} \dfrac{\partial h}{\partial \xi} + \mathbf{g}^{\eta} \dfrac{\partial h}{\partial \eta}
+\end{equation}
+\item The \textbf{divergence} operator :
+\begin{equation}
+\nabla \cdot \mathbf{u} = \mathbf{g}^{\xi} \cdot \dfrac{\partial \mathbf{u}}{\partial \xi} + \mathbf{g}^{\eta} \cdot \dfrac{\partial \mathbf{u}}{\partial \eta}
+\end{equation}
+\item The \textbf{curl} operator :
+\begin{equation}
+\nabla \wedge \mathbf{u} = \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{u}}{\partial \xi} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{u}}{\partial \eta}
+\end{equation}
+\end{itemize}
+
+where $(\mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ is the dual basis of $(\partial_{\xi} \mathbf{x},\partial_{\eta} \mathbf{x})$.
+
+%-------------------------------------------------------------------------------------------------------
+\section{Discretization}
+The discretization use the following procedure \cite{C2015} :
+\begin{itemize}
+\item \textbf{Space discretization :} partial derivative $\dfrac{\partial h}{\partial \xi}$ is approximated by $h_{\xi}$ on each grid point. $h_{\xi}$ is calculated by solving a system in the form 
+\begin{equation}
+\dfrac{1}{6} h_{\xi,i+1} + \dfrac{4}{6} h_{\xi,i} + \dfrac{1}{6} h_{\xi,i-1} = \dfrac{h_{i+1} - h_{i-1}}{2 \Delta \xi}
+\end{equation}
+This \textbf{Hermitian scheme} is 4-th order accuracy. It permit to assemble each operator.
+
+\item \textbf{Time discretization} The semi-discretized equation
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+q'(t) &=& F(q(t),t)\\
+q(0)  &=& q_0 
+\end{array}
+\right.
+\end{equation}
+is solved with a \textbf{4-th order Runge Kutta method} :
+\begin{center}
+\begin{enumerate}
+\item $K^{(1)} = F \left( q^n, t^n \right)$,
+\item $K^{(2)} = F \left( q^n + \dfrac{\Delta t}{2} K^{(1)}, t^n + \dfrac{\Delta t}{t}\right)$,
+\item $K^{(3)} = F \left( q^n + \dfrac{\Delta t}{2} K^{(2)}, t^n + \dfrac{\Delta t}{t}\right)$,
+\item $K^{(4)} = F \left( V^n + \Delta t K^{(3)}, t^n + \Delta t\right)$,  
+\item $S = K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)}$,
+\item $q^{n+1} = \mathcal{F} \left( q^n  + \frac{\Delta t}{6} S \right)$.
+\end{enumerate}
+\end{center}
+
+where $\mathcal{F}$ is a high-frequencies filtering procedure.
+In practice, we choice a 10-th order filter $\mathcal{F}$ to suppress the stray waves but other filters are available. 
+\end{itemize}
+
+
+
+
+%-------------------------------------------------------------------------------------------------------
+\section{Advection equation en dimension 1}
+Condider the 1D advection equation :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial h}{\partial t} + c \dfrac{\partial h}{\partial x} & = & 0 \\
+h(t=0,x) & = & h_0(x)
+\end{array}
+\right. \text{ with } x \in [0,1] \text{ and } t>0,
+\label{eq:advection1D}
+\end{equation}
+The context is periodic : $h(t,x+1) = h(t,x)$ for all $t>0$ and $x \in [0,1]$.
+
+For all $1 \leq i \leq N$ and $n=0,1,...$, the quantity $h_i^n$ is an approximation of $h(t^n, x_i)$ obtained with the previous scheme on the equation \eqref{eq:advection1D}.
+
+\begin{Theo}
+
+Without the filtering procedure, the scheme is numerically fourth order and stable if 
+\begin{equation}
+\lambda = \dfrac{c \Delta t}{\Delta x} \leq \lambda_{\infty} = 2 \sqrt{\dfrac{2}{3}} \approx 1.6329
+\end{equation}
+\end{Theo}
+
+With a filtering procedure of order $p$ in the form :
+\begin{equation}
+\mathcal{F}(h)_i = \gsum_{m=0}^M \dfrac{a_m}{2} \left( h_{i+m} + h_{i-m} \right)
+\end{equation}
+
+The scheme is numerically stable if $\lambda \leq \lambda_{p}$ with
+$\lambda_{p}$ estimated numerically in Table 1.
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Filter's order $p$} & $\lambda_p$ \\
+\hline \hline
+$10$ & $1.6883$ \\
+$8$ & $1.7114$ \\
+$6$ & $1.7485$ \\
+$4$ & $1.8156$ \\
+$2$ & $1.9749$ \\
+\hline
+\end{tabular}
+
+\textbf{Table 1: } Stability condition function of order of $\mathcal{F}$.
+\end{center}
+
+\begin{Theo}
+
+With or without filtering procedure $\mathcal{F}$, the scheme is conservative. For all $n = 0,1, ...$
+\begin{equation}
+\Delta x \gsum_{i} h_i^{n+1} =  \Delta x \gsum_{i} h_i^{n}.
+\end{equation}
+\end{Theo}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%-------------------------------------------------------------------------------------------------------
+\section{Spherical Shallow Water}
+We use the previous scheme on the equation \eqref{SWEC} with a 10-th order filter. The Galewsky test case \cite{G2004} uses the initial condition :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\bar{h}_0(\lambda, \theta) & = & h_0 - \dfrac{1}{g} \gint_{-\pi/2}^{\theta} a u_{\lambda}(\tau) 
+\left( f + \dfrac{\tan(\tau)}{a}u_{\lambda}(\tau) \right) d\tau\\
+\mathbf{v} & = & u_{\lambda}(\theta) \mathbf{e}_{\lambda}
+\end{array}
+\right.
+\end{equation}
+$(\lambda, \theta)$ is the longitud-latitud coordinate system, $u_{\lambda}(\tau) = \dfrac{1}{e_n} \exp \left[ \dfrac{1}{(\tau - \theta_0)(\tau - \theta_1)} \right] $ if $\tau \in [ \theta_0, \theta_1]$ and $0$ outside of this domain. This initial data is stationnary, we perturbate it using $h_0$ instead of $\bar{h}_0$ :
+\begin{equation}
+h_0(\lambda, \theta) = \bar{h}_0(\lambda, \theta ) + \hat{h} \cos \theta \exp \left[ - (\lambda/\alpha)^2 - ((\theta-\theta_0)/\beta)^2 \right].
+\end{equation}
+
+\begin{center}
+\includegraphics[scale=1]{ref_7369437806_snapshot_intermediaire599.png}\\
+
+\textbf{Figure 2 : } Vorticity at $6$ days on a $6 \times 128 \times 128$ grid.
+\end{center}
+
+We check the conservative properties of \eqref{SWEC} :
+\begin{itemize}
+\item Conservation of mass :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} h d \sigma(\mathbf{x}) = 0
+\end{equation}
+\item Conservation of energy :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \left( \dfrac{1}{2} h \mathbf{u}^2 + \dfrac{1}{2} g h^2 \right)d \sigma(\mathbf{x}) = 0
+\end{equation}
+\item Conservation of potential enstrophy :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \dfrac{\left( (\nabla \cdot \mathbf{u}) \cdot \mathbf{k} + f \right)^2}{h} d \sigma(\mathbf{x}) = 0
+\end{equation}
+\end{itemize}
+
+
+
+\begin{center}
+\includegraphics[scale=1]{ref_7369437806_massenergy.png}
+\includegraphics[scale=1]{ref_7369437806_enstrophy.png}
+
+\textbf{Figure 3  : } Conservation error on mass, energy and potential enstrophy on a $6 \times 128 \times 128$ grid.
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------------------------------------------------------------------------
+\section{Conclusion} 
+For a periodic $1D$ problem, the scheme is stable under a condition and accurate order 4. The scheme is conservative even if we add a filtering procedure. This filter permit to remove parasitic waves.
+
+On the sphere, the method give good results on several tests cases \cite{BCyear}. The Cubed-Sphere grid has not singularities problems like on a Longitud-Latitud grid. The geometry is practically cartesian. This property permit to use this efficiant and accurate method.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{plain}
+\begin{thebibliography}{99}
+\bibitem{BCyear} {\sc M. Brachet, J.-P. Croisille}, \textit{Numerical simulations of propagation problemes on the sphere
+using a compact scheme}, preprint.
+
+\bibitem{C2015} {\sc J.-P. Croisille}, \textit{Hermitian approximation of the spherical divergence on the Cubed-Sphere}, J.
+Comp. App. Maths., 280, 2015, pp. 188-201.
+
+\bibitem{G2004} {\sc J. Galewsky, R. Scott, K. Richard and L. M. Polvani}, \textit{An initial-value problem for testing
+numerical models of the global shallow-water equations}, Tellus A , 56, 2004, pp. 429?440.
+
+\end{thebibliography}
+
+\end{multicols}
+\end{document}
