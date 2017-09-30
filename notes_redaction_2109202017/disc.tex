@@ -323,6 +323,10 @@ en considérant les propriétés de périodicités besoin.
 
 
 
+
+
+
+
 \section{Opérateurs aux différences}
 
 \subsection{Approximation des opérateurs dérivées en dimension 1}
@@ -502,6 +506,31 @@ est un opérateur d'approximation de la dérivée première à l'ordre 8 ($P=4$)
 \end{corollaire}
 
 
+ETUDE SPECTRALE DES OPERATEURS???
+
+ETUDE MATRICIELLE???
+
+Un opérateur aux différences finies agit sur les fonctions de grilles périodiques $\mathfrak{u}$. On se donne $U \in  \mathbb{R}^{N}$ le vecteur définit par 
+
+\begin{equation}
+U =\begin{bmatrix}
+\mathfrak{u}_0\\\mathfrak{u}_1\\ \vdots \\\mathfrak{u}_{N-1}
+\end{bmatrix}
+\end{equation}
+
+le vecteur $\mathfrak{u}_x$ contient les approximations hermitiennes obtenues par :
+
+\begin{equation}
+\mathfrak{u}_x = \delta_{P,x} \mathfrak{u}.
+\end{equation}
+
+Le vecteur associé à $\mathfrak{u}_x$ est noté $U_x \in \mathbb{R}^N$. Il est obtenu par l'opération matricielle :
+
+\begin{equation}
+U_x = D_P U
+\end{equation}
+
+où $D_P \in \mathcal{M}_N(\mathbb{R})$ est :
 
 
 
@@ -520,7 +549,14 @@ est un opérateur d'approximation de la dérivée première à l'ordre 8 ($P=4$)
 
 
 
+
 \subsubsection{Opérateur Hermitien non-périodique}
+
+
+
+
+
+
 
 
 
@@ -539,3 +575,8 @@ est un opérateur d'approximation de la dérivée première à l'ordre 8 ($P=4$)
 
 
 \section{Discrétisation temporelle}
+
+
+FAIRE ICI L'ETUDE CLASSIQUE DES METHODES DE RUNGE-KUTTA MAIS EXCLUSIVEMENT POUR RK4.
+CE N'EST PAS UN TRAITÉ SUR LES RK ET JE N'UTILISE QUE RK4.
+JE PENSE QUE C'EST MIEUX COMME CA.

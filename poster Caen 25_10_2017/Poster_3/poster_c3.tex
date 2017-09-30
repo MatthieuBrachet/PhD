@@ -96,7 +96,7 @@ B.P. 70239, F-54506 Vandoeuvre-lès-Nancy Cedex, France\hspace{6.5 in}\\}
 %\vskip-1.5cm
 \section*{Introduction}
 Les équations Shallow Water \eqref{eq:SWEC} constituent le modèle de base pour la dynamique atmosphérique. Comme dans le cas de la dynamique des gaz (Equations d'Euler), la question est de disposer d'un schéma de haute précision en espace et en temps qui soit conservatif.
-En climatologie mathématique, ce sont non seulement les quantités primaires (masse et quantité de mouvement) qui sont conservées mais également les quantités secondaires tel que l'énergie et l'enstrophie potentielle.
+En climatologie mathématique, ce sont non seulement les quantités primaires (masse et quantité de mouvement) qui sont conservées mais également les quantités secondaires telles que l'énergie et l'enstrophie potentielle.
 
 Notre approche est basée sur un schéma aux différences finies compact sur la grille Cubed-Sphere. Celui-ci est fortement relié aux méthodes en aéroacoustique numérique.
 
@@ -119,14 +119,14 @@ La notation $\nabla_T$ indique que l'opérateur est tangentiel.
 
 \section*{Cubed-Sphere}
 
-La sphère est recouverte de 6 \textbf{panels} délimités par 6 grands cercles chacun.
+La sphère est recouverte de 6 \textbf{panels} délimités par 6 grands cercles chacuns.
 
-Pour le panel I, est délimité par les 4 cercles :
+Le panel I est délimité par les 4 grands cercles :
 \begin{itemize}
 \item $C_V^1 = Vect(\mathbf{i}-\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$,
 \item $C_V^2 = Vect(\mathbf{i}+\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$, il s'agit d'une rotation de $C_V^1$ d'un angle de $\pi/2$ autour de $(Oz)$,
-\item $C_{II}^1 = Vect(\mathbf{i}+\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$, $C_{II}^2$ est une rotation de $C_{II}^1$ d'un angle de $\pi/2$ autour de $(Oy)$,
-\item $C_{II}^2 = Vect(\mathbf{i}-\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$.
+\item $C_{II}^1 = Vect(\mathbf{i}+\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$,
+\item $C_{II}^2 = Vect(\mathbf{i}-\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$, $C_{II}^2$ est une rotation de $C_{II}^1$ d'un angle de $\pi/2$ autour de $(Oy)$,.
 \end{itemize}
 
 \begin{figure}
