@@ -498,6 +498,7 @@ Concernant la dérivée première, nous noterons $\delta_{P,x}$ un opérateur d'
 
 \begin{equation}
 \delta_{P,x} = \gsum_{j=1}^P a_j \dfrac{\tau_j - \tau_{-j}}{2 j h}
+\label{eq:explicite_dx}
 \end{equation}
 où  pour tout $1 \leq j \leq P$, on a $a_j \in \mathbb{R}$. Le schéma ainsi proposé est antisymétrique, cette structure permet de travailler avec un schéma non dissipatif. 
 
@@ -660,14 +661,12 @@ D_2 = \dfrac{1}{2h} \begin{bmatrix}
 1    &      &    &    & -1  & 0  \\
 \end{bmatrix}
 \end{equation}
-
 dont les vecteurs propres sont 
 
 \begin{equation}
 \mu^k = \dfrac{i}{h} \sin ( k h ). 
 \end{equation}
-
-On remarque que $\mu^N = 0$.
+En particulier, on remarque que $\mu^N = 0$.
 
 
 
@@ -679,6 +678,73 @@ On remarque que $\mu^N = 0$.
 
 
 \subsubsection{Opérateurs Hermitiens périodiques}
+
+Dans son article \cite{Lele1991}, S. K. Lele présente une méthode permettant d'approcher la dérivée en un point en ajoutant une partie implicite au schéma de la forme \eqref{eq:explicite_dx}. Dans ce chapitre, nous ne considérons que les schémas à 4 points implicites. Nous définissons $\sigma_{3,x}$ par :
+
+\begin{equation}
+(\sigma_{3,x} \mathfrak{u})_j = \alpha \mathfrak{u}_j + \beta \left( \mathfrak{u}_{j+1} + \mathfrak{u}_{j-1} \right)
+\end{equation}
+
+\begin{theoreme}
+Si les coefficients réels $\alpha$, $\beta$ ainsi que les coefficients $(a_i)_{1 \leq i \leq P}$ sont solutions de 
+
+et si $u$ est une fonction suffisament régulière, alors pour tout $0 \leq i \leq N-1$, on a 
+\begin{equation}
+(\delta_{P,x} u^*)_i - (\sigma_{3,x} u'^*)_i = ... 
+\end{equation}
+\end{theoreme}
+
+\begin{proof}
+Insérer la preuve ici.
+\end{proof}
+
+Sous forme matricielle, l'opérateur $\sigma_{3,x}$ s'écrit :
+
+\begin{equation}
+S = \begin{bmatrix}
+\alpha    & \beta    &    &    &     & \beta \\
+\beta   & \alpha    & \beta  &    & (0) &    \\
+     & \beta   & \alpha  & \beta  &     &    \\
+     &      & \ddots  & \ddots  & \ddots    &    \\
+     & (0)  &    & \beta & \alpha   & \beta  \\
+\beta    &      &    &    & \beta  & \alpha  \\
+\end{bmatrix}
+\end{equation}
+
+\begin{proposition}
+La matrice $S$ est inversible et bornée au sens où :
+\begin{equation}
+\| S \|_{\infty} = |\alpha + 2 \beta| < \infty.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Insérer la preuve ici.
+\end{proof}
+
+\begin{theoreme}
+Ici, résultat de convergence concernant les schémas compacts. Formellement :
+\begin{equation}
+\| u'^* - \sigma_{3,x}^{-1} \delta_{P,x} u^* \|_{\infty} = \mathcal{O}(h^{\alpha})
+\end{equation}
+\end{theoreme}
+
+\begin{proof}
+Conséquence du théorème précédent et de la sous multiplicativité. Raisonner en matriciel.
+\end{proof}
+
+Exemples de schémas compacts. Insérer ici les ordres 4, 6 et 8.
+
+Inversion de la matrice S à l'aide de Shermann-Morisson-Woodbury. Voir thèse de Ali Abbas.
+
+Analyse fréquentielle. 
+
+Graphique de meilleur convergence en fréquentiel des schémas compacts.
+
+Ajouter travail sur les schémas compacts non pérodiques. 
+
+Passage en 2D? Peut etre ne pas le mettre.
+
 
 
 
