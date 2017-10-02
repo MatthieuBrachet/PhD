@@ -123,7 +123,6 @@ Nous distinguons $l^2_h$, l'espace des fonctions de grilles, de $\mathbb{R}^{N+1
 \end{itemize}
 Les fonctions de grilles contiennent toutes les échelles nécessaires dans le contexte physique alors que les vecteurs sont sans dimension. De plus, le raisonnement au niveau discret est plus naturel avec les fonctions de grilles. Il s'effectue d'une façon abstraite à l'aide d'opérateurs aux différences. En revanche, le codage est effectuée dans le cadre de l'algèbre linéaire.
 
-Dans la suite, nous considérerons le segment $[0,\pi]$, c'est à dire $a=0$ et $b=\pi$.
 
 
 
@@ -294,14 +293,6 @@ D'une manière générale, dans un contexte périodique, les données sur des bo
 \label{fig:period2D}
 \end{figure}
 
-Dans la suite, pour simplifier les notations, nous consédérerons le carré $[0, \pi]^2$, c'est à dire $a=0$ et $b=\pi$.
-
-
-
-
-
-
-
 
 
 
@@ -316,20 +307,20 @@ Dans la suite, pour simplifier les notations, nous consédérerons le carré $[0
 
 \subsubsection{Opérateurs classiques périodiques}
 
-On considère $\Omega = [0,\pi]$. Les notations employées sont celles de la partie \ref{sec:notation_1D} dans le contexte périodique.
+On considère $\Omega = [0,L]$. Les notations employées sont celles de la partie \ref{sec:notation_1D} dans le contexte périodique.
 
 \begin{definition}
 L'\textit{opérateur de translation} $\tau_p$, $p \in \mathbb{Z}$, est tel que si $\mathfrak{u}$ est une fonction de grille périodique alors pour tout $0 \leq i \leq N$
 \begin{equation}
-(\tau_p \mathfrak{u})_i = \mathfrak{u}_{i-p}.
+(\tau_p \mathfrak{u})_i = \mathfrak{u}_{i+p}.
 \end{equation}
 \end{definition}
 
 Cet opérateur permettra de définir les opérateurs aux différences dans la suite. Nous noterons que cet opérateur agit sur les fonctions de grille périodiques $u^*$ par :
 \begin{equation}
-(\tau_p u^*)_i = u^*_{i-p} = u(x_{i-p}).
+(\tau_p u^*)_i = u^*_{i+p} = u(x_{i+p}).
 \end{equation}
-En considérant les propriétés de périodicités si $i+p > N$ ou $i+p<0$.
+En considérant les propriétés de périodicités si $i+p > N$ ou $i+p<1$.
 De la même manière, on définit l'opérateur $\tau$ par 
 \begin{equation}
 \tau = \tau_{1}
@@ -356,13 +347,14 @@ Il est intéressant de recherches les valeurs propres et les vecteurs propres de
 
 
 \begin{proposition}
-Les vecteurs propres de $\tau$ sont les fonctions de grilles $\mathfrak{u}^k$ vérifiant :
+Les fonctions propres de $\tau$ sont les fonctions de grilles $\mathfrak{u}^k$ vérifiant :
 \begin{equation}
-\mathfrak{u}_j^k = \exp \left[ i j h k \right]
+\mathfrak{u}_j^k = \exp \left[ i j \dfrac{2 \pi k}{N} \right]
+\label{eq:vecteurpropre_tau}
 \end{equation}
 Chaque vecteur propre est associé à la valeur propre $\lambda^k$ avec 
 \begin{equation}
-\lambda = \exp \left[ - i h \right].
+\lambda = \exp \left[ i \dfrac{2 \pi k}{N} \right].
 \end{equation}
 avec $0 \leq k \leq N-1$.
 \end{proposition}
@@ -371,21 +363,20 @@ avec $0 \leq k \leq N-1$.
 \begin{proof}
 On calcule $(\tau \mathfrak{u}^k)_j$ :
 \begin{equation}
-(\tau \mathfrak{u}^k)_j = \exp \left[ i (j-1) h k \right] = \exp \left[ i j h k \right] \exp \left[ - i h k \right]  = \mathfrak{u}^k \lambda^k
+(\tau \mathfrak{u}^k)_j = \exp \left[ i (j+1) \dfrac{2 \pi k}{N} \right] = \exp \left[ i j \dfrac{2 \pi k}{N} \right] \exp \left[ i \dfrac{2 \pi k}{N} \right]  = \mathfrak{u}^k \lambda^k
 \end{equation}
 De plus, il est facile de voir que $\mathfrak{u}$ vérifie l'hypothèse de périodicité, d'où le résultat.
 \end{proof}
-
-Alors si $P(x)$ est un polynôme en $x$, \textit{i.e.} $P \in \mathbb{R}_{N-1} [x]$ alors les valeurs propres de $P(\tau)$ sont connues :
+Si $P(x)$ est un polynôme en $x$, \textit{i.e.} $P \in \mathbb{R}_{N-1} [x]$ alors les valeurs propres de $P(\tau)$ sont connues :
 
 \begin{proposition}
 Les vecteurs propres de $P(\tau)$ sont les fonctions de grilles $\mathfrak{u}^k$ vérifiant :
 \begin{equation}
-\mathfrak{u}_j^k = \exp \left[ i j h k \right]
+\mathfrak{u}_j^k = \exp \left[ i j \dfrac{2 \pi k}{N} \right]
 \end{equation}
 Chaque vecteur propre est associé à la valeur propre $P(\lambda^k)$ avec 
 \begin{equation}
-\lambda = \exp \left[ - i h \right].
+\lambda = \exp \left[ i \dfrac{2 \pi k}{N} \right]
 \end{equation}
 avec $0 \leq k \leq N-1$.
 \label{prop:eigen_tau}
@@ -405,16 +396,16 @@ Calculons $P(\tau) \mathfrak{u}^k$. Soit $j$ un entier compris entre $0$ et $N-1
 
 d'où le résultat.
 \end{proof}
-
 L'opérateur de translation $\tau$ agit sur les fonctions de grilles. Il est associé à $T$ la matrice agissant de manière similaire sur les vecteurs.
 
 \begin{equation}
 T = \begin{bmatrix}
-0 &   &   & 1 \\
-1 & 0 & (0) &   \\
-  & \ddots & \ddots &   \\
-(0) &   & 1 & 0 \\
-\end{bmatrix}
+0 & 1 &   &   &   \\ 
+  & 0 & 1 & (0) &   \\ 
+  &   & \ddots & \ddots &   \\ 
+  & (0) &   & 0 & 1 \\ 
+1 &   &   &   & 0
+\end{bmatrix} 
 \end{equation}
 
 La matrice $T$ agit sur un vecteur $U = \begin{bmatrix}
@@ -431,7 +422,7 @@ Les propriétés concernant les valeurs et vecteurs propres de $\tau$ sont aussi
 \begin{itemize}
 \item Les valeurs propres de $T$ sont les valeurs $(\lambda^k)_{0 \leq k \leq N-1}$ avec 
 \begin{equation}
-\lambda = \exp \left[ - i h \right].
+\lambda = \exp \left[ i \dfrac{2 \pi k}{N} \right].
 \label{eq:eigenvalueT}
 \end{equation}
 les vecteurs propres associés sont donnés par $\left( U^k \right)_{0 \leq k \leq N-1}$ vérifiant :
@@ -444,6 +435,7 @@ U^k_j = \begin{bmatrix}
 \end{bmatrix}
 \label{eq:eigenvectorT}
 \end{equation}
+où $\mathfrak{u}^k$ est la fonction de grille \eqref{eq:vecteurpropre_tau}.
 
 \item Si $P \in \mathbb{R}_{N-1}[x]$ alors les valeurs propres de $P(T)$ sont 
 \begin{equation}
@@ -494,7 +486,7 @@ Alors par différence, on retrouve la formule souhaitée :
 \end{proof}
 
 Ainsi, $\delta_x$ est vu comme un opérateur d'approximation de la dérivée première à l'ordre 2.
-Concernant la dérivée première, nous noterons $\delta_{P,x}$ un opérateur d'approximation de la dérivée première à l'ordre $P \in \mathbb{N}^{\star}$. On cherche $\delta_{P,x}$ sous la forme
+Notons $\delta_{P,x}$ un opérateur d'approximation de la dérivée première à l'ordre $P \in \mathbb{N}^{\star}$. On cherche $\delta_{P,x}$ sous la forme
 
 \begin{equation}
 \delta_{P,x} = \gsum_{j=1}^P a_j \dfrac{\tau_j - \tau_{-j}}{2 j h}
@@ -546,9 +538,9 @@ u(x_i - jh) & = & u(x_i) - j h u'(x_j) + \cdots + \dfrac{(-jh)^k}{k!}u^{(k)}(x_i
 \end{equation}
 avec $\xi_j \in [x_i, x_i+jh]$ et $\eta_j \in [x_i-jh, x_i]$. En combinant ces deux égalités, on a
 \begin{equation}
-\dfrac{\tau_ju^*_i - \tau_{-j} u^*_i}{2jh} = u'(x_i) + \cdots + \dfrac{(jh)^{k-1}(1 - (-1)^k)}{2 \cdot k!} u^{(k)}(x_i) + \dfrac{(jh)^{2P}}{2(2P+1)!} \left( u^{(2P+1)}(\xi_j) + u^{(2P+1)}(\eta_j) \right)
+\dfrac{\tau_ju^*_i - \tau_{-j} u^*_i}{2jh} = u'(x_i) + \cdots + \dfrac{(jh)^{k-1}(1 - (-1)^k)}{2 \cdot k!} u^{(k)}(x_i) + \cdots +\dfrac{(jh)^{2P}}{2(2P+1)!} \left( u^{(2P+1)}(\xi_j) + u^{(2P+1)}(\eta_j) \right)
 \end{equation}
-Donc la combinaison linéaire de ces termes pondérés par les coefficients $(a_j)_{1 \leq j \leq P}$ vérifie \eqref{eq:consistance_delta_x_order_2P} si et seulement si :
+Donc la combinaison linéaire de ces termes pondérée par les coefficients $(a_j)_{1 \leq j \leq P}$ vérifie \eqref{eq:consistance_delta_x_order_2P} si et seulement si :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcll}
@@ -557,7 +549,7 @@ Donc la combinaison linéaire de ces termes pondérés par les coefficients $(a_
 \end{array}
 \right.
 \end{equation}
-Or, cette seconde égalité est vérifiée pour tout $k$ pair. Ce système se simplifie en :
+La seconde égalité est vérifiée pour tout $k$ pair. Ce système se simplifie en :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcll}
@@ -605,14 +597,10 @@ est un opérateur d'approximation de la dérivée première à l'ordre 8 ($P=4$)
 
 
 
-\begin{theoreme}
-L'opérateur $\delta_{P,x}$ possède les vecteurs propres $\mathfrak{u}^k$ donnés par \eqref{eq:eigenvectorT}. Pour tout $0 \leq j \leq N-1$, on a 
-\begin{equation}
-\mathfrak{u}_j^k = \exp \left[ i j h k \right].
-\end{equation}
+\begin{theoreme}Les fonctions propres de l'opérateur $\delta_{P,x}$ sont données par $\mathfrak{u}^k$ avec $\mathfrak{u}^k_j$ donnés par \eqref{eq:eigenvectorT}.
 Les valeurs propres de $\delta_{P,x}$ sont :
 \begin{equation}
-\mu^k = i \gsum_{j=1}^P \dfrac{a_j}{j h} \sin \left( h j k \right).
+\mu^k = i \gsum_{j=1}^P \dfrac{a_j}{j h} \sin \left( \dfrac{2 \pi k}{N} \right).
 \end{equation}
 \end{theoreme}
 
@@ -623,33 +611,44 @@ Consèquence directe de la proposition \ref{prop:eigen_tau} en considérant que 
 \end{equation}
 \end{proof}
 
-En continue, il est facile de vérifier que si $u : x \in \mathbb{R} \mapsto u(x) = \exp \left[ i \tilde{k} x \right]$ alors $u'(x) = i \tilde{k} u(x)$ pour tout $x \in \mathbb{R}$. Alors, par restriction au maillage, on a
+En continue, il est facile de vérifier que si $u : x \in \mathbb{R} \mapsto u(x) = \exp \left[ i \dfrac{2 \pi k}{L} x \right]$ alors $u'(x) = i \dfrac{2 \pi k}{L} u(x)$ pour tout $x \in \mathbb{R}$. Alors, par restriction au maillage, on a
 \begin{equation}
-u'^* = i \tilde{k} u^*.
+u'^* = i \dfrac{2 \pi k}{L} u^*.
 \end{equation}
 
 Ainsi, l'approximation suivante doit être vérifiée :
 
 \begin{equation}
-\theta := \tilde{k} h \approx \theta_m(\theta) := \gsum_{j=1}^P \dfrac{a_j}{j} \sin \left( j \theta \right).
+\theta := \dfrac{2 \pi k}{L} h = \dfrac{2 \pi k}{N} \approx \theta_m(\theta) := \gsum_{j=1}^P \dfrac{a_j}{j} \sin \left( j \theta \right).
 \end{equation}
 
-Cette approximation est vrai à l'ordre $2P$ si $\delta_{x,P}$ est un opérateur d'approximation de la dérivée première à l'odre $2P$.
-On remarque en premier lieu que $\theta_m(0) = \theta_m ( \pi ) = 0$. Les courbes représentant $\theta_m$ en fonction de $\theta$ aux ordre $2$, $4$, $6$ et $8$ sont donnés en figure REF. 
+Cette approximation est vrai à l'ordre $2P$ si $\delta_{x,P}$ est un opérateur d'approximation de la dérivée première à l'odre $2P+1$. C'est à dire :
+\begin{equation}
+\theta - \theta_m(\theta) = \mathcal{O} \left( \theta^{2P+1} \right)
+\end{equation}
+On remarque en premier lieu que $\theta_m(0) = \theta_m ( \pi ) = 0$. Les courbes représentant $\theta_m$ en fonction de $\theta$ aux ordres $2$, $4$, $6$ et $8$ sont donnés en figure \ref{fig:freq_classic}. 
 
-\textcolor{red}{AJOUTER UNE FIGURE ICI}
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=.6]{freq_classic.eps}
+\end{center}
+\caption{Représentation de $\theta_m$ en fonction de $\theta$ pour les schémas d'approximation explicites $\delta_{x,P}$.}
+\label{fig:freq_classic}
+\end{figure}
 
-La figure REF, permet de constater que les basses fréquences ($k$ petit, donc $\theta$ proche de 0) sont bien représentées alors que les hautes fréquences ($\theta$ proche de $\pi$) sont mal représentées. En effet lorsque $\theta = \pi$, on considère $k = N$ et la fonction propre associée s'annulle en chaque point du maillage. Les fréquences supérieures ne peuvent pas être bien représentées.
-Plus l'ordre de précision du schéma est élevée, mieux on représente les fréquences.
+La figure \ref{fig:freq_classic} permet de constater que les basses fréquences ($k$ petit, donc $\theta$ proche de $0$) sont bien représentées alors que les hautes fréquences ($\theta$ proche de $\pi$) sont mal représentées. En effet lorsque $\theta = \pi$, le nombre $k$ vaut $k = N/2$ et la fonction associée ne peut etre représentée par le maillage. 
+Plus l'ordre de précision du schéma est élevée, mieux on représente les hautes fréquences.
 
-\textcolor{red}{REFLECHIR AUX PERIODES!!!}
 
-D'un point de vu matricielle, l'opérateur $\delta_{P,x}$ est à une matrice antisymétrique notée $D_P$. Les matrices agissent sur $U = [\mathfrak{u}_0, \mathfrak{u}_1, ..., \mathfrak{u}_{N-1}]^T$, on pose $U_x$ le vecteur $U_x = [\delta_{P,x}\mathfrak{u}_0, \delta_{P,x}\mathfrak{u}_1, ..., \delta_{P,x}\mathfrak{u}_{N-1}]^T$, on a alors :
+L'opérateur $\delta_{P,x}$ est associé à une matrice antisymétrique notée $D_P$.
+
+Les matrices agissent sur $U = [\mathfrak{u}_0, \mathfrak{u}_1, ..., \mathfrak{u}_{N-1}]^T$.
+On pose $U_x$ le vecteur $U_x = [\delta_{P,x}\mathfrak{u}_0, \delta_{P,x}\mathfrak{u}_1, ..., \delta_{P,x}\mathfrak{u}_{N-1}]^T$, on a alors :
+
 \begin{equation}
 U_x = D_P U
 \end{equation}
-Les matrices $D_P$ ont les mêmes valeurs propres que $\delta_{x,P}$. Ainsi $0$ est une valeur propre et ces matrices ne sont pas inversibles.
-A titre d'exemple, on donne la matrice associée à l'ordre 2 :
+Les matrices $D_P$ ont les mêmes valeurs propres que $\delta_{x,P}$. $0$ est valeur propre de $D_P$, $D_P$ est non inversible. A titre d'exemple, on donne la matrice associée à l'ordre 2 :
 
 \begin{equation}
 D_2 = \dfrac{1}{2h} \begin{bmatrix}
@@ -664,7 +663,7 @@ D_2 = \dfrac{1}{2h} \begin{bmatrix}
 dont les vecteurs propres sont 
 
 \begin{equation}
-\mu^k = \dfrac{i}{h} \sin ( k h ). 
+\mu^k = \dfrac{i}{h} \sin \left( \dfrac{2 \pi k}{N} \right). 
 \end{equation}
 En particulier, on remarque que $\mu^N = 0$.
 
@@ -679,7 +678,7 @@ En particulier, on remarque que $\mu^N = 0$.
 
 \subsubsection{Opérateurs Hermitiens périodiques}
 
-Dans son article \cite{Lele1991}, S. K. Lele présente une méthode permettant d'approcher la dérivée en un point en ajoutant une partie implicite au schéma de la forme \eqref{eq:explicite_dx}. Dans ce chapitre, nous ne considérons que les schémas à 4 points implicites. Nous définissons $\sigma_{3,x}$ par :
+Dans son article \cite{Lele1991}, S. K. Lele présente une méthode permettant d'approcher la dérivée en un point en ajoutant une partie implicite au schéma de la forme \eqref{eq:explicite_dx}. Dans ce chapitre, nous ne considérons que les schémas à 3 points implicites. Définissons l'opérateur $\sigma_{3,x}$ par :
 
 \begin{equation}
 (\sigma_{3,x} \mathfrak{u})_j = \alpha \mathfrak{u}_j + \beta \left( \mathfrak{u}_{j+1} + \mathfrak{u}_{j-1} \right)
@@ -687,10 +686,17 @@ Dans son article \cite{Lele1991}, S. K. Lele présente une méthode permettant d
 
 \begin{theoreme}
 Si les coefficients réels $\alpha$, $\beta$ ainsi que les coefficients $(a_i)_{1 \leq i \leq P}$ sont solutions de 
-
-et si $u$ est une fonction suffisament régulière, alors pour tout $0 \leq i \leq N-1$, on a 
 \begin{equation}
-(\delta_{P,x} u^*)_i - (\sigma_{3,x} u'^*)_i = ... 
+\left\lbrace
+\begin{array}{rcl}
+\gsum_{p=0}^P a_p & = & \alpha + 2 \beta \\
+\gsum_{p=0}^p a_p \dfrac{p^{2n}}{2n+1} & = & 2 \beta  \text{ pour } n=1,2,...P
+\end{array}
+\right.
+\end{equation}
+et si $u$ est une fonction de $\mathcal{C}^{2P+1}$, alors pour tout $0 \leq i \leq N-1$, on a 
+\begin{equation}
+(\delta_{P,x} u^*)_i - (\sigma_{3,x} u'^*)_i = \mathcal{O} \left( h^{2P} \right)
 \end{equation}
 \end{theoreme}
 
