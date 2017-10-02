@@ -13,7 +13,14 @@ sc8=((25/16)*sin(teta)+(1/5)*sin(2*teta)/2-(1/80)*sin(3*teta)/3)./(1+2*(3/8)*cos
 
 figure(1)
 plot(teta,se2,'--',teta,se4,'--',teta,se6,'--',teta,se8,'--',teta,sc4,'-',teta,sc6,'-',teta,sc8,'-',teta,teta,'k-','Linewidth',2)
-legend('expl. 2','expl. 4','expl. 6','expl. 8','herm. 4','herm. 6','herm. 8','theoric.','Location','northwest')
-xlabel('\theta= \Deltax \xi')
+legend('expl. 2','expl. 4','expl. 6','expl. 8','comp. 4','comp. 6','comp. 8','theoric.','Location','northwest')
+xlabel('\theta')
+ylabel('modified \theta : \theta_m')
+grid on
+
+figure(2)
+plot(teta,se2,'-',teta,se4,'-',teta,se6,'-',teta,se8,'-',teta,teta,'k-','Linewidth',2)
+legend('expl. 2','expl. 4','expl. 6','expl. 8','theoric.','Location','northwest')
+xlabel('\theta')
 ylabel('modified \theta : \theta_m')
 grid on
