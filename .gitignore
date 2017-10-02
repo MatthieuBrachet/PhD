@@ -25,7 +25,7 @@
 *.dat
 *.DS_Store
 *._Mennuni.tex
-
+*.tar.gz
 
 !./test\ advection\ CS/redaction/Images/*.png
 
