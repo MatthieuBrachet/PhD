@@ -495,6 +495,21 @@ if strcmp(scheme,'compact4')==1
     k(na,1)=1;k(na,na-1)=-1;
     pg=p./6;
     kg=k./(2*deta);
+    
+elseif strcmp(scheme,'compact6')==1
+    J=diag(ones(na-1,1),-1);
+    J(1,end)=1;
+
+    a=14/9;
+    b=1/18;
+    alpha=2/3;
+    k_div=(-a/(2*dxi))*J+(-b/(4*dxi))*J*J+(a/(2*dxi))*J^(na-1)+(b/(4*dxi))*J^(na-2);
+    kg=sparse(k_div);
+
+    p_div=diag(alpha*ones(na-1,1),1)+diag(alpha*ones(na-1,1),-1)+diag(ones(na,1));
+    p_div(1,end)=alpha;
+    p_div(end,1)=alpha;
+    pg=sparse(p_div);
 
 elseif strcmp(scheme,'compact8')==1
     J=diag(ones(na-1,1),-1);
@@ -534,6 +549,20 @@ elseif strcmp(scheme,'explicite4')==1
     kg=sparse(k);
     pg=speye(na,na);
     
+elseif strcmp(scheme,'kim4')==1
+    alpha=.435181352;
+    pg=speye(na,na)+alpha.*(diag(ones(na-1,1),1)+diag(ones(na-1,1),-1));
+    pg(1,end)=alpha; pg(end,1)=alpha;
+    
+    J=diag(ones(na-1,1),-1);
+    J(1,end)=1;
+    a=1.551941906;
+    b=.361328195;
+    c=-.042907397;
+    kg=(-a/(2*dxi))*J+(-b/(4*dxi))*J*J+(-c/(6*dxi))*J^3+...
+    (a/(2*dxi))*J^(na-1)+(b/(4*dxi))*J^(na-2)+(c/(6*dxi))*J^(na-3);
+    kg=sparse(kg);
+
 else
     error(['Error in scheme. The spatial scheme : ', scheme ,' is uncorrect'])
 end
