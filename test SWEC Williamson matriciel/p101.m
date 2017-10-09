@@ -32,8 +32,8 @@ test=5;
 video = 'no';
 sauvegarde = 1;
 filtre='symetric';
-opt_ftr='redonnet10';
-scheme='compact4';
+opt_ftr='inf';
+scheme='kim4';
 snapshot='yes';
 nrm='int';
 
