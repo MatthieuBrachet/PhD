@@ -352,7 +352,7 @@ Les fonctions propres de $\tau$ sont les fonctions de grilles $\mathfrak{u}^k$ v
 \end{equation}
 Chaque vecteur propre est associé à la valeur propre $\lambda^k$ avec 
 \begin{equation}
-\lambda = \exp \left[ i \dfrac{2 \pi k}{N} \right].
+\lambda = \exp \left[ i \dfrac{2 \pi}{N} \right].
 \end{equation}
 avec $0 \leq k \leq N-1$.
 \end{proposition}
@@ -374,7 +374,7 @@ Les vecteurs propres de $P(\tau)$ sont les fonctions de grilles $\mathfrak{u}^k$
 \end{equation}
 Chaque vecteur propre est associé à la valeur propre $P(\lambda^k)$ avec 
 \begin{equation}
-\lambda = \exp \left[ i \dfrac{2 \pi k}{N} \right]
+\lambda = \exp \left[ i \dfrac{2 \pi}{N} \right]
 \end{equation}
 avec $0 \leq k \leq N-1$.
 \label{prop:eigen_tau}
@@ -420,7 +420,7 @@ Les propriétés concernant les valeurs et vecteurs propres de $\tau$ sont aussi
 \begin{itemize}
 \item Les valeurs propres de $T$ sont les valeurs $(\lambda^k)_{0 \leq k \leq N-1}$ avec 
 \begin{equation}
-\lambda = \exp \left[ i \dfrac{2 \pi k}{N} \right].
+\lambda = \exp \left[ i \dfrac{2 \pi}{N} \right].
 \label{eq:eigenvalueT}
 \end{equation}
 les vecteurs propres associés sont donnés par $\left( U^k \right)_{0 \leq k \leq N-1}$ vérifiant :
@@ -600,6 +600,7 @@ Les valeurs propres de $\delta_{P,x}$ sont :
 \begin{equation}
 \mu^k = i \gsum_{j=1}^P \dfrac{a_j}{j h} \sin \left( \dfrac{2 \pi k}{N} \right).
 \end{equation}
+\label{prop:eigen_explicit}
 \end{theoreme}
 
 \begin{proof}
@@ -732,7 +733,7 @@ D'autres part, on a
 \alpha u'^*_i + \beta \left( \tau_1 u'^*_{i} + \tau_{-1} u'^*_{i} \right) = (\alpha + 2 \beta) u'^*_i \gsum_{k=1}^{2P+1} \beta \dfrac{h^{k}}{k!} \left( 1 + (-1)^k \right) u^{(k+1)}(x_i)+ \beta \dfrac{h^{2P+2}}{(2P+2)!} \left(u^{(2P+3)}(\varrho) + u^{(2P+3)}(\sigma) \right) 
 \label{eq:preuve_herm2}
 \end{equation}
-avec $\varrho \in [x_i, x_i + h]$ et $\varrho \in [x_i, x_i - h]$. 
+avec $\varrho \in [x_i, x_i + h]$ et $\sigma \in [x_i, x_i - h]$. 
 
 On remarque directement que \eqref{eq:preuve_herm2} et $\gsum_{p=0}^P a_p  \eqref{eq:preuve_herm1}$ coïncident pour les puissances de $h$ impaires. 
 
@@ -751,6 +752,7 @@ On peut noter que comme $u \in \mathcal{C}^{2P+3}(\Omega)$, alors
 donc 
 \begin{equation}
 \| (\delta_{P,x}u^*)_i - (\sigma_{3,x} u'^*)_i \|_{\infty} \leq C \|u^{(2P+3)} \|_{\infty} h^{2P+2} = \mathcal{O}(h^{2P+2})
+\label{eq:eq_cons}
 \end{equation}
 
 Sous forme matricielle, l'opérateur $\sigma_{3,x}$ s'écrit :
@@ -771,6 +773,11 @@ La matrice $S$ et l'opérateur $\sigma_{3,x}$ ont pour valeurs propres
 \begin{equation}
 \mu^k = \alpha + \beta \cos \left( \dfrac{2 \pi k}{N} \right)
 \end{equation}
+Chaque valeur propre est associée à un vecteur propre $U^k$ avec $0 \leq k \leq N-1$ et 
+\begin{equation}
+U^k_j = \exp \left[ ij \dfrac{2 \pi k}{N} \right]
+\end{equation}
+\label{prop:eigen_implicit_herm}
 \end{proposition}
 
 \begin{proof}
@@ -803,13 +810,13 @@ Les opérateurs $\sigma_{3,x}$ considérés dans la suite vérifieront l'hypoth�
 \end{equation}
 
 \begin{definition}
-On définit $\delta_x^H$ l'\textit{opérateur hermitien} donné par 
+On définit $\delta_{P,x}^H$ l'\textit{opérateur hermitien} donné par 
 \begin{equation}
-\delta_x^H = \sigma_{3,x}^{-1} \circ \delta_{P,x}.
+\delta_{P,x}^H = \sigma_{3,x}^{-1} \circ \delta_{P,x}.
 \end{equation}
 \end{definition}
 
-Matriciellement, l'opérateur $\delta_x^H$ est associé à la matrice $T^{-1} D_P$ où $D_P$ est donnée par \eqref{eq:matrice_Dp} et $T$ donné par \eqref{eq:matrice_T}. Dans la pratique, on ne calcule pas directement cette matrice, si
+Matriciellement, l'opérateur $\delta_{P,x}^H$ est associé à la matrice $S^{-1} D_P$ où $D_P$ est donnée par \eqref{eq:matrice_Dp} et $T$ donné par \eqref{eq:matrice_T}. Dans la pratique, on ne calcule pas directement cette matrice, si
 \begin{equation}
 U = \begin{bmatrix}
 \mathfrak{u}_1 \\
@@ -830,12 +837,141 @@ alors on procède en deux étapes :
 \begin{equation}
 W = D_P U,
 \end{equation}
-\item Résoudre le système 
+\item Résoudre le système\footnote{La résolution de ce système peut se faire grâce à la formule de Shermann-Morisson-Woodbury couplée à l'algorithme de Thomas.} 
 \begin{equation}
-T U_x = W.
+S U_x = W.
 \end{equation}
 \end{enumerate}
 
+\begin{theoreme}
+Si $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est une fonction de classe $\mathcal{C}^{(2P+3)}$.
+Si les coefficients $\alpha$, $\beta$ et $(a_i)_{1 \leq i \leq P}$ sont solutions de \eqref{eq:hermitian_system} et si 
+\begin{equation}
+\begin{vmatrix}
+\dfrac{\alpha}{2 \beta}
+\end{vmatrix} > 1.
+\end{equation}
+Alors 
+\begin{equation}
+\| u'^* - \delta_{P,x}^H u^* \|_{\infty} \leq C h^{2P+2} \| u^{(2P+3)} \|_{\infty}
+\end{equation}
+où $C$ est une constante indépendante de $u$.
+\end{theoreme}
+
+\begin{proof}
+Par calcul immédiat, on a :
+\begin{equation}
+\begin{array}{rcl}
+\|  u'^* - \delta_{P,x}^H u^* \|_{\infty} &=& \| \sigma_{3,x}^{-1} \circ \left( \sigma_{3,x} u'^*  - \delta_{P,x}u^*\right) \|_{\infty}\\
+                                      &\leq& \| \sigma_{3,x}^{-1} \|_{\infty} \| \sigma_{3,x} u'^*  - \delta_{P,x}u^*\|_{\infty}\\
+                                      &\leq& C h^{2P+2}  \| u^{(2P+3)} \|_{\infty}
+\end{array}
+\end{equation}
+en utilisant $\sigma_{3,x}$ inversible et l'équation \eqref{eq:eq_cons}.
+\end{proof}
+Quelques exemples de schémas compacts sont donnés dans le corollaire suivant.
+\begin{corollaire}
+Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ alors 
+\begin{itemize}
+\item Si $u \in \mathcal{C}^{5}(\Omega)$ alors 
+\begin{equation}
+\begin{array}{rcccl}
+\sigma_{x} &=& \sigma_{3,x} &=& \dfrac{4}{6} id + \dfrac{1}{6} \left( \tau_1 + \tau_{-1} \right)\\
+\delta_{x} &=& \dfrac{\tau_1 - \tau_{-1}}{2h} &&\\ 
+\end{array}
+\label{eq:comp4}
+\end{equation}
+et $\delta^H_x = \sigma_x^{-1} \circ \delta_x$ définit un opérateur d'approximation de la dérivée première à l'ordre 4,
+
+\item Si $u \in \mathcal{C}^{7}(\Omega)$ alors 
+\begin{equation}
+\begin{array}{rcl}
+\sigma_{3,x} &=& id + \dfrac{2}{3}\left( \tau_1 + \tau_{-1} \right) \\
+\delta_{3,x} &=& \dfrac{14}{9} \dfrac{\tau_1 - \tau_{-1}}{2h} + \dfrac{1}{18} \dfrac{\tau_2 - \tau_{-2}}{4h}\\ 
+\end{array}
+\label{eq:comp6}
+\end{equation}
+et $\delta^H_{2,x} = \sigma_{3,x}^{-1} \circ \delta_{2,x}$ définit un opérateur d'approximation de la dérivée première à l'ordre 6,
+
+
+\item Si $u \in \mathcal{C}^{9}(\Omega)$ alors 
+\begin{equation}
+\begin{array}{rcl}
+\sigma_{3,x} &=& id + \dfrac{3}{8}\left( \tau_1 + \tau_{-1} \right) \\
+\delta_{3,x} &=& \dfrac{25}{16} \dfrac{\tau_1 - \tau_{-1}}{2h} + \dfrac{1}{5} \dfrac{\tau_2 - \tau_{-2}}{4h} + \dfrac{1}{80} \dfrac{\tau_3 - \tau_{-3}}{6h} \\ 
+\end{array}
+\label{eq:comp8}
+\end{equation}
+et $\delta^H_{3,x} = \sigma_{3,x}^{-1} \circ \delta_{3,x}$ définit un opérateur d'approximation de la dérivée première à l'ordre 8.
+
+\end{itemize}
+\end{corollaire}
+
+L'analyse fréquentielle de l'opérateur hermitien $\delta_{P,x}^H$ est basée sur le calcul de ces valeurs propres. Les valeurs propres et les vecteurs propres de $S^{-1} D_P$ sont données par la proposition suivante.
+
+\begin{theoreme}
+Les valeurs propres de $S^{-1} D_P$ (et aussi celles de $\delta_{P,x}^H$) sont données par 
+\begin{equation}
+\varsigma^k = \dfrac{i}{\alpha + \beta \cos \left( \dfrac{2 k \pi}{N} \right)} \left( \gsum_{j=1}^P \dfrac{a_j}{jh} \sin \left( \dfrac{2 k \pi}{N} \right) \right)
+\end{equation}
+A chaque valeur propre $\varsigma^k$ est associée un vecteur propre $U^k$ donné par 
+\begin{equation}
+U^k_j = \exp \left[ ij \dfrac{2 \pi k}{N} \right]
+\end{equation}
+pour $1 \leq j,k \leq N$.
+\end{theoreme}
+
+\begin{proof}
+On a vu dans la proposition \ref{prop:eigen_implicit_herm} que 
+\begin{equation}
+S U^k = \left( \alpha + \beta \cos \left( \dfrac{2 k \pi}{N} \right) \right) U^k
+\end{equation}
+donc par passage à l'inverse
+\begin{equation}
+S^{-1} U^k = \dfrac{1}{\alpha + \beta \cos \left( \dfrac{2 k \pi}{N} \right)} U^k
+\end{equation}
+De la même manière, on a déjà vu dans le théorème \ref{prop:eigen_explicit} : 
+\begin{equation}
+D_P U^k = i \left( \gsum_{j=1}^P \dfrac{a_j}{jh} \cos \left( \dfrac{2 k \pi}{N} \right) \right) U^k.
+\end{equation}
+Par composition
+\begin{equation}
+S^{-1} D_P U^k = \varsigma^k U^k.
+\end{equation}
+\end{proof}
+
+Nous supposons que les coefficients $\alpha$, $\beta$ et $(a_j)_{0 \leq j \leq N-1}$ vérifient \eqref{eq:hermitian_system}.
+Comme pour les schémas explicites présentés dans la partie précédente, on souhaite comparer la quantité $\theta$ avec
+\begin{equation}
+\theta_m(\theta) = \dfrac{1}{\alpha + \beta \cos \theta} \left( \gsum_{j=1}^P \dfrac{a_j}{j} \cos j \theta \right)
+\end{equation}
+Dans l'idéal, on souhaite avoir 
+\begin{equation}
+\theta \approx \theta_m(\theta)
+\end{equation}
+au voisinage de $\theta = 0$. Il es déjà facile de voir que 
+\begin{equation}
+\theta_m(0) = \theta_m(\pi) = 0
+\end{equation}
+ainsi que de voir que 
+\begin{equation}
+\theta_m(\theta) = \theta + \mathcal{O}(\theta^{20+2})
+\end{equation}
+Si l'on trace les nombres $\theta_m$ issus des schémas compacts d'ordre 4, 6 et 8 (équation \eqref{eq:comp4}, \eqref{eq:comp6} et \eqref{eq:comp8}) avec ceux explicites d'ordre 2, 4, 6 et 8, on obtient la figure \ref{fig:freq_comp}.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=.6]{freq_total.eps}
+\end{center}
+\caption{Représentation de $\theta_m$ en fonction de $\theta$ pour les schémas d'approximation explicites $\delta_{x,P}$ d'ordres 2, 4, 6 et 8 (en pointillés) et les schémas compacts $\delta_{x,P}^H$ d'ordres 4, 6 et 8 (en trait plein).}
+\label{fig:freq_comp}
+\end{figure}
+
+Plusieurs choses sont à remarquer :
+\begin{itemize}
+\item De manière générale, les schémas compacts représentent mieux les hautes fréquences (lorsque $\theta$ grandit),
+\item Plus un schéma est d'ordre élevé, mieux il représente les fréquences.
+\end{itemize}
 
 
 
@@ -853,17 +989,16 @@ T U_x = W.
 
 
 
-Exemples de schémas compacts. Insérer ici les ordres 4, 6 et 8.
 
-Inversion de la matrice S à l'aide de Shermann-Morisson-Woodbury. Voir thèse de Ali Abbas.
 
-Analyse fréquentielle. 
 
-Graphique de meilleur convergence en fréquentiel des schémas compacts.
+
+
+
+
 
 Ajouter travail sur les schémas compacts non pérodiques. 
 
-Passage en 2D? Peut etre ne pas le mettre.
 
 
 
@@ -885,12 +1020,9 @@ Passage en 2D? Peut etre ne pas le mettre.
 
 
 
-\subsection{Opérateur de filtrage en dimension 1}
 
-\subsubsection{Opérateur de filtrage explicite}
+\section{Opérateur de filtrage en dimension 1}
 
-
-\subsubsection{Opérateur de filtrage hermitien}
 
 
 \section{Opérateurs d'interpolation}
