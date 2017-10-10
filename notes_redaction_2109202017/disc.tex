@@ -303,9 +303,7 @@ D'une manière générale, dans un contexte périodique, les données sur des bo
 
 \section{Opérateurs aux différences}
 
-\subsection{Approximation des opérateurs dérivées en dimension 1}
-
-\subsubsection{Opérateurs classiques périodiques}
+\subsection{Opérateurs classiques périodiques 1D}
 
 On considère $\Omega = [0,L]$. Les notations employées sont celles de la partie \ref{sec:notation_1D} dans le contexte périodique.
 
@@ -632,7 +630,7 @@ On remarque en premier lieu que $\theta_m(0) = \theta_m ( \pi ) = 0$. Les courbe
 \begin{center}
 \includegraphics[scale=.6]{freq_classic.eps}
 \end{center}
-\caption{Représentation de $\theta_m$ en fonction de $\theta$ pour les schémas d'approximation explicites $\delta_{x,P}$.}
+\caption{Représentation de $\theta_m$ en fonction de $\theta$ pour les schémas d'approximation explicites $\delta_{x,P}$ d'ordres 2, 4, 6 et 8.}
 \label{fig:freq_classic}
 \end{figure}
 
@@ -665,7 +663,17 @@ dont les vecteurs propres sont
 \begin{equation}
 \mu^k = \dfrac{i}{h} \sin \left( \dfrac{2 \pi k}{N} \right). 
 \end{equation}
-En particulier, on remarque que $\mu^N = 0$.
+En particulier, on remarque que $\mu^N = 0$. En général, la matrice $D_P$ est donnée par :
+\begin{equation}
+\left( D_P \right)_{i,j} = \dfrac{1}{2h} \left\lbrace
+\begin{array}{ll}
+\dfrac{a_p}{p} & \text{ si } j - i \equiv p [N] \text{ avec } 1 \leq p \leq P \\
+-\dfrac{a_p}{p} & \text{ si } i - j \equiv p [N] \text{ avec } 1 \leq p \leq P \\
+0 & \text{ sinon.}
+\end{array}
+\right.
+\label{eq:matrice_Dp}
+\end{equation}
 
 
 
@@ -676,7 +684,8 @@ En particulier, on remarque que $\mu^N = 0$.
 
 
 
-\subsubsection{Opérateurs Hermitiens périodiques}
+
+\subsection{Opérateurs Hermitiens périodiques 1D}
 
 Dans son article \cite{Lele1991}, S. K. Lele présente une méthode permettant d'approcher la dérivée en un point en ajoutant une partie implicite au schéma de la forme \eqref{eq:explicite_dx}. Dans ce chapitre, nous ne considérons que les schémas à 3 points implicites. Définissons l'opérateur $\sigma_{3,x}$ par :
 
@@ -690,22 +699,61 @@ Si les coefficients réels $\alpha$, $\beta$ ainsi que les coefficients $(a_i)_{
 \left\lbrace
 \begin{array}{rcl}
 \gsum_{p=0}^P a_p & = & \alpha + 2 \beta \\
-\gsum_{p=0}^p a_p \dfrac{p^{2n}}{2n+1} & = & 2 \beta  \text{ pour } n=1,2,...P
+\gsum_{p=0}^P a_p \dfrac{p^{2n}}{2n+1} & = & 2 \beta  \text{ pour } n=1,2,...P
 \end{array}
 \right.
+\label{eq:hermitian_system}
 \end{equation}
-et si $u$ est une fonction de $\mathcal{C}^{2P+1}$, alors pour tout $0 \leq i \leq N-1$, on a 
-\begin{equation}
-(\delta_{P,x} u^*)_i - (\sigma_{3,x} u'^*)_i = \mathcal{O} \left( h^{2P} \right)
-\end{equation}
+et si $u$ est une fonction de $\mathcal{C}^{2P+3}$, alors pour tout $0 \leq i \leq N-1$, on a 
+\begin{multline}
+(\delta_{P,x} u^*)_i - (\sigma_{3,x} u'^*)_i = \\
+h^{2P+2} \left( \gsum_{p=0}^P a_p  \dfrac{(j)^{2P+2}}{2(2P+3)!} \left( u^{(2P+3)}(\xi_j) + u^{(2P+3)}(\eta_j) \right) - \dfrac{\beta}{(2P+2)!} \left(u^{(2P+3)}(\varrho) + u^{(2P+3)}(\sigma) \right) \right)
+\end{multline}
 \end{theoreme}
 
 \begin{proof}
-Insérer la preuve ici.
+Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ une fonction de classe $\mathcal{C}^{2P+3}( \Omega)$ et $u^*$ la fonction de grille correspondante.
+
+On considère les développements de Taylor :
+\begin{equation}
+\begin{array}{rcl}
+u(x_i + ph) & = & u(x_i) + p h u'(x_j) + \cdots + \dfrac{(ph)^k}{k!}u^{(k)}(x_i) + \cdots +\dfrac{(ph)^{2P+3}}{(2P+3)!} u^{(2P+3)}(\xi_p)\\
+u(x_i - ph) & = & u(x_i) - p h u'(x_j) + \cdots + \dfrac{(-ph)^k}{k!}u^{(k)}(x_i) + \cdots +\dfrac{(-ph)^{2P+3}}{(2P+3)!} u^{(2P+3)}(\eta_p)
+\end{array}
+\end{equation}
+avec $\xi_p \in [x_i, x_i+ph]$ et $\eta_p \in [x_i-ph, x_i]$. En combinant ces deux égalités, on a
+\begin{equation}
+\dfrac{\tau_pu^*_i - \tau_{-p} u^*_i}{2ph} = u'(x_i) + \cdots + \dfrac{(ph)^{k-1}(1 - (-1)^k)}{2 \cdot k!} u^{(k)}(x_i) + \cdots +\dfrac{(ph)^{2P+2}}{2(2P+3)!} \left( u^{(2P+3)}(\xi_p) + u^{(2P+3)}(\eta_p) \right)
+\label{eq:preuve_herm1}
+\end{equation}
+
+D'autres part, on a 
+\begin{equation}
+\alpha u'^*_i + \beta \left( \tau_1 u'^*_{i} + \tau_{-1} u'^*_{i} \right) = (\alpha + 2 \beta) u'^*_i \gsum_{k=1}^{2P+1} \beta \dfrac{h^{k}}{k!} \left( 1 + (-1)^k \right) u^{(k+1)}(x_i)+ \beta \dfrac{h^{2P+2}}{(2P+2)!} \left(u^{(2P+3)}(\varrho) + u^{(2P+3)}(\sigma) \right) 
+\label{eq:preuve_herm2}
+\end{equation}
+avec $\varrho \in [x_i, x_i + h]$ et $\varrho \in [x_i, x_i - h]$. 
+
+On remarque directement que \eqref{eq:preuve_herm2} et $\gsum_{p=0}^P a_p  \eqref{eq:preuve_herm1}$ coïncident pour les puissances de $h$ impaires. 
+
+Pour les autres valeurs, l'égalité est vrai si les coefficients $a_p$, $\alpha$ et $\beta$ sont solutions de \eqref{eq:hermitian_system}. L'erreur de troncature prend directement la forme 
+
+\begin{multline}
+(\delta_{P,x} u^*)_i - (\sigma_{3,x} u'^*)_i = \\
+h^{2P+2} \left( \gsum_{p=0}^P a_p  \dfrac{(j)^{2P+2}}{2(2P+3)!} \left( u^{(2P+3)}(\xi_j) + u^{(2P+3)}(\eta_j) \right) - \dfrac{\beta}{(2P+2)!} \left(u^{(2P+3)}(\varrho) + u^{(2P+3)}(\sigma) \right) \right)
+\end{multline}
 \end{proof}
 
-Sous forme matricielle, l'opérateur $\sigma_{3,x}$ s'écrit :
+On peut noter que comme $u \in \mathcal{C}^{2P+3}(\Omega)$, alors 
+\begin{equation}
+\|u^{(2P+3)} \|_{\infty} < \infty
+\end{equation}
+donc 
+\begin{equation}
+\| (\delta_{P,x}u^*)_i - (\sigma_{3,x} u'^*)_i \|_{\infty} \leq C \|u^{(2P+3)} \|_{\infty} h^{2P+2} = \mathcal{O}(h^{2P+2})
+\end{equation}
 
+Sous forme matricielle, l'opérateur $\sigma_{3,x}$ s'écrit :
 \begin{equation}
 S = \begin{bmatrix}
 \alpha    & \beta    &    &    &     & \beta \\
@@ -715,29 +763,95 @@ S = \begin{bmatrix}
      & (0)  &    & \beta & \alpha   & \beta  \\
 \beta    &      &    &    & \beta  & \alpha  \\
 \end{bmatrix}
+\label{eq:matrice_T}
 \end{equation}
 
 \begin{proposition}
-La matrice $S$ est inversible et bornée au sens où :
+La matrice $S$ et l'opérateur $\sigma_{3,x}$ ont pour valeurs propres 
 \begin{equation}
-\| S \|_{\infty} = |\alpha + 2 \beta| < \infty.
+\mu^k = \alpha + \beta \cos \left( \dfrac{2 \pi k}{N} \right)
 \end{equation}
 \end{proposition}
 
 \begin{proof}
-Insérer la preuve ici.
+Conséquence de la proposition \ref{prop:eigen_tau}. 
 \end{proof}
 
-\begin{theoreme}
-Ici, résultat de convergence concernant les schémas compacts. Formellement :
+\begin{corollaire}
+L'opérateur $\sigma_{3,x}$ est inversible si 
 \begin{equation}
-\| u'^* - \sigma_{3,x}^{-1} \delta_{P,x} u^* \|_{\infty} = \mathcal{O}(h^{\alpha})
+\begin{vmatrix}
+\dfrac{\alpha}{2 \beta}
+\end{vmatrix} > 1.
 \end{equation}
-\end{theoreme}
+De plus, sous cette hypothèse, la matrice $S$ est symétrique définie positive.
+\end{corollaire}
 
 \begin{proof}
-Conséquence du théorème précédent et de la sous multiplicativité. Raisonner en matriciel.
+Il suffit de vérifier que 
+\begin{equation}
+| \alpha + \beta \cos \left( \theta \right) | > 1
+\end{equation}
+pour déduire que les valeurs propres de $\sigma_{3,x}$ sont strictement positive, la symétrie de $S$ est triviale.
 \end{proof}
+
+Les opérateurs $\sigma_{3,x}$ considérés dans la suite vérifieront l'hypothèse 
+\begin{equation}
+\begin{vmatrix}
+\dfrac{\alpha}{2 \beta}
+\end{vmatrix} > 1.
+\end{equation}
+
+\begin{definition}
+On définit $\delta_x^H$ l'\textit{opérateur hermitien} donné par 
+\begin{equation}
+\delta_x^H = \sigma_{3,x}^{-1} \circ \delta_{P,x}.
+\end{equation}
+\end{definition}
+
+Matriciellement, l'opérateur $\delta_x^H$ est associé à la matrice $T^{-1} D_P$ où $D_P$ est donnée par \eqref{eq:matrice_Dp} et $T$ donné par \eqref{eq:matrice_T}. Dans la pratique, on ne calcule pas directement cette matrice, si
+\begin{equation}
+U = \begin{bmatrix}
+\mathfrak{u}_1 \\
+\mathfrak{u}_2 \\
+\vdots \\
+\mathfrak{u}_N 
+\end{bmatrix} \text{ et } 
+U_x = \begin{bmatrix}
+\delta_{P,x}\mathfrak{u}_1 \\
+\delta_{P,x}\mathfrak{u}_2 \\
+\vdots \\
+\delta_{P,x}\mathfrak{u}_N 
+\end{bmatrix}
+\end{equation}
+alors on procède en deux étapes :
+\begin{enumerate}
+\item Calculer le produit matrice vecteur 
+\begin{equation}
+W = D_P U,
+\end{equation}
+\item Résoudre le système 
+\begin{equation}
+T U_x = W.
+\end{equation}
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Exemples de schémas compacts. Insérer ici les ordres 4, 6 et 8.
 
