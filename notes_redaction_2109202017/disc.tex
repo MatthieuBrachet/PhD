@@ -771,7 +771,7 @@ S = \begin{bmatrix}
 \begin{proposition}
 La matrice $S$ et l'opérateur $\sigma_{3,x}$ ont pour valeurs propres 
 \begin{equation}
-\mu^k = \alpha + \beta \cos \left( \dfrac{2 \pi k}{N} \right)
+\mu^k = \alpha + 2 \beta \cos \left( \dfrac{2 \pi k}{N} \right)
 \end{equation}
 Chaque valeur propre est associée à un vecteur propre $U^k$ avec $0 \leq k \leq N-1$ et 
 \begin{equation}
@@ -791,13 +791,13 @@ L'opérateur $\sigma_{3,x}$ est inversible si
 \dfrac{\alpha}{2 \beta}
 \end{vmatrix} > 1.
 \end{equation}
-De plus, sous cette hypothèse, la matrice $S$ est symétrique définie positive.
+De plus, sous cette hypothèse, la matrice $S$ est symétrique définie.
 \end{corollaire}
 
 \begin{proof}
 Il suffit de vérifier que 
 \begin{equation}
-| \alpha + \beta \cos \left( \theta \right) | > 1
+| \alpha + 2 \beta \cos \left( \theta \right) | > 1
 \end{equation}
 pour déduire que les valeurs propres de $\sigma_{3,x}$ sont strictement positive, la symétrie de $S$ est triviale.
 \end{proof}
@@ -895,6 +895,7 @@ et $\delta^H_{2,x} = \sigma_{3,x}^{-1} \circ \delta_{2,x}$ définit un opérateu
 
 
 \item Si $u \in \mathcal{C}^{9}(\Omega)$ alors 
+PBM DANS LE CODE SUR LE SCHEMA A L'ORDRE 8 : A VERIFIER!!!
 \begin{equation}
 \begin{array}{rcl}
 \sigma_{3,x} &=& id + \dfrac{3}{8}\left( \tau_1 + \tau_{-1} \right) \\
@@ -912,7 +913,7 @@ L'analyse fréquentielle de l'opérateur hermitien $\delta_{P,x}^H$ est basée s
 \begin{theoreme}
 Les valeurs propres de $S^{-1} D_P$ (et aussi celles de $\delta_{P,x}^H$) sont données par 
 \begin{equation}
-\varsigma^k = \dfrac{i}{\alpha + \beta \cos \left( \dfrac{2 k \pi}{N} \right)} \left( \gsum_{j=1}^P \dfrac{a_j}{jh} \sin \left( \dfrac{2 k \pi}{N} \right) \right)
+\varsigma^k = \dfrac{i}{\alpha + 2 \beta \cos \left( \dfrac{2 k \pi}{N} \right)} \left( \gsum_{j=1}^P \dfrac{a_j}{jh} \sin \left( \dfrac{2 k \pi}{N} \right) \right)
 \end{equation}
 A chaque valeur propre $\varsigma^k$ est associée un vecteur propre $U^k$ donné par 
 \begin{equation}
@@ -924,7 +925,7 @@ pour $1 \leq j,k \leq N$.
 \begin{proof}
 On a vu dans la proposition \ref{prop:eigen_implicit_herm} que 
 \begin{equation}
-S U^k = \left( \alpha + \beta \cos \left( \dfrac{2 k \pi}{N} \right) \right) U^k
+S U^k = \left( \alpha + 2\beta \cos \left( \dfrac{2 k \pi}{N} \right) \right) U^k
 \end{equation}
 donc par passage à l'inverse
 \begin{equation}
@@ -943,7 +944,7 @@ S^{-1} D_P U^k = \varsigma^k U^k.
 Nous supposons que les coefficients $\alpha$, $\beta$ et $(a_j)_{0 \leq j \leq N-1}$ vérifient \eqref{eq:hermitian_system}.
 Comme pour les schémas explicites présentés dans la partie précédente, on souhaite comparer la quantité $\theta$ avec
 \begin{equation}
-\theta_m(\theta) = \dfrac{1}{\alpha + \beta \cos \theta} \left( \gsum_{j=1}^P \dfrac{a_j}{j} \cos j \theta \right)
+\theta_m(\theta) = \dfrac{1}{\alpha + 2 \beta \cos \theta} \left( \gsum_{j=1}^P \dfrac{a_j}{j} \cos j \theta \right)
 \end{equation}
 Dans l'idéal, on souhaite avoir 
 \begin{equation}
