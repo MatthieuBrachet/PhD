@@ -816,7 +816,7 @@ On définit $\delta_{P,x}^H$ l'\textit{opérateur hermitien} donné par
 \end{equation}
 \end{definition}
 
-Matriciellement, l'opérateur $\delta_{P,x}^H$ est associé à la matrice $S^{-1} D_P$ où $D_P$ est donnée par \eqref{eq:matrice_Dp} et $T$ donné par \eqref{eq:matrice_T}. Dans la pratique, on ne calcule pas directement cette matrice, si
+Matriciellement, l'opérateur $\delta_{P,x}^H$ est associé à la matrice $S^{-1} D_P$ où $D_P$ est donnée par \eqref{eq:matrice_Dp} et $S$ donné par \eqref{eq:matrice_T}. Dans la pratique, on ne calcule pas directement cette matrice, si
 \begin{equation}
 U = \begin{bmatrix}
 \mathfrak{u}_1 \\
@@ -1139,7 +1139,7 @@ avec $\Delta_k$ donné par
 &&& \vdots &  \vdots &
 \end{vmatrix}
 \end{equation}
-On reconnait alors un déterminant de Van-Der-Monde, donc $\det \Delta_k = \prod_{1 \leq i < j \leq F-1} \left( \alpha_j - \alpha_i \right)$, avec 
+On reconnait alors un déterminant de Van-Der-Monde, donc $\Delta_k = \prod_{1 \leq i < j \leq F-1} \left( \alpha_j - \alpha_i \right)$, avec 
 \begin{equation}
 \alpha_j = \left\lbrace
 \begin{array}{ll}
@@ -1148,7 +1148,7 @@ j^2 & \text{ avec } 1 \leq j \leq k-1\\
 \end{array}
 \right.
 \end{equation}
-Alors si $i<j$, on a $\alpha_i < \alpha_j$, donc $\det \Delta_k>0$ et même $\det A$ est une somme de déterminants tous strictements positifs donc $\det A > 0$. $A$ est inversible et le résultat est prouvé.
+Alors si $i<j$, on a $\alpha_i < \alpha_j$, donc $\Delta_k>0$ et même $\det A$ est une somme de déterminants tous strictements positifs donc $\det A > 0$. $A$ est inversible et le résultat est prouvé.
 \end{proof}
 Quelques filtres particuliers sont donnés dans la table \ref{tab:filter} en fonction de leur ordre de précision.
 
