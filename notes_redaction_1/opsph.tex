@@ -1,0 +1,37 @@
+% opsph.tex
+% opérateurs sphériques sur la sphère
+
+\chapter{Opérateurs sphériques}
+
+\section{Opérateur sphériques discrets}
+
+La résolution d'équations aux dérivées parties de type Shallow Water nécessite de passer par le calcul des opérateurs classiques : gradient, divergence et rotationnel.
+
+Si $\mathbf{u} : \mathbb{S}_a^2 \mapsto \mathbb{T}\mathbb{S}_a^2$ est un champ de vecteur régulier sur la sphère et $h : \mathbb{S}_a^2 \mapsto\mathbb{R}$ une fonction régulière sur la sphère.
+Chaque opérateur peut être écrit en coordonnées $(\xi, \eta)$ sur la sphère grâce aux formules suivantes :
+
+\begin{itemize}
+\item \textbf{Gradient :}
+\begin{equation}
+\nabla h = \mathbf{g}^{\xi} \dfrac{\partial h}{\partial \xi}_{|\eta} + \mathbf{g}^{\eta} \dfrac{\partial h}{\partial \eta}_{|\xi} 
+\label{eq: gradient}
+\end{equation}
+\item \textbf{Divergence :}
+\begin{equation}
+\begin{array}{rcl}
+\nabla \cdot \mathbf{u} & = & \mathbf{g}^{\xi} \cdot \dfrac{\partial \mathbf{u}}{\partial \xi}_{|\eta} + \mathbf{g}^{\eta} \cdot \dfrac{\partial \mathbf{u}}{\partial \eta}_{|\xi} \\
+	& = & \dfrac{1}{\sqrt{\bar{\mathbf{G}}}} \left( \dfrac{\partial}{\partial \xi} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\xi} \right)_{|\eta} + \dfrac{\partial}{\partial \eta} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\eta} \right)_{|\xi} \right) 
+\end{array}
+\label{eq: divergence}
+\end{equation}
+\item \textbf{Rotationnel :}
+\begin{equation}
+\nabla \wedge \mathbf{u} = \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{u}}{\partial \xi}_{|\eta} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{u}}{\partial \eta}_{|\xi}  
+\label{eq: rotationnel}
+\end{equation}
+\end{itemize}
+
+
+
+
+\section{Filtrage sur la sphère}
