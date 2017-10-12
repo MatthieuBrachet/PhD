@@ -1,0 +1,372 @@
+\chapter{Notations}
+
+\section{Cadre en dimension 1}
+\label{sec:notation_1D}
+
+On considère $\Omega = [a,b]$, $a<b$, un intervalle de $\mathbb{R}$ de longueur $L=b-a$. Dans la suite, nous utilisons les lettres latines pour noter les fonctions continues : $f(x)$, $u(x)$, ... $x \in \Omega$. Si $u$ et $v$ sont des fonctions définies sur $\Omega$, leur produit scalaire dans $L^2 ( \Omega )$ est donné par :
+\begin{equation}
+(u,v) = \gint_{\Omega} u(x) \bar{v}(x) dx = \gint_{a}^b u(x) \bar{v}(x) dx.
+\end{equation}
+Nous travaillerons, sauf mention contraire, avec des fonctions à valeurs dans $\mathbb{R}$. Dans ce cadre, le produit scalaire devient :
+\begin{equation}
+(u,v) = \gint_{a}^b u(x) v(x) dx.
+\end{equation}
+La norme sur $L^2(\Omega)$ est donnée par :
+\begin{equation}
+\| u \|_{L^2(\Omega)} = \sqrt{(u,u)} = \left( \gint_{a}^b u(x) u(x) dx \right)^{1/2}.
+\end{equation}
+La norme infinie sur $L^{\infty}(\Omega)$ est donnée par :
+\begin{equation}
+\| u \|_{\infty} = \sup_{x\in\Omega} |u(x)|.
+\end{equation}
+On dit qu'une fonction $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est \textit{périodique} sur $\Omega$ de période $L$ si pour tout $x \in \Omega$, on a 
+\begin{equation}
+u(x+L) = u(x).
+\end{equation}
+En particulier, on a $u(a)=u(b)$. Dans le contexte périodique, on considère que $x_0 = x_N$.
+
+On considère une grille régulière sur $\Omega$ constituée de $N \in \mathbb{N}^{\star}$ points :
+\begin{equation}
+a=x_0 < x_1 < \ldots < x_{N-1} < x_N = b,
+\end{equation}
+où les valeurs de $(x_i)_{0\leq i \leq N}$ sont données par :
+\begin{equation}
+x_i = a + ih\text{, } i = 0,1, \ldots,N \text{ et } h = \dfrac{b-a}{N}. 
+\end{equation}
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{tikzpicture}[scale=1.8]
+	\draw [>=stealth, <->] (-2,0.2) -- (-1,.2) ;
+	\draw (-1.5,.3) node[above] {$h$} ;
+	\draw (-3,0) -- (3,0) ;
+	\draw (-3,0) node {$\times$} ;
+	\draw (-3,-.2) node[below] {$x_0=a$} ;
+	\draw (-2,0) node {$\bullet$} ;
+	\draw (-2,-.2) node[below] {$x_1$} ;
+	\draw (-1,0) node {$\bullet$} ;
+	\draw (-1,-.2) node[below] {$x_2$} ;
+	\draw (0,-.2) node[below] {$\ldots$} ;
+	\draw (1,0) node {$\bullet$} ;
+	\draw (1,-.2) node[below] {$x_{N-2}$} ;
+	\draw (2,0) node {$\bullet$} ;
+	\draw (2,-.2) node[below] {$x_{N-1}$} ;
+	\draw (3,0) node {$\times$} ;
+	\draw (3,-.2) node[below] {$x_N =b$} ;
+\end{tikzpicture}
+\end{center}
+\caption{Grille en dimension 1. Les symboles $\times$ désignent les points de bords, les symboles $\bullet$ désignent les points intérieurs de la grille.}
+\label{fig:maillage1D}
+\end{figure}
+
+Les points $x_0=a$ et $x_N = a + L = b$ désignent les points de bords du domaines alors que les points $(x_i)_{1 \leq i \leq N-1}$ désignent les points intérieurs. Une fonction $x \in \Omega \mapsto u(x)$ est discrétisée par la donnée de ses valeurs en chaque points de grille.
+Nous distinguons trois niveaux de représentation des fonctions aux points de grille.
+\begin{itemize}
+\item On note $\mathfrak{u}$ la \textit{fonction de grille} définie sur la grille discrète $(x_i)_{0 \leq i \leq}$. Les fonctions de grilles seront notées avec cette typographie : $\mathfrak{u}$, $\mathfrak{v}$, ... 
+On a alors :
+\begin{equation}
+\mathfrak{u} = (\mathfrak{u}(x_0), \mathfrak{u}(x_1), \mathfrak{u}(x_2), ... , \mathfrak{u}(x_N)).
+\end{equation}
+On note $l^2_h$ l'espace des fonctions de grille, $h>0$ fixé.
+On munit cet espace d'un produit scalaire et de la norme associée :
+\begin{equation}
+(\mathfrak{u},\mathfrak{v})_h = h \gsum_{i=0}^N \mathfrak{u}(x_i) \mathfrak{v}(x_i) \text{,  } |\mathfrak{u}|_h^2 = h \gsum_{i=0}^N \mathfrak{u}(x_i)^2.
+\end{equation}
+On définit aussi la norme infinie pour les fonctions de grille :
+\begin{equation}
+\| \mathfrak{u} \|_{\infty} = \max_{0\leq i \leq N} |\mathfrak{u}(x_i)|.
+\end{equation}
+
+\item Les lettres latines capitales permettent de noter les vecteurs de $\mathbb{R}^{N+1}$ et matrices de $\mathcal{M}_{N+1}(\mathbb{R})$. Par exemple, soit le vecteur $U \in \mathbb{R}^{N+1}$ des composantes de $\mathfrak{u} \in l^2_h$, alors :
+\begin{equation}
+U = \begin{bmatrix}
+\mathfrak{u}_0 \\ \mathfrak{u}_1 \\ \vdots \\ \mathfrak{u}_N
+\end{bmatrix} =
+\begin{bmatrix}
+\mathfrak{u}(x_0) \\ \mathfrak{u}(x_1) \\ \vdots \\ \mathfrak{u}(x_N)
+\end{bmatrix}
+\end{equation}
+La norme Euclidienne sur $\mathbb{R}^{N+1}$ est notée $|U|$. Elle induit une norme pour les matrices $A \in \mathcal{M}_{N+1}(\mathbb{R})$ de taille $(N+1) \times (N+1)$ :
+\begin{equation}
+|A|_2 = \sup_{U \neq 0} \dfrac{|AU|}{|U|}
+\end{equation}
+On remarque que si $A$ est symétrique alors :
+\begin{equation}
+|A|_2 = \rho(A) := \max \left\lbrace |\lambda| \ \lambda \in Sp(A) \right\rbrace.
+\end{equation}
+$\rho(A)$ est nommé \textit{rayon spectrale} de $A$.
+La norme infinie de $U$ est donnée par :
+\begin{equation}
+|U|_{\infty} = \max_{1 \leq i \leq N+1} |U_i|.
+\end{equation}
+La norme de $A$ subordonnée à la norme vectorielle infinie est :
+\begin{equation}
+|A|_{\infty} = \sup_{U \neq 0} \dfrac{|AU|_{\infty}}{|U|_{\infty}} = \max_{1 \leq i \leq N+1} \gsum_{j=1}^{N+1} |A_{i,j}|.
+\end{equation}
+
+\item Soit $u: x \in \Omega \mapsto u(x)$, on définit la fonction de grille associée $u^*$ par :
+\begin{equation}
+u^*_i = u^*(x_i) \text{ pour } 0 \leq i \leq N.
+\end{equation}
+$u^*$ est la restriction de $u$ aux points de la grille.
+\end{itemize}
+
+Dans un contexte périodique, on considère que $x_0 = x_N$.
+Nous distinguons $l^2_h$, l'espace des fonctions de grilles, de $\mathbb{R}^{N+1}$ même si ces deux espaces sont isomorphes. Cette distinction permet de faire une claire différences entre :
+\begin{itemize}
+\item les opérateurs aux différences finies, qui agissent sur les fonctions de grilles,
+\item les matrices, qui agissent sur les vecteurs.
+\end{itemize}
+Les fonctions de grilles contiennent toutes les échelles nécessaires dans le contexte physique alors que les vecteurs sont sans dimension. De plus, le raisonnement au niveau discret est plus naturel avec les fonctions de grilles. Il s'effectue d'une façon abstraite à l'aide d'opérateurs aux différences. En revanche, le codage est effectuée dans le cadre de l'algèbre linéaire.
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Cadre en dimension 2}
+\label{sec:notation_2D}
+
+En dimension 2, les notations sont une extension de celles utilisées en dimension 1. Pour des questions de simplicité, on se limite au cas d'une géométrie carrée. Si $a$ et $b$ sont des réels positifs, nous travaillons dans le carré $\Omega = [a,b]^2$. Chaque côté du carré est de longueur $L=b-a$. 
+Soient $u$ et $v$ deux fonctions de $\Omega$ dans $\mathbb{R}$. On définit le produit scalaire usuel dans $L^2 ( \Omega ) $ par :
+\begin{equation}
+(u,v) = \gint_{\Omega} u(x,y) v(x,y) dx dy.
+\end{equation}
+La norme associée à ce produit scalaire est :
+\begin{equation}
+\| u \|_{L^2(\Omega)} = \gint_{\Omega} u(x,y)^2 dx dy. 
+\end{equation}
+La norme infinie est aussi une norme usuelle sur $L^{\infty}(\Omega)$ :
+\begin{equation}
+\| u \|_{L^{\infty} ( \Omega )} = \sum_{(x,y) \in \Omega} |u(x,y)|.
+\end{equation}
+Pour alléger les notations, et lorsque cela ne portera pas à confusions, nous noterons ces deux normes $\| u \|_{L^2}$ et $\| u \|_{L^{\infty}}$.
+
+Dans le domaine $\Omega$, nous construisons une grille constituée des points $(x_i,y_j)_{0 \leq i,j \leq N}$ où $N \in \mathbb{N}^{\star}$ avec $a = x_0 < x_1 < \ldots < x_N = b$ et $a = y_0 < y_1 < \ldots < y_N = b$. Le maillage est régulier donné par $h = \frac{L}{N}$. Les valeurs de $x_i$ et $y_j$ sont données par
+\begin{equation}
+\left\lbrace\begin{array}{rcl}
+x_i & = & a + i h \\
+y_j & = & a + j h 
+\end{array}\right. \text{ avec } 0 \leq i,j \leq N.
+\end{equation}
+
+Les points $(x_i,y_j)_{0 \leq i,j \leq N}$ se divisent en différentes catégories (voir figure \ref{fig:maillage2D}) :
+\begin{itemize}
+\item Les points de bords lorsque l'on a :
+\begin{equation}
+i \in \left\lbrace 0 , N \right\rbrace \text{ ou } j \in \left\lbrace 0 , N \right\rbrace,
+\end{equation}
+\item les points intérieurs lorsque :
+\begin{equation}
+1 \leq i,j \leq N-1.
+\end{equation}
+\end{itemize}
+
+
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+	\draw (-3,-3.2) node[below] {$x_0=a$} ;
+	\draw (-2,-3.2) node[below] {$x_1$} ;
+	\draw (-1,-3.2) node[below] {$x_2$} ;
+	\draw (0,-3.2) node[below] {$\ldots$} ;
+	\draw (1,-3.2) node[below] {$x_{N-2}$} ;
+	\draw (2,-3.2) node[below] {$x_{N-1}$} ;
+	\draw (3,-3.2) node[below] {$x_N =b$} ;
+	
+	\draw (-3.2,-3) node[left] {$y_0=a$} ;
+	\draw (-3.2,-2) node[left] {$y_1$} ;
+	\draw (-3.2,-1) node[left] {$y_2$} ;
+	\draw (-3.2,0) node[left] {$\vdots$} ;
+	\draw (-3.2,1) node[left] {$y_{N-2}$} ;
+	\draw (-3.2,2) node[left] {$y_{N-1}$} ;
+	\draw (-3.2,3) node[left] {$y_N =b$} ;
+	
+	\draw (-3,-3) grid[step=1] (3,3);
+
+	\draw (-3,-3) node[color=yellow] {$\bullet$} ;
+	\draw (-3,-3) node {$\circ$} ;
+	
+	\foreach \k in {-3,...,3}
+		{\draw  (\k,-3) node[color=white] {$\bullet$} ;
+	   	\draw (\k,-3) node {$\circ$} ;
+	   	\draw  (\k,3) node[color=white] {$\bullet$} ;
+	   	\draw (\k,3) node {$\circ$} ;
+	   	\draw  (-3,\k) node[color=white] {$\bullet$} ;
+	   	\draw (-3,\k) node {$\circ$} ;
+	   	\draw  (3,\k) node[color=white] {$\bullet$} ;
+	   	\draw (3,\k) node {$\circ$} ;
+	   	}
+	   	
+	\foreach \k in {-2,...,2}
+		{\draw  (\k,-2) node {$\bullet$};
+		\draw  (\k,-1) node {$\bullet$};
+		\draw  (\k,0) node {$\bullet$};
+		\draw  (\k,1) node {$\bullet$};
+		\draw  (\k,2) node {$\bullet$};
+	   	}
+\end{tikzpicture}
+\end{center}
+\caption{Grille en dimension 2. Les symboles $\circ$ désignent les points de bords, les symboles $\bullet$ désignent les points intérieurs de la grille.}
+\label{fig:maillage2D}
+\end{figure}
+
+On dit qu'une fonction $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$ est \textit{périodique} sur $\Omega$ si 
+\begin{equation}
+\begin{array}{rcl}
+u(x,y+L) & = & u(x,y) \\
+u(x+L,y) & = & u(x,y)
+\end{array} \text{ pour tous} (x,y) \in \Omega.
+\end{equation}
+
+Comme pour le cas en dimension 1, nous définissons différentes notions de fonctions discrètes associées à la grille :
+\begin{itemize}
+\item Une \textit{fonction de grille} est une fonction définie aux points du maillage $(x_i,y_j)_{0 \leq i,j \leq N}$. Nous notons ces fonctions en gras comme $\mathbf{u}$ ou $\mathbf{v}$. On a :
+\begin{equation}
+\mathbf{u} = \left( \mathbf{u}(x_i,y_j) \right)_{0 \leq i,j \leq N}.
+\end{equation}
+$\mathbf{u}$ est périodique si $\mathbf{u}(x_{i},y_0) = \mathbf{u}(x_{i},y_N)$ et $\mathbf{u}(x_{0},y_j) = \mathbf{u}(x_{N},y_j)$ pour tous $0 \leq i,j \leq N$.
+On note $L^2_h$ l'espace des fonctions de grilles. Cet espace est équipé d'un produit scalaire et de la norme associée :
+\begin{equation}
+(\mathbf{u}, \mathbf{v})_h = h^2 \gsum_{i,j=0}^N \mathbf{u}(x_i,y_j) \mathbf{v}(x_i,y_j) \text{ et } |\mathbf{u}|_h = \sqrt{(\mathbf{u},\mathbf{u})_h}.
+\end{equation}
+La norme infinie de $\mathbf{u}$ est donnée par :
+\begin{equation}
+| \mathbf{u} |_{\infty} = \max_{0 \leq i,j \leq N} |\mathbf{u}(x_i,y_j)|.
+\end{equation}
+
+\item Soit $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$, nous définissons la fonction associée, notée $u^*$ par la restriction de $u$ au maillage :
+\begin{equation}
+u^*_{i,j} = u(x_i, y_j) \text{ pour tous } 0 \leq i,j \leq N.
+\end{equation}
+
+Si $u$ est périodique, on a $u^*_{i,0}=u^*_{i,N}$ et $u^*_{0,j}=u^*_{N,j}$ pour tous $0 \leq i,j \leq N$.
+D'une manière générale, dans un contexte périodique, les données sur des bords opposés du carrés coïncident. On considère alors $x_0 = x_N$ et $y_0 = y_N$.
+\end{itemize}
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{tikzpicture}[scale=.7]
+	\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot (-3,-3) -- (-3,3)
+	-- plot (-3,3) -- (3,3)
+	-- plot (3,3) -- (3,-3)
+	-- plot (3,-3) -- (-3,-3)
+	-- cycle;
+
+	\draw [>=stealth, ->,color=green,thick] (-3,-3) -- (-3,3) ;
+	\draw [>=stealth, ->,color=green,thick] (3,-3) -- (3,3) ;
+	\draw [>=stealth, ->,color=red,thick] (-3,-3) -- (3,-3) ;
+	\draw [>=stealth, ->,color=red,thick] (-3,3) -- (3,3) ;
+	
+	\draw (-3.3,-3.45) node {$(a,a)$} ;
+	\draw (3.3,-3.45) node {$(b,a)$} ;
+	\draw (-3.3,3.45) node {$(a,b)$} ;
+	\draw (3.3,3.45) node {$(b,b)$} ;
+	\draw (0,0) node {$\Omega$} ;
+	\draw  (-3,-3) node[color=yellow] {$\bullet$} ;
+	\draw (-3,-3) node {$\circ$} ;
+	\draw  (3,-3) node[color=yellow] {$\bullet$} ;
+	\draw (3,-3) node {$\circ$} ;
+	\draw  (-3,3) node[color=yellow] {$\bullet$} ;
+	\draw (-3,3) node {$\circ$} ;
+	\draw  (3,3) node[color=yellow] {$\bullet$} ;
+	\draw (3,3) node {$\circ$} ;
+	\draw [>=stealth, ->] (-5,-4) -- (-4.2,-4) ;
+	\draw (-4.2,-4) node[below] {$x$} ;
+	\draw [>=stealth, ->] (-5,-4) -- (-5,-3.2) ;
+	\draw (-5,-3.2) node[above] {$y$} ;
+\end{tikzpicture}
+\end{center}
+\caption{Carré périodique. Dans le contexte périodique, les bords de couleurs identiques coïncident. Les quatres coins du carré représentent la même donnée.}
+\label{fig:period2D}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Schémas aux différences finies 1D}
+
+\subsection{Opérateurs centré d'ordre 2}
+
+\subsection{\'Ecriture matricielle}
+
+\subsection{Analyse Spectrale}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Schémas Hermitien 1D}
+
+\subsection{Opérateurs centré d'ordre 2}
+
+\subsection{\'Ecriture matricielle}
+
+\subsection{Algorithme de Shermann-Morisson-Woodbury}
+
+\subsection{Analyse Spectrale}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Schémas Hermitien 2D}
+
+\subsection{Opérateurs "mat" et "vect"}
+
+\subsection{Opérateur Hermitien 2D}
+
+\subsection{\'Ecriture matricielle}
+
+\subsection{Analyse Spectrale}

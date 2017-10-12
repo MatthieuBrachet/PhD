@@ -1,0 +1,144 @@
+%% SWE.tex
+
+\chapter{Modèle mathématique}
+
+\section{Système d'équation Shallow Water}
+
+\subsection{Equations de Navier-Stokes}
+
+\subsection{Modèle a-dimension}
+
+\subsection{Modèle Shallow Water}
+
+\section{Etude théorique}
+
+\subsection{Equation d'advection}
+
+Dans cette partie, on considère l'équation d'advection suivante :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial h}{\partial t} + \mathbf{c}_T \cdot \nabla_T h & = & 0 \\
+h(t=0,\mathbf{x}) & = & h_0(\mathbf{x})
+\end{array}
+\right. t>0 \text{ et } \mathbf{x} \in \mathbb{S}_a^2
+\label{eq:advection}
+\end{equation}
+
+$\mathbf{c}:\mathbb{R}^+ \times \mathbb{S}_a^2 \mapsto \mathbb{T}\mathbb{S}_a^2$ est un champ de vecteur donné tangent à la sphère et $h_0$ est donnée.
+
+Dans cette partie, on souhaite montrer l'existence et l'unicité d'une solution de \eqref{eq:advection}.
+
+\begin{proposition}
+L'équation :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial h}{\partial t} + \mathbf{c} \cdot \nabla h & = & 0 \\
+h(t=0,\mathbf{x}) & = & h_0(\mathbf{x})
+\end{array}
+\right. t>0 \text{ et } \mathbf{x} \in \mathbb{R}^3
+\end{equation}
+admet une unique solution.
+POUR TOUT $t>0$? REGULARITE DE $h_0$ ?
+\label{prop:existence et unicité advection R^3}
+\end{proposition}
+
+\begin{proof}
+TBA
+\end{proof}
+
+\begin{proposition}
+L'équation \eqref{eq:advection} admet une unique solution $h$. De plus cette solution $h$ vérifie :
+\begin{equation}
+\|h\|_{L^2} \leq \|h(t=0,\cdot) \|_{L^2} \exp \left[ \dfrac{1}{2} \gint_0^t \| \nabla_T \cdot \mathbf{c}_T \|_{\infty}  \right]
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+\begin{itemize}
+\item \textbf{Unicité :} Soient $h_1$ et $h_2$ deux solutions distinctes de \eqref{eq:advection}. Alors $h=h_1-h_2$ est solution de :
+
+$$
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial h}{\partial t} + \mathbf{c}_T \cdot \nabla_T h & = & 0 \\
+h(t=0,\mathbf{x}) & = & 0
+\end{array}
+\right. t>0 \text{ et } \mathbf{x} \in \mathbb{S}_a^2
+$$
+Montrons que $h \equiv 0$ en tout temps $t$.
+
+D'après l'équation précédente, en multipliant par $h$ et en intégrant sur $\mathbb{S}_a^2$ :
+
+$$\dfrac{1}{2} \dfrac{d}{dt} \gint_{\mathbb{S}_a^2} h(\mathbf{x}) d \sigma(\mathbf{x}) = - \gint_{\mathbb{S}_a^2} h(\mathbf{x}) \mathbf{c}_T(t,\mathbf{x}) \cdot \nabla_T h(\mathbf{x}) d \sigma (\mathbf{x})$$
+
+d'où :
+
+$$
+\begin{array}{rcl}
+\dfrac{1}{2} \dfrac{d}{dt} \| h \|^2_{L^2} & = & - \dfrac{1}{2} \gint_{\mathbb{S}_a^2} \mathbf{c}_T(t,\mathbf{x}) \cdot \nabla_T h(t,\mathbf{x})^2 d \sigma(\mathbf{x})\\
+& = & \dfrac{1}{2} \gint_{\mathbb{S}_a^2} h(t,\mathbf{x})^2 \nabla_T \cdot \mathbf{c}_T (t, \mathbf{x}) d \sigma(\mathbf{x}) \\
+& \leq & \dfrac{1}{2} \| h \|^2_{L^2} \| \nabla_T \cdot \mathbf{c}_T \|_{\infty}
+\end{array}
+$$
+
+Par le lemme de Gronwall, on en déduit :
+
+$$
+\|h\|^2_{L^2} \leq \|h(t=0,\cdot) \|^2_{L^2} \exp \left[ \gint_0^t \| \nabla_T \cdot \mathbf{c}_T \|_{\infty}  \right] = 0
+$$
+
+dont $\|h\|_{L^2} = 0$ d'où $h \equiv 0$.
+
+\item \textbf{Existence :}
+
+On pose :
+
+\begin{equation}
+\psi(r) = 
+\left\lbrace
+\begin{array}{rcl}
+C \exp \left[ \dfrac{1}{(r-a/2)(r-3a/2)} \right] \text{ si } a/2 \leq r \leq 3a/2 \\
+0 \text{ sinon. }
+\end{array}
+\right.
+\end{equation}
+
+la constante $C$ est telle que $\psi(a)=1$ et $\psi \in \mathcal{C}^{\infty}_c$.
+Ainsi on peut prolonger $\mathbf{c}_T$ à $\mathbf{R}^3$ grâce au changement suivant (en coordonnées sphériques, voir annexe) :
+
+\begin{equation}
+\mathbf{c}(\lambda, \theta, r) = \mathbf{c}_T(\lambda, \theta) \psi(r)
+\end{equation}
+
+La fonction $\mathbf{c}$ est régulière et bornée par construction.
+ $h_0$ est prolongée dans $\mathbb{R}^3$ en la remplaçant de même par $(\lambda, \theta, r) \mapsto h_0(\lambda, \theta) \psi(r)$. D'après la proposition \ref{prop:existence et unicité advection R^3} il existe une unique solution au problème sur $\mathbb{R}^3$ notée $q$.
+ 
+ Montrons que $h=q_{|x\in\mathbb{S}_a^2}$ est solution de \eqref{eq:advection}.
+ 
+ Pour tout $r<0$, $\mathbf{c}(\lambda, \theta, r) \in \mathbb{T}\mathbb{S}_r^2$ donc $\mathbf{c} \cdot \nabla q = \mathbf{c}_T \cdot \nabla h$ sur $\mathbb{S}_a^2$.
+ 
+ Ainsi sur $\mathbb{S}_a^2$ on a :
+ \begin{equation}
+ 0 = \dfrac{\partial q}{\partial t} + \mathbf{c} \cdot \nabla q = \dfrac{\partial h}{\partial t} + \mathbf{c}_T \cdot \nabla h
+ \end{equation}
+ 
+ de plus $q_{|t=0}=h_0$ sur $\mathbb{S}_a^2$.
+ 
+ L'existence est démontrée.
+
+
+\end{itemize}
+
+\end{proof}
+
+
+\subsection{Equation Shallow Water linéarisée}
+
+\subsection{Equation Shallow Water}
+
+
+
+
