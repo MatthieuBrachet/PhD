@@ -442,6 +442,7 @@ P(\lambda)
 avec $\lambda$ donné par \eqref{eq:eigenvalueT}.
 \end{itemize}
 Les vecteurs propres sont donnés par \eqref{eq:eigenvectorT}.
+\label{prop:eigen_P(tau)}
 \end{proposition}
 
 
@@ -1072,7 +1073,7 @@ C'est à dire que les coefficients $(a_k)_{0 \leq k \leq F}$ vérifient la relat
 \label{eq:ftr_conscond}
 \end{equation}
 
-Enfin, on remarque que si $u : x \in Omega \mapsto u(x) \in \mathbb{R}$ et si $u^*$ est la fonction de grille associée à $u$, alors on a 
+Enfin, on remarque que si $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ et si $u^*$ est la fonction de grille associée à $u$, alors on a 
 \begin{equation}
 \begin{array}{rcl}
 u(x_i + kh) & = & u(x_i) + p k u'(x_j) + \cdots + \dfrac{(kh)^l}{l!}u^{(l)}(x_i) + \cdots +\dfrac{(kh)^{2F}}{2F!} u^{(2F)}(\xi_k)\\
@@ -1174,7 +1175,99 @@ $10$ & $772/1024$ & $420/1024$ & $-240/1024$ & $90/1024$ & $-20/1024$ & $2/1024$
 \label{tab:filter}
 \end{table}
 
+Dans la suite, nous supposerons que $(a_k)_{0 \leq k \leq F}$ satisfait les conditions \eqref{eq:ftr_conscond}, \eqref{eq:ftr_prescond} et \eqref{eq:ftr_ftrcond}.
+Les valeurs propres et fonctions propres de $\mathcal{F}$ sont issues de la proposition \ref{prop:eigen_P(tau)}. Le résultat est immédiat.
 
+\begin{theoreme}
+Les valeurs propres de $\mathcal{F}$ sont données par $\beta^k$ avec 
+\begin{equation}
+\beta^k = \gsum_{f=0}^F a_k \cos \left( \dfrac{2 \pi k f}{N} \right)
+\end{equation}
+pour tout $0 \leq k \leq N-1$, $\beta^k$ est associé à la fonction propre $\mathfrak{u}^k$ telle que 
+\begin{equation}
+\mathfrak{u}^k_j = \exp \left[ i j \dfrac{2 \pi k}{N} \right].
+\end{equation}
+\end{theoreme}
+
+On définit le \textit{symbole} du filtre $\mathcal{F}$ par la fonction $\beta : \theta \in [0, \pi] \mapsto \beta(\theta) \in \mathbb{R}$ donnée par :
+\begin{equation}
+\beta( \theta ) = \gsum_{f=0}^F a_k \cos \left( f \theta \right)
+\end{equation}
+
+\begin{proposition}
+Il existe un unique polynôme $P$ de degré $F$ tel que 
+\begin{equation}
+\beta(\theta) = P(\cos \theta )
+\end{equation}
+De plus,
+\begin{equation}
+P(x) = 1 -\dfrac{1}{(-2)^F} (X - 1)^F.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Soit $\theta \in [0, \pi]$, 
+\begin{equation}
+\beta(\theta) = \gsum_{f=0}^F a_f \cos \left( f \theta \right) = \gsum_{f=0}^F a_f T_f ( \cos \theta )
+\end{equation}
+où $T_f \in \mathbb{R}_f [X]$ est le $k-$ieme polynome de Tchebytchev. 
+Ainsi il existe $P \in \mathbb{R}_F [x]$ tel que $\beta( \theta ) = P( \cos \theta )$. Ce polynôme est unique. Montrons que 
+\begin{equation}
+P(x) = 1 -\dfrac{1}{(-2)^F} (X - 1)^F.
+\end{equation}
+convient.
+
+\begin{itemize}
+\item on montre facilement que 
+\begin{equation}
+P( \cos 0 ) = 1 -\dfrac{1}{(-2)^F} (\cos 0 - 1)^F = 1,
+\end{equation}
+de même,
+\begin{equation}
+P( \cos \pi ) = 1 -\dfrac{1}{(-2)^F} (\cos \pi - 1)^F 1 -\dfrac{(-2)^F}{(-2)^F} = 0.
+\end{equation}
+\item On rappelle la formule de Fàa Di Bruno permettant de calculer la dérivée $n-$ième d'une composée. Si $f$ et $g$ sont des fonctions régulières, on a 
+\begin{equation}
+\dfrac{d^n}{dx^n} \left( f \circ g \right)(x) = \gsum_{k=1}^n f^{(k)}\left( g(x) \right) B_{n,k}\left( g'(x), g''(x), \cdots , g^{n-k+1}(x) \right)
+\end{equation}
+où $B_{n,k}$ est un polynôme de Bell. En utilisant cette formule avec $f = P$ et $g = \cos$, évaluée en $\theta = 0$, on montre que :
+\begin{equation}
+\dfrac{d^n}{d\theta^n} \left( P \circ \cos \right)(0) = \gsum_{k=1}^n P^{(k)}\left(1\right) B_{n,k}\left( -1,0,1,0, \cdots\right)
+\end{equation}
+Or, $P^{(k)}\left(1\right) = 0$ pour tout $k \geq 1$. Donc 
+\begin{equation}
+\dfrac{d^n}{d\theta^n} \left( P \circ \cos \right)(0) = 0
+\end{equation}
+\end{itemize}
+Le polynôme $P$ convient et 
+\begin{equation}
+\beta( \theta ) = 1 - \dfrac{1}{(-2)^F}(\cos \theta -1)^F.
+\end{equation}
+\end{proof}
+
+\begin{proposition}
+Pour tout $\theta \in [0, \pi]$, on a 
+\begin{equation}
+0 \leq \beta ( \theta ) \leq 1
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Supposons qu'il existe $\theta \in [0, \pi]$ tel que $\beta(\theta) < 0$ ou $\beta(\theta) > 1$. Comme $\beta(0)=1$ et $\beta(\pi) = 0$, il existe $\tilde{\theta} \in ]0, \pi[$ tel que 
+\begin{equation}
+\beta'(\tilde{\theta}) = - \sin \tilde{\theta} P'(\cos \tilde{\theta} ) = 0
+\end{equation}
+Or $\sin \tilde{\theta} \neq 0$ pour $\tilde{\theta} \in ]0, \pi[$.
+De plus, 
+\begin{equation}
+P'(X) = \dfrac{F}{(-2)^F}(X-1)^{F-1}
+\end{equation}
+donc en prenant $X = \cos \tilde{\theta}$,
+\begin{equation*}
+P'(X) = 0 \Leftrightarrow \cos \tilde{\theta} = 1
+\end{equation*}
+Ce qui est impossible pour $\tilde{\theta} \in ]0, \pi[$. Donc par l'absurde, le résultat est vérifié.
+\end{proof}
 
 
 

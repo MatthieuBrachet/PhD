@@ -40,14 +40,3 @@ legend('expli. 4','comp. 4','opt. 4','theoric.','Location','northwest')
 xlabel('\theta')
 ylabel('modified \theta : \theta_m')
 grid on
-
-figure(4)
-plot(teta,se4,teta,sc4,teta,imag(sdc4),teta,teta,'k-','Linewidth',2)
-legend('expli. 4','comp. 4','decentré. 4','theoric.','Location','northwest')
-xlabel('\theta')
-ylabel('modified \theta : \theta_m')
-grid on
-
-figure(5)
-plot(real(sdc4),'Linewidth',2)
-grid on
