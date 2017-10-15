@@ -28,22 +28,22 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=5;
-video = 'no';
+test=1;
+video = 'yes';
 sauvegarde = 1;
 filtre='symetric';
 opt_ftr='redonnet10';
-scheme='kim4';
-snapshot='yes';
+scheme='compact4';
+snapshot='no';
 nrm='int';
 
-n=79; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=80;
+n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=15;
 mod101
 disp('mod74 : ok')
 
 %% ************************************************************************
-nper=10;
+nper=3;
 tstart=cputime;
 ref=floor(10000*now);
 jour=date;
@@ -370,8 +370,12 @@ while t<Tmax && iter<itermax
         hFig = figure(9);
         set(gcf,'PaperPositionMode','auto')
         set(hFig, 'Position', [50 50 1000 500])
-        plot_cs102(n,nn,fun_fI,fun_fII,fun_fIII,fun_fIV,fun_fV,fun_fVI);
-        title(['divergence at time : ', num2str(time(end))])
+        mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
+        MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
+        v=[mm 5050:50:9050 MM];
+        plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
+        title(['solution at time : ', num2str(time(end))])
+        colorbar
         %caxis([-1 1]*10^-6);
         %axis([-2.5 .5 -.5 1.5])
 
