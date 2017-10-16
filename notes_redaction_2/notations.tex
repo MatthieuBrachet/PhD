@@ -1,6 +1,8 @@
 \chapter{Notations}
 
-\section{Cadre en dimension 1}
+\section{Opérateurs aux différences en dimension 1}
+
+\subsection{Notations 1D}
 \label{sec:notation_1D}
 
 On considère $\Omega = [a,b]$, $a<b$, un intervalle de $\mathbb{R}$ de longueur $L=b-a$. Dans la suite, nous utilisons les lettres latines pour noter les fonctions continues : $f(x)$, $u(x)$, ... $x \in \Omega$. Si $u$ et $v$ sont des fonctions définies sur $\Omega$, leur produit scalaire dans $L^2 ( \Omega )$ est donné par :
@@ -130,7 +132,324 @@ Les fonctions de grilles contiennent toutes les échelles nécessaires dans le c
 
 
 
-\section{Cadre en dimension 2}
+\subsection{Opérateurs de translations}
+
+On considère $\Omega = [0,L]$. Les notations employées sont celles de la partie \ref{sec:notation_1D} dans le contexte périodique.
+
+\begin{definition}
+L'\textit{opérateur de translation} $\tau_p$, $p \in \mathbb{Z}$, est tel que si $\mathfrak{u}$ est une fonction de grille périodique alors pour tout $0 \leq i \leq N$
+\begin{equation}
+(\tau_p \mathfrak{u})_i = \mathfrak{u}_{i+p}.
+\end{equation}
+\end{definition}
+
+Cet opérateur permettra de définir les opérateurs aux différences. L'opérateur $\tau_p$ agit sur les fonctions de grille périodiques $u^*$ par :
+\begin{equation}
+(\tau_p u^*)_i = u^*_{i+p} = u(x_{i+p}).
+\end{equation}
+en considérant les propriétés de périodicité lorsque $i+p > N$ ou $i+p<1$.
+De la même manière, on définit l'opérateur $\tau$ par 
+\begin{equation}
+\tau = \tau_{1}
+\end{equation}
+On note $\tau^p$, où $p$ est un entier naturel, l'opérateur
+\begin{equation}
+\begin{array}{rcl}
+\tau^0 & = & id\\
+\tau^p & = & \underbrace{\tau \circ \tau \circ \tau \circ \cdots \circ \tau}_{p \text{ fois.}}
+\end{array}
+\end{equation}
+
+\begin{proposition}
+L'égalité suivante est vérifiée :
+\begin{equation}
+\tau^p = \tau_p
+\end{equation}
+En particulier, on a $\tau^N = \tau_N = id$.
+\end{proposition}
+
+\begin{proof}
+Résultat vrai par récurrence immédiate.
+\end{proof}
+Il est intéressant de rechercher les valeurs propres et les vecteurs propres de $\tau$ de manière à en déduire le spectre des opérateurs qui sont issus de $\tau$.
+
+
+\begin{proposition}
+Les fonctions propres de $\tau$ sont les fonctions de grilles $\mathfrak{u}^k$ vérifiant :
+\begin{equation}
+\mathfrak{u}_j^k = \exp \left[ i j \dfrac{2 \pi k}{N} \right]
+\label{eq:vecteurpropre_tau}
+\end{equation}
+Chaque vecteur propre est associé à la valeur propre $\lambda^k$ avec 
+\begin{equation}
+\lambda = \exp \left[ i \dfrac{2 \pi}{N} \right].
+\end{equation}
+et $0 \leq k \leq N-1$.
+\end{proposition}
+
+
+\begin{proof}
+On calcule $(\tau \mathfrak{u}^k)_j$ :
+\begin{equation}
+(\tau \mathfrak{u}^k)_j = \exp \left[ i (j+1) \dfrac{2 \pi k}{N} \right] = \exp \left[ i j \dfrac{2 \pi k}{N} \right] \exp \left[ i \dfrac{2 \pi k}{N} \right]  = \mathfrak{u}_j^k \lambda^k
+\end{equation}
+De plus, il est facile de voir que $\mathfrak{u}$ vérifie l'hypothèse de périodicité, d'où le résultat.
+\end{proof}
+Si $P(X)$ est un polynôme en $X$ de degré au plus $N-1$, \textit{i.e.} $P \in \mathbb{R}_{N-1} [x]$ alors les valeurs propres et fonctions propres de $P(\tau)$ sont connues.
+
+\begin{proposition}
+Les fonctions propres de $P(\tau)$ sont les fonctions de grilles $\mathfrak{u}^k$ vérifiant :
+\begin{equation}
+\mathfrak{u}_j^k = \exp \left[ i j \dfrac{2 \pi k}{N} \right]
+\end{equation}
+Chaque vecteur propre est associé à la valeur propre $P(\lambda^k)$ avec 
+\begin{equation}
+\lambda = \exp \left[ i \dfrac{2 \pi}{N} \right]
+\end{equation}
+avec $0 \leq k \leq N-1$.
+\label{prop:eigen_tau}
+\end{proposition}
+
+\begin{proof}
+Soient $(a_i)_{0 \leq i \leq N-1}$ des réels tels que 
+\begin{equation}
+P(x) = \gsum_{i=0}^{N-1} a_i x^i,
+\end{equation}
+
+Calculons $P(\tau) \mathfrak{u}^k$. Soit $j$ un entier compris entre $0$ et $N-1$, 
+
+\begin{equation}
+(P(\tau) \mathfrak{u}^k)_j = \left( \gsum_{i=0}^{N-1} a_i \tau_ p \mathfrak{u}^k \right)_j = \gsum_{i=0}^{N-1} a_i (\lambda^k)^p \mathfrak{u}^k_j = P(\lambda^k) \mathfrak{u}^k_j
+\end{equation}
+
+d'où le résultat.
+\end{proof}
+L'opérateur de translation $\tau$ agit sur les fonctions de grilles $\mathfrak{u}$. Il est associé à $T \in \mathcal{M}_N \left( \mathbb{R} \right)$ la matrice agissant sur les vecteurs $U$ de $\mathbb{R}^N$
+\begin{equation}
+U = \begin{bmatrix}
+\mathfrak{u}_0\\
+\mathfrak{u}_1\\
+\vdots\\
+\mathfrak{u}_{N-1}\\
+\end{bmatrix}
+\end{equation}
+La matrice $T$ est donnée par
+
+\begin{equation}
+T = \begin{bmatrix}
+0 & 1 &   &   &   \\ 
+  & 0 & 1 & (0) &   \\ 
+  &   & \ddots & \ddots &   \\ 
+  & (0) &   & 0 & 1 \\ 
+1 &   &   &   & 0
+\end{bmatrix} 
+\end{equation}
+
+La matrice $T$ agit sur un vecteur $U = \begin{bmatrix}
+U_1 & U_2 & \cdots & U_{N} 
+\end{bmatrix}^T \in \mathbb{R}^N $ de telle manière que, pour tout $1 \leq j \leq N$, on a 
+
+\begin{equation}
+(TU)_j = U_{j+1}
+\end{equation}
+Les propriétés concernant les valeurs propres de $\tau$ sont aussi vérifiées par $T$.
+
+\begin{proposition}
+\begin{itemize}
+\item Les valeurs propres de $T$ sont les valeurs $(\lambda^k)_{0 \leq k \leq N-1}$ avec 
+\begin{equation}
+\lambda = \exp \left[ i \dfrac{2 \pi}{N} \right].
+\label{eq:eigenvalueT}
+\end{equation}
+les vecteurs propres associés sont donnés par $\left( U^k \right)_{0 \leq k \leq N-1}$ vérifiant :
+\begin{equation}
+U^k_j = \begin{bmatrix}
+\mathfrak{u}_0^k\\
+\mathfrak{u}_1^k\\
+\vdots \\
+\mathfrak{u}_{N-1}^k
+\end{bmatrix}
+\label{eq:eigenvectorT}
+\end{equation}
+où $\mathfrak{u}^k$ est la fonction de grille \eqref{eq:vecteurpropre_tau}.
+
+\item Si $P \in \mathbb{R}_{N-1}[X]$ alors les valeurs propres de $P(T)$ sont 
+\begin{equation}
+P(\lambda)
+\end{equation}
+avec $\lambda$ donné par \eqref{eq:eigenvalueT}.
+\end{itemize}
+Les vecteurs propres sont donnés par \eqref{eq:eigenvectorT}.
+\label{prop:eigen_P(tau)}
+\end{proposition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Opérateur centré d'ordre 2}
+
+Introduisons l'\textit{opérateurs aux différences centré} usuel
+\begin{equation}
+\delta_x = \dfrac{\tau_1 - \tau_{-1}}{2h}
+\end{equation}
+Appliqué à la fonction de grille $\mathfrak{u}$, cet opérateur vérifie 
+\begin{equation}
+\delta_x \mathfrak{u}_i = \dfrac{\mathfrak{u}_{i+1} - \mathfrak{u}_{i-1}}{2h} \text{ pour } 1 \leq i \leq N.
+\end{equation}
+Il s'agit d'un opérateur permettant d'approcher la dérivée première au sens où
+
+\begin{proposition}
+Soit $u: x \in \Omega \mapsto u(x) \in \mathbb{R}$ et $u^*$ la fonction de grille correspondante. Si $u \in \mathcal{C}^3 (\Omega)$ alors 
+\begin{equation}
+\delta_x u^*_i - u'(x_i) = \dfrac{h^2}{12} \left[ u^{(3)}(\xi_i) + u^{(3)}(\eta_i) \right]  \text{ avec } \xi_i , \eta_i \in [x_{i-1}, x_{i+1}],
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Comme $u$ est de classe $\mathcal{C}^3$, on considère les développements de Taylor :
+\begin{equation}
+u(x_i+h) = u(x_i) + h u'(x_i) + \dfrac{h^2}{2} u''(x_i) + \dfrac{h^3}{6} u^{(3)} (\eta_i) \text{ avec } \eta_i \in [x_i, x_{i+1}]
+\end{equation}
+et celui en $x-h$ :
+\begin{equation}
+u(x_i-h) = u(x_i) - h u'(x_i) + \dfrac{h^2}{2} u''(x_i) - \dfrac{h^3}{6}u^{(3)}(\xi_i) \text{ avec } \xi_i \in [x_{i-1}, x_{i}]
+\end{equation}
+Alors par différence, on retrouve la formule souhaitée : 
+\begin{equation}
+\delta_x u^*_i = u'(x_i) + \dfrac{h^2}{12} \left[ u^{(3)}(\xi_i) + u^{(3)}(\eta_i) \right]  \text{ avec } \xi_i, \eta_i \in [x_{i-1}, x_{i+1}],
+\end{equation}
+\end{proof}
+
+Ainsi, $\delta_x$ est un opérateur d'approximation de la dérivée première à l'ordre 2. L'opérateur $\delta_x$ est associé à une matrice $K$ de telle manière que si 
+\begin{equation}
+U = \begin{bmatrix}
+\mathfrak{u}_0\\
+\mathfrak{u}_1\\
+\vdots\\
+\mathfrak{u}_{N-1}\\
+\end{bmatrix} \in \mathbb{R}^N \text{ et } U_x = \begin{bmatrix}
+\delta_x \mathfrak{u}_0\\
+\delta_x \mathfrak{u}_1\\
+\vdots\\
+\delta_x \mathfrak{u}_{N-1}\\
+\end{bmatrix} \in \mathbb{R}^N
+\end{equation}
+alors
+\begin{equation}
+U_x = K U
+\end{equation}
+avec la matrice $K$ donnée par
+\begin{equation}
+K = \dfrac{1}{2h} \begin{bmatrix}
+0    & 1    &    &    &     & -1 \\
+-1   & 0    & 1  &    & (0) &    \\
+     & -1   & 0  & 1  &     &    \\
+     &      & \ddots  & \ddots  & \ddots    &    \\
+     & (0)  &    & -1 & 0   & 1  \\
+1    &      &    &    & -1  & 0  \\
+\end{bmatrix}
+\end{equation}
+La matrice $K$ est antisymétrique. En particulier, on remarque que 
+\begin{equation}
+K = \dfrac{1}{2h} \left( T - T^{N-1} \right)
+\end{equation}
+donc d'après la proposition \ref{prop:eigen_P(tau)}, les valeurs propres de $K$ sont 
+\begin{equation}
+\mu^k = \dfrac{1}{2h} \left[ \exp \left( \dfrac{2 i \pi k}{N} \right) - \exp \left( \dfrac{-2 i \pi k}{N} \right) \right] = \dfrac{i}{h} \sin \left( \dfrac{2 \pi k}{N} \right) \text{ avec } 0 \leq k \leq N-1.
+\end{equation}
+En particulier, on remarque que $\mu^N = 0$ donc la matrice $K$ n'est pas inversible.
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Schémas Hermitien}
+
+Dans son article \cite{Lele1991}, S. K. Lele présente une méthode permettant d'approcher la dérivée en un point en ajoutant une partie implicite aux schémas classiques. Définissons l'opérateur de Simpson $\sigma_{x}$ par :
+
+\begin{equation}
+\sigma_{x}  = \dfrac{1}{6} \tau_1 + \dfrac{4}{6} id + \dfrac{1}{6}\tau_{-1}
+\end{equation}
+En particulier, si $\mathfrak{u}$ est une fonction de grille périodique,
+\begin{equation}
+\sigma_x \mathfrak{u}_j = \dfrac{1}{6} \mathfrak{u}_{j+1} + \dfrac{4}{6} \mathfrak{u}_j + \dfrac{1}{6} \mathfrak{u}_{j-1}
+\end{equation}
+
+Un tel opérateur vérifie :
+
+\begin{proposition}
+Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ une fonction de $\mathcal{C}^5( \Omega)$ alors, en notant $u^*$ la fonction de grille associée et $u'^*$ la fonction de grille associée à sa dérivée première, on a 
+\begin{equation}
+\sigma_x u'^*_j - \delta_x u^*_j = \dfrac{h^4}{180} u^{(5)}(\xi_j)
+\end{equation}
+\end{proposition}
+
+De plus, l'opérateur $\sigma_x$ est inversible, en effet...
+
+
+On en déduit que ... THM DE CONSISTANCE
+
+Ecriture matricielle
+
+Inversion pratique
+
+Valeur propres
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Opérateurs aux différences en dimension 2}
+
+
+\subsection{Cadre en dimension 2}
 \label{sec:notation_2D}
 
 En dimension 2, les notations sont une extension de celles utilisées en dimension 1. Pour des questions de simplicité, on se limite au cas d'une géométrie carrée. Si $a$ et $b$ sont des réels positifs, nous travaillons dans le carré $\Omega = [a,b]^2$. Chaque côté du carré est de longueur $L=b-a$. 
@@ -305,19 +624,7 @@ D'une manière générale, dans un contexte périodique, les données sur des bo
 
 
 
-
-
-
-
-
-
-\section{Schémas aux différences finies 1D}
-
-\subsection{Opérateurs centré d'ordre 2}
-
-\subsection{\'Ecriture matricielle}
-
-\subsection{Analyse Spectrale}
+\subsection{Opérateur de translation en géométrie cartésienne}
 
 
 
@@ -333,19 +640,7 @@ D'une manière générale, dans un contexte périodique, les données sur des bo
 
 
 
-
-
-
-
-\section{Schémas Hermitien 1D}
-
-\subsection{Opérateurs centré d'ordre 2}
-
-\subsection{\'Ecriture matricielle}
-
-\subsection{Algorithme de Shermann-Morisson-Woodbury}
-
-\subsection{Analyse Spectrale}
+\subsection{Opérateur centré d'ordre 2 en dimension 2}
 
 
 
@@ -360,13 +655,4 @@ D'une manière générale, dans un contexte périodique, les données sur des bo
 
 
 
-
-\section{Schémas Hermitien 2D}
-
-\subsection{Opérateurs "mat" et "vect"}
-
-\subsection{Opérateur Hermitien 2D}
-
-\subsection{\'Ecriture matricielle}
-
-\subsection{Analyse Spectrale}
+\subsection{Opérateur hermitien en dimension 2}

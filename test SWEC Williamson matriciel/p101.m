@@ -29,12 +29,12 @@ global teta0 teta1
 
 comment='.';
 test=1;
-video = 'yes';
+video = 'no';
 sauvegarde = 1;
 filtre='symetric';
 opt_ftr='redonnet10';
 scheme='compact4';
-snapshot='no';
+snapshot='yes';
 nrm='int';
 
 n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
@@ -386,7 +386,7 @@ while t<Tmax && iter<itermax
     end
     
     %% snapshot
-    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(16*ddt))) == 0
+    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(3*ddt))) == 0
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         clf;
         
