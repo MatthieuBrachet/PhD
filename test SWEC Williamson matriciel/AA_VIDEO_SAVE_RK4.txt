@@ -152,3 +152,25 @@ coriolis parammeter    : 7.292e-05
 ***********************************
   
   
+date : 17-Oct-2017
+ref. : 7369855784
+***********************************
+test : 5
+---------- numerical data ---------
+number of points  : 79
+time step         : 242.3404
+cfl               : 0.9
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 9.8062
+alpha                  : 0
+caracteristic velocity : 1
+coriolis parammeter    : 7.292e-05
+------------ comment --------------
+.
+***********************************
+  
+  

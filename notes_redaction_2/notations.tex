@@ -25,7 +25,7 @@ On dit qu'une fonction $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est \texti
 \begin{equation}
 u(x+L) = u(x).
 \end{equation}
-En particulier, on a $u(a)=u(b)$. Dans le contexte périodique, on considère que $x_0 = x_N$.
+En particulier, on a $u(a)=u(b)$.
 
 On considère une grille régulière sur $\Omega$ constituée de $N \in \mathbb{N}^{\star}$ points :
 \begin{equation}
@@ -35,6 +35,7 @@ où les valeurs de $(x_i)_{0\leq i \leq N}$ sont données par :
 \begin{equation}
 x_i = a + ih\text{, } i = 0,1, \ldots,N \text{ et } h = \dfrac{b-a}{N}. 
 \end{equation}
+ Dans le contexte périodique, on considère que $x_0 = x_N$.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -94,7 +95,7 @@ La norme Euclidienne sur $\mathbb{R}^{N+1}$ est notée $|U|$. Elle induit une no
 \end{equation}
 On remarque que si $A$ est symétrique alors :
 \begin{equation}
-|A|_2 = \rho(A) := \max \left\lbrace |\lambda| \ \lambda \in Sp(A) \right\rbrace.
+|A|_2 = \rho(A) := \max \left\lbrace |\lambda| \text{ tels que } \lambda \in Sp(A) \right\rbrace.
 \end{equation}
 $\rho(A)$ est nommé \textit{rayon spectrale} de $A$.
 La norme infinie de $U$ est donnée par :
@@ -367,9 +368,9 @@ K = \dfrac{1}{2h} \left( T - T^{N-1} \right)
 \end{equation}
 donc d'après la proposition \ref{prop:eigen_P(tau)}, les valeurs propres de $K$ sont 
 \begin{equation}
-\mu^k = \dfrac{1}{2h} \left[ \exp \left( \dfrac{2 i \pi k}{N} \right) - \exp \left( \dfrac{-2 i \pi k}{N} \right) \right] = \dfrac{i}{h} \sin \left( \dfrac{2 \pi k}{N} \right) \text{ avec } 0 \leq k \leq N-1.
+\theta^k = \dfrac{1}{2h} \left[ \exp \left( \dfrac{2 i \pi k}{N} \right) - \exp \left( \dfrac{-2 i \pi k}{N} \right) \right] = \dfrac{i}{h} \sin \left( \dfrac{2 \pi k}{N} \right) \text{ avec } 0 \leq k \leq N-1.
 \end{equation}
-En particulier, on remarque que $\mu^N = 0$ donc la matrice $K$ n'est pas inversible.
+En particulier, on remarque que $\theta^N = 0$ donc la matrice $K$ n'est pas inversible.
 
 
 
@@ -394,32 +395,308 @@ En particulier, si $\mathfrak{u}$ est une fonction de grille périodique,
 \sigma_x \mathfrak{u}_j = \dfrac{1}{6} \mathfrak{u}_{j+1} + \dfrac{4}{6} \mathfrak{u}_j + \dfrac{1}{6} \mathfrak{u}_{j-1}
 \end{equation}
 
-Un tel opérateur vérifie :
+Les valeurs propres de $\sigma_x$ sont connues.
+\begin{proposition}
+Les valeurs propres de $\sigma_x$ sont 
+\begin{equation}
+\mu^k = \dfrac{2}{3} + \dfrac{1}{3} \cos \left( \dfrac{2 \pi k}{N} \right)
+\end{equation}
+avec $0 \leq k \leq N-1$. Chaque valeur propre est associé à la fonction propre $\mathfrak{u}^k$ avec 
+\begin{equation}
+\mathfrak{u}_j^k = \exp \left[ i j \dfrac{2 \pi k}{N} \right]
+\end{equation}
+\label{prop:vp_sigma}
+\end{proposition}
+
+\begin{proof}
+La proposition \ref{prop:eigen_P(tau)} permet de voir que $\mathfrak{u}^k$ est la fonction propre associée à $\mu^k$ avec 
+\begin{equation}
+\mu^k = \dfrac{4}{6} + \dfrac{1}{6} \left( \exp \left[ i \dfrac{2 \pi k}{N} \right] + \exp \left[ - i \dfrac{2 \pi k}{N} \right] \right) = \dfrac{2}{3} + \dfrac{1}{3} \cos \left( \dfrac{2 \pi k}{N} \right).
+\end{equation}
+On a alors $N$ valeurs propres distinctes, d'où le résultat.
+\end{proof}
+
+En particulier, on remarque que 
+\begin{equation}
+\mu^k \neq 0 \text{ pour tout } 0 \leq k \leq N-1
+\end{equation}
+donc $\sigma_x$ est inversible.
+
+\begin{corollaire}
+L'opérateur $\sigma_x$ est inversible.
+\end{corollaire}
+
+De plus, on note que si $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est une fonction suffisamment régulière, le résultat suivant est vérifié.
 
 \begin{proposition}
-Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ une fonction de $\mathcal{C}^5( \Omega)$ alors, en notant $u^*$ la fonction de grille associée et $u'^*$ la fonction de grille associée à sa dérivée première, on a 
+Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ une fonction de $\mathcal{C}^5 ( \Omega )$, soit $u^*$ la fonction de grille associée. On note $u'$ la dérivée de $u$ et $u'^*$ la fonction de grille associée. Alors 
 \begin{equation}
-\sigma_x u'^*_j - \delta_x u^*_j = \dfrac{h^4}{180} u^{(5)}(\xi_j)
+\sigma_x u'^* - \delta_x u^* = \dfrac{h^4}{144} \left( u^{(5)}(\xi'_i) + u^{(5)}(\eta'_i) \right) - \dfrac{h^4}{240} \left( u^{(5)}(\xi_i) + u^{(5)}(\eta_i) \right)
+\end{equation}
+avec $\xi_i$, $\xi'_i$ dans $[x_i, x_{i+1}]$ et $\eta_i$, $\eta'_i$ dans $[x_{i-1}, x_{i}]$.
+\label{prop:consistence_herm}
+\end{proposition}
+
+\begin{proof}
+Comme $u$ est de classe $\mathcal{C}^5$, on considère les développements de Taylor-Lagrange :
+\begin{equation}
+u(x_i+h) = u(x_i) + h u'(x_i) + \dfrac{h^2}{2} u''(x_i) + \dfrac{h^3}{6}u^{(3)}(x_i) + \dfrac{h^4}{24}u^{(4)}(x_i) + \dfrac{h^5}{120}u^{(5)}(\eta_i) \text{ avec } \eta_i \in [x_i, x_{i+1}]
+\end{equation}
+et celui en $x_i-h$ :
+\begin{equation}
+u(x_i+h) = u(x_i) - h u'(x_i) + \dfrac{h^2}{2} u''(x_i) - \dfrac{h^3}{6}u^{(3)}(x_i) + \dfrac{h^4}{24}u^{(4)}(x_i) - \dfrac{h^5}{120}u^{(5)}(\xi_i) \text{ avec } \xi_i \in [x_{i-1}, x_{i}]
+\end{equation}
+Alors par différence, on retrouve la formule souhaitée : 
+\begin{equation}
+\delta_x u^*_i = u'(x_i) + \dfrac{h^2}{6} u^{(3)}(x_i) +  \dfrac{h^4}{240} \left( u^{(5)}(\xi_i) + u^{(5)}(\eta_i) \right),
+\end{equation}
+
+De la même manière, on a 
+\begin{equation}
+\sigma_x u'^*_i = u'(x_i) +  \dfrac{h^2}{6} u^{(3)}u(x_i) + \dfrac{h^4}{144} \left( u^{(5)}(\xi'_i) + u^{(5)}(\eta'_i) \right).
+\end{equation}
+Ainsi, on retrouve le résultat souhaité.
+\end{proof}
+
+L'opérateur $\sigma_x$ est inversible, donc on peut définir l'\textit{opérateur hermitien d'ordre 4} :
+\begin{equation}
+\delta_x^H = \sigma_x^{-1} \circ \delta_x
+\end{equation}
+Il s'agit d'un opérateur d'approximation de la dérivée première, en effet
+
+\begin{theoreme}
+Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ une fonction de $\mathcal{C}^5 ( \Omega )$, soit $u^*$ la fonction de grille associée, alors
+\begin{equation}
+| u'^*_i -  \delta_x^H u^*_i |_{\infty} \leq C h^4
+\end{equation}
+\end{theoreme}
+
+\begin{proof}
+On a directement 
+\begin{equation*}
+\begin{array}{rcl}
+| u'^*_i -  \delta_x^H u^*_i |_{\infty} & = & | \sigma_x^{-1} \left( \sigma_x u'^*_i - \delta_x u^*_i \right) |_{\infty} \\
+	& \leq & \| \sigma^{-1}_x \|_{\infty} |\sigma_x u'^*_i - \delta_x u^*_i |_{\infty}\\
+	& \leq & C h^4 \text{ d'après la proposition \ref{prop:consistence_herm},}
+\end{array}
+\end{equation*}
+avec
+\begin{equation}
+C = \dfrac{1}{45} \| \sigma^{-1}_x \|_{\infty} \| u^{(5)} \|_{\infty}.
+\end{equation}
+\end{proof}
+
+\begin{proposition}
+Les valeurs propres de $\delta_x^H$ sont données par 
+\begin{equation}
+\omega^k = \dfrac{i}{h} \dfrac{\sin \left( \dfrac{2 \pi k}{N} \right)}{\dfrac{2}{3} + \dfrac{1}{3} \cos \left( \dfrac{2 \pi k}{N} \right)}
+\end{equation}
+avec $0 \leq k \leq N-1$. Chaque valeur propre est associé à la fonction propre $\mathfrak{u}^k$ avec 
+\begin{equation}
+\mathfrak{u}_j^k = \exp \left[ i j \dfrac{2 \pi k}{N} \right]
+\end{equation}
+\label{prop:vp_herm}
+\end{proposition}
+
+\begin{proof}
+On a déjà vu dans la proposition \ref{prop:vp_sigma} que 
+\begin{equation}
+\sigma_x \mathfrak{u}^k = \varepsilon^k \mathfrak{u}^k.
+\end{equation}
+De plus, $\sigma_x$ est inversible, donc 
+\begin{equation}
+\sigma_x^{-1} \mathfrak{u}^k = \dfrac{1}{\varepsilon^k} \mathfrak{u}^k.
+\end{equation}
+
+On sait aussi que 
+\begin{equation}
+\delta_x \mathfrak{u}^k = \dfrac{i}{h} \sin \left( \dfrac{2 \pi k}{N} \right) \mathfrak{u}^k
+\end{equation}
+donc en composant par $\sigma_x^{-1}$, on obtient directement 
+\begin{equation}
+\delta^H_x \mathfrak{u}^k = \sigma_x^{-1} \delta_x \mathfrak{u}^k = \dfrac{i}{h} \dfrac{\sin \left( \dfrac{2 \pi k}{N} \right)}{\mu^k} \mathfrak{u}^k = \omega^k \mathfrak{u}^k.
+\end{equation}
+C'est à dire le résultat souhaité.
+\end{proof}
+
+On note $P$ l'opérateur associé à $\sigma_x$ agissant sur les vecteurs $U = [U_1, U_2, \ldots, U_N]^T \in \mathbb{R}^N$. $P$ s'exprime sous la forme suivante :
+\begin{equation}
+P = \dfrac{1}{6} 
+\begin{bmatrix}
+4 & 1 &   &   & 1 \\ 
+1 & 4 & 1 & (0) &   \\ 
+  & \ddots & \ddots & \ddots &   \\ 
+  & (0) & 1 & 4 & 1 \\ 
+1 &   &  & 1 & 4
+\end{bmatrix}.
+\end{equation}
+
+Alors si
+\begin{equation}
+U = \begin{bmatrix}
+\mathfrak{u}_0 \\
+\mathfrak{u}_1 \\
+\vdots \\
+\mathfrak{u}_N \\
+\end{bmatrix} \text{ et } 
+U' = \begin{bmatrix}
+\delta_x^H \mathfrak{u}_0 \\
+\delta_x^H \mathfrak{u}_1 \\
+\vdots \\
+\delta_x^H \mathfrak{u}_N \\
+\end{bmatrix}
+\end{equation}
+sont deux vecteurs de $\mathbb{R}^N$, la relation suivante est vérifiée :
+\begin{equation}
+P U' = K U.
+\end{equation}
+Ainsi, dans la pratique, la dérivée hermitienne $\delta_x^H \mathfrak{u}$ en chaque point est calculée comme la solution d'un système linéaire. Cette solution peut être calculée grâce à la formule de Shermann-Morisson-Woodbury couplé à un solveur tridiagonal comme l'algorithme de Thomas.
+
+\begin{proposition}
+\textbf{(Formule de Shermann-Morisson-Woodbury)} Soient $A, B \in \mathcal{M}_N \left(\mathbb{R} \right)$ deux matrices inversibles telles que 
+\begin{equation}
+A = B + R S^T,
+\end{equation}
+avec $R$ et $S$ deux matrices de $\mathcal{M}_{N,n} \left(\mathbb{R} \right)$ avec $n \leq N$.
+Alors l'inverse de $A$ peut s'écrire
+\begin{equation}
+A^{-1} = B^{-1} - B^{-1} R \left( Id + S^T B^{-1} R  \right)^{-1} S^T B^{-1}.
+\label{eq:SMW}
 \end{equation}
 \end{proposition}
 
-De plus, l'opérateur $\sigma_x$ est inversible, en effet...
+\begin{proof}
+Il suffit de vérifier que 
+\begin{equation}
+\left( B + R S^T \right) \left( B^{-1} - B^{-1} R \left( Id + S^T B^{-1} R  \right)^{-1} S^T B^{-1} \right) = Id.
+\end{equation}
+\end{proof}
 
+Dans le cas où $n \lll N$, $A$ est une petite perturbation de la matrice $B$ de la forme 
+\begin{equation}
+A = B + \delta B
+\end{equation}
+avec $\rang  (\delta B) $ "petit". Si on peut facilement calculer l'inverse de $B$ la formule de Shermann-Morisson-Woodbury \eqref{eq:SMW} donne un algorithme efficace de résolution du système
+\begin{equation}
+A X = b.
+\end{equation} 
 
-On en déduit que ... THM DE CONSISTANCE
+\begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: Algorithme de Shermann-Morisson-Woodbury}\label{alg:SMW}
+    \begin{algorithmic}[1]
+	\State Calcul de $V_1 = B^{-1} b$,
+	\State Calcul de $V_2 = S^T V_1$,
+	\State Calcul de $V_3 = (Id + S^T B^{-1}R)^{-1} V_2$ (résolution d'un système de petite taille),
+	\State Calcul de $V_4 = R V_3$,
+	\State Calcul de $V_5 = B^{-1} V_4$,
+	\State Calcul de $X = V_1 - V_5$.
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center}
 
-Ecriture matricielle
+\begin{proposition}
+Soit $P$ et $\tilde{P}$ les matrice donnée par 
+\begin{equation}
+P = \dfrac{1}{6} 
+\begin{bmatrix}
+4 & 1 &   &   & 1 \\ 
+1 & 4 & 1 & (0) &   \\ 
+  & \ddots & \ddots & \ddots &   \\ 
+  & (0) & 1 & 4 & 1 \\ 
+1 &   &  & 1 & 4
+\end{bmatrix} \text{ et }
+\tilde{P} = \dfrac{1}{6} 
+\begin{bmatrix}
+4 & 1 &   &   &  \\ 
+1 & 4 & 1 & (0) &   \\ 
+  & \ddots & \ddots & \ddots &   \\ 
+  & (0) & 1 & 4 & 1 \\ 
+ &   &  & 1 & 4
+\end{bmatrix}.
+\end{equation}
+Alors 
+\begin{equation}
+P = \tilde{P} + R S^T
+\end{equation} 
+avec 
+\begin{equation}
+R = \dfrac{1}{6}\begin{bmatrix}
+1 & 0 \\ 
+0 & \vdots \\ 
+\vdots & \vdots \\ 
+\vdots & 0 \\ 
+0 & 1
+\end{bmatrix} \text{ et } 
+S = \begin{bmatrix}
+0 & 1 \\ 
+\vdots & 0 \\ 
+\vdots & \vdots \\ 
+0 & \vdots \\ 
+1 & 0
+\end{bmatrix} 
+\end{equation}
+\end{proposition}
 
-Inversion pratique
+De là, si 
+\begin{equation}
+U = \begin{bmatrix}
+\mathfrak{u}_0 \\
+\mathfrak{u}_1 \\
+\vdots \\
+\mathfrak{u}_N \\
+\end{bmatrix} \text{ et } 
+\end{equation}
+il découle l'algorithme de calcul de $U' = P^{-1}K U$ donné par
 
-Valeur propres
+\begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: Calcul Hermitien}\label{alg:SH}
+    \begin{algorithmic}[1]
+    \State Calcul de $b = K U$,
+	\State Calcul de $V_1 = \tilde{P}^{-1} b$,
+	\State Calcul de $V_2 = S^T V_1$,
+	\State Calcul de $V_3 = (Id + S^T \tilde{P}^{-1}R)^{-1} V_2$ (résolution d'un système de taille $2 \times 2$),
+	\State Calcul de $V_4 = R V_3$,
+	\State Calcul de $V_5 = \tilde{P}^{-1} V_4$,
+	\State Calcul de $U' = V_1 - V_5$.
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center}
+La matrice $\tilde{P}$ étant tridiagonale, elle peut être inversée simplement en utilisant l'algorithme de Thomas. Le calcul de $U'$ a un coût du même ordre de grandeur que le coût de résolution de $\tilde{P}X = b$. Concernant la matrice de calcul du schéma hermitien, un certain nombre de résultats sont vérifiés.
 
+\begin{proposition}
+Les matrices $P$, $K$ et $P^{-1}$ commutent.
+\end{proposition}
 
+\begin{proof}
+On remarque directement que 
+\begin{equation}
+P = \dfrac{1}{6} T + \dfrac{4}{6} Id + \dfrac{1}{6} T^{-1} = \dfrac{1}{6} T + \dfrac{4}{6} Id + \dfrac{1}{6} T^{N-1},
+\end{equation}
+de même
+\begin{equation}
+K = \dfrac{1}{2h} \left( T - T^{N-1} \right).
+\end{equation}
+Ainsi, $P$ est polynomiale en $T$, donc $P^{-1}$ est polynomiale en $T$. $K$ est aussi polynomiale en $T$.
+On en déduit que toutes ces matrices commutent.
+\end{proof}
 
+\begin{proposition}
+La matrice $P^{-1}K$ est antisymétrique.
+\end{proposition}
 
-
-
-
+\begin{proof}
+Par calcul immédiat, on a :
+\begin{equation}
+(P^{-1}K)^T = K^T P^{-T} = - K P^{-1} = - P^{-1} K.
+\end{equation}
+car $K$ est antisymétrique et $P$ est symétrique (donc $P^{-1}$ aussi). 
+\end{proof}
 
 
 
@@ -463,7 +740,7 @@ La norme associée à ce produit scalaire est :
 \end{equation}
 La norme infinie est aussi une norme usuelle sur $L^{\infty}(\Omega)$ :
 \begin{equation}
-\| u \|_{L^{\infty} ( \Omega )} = \sum_{(x,y) \in \Omega} |u(x,y)|.
+\| u \|_{L^{\infty} ( \Omega )} = \max_{(x,y) \in \Omega} |u(x,y)|.
 \end{equation}
 Pour alléger les notations, et lorsque cela ne portera pas à confusions, nous noterons ces deux normes $\| u \|_{L^2}$ et $\| u \|_{L^{\infty}}$.
 
@@ -542,7 +819,7 @@ On dit qu'une fonction $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$ est 
 \begin{array}{rcl}
 u(x,y+L) & = & u(x,y) \\
 u(x+L,y) & = & u(x,y)
-\end{array} \text{ pour tous} (x,y) \in \Omega.
+\end{array} \text{ pour tous } (x,y) \in \Omega.
 \end{equation}
 
 Comme pour le cas en dimension 1, nous définissons différentes notions de fonctions discrètes associées à la grille :

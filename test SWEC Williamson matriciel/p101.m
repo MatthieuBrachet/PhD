@@ -28,22 +28,22 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=1;
+test=5;
 video = 'no';
 sauvegarde = 1;
 filtre='symetric';
 opt_ftr='redonnet10';
-scheme='compact4';
+scheme='kim4';
 snapshot='yes';
 nrm='int';
 
-n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=15;
+n=79; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=80;
 mod101
 disp('mod74 : ok')
 
 %% ************************************************************************
-nper=3;
+nper=4;
 tstart=cputime;
 ref=floor(10000*now);
 jour=date;
@@ -92,7 +92,7 @@ ccor=radius*omega;
 cgrav=sqrt(h0*gp);
 cvit=u0;
 c=max([cgrav,ccor,cvit]);
-cfl=0.9;
+cfl=0.5;
 ddt=radius*dxi*cfl/c;
 Tmax=ndaymax*3600*24;
 itermax=200000;
@@ -372,7 +372,7 @@ while t<Tmax && iter<itermax
         set(hFig, 'Position', [50 50 1000 500])
         mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
         MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
-        v=[mm 5050:50:9050 MM];
+        v=[mm 8100:100:10500 MM];
         plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
         title(['solution at time : ', num2str(time(end))])
         colorbar
@@ -386,7 +386,7 @@ while t<Tmax && iter<itermax
     end
     
     %% snapshot
-    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(3*ddt))) == 0
+    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(16*ddt))) == 0
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         clf;
         
