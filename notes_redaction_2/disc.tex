@@ -1,14 +1,16 @@
 % disc.tex
 \chapter{Analyse numérique}
 
-\section{Opérateur de filtrage en dimension 1}
+\section{Opérateur de filtrage }
+
+\subsection{Opérateur de filtrage en dimension 1}
 
 Lors de la discrétisation via un schéma aux différences finies et suite à la discrétisation en temps, des oscillations parasites du type "+1/-1" peuvent apparaître. Il s'agit de phénomènes haute fréquences qui peuvent provoquer des instabilités numériques. 
 
 Si $\mathfrak{u}$ est une fonction de grille périodique, on note le filtre passe-bas $\mathcal{F}\mathfrak{u}$. Dans la pratique, nous cherchons $\mathcal{F}$ sous la forme 
 
 \begin{equation}
-\mathcal{F} = \gsum_{k=0}^F a_k \dfrac{\tau_k + \tau_{-k}}{2}
+\mathcal{F} = \gsum_{k=0}^F a_k \dfrac{\tau^k + \tau^{-k}}{2}
 \label{eq:ftr}
 \end{equation}
 
@@ -81,6 +83,7 @@ Soit $F \in \mathbb{N}^{\star}$. Il existe un unique $(a_k)_{0 \leq k \leq F}$ t
 \begin{equation}
 \mathcal{F}u^* - u^* = h^{2F} \gsum_{k=0}^F \dfrac{a_k}{2} \dfrac{k^{2F}}{2F!} \left( u^{(2F)}(\xi_k) + u^{(2F)}(\eta_k) \right).
 \end{equation}
+\label{prop:filter_def}
 \end{theoreme}
 
 \begin{proof}
@@ -89,14 +92,14 @@ La forme de l'erreur de troncature a déjà été vue, il reste à prouver l'uni
 Après avoir retiré \eqref{eq:ftr_ftrcond} à \eqref{eq:ftr_conscond}, dire qu'il existe une unique $(a_j)_{0 \leq j \leq J}$ satisfesant les conditions est équivalent à dire que la matrice
 
 \begin{equation}
-A=\begin{pmatrix}
+A=\begin{bmatrix}
 1 &  1  &  1  &  1  &  1  &  1  & \cdots\\  
 0 &  2  &  0  &  2  &  0  & 2  & \cdots\\
 0 &  1  & 2^2 & 3^2 & 4^2 & 5^2 & \cdots\\
 0 &  1  & 2^4 & 3^4 & 4^4 & 5^4 & \cdots\\
 0 &  1  & 2^6 & 3^6 & 4^6 & 5^6 & \cdots\\
 &&& \vdots &  \vdots &
-\end{pmatrix} \in \mathcal{M}_{J+1} \left( \mathbb{R} \right)
+\end{bmatrix} \in \mathcal{M}_{J+1} \left( \mathbb{R} \right)
 \end{equation}
 est inversible car $a = [a_0, a_1, \cdots, a_J]^T$ est solution de 
 \begin{equation}
@@ -157,7 +160,7 @@ $10$ & $772/1024$ & $420/1024$ & $-240/1024$ & $90/1024$ & $-20/1024$ & $2/1024$
 \hline
 \end{tabular}
 \end{center}
-\caption{Exemples de filtres de la forme \eqref{eq:ftr} et leur ordre de précision.}
+\caption{Exemples de filtres de la forme \eqref{eq:ftr} et leurs ordres de précision.}
 \label{tab:filter}
 \end{table}
 
@@ -254,6 +257,144 @@ P'(X) = 0 \Leftrightarrow \cos \tilde{\theta} = 1
 \end{equation*}
 Ce qui est impossible pour $\tilde{\theta} \in ]0, \pi[$. Donc par l'absurde, le résultat est vérifié.
 \end{proof}
+
+La fonction $\beta$ permet de considérer le comportement du filtre sur les différentes fréquences $\theta \in [0, \pi]$. Les basses fréquences sont bien conservées alors que les hautes fréquences ($\theta$ proche de $\pi$) sont atténuées. Cette observation est visible sur la figure \ref{fig:freq_filter} représentant la fonction $\beta : \theta \mapsto \beta(\theta)$ associée aux filtres d'ordre 2, 4, 6, 8 et 10. 
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.7]{freq_filter.png}
+\end{center}
+\caption{Fonction d'amplification $\beta$ pour les filtres explicites d'ordre 2, 4, 6, 8 et 10.}
+\label{fig:freq_filter}
+\end{figure}
+Comme on s'y attendais, un filtre d'ordre élevé laisse passer un plus grand nombre de basses fréquences. Dans le tableau \ref{tab:filter_095}, on représente la fréquence $\theta_{0.95}$ maximale qui est conservée à $95\%$. Comme la fonction $\beta$ est strictement décroissante sur $[0,\pi]$, c'est une bijection de $[0,pi]$ dans $[0,1]$ et on a 
+\begin{equation}
+\theta_{0.95} = \beta^{-1}(0.95).
+\end{equation}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|c||c|}
+\hline
+\textbf{Ordre du filtre} & \textbf{Fréquence conservée à } $95\%$\\
+\hline
+\hline
+$10$&$1.6695$\\
+$8$&$1.5165$\\
+$6$&$1.3045$\\
+$4$&$0.9851$\\
+$2$&$0.4510$\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Fréquence conservée à $95\%$ en fonction de l'ordre du filtre.}
+\label{tab:filter_095}
+\end{table}
+
+En pratique, cette fréquence $\theta_{0.95}$ est donnée en résolvant $\beta(\theta_{0.95})=0.95$ par 
+\begin{equation}
+\theta_{0.95} = \arccos \left[ 1-2 (0.05)^{1/F} \right].
+\end{equation}
+On remarque directement que la fonction $F \mapsto \theta_{0.95}$ est croissante, ce qui confirme que lorsque l'ordre de précision croit, $J$ croit et $\theta_{0.95}$ croit donc le filtre conserve un plus grand nombre de fréquences. De plus, 
+\begin{equation}
+\lim_{F \rightarrow \infty} \theta_{0.95} = \pi.
+\end{equation}
+Ce qui confirme la prise en compte d'un grand nombre de fréquence lorsque l'on augmente l'ordre du filtre. Cependant lorsque l'ordre du filtre augmente, l'effet de filtrage des hautes fréquences diminue.
+
+Si $\mathfrak{u}$ est une fonction de grille, on pose $U$ et $\tilde{U}$ les vecteurs de $\mathbb{R}^N$ tel que
+\begin{equation}
+U = \begin{bmatrix}
+\mathfrak{u}_1\\
+\mathfrak{u}_2\\
+\vdots \\
+\mathfrak{u}_N\\
+\end{bmatrix} \text{ et } 
+\tilde{U} = \begin{bmatrix}
+\mathcal{F}\mathfrak{u}_1\\
+\mathcal{F}\mathfrak{u}_2\\
+\vdots \\
+\mathcal{F}\mathfrak{u}_N\\
+\end{bmatrix}
+\end{equation}
+Alors $U$ et $\tilde{U}$ vérifient la relation
+\begin{equation}
+\tilde{U} = M F
+\end{equation}
+avec $M \in \mathcal{M}_N \left( \mathbb{R} \right)$ la matrice associée au filtrage des données en dimension 1 (dans le cas $F=2$):
+\begin{equation}
+M = \dfrac{1}{2}
+\begin{bmatrix}
+2a_0 & a_1 & a_2 &   &   &   & a_2 & a_1 \\ 
+a_1 & 2 a_0 & a_1 & a_2 &   &   &   & a_2 \\ 
+a_2 & a_1 & 2a_0 & a_1 & a_2 & (0) &   &   \\ 
+  & a_2 & a_1 & 2a_0 & a_1 & a_2 &   &   \\ 
+  &   & \ddots & \ddots & \ddots & \ddots & \ddots &   \\ 
+  &   & (0) & a_2 & a_1 & 2 a_0 & a_1 & a_2 \\ 
+a_2 &   &   &   & a_2 & a_1 & 2a_0 & a_1 \\ 
+a_1 & a_2 &   &   &   & a_2 & a_1 & 2a_0
+\end{bmatrix} 
+\end{equation}
+ou plus généralement 
+\begin{equation}
+M_{i,j} = \left\lbrace
+\begin{array}{cl}
+a_0 & \text{ si } i=j \\
+\dfrac{1}{2} a_k & \text{ si } i+j \equiv k [N]\\
+0 & \text{ sinon.}
+\end{array}
+\right.
+\end{equation}
+Il est clair que la matrice $M$ est symétrique.
+
+
+
+
+
+
+
+
+\subsection{Opérateur de filtrage en géométrie cartésienne 2D}
+
+Dans cette partie, nous utilisons toujours les notations de la section \ref{sec:notation_2D} en contexte périodique. Définissons les opérateurs de filtrage dans les directions $x$ et $y$ par
+\begin{eqnarray*}
+\mathcal{F}_x = \gsum_{k=0}^F a_k \dfrac{\tau_x^k + \tau_x^{-k}}{2} \\
+\mathcal{F}_y = \gsum_{k=0}^F a_k \dfrac{\tau_y^k + \tau_y^{-k}}{2} \\
+\end{eqnarray*}
+
+Avec $(a_k)_{0 \leq k \leq F}$ vérifiant \ref{prop:filter_def}. Comme la géométrie est cartésienne, on remarque que 
+\begin{equation}
+\mathcal{F}_x \circ \mathcal{F}_y = \mathcal{F}_y \circ \mathcal{F}_x.
+\end{equation}
+Ce qui est faux lorsque la métrique n'est pas orthogonale.
+La proposition \ref{prop:filter_def} permet de vérifier la consistance des opérateurs de filtrages.
+Si $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$ est fonction de $\mathcal{C}^{2F}$ alors :
+\begin{eqnarray*}
+\mathcal{F}_x u^*_{i,j} - u^*_{i,j} & = & C_xh^{2F}\\
+\mathcal{F}_y u^*_{i,j} - u^*_{i,j} & = & C_yh^{2F}
+\end{eqnarray*}
+où $C_x$ et $C_y$ sont des constantes indépendantes de $h$.
+En particulier, en composant les opérateurs, on peut définir un nouvel opérateur de filtrage. En effet  
+\begin{equation}
+(\mathcal{F}_x \circ \mathcal{F}_y) u_{i,j}^* - u_{i,j}^* = Ch^{2F}.
+\end{equation}
+
+L'écriture matricielle de l'opérateur de filtrage est donnée par la proposition suivante :
+\begin{proposition}
+Soit $\mathbf{u}$ une fonction de grille. Alors les opérateurs de filtrages s'écrivent à l'aide de matrices comme :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\text{vec}_2 (\mathcal{F}_x \mathbf{u}) & = & (Id \otimes M) \text{vec}_2 (\mathbf{u})\\
+\text{vec}_2 (\mathcal{F}_y \mathbf{u}) & = & (M \otimes Id) \text{vec}_2 (\mathbf{u})\\
+\end{array}
+\right.
+\end{equation}
+\end{proposition}
+Comme la matrice $M$ est symétrique, il est immédiat que $Id \otimes M$ et $M \otimes Id$ sont symétriques aussi.
+
+
+
+
 
 
 
