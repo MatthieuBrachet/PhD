@@ -25,11 +25,11 @@ global teta0 teta1
 
 test=0;
 video = 'no';
-sauvegarde = 0;
+sauvegarde = 1;
 opt_ftr='redonnet10';
 type_ftr='symetric';
 scheme='compact4';
-n=127;
+n=63;
 mod101
 
 teta0=-pi/3;
@@ -41,9 +41,9 @@ c=max(cgrav,ccor);
 
 cfl=0.9;
 ddt=radius*dxi*cfl/c;
-ndaymax=5;
+ndaymax=50;
 Tmax=ndaymax*3600*24;
-itermax=10000;
+itermax=100000;
 
 %% *** initialisation des données
 t=0;
