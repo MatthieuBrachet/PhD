@@ -272,7 +272,7 @@ Si $f \in \mathcal{C}^{10}$,
 \item $K^{(1)} = F_{\nabla} \left( q^n \right)$,
 \item $K^{(2)} = F_{\nabla} \left( q^n + \dfrac{\Delta t}{2} K^{(1)} \right)$,
 \item $K^{(3)} = F_{\nabla} \left( q^n + \dfrac{\Delta t}{2} K^{(2)} \right)$,
-\item $K^{(4)} = F_{\nabla} \left( V^n + \Delta t K^{(3)} \right)$,  
+\item $K^{(4)} = F_{\nabla} \left( q^n + \Delta t K^{(3)} \right)$,  
 \item $q^{n+1} = \mathcal{F} \left( q^n  + \frac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
 \end{enumerate}
 \end{itemize}
@@ -357,7 +357,7 @@ Le test de J. Galewsky est une perturbation d'une solution stationnaire. Ce test
 \caption{Vorticité au jour 6, erreurs relatives de conservations sur une grille $6 \times 128 \times 128$.}
 \end{figure}
 
-\item \textbf{Ondes de Rossby-Haurwitz.} Le test de Rossby-Haurwitz est un test classique de climatologie numérique. La condition initiale se déplace d'Est en Ouest.
+\item \textbf{Ondes de Rossby-Haurwitz.} Le test de Rossby-Haurwitz est un test classique de climatologie numérique. La condition initiale se déplace d'Ouest en Est.
 
 \begin{figure}
 \begin{center}
