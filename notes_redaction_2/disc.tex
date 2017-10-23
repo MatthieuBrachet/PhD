@@ -409,13 +409,13 @@ Comme la matrice $M$ est symétrique, il est immédiat que $Id \otimes M$ et $M 
 
 \section{Discrétisation temporelle}
 
-La résolution numérique des équations considérées se fait par la méthode des lignes. Il s'agit de discrétiser dans un premier lieux les opérateurs spatiaux pour aboutir à une équations semi-discrétisée. Il ne reste que la dimension temporelle à considérer : il s'agit de la résolution numérique d'une équation aux dérivées ordinaires. Nous considérons ici des EDO de la forme
+La résolution numérique des équations considérées se fait par la méthode des lignes. Il s'agit de discrétiser dans un premier temps les opérateurs spatiaux pour aboutir à une équations semi-discrétisée. Il ne reste que la dimension temporelle à considérer : il s'agit de la résolution numérique d'une équation aux dérivées ordinaires (EDO). Nous considérons ici des EDO de la forme
 \begin{equation}
 \dfrac{d q}{dt} = J_{\Delta} (q)
 \label{eq:edo}
 \end{equation}
 avec la condition initiale $q(0)=q_0$. 
-Ce choix de méthode est particulièrement pratique. La discrétisation spatiale et la discrétisation temporelle sont séparées, cela facilite le développement de nouvelles méthodes de discrétisations qui peuvent aisément être changées.
+Ce choix de méthode est essentiellement pratique. La discrétisation spatiale et la discrétisation temporelle sont séparées, cela facilite le développement de nouvelles méthodes de discrétisations qui peuvent aisément être changées dans le code.
 
 \subsection{Discrétisation de Runge-Kutta d'ordre 4}
 
@@ -423,7 +423,7 @@ Le schéma de résolution temporelle de référence que nous considérons est le
 \begin{equation}
 q^{n+1} = Q(q^n)
 \end{equation}
-Le schéma de Runge-Kutta d'ordre 4 s'écrit suivant l'algorithme \ref{alg:RK4}.
+Le schéma de Runge-Kutta d'ordre 4 est l'une des méthodes de Runge-Kutta les plus répandu, il s'écrit suivant l'algorithme \ref{alg:RK4}.
 
 \begin{center}
 \begin{minipage}[H]{12cm}
@@ -443,17 +443,35 @@ Le schéma de Runge-Kutta d'ordre 4 s'écrit suivant l'algorithme \ref{alg:RK4}.
 \end{minipage}
 \end{center}
 
+On dit qu'une méthode numérique est consistante si
+\begin{equation}
+q^n - q(n \Delta t) = e^n
+\end{equation}
+et $e^n \rightarrow 0$ lors que $\Delta t \rightarrow 0$. Le schéma de Runge-Kutta d'ordre 4 est consistant à l'ordre 4. C'est à dire que l'erreur $e^n$ est de la forme
+\begin{equation}
+e^n = C \Delta t^4.
+\end{equation}
+
 \begin{theoreme}
 La méthode de résolution RK4 donnée dans l'algorithme \ref{alg:RK4} définie une méthode de résolution de \ref{eq:edo} d'ordre 4. Si $q : t \in \mathbb{R}^+ \mapsto \mathbb{R}^N$ est une fonction de $\mathcal{C}^5$ et $q^n = q(n \Delta t)$ alors
 \begin{equation}
-q((n+1) \Delta t) - q^{n+1} = \mathcal{O} \left( \Delta t^5 \right)
+q((n+1) \Delta t) - q^{n+1} = \mathcal{O} \left( \Delta t^5 \right).
 \end{equation}
-
 \end{theoreme}
+
+\begin{proof}
+TBA.
+\end{proof}
+
+Il existe autres méthodes de Runge-Kutta explicites. On pensera par exemples à la méthode d'Euler Explicite ou le schéma de Heun.
+
+
 
 \subsection{Stabilité}
 
-\subsection{Schéma filtré}
+La \textit{stabilité linéaire} d'un schémas en temps est une notion essentielle associée à un schéma. Cette notion recouvre de nombreux aspects dans la littérature. 
+
+\subsection{Schémas de Runge-Kutta filtré}
 
 
 
