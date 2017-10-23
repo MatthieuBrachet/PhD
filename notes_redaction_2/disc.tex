@@ -409,7 +409,47 @@ Comme la matrice $M$ est symétrique, il est immédiat que $Id \otimes M$ et $M 
 
 \section{Discrétisation temporelle}
 
+La résolution numérique des équations considérées se fait par la méthode des lignes. Il s'agit de discrétiser dans un premier lieux les opérateurs spatiaux pour aboutir à une équations semi-discrétisée. Il ne reste que la dimension temporelle à considérer : il s'agit de la résolution numérique d'une équation aux dérivées ordinaires. Nous considérons ici des EDO de la forme
+\begin{equation}
+\dfrac{d q}{dt} = J_{\Delta} (q)
+\label{eq:edo}
+\end{equation}
+avec la condition initiale $q(0)=q_0$. 
+Ce choix de méthode est particulièrement pratique. La discrétisation spatiale et la discrétisation temporelle sont séparées, cela facilite le développement de nouvelles méthodes de discrétisations qui peuvent aisément être changées.
+
 \subsection{Discrétisation de Runge-Kutta d'ordre 4}
+
+Le schéma de résolution temporelle de référence que nous considérons est le schéma de Runge-Kutta d'ordre 4 (RK4). Si nous connaissons l'état de $q$ au temps $t^n = n \Delta t$ (que nous noterons $q^n$) alors nous cherchons à déterminer de façon explicite une valeur approchée de $q$ au temps $t^{n+1} = (n+1) \Delta t$. C'est à dire que nous cherchons $Q$ tel que
+\begin{equation}
+q^{n+1} = Q(q^n)
+\end{equation}
+Le schéma de Runge-Kutta d'ordre 4 s'écrit suivant l'algorithme \ref{alg:RK4}.
+
+\begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: RK4}\label{alg:RK4}
+    \begin{algorithmic}[1]
+    \State $q^0 = q_0$ connu,
+    \For{$n=0,1, \ldots$}
+             \State  $K^{(1)} = J_{\Delta} \left( q^n \right)$,
+             \State  $K^{(2)} = J_{\Delta} \left( q^n + \dfrac{\Delta t}{2} K^{(1)}\right)$,
+             \State  $K^{(3)} = J_{\Delta} \left( q^n + \dfrac{\Delta t}{2} K^{(2)}\right)$,
+             \State  $K^{(4)} = J_{\Delta} \left( q^n + \Delta t K^{(3)}\right)$,  
+             \State  $q^{n+1} = q^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right)$.
+            \EndFor
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center}
+
+\begin{theoreme}
+La méthode de résolution RK4 donnée dans l'algorithme \ref{alg:RK4} définie une méthode de résolution de \ref{eq:edo} d'ordre 4. Si $q : t \in \mathbb{R}^+ \mapsto \mathbb{R}^N$ est une fonction de $\mathcal{C}^5$ et $q^n = q(n \Delta t)$ alors
+\begin{equation}
+q((n+1) \Delta t) - q^{n+1} = \mathcal{O} \left( \Delta t^5 \right)
+\end{equation}
+
+\end{theoreme}
 
 \subsection{Stabilité}
 

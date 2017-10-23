@@ -8,6 +8,7 @@
 %        4  : Galewsky with perturbation (exp),
 %        5  : Rossby-Haurwitz waves,
 %        6  : Polar rotating low-high,
+%        7  : Modified Rossby-Haurwitz waves,
 %        -1 : test with Earth topography
 %        -2 : bump
 % scheme : numerical spatial scheme used. 
@@ -28,12 +29,12 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=5;
+test=7;
 video = 'no';
 sauvegarde = 1;
 filtre='symetric';
 opt_ftr='redonnet10';
-scheme='kim4';
+scheme='compact4';
 snapshot='yes';
 nrm='int';
 
@@ -425,8 +426,16 @@ while t<Tmax && iter<itermax
             title(['exact solution at time = ', num2str(time(end))]);
             colorbar
             view([1 -1 1])
+        elseif test == 7
+            mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
+            MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
+            v=[mm 6500:100:9000 MM];
+            plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
+            title(['solution at time : ', num2str(time(end))])
+            colorbar
+            
         else
-            plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
+            plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
             title(['solution at time : ', num2str(time(end))])
             colorbar
         end

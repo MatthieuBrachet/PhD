@@ -95,7 +95,7 @@ c=max([cgrav,ccor,cvit]);
 cfl=0.9;
 ddt=radius*dxi*cfl/c;
 Tmax=ndaymax*3600*24;
-itermax=20000;
+itermax=200000;
 
 tstart=cputime;
 ref=floor(10000*now);
