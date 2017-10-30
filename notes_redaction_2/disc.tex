@@ -463,13 +463,136 @@ q((n+1) \Delta t) - q^{n+1} = \mathcal{O} \left( \Delta t^5 \right).
 TBA.
 \end{proof}
 
-Il existe autres méthodes de Runge-Kutta explicites. On pensera par exemples à la méthode d'Euler Explicite ou le schéma de Heun.
+Il existe autres méthodes de Runge-Kutta explicites. On pensera par exemples à la méthode d'Euler Explicite ou le schéma de Heun. Il est classique de représenter une méthode de Runge-Kutta par son \textit{tableau de Butcher} :
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{c|c}
+$b$ & $R$ \\
+\hline
+    & $c^T$
+\end{tabular}
+\end{center}
+\caption{Tableau de Butcher d'une méthode de Runge-Kutta.}
+\label{tab:butcher}
+\end{table}
+
+où $R$ est une matrice, $b$ et $c$ sont des vecteurs. Par exemple, le tableau de Butcher de la méthode de Runge Kutta d'ordre 4 de l'algorithme \ref{alg:RK4} est donné par :
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{c|cccc}
+$0$   &       &      &      &      \\
+$1/2$ & $1/2$ &      &      &      \\
+$1/2$ & $0$   & $1/2$&      &      \\
+$1$   & $0$   & $0$  & $1$  &      \\  
+\hline
+      & $1/6$ & $1/3$& $1/3$& $1/6$\\
+\end{tabular}
+\end{center}
+\caption{Tableau de Butcher de la méthode de Runge Kutta d'ordre 4 (algorithme \ref{alg:RK4}).}
+\end{table}
+
+\begin{proposition}
+Une méthode de Runge-Kutta est explicite si $R$ est triangulaire inférieure strictement.
+\end{proposition}
+
 
 
 
 \subsection{Stabilité}
 
-La \textit{stabilité linéaire} d'un schémas en temps est une notion essentielle associée à un schéma. Cette notion recouvre de nombreux aspects dans la littérature. 
+La \textit{stabilité linéaire} d'un schémas en temps est une notion essentielle associée à un schéma. Cette notion recouvre de nombreux aspects dans la littérature.
+Un schéma d'intégration en temps permet de calculer $q^n$ une approximation de $q(n \Delta t)$ à une erreur $e^n$ près :
+\begin{equation}
+q^n = q(n \Delta t) + e^n.
+\label{eq:scheme_erreur}
+\end{equation}
+
+La stabilité du schéma est essentielle. Nous distinguons deux principales notions de stabilité :
+\begin{enumerate}
+\item La \textit{stabilité au sens de Von Neumann} établi une relation de convergence de $q^n$ vers $q(n \Delta t)$ pour tout $1 \leq n \leq N$ lorsque $\Delta t \rightarrow 0$ et $N \rightarrow + \infty$. 
+La stabilité de Von Neumann du schéma \eqref{eq:scheme_erreur} se traduit par
+\begin{equation}
+\exists C >0, \forall n \in \{ 0 , \cdots , N \}, \forall (N, \Delta t) \in \mathbb{N} \times \mathbb{R}^+, \| q^n \| \leq C.
+\end{equation}
+Cette propriété traduit le fait que l'erreur doit rester uniformément bordée lorsque l'on raffine la discrétisation. La stabilité au sens de Von Neumann ne permet pas d'assurer la convergence vers la solution de l'équation différentielle lorsque l'on raffine le maillage, il s'agit là de la consistance. Si un schéma est stable et consistant, alors il y a convergence de la solution numérique vers la solution exacte sur un intervalle borné lorsque l'on raffine, il s'agit du théorème de Lax.
+
+\item La \textit{Stabilité asymptotique} se caractérise par le compostement de la solution numérique $q^n$ sur un intervalle non borné à $\Delta t$ fixé. On distingues deux types de stabilités asymptotiques :
+\begin{itemize}
+\item la suite $(q^n)_{n \in \mathbb{N}}$ est bornée,
+\item La suite $q^n \rightarrow 0$ lorsque $n \rightarrow + \infty$.
+\end{itemize}
+la stabilité asymptotique est liée à l'équation différentielle résolue. En effet si la solution exacte de l'équation résolue tend vers $0$ alors la solution numérique doit tendre vers $0$ aussi. On note cependant que la stabilité asymptotique peut n'être vérifiée que sous une contrainte sur $\Delta t$.
+\end{enumerate} 
+
+Nous nous limitons à la notion de \textit{stabilité linéaire asymptotique}, appelée stabilité linéaire. Il s'agit de la stabilité asymptotique appliquée à l'équation de Dahlquist :
+\begin{equation}
+\left\lbrace 
+\begin{array}{rcl}
+q' & = & \lambda q \\
+q(0) & = & q_0.
+\end{array}
+\right.
+\label{eq:dahlquist}
+\end{equation}
+avec $\lambda \in \mathbb{C}^- = \{ \lambda_1 + i \lambda_2 \text{ tels que } (\lambda_1, \lambda_2) \in \mathbb{R}^- \times \mathbb{R} \}$.
+
+\begin{proposition}
+Soit une méthode de Runge-Kutta appliquée à la résolution de l'équation \eqref{eq:dahlquist}. En utilisant les notations du tableau de Butcher \ref{tab:butcher}, on a 
+\begin{equation}
+q^{n+1} = r(\lambda \Delta t) q^n,
+\end{equation}
+avec $r$ donné par 
+\begin{equation}
+r(\theta) = 1 + \theta c^T \cdot \left( (id - \theta R)^{-1} \mathbf{1} \right).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+On remarque directement que si $K = [K_1, K_2, ...]^T$ alors $K$ est solution de 
+\begin{equation}
+K = \lambda q^n +  \lambda \Delta t R K
+\end{equation}
+donc, $K = (id - \lambda \Delta t R)^{-1} \mathbf{1}$.
+De là, il découle directement que 
+\begin{equation}
+q^{n+1} = q^n + \theta c^T \cdot \left( (id - \theta R)^{-1} q^n \right).
+\end{equation} 
+avec $\theta = \lambda \Delta t$. D'où le résultat.
+\end{proof}
+En particulier, pour la méthode de Runge-Kutta d'ordre 4, on a 
+\begin{equation}
+r(\theta) = 1 + \theta + \dfrac{\theta^2}{2} + \dfrac{\theta^3}{6} + \dfrac{\theta^4}{24} 
+\end{equation}
+alors le résultat de stabilité est le suivant :
+\begin{proposition}
+La méthode de Runge-Kutta d'ordre 4 (RK4) est asymptotiquement stable pour l'équation \eqref{eq:dahlquist} si et seulement si
+\begin{equation}
+\vert 1 + \theta + \dfrac{\theta^2}{2} + \dfrac{\theta^3}{6} + \dfrac{\theta^4}{24}  \vert \leq 1,
+\end{equation}
+avec $\theta = \lambda \Delta t$.
+\end{proposition}
+On définit la zone de stabilité de RK4, notée $\mathcal{D}_{RK4}$, par
+\begin{equation}
+\mathcal{D}_{RK4} = \left\lbrace \theta \in \mathbb{C} \text{ tels que } \vert 1 + \theta + \dfrac{\theta^2}{2} + \dfrac{\theta^3}{6} + \dfrac{\theta^4}{24}  \vert \leq 1 \right\rbrace
+\end{equation} 
+Dans la figure \ref{fig:stab_area}, on présente les zones de stabilités de différentes méthodes de Runge-Kutta explicites.
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.2]{stabilityarea_color.jpeg}
+\end{center}
+\caption{Zones de stabilités de différentes méthodes de Runge-Kutta explicites dans le plan complexe. La zone de stabilité de RK4 est délimitée par le trait noir. Les traits vert, bleu et rouge sont respectivement pour des méthodes de Runge-Kutta d'ordre 3, 2 et 1.}
+\label{fig:stab_area}
+\end{figure}
+En particulier, comme détaillé dans \cite{Hundsdorfer2013}, on note que
+\begin{equation}
+\mathcal{D}_{RK4} \cap i \mathbb{R} = i \left[-\sqrt{2},\sqrt{2}\right].
+\end{equation}
+
+
+
+
 
 \subsection{Schémas de Runge-Kutta filtré}
 
