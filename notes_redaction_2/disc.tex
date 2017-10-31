@@ -267,9 +267,9 @@ La fonction $\beta$ permet de considérer le comportement du filtre sur les diff
 \caption{Fonction d'amplification $\beta$ pour les filtres explicites d'ordre 2, 4, 6, 8 et 10.}
 \label{fig:freq_filter}
 \end{figure}
-Comme on s'y attendais, un filtre d'ordre élevé laisse passer un plus grand nombre de basses fréquences. Dans le tableau \ref{tab:filter_095}, on représente la fréquence $\theta_{0.95}$ maximale qui est conservée à $95\%$. Comme la fonction $\beta$ est strictement décroissante sur $[0,\pi]$, c'est une bijection de $[0,pi]$ dans $[0,1]$ et on a 
+Comme on s'y attendais, un filtre d'ordre élevé laisse passer un plus grand nombre de basses fréquences. Dans le tableau \ref{tab:filter_095}, on représente la fréquence $\theta_{0.95}$ maximale qui est conservée à $95\%$. Comme la fonction $\beta$ est strictement décroissante et continue sur $[0,\pi]$, c'est une bijection de $[0,\pi]$ dans $[0,1]$ et on a 
 \begin{equation}
-\theta_{0.95} = \beta^{-1}(0.95).
+\theta_{0.95} = \beta^{-1}(0.95)= \arccos \left[ 1-2 (0.05)^{1/F} \right].
 \end{equation}
 
 \begin{table}
@@ -291,17 +291,13 @@ $2$&$0.4510$\\
 \label{tab:filter_095}
 \end{table}
 
-En pratique, cette fréquence $\theta_{0.95}$ est donnée en résolvant $\beta(\theta_{0.95})=0.95$ par 
+La fonction $F \mapsto \theta_{0.95} = \beta^{-1}(0.95)$ est croissante, ce qui confirme que lorsque l'ordre de précision croit, $\theta_{0.95}$ croit et le filtre conserve un plus grand nombre de fréquences. De plus, 
 \begin{equation}
-\theta_{0.95} = \arccos \left[ 1-2 (0.05)^{1/F} \right].
-\end{equation}
-On remarque directement que la fonction $F \mapsto \theta_{0.95}$ est croissante, ce qui confirme que lorsque l'ordre de précision croit, $J$ croit et $\theta_{0.95}$ croit donc le filtre conserve un plus grand nombre de fréquences. De plus, 
-\begin{equation}
-\lim_{F \rightarrow \infty} \theta_{0.95} = \pi.
+\lim_{F \rightarrow +\infty} \theta_{0.95} = \pi.
 \end{equation}
 Ce qui confirme la prise en compte d'un grand nombre de fréquence lorsque l'on augmente l'ordre du filtre. Cependant lorsque l'ordre du filtre augmente, l'effet de filtrage des hautes fréquences diminue.
 
-Si $\mathfrak{u}$ est une fonction de grille, on pose $U$ et $\tilde{U}$ les vecteurs de $\mathbb{R}^N$ tel que
+Le filtre utilisé est linéaire et agit sur les composantes des fonctions de grilles. Si $\mathfrak{u}$ est une fonction de grille, on pose $U$ et $\tilde{U}$ les vecteurs de $\mathbb{R}^N$ tel que
 \begin{equation}
 U = \begin{bmatrix}
 \mathfrak{u}_1\\
@@ -318,9 +314,9 @@ U = \begin{bmatrix}
 \end{equation}
 Alors $U$ et $\tilde{U}$ vérifient la relation
 \begin{equation}
-\tilde{U} = M F
+\tilde{U} = M U
 \end{equation}
-avec $M \in \mathcal{M}_N \left( \mathbb{R} \right)$ la matrice associée au filtrage des données en dimension 1 (dans le cas $F=2$):
+avec $M \in \mathcal{M}_N \left( \mathbb{R} \right)$ la matrice associée au filtrage des données en dimension 1. Lorsque le filtre est d'ordre 4, ($F=2$), la matrice $M$ est donnée par
 \begin{equation}
 M = \dfrac{1}{2}
 \begin{bmatrix}
@@ -332,9 +328,9 @@ a_2 & a_1 & 2a_0 & a_1 & a_2 & (0) &   &   \\
   &   & (0) & a_2 & a_1 & 2 a_0 & a_1 & a_2 \\ 
 a_2 &   &   &   & a_2 & a_1 & 2a_0 & a_1 \\ 
 a_1 & a_2 &   &   &   & a_2 & a_1 & 2a_0
-\end{bmatrix} 
+\end{bmatrix}
 \end{equation}
-ou plus généralement 
+Plus généralement, pour un filtre d'ordre quelconque, on a
 \begin{equation}
 M_{i,j} = \left\lbrace
 \begin{array}{cl}
@@ -344,7 +340,7 @@ a_0 & \text{ si } i=j \\
 \end{array}
 \right.
 \end{equation}
-Il est clair que la matrice $M$ est symétrique.
+La matrice $M$ est symétrique.
 
 
 
@@ -536,7 +532,11 @@ q(0) & = & q_0.
 \right.
 \label{eq:dahlquist}
 \end{equation}
-avec $\lambda \in \mathbb{C}^- = \{ \lambda_1 + i \lambda_2 \text{ tels que } (\lambda_1, \lambda_2) \in \mathbb{R}^- \times \mathbb{R} \}$.
+avec $\lambda \in \mathbb{C}^- = \{ \lambda_1 + i \lambda_2 \text{ tels que } (\lambda_1, \lambda_2) \in \mathbb{R}^- \times \mathbb{R} \}$. La solution de cette équation est explicitement donnée par 
+\begin{equation}
+q(t) = e^{\lambda t} q_0
+\end{equation}
+On remarque immédiatement que $q$ est bornée (par $q_0$) si Re$(\lambda) \leq 0$ et $q(t) \rightarrow 0$ lorsque $t \rightarrow + \infty$ si Re$(\lambda) <0$.
 
 \begin{proposition}
 Soit une méthode de Runge-Kutta appliquée à la résolution de l'équation \eqref{eq:dahlquist}. En utilisant les notations du tableau de Butcher \ref{tab:butcher}, on a 
@@ -550,18 +550,19 @@ r(\theta) = 1 + \theta c^T \cdot \left( (id - \theta R)^{-1} \mathbf{1} \right).
 \end{proposition}
 
 \begin{proof}
-On remarque directement que si $K = [K_1, K_2, ...]^T$ alors $K$ est solution de 
+Si l'on note $K = [K_1, K_2, ...]^T$, alors $K$ est solution de 
 \begin{equation}
 K = \lambda q^n +  \lambda \Delta t R K
 \end{equation}
 donc, $K = (id - \lambda \Delta t R)^{-1} \mathbf{1}$.
-De là, il découle directement que 
+De là, il découle que 
 \begin{equation}
 q^{n+1} = q^n + \theta c^T \cdot \left( (id - \theta R)^{-1} q^n \right).
 \end{equation} 
 avec $\theta = \lambda \Delta t$. D'où le résultat.
 \end{proof}
-En particulier, pour la méthode de Runge-Kutta d'ordre 4, on a 
+On note que si la méthode est explicite alors $R$ est nilpotente donc $r$ est polynomiale en $\theta$, 
+en particulier, pour la méthode de Runge-Kutta d'ordre 4, on a 
 \begin{equation}
 r(\theta) = 1 + \theta + \dfrac{\theta^2}{2} + \dfrac{\theta^3}{6} + \dfrac{\theta^4}{24} 
 \end{equation}
@@ -594,7 +595,75 @@ En particulier, comme détaillé dans \cite{Hundsdorfer2013}, on note que
 
 
 
-\subsection{Schémas de Runge-Kutta filtré}
+\subsection{Schémas de Runge-Kutta pour les systèmes d'équations différentielles}
+
+La notion de stabilité linéaire appliquée à l'équation de Dahlquist \eqref{eq:dahlquist} est étendue au système d'équations différentielles
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\mathbf{q}' & = & J \mathbf{q} \\
+\mathbf{q}(0) & = & \mathbf{q}_0 
+\end{array}
+\right.
+\label{eq:dahlquist_mat}
+\end{equation}
+où $\mathbf{q} = \begin{bmatrix}
+q_1(t) & q_2(t) & \cdots & q_N(t)
+\end{bmatrix}^T \in \mathbb{R}^N$.
+$q_i$ désigne une fonction de $\mathbb{R}^+$ dans $\mathbb{C}$, $J \in \mathcal{M}_N (\mathbb{C})$ désigne une matrice carré. On se restreint au cas où $J$ est une matrice diagonalisable telle que 
+\begin{equation}
+\text{Sp}(J) \subset \mathbb{C}^-.
+\end{equation}
+Cette dernière propriété permet d'assurer que la solution de \eqref{eq:dahlquist_mat} est bornée. Cette solution est donnée par 
+\begin{equation}
+\mathbf{q}(t) = e^{Jt}\mathbf{q}_0 \text{ avec } t \in \mathbb{R}^+.
+\end{equation}
+Comme $J$ est diagonalisable, il existe $P \in \mathcal{M}_N(\mathbb{R})$ une matrice de passage et $\Lambda \in \mathcal{M}_N(\mathbb{R})$ matrice diagonale (contenant les valeurs propres de $J$) tels que
+\begin{equation}
+J = P^{-1}\Lambda P
+\end{equation}
+De la, il vient que 
+\begin{equation}
+e^{Jt} = P^{-1}e^{\Lambda t}P,
+\end{equation}
+donc la solution de \eqref{eq:dahlquist_mat} vérifie l'égalité 
+\begin{equation}
+\mathbf{q}(t) = e^{Jt}\mathbf{q}_0 = P^{-1}e^{\Lambda t}P\mathbf{q}_0.
+\end{equation}
+
+A présent,considérons que l'équation \eqref{eq:dahlquist_mat} est discrétisée via la méthode de Runge Kutta d'ordre 4 de l'algorithme \ref{alg:RK4}. On obtient alors 
+\begin{equation}
+\mathbf{q}^{n+1} = r(\Delta t J) \mathbf{q}^n
+\end{equation}
+où $r$ est donné par 
+\begin{equation}
+r(\theta) = 1 + \theta + \dfrac{\theta^2}{2} + \dfrac{\theta^3}{6} + \dfrac{\theta^4}{24}.
+\end{equation}
+Comme $J$ est diagonalisable, on a même
+\begin{equation}
+\mathbf{q}^{n+1} = P^{-1}r(\Delta t \Lambda)P \mathbf{q}^n
+\end{equation}
+De la, on déduit la relation liant $\mathbf{q}^n$ à la condition initiale $\mathbf{q}_0$ : 
+\begin{equation}
+\mathbf{q}^n = r(\Delta t J) \mathbf{q}_0 = P^{-1}r(\Delta t \Lambda)P \mathbf{q}_0.
+\end{equation}
+Le schémas utilisé est dit linéairement stable si $\left( \| \mathbf{q}^n \| \right)_{n \in \mathbb{N}}$ est une suite bornée. Comme $J$ est diagonalisable, cela revient à dire que $| r(\Delta t \lambda) | \leq 1$ avec $\lambda \in $ Sp$(J)$.
+
+\begin{proposition}
+Le schéma d'intégration est linéairement stable si
+\begin{equation}
+\forall \lambda \in \text{Sp}(J), |r(\Delta t \lambda)| \leq 1.
+\end{equation}
+Ce qui est équivalent à dire
+\begin{equation}
+\text{Sp}(\Delta t J) \subset \mathcal{D}_{RK4}.
+\end{equation}
+Comme $r$ est un polynôme, on a même la stabilité linéaire si
+\begin{equation}
+\rho(r(\Delta t J)) \leq 1
+\end{equation}
+où $\rho$ désigne le rayon spectrale.
+\end{proposition}
 
 
 
@@ -605,12 +674,18 @@ En particulier, comme détaillé dans \cite{Hundsdorfer2013}, on note que
 
 
 
+\section{Equation d'advection}
+
+\subsection{Discrétisation}
+
+\subsection{Consistance et Stabilité}
+
+\subsection{Relations de conservations}
 
 
 
 
-
-\section{Equation d'advection 1D}
+\section{Equation des ondes}
 
 \subsection{Discrétisation}
 

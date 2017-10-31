@@ -29,7 +29,7 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=7;
+test=2;
 video = 'no';
 sauvegarde = 1;
 filtre='symetric';
@@ -38,8 +38,9 @@ scheme='compact4';
 snapshot='yes';
 nrm='int';
 
-n=79; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=80;
+n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=15;
+cfl=0.9;
 mod101
 disp('mod101 : ok')
 
@@ -93,7 +94,6 @@ ccor=radius*omega;
 cgrav=sqrt(h0*gp);
 cvit=u0;
 c=max([cgrav,ccor,cvit]);
-cfl=0.5;
 ddt=radius*dxi*cfl/c;
 Tmax=ndaymax*3600*24;
 itermax=200000;
