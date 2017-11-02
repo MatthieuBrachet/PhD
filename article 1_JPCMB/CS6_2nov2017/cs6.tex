@@ -8,6 +8,7 @@
 \usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage{siunitx}
+\usepackage{tikz}
 %\usepackage{subfigure}
 %\usepackage{epsfig}
 %\usepackage{color}
@@ -317,7 +318,63 @@ of using great circles on the Cubed Sphere.
 Two typical great circles ar represented
 on FIG.1
 
-FIG 1: two great circles = iso eta lines of panel (I).
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=2.5]
+	\draw (1,3) -- (2,3) ; 
+	\draw (0,2) -- (4,2) ; 	
+	\draw (0,1) -- (4,1) ; 
+	\draw (1,0) -- (2,0) ; 
+	
+	\draw (0,2) -- (0,1) ;
+	\draw (1,3) -- (1,0) ;
+	\draw (2,3) -- (2,0) ;
+	\draw (3,2) -- (3,1) ;
+	\draw (4,2) -- (4,1) ; 
+	
+	\draw (0.7,1.7) node[above]{$(IV)$} ; 
+	\draw (1.7,1.7) node[above]{$(I)$} ; 
+	\draw (2.7,1.7) node[above]{$(II)$} ;
+	\draw (3.7,1.7) node[above]{$(III)$} ;  
+	\draw (1.7,2.7) node[above]{$(V)$} ;  
+	\draw (1.7,0.7) node[above]{$(VI)$} ; 
+	
+	\draw [samples=100,domain=0:1,color=blue] plot({\x},{1.5-0.35*cos(180*\x)});
+	\draw [samples=100,domain=1:2,color=blue] plot({\x},{1.85});
+	\draw [samples=100,domain=1:2,color=blue] plot({\x+1},{1.5-0.35*cos(180*\x)});
+	\draw [samples=100,domain=3:4,color=blue] plot({\x},{1.15});
+	\draw [>=stealth, <-] (0.1,1.167) -- (0.3,0.5) ;
+	\draw  (0.3,0.5) node[right] {iso-$\xi$} ;
+	
+	\draw [samples=100,domain=0:1,color=red] plot({1.5-0.3*cos(180*\x)},{\x});
+	\draw [samples=100,domain=1:2,color=red] plot({1.8},{\x});
+	\draw [samples=100,domain=1:2,color=red] plot({1.5-0.3*cos(180*\x)},{\x+1});
+	\draw [samples=100,domain=1:2,color=red] plot({3.2},{\x});
+	\draw [>=stealth, <-] (1.5,0.5) -- (2.2,0.4) ;
+	\draw  (2.2,0.4) node[right] {iso-$\eta$} ;
+	
+	\draw  (0,1.15) node[color=blue] {$\bullet$} ;
+	\draw (0,1.15) node {$\circ$}
+	\foreach \k in {0,...,5}
+		{\draw  (1+0.2*\k,1.85) node[color=blue] {$\bullet$} ;
+	   	\draw (1+0.2*\k,1.85) node {$\circ$} ;
+	   	\draw  (3+0.2*\k,1.15) node[color=blue] {$\bullet$} ;
+	   	\draw (3+0.2*\k,1.15) node {$\circ$} ;
+	   	}
+	   	
+	\foreach \x in {0,...,5}
+		{\draw  ({0.2*\x},{1.5-0.35*cos(180*0.2*\x)}) node[color=blue] {$\bullet$} ;
+	   	\draw ({0.2*\x},{1.5-0.35*cos(180*0.2*\x)}) node {$\circ$} ;
+	   	\draw  (3+0.2*\k,1.15) node[color=blue] {$\bullet$} ;
+	   	\draw (3+0.2*\k,1.15) node {$\circ$} ;
+	   	}
+	   	
+	
+\end{tikzpicture}
+\caption{Two greats circles}
+\label{fig:patron cs}
+\end{center}
+\end{figure}
 
 This circles coincide with coordinate lines on panels $(I)$ and $(III)$. In the contrary, they do not coincide with coordinate lines on panels (II) and (IV).
 Consider a regular function $v : \mathbf{x} \in \mathbb{S}^2_a \mapsto v(x) \in \mathbb{R}$ on the sphere.
@@ -335,7 +392,7 @@ In \eqref{eq:gradient_app}, the partial derivative $\frac{\partial}{\partial \xi
 
 %%%%%%%%%%%%%%%%%%%%%% ??????????????????????????
 
-Condiser for example the approximation of the derivative $\partial_{xi}v_{i,j}^k$. We use the blue circle on figure FIG.1 to illustrate the algorithm. This circle correspond to the iso-eta line $\eta=\eta_0$.
+Condiser for example the approximation of the derivative $\partial_{xi}v_{i,j}^k$. We use the blue circle on figure FIG.1 to illustrate the algorithm. This circle correspond to the iso-$\eta$ line $\eta=\eta_0$.
 
 \begin{enumerate}
 \item Define on the blue circle the grid $p = 0, ..., 4N$ as follow :
