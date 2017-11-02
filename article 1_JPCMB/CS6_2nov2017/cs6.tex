@@ -315,63 +315,82 @@ i.e. the number of points on the Cubed Sphere.
 \label{sec:der_cs}
 The  main idea of our approximation consists
 of using great circles on the Cubed Sphere. 
-Two typical great circles ar represented
-on FIG.1
+Two typical great circles are represented
+on figure \ref{fig:patron cs}.
 
 \begin{figure}
 \begin{center}
 \begin{tikzpicture}[scale=2.5]
-	\draw (1,3) -- (2,3) ; 
-	\draw (0,2) -- (4,2) ; 	
-	\draw (0,1) -- (4,1) ; 
-	\draw (1,0) -- (2,0) ; 
+	\foreach \x in {1,...,7}
+		{ \draw [color=gray!70, line width=0.8pt] (0.125*\x,1) -- (0.125*\x,2) ;
+		\draw [color=gray!30] (0,1+0.125*\x) -- (1,1+0.125*\x) ;
+		\draw [color=gray!30] (1+0.125*\x,1) -- (1+0.125*\x,2) ;
+		\draw [color=gray!30] (1,1+0.125*\x) -- (2,1+0.125*\x) ;
+		\draw [color=gray!70, line width=0.8pt] (2+0.125*\x,1) -- (2+0.125*\x,2) ;
+		\draw [color=gray!30] (2,1+0.125*\x) -- (3,1+0.125*\x) ;
+		\draw [color=gray!30] (3+0.125*\x,1) -- (3+0.125*\x,2) ;
+		\draw [color=gray!30] (3,1+0.125*\x) -- (4,1+0.125*\x) ;
+		\draw [color=gray!30] (1+0.125*\x,0) -- (1+0.125*\x,1) ;
+		\draw [color=gray!30] (1,0.125*\x) -- (2,0.125*\x) ;
+		\draw [color=gray!30] (1+0.125*\x,2) -- (1+0.125*\x,3) ;		
+		\draw [color=gray!30] (1,2+0.125*\x) -- (2,2+0.125*\x) ;
+		}
 	
-	\draw (0,2) -- (0,1) ;
-	\draw (1,3) -- (1,0) ;
-	\draw (2,3) -- (2,0) ;
-	\draw (3,2) -- (3,1) ;
-	\draw (4,2) -- (4,1) ; 
+
+	\draw [line width=0.6pt] (1,3) -- (2,3) ; 
+	\draw [line width=0.6pt] (0,2) -- (4,2) ; 	
+	\draw [line width=0.6pt] (0,1) -- (4,1) ; 
+	\draw [line width=0.6pt] (1,0) -- (2,0) ; 
 	
-	\draw (0.7,1.7) node[above]{$(IV)$} ; 
-	\draw (1.7,1.7) node[above]{$(I)$} ; 
+	\draw [line width=0.6pt] (0,2) -- (0,1) ;
+	\draw [line width=0.6pt] (1,3) -- (1,0) ;
+	\draw [line width=0.6pt] (2,3) -- (2,0) ;
+	\draw [line width=0.6pt] (3,2) -- (3,1) ;
+	\draw [line width=0.6pt] (4,2) -- (4,1) ; 
+	
+	\draw (0.7,1.1) node[above]{$(IV)$} ; 
+	\draw (1.3,1.1) node[above]{$(I)$} ; 
 	\draw (2.7,1.7) node[above]{$(II)$} ;
 	\draw (3.7,1.7) node[above]{$(III)$} ;  
 	\draw (1.7,2.7) node[above]{$(V)$} ;  
-	\draw (1.7,0.7) node[above]{$(VI)$} ; 
+	\draw (1.3,0.7) node[above]{$(VI)$} ; 
 	
-	\draw [samples=100,domain=0:1,color=blue] plot({\x},{1.5-0.35*cos(180*\x)});
-	\draw [samples=100,domain=1:2,color=blue] plot({\x},{1.85});
-	\draw [samples=100,domain=1:2,color=blue] plot({\x+1},{1.5-0.35*cos(180*\x)});
-	\draw [samples=100,domain=3:4,color=blue] plot({\x},{1.15});
-	\draw [>=stealth, <-] (0.1,1.167) -- (0.3,0.5) ;
+	\draw [samples=100,domain=0:1,color=blue] plot({\x},{1.5-(2*0.125)*cos(180*\x)});
+	\draw [samples=100,domain=1:2,color=blue] plot({\x},{1.5+2*0.125});
+	\draw [samples=100,domain=1:2,color=blue] plot({\x+1},{1.5-2*0.125*cos(180*\x)});
+	\draw [samples=100,domain=3:4,color=blue] plot({\x},{1.5-2*0.125});
+	\draw [>=stealth, <-] (0.05,1.25) -- (0.3,0.5) ;
 	\draw  (0.3,0.5) node[right] {iso-$\xi$} ;
 	
-	\draw [samples=100,domain=0:1,color=red] plot({1.5-0.3*cos(180*\x)},{\x});
-	\draw [samples=100,domain=1:2,color=red] plot({1.8},{\x});
-	\draw [samples=100,domain=1:2,color=red] plot({1.5-0.3*cos(180*\x)},{\x+1});
-	\draw [samples=100,domain=1:2,color=red] plot({3.2},{\x});
+	\draw [samples=100,domain=0:1,color=red] plot({1.5-2*0.125*cos(180*\x)},{\x});
+	\draw [samples=100,domain=1:2,color=red] plot({1.5+2*0.125},{\x});
+	\draw [samples=100,domain=1:2,color=red] plot({1.5-2*0.125*cos(180*\x)},{\x+1});
+	\draw [samples=100,domain=1:2,color=red] plot({3+2*0.125},{\x});
 	\draw [>=stealth, <-] (1.5,0.5) -- (2.2,0.4) ;
 	\draw  (2.2,0.4) node[right] {iso-$\eta$} ;
 	
-	\draw  (0,1.15) node[color=blue] {$\bullet$} ;
-	\draw (0,1.15) node {$\circ$}
-	\foreach \k in {0,...,5}
-		{\draw  (1+0.2*\k,1.85) node[color=blue] {$\bullet$} ;
-	   	\draw (1+0.2*\k,1.85) node {$\circ$} ;
-	   	\draw  (3+0.2*\k,1.15) node[color=blue] {$\bullet$} ;
-	   	\draw (3+0.2*\k,1.15) node {$\circ$} ;
-	   	}
-	   	
-	\foreach \x in {0,...,5}
-		{\draw  ({0.2*\x},{1.5-0.35*cos(180*0.2*\x)}) node[color=blue] {$\bullet$} ;
-	   	\draw ({0.2*\x},{1.5-0.35*cos(180*0.2*\x)}) node {$\circ$} ;
-	   	\draw  (3+0.2*\k,1.15) node[color=blue] {$\bullet$} ;
-	   	\draw (3+0.2*\k,1.15) node {$\circ$} ;
-	   	}
-	   	
+	\draw  (0,1+2*0.125) node[color=blue] {$\bullet$} ;
+	\draw (0,1+2*0.125) node {$\circ$} ;
 	
+	\foreach \k in {0,...,8}
+		{\draw  (1+0.125*\k,1.5+2*0.125) node[color=blue] {$\bullet$} ;
+	   	\draw (1+0.125*\k,1.5+2*0.125) node {$\circ$} ;
+	   	\draw  (3+0.125*\k,1+2*0.125) node[color=blue] {$\bullet$} ;
+	   	\draw (3+0.125*\k,1+2*0.125) node {$\circ$} ;
+	   	}
+	   	
+	\foreach \x in {1,...,7}
+		{\draw  ({0.125*\x},{1.5-2*0.125*cos(180*0.125*\x)}) node[color=blue] {\begin{tiny}$\blacksquare$\end{tiny}} ;
+	   	\draw ({0.125*\x},{1.5-2*0.125*cos(180*0.125*\x)}) node {\begin{tiny}$\square$\end{tiny}} ;
+	   	\draw  ({2+0.125*\x},{1.5-2*0.125*cos(180*0.125*\x+180)}) node[color=blue] {\begin{tiny}$\blacksquare$\end{tiny}} ;
+	   	\draw  ({2+0.125*\x},{1.5-2*0.125*cos(180*0.125*\x+180)}) node {\begin{tiny}$\square$\end{tiny}} ;
+	   	}
+	   	
+	\draw [>=stealth, <-] (0.25,1.75) -- (0.125,2.5) ;
+	\draw [>=stealth, <-] (0.625,1.85) -- (0.125,2.5) ;
+	\draw  (0.125,2.5) node[above] {Interpolation lines} ;
 \end{tikzpicture}
-\caption{Two greats circles}
+\caption{Greats circles associated to the panel $(I)$ and $(III)$ are completed with data from interpolation lines on panels $(II)$ and $(IV)$.}
 \label{fig:patron cs}
 \end{center}
 \end{figure}
@@ -397,10 +416,10 @@ Condiser for example the approximation of the derivative $\partial_{xi}v_{i,j}^k
 \begin{enumerate}
 \item Define on the blue circle the grid $p = 0, ..., 4N$ as follow :
 \begin{enumerate}
-\item $m_p = s^{(I)}_{p-N/2,j_0}$, $p=0, ..., N-1$. These $N$ points are represented by circles on FIG.1. They belong to the Cubed-Sphere,
-\item $m_p$, $p=N...2N-1$. These points are represented by blue squares on Fig.1. They do not belong the Cubed-Sphere.
-\item $m_p = s^{(III)}_{p-N/2,j_0}$, $p=2N, ..., 3N-1$. These $N$ points are represented by circles on FIG.1. They belong to the Cubed-Sphere,
-\item $m_p$, $p=3N...4N-1$. These points are represented by red squares on Fig.1. They do not belong the Cubed-Sphere.
+\item $m_p = s^{(I)}_{p-N/2,j_0}$, $p=0, ..., N-1$. These $N$ points are represented by blue circles on figure \ref{fig:patron cs}. They belong to the Cubed-Sphere,
+\item $m_p$, $p=N...2N-1$. These points are represented by blue squares on panel $(II)$ on figure \ref{fig:patron cs}. They do not belong the Cubed-Sphere.
+\item $m_p = s^{(III)}_{p-N/2,j_0}$, $p=2N, ..., 3N-1$. These $N$ points are represented by blue circles on figure \ref{fig:patron cs}. They belong to the Cubed-Sphere,
+\item $m_p$, $p=3N...4N-1$. These points are represented by blue squares on panel $(IV)$, on figure \ref{fig:patron cs}. They do not belong the Cubed-Sphere.
 \end{enumerate}
 
 \item Interpolate data from the Cubed-sphere to the blue great circle as follow :
