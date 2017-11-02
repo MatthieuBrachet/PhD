@@ -268,7 +268,7 @@ Les propriétés concernant les valeurs propres de $\tau$ sont aussi vérifiées
 \end{equation}
 les vecteurs propres associés sont donnés par $\left( U^k \right)_{1 \leq k \leq N}$ vérifiant :
 \begin{equation}
-U^k_j = \begin{bmatrix}
+U^k = \dfrac{1}{\sqrt{N}} \begin{bmatrix}
 \mathfrak{u}_0^k\\
 \mathfrak{u}_1^k\\
 \vdots \\
@@ -288,8 +288,11 @@ Les vecteurs propres sont donnés par \eqref{eq:eigenvectorT}.
 \label{prop:eigen_P(tau)}
 \end{proposition}
 
-
-
+Les vecteurs propres de $T$ donnés par \eqref{eq:eigenvectorT} forment clairement une base orthonormée pour le produit scalaire usuel, en effet on a 
+\begin{equation}
+(\bar{U^k})^T \cdot U^{k'} = \delta_{k,k'}
+\end{equation}
+où $\delta_{k,k'}$ désigne le symbole de Kronecker et vaut $1$ si $k=k'$ et $0$ sinon.
 
 
 
@@ -553,6 +556,25 @@ sont deux vecteurs de $\mathbb{R}^N$, la relation suivante est vérifiée :
 \begin{equation}
 P U' = K U.
 \end{equation}
+
+\begin{proposition}
+La dérivée hermitienne $\delta_x^H$ est associée à la matrice $P^{-1}K$ dont les valeurs propres sont
+\begin{equation}
+\omega^k = \dfrac{i}{h} \dfrac{\sin \left( \dfrac{2 \pi k}{N} \right)}{\dfrac{2}{3} + \dfrac{1}{3}\cos \left( \dfrac{2 \pi k}{N} \right)}
+\end{equation}
+avec $1 \leq k \leq N$. Chaque valeur propre $\omega^k$ est associée à un vecteur propre $U^k$ donné par
+\begin{equation}
+U^k = \dfrac{1}{\sqrt{N}} \begin{bmatrix}
+\mathfrak{u}^k_1 \\
+\mathfrak{u}^k_2 \\
+\vdots \\
+\mathfrak{u}^k_N \\
+\end{bmatrix}
+\end{equation}
+où $\mathfrak{u}^k_j$ est donné par \eqref{eq:vecteurpropre_tau}.
+\label{prop:eigen_mat_hermitien}
+\end{proposition}
+
 Ainsi, dans la pratique, la dérivée hermitienne $\delta_x^H \mathfrak{u}$ en chaque point est calculée comme la solution d'un système linéaire. Cette solution peut être calculée grâce à la formule de Shermann-Morisson-Woodbury couplé à un solveur tridiagonal comme l'algorithme de Thomas.
 
 \begin{proposition}
@@ -1114,8 +1136,6 @@ Consèquence directe des propositions \ref{prop:op_der_simpson_mat} et \ref{prop
 \end{proof}
 
 La matrice du schéma hermitien $(Id \otimes P^{-1}K)$ en direction $x$ et $(P^{-1}K \otimes Id)$ en direction $y$ vérifient des propriétés d'antisymétriques similaires à celles en dimension 1.
-
-
 \begin{proposition}
 Les matrices $(Id \otimes P^{-1}K)$ et $(P^{-1}K \otimes Id)$ sont antisymétrique.
 \end{proposition}

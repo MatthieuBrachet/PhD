@@ -129,7 +129,7 @@ avec $\Delta_k$ donné par
 &&& \vdots &  \vdots &
 \end{vmatrix}
 \end{equation}
-On reconnait alors un déterminant de Van-Der-Monde, donc $\Delta_k = \prod_{1 \leq i < j \leq F-1} \left( \alpha_j - \alpha_i \right)$, avec 
+On reconnaît un déterminant de Van-Der-Monde, donc $\Delta_k = \prod_{1 \leq i < j \leq F-1} \left( \alpha_j - \alpha_i \right)$, avec 
 \begin{equation}
 \alpha_j = \left\lbrace
 \begin{array}{ll}
@@ -138,10 +138,9 @@ j^2 & \text{ avec } 1 \leq j \leq k-1\\
 \end{array}
 \right.
 \end{equation}
-Alors si $i<j$, on a $\alpha_i < \alpha_j$, donc $\Delta_k>0$ et même $\det A$ est une somme de déterminants tous strictements positifs donc $\det A > 0$. $A$ est inversible et le résultat est prouvé.
+Si $i<j$, on a $\alpha_i < \alpha_j$, donc $\Delta_k>0$ et $\det A$ est une somme de déterminants tous strictements positifs donc $\det A > 0$. $A$ est inversible et le résultat est prouvé.
 \end{proof}
 Quelques filtres particuliers sont donnés dans la table \ref{tab:filter} en fonction de leur ordre de précision.
-
 \begin{table}[htbp]
 \begin{center}
 \begin{tabular}{|c||cccccc|}
@@ -163,9 +162,8 @@ $10$ & $772/1024$ & $420/1024$ & $-240/1024$ & $90/1024$ & $-20/1024$ & $2/1024$
 \caption{Exemples de filtres de la forme \eqref{eq:ftr} et leurs ordres de précision.}
 \label{tab:filter}
 \end{table}
-
 Dans la suite, nous supposerons que $(a_k)_{0 \leq k \leq F}$ satisfait les conditions \eqref{eq:ftr_conscond}, \eqref{eq:ftr_prescond} et \eqref{eq:ftr_ftrcond}.
-Les valeurs propres et fonctions propres de $\mathcal{F}$ sont issues de la proposition \ref{prop:eigen_P(tau)}. Le résultat est immédiat.
+Les valeurs propres et fonctions propres de $\mathcal{F}$ sont issues de la proposition \ref{prop:eigen_P(tau)}.
 
 \begin{theoreme}
 Les valeurs propres de $\mathcal{F}$ sont données par $\beta^k$ avec 
@@ -447,17 +445,7 @@ et $e^n \rightarrow 0$ lors que $\Delta t \rightarrow 0$. Le schéma de Runge-Ku
 \begin{equation}
 e^n = C \Delta t^4.
 \end{equation}
-
-\begin{theoreme}
-La méthode de résolution RK4 donnée dans l'algorithme \ref{alg:RK4} définie une méthode de résolution de \ref{eq:edo} d'ordre 4. Si $q : t \in \mathbb{R}^+ \mapsto \mathbb{R}^N$ est une fonction de $\mathcal{C}^5$ et $q^n = q(n \Delta t)$ alors
-\begin{equation}
-q((n+1) \Delta t) - q^{n+1} = \mathcal{O} \left( \Delta t^5 \right).
-\end{equation}
-\end{theoreme}
-
-\begin{proof}
-TBA.
-\end{proof}
+où $C$ est indépendant de $\Delta t$. On renvoi à \cite{Demailly2016} pour preuve de consistance des méthodes de Runge-Kutta.
 
 Il existe autres méthodes de Runge-Kutta explicites. On pensera par exemples à la méthode d'Euler Explicite ou le schéma de Heun. Il est classique de représenter une méthode de Runge-Kutta par son \textit{tableau de Butcher} :
 
@@ -488,6 +476,23 @@ $1$   & $0$   & $0$  & $1$  &      \\
 \end{center}
 \caption{Tableau de Butcher de la méthode de Runge Kutta d'ordre 4 (algorithme \ref{alg:RK4}).}
 \end{table}
+Les matrices associées au tableau de Butcher pour RK4 sont
+\begin{equation}
+R= \begin{bmatrix}
+0 & 0 & 0 & 0 \\
+1/2& 0& 0 & 0 \\
+0 &1/2& 0 & 0 \\
+0 & 0 & 1 & 0
+\end{bmatrix}
+\hspace{1cm}
+b=\begin{bmatrix}
+0\\1/2\\1/2\\1
+\end{bmatrix}
+\hspace{1cm}
+c=\begin{bmatrix}
+1/6\\1/3\\1/3\\1/6
+\end{bmatrix}.
+\end{equation}
 
 \begin{proposition}
 Une méthode de Runge-Kutta est explicite si $R$ est triangulaire inférieure strictement.
@@ -510,7 +515,7 @@ La stabilité du schéma est essentielle. Nous distinguons deux principales noti
 \item La \textit{stabilité au sens de Von Neumann} établi une relation de convergence de $q^n$ vers $q(n \Delta t)$ pour tout $1 \leq n \leq N$ lorsque $\Delta t \rightarrow 0$ et $N \rightarrow + \infty$. 
 La stabilité de Von Neumann du schéma \eqref{eq:scheme_erreur} se traduit par
 \begin{equation}
-\exists C >0, \forall n \in \{ 0 , \cdots , N \}, \forall (N, \Delta t) \in \mathbb{N} \times \mathbb{R}^+, \| q^n \| \leq C.
+\exists C >0, \forall n \in \{ 0 , \cdots , N \}, \forall (N, \Delta t) \in \left\lbrace \mathbb{N} \times \mathbb{R}^+ \text{ tels que } N \Delta t = T \right\rbrace, \| q^n \| \leq C.
 \end{equation}
 Cette propriété traduit le fait que l'erreur doit rester uniformément bordée lorsque l'on raffine la discrétisation. La stabilité au sens de Von Neumann ne permet pas d'assurer la convergence vers la solution de l'équation différentielle lorsque l'on raffine le maillage, il s'agit là de la consistance. Si un schéma est stable et consistant, alors il y a convergence de la solution numérique vers la solution exacte sur un intervalle borné lorsque l'on raffine, il s'agit du théorème de Lax.
 
@@ -583,7 +588,7 @@ Dans la figure \ref{fig:stab_area}, on présente les zones de stabilités de dif
 \begin{center}
 \includegraphics[scale=0.2]{stabilityarea_color.jpeg}
 \end{center}
-\caption{Zones de stabilités de différentes méthodes de Runge-Kutta explicites dans le plan complexe. La zone de stabilité de RK4 est délimitée par le trait noir. Les traits vert, bleu et rouge sont respectivement pour des méthodes de Runge-Kutta d'ordre 3, 2 et 1.}
+\caption{Zones de stabilités de différentes méthodes de Runge-Kutta explicites dans le plan complexe. La zone de stabilité de RK4 est délimitée par le trait noir. Les traits vert, bleu et rouge sont respectivement pour des méthodes de Runge-Kutta d'ordre 3, 2 et la méthode d'Euler Explicite.}
 \label{fig:stab_area}
 \end{figure}
 En particulier, comme détaillé dans \cite{Hundsdorfer2013}, on note que
@@ -674,11 +679,128 @@ où $\rho$ désigne le rayon spectrale.
 
 
 
-\section{Equation d'advection}
+\section{Equation d'advection en dimension 1}
+
+Dans cette section, on s'intéresse à l'équation de transport
+\begin{equation}
+\dfrac{\partial u}{\partial t} + c \dfrac{\partial u}{\partial x} = 0
+\label{eq:transport_1D}
+\end{equation}
+pour $x \in [0,L]$, $t>0$ et avec $u(t=0,x)=u_0(x)$. On se place en contexte périodique, de période $L$. On a en particulier $u(t,0)=u(t,L)$ pour tout $t \geq 0$. $c$ est une constante positive. La solution exacte de cette équation est connue et donnée par 
+\begin{proposition}
+La solution de l'équation \eqref{eq:transport_1D} est donnée par 
+\begin{equation}
+u(t,x) = u_0(x-ct) = \gsum_{k \in \mathbb{Z}} \exp \left[ i \dfrac{2 \pi k}{L} (x-ct) \right] \hat{u}_0^k
+\end{equation}
+où $\hat{u}_0^k = \dfrac{1}{\sqrt{L}} \gint_0^L u_0(x) \exp \left[ - i \dfrac{2 \pi k}{L}x \right] dx$ désigne la $ki$ème transformée de Fourier de $u_0$.
+\end{proposition}
+
+\begin{proof}
+La solution de \eqref{eq:transport_1D} est unique, en effet si $u_1$ et $u_2$ sont solutions (distinctes) de \eqref{eq:transport_1D} alors $w = u_1-u_2$ est une solution $L-$périodique de 
+\begin{equation}
+\dfrac{\partial w}{\partial t} = - \dfrac{\partial  cw}{\partial x}
+\end{equation}
+vérifiant $w(t=0,x)=0$ pour tout $x$. En multipliant par $w$ et en intégrant sur $[0,L]$, on obtient l'équation
+\begin{equation*}
+\dfrac{1}{2} \dfrac{d}{dt} \| w \|_{L^2}^2 = - \gint_{0}^L cw \dfrac{\partial w}{\partial x} = - \dfrac{c}{2} \gint_{0}^L \dfrac{\partial w^2}{\partial x} = 0 \text{ par périodicité de }w.
+\end{equation*}
+donc $\| w \|_{L^2}^2=\| w_{|t=0} \|_{L^2}^2 = 0$ et $w=0$, d'où l'unicité.
+
+On peut facilement vérifier que $(t,x) \mapsto u_0(x-ct)$ et $(t,x) \mapsto \gsum_{k \in \mathbb{Z}} \exp \left[ i \dfrac{2 \pi k}{L} (x-ct) \right] \hat{u}_0^k$ sont solutions de \eqref{eq:transport_1D}. Par unicité de la solution, on obtient le résultat souhaité.
+\end{proof}
+Cette solution est une translation périodique de la condition initiale. Dans cette section, nous comparons la solution théorique de \eqref{eq:transport_1D} avec une solution numérique obtenue à l'aide de différents opérateurs ou outils de discrétisations évoqués dans les parties précédentes.
+
+
+
+
+
+
+
+
 
 \subsection{Discrétisation}
 
-\subsection{Consistance et Stabilité}
+La discrétisation est effectuée en utilisant la méthode des lignes. Dans un premier temps, il s'agit de discrétiser les opérateurs spatiaux. On aboutit à une EDO que nous résolvons par une méthode de Runge-Kutta. Nous utilisons dans cette partie les notations de la section \ref{sec:notation_1D}.
+ 
+On a vu dans les parties précédentes que $\delta_x^H u^*$ était une bonne approximation de $\partial_x u^*$. On remplace l'opérateur de dérivation spatiale $\partial_x$ par l'opérateur de dérivation hermitien $\delta_x^H$.
+On cherche alors $\mathfrak{u}$ approximation de $u^*$ aux points du maillage et solution de 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{d \mathfrak{u}}{dt} & = & - c \delta_x^H \mathfrak{u} \\
+\mathfrak{u}_{|t=0} & = & u_0^*
+\end{array}
+\right.
+\end{equation}
+Si l'on note matriciellement 
+\begin{equation}
+U = \begin{bmatrix}
+\mathfrak{u}_1 \\
+\mathfrak{u}_2 \\
+\vdots \\
+\mathfrak{u}_N
+\end{bmatrix} \in \mathbb{R}^N \text{ et } U_0 = \begin{bmatrix}
+u_0(x_1) \\
+u_0(x_2) \\
+\vdots \\
+u_0(x_N)
+\end{bmatrix} \in \mathbb{R}^N
+\end{equation}
+les vecteurs contenant les composantes de $\mathfrak{u}$ (chaque composante est dépendante de $t$) et de $u_0^*$, alors $U$ est solution du système d'équations différentielles :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{d U}{dt} & = & - c P^{-1}K U \\
+U_{|t=0} & = & U_0
+\end{array}
+\right. .
+\end{equation}
+La solution d'un tel système est donnée par 
+\begin{equation}
+U(t) = \exp\left[ - c P^{-1}K t\right] U_0.
+\end{equation}
+
+On a déjà vu dans la proposition \ref{prop:eigen_mat_hermitien} que $P^{-1}K$ est une matrice de $\mathcal{M}_N(\mathbb{R})$ qui admet $N$ valeur propres distinctes. $P^{-1}K$ est diagonalisable, il existe $V$ une matrice de passage et $\Lambda$ une matrice diagonale tels que 
+\begin{equation}
+P^{-1}K = V^T \Lambda V.
+\end{equation}
+Ces matrices sont données par 
+\begin{equation}
+\Lambda = \begin{bmatrix}
+\omega^1 &   &   &   &   \\ 
+  & \omega^2 &   & (0) &   \\ 
+  &   & \ddots &   &   \\ 
+  & (0) &   & \omega^{N-1} &   \\ 
+  &   &   &   & \omega^N
+\end{bmatrix} \text{ et }
+V = \begin{bmatrix}
+  &   &   &   &   \\ 
+\vdots & \vdots  &   & \vdots  & \vdots  \\ 
+U^1 & U^2 & \cdots & U^{N-1} & U^N \\ 
+\vdots &\vdots &  &\vdots &\vdots \\ 
+  &   &   &   &  
+\end{bmatrix} 
+\end{equation}
+avec les vecteurs propres $U^k$ vérifiant
+\begin{equation}
+U^k = \dfrac{1}{\sqrt{N}} \begin{bmatrix}
+\mathfrak{u}^k_1\\
+\mathfrak{u}^k_2\\
+\vdots \\
+\mathfrak{u}^k_N\\
+\end{bmatrix}
+\end{equation} 
+et les valeurs propres associées $\omega^k$. Les valeurs de $\omega^k$ et $\mathfrak{u}^k_j$ sont données par la proposition \ref{prop:vp_herm}. On déduit directement de ces égalités que 
+\begin{equation}
+U(t) = V^T \exp \left[-c \Lambda t \right] V U_0
+\end{equation}
+d'où la solution approchée de \eqref{eq:transport_1D} discrétisée en espace et évaluée en $x_j$ est donnée par 
+\begin{equation}
+u(t,x_m) \approx \mathfrak{u}_j(t) = \dfrac{1}{N} \gsum_{k=1}^N \gsum_{j=1}^N  \exp \left[ i l \left( k + j \right) \dfrac{2 \pi}{N} \right] \exp \left[ - c \omega^j \right] u_0(x_p)
+\end{equation}
+
+
+\subsection{Stabilité}
 
 \subsection{Relations de conservations}
 
