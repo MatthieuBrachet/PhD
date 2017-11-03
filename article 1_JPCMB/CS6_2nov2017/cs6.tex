@@ -302,21 +302,21 @@ on Fig. \ref{fig:2}.
 The resolution parameter is denoted by $N$,
 which denotes the number of cells in each direction $\xi$ or $\eta$ on each panels. 
 The points are denoted 
-$\mathbf{s}_{i,j}^{(k)}$/
+$\mathbf{s}_{i,j}^{(k)}$
 The integer $i$ (resp. $j$) 
 denotes the index in the $\xi$ direction (resp. $\eta$) direction and 
-$(k)\in (I):(VI)$ denotes the panel. Our finite difference scheme 
+$(k)\in (I)...(VI)$ denotes the panel. Our finite difference scheme 
 hereafter uses discrete unknowns
-located at the points $\mathbf{s}^(k)_{i,j}$ and therefore it uses $6 N^2+2$ unknowns,
+located at the points $\mathbf{s}^{(k)}_{i,j}$ and therefore it uses $6 N^2+2$ unknowns,
 i.e. the number of points on the Cubed Sphere.
 
 %% **********************************************************************************************************************************************
 \subsection{Great circles on the Cubed Sphere}
 \label{sec:der_cs}
 The  main idea of our approximation consists
-of using great circles on the Cubed Sphere. 
+of using great circles on the Cubed Sphere. Each circle is associated to a panel. 
 Two typical great circles are represented
-on figure \ref{fig:patron cs}.
+on figure \ref{fig:patron cs} in blue and red.
 
 \begin{figure}
 \begin{center}
@@ -360,14 +360,14 @@ on figure \ref{fig:patron cs}.
 	\draw [samples=100,domain=1:2,color=blue] plot({\x+1},{1.5-2*0.125*cos(180*\x)});
 	\draw [samples=100,domain=3:4,color=blue] plot({\x},{1.5-2*0.125});
 	\draw [>=stealth, <-] (0.05,1.25) -- (0.3,0.5) ;
-	\draw  (0.3,0.5) node[right] {iso-$\xi$} ;
+	\draw  (0.3,0.5) node[right] {iso-$\eta$} ;
 	
 	\draw [samples=100,domain=0:1,color=red] plot({1.5-2*0.125*cos(180*\x)},{\x});
 	\draw [samples=100,domain=1:2,color=red] plot({1.5+2*0.125},{\x});
 	\draw [samples=100,domain=1:2,color=red] plot({1.5-2*0.125*cos(180*\x)},{\x+1});
 	\draw [samples=100,domain=1:2,color=red] plot({3+2*0.125},{\x});
 	\draw [>=stealth, <-] (1.5,0.5) -- (2.2,0.4) ;
-	\draw  (2.2,0.4) node[right] {iso-$\eta$} ;
+	\draw  (2.2,0.4) node[right] {iso-$\xi$} ;
 	
 	\draw  (0,1+2*0.125) node[color=blue] {$\bullet$} ;
 	\draw (0,1+2*0.125) node {$\circ$} ;
@@ -395,23 +395,172 @@ on figure \ref{fig:patron cs}.
 \end{center}
 \end{figure}
 
+
+
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{tikzpicture}[scale=2.2]
+	\draw [line width=0.8pt] (0,0) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);	
+	
+	\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot [smooth,domain=-35:35] ({0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=55:125] ({cos(\x)},{0.7*sin(\x)})
+	-- plot [smooth,domain=150:215] ({0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=240:300] ({cos(\x)},{0.7*sin(\x)})
+	-- cycle;	
+	\draw [samples=100,domain=48:132, color=gray!50] plot({cos(\x)},{0.35*sin(\x)});
+	\draw [samples=100,domain=48:132, color=gray!50] plot({cos(\x)},{-.35*sin(\x)});
+	\draw [samples=100,domain=46:134, color=gray!50] plot({cos(\x)},{0.175*sin(\x)});
+	\draw [samples=100,domain=46:134, color=gray!50] plot({cos(\x)},{-.175*sin(\x)});
+	\draw [samples=100,domain=50:130, color=gray!50] plot({cos(\x)},{0.525*sin(\x)});
+	\draw [samples=100,domain=50:130, color=gray!50] plot({cos(\x)},{-.525*sin(\x)});
+	\draw [samples=100,domain=45:135, color=gray!50] plot({cos(\x)},{0*sin(\x)});
+
+	\draw [rotate=90, samples=100,domain=48:132, color=gray, line width=0.6pt] plot({cos(\x)},{0.35*sin(\x)});
+	\draw [rotate=90, samples=100,domain=48:132, color=gray, line width=0.6pt] plot({cos(\x)},{-.35*sin(\x)});
+	\draw [rotate=90, samples=100,domain=46:134, color=gray, line width=0.6pt] plot({cos(\x)},{0.175*sin(\x)});
+	\draw [rotate=90, samples=100,domain=46:134, color=gray, line width=0.6pt] plot({cos(\x)},{-.175*sin(\x)});
+	\draw [rotate=90, samples=100,domain=50:130, color=gray, line width=0.6pt] plot({cos(\x)},{0.525*sin(\x)});
+	\draw [rotate=90, samples=100,domain=50:130, color=gray, line width=0.6pt] plot({cos(\x)},{-.525*sin(\x)});
+	\draw [rotate=90, samples=100,domain=45:135, color=gray, line width=0.6pt] plot({cos(\x)},{0*sin(\x)});
+
+	\filldraw[draw=black,fill=red!30!white,opacity=0.20]
+	plot [smooth,domain=145:215] ({.7*cos(\x)},{sin(\x)})
+	-- plot [smooth] (-.573,-.573) -- (-.707,-.707)
+	-- plot [smooth,domain=215:145] ({cos(\x)},{sin(\x)})
+	-- plot [smooth] (-.707,.707) -- (-.573,.573)
+	-- cycle;	
+	\draw [line width=0.8pt] (-.573,-.573) -- (-.707,-.707) ;
+	\draw [line width=0.8pt] (-.573,.573) -- (-.707,.707) ;
+	\draw [color=gray!50] (-.669,.260) -- (-.9321,.3622) ;
+	\draw [color=gray!50] (-.669,-.260) -- (-.9321,-.3622) ;
+	\draw [color=gray!50] (-.6946,.1259) -- (-.9840,.1783) ;
+	\draw [color=gray!50] (-.6946,-.1259) -- (-.9840,-.1783) ;
+	\draw [color=gray!50] (-.6427,.4022) -- (-.8477,.5305) ;
+	\draw [color=gray!50] (-.6427,-.4022) -- (-.8477,-.5305) ;
+	\draw [color=gray!50] (-.707,0) -- (-1,0) ;
+	\draw [samples=100,domain=141:219, color=gray!50] plot({0.8*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=138:222, color=gray!50] plot({0.9*cos(\x)},{sin(\x)});
+	
+	\filldraw[draw=black,fill=green!30!white,opacity=0.20]
+	plot [smooth,domain=55:125] ({cos(\x)},{0.7*sin(\x)})
+	-- plot [smooth] (-.573,.573) -- (-.707,.707)
+	-- plot [smooth,domain=125:55] ({cos(\x)},{sin(\x)})
+	-- plot [smooth] (.707,.707) -- (.573,.573)
+	-- cycle;	
+	\draw [line width=0.8pt] (-.573,.573) -- (-.707,.707) ;
+	\draw [line width=0.8pt] (.707,.707) -- (.573,.573) ;
+	\draw [rotate=-90,color=gray!50] (-.669,.260) -- (-.9321,.3622) ;
+	\draw [rotate=-90,color=gray!50] (-.669,-.260) -- (-.9321,-.3622) ;
+	\draw [rotate=-90,color=gray!50] (-.6946,.1259) -- (-.9840,.1783) ;
+	\draw [rotate=-90,color=gray!50] (-.6946,-.1259) -- (-.9840,-.1783) ;
+	\draw [rotate=-90,color=gray!50] (-.6427,.4022) -- (-.8477,.5305) ;
+	\draw [rotate=-90,color=gray!50] (-.6427,-.4022) -- (-.8477,-.5305) ;
+	\draw [rotate=-90,color=gray!50] (-.707,0) -- (-1,0) ;
+	\draw [rotate=-90,samples=100,domain=141:219, color=gray!50] plot({0.8*cos(\x)},{sin(\x)});
+	\draw [rotate=-90,samples=100,domain=138:222, color=gray!50] plot({0.9*cos(\x)},{sin(\x)});
+	
+	\filldraw[draw=black,fill=yellow!30!white,opacity=0.20]
+	plot [smooth,domain=55:125] ({cos(\x)},{-.7*sin(\x)})
+	-- plot [smooth] (-.573,-.573) -- (-.707,-.707)
+	-- plot [smooth,domain=125:55] ({cos(\x)},{-sin(\x)})
+	-- plot [smooth] (.707,-.707) -- (.573,-.573)
+	-- cycle;	
+	\draw [line width=0.8pt] (-.573,-.573) -- (-.707,-.707) ;
+	\draw [line width=0.8pt] (.707,-.707) -- (.573,-.573) ;
+	\draw [rotate=90,color=gray!50] (-.669,.260) -- (-.9321,.3622) ;
+	\draw [rotate=90,color=gray!50] (-.669,-.260) -- (-.9321,-.3622) ;
+	\draw [rotate=90,color=gray!50] (-.6946,.1259) -- (-.9840,.1783) ;
+	\draw [rotate=90,color=gray!50] (-.6946,-.1259) -- (-.9840,-.1783) ;
+	\draw [rotate=90,color=gray!50] (-.6427,.4022) -- (-.8477,.5305) ;
+	\draw [rotate=90,color=gray!50] (-.6427,-.4022) -- (-.8477,-.5305) ;
+	\draw [rotate=90,color=gray!50] (-.707,0) -- (-1,0) ;
+	\draw [rotate=90,samples=100,domain=141:219, color=gray!50] plot({0.8*cos(\x)},{sin(\x)});
+	\draw [rotate=90,samples=100,domain=138:222, color=gray!50] plot({0.9*cos(\x)},{sin(\x)});
+	
+	\draw [rotate=180,color=gray!50] (-.669,.260) -- (-.9321,.3622) ;
+	\draw [rotate=180,color=gray!50] (-.669,-.260) -- (-.9321,-.3622) ;
+	\draw [rotate=180,color=gray!50] (-.6946,.1259) -- (-.9840,.1783) ;
+	\draw [rotate=180,color=gray!50] (-.6946,-.1259) -- (-.9840,-.1783) ;
+	\draw [rotate=180,color=gray!50] (-.6427,.4022) -- (-.8477,.5305) ;
+	\draw [rotate=180,color=gray!50] (-.6427,-.4022) -- (-.8477,-.5305) ;
+	\draw [rotate=180,color=gray!50] (-.707,0) -- (-1,0) ;
+	\draw [rotate=180,samples=100,domain=141:219, color=gray!50] plot({0.8*cos(\x)},{sin(\x)});
+	\draw [rotate=180,samples=100,domain=138:222, color=gray!50] plot({0.9*cos(\x)},{sin(\x)});
+	
+	\draw [samples=100,domain=55:125, line width=0.8pt] plot({cos(\x)},{0.7*sin(\x)});
+	\draw [samples=100,domain=55:125, line width=0.8pt] plot({cos(\x)},{-.7*sin(\x)});
+	\draw [samples=100,domain=145:215, line width=0.8pt] plot({.7*cos(\x)},{sin(\x)}); 
+	\draw [samples=100,domain=145:215, line width=0.8pt] plot({-.7*cos(\x)},{sin(\x)}); 
+	
+	\draw [color=blue] (-.9321,.3622) -- (.9321,-.3622) ;
+	\draw  (-.9321,.3622) node[color=blue] {$\bullet$} ;
+	\draw (-.9321,.3622) node {$\circ$} ;	
+	\draw  (.9321,-.3622) node[color=blue] {$\bullet$} ;
+	\draw (.9321,-.3622) node {$\circ$} ;
+	\draw  (-.85,0.3886*.85) node[color=blue] {$\bullet$} ;
+	\draw (-.85,0.3886*.85) node {$\circ$} ;	
+	\draw (.85,-0.3886*.85) node[color=blue] {$\bullet$} ;
+	\draw (.85,-0.3886*.85) node {$\circ$} ;	
+	\draw  (-.76,0.3886*.76) node[color=blue] {$\bullet$} ;
+	\draw (-.76,0.3886*.76) node {$\circ$} ;	
+	\draw (.76,-0.3886*.76) node[color=blue] {$\bullet$} ;
+	\draw (.76,-0.3886*.76) node {$\circ$} ;
+	\draw  (-.68,0.3886*.68) node[color=blue] {$\bullet$} ;
+	\draw (-.68,0.3886*.68) node {$\circ$} ;	
+	\draw (.68,-0.3886*.68) node[color=blue] {$\bullet$} ;
+	\draw (.68,-0.3886*.68) node {$\circ$} ;	
+	\draw (-.52,0.3886*.52) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (-.52,0.3886*.52) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (.52,-0.3886*.52) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (.52,-0.3886*.52) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (-.36,0.3886*.36) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (-.36,0.3886*.36) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (.36,-0.3886*.36) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (.36,-0.3886*.36) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (-.18,0.3886*.18) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (-.18,0.3886*.18) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (.18,-0.3886*.18) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (.18,-0.3886*.18) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (0,0) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (0,0) node {\begin{tiny}$\square$ \end{tiny}} ;
+	
+	\draw [>=stealth, <-] (.33,.35) -- (.7,1) ;
+	\draw [>=stealth, <-] (0,.4) -- (.7,1) ;
+	\draw  (0.7,1) node[right] {Interpolation lines} ;
+	
+	\draw  (0,-1.7) node {Panel (II)} ;
+
+\end{tikzpicture}
+\end{center}
+\caption{The blue line is a great circle associated with panel $(I)$ and view by the panel $(II)$. Blue circle represent points on the Cubed-sphere, blue squares do not belong the Cubed-Sphere.}
+\label{fig: panel II_interp}
+\end{figure}  
+
+
 This circles coincide with coordinate lines on panels $(I)$ and $(III)$. In the contrary, they do not coincide with coordinate lines on panels (II) and (IV).
-Consider a regular function $v : \mathbf{x} \in \mathbb{S}^2_a \mapsto v(x) \in \mathbb{R}$ on the sphere.
-The gradient of $v(x)$ is
+On panel $(k)$, $(I) \leq (k) \leq (VI)$, the local basis is 
+\beq
+\label{eq:32.19}
+\bg_\xi(\mathbf{x})=\frac{\partial \mathbf{x}}{\partial \xi},\;\;\;
+\bg_\eta(\mathbf{x})=\frac{\partial \mathbf{x}}{\partial \eta}.
+\eeq
+and the dual basis is called $(\bg^\xi, \bg^\eta)$.
+Consider a regular function $f : \mathbf{x} \in \mathbb{S}^2_a \mapsto f(x) \in \mathbb{R}$ on the sphere.
+The gradient of $f$ is
 \begin{equation}
-\nabla_T v = \dfrac{\partial v}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial v}{\partial \eta} \mathbf{g}^{\eta}
+\nabla_T f = \dfrac{\partial f}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial f}{\partial \eta} \mathbf{g}^{\eta}
 \label{eq:gradient}
 \end{equation}
-Consider the restriction $v^k_{i,j} = v(\mathbf{s}_{i,j}^k)$ to the Cubed-sphere. The approximate gradient is
+Consider the restriction $f^k_{i,j} = f(\mathbf{s}_{i,j}^k)$ to the Cubed-sphere. The approximate gradient is
 \begin{equation}
-\nabla_{T,h} v_{i,j}^k =\delta_{\xi}^H v_{i,j}^k \mathbf{g}^{\xi} + \delta_{\eta}^H v_{i,j}^k \mathbf{g}^{\eta}
+\nabla_{T,h} f_{i,j}^k =f_{\xi, i,j}^k \mathbf{g}^{\xi} + f_{\eta,i,j}^k \mathbf{g}^{\eta}
 \label{eq:gradient_app}
 \end{equation}
-In \eqref{eq:gradient_app}, the partial derivative $\frac{\partial}{\partial \xi}$ is approximated by the compact finite difference $\delta_{\xi}^H$ along a great circle. See appendix.
-
-%%%%%%%%%%%%%%%%%%%%%% ??????????????????????????
-
-Condiser for example the approximation of the derivative $\partial_{xi}v_{i,j}^k$. We use the blue circle on figure FIG.1 to illustrate the algorithm. This circle correspond to the iso-$\eta$ line $\eta=\eta_0$.
+In \eqref{eq:gradient_app}, the partial derivative $\frac{\partial}{\partial \xi} f_{i,j}^{(k)}$ is approximated by $f_{\xi,i,j}^{(k)}$ along a great circle.
+Condiser for example the approximation of the derivative $\partial_{\xi}f_{i,j}^k$. We use the blue circle on figure \ref{fig:patron cs} and \ref{fig: panel II_interp} to illustrate the algorithm. This circle correspond to the iso-$\eta$ line $\eta=\eta_0$.
 
 \begin{enumerate}
 \item Define on the blue circle the grid $p = 0, ..., 4N$ as follow :
@@ -427,18 +576,36 @@ Condiser for example the approximation of the derivative $\partial_{xi}v_{i,j}^k
 \item On panels $(I)$ and $(III)$, data are simply transfered,
 \item On panels $(II)$ and $(IV)$, dara are interpolated (see \cite{Croisille-10}).
 \end{enumerate}
-The interpolation procedure adoped uses cubic-splines as follow :....
+The interpolation procedure adoped uses cubic-splines as follow :
+\begin{enumerate}
+\item the blue circle cross the iso$-\xi$ lines on panel $(II)$ and $(IV)$ (interpolation lines), 
+\item we use a cubic spline to complete the data on each cross point (represented by blue square on figure \ref{fig: panel II_interp}) using the data on the associated interpolation line.
+\end{enumerate}
 
-\item The hermitian discrete derivative REF is applied to the data assembled along great the blue circle. This step provides $4N$ values called $v_{\xi, p}$, with $p=0, ..., 4N$. Periodicity ensures that $v_{\xi, 4N} = v_{\xi,0}$.
+\item The hermitian discrete derivative $\delta_{\xi}^H$ is applied to the data assembled along great the blue circle (the hermitian scheme is detailled in \ref{sec:annexes}). This step provides $4N$ values called $v_{\xi, p}$, with $p=0, ..., 4N$. Periodicity ensures that $v_{\xi, 4N} = v_{\xi,0}$.
 
 \item Finally retain the values $v_{\xi, p}$ with $0 \leq p \leq N$ and $2N \leq p \leq 3N$, which corresponds to panels $(I)$ and $(III)$.
 \end{enumerate}
 
 This procedure is applied to all iso-$\eta$ great circles $\eta_j = j \Delta \eta$ with $j = -N/2, ..., N/2$ of panel $(I)$. Then it is identically applied to all great circle of the following great circles :
+\begin{itemize}
+\item $(C_i^{(1)})_{- N/2 \leq i \leq N/2}$ are the iso-$\xi$ lines on each panel,
+\item $(C_j^{(2)})_{- N/2 \leq j \leq N/2}$ are the iso-$\xi$ lines on each panel.
+\end{itemize}
+There are six sets of $N+1$ circles.
 
-ICI DONNER LES CERCLES.
+As a result, approximate values for $f_{\xi, i, j}$ and $f_{\eta, i, j}$ are obtained on the six panels. Using \ref{eq:gradient_app}, this allow to obtain an approximation of the gradient at each point of the Cubed-sphere.
 
-As a result, approximate values for $v_{\xi, i, j}$ and $v_{\eta, i, j}$ are obtained on the six panels. Using REF, this allow to obtain an approximation of the gradient at each point of the Cubed-sphere.
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Approximation of spherical differential operators}
 \label{sec:op}
@@ -463,13 +630,7 @@ In a second time, discrete differential operators are
 deduced from them.
 Details can be found in \cite{Croisille-10, Croisille-12}.
 
-On panel $(k)$, $(I) \leq (k) \leq (VI)$, the local basis is 
-\beq
-\label{eq:32.19}
-\bg_\xi(\mathbf{x})=\frac{\partial \mathbf{x}}{\partial \xi},\;\;\;
-\bg_\eta(\mathbf{x})=\frac{\partial \mathbf{x}}{\partial \eta}.
-\eeq
-and the dual basis is called $(\bg^\xi, \bg^\eta)$.
+
 Let $\bx \in \mathbb{S}^2 \mapsto f(\bx)$ be a regular function.
 The gradient is defined by
 \beq
@@ -524,7 +685,7 @@ They are defined by
 \right.
 \label{eq:div_rot}
 \eeq
-Due to (\ref{eq:herm_accurate}), we expect these discrete operators
+Due to \eqref{eq:87.14.1}, we expect these discrete operators
 to be fourth order accurate.
 
 \begin{prop}
@@ -535,21 +696,50 @@ consistency relations hold:
 \beq
 \label{eq:11.91}
 \begin{aligned}
-\nabla_{T,h} f^k_{i,j}-(\nabla_T f)^{\ast,k}_{i,j}&=O (h^3)\\
+\nabla_{T,h} f^k_{i,j}-(\nabla_T f)^{\ast,k}_{i,j}&=\mathcal{O} (\Delta^3)\\
 \nabla_{T,h} \cdot \bv^k_{i,j}
--(\nabla_T \cdot  f)^{\ast,k}_{i,j}&=O (h^3)\\
+-(\nabla_T \cdot  f)^{\ast,k}_{i,j}&=\mathcal{O} (\Delta^3)\\
 \nabla_{T,h} \times \bv^k_{i,j}
--(\nabla_T \times  \bv)^{\ast,k}_{i,j}&=O (h^3)
+-(\nabla_T \times  \bv)^{\ast,k}_{i,j}&=\mathcal{O} (\Delta^3)
 \end{aligned}
 \eeq
 \end{prop}
 \begin{proof}
-Suppose that in relation (\ref{eq:87.14.1}) the data $f_j$ are perturbed
-by a term of order $O(h^4)$. Then the resulting
-perturbation of $f_\xi$ is at most of order $O(h^3)$.
-The consistency error drops therefore from order $4$ to order $3$.
-\end{proof}
+We prove the result for the gradient operator.
+Let $f : \mathbf{x} \mapsto f(x) \in \mathbb{S}^2$ a regular function. Let $\mathbf{x}_p$ a point on an iso$-\eta$ and $f_p$ an approximation of $f(x_p)$.
 
+Using the process to calculate the derivative $\partial_{\xi}f$ on the iso$-\xi$, there are two possibilities
+\begin{enumerate}
+\item $\mathbf{x}_p$ is on the cubed-sphere, then $f_p = f(x_p)$,
+\item $\mathbf{x}_p$ is not on the grid. Because of the cubic-spline is ordre $4$, we have
+\begin{equation}
+f_p = f(x_p) + \mathcal{O}(\Delta \eta^4).
+\end{equation}
+\end{enumerate}
+Then, on a given iso$-\eta$, the data are pertubated with the cubic spline and for all $0 \leq p \leq 4N-1$, 
+\begin{equation}
+f_p = f(x_p) + \mathcal{O}(\Delta \eta^4).
+\end{equation}
+Then,
+\begin{equation}
+\delta_{\xi} f_p = \dfrac{f_{p+1}-f_{p-1}}{2 \Delta \xi} =\dfrac{f(\mathbf{x}_{p+1})-f(\mathbf{x}_{p-1})}{2 \Delta \xi} + \mathcal{O}(\Delta \eta^3)
+\end{equation}
+and the result is
+\begin{equation}
+\delta_{\xi}^H f_p = \partial_{\xi} f(\mathbf{x}_p) + \mathcal{O}(\Delta \eta^3).
+\end{equation}
+
+In the same way, if $\mathbf{x}_k$ define a grid in an iso$-\xi$,
+\begin{equation}
+\delta_{\eta}^H f_k = \partial_{\eta} f(\mathbf{x}_k) + \mathcal{O}(\Delta \xi^3).
+\end{equation}
+
+Using this two previous formula and $\Delta \xi = \Delta \eta = \Delta$, the linearity of the gradient operator imply
+\begin{equation}
+\nabla_{T,h} f^k_{i,j}-(\nabla_T f)^{\ast,k}_{i,j}=\mathcal{O} (\Delta^3).
+\end{equation}
+The proof is similar for curl and divergence operator.
+\end{proof}
 \begin{figure}
 \includegraphics[scale=0.4]{Images/fig6.jpg}
 \caption{
@@ -591,7 +781,7 @@ Then, equations take the form
 \end{equation}
 where $q = h$, restrict to the grid, for the advection equation \eqref{eq:adv}, $q=[\eta, \mathbf{v}]^T$ for the linearized shallow water equation \eqref{eq:lswe} and $q=[h, \mathbf{v}]^T$ for shallow water equation \eqref{eq:swe}.
 
-For example, for the shallow water equation \eqref{eq:swe}, $q = [h_{i,j}^k, \mathbf{v}_{i,j}^k]^T$ with $-N/2 \leq i,j \leq N/2$ and $k = (I), ..., (VI)$. Each operator is approximated using REF. Then
+For example, for the shallow water equation \eqref{eq:swe}, $q = [h_{i,j}^k, \mathbf{v}_{i,j}^k]^T$ with $-N/2 \leq i,j \leq N/2$ and $k = (I), ..., (VI)$. Each operator is approximated using (\ref{eq:grad} - \ref{eq:95.13.1}). Then
 \begin{equation}
 J_{\Delta}(q) = J_{\Delta}(h_{i,j}^k, \mathbf{v}_{i,j}^k) = 
 \begin{bmatrix}
@@ -604,7 +794,7 @@ with $\zeta_{i,j}^k = \left(\nabla_{T,h} \times \mathbf{v}_{i,j}^k \right) \cdot
 \begin{equation}
 \dfrac{d \mathbf{q}}{dt} = J_{\Delta} (\mathbf{q}). 
 \end{equation}
-The time discretization is based on the classical Runge-Kutta order 4 scheme adding a filtering processus on times by iteration. The algorithm is given by the algorithm \ref{alg:RK4F}.
+The time discretization is based on the classical Runge-Kutta order 4 scheme adding a filtering processus on times by iteration. The time discretization is given by the algorithm \ref{alg:RK4F}.
 
 \begin{center}
 \begin{minipage}[H]{12cm}
@@ -631,7 +821,7 @@ On the Cubed-Sphere, we use a symmetric filter in the form
 \mathcal{F} = \dfrac{1}{2} \left( \mathcal{F}_{\xi} \circ \mathcal{F}_{\eta} + \mathcal{F}_{\eta} \circ \mathcal{F}_{\xi} \right)
 \end{equation}
 This means that we apply explicit filtering operators at each time step to all the components of the
-vector $q$. The first one is along the direction $\xi$ and the second one is along the direction $\eta$ along complete great circles. As for the derivatives, the data are completed by an interpolation procedure.
+vector $q$. The first one is along the direction $\xi$ and the second one is along the direction $\eta$ along complete great circles. As for the derivatives, the data are completed by an interpolation procedure. We use the same process but replacing the hermitian derivative $\delta_{\xi}^H$ by an filtering process.
 In practice, use a $10$-th order filter for $\mathcal{F}_{\xi}$ and $\mathcal{F}_{\eta}$ is sufficient for stability properties we wish and to remove parasitics waves.
 
 
@@ -664,14 +854,14 @@ using the relative error:
 I_p = \dfrac{\|\psi^n - \psi_{t^n} \|_p}{\| \psi_{t^n} \|_p}
 \end{equation}
 where 
-$p \in \lbrace 1, 2, \infty \rbrace$, $\psi_t^n$ is the analytic solution at time $t$ and 
+$p \in \lbrace 1, 2, \infty \rbrace$, $\psi_{t^n}$ is the analytic solution at time $t$ and 
 $\psi^n$ is the calculated solution at time $t^n$. 
 $ \| . \| _p$ denote sur $\ell^p$ norm on the sphere. 
 
 %% **********************************************************************************************************************************************
 \subsection{Advection equation}
 Two test cases are considered for the convection equation
-(\ref{eq:adv}) are considered. These
+(\ref{eq:adv}). These
 two test cases are of increasing difficulty.
 They are introduced in 
 \cite{Nair-Machenhauer, Nair-Jablonowski} as a sequel
@@ -680,7 +870,7 @@ of the solid body rotation test case of
 In both cases, 
 equation (\ref{eq:adv}) is approximated by the discrete operator 
 \eqref{eq:grad} with the filtered form of the RK4 scheme 
-given in algorithm \ref{alg:RK4}.
+given in algorithm \ref{alg:RK4F}.
 
 %% **********************************************************************************************************************************************
 \subsubsection{Deformational flow test case}
@@ -695,7 +885,7 @@ The point $P$ has coordinates $(\lambda_P,\theta_P)$ in the reference
 longitude-latitude system.
 The longitude-latitude coordinate system 
 $(\lambda^\prime,\theta^\prime)$ is associated to 
-the axis $P  P^\prime$. Each vortex evolves 
+the axis $(P  P^\prime)$. Each vortex evolves 
 into a symmetric roll-up structure
 with finer and finer filaments
 when time increases.
@@ -750,7 +940,7 @@ solution $(\mathbf{x}, t) \in \mathbb{S}_R^2 \times \mathbb{R}_{-}+ \mapsto
 
 The constant $\gamma$ determines the strenght of $\nabla_T\phi$ 
 and $\rho_0>0$ is a reference distance to the center of the vortex.
-Let $T>0$ be the physical time of evolution and $v_0 = 2 \pi R / T$ ($R$=radius) be a reference velocity. 
+Let $T>0$ be the physical time of evolution and $v_0 = 2 \pi R / T$ be a reference velocity. 
 As suggested in \cite{Nair-Jablonowski}, we select here the values
 $\rho_0 = 3$ and $ \gamma = 5$.
 
@@ -899,7 +1089,7 @@ The damping is obtained by a forcing term.
 The second solution is a zonal time independent solution.
 In both cases, the approximation 
 (\ref{eq:grad} - \ref{eq:div_rot})
-is used with the filtered RK4 scheme (algorithm \ref{alg:RK4}).
+is used with the filtered RK4 scheme (algorithm \ref{alg:RK4F}).
 
 %% **********************************************************************************************************************************************
 \subsubsection{A damped case of LSWE}
@@ -918,7 +1108,7 @@ Consider the two exponentially in time damped functions
 with:
 \begin{equation}
 \label{eq:fct_galewsky}
-\phi(\tau) = 
+\varphi(\tau) = 
 \left\lbrace
 \begin{array}{ll}
 0 & \text{ if } \tau \leq \theta_0 \\
@@ -957,7 +1147,7 @@ using three grids with $\sigma = 10^{-5}$.
 \subsubsection{A time independent zonal solution}
 We consider a time independent 
 solution depending on the latitude only.
-To a parameter $\phi(\theta)$ given by \eqref{eq:fct_galewsky} 
+To a parameter $\varphi(\theta)$ given by \eqref{eq:fct_galewsky} 
 corresponds the velocity $\mathbf{v}(\mathbf{x})$ defined by
 \begin{equation}
 \label{eq:78.123}
@@ -984,10 +1174,17 @@ The numerical results are reported in Fig. \ref{table:5}.
 \label{table:5}
 \end{figure}
 
+
+
+
+
+
+
+
 %% **********************************************************************************************************************************************
 \subsection{Shallow Water equations}
 The equations (SWE) \eqref{eq:swe} are solved using the scheme
-(\ref{eq:grad}-\ref{eq:div_rot}) with the algorithm \ref{alg:RK4}.
+(\ref{eq:grad}-\ref{eq:div_rot}) with the algorithm \ref{alg:RK4F}.
 We consider the test cases $2$ (steady state), $5$ (isolated mountain) and $6$ (Rossby-Haurwitz) in
 \cite{Williamson-Drake-Hack-Jakob-Swarztrauber}.
 In more, we display results for the barotropic instability 
@@ -999,7 +1196,7 @@ The following parameters are used:
 a & = & 6.37122 \times 10^6\si{m} & \text{ is the Earth radius,}\\
 \Omega & = & 7.292 \times 10^{-5} \si{s^{-1}}& \text{ is the rotational velocity,}\\
 g & = & 9.80616 \si{m . s^{-2}}& \text{ is the gravity constant}\\
-f & = & 2 \Omega \sin \theta &  \text { except in section \ref{sec:4.2.3}. }
+f & = & 2 \Omega \sin \theta &  \text { is the Coriolis function used, except in section \ref{sec:4.2.3}. }
 \end{array}
 \end{equation}
 
@@ -1100,7 +1297,7 @@ concerning the numerical quadrature formula that is used.
 \end{figure}
 
 \begin{figure}[htbp]
-\includegraphics[scale=0.5]{rate_W2_0.png}
+\includegraphics[scale=0.54]{rate_W2_0.png}
 \includegraphics[scale=0.5]{rate_W2_pi4.png}
 \caption{Relative error afer 5 days model simulation of steady state geostrophic flow. The CFL condition is $0.9$. $\alpha = 0$ (left) and $\alpha=\pi/4$(right)}
 \label{tab:W2 error order}
@@ -1224,7 +1421,7 @@ h(\lambda, \theta) = h_0 - \dfrac{1}{g} \gint_{-\pi/2}^{\theta} a u_{\lambda}(\t
 \end{array}
 \right.
 \end{equation}
-with $h_0=10^{4}\si{m}$ and $u_{\lambda} = u_{max} \phi(\theta)$ with $\phi$ given by \eqref{eq:fct_galewsky}.
+with $h_0=10^{4}\si{m}$ and $u_{\lambda} = u_{max} \phi(\theta)$ with $\varphi$ given by \eqref{eq:fct_galewsky}.
 
 
 In \eqref{eq:G1 steady} we have:
@@ -1346,8 +1543,59 @@ It is based on the fact that the discrete solutions,
 both semi discrete and fully discrete,
 are known explicitely in the periodic context.
 
-Note that this scheme is used in many contexts, 
-see for example \textbf{REF}.
+
+
+
+
+%% **********************************************************************************************************************************************
+\subsection{Space discretization}
+The simplest discrete compact operator is the fourth order discrete
+differential which is now recalled.
+Consider an equispaced grid with stepsize $\Delta x>0$ and data 
+$u_j$ located at point $x_j=j\Delta x$. The centered finite difference on a regular grid 
+with step $\Delta x$ is
+\beq
+\label{eq:87.13}
+\delta_x u_j =\frac{u_{j+1}-u_{j-1}}{2 \Delta x}.
+\eeq
+Relation (\ref{eq:87.13}) is a second order approximation of the derivative
+$u^\prime(x_j)$. Let $u(x)$ 
+be a regular function and $u^\ast$ the gridfunction defined by
+\beq
+(u^\ast)_j=u(x_j).
+\eeq
+Then we have
+\beq
+\label{eq:87.14}
+\delta_x u^\ast_j =u^\prime(x_j)+\frac{\Delta x^2}{6}
+u^{(3)}(\xi_j),
+\eeq
+for a certain $\xi_j \in [x_{j-1}, x_{j+1}]$.
+Consider now the {\it implicit relation} with unknown $\delta^H_x u_{j}$
+\beq
+\label{eq:73.10.27}
+\frac{1}{6} \delta_x^H u_{j-1}
++\frac{2}{3} \delta_x^H u_j
++\frac{1}{6} \delta_x^H u_{j+1}
+= 
+\delta_x  u_j.
+\eeq
+The relation (\ref{eq:73.10.27}) is a three point compact relation, 
+meaning that the stencil of dependence 
+consists of the three points is $x_{j-1},x_j,x_{j+1}$. 
+In the periodic setting, 
+$\delta_x^H u_j$ satisfies at each $j$ the consistency relation
+\beq
+\label{eq:87.14.1}
+\delta^H_x u^\ast_j =u^\prime(x_j)
+-\frac{\Delta x^4}{180}
+u^{(5)}(\xi_j).
+\eeq
+for another $\xi_j \in [x_{j-1}, x_{j+1}]$, \cite{Lele, BenArtzi-Croisille-Fishelov-4}.
+
+
+
+
 
 %% **********************************************************************************************************************************************
 \subsection{Explicit discrete solution}
@@ -1456,20 +1704,20 @@ $U(t)=[u(t,x_0), u(t,x_1), \dots,u(t,x_{N-1})]^T $.
 
 \begin{prop}
 The error $e_j(t)=u(t,x_j)-v_j(t)$ satisfies
-\beq
-\vert e_j(t) \vert \leq C(t) h^4,\; j=0,1,\dots,N-1
-\eeq
+\begin{equation}
+\vert e_j(t) \vert \leq C(t) h^4, \hspace{0.5cm} j=0,1,\dots,N-1
+\end{equation}
 \end{prop}
 \begin{proof}
 The exact solution is $u(t,x_j)=u_0(x_j-ct)$ is given in Fourier series by (we note $\tilde k =2 \pi k/L$):
-\beq
+\begin{equation}
 \label{eq:91.10}
-u(t,x_j)=\sum_{k \in \mathbb{Z}} \exp(i\tilde k(x_j-ct))\hat{u}_0^k
-\eeq
+u(t,x_j)= \sum_{k \in \mathbb{Z}} \exp ( i \tilde k(x_j-ct) ) \hat{u}_0^k
+\end{equation}
 where
-\beq
+\begin{equation}
 \hat{u}_0^k=\frac{1}{\sqrt{L}} \gint_0^{L} u_0(x)\exp(-i \tilde{k} x) dx
-\eeq
+\end{equation}
 We compare REF and REF at $x_j$ (....)
 \textbf{PREUVE A COMPLETER}
 \end{proof}

@@ -1,15 +1,15 @@
 clc; clear all; close all;
 
 radius=6371220;
-% N=[40 50 60 80 100 150];
-N=[32 64 128];
+N=[40 50 60 80 100 150];
+%N=[32 64 128];
 % N=[16 32 64 128];
-dx=radius./(4*N);
+dx=2*pi*radius./(4*N);
 
 %% Nair-Machenhauer
-% e1=[1.989*10^-3 7.638*10^-4 3.023*10^-4 5.2979*10^-5 1.5036*10^-5 1.9244*10^-6];
-% e2=[7.255*10^-3 3.161*10^-3 1.313*10^-3 2.391*10^-4 6.4568*10^-5 9.2082*10^-6];
-% e3=[4.039*10^-2 1.918*10^-2 7.556*10^-3 1.561*10^-3 4.329*10^-4 7.6848*10^-5];
+e1=[1.989*10^-3 7.638*10^-4 3.023*10^-4 5.2979*10^-5 1.5036*10^-5 1.9244*10^-6];
+e2=[7.255*10^-3 3.161*10^-3 1.313*10^-3 2.391*10^-4 6.4568*10^-5 9.2082*10^-6];
+e3=[4.039*10^-2 1.918*10^-2 7.556*10^-3 1.561*10^-3 4.329*10^-4 7.6848*10^-5];
 %% Nair-Jablonowski
 % e1=[2.2199*10^-3 9.9676*10^-4 4.4566*10^-4 1.3189*10^-4 5.3380*10^-5 1.0401*10^-5];
 % e2=[8.1592*10^-3 3.9476*10^-3 1.9545*10^-3 5.8682*10^-4 2.3789*10^-4 4.7173*10^-5];
@@ -19,9 +19,9 @@ dx=radius./(4*N);
 % e2=[1.3885*10^-6 8.6513*10^-8 5.4018*10^-9];
 % e3=[2.4469*10^-6 1.5229*10^-7 9.5186*10^-9];
 %% Williamson 2 (alpha=pi/4)
-e1=[7.5712*10^-7 4.7213*10^-8 2.9487*10^-9];
-e2=[1.0446*10^-6 6.5124*10^-8 4.0672*10^-9];
-e3=[2.7809*10^-6 1.7387*10^-7 1.0858*10^-8];
+% e1=[7.5712*10^-7 4.7213*10^-8 2.9487*10^-9];
+% e2=[1.0446*10^-6 6.5124*10^-8 4.0672*10^-9];
+% e3=[2.7809*10^-6 1.7387*10^-7 1.0858*10^-8];
 
 % e1=[4.4750*10^-2 5.7696*10^-3 3.4225*10^-4 1.6969*10^-5];
 
@@ -48,11 +48,11 @@ lsq1=a11(2)+a11(1)*tt;
 
 
 %% curve 2
-hl1=plot(ldx,le2,'+k');
-set(hl1,'LineWidth',2.0);
-set(hl1,'MarkerSize',10);
-set(hl1,'MarkerEdgeColor','k');
-set(hl1,'MarkerFaceColor','green');
+hl2=plot(ldx,le2,'+k');
+set(hl2,'LineWidth',2.0);
+set(hl2,'MarkerSize',10);
+set(hl2,'MarkerEdgeColor','k');
+set(hl2,'MarkerFaceColor','green');
 
 hold on;
 [a12,b1]=polyfit(ldx,le2,1);
@@ -61,11 +61,11 @@ lsq2=a12(2)+a12(1)*tt;
 
 
 %% curve 3
-hl1=plot(ldx,le3,'xk');
-set(hl1,'LineWidth',2.0);
-set(hl1,'MarkerSize',10);
-set(hl1,'MarkerEdgeColor','k');
-set(hl1,'MarkerFaceColor','magenta');
+hl3=plot(ldx,le3,'xk');
+set(hl3,'LineWidth',2.0);
+set(hl3,'MarkerSize',10);
+set(hl3,'MarkerEdgeColor','k');
+set(hl3,'MarkerFaceColor','magenta');
 
 hold on;
 [a13,b1]=polyfit(ldx,le3,1);
@@ -74,7 +74,7 @@ lsq3=a13(2)+a13(1)*tt;
 
 
 %% legend
-legend(['norm 1   : slope = ' num2str(a11(1))],['norm 2   : slope = ' num2str(a12(1))],['norm inf : slope = ' num2str(a13(1))],'Location','NorthWest')
+legend([hl1,hl2,hl3],{['norm 1   : slope = ' num2str(a11(1))],['norm 2   : slope = ' num2str(a12(1))],['norm inf : slope = ' num2str(a13(1))]},'Location','NorthWest')
 % legend(['norm inf : slope = ' num2str(a11(1))],'Location','NorthWest')
 % xlabel
 ha=gca;
