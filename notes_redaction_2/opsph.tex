@@ -76,12 +76,12 @@ Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ une fonction rég
 \end{itemize} 
 \end{theoreme}
 
-Pour calculer une valeur approchée des opérateurs gradient, divergence et rotationnel aux points du maillage de la Cubed-Sphere, il faut calculer une valeur approchée de la dérivée d'une fonction le long d'un grand cercle. C'est à dire, calculer $h_{\xi,i,j}$ et $h_{\eta,i,j}$ tels que 
+Pour calculer une valeur approchée des opérateurs gradient, divergence et rotationnel aux points du maillage de la Cubed-Sphere, il faut calculer une valeur approchée de la dérivée d'une fonction le long d'un grand cercle. C'est à dire, calculer $f_{\xi,i,j}$ et $f_{\eta,i,j}$ tels que 
 \begin{equation}
 \left\lbrace
 \begin{array}{rl}
-h_{\xi,i,j} \rightarrow \partial_{\xi} h ( \mathbf{x}_{i,j}^k) & \text{ lorsque } \Delta \xi \rightarrow 0\\
-h_{\eta,i,j} \rightarrow \partial_{\eta} h ( \mathbf{x}_{i,j}^k) & \text{ lorsque } \Delta \eta \rightarrow 0
+f_{\xi,i,j} \rightarrow \partial_{\xi} f ( \mathbf{x}_{i,j}^k) & \text{ lorsque } \Delta \xi \rightarrow 0\\
+f_{\eta,i,j} \rightarrow \partial_{\eta} f ( \mathbf{x}_{i,j}^k) & \text{ lorsque } \Delta \eta \rightarrow 0
 \end{array}
 \right.
 \end{equation}
@@ -93,9 +93,263 @@ La section suivante consiste à détailler une procédure pour calculer ces dér
 
 \subsection{Approximation de dérivées sur les grands cercles}
 
+On pose $f : \mathbf{x}\in \mathbb{S}_a^2 \mapsto f(\mathbf{x})$ la fonction que l'on souhaite dérivée le long des grands cercles aux points du maillage de la Cubed-Sphere.
+Si $\mathbf{x}_{i,j}^k$ est un point de la Cubed-Sphere avec $k = (I) \cdots (VI)$, ainsi que $-N/2 \leq i,j \leq N/2$. On souhaite calculer une valeur approchée de 
+$
+\partial_{\xi} f (\mathbf{x}_{i,j}^k) \text{ et } \partial_{\xi} f (\mathbf{x}_{i,j}^k)
+$.
+On suppose par exemple $k = (I)$ mais la méthode est la même sur les autres panels. Alors il existe deux grands cercles de la Cubed-Sphere $C_i^{(1)}$ et $C_j^{(2)}$ tels que 
+\begin{equation}
+\mathbf{x}_{i,j}^k \in C_i^{(1)} \cap C^{(2)}_j.
+\end{equation}
+$C^{(1)}_i$ est une isoligne en $\xi = \xi_i$ constant et $C^{(2)}_j$ est une isoligne en $\eta = \eta_j$ constant.
+Pour calculer une valeur approchée de $\partial_{\xi} f (\mathbf{x}_{i,j}^{(I)})$, on souhaite connaître toutes les valeurs de $f$ aux points équirépartis le long du cercle $C^{(2)}_j$. On pose $\mathbf{m}_p$ avec $0 \leq p \leq 4N-1$ les points de $C^{(2)}_j$ construits de la manière suivante :
+\begin{itemize}
+\item si $0 \leq p \leq N$ alors $\mathbf{m}_p = \mathbf{x}^{(I)}_{p-N/2,j}$, il s'agit des points du cercle $C^{(2)}_j$ associés au panel $(I)$ sur le maillage. Ils sont représentés par des ronds bleus sur les figures \ref{fig:patron_cs} et \ref{fig: panel II_interp},
+\item si $N+1 \leq p \leq 2N-1$ alors les points ne font pas partis du maillages. Il s'agit des des points d'intersections de $C^{(2)}_j$ avec les isoligne $\xi = \xi_i^{(II)}$ du panel $(II)$. C'est à dire l'intersection de $C^{(2)}_j$ avec les cercles de $(II_{\beta})$. Ces points sont représentés par les carrés bleus dans les figures \ref{fig:patron_cs} et \ref{fig: panel II_interp}. Les coordonnées de ces points ont été calculées dans la partie \REF.
+\item si $2N \leq p \leq 3N$ alors $\mathbf{m}_p = \mathbf{x}^{(III)}_{p-3N/2}$. Il s'agit des points de la Cubed-Sphere du panel $(III)$ représentés par des ronds bleus sur la figure \ref{fig:patron_cs},
+\item si $3N+1 \leq p \leq 4N-1$ alors $\mathbf{m}_p$ est constitués des points d'intersections de $C^{(2)}_j$ avec les cercles de $(IV_{\beta})$. Il ne s'agit pas de points de la grille. Ces points sont représentés par les carrés bleus dans la figure \ref{fig:patron_cs}.
+\end{itemize}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=2.5]
+	\foreach \x in {1,...,7}
+		{ \draw [color=gray!70, line width=0.8pt] (0.125*\x,1) -- (0.125*\x,2) ;
+		\draw [color=gray!30] (0,1+0.125*\x) -- (1,1+0.125*\x) ;
+		\draw [color=gray!30] (1+0.125*\x,1) -- (1+0.125*\x,2) ;
+		\draw [color=gray!30] (1,1+0.125*\x) -- (2,1+0.125*\x) ;
+		\draw [color=gray!70, line width=0.8pt] (2+0.125*\x,1) -- (2+0.125*\x,2) ;
+		\draw [color=gray!30] (2,1+0.125*\x) -- (3,1+0.125*\x) ;
+		\draw [color=gray!30] (3+0.125*\x,1) -- (3+0.125*\x,2) ;
+		\draw [color=gray!30] (3,1+0.125*\x) -- (4,1+0.125*\x) ;
+		\draw [color=gray!30] (1+0.125*\x,0) -- (1+0.125*\x,1) ;
+		\draw [color=gray!30] (1,0.125*\x) -- (2,0.125*\x) ;
+		\draw [color=gray!30] (1+0.125*\x,2) -- (1+0.125*\x,3) ;		
+		\draw [color=gray!30] (1,2+0.125*\x) -- (2,2+0.125*\x) ;
+		}
+	
+
+	\draw [line width=0.6pt] (1,3) -- (2,3) ; 
+	\draw [line width=0.6pt] (0,2) -- (4,2) ; 	
+	\draw [line width=0.6pt] (0,1) -- (4,1) ; 
+	\draw [line width=0.6pt] (1,0) -- (2,0) ; 
+	
+	\draw [line width=0.6pt] (0,2) -- (0,1) ;
+	\draw [line width=0.6pt] (1,3) -- (1,0) ;
+	\draw [line width=0.6pt] (2,3) -- (2,0) ;
+	\draw [line width=0.6pt] (3,2) -- (3,1) ;
+	\draw [line width=0.6pt] (4,2) -- (4,1) ; 
+	
+	\draw (0.7,1.1) node[above]{$(IV)$} ; 
+	\draw (1.3,1.1) node[above]{$(I)$} ; 
+	\draw (2.7,1.7) node[above]{$(II)$} ;
+	\draw (3.3,1.7) node[above]{$(III)$} ;  
+	\draw (1.7,2.7) node[above]{$(V)$} ;  
+	\draw (1.3,0.7) node[above]{$(VI)$} ; 
+	
+	\draw [samples=100,domain=0:1,color=blue] plot({\x},{1.5-(2*0.125)*cos(180*\x)});
+	\draw [samples=100,domain=1:2,color=blue] plot({\x},{1.5+2*0.125});
+	\draw [samples=100,domain=1:2,color=blue] plot({\x+1},{1.5-2*0.125*cos(180*\x)});
+	\draw [samples=100,domain=3:4,color=blue] plot({\x},{1.5-2*0.125});
+	\draw [>=stealth, <-] (0.05,1.25) -- (0.3,0.5) ;
+	\draw  (0.3,0.5) node[right] {iso-$\eta$} ;
+	
+	\draw [samples=100,domain=0:1,color=red] plot({1.5-2*0.125*cos(180*\x)},{\x});
+	\draw [samples=100,domain=1:2,color=red] plot({1.5+2*0.125},{\x});
+	\draw [samples=100,domain=1:2,color=red] plot({1.5-2*0.125*cos(180*\x)},{\x+1});
+	\draw [samples=100,domain=1:2,color=red] plot({4-2*0.125},{\x});
+	\draw [>=stealth, <-] (1.5,0.5) -- (2.2,0.4) ;
+	\draw  (2.2,0.4) node[right] {iso-$\xi$} ;
+	
+	\draw  (0,1+2*0.125) node[color=blue] {$\bullet$} ;
+	\draw (0,1+2*0.125) node {$\circ$} ;
+	
+	\foreach \k in {0,...,8}
+		{\draw  (1+0.125*\k,1.5+2*0.125) node[color=blue] {$\bullet$} ;
+	   	\draw (1+0.125*\k,1.5+2*0.125) node {$\circ$} ;
+	   	\draw  (3+0.125*\k,1+2*0.125) node[color=blue] {$\bullet$} ;
+	   	\draw (3+0.125*\k,1+2*0.125) node {$\circ$} ;
+	   	}
+	   	
+	\foreach \x in {1,...,7}
+		{\draw  ({0.125*\x},{1.5-2*0.125*cos(180*0.125*\x)}) node[color=blue] {\begin{tiny}$\blacksquare$\end{tiny}} ;
+	   	\draw ({0.125*\x},{1.5-2*0.125*cos(180*0.125*\x)}) node {\begin{tiny}$\square$\end{tiny}} ;
+	   	\draw  ({2+0.125*\x},{1.5-2*0.125*cos(180*0.125*\x+180)}) node[color=blue] {\begin{tiny}$\blacksquare$\end{tiny}} ;
+	   	\draw  ({2+0.125*\x},{1.5-2*0.125*cos(180*0.125*\x+180)}) node {\begin{tiny}$\square$\end{tiny}} ;
+	   	}
+	   	
+	\draw [>=stealth, <-] (0.25,1.75) -- (0.125,2.5) ;
+	\draw [>=stealth, <-] (0.625,1.85) -- (0.125,2.5) ;
+	\draw  (0.125,2.5) node[above] {Lignes d'interpolation} ;
+\end{tikzpicture}
+\caption{Les grands cercles associés aux panels $(I)$ et $(III)$ ne sont pas passent pas par des points du la Cubed-Sphere sur les panels $(II)$ et $(IV)$.}
+\label{fig:patron_cs}
+\end{center}
+\end{figure}
+
+
+
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{tikzpicture}[scale=2.2]
+	\draw [line width=0.8pt] (0,0) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);	
+	
+	\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot [smooth,domain=-35:35] ({0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=55:125] ({cos(\x)},{0.7*sin(\x)})
+	-- plot [smooth,domain=150:215] ({0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=240:300] ({cos(\x)},{0.7*sin(\x)})
+	-- cycle;	
+	\draw [samples=100,domain=48:132, color=gray!50] plot({cos(\x)},{0.35*sin(\x)});
+	\draw [samples=100,domain=48:132, color=gray!50] plot({cos(\x)},{-.35*sin(\x)});
+	\draw [samples=100,domain=46:134, color=gray!50] plot({cos(\x)},{0.175*sin(\x)});
+	\draw [samples=100,domain=46:134, color=gray!50] plot({cos(\x)},{-.175*sin(\x)});
+	\draw [samples=100,domain=50:130, color=gray!50] plot({cos(\x)},{0.525*sin(\x)});
+	\draw [samples=100,domain=50:130, color=gray!50] plot({cos(\x)},{-.525*sin(\x)});
+	\draw [samples=100,domain=45:135, color=gray!50] plot({cos(\x)},{0*sin(\x)});
+
+	\draw [rotate=90, samples=100,domain=48:132, color=gray, line width=0.6pt] plot({cos(\x)},{0.35*sin(\x)});
+	\draw [rotate=90, samples=100,domain=48:132, color=gray, line width=0.6pt] plot({cos(\x)},{-.35*sin(\x)});
+	\draw [rotate=90, samples=100,domain=46:134, color=gray, line width=0.6pt] plot({cos(\x)},{0.175*sin(\x)});
+	\draw [rotate=90, samples=100,domain=46:134, color=gray, line width=0.6pt] plot({cos(\x)},{-.175*sin(\x)});
+	\draw [rotate=90, samples=100,domain=50:130, color=gray, line width=0.6pt] plot({cos(\x)},{0.525*sin(\x)});
+	\draw [rotate=90, samples=100,domain=50:130, color=gray, line width=0.6pt] plot({cos(\x)},{-.525*sin(\x)});
+	\draw [rotate=90, samples=100,domain=45:135, color=gray, line width=0.6pt] plot({cos(\x)},{0*sin(\x)});
+
+	\filldraw[draw=black,fill=red!30!white,opacity=0.20]
+	plot [smooth,domain=145:215] ({.7*cos(\x)},{sin(\x)})
+	-- plot [smooth] (-.573,-.573) -- (-.707,-.707)
+	-- plot [smooth,domain=215:145] ({cos(\x)},{sin(\x)})
+	-- plot [smooth] (-.707,.707) -- (-.573,.573)
+	-- cycle;	
+	\draw [line width=0.8pt] (-.573,-.573) -- (-.707,-.707) ;
+	\draw [line width=0.8pt] (-.573,.573) -- (-.707,.707) ;
+	\draw [color=gray!50] (-.669,.260) -- (-.9321,.3622) ;
+	\draw [color=gray!50] (-.669,-.260) -- (-.9321,-.3622) ;
+	\draw [color=gray!50] (-.6946,.1259) -- (-.9840,.1783) ;
+	\draw [color=gray!50] (-.6946,-.1259) -- (-.9840,-.1783) ;
+	\draw [color=gray!50] (-.6427,.4022) -- (-.8477,.5305) ;
+	\draw [color=gray!50] (-.6427,-.4022) -- (-.8477,-.5305) ;
+	\draw [color=gray!50] (-.707,0) -- (-1,0) ;
+	\draw [samples=100,domain=141:219, color=gray!50] plot({0.8*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=138:222, color=gray!50] plot({0.9*cos(\x)},{sin(\x)});
+	
+	\filldraw[draw=black,fill=green!30!white,opacity=0.20]
+	plot [smooth,domain=55:125] ({cos(\x)},{0.7*sin(\x)})
+	-- plot [smooth] (-.573,.573) -- (-.707,.707)
+	-- plot [smooth,domain=125:55] ({cos(\x)},{sin(\x)})
+	-- plot [smooth] (.707,.707) -- (.573,.573)
+	-- cycle;	
+	\draw [line width=0.8pt] (-.573,.573) -- (-.707,.707) ;
+	\draw [line width=0.8pt] (.707,.707) -- (.573,.573) ;
+	\draw [rotate=-90,color=gray!50] (-.669,.260) -- (-.9321,.3622) ;
+	\draw [rotate=-90,color=gray!50] (-.669,-.260) -- (-.9321,-.3622) ;
+	\draw [rotate=-90,color=gray!50] (-.6946,.1259) -- (-.9840,.1783) ;
+	\draw [rotate=-90,color=gray!50] (-.6946,-.1259) -- (-.9840,-.1783) ;
+	\draw [rotate=-90,color=gray!50] (-.6427,.4022) -- (-.8477,.5305) ;
+	\draw [rotate=-90,color=gray!50] (-.6427,-.4022) -- (-.8477,-.5305) ;
+	\draw [rotate=-90,color=gray!50] (-.707,0) -- (-1,0) ;
+	\draw [rotate=-90,samples=100,domain=141:219, color=gray!50] plot({0.8*cos(\x)},{sin(\x)});
+	\draw [rotate=-90,samples=100,domain=138:222, color=gray!50] plot({0.9*cos(\x)},{sin(\x)});
+	
+	\filldraw[draw=black,fill=yellow!30!white,opacity=0.20]
+	plot [smooth,domain=55:125] ({cos(\x)},{-.7*sin(\x)})
+	-- plot [smooth] (-.573,-.573) -- (-.707,-.707)
+	-- plot [smooth,domain=125:55] ({cos(\x)},{-sin(\x)})
+	-- plot [smooth] (.707,-.707) -- (.573,-.573)
+	-- cycle;	
+	\draw [line width=0.8pt] (-.573,-.573) -- (-.707,-.707) ;
+	\draw [line width=0.8pt] (.707,-.707) -- (.573,-.573) ;
+	\draw [rotate=90,color=gray!50] (-.669,.260) -- (-.9321,.3622) ;
+	\draw [rotate=90,color=gray!50] (-.669,-.260) -- (-.9321,-.3622) ;
+	\draw [rotate=90,color=gray!50] (-.6946,.1259) -- (-.9840,.1783) ;
+	\draw [rotate=90,color=gray!50] (-.6946,-.1259) -- (-.9840,-.1783) ;
+	\draw [rotate=90,color=gray!50] (-.6427,.4022) -- (-.8477,.5305) ;
+	\draw [rotate=90,color=gray!50] (-.6427,-.4022) -- (-.8477,-.5305) ;
+	\draw [rotate=90,color=gray!50] (-.707,0) -- (-1,0) ;
+	\draw [rotate=90,samples=100,domain=141:219, color=gray!50] plot({0.8*cos(\x)},{sin(\x)});
+	\draw [rotate=90,samples=100,domain=138:222, color=gray!50] plot({0.9*cos(\x)},{sin(\x)});
+	
+	\draw [rotate=180,color=gray!50] (-.669,.260) -- (-.9321,.3622) ;
+	\draw [rotate=180,color=gray!50] (-.669,-.260) -- (-.9321,-.3622) ;
+	\draw [rotate=180,color=gray!50] (-.6946,.1259) -- (-.9840,.1783) ;
+	\draw [rotate=180,color=gray!50] (-.6946,-.1259) -- (-.9840,-.1783) ;
+	\draw [rotate=180,color=gray!50] (-.6427,.4022) -- (-.8477,.5305) ;
+	\draw [rotate=180,color=gray!50] (-.6427,-.4022) -- (-.8477,-.5305) ;
+	\draw [rotate=180,color=gray!50] (-.707,0) -- (-1,0) ;
+	\draw [rotate=180,samples=100,domain=141:219, color=gray!50] plot({0.8*cos(\x)},{sin(\x)});
+	\draw [rotate=180,samples=100,domain=138:222, color=gray!50] plot({0.9*cos(\x)},{sin(\x)});
+	
+	\draw [samples=100,domain=55:125, line width=0.8pt] plot({cos(\x)},{0.7*sin(\x)});
+	\draw [samples=100,domain=55:125, line width=0.8pt] plot({cos(\x)},{-.7*sin(\x)});
+	\draw [samples=100,domain=145:215, line width=0.8pt] plot({.7*cos(\x)},{sin(\x)}); 
+	\draw [samples=100,domain=145:215, line width=0.8pt] plot({-.7*cos(\x)},{sin(\x)}); 
+	
+	\draw [color=blue] (-.9321,.3622) -- (.9321,-.3622) ;
+	\draw  (-.9321,.3622) node[color=blue] {$\bullet$} ;
+	\draw (-.9321,.3622) node {$\circ$} ;	
+	\draw  (.9321,-.3622) node[color=blue] {$\bullet$} ;
+	\draw (.9321,-.3622) node {$\circ$} ;
+	\draw  (-.85,0.3886*.85) node[color=blue] {$\bullet$} ;
+	\draw (-.85,0.3886*.85) node {$\circ$} ;	
+	\draw (.85,-0.3886*.85) node[color=blue] {$\bullet$} ;
+	\draw (.85,-0.3886*.85) node {$\circ$} ;	
+	\draw  (-.76,0.3886*.76) node[color=blue] {$\bullet$} ;
+	\draw (-.76,0.3886*.76) node {$\circ$} ;	
+	\draw (.76,-0.3886*.76) node[color=blue] {$\bullet$} ;
+	\draw (.76,-0.3886*.76) node {$\circ$} ;
+	\draw  (-.68,0.3886*.68) node[color=blue] {$\bullet$} ;
+	\draw (-.68,0.3886*.68) node {$\circ$} ;	
+	\draw (.68,-0.3886*.68) node[color=blue] {$\bullet$} ;
+	\draw (.68,-0.3886*.68) node {$\circ$} ;	
+	\draw (-.52,0.3886*.52) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (-.52,0.3886*.52) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (.52,-0.3886*.52) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (.52,-0.3886*.52) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (-.36,0.3886*.36) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (-.36,0.3886*.36) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (.36,-0.3886*.36) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (.36,-0.3886*.36) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (-.18,0.3886*.18) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (-.18,0.3886*.18) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (.18,-0.3886*.18) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (.18,-0.3886*.18) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (0,0) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (0,0) node {\begin{tiny}$\square$ \end{tiny}} ;
+	
+	\draw [>=stealth, <-] (.33,.35) -- (.7,1) ;
+	\draw [>=stealth, <-] (0,.4) -- (.7,1) ;
+	\draw  (0.7,1) node[right] {Lignes d'interpolations} ;
+	
+	\draw  (0,-1.7) node {Panel (II)} ;
+
+\end{tikzpicture}
+\end{center}
+\caption{La ligne bleue représente une isoligne $\eta=\eta_j$ du panel $(I)$ vue depuis le panel $(II)$. les cercles bleus représentent des points de la Cubed-Sphere contenues dans l'isoligne $\eta=\eta_j$, les carrés bleus sont des points de l'isoligne $\eta=\eta_j$ qui ne sont pas sur la Cubed-Sphere.}
+\label{fig: panel II_interp}
+\end{figure}  
+
+La périodicité sur les grands cercles permet d'assurer que $\mathbf{m}_p = \mathbf{m}_{p+4N}$ pour tout $p \in \mathbb{Z}$. De plus, la construction de la Cubed-Sphere, permet d'assurer que
+\begin{equation}
+\mathbf{m}_p = \mathbf{m}_{p-1} + \Delta \xi
+\end{equation}
+Si $f_p = f(\mathbf{m}_p)$ est connue pour tout $p$ vérifiant $0 \leq p \leq 4N-1$ alors on peut calculer la dérivée approchée $f_{\xi,i,j}^k$ de $\partial_{\xi}f(\mathbf{x}_{i,j}^k)$ à l'ordre $4$ grâce à la formule de dérivation hermitienne \eqref{def:herm_4}
+\begin{equation}
+f_{\xi,i,j}^k = \delta_{\xi}^H f_p.
+\end{equation}
+Cependant, les valeurs de $f_p$ ne sont pas toutes connues car les points $\mathbf{m}_p$ ne sont pas des points du maillages lorsque $N \leq p \leq 2N-1$ ou $3N \leq p \leq 4N-1$. Il faut donc construire un procéder permettant d'obtenir des valeurs en ces points.
+
 \subsection{Opérateur gradient discret}
 
+\subsection{Variante de l'opérateur de gradient discret}
+
+
 \subsection{Opérateur divergence discret}
+
+\subsection{Variante de l'opérateur de divergence discret}
 
 \subsection{Opérateur rotationnel discret}
 
