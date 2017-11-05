@@ -1,37 +1,111 @@
 % opsph.tex
 % opérateurs sphériques sur la sphère
 
-\chapter{Opérateurs sphériques}
+\chapter{Approximation des opérateurs sphériques sur la Cubed-sphere}
 
-\section{Opérateur sphériques discrets}
+La résolution des équations de type Shallow-Water \REF la sphère $\mathbb{S}_a^2$ demande le calcul approché d'opérateurs classiques. Les opérateurs différentiels sont indispensables pour la discrétisation spatiale. On pense en particulier aux opérateurs divergence, gradient ou rotationnel. Dans cette section, nous les définissons sur la Cubed-sphere. 
+Nous avons vu dans le cas 1D qu'un opérateur de filtrage peut être utile pour supprimer les modes de type "$+1/-1$" qui perturbent le calcul lors de la discrétisation en temps. Nous définissons les opérateurs de filtrages permettant d'aboutir au filtrage qui sera utilisé dans la discrétisation temporelle des équations.
+Dans ce chapitre, les notations employées telles que $\xi$, $\eta$, $\alpha$, ... sont celles employées dans le chapitre \REF concernant la Cubed-sphere.
 
-La résolution d'équations aux dérivées parties de type Shallow Water nécessite de passer par le calcul des opérateurs classiques : gradient, divergence et rotationnel.
+\section{Opérateurs différentiels sur la Cubed-sphere}
 
-Si $\mathbf{u} : \mathbb{S}_a^2 \mapsto \mathbb{T}\mathbb{S}_a^2$ est un champ de vecteur régulier sur la sphère et $h : \mathbb{S}_a^2 \mapsto\mathbb{R}$ une fonction régulière sur la sphère.
-Chaque opérateur peut être écrit en coordonnées $(\xi, \eta)$ sur la sphère grâce aux formules suivantes :
+\subsection{Définition des opérateurs}
+Soit $\mathbf{x}_{i,j}^k$ un point de la Cubed-sphere avec $- N/2 \leq i,j \leq N/2$ et $k = (I) \cdots (VI)$. Alors il existe deux grands cercles $C_i^{(1)}$ et $C_j^{(2)}$ deux grands cercles tels que $\mathbf{x}_{i,j}^k \in C_i^{(1)} \cap C^{(2)}_j$. $\alpha$ et $\beta$ sont respectivement les angles paramétrant $C_i^{(1)}$ et $C_j^{(2)}$.
 
+On a définit le gradient en $\mathbf{x}_{i,j}^k$ par 
+\begin{equation}
+\nabla_T h = \dfrac{\partial h}{\partial \alpha}_{|C^{(2)}_j} \mathbf{g}^{\alpha} + \dfrac{\partial h}{\partial \beta}_{|C^{(1)}_i} \mathbf{g}^{\beta},
+\end{equation}
+où $h \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ est une fonction régulière sur la sphère.
+
+Le cercle $C_i^{(1)}$ (resp. $C_j^{(2)}$) est une isocline $\xi = \xi_i$ (resp $\eta = \eta_j$) constant. D'après le théorème \eqref{th:gradient_xieta}, le gradient est calculable via la formule
+\begin{equation}
+\nabla_T h = \dfrac{\partial h}{\partial \xi}_{\eta_j} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta}_{\xi_i} \mathbf{g}^{\eta}.
+\end{equation}
+On remarque que si l'on est capable de calculer les dérivées partielles $\partial_{\xi}$ et $\partial_{\eta}$ le long des grands cercles, alors on est capable de déterminer la valeur du gradient.
+
+Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^T \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur tangent à la sphère. On définit dans un premier temps la \textit{divergence} et le \textit{rotationnel} de $\mathbf{v}$ notés $\nabla_T \cdot \mathbf{v}$ et $\nabla_T \wedge \mathbf{v}$.
+
+\begin{definition}
+Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^T \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur régulier sur la sphère. Alors la divergence de $\mathbf{v}$ en $\mathbf{x} \in C_i^{(1)} \cap C_j^{(2)}$ est donnée par
+\begin{equation}
+\nabla_T \cdot \mathbf{v} = \dfrac{\partial \mathbf{v}}{\partial \alpha}_{|C^{(2)}_j} \cdot \mathbf{g}^{\alpha} + \dfrac{\partial \mathbf{v}}{\partial \beta}_{|C^{(1)}_i} \cdot \mathbf{g}^{\beta}.
+\end{equation}
+\label{def:divergence}
+La notation $\cdot$ désigne le produit scalaire usuel dans $\mathbb{R}^3$.
+\end{definition}
+Le rotationnel d'un champ de vecteurs représente la tendance des lignes de courant de $\mathbf{v}$ à tourner autour d'un point. Il est définit par
+
+\begin{definition}
+Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^T \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur régulier sur la sphère. Alors le rotationnel de $\mathbf{v}$ en $\mathbf{x} \in C_i^{(1)} \cap C_j^{(2)}$ est donnée par
+\begin{equation}
+\nabla_T \wedge \mathbf{v} =  \mathbf{g}^{\alpha} \wedge \dfrac{\partial \mathbf{v}}{\partial \alpha}_{|C^{(2)}_j} + \mathbf{g}^{\beta} \wedge \dfrac{\partial \mathbf{v}}{\partial \beta}_{|C^{(1)}_i}
+\end{equation}
+où $\wedge$ désigne le produit vectoriel.
+\label{def:rotationnel}
+\end{definition}
+La \textit{vorticité} du champ de vecteurs $\mathbf{v}$ est la composante normale du rotationnel :
+\begin{equation}
+\vort ( \mathbf{v} ) = \left( \nabla_T \wedge \mathbf{v} \right) \cdot \mathbf{k}
+\label{eq:vorticité}
+\end{equation}
+avec $\mathbf{k}$ le vecteur unitaire extérieur à la sphère en $\mathbf{x} \in \mathbb{S}_a^2$, il vérifie l'égalité
+\begin{equation}
+\mathbf{k} = \dfrac{1}{a} \mathbf{x}.
+\end{equation}
+
+En utilisant la proposition \ref{prop: g_alpha g_beta fct de g_xi g_eta}, il est facile de montrer que des égalités permettant de calculer les opérateurs à l'aide des dérivées en $\xi$ et en $\eta$.
+
+\begin{theoreme}
+Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ une fonction régulière et $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteurs régulier. Alors en $\mathbf{x}_{i,j}^k$ un point de la Cubed-Sphere, les égalités suivantes sont satisfaites :
 \begin{itemize}
-\item \textbf{Gradient :}
+\item \textbf{Gradient} :
 \begin{equation}
-\nabla h = \mathbf{g}^{\xi} \dfrac{\partial h}{\partial \xi}_{|\eta} + \mathbf{g}^{\eta} \dfrac{\partial h}{\partial \eta}_{|\xi} 
-\label{eq: gradient}
+\nabla_T h = \dfrac{\partial h}{\partial \xi}_{\eta_j} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta}_{\xi_i} \mathbf{g}^{\eta},
 \end{equation}
-\item \textbf{Divergence :}
+
+\item \textbf{Divergence} :
 \begin{equation}
-\begin{array}{rcl}
-\nabla \cdot \mathbf{u} & = & \mathbf{g}^{\xi} \cdot \dfrac{\partial \mathbf{u}}{\partial \xi}_{|\eta} + \mathbf{g}^{\eta} \cdot \dfrac{\partial \mathbf{u}}{\partial \eta}_{|\xi} \\
-	& = & \dfrac{1}{\sqrt{\bar{\mathbf{G}}}} \left( \dfrac{\partial}{\partial \xi} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\xi} \right)_{|\eta} + \dfrac{\partial}{\partial \eta} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{u} \cdot \mathbf{g}^{\eta} \right)_{|\xi} \right) 
+\nabla_T \cdot \mathbf{v} = \dfrac{\partial \mathbf{v}}{\partial \xi}_{\eta_j} \cdot \mathbf{g}^{\xi} + \dfrac{\partial \mathbf{v}}{\partial \eta}_{\xi_i} \cdot \mathbf{g}^{\eta},
+\end{equation}
+
+\item \textbf{Rotationel} :
+\begin{equation}
+\nabla_T \cdot \mathbf{v} = \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{v}}{\partial \xi}_{\eta_j} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{v}}{\partial \eta}_{\xi_i}.
+\end{equation}
+\end{itemize} 
+\end{theoreme}
+
+Pour calculer une valeur approchée des opérateurs gradient, divergence et rotationnel aux points du maillage de la Cubed-Sphere, il faut calculer une valeur approchée de la dérivée d'une fonction le long d'un grand cercle. C'est à dire, calculer $h_{\xi,i,j}$ et $h_{\eta,i,j}$ tels que 
+\begin{equation}
+\left\lbrace
+\begin{array}{rl}
+h_{\xi,i,j} \rightarrow \partial_{\xi} h ( \mathbf{x}_{i,j}^k) & \text{ lorsque } \Delta \xi \rightarrow 0\\
+h_{\eta,i,j} \rightarrow \partial_{\eta} h ( \mathbf{x}_{i,j}^k) & \text{ lorsque } \Delta \eta \rightarrow 0
 \end{array}
-\label{eq: divergence}
+\right.
 \end{equation}
-\item \textbf{Rotationnel :}
-\begin{equation}
-\nabla \wedge \mathbf{u} = \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{u}}{\partial \xi}_{|\eta} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{u}}{\partial \eta}_{|\xi}  
-\label{eq: rotationnel}
-\end{equation}
-\end{itemize}
+
+La section suivante consiste à détailler une procédure pour calculer ces dérivées partielles approchées.
 
 
 
 
-\section{Filtrage sur la sphère}
+
+\subsection{Approximation de dérivées sur les grands cercles}
+
+\subsection{Opérateur gradient discret}
+
+\subsection{Opérateur divergence discret}
+
+\subsection{Opérateur rotationnel discret}
+
+\section{Opérateur de filtrage}
+
+\subsection{Définition des opérateurs de filtrage}
+
+\subsection{Filtrage directionnel}
+
+\subsection{Composition des filtrages directionnels}
+
+\subsection{Filtrage numérique}
