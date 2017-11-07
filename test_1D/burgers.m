@@ -6,7 +6,7 @@ x=[h:h:1]';
 
 cfl=.8;
 ddt=cfl*h/.5;
-tmax=2;
+tmax=1;
 
 k=diag(ones(n-1,1),1)-diag(ones(n-1,1),-1);
 k(1,end)=-1; k(end,1)=1;
@@ -15,7 +15,7 @@ p=1/6*diag(ones(n-1,1),1)+1/6*diag(ones(n-1,1),-1)+4/6*eye(n,n);
 p(end,1)=1/6; p(1,end)=1/6;
 p=sparse(p);
 
-opt_ftr='redonnet10';
+opt_ftr='redonnet';
 if strcmp(opt_ftr,'redonnet10')==1
     ftr0=772/1024;
     ftr1=420/1024;
@@ -41,7 +41,7 @@ else
 end
 
 %u=.5+.4*sin(2*pi*x);
-u=exp(-500*(x-.3).^2);
+u=exp(-500*(x-.4).^2);
 int=sum(u)*h;
 
 e=[];cons=[];

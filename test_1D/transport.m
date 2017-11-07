@@ -2,13 +2,13 @@ clc; clear all; close all;
 
 c=1/5;
 
-n=1000;
+n=200;
 h=1./n;
 x=[h:h:1]';
 
 cfl=2*sqrt(2/3);
 ddt=cfl*h/c;
-tmax=2;
+tmax=8;
 
 k=diag(ones(n-1,1),1)-diag(ones(n-1,1),-1);
 k(1,end)=-1; k(end,1)=1;
@@ -46,7 +46,8 @@ ftr=sparse(ftr);
 
 
 %u=(abs(x-.3)<0.2);
-u=exp(-500*(x-.3).^2);
+%u=exp(-500*(x-.3).^2);
+u=.4*cos(2*pi*x)+.5;
 int=sum(u)*h;
 
 e=[]; cons=[];
@@ -73,10 +74,11 @@ while t+ddt<tmax
     fu=u+ddt/6*(k1+2*k2+2*k3+k4);
     u=ftr*fu;
     
-    uex=exp(-500*(x-c*t-.3).^2);
+    %uex=exp(-500*(x-c*t-.3).^2);
     %uex=(abs(x-c*t-.3)<0.2);
+    uex=.4*cos(2*pi*(x-c*t))+.5;
     e=[e norm(u-uex,inf)];
-    cons=[cons sum(u)*h/int-1];
+    cons=[cons sum(u)*h-int];
     
     pause(0.001)
     clf

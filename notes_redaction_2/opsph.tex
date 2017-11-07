@@ -332,15 +332,197 @@ Pour calculer une valeur approchée de $\partial_{\xi} f (\mathbf{x}_{i,j}^{(I)}
 \label{fig: panel II_interp}
 \end{figure}  
 
-La périodicité sur les grands cercles permet d'assurer que $\mathbf{m}_p = \mathbf{m}_{p+4N}$ pour tout $p \in \mathbb{Z}$. De plus, la construction de la Cubed-Sphere, permet d'assurer que
+La périodicité sur les grands cercles permet d'assurer que $\mathbf{m}_p = \mathbf{m}_{p+4N}$ pour tout $p \in \mathbb{Z}$. De plus, la construction de la Cubed-Sphere, permet d'assurer un paramétrage du grand cercle $C^{(2)}_j$. Chaque point est associé à des coordonnées $(\xi_p, \eta_p)$. Les valeurs de $\xi_p$ donnent un paramétrage des points $\mathbf{m}_p$ le long du grand cercle. On a de plus
 \begin{equation}
-\mathbf{m}_p = \mathbf{m}_{p-1} + \Delta \xi
+\xi_{p+1} = \xi_p + \Delta \xi
 \end{equation}
 Si $f_p = f(\mathbf{m}_p)$ est connue pour tout $p$ vérifiant $0 \leq p \leq 4N-1$ alors on peut calculer la dérivée approchée $f_{\xi,i,j}^k$ de $\partial_{\xi}f(\mathbf{x}_{i,j}^k)$ à l'ordre $4$ grâce à la formule de dérivation hermitienne \eqref{def:herm_4}
 \begin{equation}
 f_{\xi,i,j}^k = \delta_{\xi}^H f_p.
 \end{equation}
-Cependant, les valeurs de $f_p$ ne sont pas toutes connues car les points $\mathbf{m}_p$ ne sont pas des points du maillages lorsque $N \leq p \leq 2N-1$ ou $3N \leq p \leq 4N-1$. Il faut donc construire un procéder permettant d'obtenir des valeurs en ces points.
+Cependant, les valeurs de $f_p$ ne sont pas toutes connues car les points $\mathbf{m}_p$ ne sont pas des points du maillages lorsque $N+1 \leq p \leq 2N-1$ ou $3N+4 \leq p \leq 4N-1$. Il faut donc construire un procéder permettant d'obtenir des valeurs en ces points. Le procédé utilisé dans ce travail est basé sur une interpolation à l'aide de Splines Cubiques.
+
+On souhaite calculer une valeur $f_p$ approchant $f(\mathbf{m}_p)$ avec $N+1 \leq p \leq 2N-1$ ou $3N+4 \leq p \leq 4N-1$. Dans ce cadre, $\mathbf{m}_p$ n'est pas un point de la Cubed-Sphere. Cependant on sait que 
+\begin{equation}
+\mathbf{m}_p \in C^{(2)}_j \cap C
+\end{equation} 
+où $C^{(2)}_j$ est une isoligne pour $\eta = \eta_j$ constant pour le panel $(I)$ et $C$ est une isoligne $\xi$ constant pour le panel $(II)$ (si $N+1 \leq p \leq 2N-1$) ou pour le panel $(IV)$ si $3N+4 \leq p \leq 4N-1$ (lignes en gras sur les figures \ref{fig:patron_cs}.et \ref{fig: panel II_interp}).
+La méthode consiste à utiliser les points de la Cubed-Sphere présents sur le cercle $C$ pour construire une fonction d'interpolation de type Spline Cubique puis d'évaluer cette fonction au point du maillage $\mathbf{m}_p$. Si on note $P_C$ la fonction d'interpolation en question, on a alors $f_p = P_C (\mathbf{m}_p)$. L'interpolation s'effectuant sur un grand cercle, il s'agit d'une fonction d'interpolation 1D. De plus, cette fonction étant issue des splines cubiques, on a :
+\begin{equation}
+f_p = P_C(\mathbf{m}_p) = f(\mathbf{m}_p) + \mathcal{O}(\Delta \eta^4).
+\end{equation}
+La fonction $P_C$ ne dépend pas du point $\mathbf{m}_p$ mais uniquement des données aux points de la Cubed-Sphere sur le panel choisit et le long de $C$ (Voir figure \ref{fig: panel II_interp2}).
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{tikzpicture}[scale=2.2]
+	\draw [line width=0.8pt] (0,0) circle (1cm);
+    \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);	
+	
+	\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot [smooth,domain=-35:35] ({0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=55:125] ({cos(\x)},{0.7*sin(\x)})
+	-- plot [smooth,domain=150:215] ({0.7*cos(\x)},{sin(\x)})
+	-- plot [smooth,domain=240:300] ({cos(\x)},{0.7*sin(\x)})
+	-- cycle;	
+	\draw [samples=100,domain=48:132, color=gray!50] plot({cos(\x)},{0.35*sin(\x)});
+	\draw [samples=100,domain=48:132, color=gray!50] plot({cos(\x)},{-.35*sin(\x)});
+	\draw [samples=100,domain=46:134, color=gray!50] plot({cos(\x)},{0.175*sin(\x)});
+	\draw [samples=100,domain=46:134, color=gray!50] plot({cos(\x)},{-.175*sin(\x)});
+	\draw [samples=100,domain=50:130, color=gray!50] plot({cos(\x)},{0.525*sin(\x)});
+	\draw [samples=100,domain=50:130, color=gray!50] plot({cos(\x)},{-.525*sin(\x)});
+	\draw [samples=100,domain=45:135, color=gray!50] plot({cos(\x)},{0*sin(\x)});
+
+	\draw [rotate=90, samples=100,domain=48:132, color=gray!50] plot({cos(\x)},{0.35*sin(\x)});
+	\draw [rotate=90, samples=100,domain=48:132, color=gray!50] plot({cos(\x)},{-.35*sin(\x)});
+	\draw [rotate=90, samples=100,domain=46:134, color=green, line width=0.6pt] plot({cos(\x)},{-.175*sin(\x)});
+	\draw [rotate=90, samples=100,domain=46:134, color=gray!50] plot({cos(\x)},{0.175*sin(\x)});
+	\draw [rotate=90, samples=100,domain=50:130, color=gray!50] plot({cos(\x)},{0.525*sin(\x)});
+	\draw [rotate=90, samples=100,domain=50:130, color=gray!50] plot({cos(\x)},{-.525*sin(\x)});
+	\draw [rotate=90, samples=100,domain=45:135, color=gray!50] plot({cos(\x)},{0*sin(\x)});
+
+	\filldraw[draw=black,fill=red!30!white,opacity=0.20]
+	plot [smooth,domain=145:215] ({.7*cos(\x)},{sin(\x)})
+	-- plot [smooth] (-.573,-.573) -- (-.707,-.707)
+	-- plot [smooth,domain=215:145] ({cos(\x)},{sin(\x)})
+	-- plot [smooth] (-.707,.707) -- (-.573,.573)
+	-- cycle;	
+	\draw [line width=0.8pt] (-.573,-.573) -- (-.707,-.707) ;
+	\draw [line width=0.8pt] (-.573,.573) -- (-.707,.707) ;
+	\draw [color=gray!50] (-.669,.260) -- (-.9321,.3622) ;
+	\draw [color=gray!50] (-.669,-.260) -- (-.9321,-.3622) ;
+	\draw [color=gray!50] (-.6946,.1259) -- (-.9840,.1783) ;
+	\draw [color=gray!50] (-.6946,-.1259) -- (-.9840,-.1783) ;
+	\draw [color=gray!50] (-.6427,.4022) -- (-.8477,.5305) ;
+	\draw [color=gray!50] (-.6427,-.4022) -- (-.8477,-.5305) ;
+	\draw [color=gray!50] (-.707,0) -- (-1,0) ;
+	\draw [samples=100,domain=141:219, color=gray!50] plot({0.8*cos(\x)},{sin(\x)});
+	\draw [samples=100,domain=138:222, color=gray!50] plot({0.9*cos(\x)},{sin(\x)});
+	
+	\filldraw[draw=black,fill=green!30!white,opacity=0.20]
+	plot [smooth,domain=55:125] ({cos(\x)},{0.7*sin(\x)})
+	-- plot [smooth] (-.573,.573) -- (-.707,.707)
+	-- plot [smooth,domain=125:55] ({cos(\x)},{sin(\x)})
+	-- plot [smooth] (.707,.707) -- (.573,.573)
+	-- cycle;	
+	\draw [line width=0.8pt] (-.573,.573) -- (-.707,.707) ;
+	\draw [line width=0.8pt] (.707,.707) -- (.573,.573) ;
+	\draw [rotate=-90,color=gray!50] (-.669,.260) -- (-.9321,.3622) ;
+	\draw [rotate=-90,color=gray!50] (-.669,-.260) -- (-.9321,-.3622) ;
+	\draw [rotate=-90,color=gray!50] (-.6946,.1259) -- (-.9840,.1783) ;
+	\draw [rotate=-90,color=gray!50] (-.6946,-.1259) -- (-.9840,-.1783) ;
+	\draw [rotate=-90,color=gray!50] (-.6427,.4022) -- (-.8477,.5305) ;
+	\draw [rotate=-90,color=gray!50] (-.6427,-.4022) -- (-.8477,-.5305) ;
+	\draw [rotate=-90,color=gray!50] (-.707,0) -- (-1,0) ;
+	\draw [rotate=-90,samples=100,domain=141:219, color=gray!50] plot({0.8*cos(\x)},{sin(\x)});
+	\draw [rotate=-90,samples=100,domain=138:222, color=gray!50] plot({0.9*cos(\x)},{sin(\x)});
+	
+	\filldraw[draw=black,fill=yellow!30!white,opacity=0.20]
+	plot [smooth,domain=55:125] ({cos(\x)},{-.7*sin(\x)})
+	-- plot [smooth] (-.573,-.573) -- (-.707,-.707)
+	-- plot [smooth,domain=125:55] ({cos(\x)},{-sin(\x)})
+	-- plot [smooth] (.707,-.707) -- (.573,-.573)
+	-- cycle;	
+	\draw [line width=0.8pt] (-.573,-.573) -- (-.707,-.707) ;
+	\draw [line width=0.8pt] (.707,-.707) -- (.573,-.573) ;
+	\draw [rotate=90,color=gray!50] (-.669,.260) -- (-.9321,.3622) ;
+	\draw [rotate=90,color=gray!50] (-.669,-.260) -- (-.9321,-.3622) ;
+	\draw [rotate=90,color=gray!50] (-.6946,.1259) -- (-.9840,.1783) ;
+	\draw [rotate=90,color=gray!50] (-.6946,-.1259) -- (-.9840,-.1783) ;
+	\draw [rotate=90,color=gray!50] (-.6427,.4022) -- (-.8477,.5305) ;
+	\draw [rotate=90,color=gray!50] (-.6427,-.4022) -- (-.8477,-.5305) ;
+	\draw [rotate=90,color=gray!50] (-.707,0) -- (-1,0) ;
+	\draw [rotate=90,samples=100,domain=141:219, color=gray!50] plot({0.8*cos(\x)},{sin(\x)});
+	\draw [rotate=90,samples=100,domain=138:222, color=gray!50] plot({0.9*cos(\x)},{sin(\x)});
+	
+	\draw [rotate=180,color=gray!50] (-.669,.260) -- (-.9321,.3622) ;
+	\draw [rotate=180,color=gray!50] (-.669,-.260) -- (-.9321,-.3622) ;
+	\draw [rotate=180,color=gray!50] (-.6946,.1259) -- (-.9840,.1783) ;
+	\draw [rotate=180,color=gray!50] (-.6946,-.1259) -- (-.9840,-.1783) ;
+	\draw [rotate=180,color=gray!50] (-.6427,.4022) -- (-.8477,.5305) ;
+	\draw [rotate=180,color=gray!50] (-.6427,-.4022) -- (-.8477,-.5305) ;
+	\draw [rotate=180,color=gray!50] (-.707,0) -- (-1,0) ;
+	\draw [rotate=180,samples=100,domain=141:219, color=gray!50] plot({0.8*cos(\x)},{sin(\x)});
+	\draw [rotate=180,samples=100,domain=138:222, color=gray!50] plot({0.9*cos(\x)},{sin(\x)});
+	
+	\draw [samples=100,domain=55:125, line width=0.8pt] plot({cos(\x)},{0.7*sin(\x)});
+	\draw [samples=100,domain=55:125, line width=0.8pt] plot({cos(\x)},{-.7*sin(\x)});
+	\draw [samples=100,domain=145:215, line width=0.8pt] plot({.7*cos(\x)},{sin(\x)}); 
+	\draw [samples=100,domain=145:215, line width=0.8pt] plot({-.7*cos(\x)},{sin(\x)}); 
+	
+	\draw (.175,0) node[color=green] {$\bullet$} ;
+	\draw (.175,0) node {$\circ$} ;
+	\draw (.17,.17) node[color=green] {$\bullet$} ;
+	\draw (.17,.17) node {$\circ$} ;
+	\draw (.165,.335) node[color=green] {$\bullet$} ;
+	\draw (.165,.335) node {$\circ$} ;
+	\draw (.155,.52) node[color=green] {$\bullet$} ;
+	\draw (.155,.52) node {$\circ$} ;
+	\draw (.14,.684) node[color=green] {$\bullet$} ;
+	\draw (.14,.684) node {$\circ$} ;
+	\draw (.17,-.17) node[color=green] {$\bullet$} ;
+	\draw (.17,-.17) node {$\circ$} ;
+	\draw (.165,-.335) node[color=green] {$\bullet$} ;
+	\draw (.165,-.335) node {$\circ$} ;
+	\draw (.155,-.52) node[color=green] {$\bullet$} ;
+	\draw (.155,-.52) node {$\circ$} ;
+	\draw (.14,-.684) node[color=green] {$\bullet$} ;
+	\draw (.14,-.684) node {$\circ$} ;
+	
+	\draw [>=stealth, <-] (0.17,.4) -- (.7,1) ;
+	\draw  (0.7,1) node[right] {Ligne d'interpolation} ;
+	\draw [>=stealth, <-] (.165,-.335) -- (.7,-1) ;
+	\draw  (0.7,-1) node[right] {Point d'interpolation} ;
+	
+	
+	
+	
+	
+	
+	\draw [color=blue] (-.9321,.3622) -- (.9321,-.3622) ;
+	\draw  (-.9321,.3622) node[color=blue] {$\bullet$} ;
+	\draw (-.9321,.3622) node {$\circ$} ;	
+	\draw  (.9321,-.3622) node[color=blue] {$\bullet$} ;
+	\draw (.9321,-.3622) node {$\circ$} ;
+	\draw  (-.85,0.3886*.85) node[color=blue] {$\bullet$} ;
+	\draw (-.85,0.3886*.85) node {$\circ$} ;	
+	\draw (.85,-0.3886*.85) node[color=blue] {$\bullet$} ;
+	\draw (.85,-0.3886*.85) node {$\circ$} ;	
+	\draw  (-.76,0.3886*.76) node[color=blue] {$\bullet$} ;
+	\draw (-.76,0.3886*.76) node {$\circ$} ;	
+	\draw (.76,-0.3886*.76) node[color=blue] {$\bullet$} ;
+	\draw (.76,-0.3886*.76) node {$\circ$} ;
+	\draw  (-.68,0.3886*.68) node[color=blue] {$\bullet$} ;
+	\draw (-.68,0.3886*.68) node {$\circ$} ;	
+	\draw (.68,-0.3886*.68) node[color=blue] {$\bullet$} ;
+	\draw (.68,-0.3886*.68) node {$\circ$} ;	
+	\draw (-.52,0.3886*.52) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (-.52,0.3886*.52) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (.52,-0.3886*.52) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (.52,-0.3886*.52) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (-.36,0.3886*.36) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (-.36,0.3886*.36) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (.36,-0.3886*.36) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (.36,-0.3886*.36) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (-.18,0.3886*.18) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (-.18,0.3886*.18) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (.18,-0.3886*.18) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (.18,-0.3886*.18) node {\begin{tiny}$\square$ \end{tiny}} ;
+	\draw (0,0) node[color=blue] {\begin{tiny}$\blacksquare$ \end{tiny}} ;
+	\draw (0,0) node {\begin{tiny}$\square$ \end{tiny}} ;
+	
+	\draw  (0,-1.7) node {Panel (II)} ;
+
+\end{tikzpicture}
+\end{center}
+\caption{La ligne bleue représente une isoligne $\eta=\eta_j$ du panel $(I)$ vue depuis le panel $(II)$. les cercles bleus représentent des points de la Cubed-Sphere contenues dans l'isoligne $\eta=\eta_j$, les carrés bleus sont des points de l'isoligne $\eta=\eta_j$ qui ne sont pas sur la Cubed-Sphere. En vert, une portion du grand cercle utilisé pour l'interpolation.}
+\label{fig: panel II_interp2}
+\end{figure}  
+
+
+On retiendra la construction des données sur un grand cercle $C_j^{(2)}$ par l'algorithme suivant :
+
+
 
 \subsection{Opérateur gradient discret}
 
