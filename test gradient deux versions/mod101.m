@@ -37,7 +37,7 @@ na=4*(nn-1);
 nb=na;
 
 %% physical data
-radius=6.37122d+06;
+radius=1;%6.37122d+06;
 
 %% --- Points on the CS
 xi=linspace(-pi/4, pi/4, nn); 

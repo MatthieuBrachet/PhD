@@ -7,12 +7,13 @@ global x_fIV y_fIV z_fIV;
 global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
 
-NN=2.^[3:7];
+NN=[8 16 32 64]
 HH=[]; ERR=[];
 for ii=1:length(NN)
     n=NN(ii)-1;
-    mod_bis;
-
+    %mod_bis;
+    mod101
+    
     [mfunfI,gr_fI] = fun2(x_fI,y_fI,z_fI);
     [mfunfII,gr_fII] = fun2(x_fII,y_fII,z_fII);
     [mfunfIII,gr_fIII] = fun2(x_fIII,y_fIII,z_fIII);
@@ -22,7 +23,8 @@ for ii=1:length(NN)
 
     MM=max(max(max([gr_fI gr_fII gr_fIII gr_fIV gr_fV gr_fVI])));
 
-    [grad_fI,grad_fII,grad_fIII,grad_fIV,grad_fV,grad_fVI]=grad1000(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
+    %[grad_fI,grad_fII,grad_fIII,grad_fIV,grad_fV,grad_fVI]=grad1000(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
+    [grad_fI,grad_fII,grad_fIII,grad_fIV,grad_fV,grad_fVI]=gr101(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
     
     err=max(max(max(abs([grad_fI-gr_fI; grad_fII-gr_fII; grad_fIII-gr_fIII; grad_fIV-gr_fIV; grad_fV-gr_fV; grad_fVI-gr_fVI]))))./MM;
     ERR=[ERR err];
@@ -49,4 +51,5 @@ for ppp=1:3
 end
 
 fig_placier
+
 

@@ -44,7 +44,6 @@ end
 
 
 
-
 mod_bis;
 [mfunfI,gr_fI] = fun2(x_fI,y_fI,z_fI);
 [mfunfII,gr_fII] = fun2(x_fII,y_fII,z_fII);
