@@ -37,7 +37,7 @@ na=4*(nn-1);
 nb=na;
 
 %% physical data
-radius=6.37122d+06;
+radius=1;%6.37122d+06;
 
 %% --- Points on the CS
 xi=linspace(-pi/4, pi/4, nn); 
@@ -448,37 +448,93 @@ m2=6-(2*betas+gamas)/alfasp; %% COEFFT LIGNE N-1
 [lmat1,umat1]=lu(pmat);
 
 %% --- MATRIX FOR DERIVATIVES
-% -------------------------------------------------------------------------
-pg=zeros(na); 
-kg=zeros(na);
-for i=2:na-1
-    pg(i,i)=4;
-    pg(i,i+1)=1;
-    pg(i,i-1)=1;
-    kg(i,i+1)=1;
-    kg(i,i-1)=-1;
-end
-pg(1,1)=4;pg(1,2)=1;pg(1,na)=1;
-pg( na,1)=1;pg(na,na-1)=1;pg(na,na)=4;
-kg(1,2)=1;kg(1,na)=-1;
-kg(na,1)=1;kg(na,na-1)=-1;
-pg=pg./6;
-kg=kg./(2*dxi);
-% -------------------------------------------------------------------------
+scheme='compact8';
+if strcmp(scheme,'compact4')==1
+    
+    for i=2:na-1
+        p(i,i)=4;
+        p(i,i+1)=1;
+        p(i,i-1)=1;
+        k(i,i+1)=1;
+        k(i,i-1)=-1;
+    end
+    p(1,1)=4;p(1,2)=1;p(1,na)=1;
+    p( na,1)=1;p(na,na-1)=1;p(na,na)=4;
+    k(1,2)=1;k(1,na)=-1;
+    k(na,1)=1;k(na,na-1)=-1;
+    pg=p./6;
+    kg=k./(2*deta);
+    
+elseif strcmp(scheme,'compact6')==1
+    J=diag(ones(na-1,1),-1);
+    J(1,end)=1;
 
-for i=2:na-1
-    p(i,i)=4;
-    p(i,i+1)=1;
-    p(i,i-1)=1;
-    k(i,i+1)=1;
-    k(i,i-1)=-1;
+    a=14/9;
+    b=1/18;
+    alpha=2/3;
+    k_div=(-a/(2*dxi))*J+(-b/(4*dxi))*J*J+(a/(2*dxi))*J^(na-1)+(b/(4*dxi))*J^(na-2);
+    kg=sparse(k_div);
+
+    p_div=diag(alpha*ones(na-1,1),1)+diag(alpha*ones(na-1,1),-1)+diag(ones(na,1));
+    p_div(1,end)=alpha;
+    p_div(end,1)=alpha;
+    pg=sparse(p_div);
+
+elseif strcmp(scheme,'compact8')==1
+    J=diag(ones(na-1,1),-1);
+    J(1,end)=1;
+
+    a=25/16;
+    b=1/5;
+    c=-1/80;
+    alpha=3/8;
+    k_div=(-a/(2*dxi))*J+(-b/(4*dxi))*J*J+(-c/(6*dxi))*J^3+...
+    (a/(2*dxi))*J^(na-1)+(b/(4*dxi))*J^(na-2)+(c/(6*dxi))*J^(na-3);
+    kg=sparse(k_div);
+
+    p_div=diag(alpha*ones(na-1,1),1)+diag(alpha*ones(na-1,1),-1)+diag(ones(na,1));
+    p_div(1,end)=alpha;
+    p_div(end,1)=alpha;
+    pg=sparse(p_div);
+    
+elseif strcmp(scheme,'explicite2')==1
+    J=diag(ones(na-1,1),-1);
+    J(1,end)=1;
+
+    a=1;
+    k=(-a/(2*dxi))*J+(a/(2*dxi))*J^(na-1);
+    kg=sparse(k);
+
+    pg=speye(na,na);
+    
+elseif strcmp(scheme,'explicite4')==1
+    J=diag(ones(na-1,1),-1);
+    J(1,end)=1;
+
+    a=4/3;
+    b=-1/3;
+    k=(-a/(2*dxi))*J+(-b/(4*dxi))*J*J+...
+        (a/(2*dxi))*J^(na-1)+(b/(4*dxi))*J^(na-2);
+    kg=sparse(k);
+    pg=speye(na,na);
+    
+elseif strcmp(scheme,'kim4')==1
+    alpha=.435181352;
+    pg=speye(na,na)+alpha.*(diag(ones(na-1,1),1)+diag(ones(na-1,1),-1));
+    pg(1,end)=alpha; pg(end,1)=alpha;
+    
+    J=diag(ones(na-1,1),-1);
+    J(1,end)=1;
+    a=1.551941906;
+    b=.361328195;
+    c=-.042907397;
+    kg=(-a/(2*dxi))*J+(-b/(4*dxi))*J*J+(-c/(6*dxi))*J^3+...
+        (a/(2*dxi))*J^(na-1)+(b/(4*dxi))*J^(na-2)+(c/(6*dxi))*J^(na-3);
+    kg=sparse(kg);
+
+else
+    error(['Error in scheme. The spatial scheme : ', scheme ,' is uncorrect'])
 end
-p(1,1)=4;p(1,2)=1;p(1,na)=1;
-p( na,1)=1;p(na,na-1)=1;p(na,na)=4;
-k(1,2)=1;k(1,na)=-1;
-k(na,1)=1;k(na,na-1)=-1;
-pg=p./6;
-kg=k./(2*deta);
 
 %% INTEGRALE CORRIGEE
 weights=dxi*deta*dga;

@@ -7,9 +7,9 @@ global x_fIV y_fIV z_fIV;
 global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
 
-n=7;
-mod_bis;
-%mod101
+n=255;
+%mod_bis;
+mod101
 
 [mfunfI,gr_fI] = fun2(x_fI,y_fI,z_fI);
 [mfunfII,gr_fII] = fun2(x_fII,y_fII,z_fII);
@@ -20,25 +20,26 @@ mod_bis;
 
 MM=max(max(max([gr_fI gr_fII gr_fIII gr_fIV gr_fV gr_fVI])));
 
-[grad_fI,grad_fII,grad_fIII,grad_fIV,grad_fV,grad_fVI]=grad1000(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
-%[grad_fI,grad_fII,grad_fIII,grad_fIV,grad_fV,grad_fVI]=gr101(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
+%[grad_fI,grad_fII,grad_fIII,grad_fIV,grad_fV,grad_fVI]=grad1000(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
+[grad_fI,grad_fII,grad_fIII,grad_fIV,grad_fV,grad_fVI]=gr101(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
 err=max(max(max(abs([grad_fI-gr_fI; grad_fII-gr_fII; grad_fIII-gr_fIII; grad_fIV-gr_fIV; grad_fV-gr_fV; grad_fVI-gr_fVI]))))./MM
 
 
-% for ppp=1:3
-%     err_I=(grad_fI(:,:,ppp)-gr_fI(:,:,ppp))./MM;
-%     err_II=(grad_fII(:,:,ppp)-gr_fII(:,:,ppp))./MM;
-%     err_III=(grad_fIII(:,:,ppp)-gr_fIII(:,:,ppp))./MM;
-%     err_IV=(grad_fIV(:,:,ppp)-gr_fIV(:,:,ppp))./MM;
-%     err_V=(grad_fV(:,:,ppp)-gr_fV(:,:,ppp))./MM;
-%     err_VI=(grad_fVI(:,:,ppp)-gr_fVI(:,:,ppp))./MM;
-%     
-%     figure(ppp)
-%     plot_cs100(n,nn,err_I,err_II,err_III,err_IV,err_V,err_VI)
-%     colorbar
-% end
-% 
-% fig_placier
-% 
-% plot_cs102(n,nn,mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI)
-% colorbar
+for ppp=1:3
+    err_I=(grad_fI(:,:,ppp)-gr_fI(:,:,ppp))./MM;
+    err_II=(grad_fII(:,:,ppp)-gr_fII(:,:,ppp))./MM;
+    err_III=(grad_fIII(:,:,ppp)-gr_fIII(:,:,ppp))./MM;
+    err_IV=(grad_fIV(:,:,ppp)-gr_fIV(:,:,ppp))./MM;
+    err_V=(grad_fV(:,:,ppp)-gr_fV(:,:,ppp))./MM;
+    err_VI=(grad_fVI(:,:,ppp)-gr_fVI(:,:,ppp))./MM;
+    
+    figure(ppp)
+    plot_cs100(n,nn,err_I,err_II,err_III,err_IV,err_V,err_VI)
+    colorbar
+end
+
+figure(4)
+plot_cs15(n,nn,mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI)
+colorbar
+
+fig_placier
