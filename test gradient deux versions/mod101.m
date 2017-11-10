@@ -1,4 +1,5 @@
 % MODULE PROBLEM FOR THE CUBED SPHERE
+global scheme
 % -------------------------------------------------------------------------
 global n nn;
 global mm na nb;
@@ -37,7 +38,7 @@ na=4*(nn-1);
 nb=na;
 
 %% physical data
-radius=1;%6.37122d+06;
+radius=6.37122d+06;
 
 %% --- Points on the CS
 xi=linspace(-pi/4, pi/4, nn); 
@@ -448,7 +449,7 @@ m2=6-(2*betas+gamas)/alfasp; %% COEFFT LIGNE N-1
 [lmat1,umat1]=lu(pmat);
 
 %% --- MATRIX FOR DERIVATIVES
-scheme='compact8';
+
 if strcmp(scheme,'compact4')==1
     
     for i=2:na-1
