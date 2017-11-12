@@ -698,12 +698,55 @@ Dans la figure \REF, on trace cette erreur en fonction de $\frac{\pi a}{2 N}$.
 
 \subsection{Variante de l'opérateur de gradient discret}
 
+\subsubsection{Gradient discret utilisant un schéma compact d'ordre 8}
+
+Une variante pour la calcul du gradient approché est d'utiliser un schéma aux différences finies 1D d'ordre plus élevé que $\delta_x^H$. On définit les opérateurs ... et ...
+
+\subsubsection{Gradient sans grands cercles}
+
+Nous avons vu que la méthode de calcul du gradient approché repose sur le calcul de dérivées hermitiennes. Dans cette partie, on propose une variante de la méthode de calcul permettant de ne pas interpoler les données en décentrant le schéma hermitien au bord du domaine.
+
+\subsubsection{Comparaisons numériques}
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Opérateur divergence discret}
 
 \subsection{Variante de l'opérateur de divergence discret}
 
+\subsubsection{Gradient moins couteux en calcul}
+
+Utilisation d'une forme du gradient en utilisant des grands cercles et moins de dérivées.
+
+\subsection{Comparaisons numériques}
+
+
+
+
+
+
+
+
+
 \subsection{Opérateur rotationnel discret}
+
+
+
+
+
+
+
+
+
 
 \section{Opérateur de filtrage}
 
