@@ -1,41 +1,40 @@
-\chapter{Notations}
+\chapter{Schémas aux différences compacts}
 
-\section{Opérateurs aux différences en dimension 1}
+\section{Opérateux aux différences en dimension 1}
 
-\subsection{Notations 1D}
+\subsection{Notations}
 \label{sec:notation_1D}
 
-On considère $\Omega = [a,b]$, $a<b$, un intervalle de $\mathbb{R}$ de longueur $L=b-a$. Dans la suite, nous utilisons les lettres latines pour noter les fonctions continues : $f(x)$, $u(x)$, ... $x \in \Omega$. Si $u$ et $v$ sont des fonctions définies sur $\Omega$, leur produit scalaire dans $L^2 ( \Omega )$ est donné par :
+On considère $\Omega = [a,b]$, $a<b$, un intervalle de $\mathbb{R}$ de longueur $L=b-a$. Nous utilisons les lettres latines pour noter les fonctions continues : $f(x)$, $u(x)$, ... $x \in \Omega$. Pour $u$ et $v$, des fonctions définies sur $\Omega$, le produit scalaire dans $L^2 ( \Omega )$ est défini par
 \begin{equation}
 (u,v) = \gint_{\Omega} u(x) \bar{v}(x) dx = \gint_{a}^b u(x) \bar{v}(x) dx.
 \end{equation}
-Nous travaillerons, sauf mention contraire, avec des fonctions à valeurs dans $\mathbb{R}$. Dans ce cadre, le produit scalaire devient :
+Pour $u$ et $v$ à valeurs réelles, on a
 \begin{equation}
 (u,v) = \gint_{a}^b u(x) v(x) dx.
 \end{equation}
 La norme sur $L^2(\Omega)$ est donnée par :
 \begin{equation}
-\| u \|_{L^2(\Omega)} = \sqrt{(u,u)} = \left( \gint_{a}^b u(x) u(x) dx \right)^{1/2}.
+\| u \|_{L^2(\Omega)} = \sqrt{(u,u)}
 \end{equation}
-La norme infinie sur $L^{\infty}(\Omega)$ est donnée par :
+Pour $u \in L^{\infty}(\Omega)$, on note
 \begin{equation}
 \| u \|_{\infty} = \sup_{x\in\Omega} |u(x)|.
 \end{equation}
-On dit qu'une fonction $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est \textit{périodique} sur $\Omega$ de période $L$ si pour tout $x \in \Omega$, on a 
+Une fonction $u : x \in \mathbb{R} \mapsto u(x) \in \mathbb{R}$ est \textit{périodique} de période $L$ si 
 \begin{equation}
-u(x+L) = u(x).
+u(x+L) = u(x) \text{, } \forall x \in \Omega.
 \end{equation}
 En particulier, on a $u(a)=u(b)$.
 
-On considère une grille régulière sur $\Omega$ constituée de $N \in \mathbb{N}^{\star}$ points :
+On considère une grille régulière sur $\Omega$ constituée de $N \geq 1$ points :
 \begin{equation}
 a=x_0 < x_1 < \ldots < x_{N-1} < x_N = b,
 \end{equation}
-où les valeurs de $(x_i)_{0\leq i \leq N}$ sont données par :
+où les valeurs $x_i$ sont définies par :
 \begin{equation}
-x_i = a + ih\text{, } i = 0,1, \ldots,N \text{ et } h = \dfrac{b-a}{N}. 
+x_i = a + ih\text{, } i = 0,1, \ldots,N \text{ et } h = \dfrac{b-a}{N} \text{le pas d'espace}. 
 \end{equation}
- Dans le contexte périodique, on considère que $x_0 = x_N$.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -62,16 +61,17 @@ x_i = a + ih\text{, } i = 0,1, \ldots,N \text{ et } h = \dfrac{b-a}{N}.
 \label{fig:maillage1D}
 \end{figure}
 
-Les points $x_0=a$ et $x_N = a + L = b$ désignent les points de bords du domaines alors que les points $(x_i)_{1 \leq i \leq N-1}$ désignent les points intérieurs. Une fonction $x \in \Omega \mapsto u(x)$ est discrétisée par la donnée de ses valeurs en chaque points de grille.
-Nous distinguons trois niveaux de représentation des fonctions aux points de grille.
-\begin{itemize}
-\item On note $\mathfrak{u}$ la \textit{fonction de grille} définie sur la grille discrète $(x_i)_{0 \leq i \leq}$. Les fonctions de grilles seront notées avec cette typographie : $\mathfrak{u}$, $\mathfrak{v}$, ... 
-On a alors :
+Les points $x_0=a$ et $x_N = a + L = b$ sont les points de bord du domaine et les points $(x_i)_{1 \leq i \leq N-1}$ désignent les points intérieurs. 
+
+Nous distinguons trois types de données aux points de grille $x_i$, $0 \leq i \leq N$ :
+\begin{enumerate}
+\item Une \textit{fonction de grille} est une fonction définie uniquement aux points $(x_i)_{0 \leq i \leq N}$. Les fonctions de grilles sont notées en fonte gothique : $\mathfrak{u}$, $\mathfrak{v}$, ... 
+On note
 \begin{equation}
 \mathfrak{u} = (\mathfrak{u}(x_0), \mathfrak{u}(x_1), \mathfrak{u}(x_2), ... , \mathfrak{u}(x_N)).
 \end{equation}
-On note $l^2_h$ l'espace des fonctions de grille, $h>0$ fixé.
-On munit cet espace d'un produit scalaire et de la norme associée :
+De plus, $l^2_h$ désigne l'espace des fonctions de grille, $h>0$ fixé.
+On munit cet espace du produit scalaire et de la norme associée :
 \begin{equation}
 (\mathfrak{u},\mathfrak{v})_h = h \gsum_{i=0}^N \mathfrak{u}(x_i) \mathfrak{v}(x_i) \text{,  } |\mathfrak{u}|_h^2 = h \gsum_{i=0}^N \mathfrak{u}(x_i)^2.
 \end{equation}
@@ -84,7 +84,16 @@ On notera abusivement
 \mathfrak{u}_j = \mathfrak{u}(x_j) \text{ pour tout } 0\leq j \leq N.  
 \end{equation}
 
-\item Les lettres latines capitales permettent de noter les vecteurs de $\mathbb{R}^{N+1}$ et matrices de $\mathcal{M}_{N+1}(\mathbb{R})$. Par exemple, soit le vecteur $U \in \mathbb{R}^{N+1}$ des composantes de $\mathfrak{u} \in l^2_h$, alors :
+On note $l^2_{h,per}$ l'espace des fonctions de grilles périodiques si $\mathfrak{u} \in l^2_{h,per}$ alors $\mathfrak{u}(x_0) = \mathfrak{u}(x_N)$. Le produit scalaire et la norme associée dans $l^2_{h,per}$ sont
+\begin{equation}
+(\mathfrak{u},\mathfrak{v})_{h,per} = h \gsum_{i=1}^N \mathfrak{u}(x_i) \mathfrak{v}(x_i) \text{,  } |\mathfrak{u}|_h^2 = h \gsum_{i=1}^N \mathfrak{u}(x_i)^2 \text{ avec} \mathfrak{u}, \mathfrak{v} \in l^2_{h,per}.
+\end{equation}
+La norme infinie dans $l^2_{h,per}$ est
+\begin{equation}
+\| \mathfrak{u} \|_{\infty} = \max_{1\leq i \leq N} |\mathfrak{u}(x_i)|.
+\end{equation}
+
+\item Les lettres latines capitales désignent les vecteurs de $\mathbb{R}^{N+1}$ et les matrices de $\mathbb{M}_{N+1}(\mathbb{R})$. Par exemple, soit le vecteur $U \in \mathbb{R}^{N+1}$ des composantes de $\mathfrak{u} \in l^2_h$ :
 \begin{equation}
 U = \begin{bmatrix}
 \mathfrak{u}_0 \\ \mathfrak{u}_1 \\ \vdots \\ \mathfrak{u}_N
@@ -93,40 +102,67 @@ U = \begin{bmatrix}
 \mathfrak{u}(x_0) \\ \mathfrak{u}(x_1) \\ \vdots \\ \mathfrak{u}(x_N)
 \end{bmatrix}
 \end{equation}
-La norme Euclidienne sur $\mathbb{R}^{N+1}$ est notée $|U|$. Elle induit une norme pour les matrices $A \in \mathcal{M}_{N+1}(\mathbb{R})$ de taille $(N+1) \times (N+1)$ :
+La norme euclidienne sur $\mathbb{R}^{N+1}$ est notée $|U|$. Elle induit une norme pour les matrices $A \in \mathbb{M}_{N+1}(\mathbb{R})$ définie par
 \begin{equation}
-|A|_2 = \sup_{U \neq 0} \dfrac{|AU|}{|U|}
+|A|_2 = \sup_{U \neq 0} \dfrac{|AU|}{|U|}.
 \end{equation}
-On remarque que si $A$ est symétrique alors :
+Si $A$ est symétrique alors :
 \begin{equation}
-|A|_2 = \rho(A) := \max \left\lbrace |\lambda| \text{ tels que } \lambda \in Sp(A) \right\rbrace.
+|A|_2 = \rho(A) := \max \left\lbrace |\lambda| \text{ tels que } \lambda \in \Sp (A) \right\rbrace.
 \end{equation}
 $\rho(A)$ est nommé \textit{rayon spectrale} de $A$.
 La norme infinie de $U$ est donnée par :
 \begin{equation}
 |U|_{\infty} = \max_{1 \leq i \leq N+1} |U_i|.
 \end{equation}
-La norme de $A$ subordonnée à la norme vectorielle infinie est :
+La norme sur $\mathbb{M}_{N+1}(\mathbb{R})$ subordonnée à $|\cdot|_{\infty}$ est
 \begin{equation}
 |A|_{\infty} = \sup_{U \neq 0} \dfrac{|AU|_{\infty}}{|U|_{\infty}} = \max_{1 \leq i \leq N+1} \gsum_{j=1}^{N+1} |A_{i,j}|.
 \end{equation}
 
-\item Soit $u: x \in \Omega \mapsto u(x)$, on définit la fonction de grille associée $u^*$ par :
+\item Soit $u: x \in \Omega \mapsto u(x)$, on définit la \textit{fonction de grille} $u^*$ associée à $u$ par :
 \begin{equation}
 u^*_i = u^*(x_i) \text{ pour } 0 \leq i \leq N.
 \end{equation}
-$u^*$ est la restriction de $u$ aux points de la grille.
-\end{itemize}
+$u^*$ est donc la restriction de $u$ aux points de la grille. Si $u$ est une fonction périodique, alors 
+\begin{equation}
+u^*_i = u^*(x_i) \text{ pour } 1 \leq i \leq N.
+\end{equation}
+\end{enumerate}
 
-Dans un contexte périodique, on considère que $x_0 = x_N$.
-Nous distinguons $l^2_h$, l'espace des fonctions de grilles, de $\mathbb{R}^{N+1}$ même si ces deux espaces sont isomorphes. Cette distinction permet de faire une claire différences entre :
+Nous distinguons $l^2_h$, l'espace des fonctions de grilles, de $\mathbb{R}^{N+1}$ même si ces deux espaces sont isomorphes.
+
+Cette distinction permet de faire une claire différences entre :
 \begin{itemize}
 \item les opérateurs aux différences finies, qui agissent sur les fonctions de grilles,
 \item les matrices, qui agissent sur les vecteurs.
 \end{itemize}
 Les fonctions de grilles contiennent toutes les échelles nécessaires dans le contexte physique alors que les vecteurs sont sans dimension. De plus, le raisonnement au niveau discret est plus naturel avec les fonctions de grilles. Il s'effectue d'une façon abstraite à l'aide d'opérateurs aux différences. En revanche, le codage est effectuée dans le cadre de l'algèbre linéaire.
 
-
+Par exemple, si $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ régulière telle que $u(a) = u(b) = 0$ alors $(\partial_x u)^*$ désigne la fonction de grille associée à la dérivée première de $u$. On peut approcher cette donnée à l'aide de la fonction de grille $\mathfrak{u}_x$ obtenue grâce à l'opérateur $\delta_x$ agissant sur les fonctions de grilles et donné par
+\begin{equation}
+\mathfrak{u}_{x,j} = \delta_x u^*(x_j) = \dfrac{u(x_{j+1}) - u(x_{j-1})}{2h}.
+\end{equation}
+En effet, par développement de Taylor, on a 
+\begin{equation}
+u(x_j+h) = u(x_j) + h \partial_x u(x_j) + \dfrac{h^2}{2} \partial_x^2 u(x_j) + \dfrac{h^3}{6} \partial_x^3 u(\xi) \text{ avec } \xi \in [x_j, x_j+h].
+\end{equation}
+De la même manière, en $x_j-h$, on a 
+\begin{equation}
+u(x_j-h) = u(x_j) - h \partial_x u(x_j) + \dfrac{h^2}{2} \partial_x^2 u(x_j) - \dfrac{h^3}{6} \partial_x^3 u(\eta) \text{ avec } \eta \in [x_j-h, x_j].
+\end{equation}
+On a alors
+\begin{align*}
+\delta_x u^*(x_j) & = \dfrac{u(x_{j+1}) - u(x_{j-1})}{2h}\\
+                  & = \dfrac{1}{2h} \left[ 2h \partial_x u(x_j) + \dfrac{h^3}{6} \partial_x^3 u(\xi) + \dfrac{h^3}{6} \partial_x^3 u(\eta) \right]\\
+                  & = \partial_x u(x_j) + \dfrac{h^2}{2} \left[ \dfrac{1}{6} \partial_x^3 u(\xi) + \dfrac{1}{6} \partial_x^3 u(\eta) \right] \\
+                  & = \partial_x u(x_j) + \dfrac{h^2}{6} \partial_x^3 u(\gamma) \text{ avec } \gamma \in ]x_j-h , x_j+h[ \text{ par théorème des valeurs intermédiaires.}
+\end{align*}
+Ainsi l'erreur de troncature est une fonction de grille définie en chaque point du $x_j$ par
+\begin{align*}
+\mathfrak{t}(x_j) & = \delta_x u^*(x_j) - \delta_x u^*(x_j)\\
+                  & = \dfrac{h^2}{6} \partial_x^3 u(\gamma) \text{ avec } \gamma \in ]x_j-h , x_j+h[.
+\end{align*}
 
 
 
@@ -758,25 +794,25 @@ car $K$ est antisymétrique et $P$ est symétrique (donc $P^{-1}$ aussi).
 \section{Opérateurs aux différences en dimension 2}
 
 
-\subsection{Cadre en dimension 2}
+\subsection{Notations}
 \label{sec:notation_2D}
 
-En dimension 2, les notations sont une extension de celles utilisées en dimension 1. Pour des questions de simplicité, on se limite au cas d'une géométrie carrée. Si $a$ et $b$ sont des réels positifs, nous travaillons dans le carré $\Omega = [a,b]^2$. Chaque côté du carré est de longueur $L=b-a$. 
-Soient $u$ et $v$ deux fonctions de $\Omega$ dans $\mathbb{R}$. On définit le produit scalaire usuel dans $L^2 ( \Omega ) $ par :
+En dimension 2, les notations sont analogues de celles utilisées en dimension 1. On se limite au cas d'une géométrie carrée. Si $a$ et $b$ sont des réels positifs, nous notons $\Omega = [a,b]^2$. Chaque côté du carré est de longueur $L=b-a$. 
+Soient $u$ et $v$ deux fonctions de $\Omega$ dans $\mathbb{R}$. On note le produit scalaire dans $L^2 ( \Omega )$
 \begin{equation}
 (u,v) = \gint_{\Omega} u(x,y) v(x,y) dx dy.
 \end{equation}
-La norme associée à ce produit scalaire est :
+La norme associée est :
 \begin{equation}
-\| u \|_{L^2(\Omega)} = \gint_{\Omega} u(x,y)^2 dx dy. 
+\| u \|_{L^2(\Omega)} = \sqrt{(u,v)}. 
 \end{equation}
-La norme infinie est aussi une norme usuelle sur $L^{\infty}(\Omega)$ :
+On note également
 \begin{equation}
 \| u \|_{L^{\infty} ( \Omega )} = \max_{(x,y) \in \Omega} |u(x,y)|.
 \end{equation}
-Pour alléger les notations, et lorsque cela ne portera pas à confusions, nous noterons ces deux normes $\| u \|_{L^2}$ et $\| u \|_{L^{\infty}}$.
+Pour alléger les notations nous notons ces deux normes $\| u \|_{L^2}$ et $\| u \|_{L^{\infty}}$.
 
-Dans le domaine $\Omega$, nous construisons une grille constituée des points $(x_i,y_j)_{0 \leq i,j \leq N}$ où $N \in \mathbb{N}^{\star}$ avec $a = x_0 < x_1 < \ldots < x_N = b$ et $a = y_0 < y_1 < \ldots < y_N = b$. Le maillage est régulier donné par $h = \frac{L}{N}$. Les valeurs de $x_i$ et $y_j$ sont données par
+Dans le domaine $\Omega$, la grille est constituée des points $(x_i,y_j)_{0 \leq i,j \leq N}$ où $N \geq 1$ avec $a = x_0 < x_1 < \ldots < x_N = b$ et $a = y_0 < y_1 < \ldots < y_N = b$. Le pas d'espace $h$ est fixe et donné par $h = \frac{L}{N}$. Les points de grilles sont $(x_i, y_j)$ avec 
 \begin{equation}
 \left\lbrace\begin{array}{rcl}
 x_i & = & a + i h \\
@@ -784,13 +820,13 @@ y_j & = & a + j h
 \end{array}\right. \text{ avec } 0 \leq i,j \leq N.
 \end{equation}
 
-Les points $(x_i,y_j)_{0 \leq i,j \leq N}$ se divisent en différentes catégories (voir figure \ref{fig:maillage2D}) :
+Les points $(x_i,y_j)_{0 \leq i,j \leq N}$ sont de deux types (voir figure \ref{fig:maillage2D}) :
 \begin{itemize}
-\item Les points de bords lorsque l'on a :
+\item Les points de bords $(x_i, y_j)$ avec
 \begin{equation}
 i \in \left\lbrace 0 , N \right\rbrace \text{ ou } j \in \left\lbrace 0 , N \right\rbrace,
 \end{equation}
-\item les points intérieurs lorsque :
+\item les points intérieurs $(x_i, y_j)$ avec
 \begin{equation}
 1 \leq i,j \leq N-1.
 \end{equation}
@@ -846,42 +882,59 @@ i \in \left\lbrace 0 , N \right\rbrace \text{ ou } j \in \left\lbrace 0 , N \rig
 \label{fig:maillage2D}
 \end{figure}
 
-On dit qu'une fonction $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$ est \textit{périodique} sur $\Omega$ si 
+On dit qu'une fonction $u : (x,y) \in \mathbb{R} \mapsto u(x,y) \in \mathbb{R}$ est $L-$\textit{périodique} dans les directions $x$ et $y$ si 
 \begin{equation}
 \begin{array}{rcl}
 u(x,y+L) & = & u(x,y) \\
 u(x+L,y) & = & u(x,y)
-\end{array} \text{ pour tous } (x,y) \in \Omega.
+\end{array} \text{ pour tous } (x,y) \in \mathbb{R}^2.
 \end{equation}
 
-Comme pour le cas en dimension 1, nous définissons différentes notions de fonctions discrètes associées à la grille :
-\begin{itemize}
-\item Une \textit{fonction de grille} est une fonction définie aux points du maillage $(x_i,y_j)_{0 \leq i,j \leq N}$. Nous notons ces fonctions en gras comme $\mathbf{u}$ ou $\mathbf{v}$. On a :
+Comme en dimension 1, nous définissons différentes notions de fonctions discrètes associées à la grille :
+\begin{enumerate}
+\item Une \textit{fonction de grille} est une fonction définie aux points de la grille $(x_i,y_j)_{0 \leq i,j \leq N}$. Nous notons ces fonctions en fonte gothique comme $\mathfrak{u}$ ou $\mathfrak{v}$. On a :
 \begin{equation}
-\mathbf{u} = \left( \mathbf{u}(x_i,y_j) \right)_{0 \leq i,j \leq N}.
+\mathfrak{u} = \left( \mathfrak{u}(x_i,y_j) \right)_{0 \leq i,j \leq N} \text{ et } \mathfrak{u}_{i,j} = \mathfrak{u}(x_i,y_j).
 \end{equation}
-$\mathbf{u}$ est périodique si $\mathbf{u}(x_{i},y_0) = \mathbf{u}(x_{i},y_N)$ et $\mathbf{u}(x_{0},y_j) = \mathbf{u}(x_{N},y_j)$ pour tous $0 \leq i,j \leq N$.
+$\mathfrak{u}$ est périodique si $\mathfrak{u}(x_{i},y_0) = \mathfrak{u}(x_{i},y_N)$ et $\mathfrak{u}(x_{0},y_j) = \mathfrak{u}(x_{N},y_j)$ pour tous $0 \leq i,j \leq N$.
 On note $L^2_h$ l'espace des fonctions de grilles. Cet espace est équipé d'un produit scalaire et de la norme associée :
 \begin{equation}
-(\mathbf{u}, \mathbf{v})_h = h^2 \gsum_{i,j=0}^N \mathbf{u}(x_i,y_j) \mathbf{v}(x_i,y_j) \text{ et } |\mathbf{u}|_h = \sqrt{(\mathbf{u},\mathbf{u})_h}.
+(\mathfrak{u}, \mathfrak{v})_h = h^2 \gsum_{i,j=0}^N \mathfrak{u}(x_i,y_j) \mathfrak{v}(x_i,y_j) \text{ et } |\mathfrak{u}|_h = \sqrt{(\mathfrak{u},\mathfrak{u})_h}.
 \end{equation}
-La norme infinie de $\mathbf{u}$ est donnée par :
+de plus, on a également
 \begin{equation}
-| \mathbf{u} |_{\infty} = \max_{0 \leq i,j \leq N} |\mathbf{u}(x_i,y_j)|.
+| \mathfrak{u} |_{\infty} = \max_{0 \leq i,j \leq N} |\mathfrak{u}(x_i,y_j)|.
 \end{equation}
 Pour simplifier les notations, nous noterons
 \begin{equation}
-\mathbf{u}_{i,j} = \mathbf{u}(x_i, y_j) \text{ avec } 1 \leq i,j \leq N.
+\mathfrak{u}_{i,j} = \mathfrak{u}(x_i, y_j) \text{ avec } 1 \leq i,j \leq N.
 \end{equation}
 
-\item Soit $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$, nous définissons la fonction associée, notée $u^*$ par la restriction de $u$ au maillage :
+\item Soit $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$, nous définissons la fonction associée, notée $u^*$ par la restriction de $u$ à la grille :
 \begin{equation}
 u^*_{i,j} = u(x_i, y_j) \text{ pour tous } 0 \leq i,j \leq N.
 \end{equation}
 
-Si $u$ est périodique, on a $u^*_{i,0}=u^*_{i,N}$ et $u^*_{0,j}=u^*_{N,j}$ pour tous $0 \leq i,j \leq N$.
-D'une manière générale, dans un contexte périodique, les données sur des bords opposés du carrés coïncident. On considère alors $x_0 = x_N$ et $y_0 = y_N$.
-\end{itemize}
+Pour $u$ est périodique selon $x$ et $y$, on a $u^*_{i,0}=u^*_{i,N}$ et $u^*_{0,j}=u^*_{N,j}$ pour tous $0 \leq i,j \leq N$.
+D'une manière générale, dans un contexte périodique, les données sur des bords opposés du carrés coïncident.
+
+\item A une fonction de grille $\mathfrak{u}$, on associe un vecteur $U \in \mathbb{R}^{(N+1)^2}$ constitué des valeurs de $\mathfrak{u}$ dans l'ordre anti-lexicographique :
+\begin{equation}
+U = \begin{bmatrix}
+\mathfrak{u}_{0,0}\\
+\mathfrak{u}_{1,0}\\
+\vdots \\
+\mathfrak{u}_{N,0}\\
+\mathfrak{u}_{0,1}\\
+\mathfrak{u}_{1,1}\\
+\vdots \\
+\mathfrak{u}_{N,1}\\
+\vdots \\
+\mathfrak{u}_{N,N}\\
+\end{bmatrix}.
+\end{equation}
+On note ces vecteurs par des lettres capitales. Les matrices de $\mathbb{M}_{(N+1)^2} (\mathbb{R})$, notée par des lettres latines capitales, agissent sur ces vecteurs.
+\end{enumerate}
 
 \begin{figure}[htbp]
 \begin{center}
@@ -917,7 +970,7 @@ D'une manière générale, dans un contexte périodique, les données sur des bo
 	\draw (-5,-3.2) node[above] {$y$} ;
 \end{tikzpicture}
 \end{center}
-\caption{Carré périodique. Dans le contexte périodique, les bords de couleurs identiques coïncident. Les quatres coins du carré représentent la même donnée.}
+\caption{Carré périodique. Dans le contexte périodique, les données sur les bords de couleurs identiques coïncident. Les quatre coins du carré représentent la même donnée.}
 \label{fig:period2D}
 \end{figure}
 
@@ -939,19 +992,19 @@ D'une manière générale, dans un contexte périodique, les données sur des bo
 
 \subsection{Opérateurs en géométrie cartésienne}
 
-En utilisant les notations de la partie \ref{sec:notation_2D} en contexte périodique, nous élargissons la définition des opérateurs 1D en dimension 2
+En utilisant les notations de la partie \ref{sec:notation_2D} en contexte périodique, nous définissons des opérateurs agissant sur les fonctions de grilles en dimension 2.
 
 \begin{definition}
 Soient $\tau_x$ et $\tau_y$ les \textit{opérateurs de translation} dans les directions $x$ et $y$ définis par
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\tau_x u_{i,j} & = & u_{i+1,j}\\
-\tau_y u_{i,j} & = & u_{i,j+1}\\
+\tau_x \mathfrak{u}_{i,j} & = & \mathfrak{u}_{i+1,j}\\
+\tau_y \mathfrak{u}_{i,j} & = & \mathfrak{u}_{i,j+1}\\
 \end{array}
 \right.
 \end{equation}
-avec $\mathbf{u}$ une fonction de grille et $1 \leq i,j \leq N$.
+avec $\mathfrak{u}$ une fonction de grille et $1 \leq i,j \leq N$.
 \end{definition}
 
 Les opérateurs obtenus en dimension 1 sont définis en dimension 2 grâce à ces deux opérateurs de translation. On définit les opérateurs centrés dans les directions $x$ et $y$ par 
@@ -1068,29 +1121,29 @@ L'opérateur $\text{vec}_2$ est défini par
 \begin{equation}
 \begin{array}{rcl}
 \text{vec}_2 : L^2_h & \longrightarrow & \mathbb{R}^{N^2}\\
-\mathbf{v} & \longrightarrow & V = \text{vec}_2(\mathbf{v})
+\mathfrak{v} & \longrightarrow & V = \text{vec}_2(\mathfrak{v})
 \end{array}
 \end{equation}
 avec
 \begin{equation}
-\text{vec}_2(\mathbf{v}) = \gsum_{i,j=1}^N \left( e_j \otimes e_i \right)\mathbf{v}_{i,j}.
+\text{vec}_2(\mathfrak{v}) = \gsum_{i,j=1}^N \left( e_j \otimes e_i \right)\mathfrak{v}_{i,j}.
 \end{equation}
 \end{definition}
 
-L'opérateur $\text{vec}_2$ transforme une fonction de grille $\mathbf{v}$ en un vecteur en organisant les données dans l'ordre antilexicographique. Si $V = \text{vec}_2 (\mathbf{v})$ alors on a l'égalité suivante :
+L'opérateur $\text{vec}_2$ transforme une fonction de grille $\mathfrak{v}$ en un vecteur en organisant les données dans l'ordre antilexicographique. Si $V = \text{vec}_2 (\mathfrak{v})$ alors on a l'égalité suivante :
 \begin{equation}
-V=[\mathbf{v}_{1,1}, \mathbf{v}_{2,1}, \mathbf{v}_{3,1}, \cdots, \mathbf{v}_{N,1}, \mathbf{v}_{1,2}, \mathbf{v}_{2,2}, \cdots,  \mathbf{v}_{N-1,N}, \mathbf{v}_{N,N}]^T
+V=[\mathfrak{v}_{1,1}, \mathfrak{v}_{2,1}, \mathfrak{v}_{3,1}, \cdots, \mathfrak{v}_{N,1}, \mathfrak{v}_{1,2}, \mathfrak{v}_{2,2}, \cdots,  \mathfrak{v}_{N-1,N}, \mathfrak{v}_{N,N}]^T
 \end{equation}
 
 \begin{proposition}
-Soit $\mathbf{u}$ une fonction de grille. Alors les opérateurs de dérivées centrées \eqref{eq:der_centrée_2D} s'écrivent matriciellement sous la forme
+Soit $\mathfrak{u}$ une fonction de grille. Alors les opérateurs de dérivées centrées \eqref{eq:der_centrée_2D} s'écrivent matriciellement sous la forme
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\text{vec}_2(\delta_x \mathbf{u}) & = & (Id \otimes K) \text{vec}_2(\mathbf{u})\\
-\text{vec}_2(\delta_y \mathbf{u}) & = & (K \otimes Id) \text{vec}_2(\mathbf{u})\\
-\text{vec}_2(\sigma_x \mathbf{u}) & = & (Id \otimes P) \text{vec}_2(\mathbf{u})\\
-\text{vec}_2(\sigma_y \mathbf{u}) & = & (P \otimes Id) \text{vec}_2(\mathbf{u})\\
+\text{vec}_2(\delta_x \mathfrak{u}) & = & (Id \otimes K) \text{vec}_2(\mathfrak{u})\\
+\text{vec}_2(\delta_y \mathfrak{u}) & = & (K \otimes Id) \text{vec}_2(\mathfrak{u})\\
+\text{vec}_2(\sigma_x \mathfrak{u}) & = & (Id \otimes P) \text{vec}_2(\mathfrak{u})\\
+\text{vec}_2(\sigma_y \mathfrak{u}) & = & (P \otimes Id) \text{vec}_2(\mathfrak{u})\\
 \end{array}\right.
 \end{equation}
 \label{prop:op_der_simpson_mat}
@@ -1098,26 +1151,26 @@ Soit $\mathbf{u}$ une fonction de grille. Alors les opérateurs de dérivées ce
 
 \begin{proof}
 Par définition de $\text{vec}_2$, on a 
-\begin{eqnarray}
-\text{vec}_2 (\delta_x \mathbf{u}) &=& \gsum_{i,j=1}^N (e_j \otimes e_i) \delta_x \mathbf{u_{i,j}} \\
-	&=& \dfrac{1}{2h} \gsum_{i,j=1}^N (e_j \otimes e_i) \left( \mathbf{u}_{i+1,j} - \mathbf{u}_{i-1,j} \right) \\
-	&=& \dfrac{1}{2h} \gsum_{i,j=1}^N e_j \otimes e_i \mathbf{u}_{i+1,j} - e_j \otimes e_i \mathbf{u}_{i-1,j}\\
-	&=& \dfrac{1}{2h} \gsum_{i,j=1}^N e_j \otimes (e_i \mathbf{u}_{i+1,j}-e_i \mathbf{u}_{i-1,j}) \\
-	&=& (Id \otimes K) \text{vec}_2(\mathbf{u}).
-\end{eqnarray}
+\begin{align*}
+\text{vec}_2 (\delta_x \mathfrak{u}) &=& \gsum_{i,j=1}^N (e_j \otimes e_i) \delta_x \mathfrak{u_{i,j}} \\
+	&= \dfrac{1}{2h} \gsum_{i,j=1}^N (e_j \otimes e_i) \left( \mathfrak{u}_{i+1,j} - \mathfrak{u}_{i-1,j} \right) \\
+	&= \dfrac{1}{2h} \gsum_{i,j=1}^N e_j \otimes e_i \mathfrak{u}_{i+1,j} - e_j \otimes e_i \mathfrak{u}_{i-1,j}\\
+	&= \dfrac{1}{2h} \gsum_{i,j=1}^N e_j \otimes (e_i \mathfrak{u}_{i+1,j}-e_i \mathfrak{u}_{i-1,j}) \\
+	&= (Id \otimes K) \text{vec}_2(\mathfrak{u}).
+\end{align*}
 les autres égalités se montrent de la même manière
 \end{proof}
 
-De ces égalités, il découle le calcul matriciel de $\delta_x^H \mathbf{u}$ et de $\delta_y^H \mathbf{u}$.
+De ces égalités, il découle le calcul matriciel de $\delta_x^H \mathfrak{u}$ et de $\delta_y^H \mathfrak{u}$.
 
 \begin{theoreme}
-Soit $\mathbf{u}$ une fonction de grille. Alors, si on pose 
+Soit $\mathfrak{u}$ une fonction de grille. Alors, si on pose 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-U & = & \text{vec}_2 (\mathbf{u}) \\
-U_x & = & \text{vec}_2 (\delta_x^H \mathbf{u}) \\
-U_y & = & \text{vec}_2 (\delta_y^H \mathbf{u}) \\
+U & = & \text{vec}_2 (\mathfrak{u}) \\
+U_x & = & \text{vec}_2 (\delta_x^H \mathfrak{u}) \\
+U_y & = & \text{vec}_2 (\delta_y^H \mathfrak{u}) \\
 \end{array}
 \right.
 \end{equation}
@@ -1133,7 +1186,7 @@ U_y &=& (P \otimes Id)^{-1}(K \otimes Id) U &=& (P^{-1}K \otimes Id)U\\
 \end{theoreme}
 
 \begin{proof}
-Consèquence directe des propositions \ref{prop:op_der_simpson_mat} et \ref{prop:pdt_kron}.
+Conséquence directe des propositions \ref{prop:op_der_simpson_mat} et \ref{prop:pdt_kron}.
 \end{proof}
 
 La matrice du schéma hermitien $(Id \otimes P^{-1}K)$ en direction $x$ et $(P^{-1}K \otimes Id)$ en direction $y$ vérifient des propriétés d'antisymétriques similaires à celles en dimension 1.
