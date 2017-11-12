@@ -265,7 +265,7 @@ Calculons $P(\tau) \mathfrak{u}^k$. Soit $j$ un entier compris entre $1$ et $N$,
 
 d'où le résultat.
 \end{proof}
-L'opérateur de translation $\tau$ agit sur les fonctions de grilles $\mathfrak{u}$. Il est associé à $T \in \mathcal{M}_N \left( \mathbb{R} \right)$ la matrice agissant sur les vecteurs $U$ de $\mathbb{R}^N$
+L'opérateur de translation $\tau$ agit sur les fonctions de grilles $\mathfrak{u}$. Il est associé à $T \in \mathbb{M}_N \left( \mathbb{R} \right)$ la matrice agissant sur les vecteurs $U$ de $\mathbb{R}^N$
 \begin{equation}
 U = \begin{bmatrix}
 \mathfrak{u}_1\\
@@ -615,11 +615,11 @@ où $\mathfrak{u}^k_j$ est donné par \eqref{eq:vecteurpropre_tau}.
 Ainsi, dans la pratique, la dérivée hermitienne $\delta_x^H \mathfrak{u}$ en chaque point est calculée comme la solution d'un système linéaire. Cette solution peut être calculée grâce à la formule de Shermann-Morisson-Woodbury couplé à un solveur tridiagonal comme l'algorithme de Thomas.
 
 \begin{proposition}
-\textbf{(Formule de Shermann-Morisson-Woodbury)} Soient $A, B \in \mathcal{M}_N \left(\mathbb{R} \right)$ deux matrices inversibles telles que 
+\textbf{(Formule de Shermann-Morisson-Woodbury)} Soient $A, B \in \mathbb{M}_N \left(\mathbb{R} \right)$ deux matrices inversibles telles que 
 \begin{equation}
 A = B + R S^T,
 \end{equation}
-avec $R$ et $S$ deux matrices de $\mathcal{M}_{N,n} \left(\mathbb{R} \right)$ avec $n \leq N$.
+avec $R$ et $S$ deux matrices de $\mathbb{M}_{N,n} \left(\mathbb{R} \right)$ avec $n \leq N$.
 Alors l'inverse de $A$ peut s'écrire
 \begin{equation}
 A^{-1} = B^{-1} - B^{-1} R \left( Id + S^T B^{-1} R  \right)^{-1} S^T B^{-1}.
@@ -1152,7 +1152,7 @@ Soit $\mathfrak{u}$ une fonction de grille. Alors les opérateurs de dérivées 
 \begin{proof}
 Par définition de $\text{vec}_2$, on a 
 \begin{align*}
-\text{vec}_2 (\delta_x \mathfrak{u}) &=& \gsum_{i,j=1}^N (e_j \otimes e_i) \delta_x \mathfrak{u_{i,j}} \\
+\text{vec}_2 (\delta_x \mathfrak{u}) &= \gsum_{i,j=1}^N (e_j \otimes e_i) \delta_x \mathfrak{u_{i,j}} \\
 	&= \dfrac{1}{2h} \gsum_{i,j=1}^N (e_j \otimes e_i) \left( \mathfrak{u}_{i+1,j} - \mathfrak{u}_{i-1,j} \right) \\
 	&= \dfrac{1}{2h} \gsum_{i,j=1}^N e_j \otimes e_i \mathfrak{u}_{i+1,j} - e_j \otimes e_i \mathfrak{u}_{i-1,j}\\
 	&= \dfrac{1}{2h} \gsum_{i,j=1}^N e_j \otimes (e_i \mathfrak{u}_{i+1,j}-e_i \mathfrak{u}_{i-1,j}) \\

@@ -99,7 +99,7 @@ A=\begin{bmatrix}
 0 &  1  & 2^4 & 3^4 & 4^4 & 5^4 & \cdots\\
 0 &  1  & 2^6 & 3^6 & 4^6 & 5^6 & \cdots\\
 &&& \vdots &  \vdots &
-\end{bmatrix} \in \mathcal{M}_{J+1} \left( \mathbb{R} \right)
+\end{bmatrix} \in \mathbb{M}_{J+1} \left( \mathbb{R} \right)
 \end{equation}
 est inversible car $a = [a_0, a_1, \cdots, a_J]^T$ est solution de 
 \begin{equation}
@@ -314,7 +314,7 @@ Alors $U$ et $\tilde{U}$ vérifient la relation
 \begin{equation}
 \tilde{U} = M U
 \end{equation}
-avec $M \in \mathcal{M}_N \left( \mathbb{R} \right)$ la matrice associée au filtrage des données en dimension 1. Lorsque le filtre est d'ordre 4, ($F=2$), la matrice $M$ est donnée par
+avec $M \in \mathbb{M}_N \left( \mathbb{R} \right)$ la matrice associée au filtrage des données en dimension 1. Lorsque le filtre est d'ordre 4, ($F=2$), la matrice $M$ est donnée par
 \begin{equation}
 M = \dfrac{1}{2}
 \begin{bmatrix}
@@ -615,7 +615,7 @@ La notion de stabilité linéaire appliquée à l'équation de Dahlquist \eqref{
 où $\mathbf{q} = \begin{bmatrix}
 q_1(t) & q_2(t) & \cdots & q_N(t)
 \end{bmatrix}^T \in \mathbb{R}^N$.
-$q_i$ désigne une fonction de $\mathbb{R}^+$ dans $\mathbb{C}$, $J \in \mathcal{M}_N (\mathbb{C})$ désigne une matrice carré. On se restreint au cas où $J$ est une matrice diagonalisable telle que 
+$q_i$ désigne une fonction de $\mathbb{R}^+$ dans $\mathbb{C}$, $J \in \mathbb{M}_N (\mathbb{C})$ désigne une matrice carré. On se restreint au cas où $J$ est une matrice diagonalisable telle que 
 \begin{equation}
 \text{Sp}(J) \subset \mathbb{C}^-.
 \end{equation}
@@ -623,7 +623,7 @@ Cette dernière propriété permet d'assurer que la solution de \eqref{eq:dahlqu
 \begin{equation}
 \mathbf{q}(t) = e^{Jt}\mathbf{q}_0 \text{ avec } t \in \mathbb{R}^+.
 \end{equation}
-Comme $J$ est diagonalisable, il existe $P \in \mathcal{M}_N(\mathbb{R})$ une matrice de passage et $\Lambda \in \mathcal{M}_N(\mathbb{R})$ matrice diagonale (contenant les valeurs propres de $J$) tels que
+Comme $J$ est diagonalisable, il existe $P \in \mathbb{M}_N(\mathbb{R})$ une matrice de passage et $\Lambda \in \mathbb{M}_N(\mathbb{R})$ matrice diagonale (contenant les valeurs propres de $J$) tels que
 \begin{equation}
 J = P^{-1}\Lambda P
 \end{equation}
@@ -760,7 +760,7 @@ La solution d'un tel système est donnée par
 U(t) = \exp\left[ - c P^{-1}K t\right] U_0.
 \end{equation}
 
-On a déjà vu dans la proposition \ref{prop:eigen_mat_hermitien} que $P^{-1}K$ est une matrice de $\mathcal{M}_N(\mathbb{R})$ qui admet $N$ valeur propres distinctes. $P^{-1}K$ est diagonalisable, il existe $V$ une matrice de passage et $\Lambda$ une matrice diagonale tels que 
+On a déjà vu dans la proposition \ref{prop:eigen_mat_hermitien} que $P^{-1}K$ est une matrice de $\mathbb{M}_N(\mathbb{R})$ qui admet $N$ valeur propres distinctes. $P^{-1}K$ est diagonalisable, il existe $V$ une matrice de passage et $\Lambda$ une matrice diagonale tels que 
 \begin{equation}
 P^{-1}K = V^T \Lambda V.
 \end{equation}
