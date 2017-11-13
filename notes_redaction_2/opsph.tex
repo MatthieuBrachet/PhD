@@ -645,6 +645,7 @@ Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x}) \in \mathbb{R}$ un
 \nabla_{T,\Delta} h_{i,j}^{(k)} - (\nabla_T h)^{*,(k)}_{i,j} = \mathcal{O} \left( \Delta^3 \right)
 \end{equation}
 où $^*$ désigne la restriction à la Cubed-Sphere et $\Delta = \Delta \xi = \Delta \eta$. 
+\label{prop:accuracy_gradient}
 \end{proposition}
 
 \begin{proof}
@@ -654,6 +655,11 @@ De plus, on note que par construction
 \begin{equation}
 \nabla_{T,\Delta} h_{i,j}^{(k)} \in \mathbb{T}_{\mathbf{x}_{i,j}^{(k)}} \mathbb{S}_a^2.
 \end{equation}
+Une valeur du gradient est associée à chaque point de chaque panel, lorsque le point appartient à plusieurs panels, la moyenne des gradients est conservée.
+
+
+
+
 Une fois l'opérateur d'approximation du gradient définit, il faut le tester numériquement pour tester son comportement. On se donne $h$ tel que le gradient $\nabla_T h$ est connue et nous comparons le gradient approché et le gradient exacte.
 Si $h$ est une fonction sphérique, on sait que $h$ se décompose comme une somme d'harmoniques sphériques. De plus, les harmoniques sphériques sont des restrictions de polynômes sur la Sphère $\mathbb{S}_a^2$. Un test pertinent est donc de choisir $h$ de la forme
 \begin{equation}
@@ -663,6 +669,7 @@ Si $h$ est une fonction sphérique, on sait que $h$ se décompose comme une somm
 h & = & \hat{h}_{| \mathbb{S}_a^2}.
 \end{array}
 \right.
+\label{eq:grad_test}
 \end{equation}
 Avec $p, q, r \in \mathbb{N}$.
 En se basant sur la proposition \ref{prop:gradient_project}, on peut facilement déterminer le gradient de $h$ par
@@ -686,7 +693,41 @@ On mesure l'erreur faite sur le calcul du gradient approché par
 \begin{equation}
 e_{\Delta} = \dfrac{\mathcal{N}\left(\nabla_{T,\Delta}h - \left( \nabla_{T}h \right)^* \right)}{\mathcal{N}\left(\left( \nabla_{T}h \right)^* \right)}
 \end{equation}
-Dans la figure \REF, on trace cette erreur en fonction de $\frac{\pi a}{2 N}$.
+Dans la figure \ref{fig:rate_grad}, on trace le logarithme décimal de l'erreur en fonction du logarithme décimal de $\frac{\pi a}{2 N} = a \Delta \xi = a \Delta \eta$. La pente de cette courbe nous donne l'ordre de convergence de la méthode sur le test effectué.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{rate_grad_1_123.png}
+\includegraphics[height=5cm]{rate_grad_1_222.png}
+\end{center}
+\caption{Convergence du gradient de \eqref{eq:grad_test} avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(2,2,2)$ à droite.}
+\label{fig:rate_grad}
+\end{figure}
+
+Les ordres estimés sont meilleurs que l'ordre 3 montré dans la proposition \ref{prop:accuracy_gradient}. Lorsque $(p,q,r)=(1,2,3)$, l'ordre de convergence calculé est $3.8787$, il est de $3.8868$ lorsque $(p,q,r)=(2,2,2)$. Cela confirme l'ordre démontré et nous donne un ordre proche de $4$ dans la pratique. Les erreurs effectives sont données en fonction de $N$ dans la table \ref{tab:rate_grad}.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|}
+\hline
+$\mathbf{N}$    & $\mathbf{(1,2,3)}$     & $\mathbf{(2,2,2)}$     \\
+\hline
+\hline
+$16$   & $1.8636 (-4)$ & $3.1368 (-4)$ \\
+$32$   & $1.3545 (-5)$ & $2.3910 (-5)$ \\
+$64$   & $9.7564 (-7)$ & $1.6716 (-6)$ \\
+$128$  & $6.5592 (-8)$ & $1.1088 (-7)$ \\
+$256$  & $4.2563 (-9)$ & $7.1437 (-9)$ \\
+$511$  & $2.7115(-10)$ & $4.5361(-10)$ \\
+\hline
+\hline
+\textbf{ordre estimé} & $3.8787$ & $3.8868$ \\
+\hline 
+\end{tabular}
+\end{center}
+\caption{Table de convergence du gradient approché de \eqref{eq:grad_test} avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(2,2,2)$ à droite.}
+\label{tab:rate_grad}
+\end{table}
 
 
 
@@ -698,15 +739,72 @@ Dans la figure \REF, on trace cette erreur en fonction de $\frac{\pi a}{2 N}$.
 
 \subsection{Variante de l'opérateur de gradient discret}
 
+
 \subsubsection{Gradient discret utilisant un schéma compact d'ordre 8}
 
-Une variante pour la calcul du gradient approché est d'utiliser un schéma aux différences finies 1D d'ordre plus élevé que $\delta_x^H$. On définit les opérateurs ... et ...
+Une variante pour la calcul du gradient approché est d'utiliser un schéma aux différences finies 1D d'ordre plus élevé que $\delta_x^H$ (qui est d'ordre 4). On définit les opérateurs 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\sigma_{3,x} & = & id + \dfrac{3}{8} (\tau + \tau^{-1})\\
+\delta_{3,x} & = & \dfrac{25}{16} \dfrac{\tau - \tau^{-1}}{2h} + \dfrac{1}{5} \dfrac{\tau^2 - \tau^{-2}}{4h} + \dfrac{1}{80} \dfrac{\tau^3 - \tau^{-3}}{6h}
+\end{array}
+\right.
+\end{equation}
+L'opérateur centré hermitien $\delta_{8,x}^H = \sigma_{3,x}^{-1} \circ \delta_{3,x}$ est un opérateur d'approximation de la dérivée première à l'ordre $8$.
 
-\subsubsection{Gradient sans grands cercles}
+On remplace $\delta_{\Delta \xi}^H$ et $\delta_{\Delta \eta}^H$ dans les algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta} de calcul de dérivées sur les grands cercles par $\delta_{8,\Delta \xi}^H$ et $\delta_{8,\Delta \eta}^H$, le reste étant inchangé. Le nouveau gradient approché vérifie toujours la proposition \ref{prop:accuracy_gradient}, le facteur limitant la montée en ordre étant la fonction d'interpolation.
 
-Nous avons vu que la méthode de calcul du gradient approché repose sur le calcul de dérivées hermitiennes. Dans cette partie, on propose une variante de la méthode de calcul permettant de ne pas interpoler les données en décentrant le schéma hermitien au bord du domaine.
+Dans la figure \ref{fig:rate_grad2}, nous présentons les courbes de convergence comparant le schéma utilisant $\delta^H_x$ et $\delta^H_{8,x}$. On constate que le premier schéma est meilleur en ordre que le schéma utilisant $\delta^H_{8,x}$. En revanche, l'erreur pour des $N$ plus faible est bien meilleure pour le schéma utilisant $\delta^H_{8,x}$ comme on peut le voir dans le tableau \ref{tab:rate_grad2}.
 
-\subsubsection{Comparaisons numériques}
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{rate_grad_2_123.png}
+\includegraphics[height=5cm]{rate_grad_2_222.png}
+\end{center}
+\caption{Convergence du gradient de \eqref{eq:grad_test} avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(2,2,2)$ à droite. Nous comparons l'utilisation de $\delta^H_{x}$ en magenta avec l'utilisation de $\delta^H_{8,x}$ en noir.}
+\label{fig:rate_grad2}
+\end{figure}
+
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c||c|c|}
+\hline
+  & \multicolumn{2}{c||}{$\mathbf{(p,q,r)=(1,2,3)}$} & \multicolumn{2}{c|}{$\mathbf{(p,q,r)=(2,2,2)}$} \\
+\hline
+$\mathbf{N}$    &  $\delta^H_{x}$  & $\delta^H_{8,x}$  &  $\delta^H_{x}$  & $\delta^H_{8,x}$     \\
+\hline
+\hline
+$16$   & $1.8636 (-4)$ & $1.8475 (-5)$ & $3.1368 (-4)$ & $3.1349 (-5)$ \\
+$32$   & $1.3545 (-5)$ & $2.0130 (-6)$ & $2.3910 (-5)$ & $3.4020 (-6)$ \\
+$64$   & $9.7564 (-7)$ & $2.1919 (-7)$ & $1.6716 (-6)$ & $3.9216 (-7)$ \\
+$128$  & $6.5592 (-8)$ & $2.4346 (-8)$ & $1.1088 (-7)$ & $4.7945 (-8)$ \\
+$256$  & $4.2563 (-9)$ & $2.9159 (-9)$ & $7.1437 (-9)$ & $3.8473 (-9)$ \\
+$511$  & $2.7115(-10)$ & $3.5643 (-10)$& $4.5361(-10)$ & $7.2161(-10)$ \\
+\hline
+\hline
+\textbf{ordre estimé} & $3.8787$ & $3.1363$ & $3.8868$ & $3.1266$\\
+\hline 
+\end{tabular}
+\end{center}
+\caption{Table de convergence du gradient approché de \eqref{eq:grad_test} utilisant $\delta^H_{8,x}$ ou $\delta^H_{x}$.}
+\label{tab:rate_grad2}
+\end{table}
+
+Dans la figure \ref{fig:err_grad}, nous représentons l'erreur spatiale
+\begin{equation}
+\mathbf{x}_{i,j}^{(k)} \mapsto \dfrac{\max_{\mathbf{u}=\mathbf{i}, \mathbf{j}, \mathbf{k}} | \left( \nabla_{T,app} h_{i,j}^{(k)} - \nabla_T h_{i,j}^{(k)} \right)\cdot \mathbf{u}_{i,j}^{(k)} | }{\max_{\mathbf{u}=\mathbf{i}, \mathbf{j}, \mathbf{k}} \left(  | \nabla_T h_{i,j}^{(k)} |\right)\cdot \mathbf{u}_{i,j}^{(k)}}
+\end{equation}
+où $\nabla_{T,app} h_{i,j}^{(k)}$ désigne le gradient approché calculé en utilisant $\delta_{8,x}^H$ la dérivée Hermitienne d'ordre 8 et $\mathbf{x}_{i,j}^{(k)}$ est un point de la Cubed-Sphere, $(k)= (I), \ldots , (VI)$ et $-N/2 \leq i,j \leq N/2$.
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{snap_grad_err8.png}
+\end{center}
+\caption{Erreur relative pour le calcul du gradient $\nabla_{T,app} h_{i,j}^{(k)}$ avec $N=63$ et $h(x,y,z)=x y^2 z^3$. }
+\label{fig:err_grad}
+\end{figure}
+On observe que l'erreur est concentrée là où l'interpolation est la plus mauvaise. Sur les grands cercles associées aux isolignes $\xi = \pm \frac{\pi}{4}$ ou $\eta = \pm \frac{\pi}{4}$ ou $\xi = 0$ ou $\eta = 0$, il n'y a pas d'interpolation car ces grands cercles passent exactement à des points de grilles sur tous les panels. Il s'agit des grands cercles passant par sur les bords de panels ainsi que ceux centraux sur les panels. L'erreur introduite par l'interpolation est particulièrement visible loin de ces cercles.
 
 
 
@@ -716,6 +814,83 @@ Nous avons vu que la méthode de calcul du gradient approché repose sur le calc
 
 
 
+
+
+
+
+\subsubsection{Gradient sans interpolation}
+
+Nous avons vu que la méthode de calcul du gradient approché repose sur le calcul de dérivées hermitiennes périodique le long de grands cercles. L'utilisation de splines cubiques empêche de passer à un ordre supérieur à 3 en changeant l'ordre de la dérivée Hermitienne. Dans cette sous section, nous utilisons un schéma décentré à proximité du bord de manière à n'utiliser que les point intérieur du panel $(k)$ pour calculer le gradient en $\mathbf{x}_{i,j}^{(k)}$ avec $(k) = (I), \ldots ,(VI)$ et $-N/2 \leq i,j \leq N/2$.
+
+Soit $(\mathfrak{u}_p)_{-N/2 \leq p \leq N/2}$ une fonction de grille. On définit l'opérateur explicite $\delta_{\dec,x}$ par
+\begin{equation}
+\left\lbrace
+\begin{array}{rcll}
+\delta_{\dec,x} \mathfrak{u}_p & = & \dfrac{1}{2 h} (\mathfrak{u}_{p+1}-\mathfrak{u}_{p-1}) & \text{ si } -N/2+1 \leq p \leq N/2-1 \\
+\delta_{\dec,x} \mathfrak{u}_p & = & \dfrac{1}{h} \left( -\dfrac{103}{72} \mathfrak{u}_p + \dfrac{91}{36} \mathfrak{u}_{p+1} - \dfrac{7}{4} \mathfrak{u}_{p+2} + \dfrac{29}{36} \mathfrak{u}_{p+3} - \dfrac{11}{72} \mathfrak{u}_{p+4} +\right) & \text{ si } p = -N/2 \\
+\delta_{\dec,x} \mathfrak{u}_p & = & \dfrac{1}{h} \left( \dfrac{103}{72} \mathfrak{u}_p - \dfrac{91}{36} \mathfrak{u}_{p+1} + \dfrac{7}{4} \mathfrak{u}_{p+2} - \dfrac{29}{36} \mathfrak{u}_{p+3} + \dfrac{11}{72} \mathfrak{u}_{p+4} +\right) & \text{ si } p = N/2 \\
+\end{array}
+\right.
+\end{equation}
+ainsi que l'opérateur $\sigma_{\dec,x}$ par
+\begin{equation}
+\left\lbrace
+\begin{array}{rcll}
+\delta_{\dec,x} \mathfrak{u}_p & = & \dfrac{1}{6} \mathfrak{u}_{p+1} + \dfrac{4}{6} \mathfrak{u}_{p} + \dfrac{1}{6} \mathfrak{u}_{p-1} & \text{ si } -N/2+1 \leq p \leq N/2-1 \\
+\delta_{\dec,x} \mathfrak{u}_p & = & \dfrac{1}{6} \mathfrak{u}_{p-1} + \dfrac{4}{6} \mathfrak{u}_{p} & \text{ si } p = -N/2 \\
+\delta_{\dec,x} \mathfrak{u}_p & = & \dfrac{4}{6} \mathfrak{u}_{p} + \dfrac{1}{6} \mathfrak{u}_{p-1} & \text{ si } p = N/2 \\
+\end{array}
+\right.
+\end{equation}
+L'opérateur hermitien $\delta^H_{\dec,x} = \sigma_{\dec,x}^{-1} \circ \delta_{\dec,x}$ est un opérateur d'approximation de la dérivée première d'ordre 4. Son décentrement au bord des panels permet d'obtenir une nouvelle procédure de calcul des dérivées $h_{\xi,i,j}$ et $h_{\eta,i,j}$ donnée par 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcll}
+h_{\xi,i,j} & = & \delta^H_{\dec,\Delta \xi} h_{i,j} & j \text{fixé,}\\
+h_{\eta,i,j} & = & \delta^H_{\dec,\Delta \eta} h_{i,j} & i \text{fixé.}
+\end{array}
+\right.
+\end{equation}
+Comme $\delta^H_{\dec,x}$ est un opérateur d'ordre $4$, le gradient approché donné par 
+\begin{equation}
+\nabla_{T,\dec} h_{i,j}^{(k)} = \delta^H_{\dec,\Delta \xi} h_{i,j}^{(k)} ( \mathbf{g}^{\xi} )_{i,j}^{(k)} + \delta^H_{\dec,\Delta \eta} h_{i,j}^{(k)} ( \mathbf{g}^{\eta} )_{i,j}^{(k)}
+\end{equation}
+est un gradient d'ordre 4.
+Nous observons en figure \ref{fig:rate_grad3} la convergence de ce gradient $\nabla_{T,\dec} h_{i,j}^{(k)}$ en comparaison au gradient $\nabla_{T,\Delta} h_{i,j}^{(k)}$.
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{rate_grad_3_123.png}
+\includegraphics[height=5cm]{rate_grad_3_222.png}
+\end{center}
+\caption{Convergence du gradient approché avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(2,2,2)$ à droite. Nous comparons le gradient $\nabla_{T,\dec}$ en bleu et le gradient $\nabla_{T,\Delta}$ en magenta.}
+\label{fig:rate_grad3}
+\end{figure}
+Les ordres de convergence sont pratiquement les mêmes. Cependant, les erreurs à $N$ fixé sont bien plus faible pour $\nabla_{T,\Delta}$ qu'avec $\nabla_{T,\dec}$ comme on peut le voir dans la table \ref{tab:rate_grad3}.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c||c|c|}
+\hline
+  & \multicolumn{2}{c||}{$\mathbf{(p,q,r)=(1,2,3)}$} & \multicolumn{2}{c|}{$\mathbf{(p,q,r)=(2,2,2)}$} \\
+\hline
+$\mathbf{N}$    &  $\nabla_{T,\Delta}$  & $\nabla_{T,\dec}$  &  $\nabla_{T,\Delta}$  & $\nabla_{T,\dec}$     \\
+\hline
+\hline
+$16$   & $1.8636 (-4)$ & $5.0425 (-3)$ & $3.1368 (-4)$ & $1.1437 (-2)$ \\
+$32$   & $1.3545 (-5)$ & $3.9160 (-4)$ & $2.3910 (-5)$ & $9.7399 (-4)$ \\
+$64$   & $9.7564 (-7)$ & $3.1917 (-5)$ & $1.6716 (-6)$ & $6.6478 (-5)$ \\
+$128$  & $6.5592 (-8)$ & $2.2341 (-6)$ & $1.1088 (-7)$ & $4.2363 (-6)$ \\
+$256$  & $4.2563 (-9)$ & $1.4700 (-7)$ & $7.1437 (-9)$ & $2.6521 (-7)$ \\
+$511$  & $2.7115(-10)$ & $9.4135 (-9)$ & $4.5361(-10)$ & $1.6554 (-8)$ \\
+\hline
+\hline
+\textbf{ordre estimé} & $3.8787$ & $3.8036$ & $3.8868$ & $3.8997$\\
+\hline 
+\end{tabular}
+\end{center}
+\caption{Table de convergence des gradients approchés $\nabla_{T,\Delta}$ et $\nabla_{T,\dec}$.}
+\label{tab:rate_grad3}
+\end{table}
 
 
 

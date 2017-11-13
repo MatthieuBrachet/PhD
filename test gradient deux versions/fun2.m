@@ -2,8 +2,8 @@ function [func,gr] = fun2(x,y,z)
 global radius
 rr=radius;
 p=1;
-q=1;
-r=1;
+q=2;
+r=3;
 func=(x.^p).*(y.^q).*(z.^r);
 proj=(p+q+r)./rr.*func;
 

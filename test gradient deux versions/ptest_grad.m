@@ -9,9 +9,9 @@ global x_fVI y_fVI z_fVI;
 global scheme
 
 scheme='compact8';
-n=255;
-mod_bis;
-%mod101
+n=63;
+%mod_bis;
+mod101
 
 [mfunfI,gr_fI] = fun2(x_fI,y_fI,z_fI);
 [mfunfII,gr_fII] = fun2(x_fII,y_fII,z_fII);
@@ -22,8 +22,8 @@ mod_bis;
 
 MM=max(max(max(abs([gr_fI gr_fII gr_fIII gr_fIV gr_fV gr_fVI]))));
 
-[grad_fI,grad_fII,grad_fIII,grad_fIV,grad_fV,grad_fVI]=grad1000(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
-%[grad_fI,grad_fII,grad_fIII,grad_fIV,grad_fV,grad_fVI]=gr101(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
+%[grad_fI,grad_fII,grad_fIII,grad_fIV,grad_fV,grad_fVI]=grad1000(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
+[grad_fI,grad_fII,grad_fIII,grad_fIV,grad_fV,grad_fVI]=gr101(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
 err=max(max(max(abs([grad_fI-gr_fI; grad_fII-gr_fII; grad_fIII-gr_fIII; grad_fIV-gr_fIV; grad_fV-gr_fV; grad_fVI-gr_fVI]))))./MM
 
 err_I=((grad_fI(:,:,1)-gr_fI(:,:,1)).^2+(grad_fI(:,:,2)-gr_fI(:,:,2)).^2+(grad_fI(:,:,3)-gr_fI(:,:,3)).^2)./MM.^2;
@@ -51,9 +51,10 @@ e_IV=max(abs(grad_fIV-gr_fIV),[],3)./MM;
 e_V=max(abs(grad_fV-gr_fV),[],3)./MM;
 e_VI=max(abs(grad_fVI-gr_fVI),[],3)./MM;
 
-figure(3)
+hFig=figure(3)
+set(gcf,'PaperPositionMode','auto')
+set(hFig, 'Position', [50 50 1000 500])
 plot_cs100(n,nn,e_I,e_II,e_III,e_IV,e_V,e_VI)
-title('max(error)')
 colorbar
 
 

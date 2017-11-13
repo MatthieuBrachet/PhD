@@ -257,28 +257,28 @@ the_Ib=the_I(1:(nn+1)/2,1:nn);
 funfIea=funfIe((nn+1)/2:nn,1:nn);
 funfIeb=funfIe(1:(nn+1)/2,1:nn);
 
-% plot3(lam_I(1,:),the_I(1,:),funfIe(1,:)+eps,'k','LineWidth',1.25); hold on;
-% plot3(lam_I(nn,:),the_I(nn,:),funfIe(nn,:)+eps,'k','LineWidth',1.25); hold on;
-% plot3(lam_I(:,1),the_I(:,1),funfIe(:,1)+eps,'k','LineWidth',1.25); hold on;
-% plot3(lam_I(:,nn),the_I(:,nn),funfIe(:,nn)+eps,'k','LineWidth',1.25); hold on;
-% 
-% plot3(lam_II(1,:),the_II(1,:),funfIIe(1,:)+eps,'k','LineWidth',1.25); hold on;
-% plot3(lam_II(nn,:),the_II(nn,:),funfIIe(nn,:)+eps,'k','LineWidth',1.25); hold on;
-% plot3(lam_II(:,1),the_II(:,1),funfIIe(:,1)+eps,'k','LineWidth',1.25); hold on;
-% plot3(lam_II(:,nn),the_II(:,nn),funfIIe(:,nn)+eps,'k','LineWidth',1.25); hold on;
-% 
-% lam_III=lam_III+2*pi*(lam_III<-eps);
-% plot3(lam_III(1,:),the_III(1,:),funfIIIe(1,:)+eps,'k','LineWidth',1.25); hold on;
-% plot3(lam_III(nn,:),the_III(nn,:),funfIIIe(nn,:)+eps,'k','LineWidth',1.25); hold on;
-% plot3(lam_III(1:(nn+1)/2,1),the_III(1:(nn+1)/2,1),funfIIIe(1:(nn+1)/2,1)+eps,'k','LineWidth',1.25); hold on;
-% plot3(lam_III((nn+1)/2:nn,1)-2*pi,the_III((nn+1)/2:nn,1),funfIIIe((nn+1)/2:nn,1)+eps,'k','LineWidth',1.25); hold on;
-% plot3(lam_III(1:(nn+1)/2,nn),the_III(1:(nn+1)/2,nn),funfIIIe(1:(nn+1)/2,nn)+eps,'k','LineWidth',1.25); hold on;
-% plot3(lam_III((nn+1)/2:nn,nn)-2*pi,the_III((nn+1)/2:nn,nn),funfIIIe((nn+1)/2:nn,nn)+eps,'k','LineWidth',1.25); hold on;
-% 
-% plot3(lam_IV(1,:),the_IV(1,:),funfIVe(1,:)+eps,'k','LineWidth',1.25); hold on;
-% plot3(lam_IV(nn,:),the_IV(nn,:),funfIVe(nn,:)+eps,'k','LineWidth',1.25); hold on;
-% plot3(lam_IV(:,1),the_IV(:,1),funfIVe(:,1)+eps,'k','LineWidth',1.25); hold on;
-% plot3(lam_IV(:,nn),the_IV(:,nn),funfIVe(:,nn)+eps,'k','LineWidth',1.25); hold on;
+plot3(lam_I(1,:),the_I(1,:),funfIe(1,:)+eps,'k','LineWidth',1.25); hold on;
+plot3(lam_I(nn,:),the_I(nn,:),funfIe(nn,:)+eps,'k','LineWidth',1.25); hold on;
+plot3(lam_I(:,1),the_I(:,1),funfIe(:,1)+eps,'k','LineWidth',1.25); hold on;
+plot3(lam_I(:,nn),the_I(:,nn),funfIe(:,nn)+eps,'k','LineWidth',1.25); hold on;
+
+plot3(lam_II(1,:),the_II(1,:),funfIIe(1,:)+eps,'k','LineWidth',1.25); hold on;
+plot3(lam_II(nn,:),the_II(nn,:),funfIIe(nn,:)+eps,'k','LineWidth',1.25); hold on;
+plot3(lam_II(:,1),the_II(:,1),funfIIe(:,1)+eps,'k','LineWidth',1.25); hold on;
+plot3(lam_II(:,nn),the_II(:,nn),funfIIe(:,nn)+eps,'k','LineWidth',1.25); hold on;
+
+lam_III=lam_III+2*pi*(lam_III<-eps);
+plot3(lam_III(1,:),the_III(1,:),funfIIIe(1,:)+eps,'k','LineWidth',1.25); hold on;
+plot3(lam_III(nn,:),the_III(nn,:),funfIIIe(nn,:)+eps,'k','LineWidth',1.25); hold on;
+plot3(lam_III(1:(nn+1)/2,1),the_III(1:(nn+1)/2,1),funfIIIe(1:(nn+1)/2,1)+eps,'k','LineWidth',1.25); hold on;
+plot3(lam_III((nn+1)/2:nn,1)-2*pi,the_III((nn+1)/2:nn,1),funfIIIe((nn+1)/2:nn,1)+eps,'k','LineWidth',1.25); hold on;
+plot3(lam_III(1:(nn+1)/2,nn),the_III(1:(nn+1)/2,nn),funfIIIe(1:(nn+1)/2,nn)+eps,'k','LineWidth',1.25); hold on;
+plot3(lam_III((nn+1)/2:nn,nn)-2*pi,the_III((nn+1)/2:nn,nn),funfIIIe((nn+1)/2:nn,nn)+eps,'k','LineWidth',1.25); hold on;
+
+plot3(lam_IV(1,:),the_IV(1,:),funfIVe(1,:)+eps,'k','LineWidth',1.25); hold on;
+plot3(lam_IV(nn,:),the_IV(nn,:),funfIVe(nn,:)+eps,'k','LineWidth',1.25); hold on;
+plot3(lam_IV(:,1),the_IV(:,1),funfIVe(:,1)+eps,'k','LineWidth',1.25); hold on;
+plot3(lam_IV(:,nn),the_IV(:,nn),funfIVe(:,nn)+eps,'k','LineWidth',1.25); hold on;
 
 
 shading interp;

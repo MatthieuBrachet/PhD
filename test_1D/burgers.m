@@ -1,12 +1,12 @@
 clc; clear all; close all;
 
-n=1000;
+n=200;
 h=1./n;
 x=[h:h:1]';
 
 cfl=.8;
 ddt=cfl*h/.5;
-tmax=3;
+tmax=1;
 
 k=diag(ones(n-1,1),1)-diag(ones(n-1,1),-1);
 k(1,end)=-1; k(end,1)=1;
@@ -74,15 +74,16 @@ while t+ddt<tmax
     
     cons=[cons sum(u)*h-int];
     
-    w=k*u;
-    dux=p\w;
+%     w=k*u;
+%     dux=p\w;
 %     w=k*dux;
 %     duxx=p\w;
     
-    pause(0.001)
+    pause(0.00001)
     clf
     figure(1)
-    plot(x,log(abs(dux)))
+    plot(x,u)
+    axis([0 1 0 1])
 end
 
 figure(2)
