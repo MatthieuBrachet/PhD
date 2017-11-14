@@ -18,7 +18,7 @@ p(end,1)=1/6; p(1,end)=1/6;
 p=sparse(p);
 
 
-opt_ftr='redonnet';
+opt_ftr='redonnet10';
 if strcmp(opt_ftr,'redonnet10')==1
     ftr0=772/1024;
     ftr1=420/1024;
@@ -39,6 +39,22 @@ elseif strcmp(opt_ftr,'redonnet2')==1
     ftr1=1/2;
     J=diag(ones(n-1,1),1); J(end,1)=1;
     ftr=ftr0.*eye(n,n)+ftr1/2*(J+J^(n-1));
+elseif strcmp(opt_ftr,'bogey6')==1
+    d0=0.234810479761700;
+    d1=-.199250131285813;
+    d2=0.120198310245186;
+    d3=-.049303775636020;
+    d4=0.012396449873964;
+    d5=-.001446093078167;
+    
+    ftr0=1-d0;
+    ftr1=-d1;
+    ftr2=-d2;
+    ftr3=-d3;
+    ftr4=-d4;
+    ftr5=-d5;
+    J=diag(ones(n-1,1),1); J(end,1)=1;
+    ftr=ftr0.*eye(n,n)+ftr1*(J+J^(n-1))+ftr2*(J^2+J^(n-2))+ftr3*(J^3+J^(n-3))+ftr4*(J^4+J^(n-4))+ftr5*(J^5+J^(n-5));
 else
     ftr=speye(n,n);
 end
@@ -79,16 +95,12 @@ while t+ddt<tmax
     %uex=.4*cos(2*pi*(x-c*t))+.5;
     e=[e norm(u-uex,inf)];
     cons=[cons sum(u)*h-int];
-    
-    w=k*u;
-    dux=p\w;
-    w=k*dux;
-    duxx=p\w;
+
     
     pause(0.001)
     clf
     figure(1)
-    plot(x,log(abs(duxx)))
+    plot(x,u)
    % axis([0 1 -.2 1.2])
 end
 
