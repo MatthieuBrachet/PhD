@@ -636,6 +636,7 @@ On définit l'opérateur \textit{gradient discret} par
 \nabla_{T,\Delta} h_{i,j}^{(k)} = h_{\xi,i,j}^{(k)} ( \mathbf{g}^{\xi} )_{i,j}^{(k)} + h_{\eta,i,j}^{(k)} ( \mathbf{g}^{\eta} )_{i,j}^{(k)}
 \end{equation}
 avec $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \ldots , (VI)$ ainsi que $h_{\xi,i,j}^{(k)}$ et $h_{\eta,i,j}^{(k)}$ obtenus grâce aux algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta}.
+\label{def:gradient_disc}
 \end{definition}
 L'opérateur gradient discret de $h$, $\nabla_{T,\Delta} h_{i,j}^{(k)}$ donne une approximation du gradient continu en $\mathbf{x}_{i,j}^{(k)}$. En effet, le résultat de consistance suivant est vérifié:
 
@@ -906,6 +907,170 @@ $511$  & $2.7115(-10)$ & $9.4135 (-9)$ & $4.5361(-10)$ & $1.6554 (-8)$ \\
 
 
 \subsection{Opérateur divergence discret}
+
+Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur régulier sur la sphère. Il existe alors $u$, $v$ et $w$ des fonctions régulières de $\mathbb{S}_a^2$ dans $\mathbb{R}$ telles que
+\begin{equation}
+\mathbf{v}(\mathbf{x}) = u(\mathbf{x}) \mathbf{i} + v (\mathbf{x}) \mathbf{j} + w(\mathbf{x}) \mathbf{k}
+\end{equation}
+avec $(\mathbf{i}, \mathbf{j}, \mathbf{k})$ la base canonique de $\mathbb{R}^3$ et $\mathbf{x} \in \mathbb{S}_a^2$. On définit $\mathbf{v}_{\xi,i,j}^{(k)}$ et $\mathbf{v}_{\eta,i,j}^{(k)}$ par
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\mathbf{v}_{\xi,i,j}^{(k)} & = & u_{\xi,i,j}^{(k)} \mathbf{i} + v_{\xi,i,j}^{(k)} \mathbf{j} + w_{\xi,i,j}^{(k)} \mathbf{k} \\
+\mathbf{v}_{\eta,i,j}^{(k)} & = & u_{\eta,i,j}^{(k)} \mathbf{i} + v_{\eta,i,j}^{(k)} \mathbf{j} + w_{\eta,i,j}^{(k)} \mathbf{k}
+\end{array}
+\right.
+\text{ pour } -N/2 \leq  i,j \leq N/2 \text{, } (k) = (I), \ldots, (VI). 
+\end{equation}
+où les fonctions de grilles $(u_{\xi,i,j}^{(k)}), (u_{\eta,i,j}^{(k)}),  \ldots$ sont construites grâce aux algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta}.
+
+\begin{definition}
+On définit l'opérateur \textit{divergence discrète} par 
+\begin{equation}
+\nabla_{T,\Delta} \cdot \mathbf{v}_{i,j}^{(k)} = \mathbf{v}_{\xi,i,j}^{(k)} \cdot ( \mathbf{g}^{\xi} )_{i,j}^{(k)} + \mathbf{v}_{\eta,i,j}^{(k)} \cdot ( \mathbf{g}^{\eta} )_{i,j}^{(k)}
+\end{equation}
+avec $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \ldots , (VI)$.
+\label{def:divergence_disc}
+\end{definition}
+Comme pour le gradient, si un point $\mathbf{x}_{i,j}^{(k)}$ appartient à plusieurs panels, on y calcule plusieurs divergences. La moyenne des divergences est conservée en ce point.
+L'opérateur divergence discret de $\mathbf{v}_{i,j}^{(k)}$ est une approximation du gradient en $\mathbf{x}_{i,j}^{(k)}$. En effet
+
+\begin{proposition}
+Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur régulier sur la sphère. Alors pour tout $-N/2 \leq i,j \leq N/2$ et $(k) = (I) , \ldots , (VI)$, on a 
+\begin{equation}
+\nabla_{T,\Delta} \cdot \mathbf{v}_{i,j}^{(k)} - (\nabla_{T} \cdot \mathbf{v} )_{i,j}^{*,(k)} = \mathcal{O} \left( \Delta^3 \right)
+\end{equation}
+où $*$ désigne la restriction à la Cubed-Sphere et $\Delta  = \Delta \xi = \Delta \eta$.
+\label{prop:accuracy_divergence}
+\end{proposition}
+
+\begin{proof}
+Conséquence du théorème \ref{th:consistance_der_xieta}.
+\end{proof}
+
+Pour construire un test pour évaluer les performances du gradient approché $\nabla_{T, \Delta} \cdot$, certaines propriétés son utiles.
+\begin{lemme}
+Soit $\mathbf{w} : \mathbf{x} \mapsto \mathbf{w}(\mathbf{x}) \in \mathbb{R}^3$ un champ de vecteurs. Si on note $ \mathbf{n}(\mathbf{x}) = \mathbf{x}/a$ le vecteur normal unitaire à $\mathbb{S}_a^2$, alors si $\mathbf{x} \in \mathbb{S}_a^2$
+\begin{equation}
+\mathbf{F}(\mathbf{x}) = \mathbf{n}(\mathbf{x}) \wedge \mathbf{w}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2.
+\end{equation}
+\end{lemme}
+
+\begin{proposition}
+Pour tout $\mathbf{x} \in \mathbb{S}_a^2$, 
+on pose $\mathbf{F}(\mathbf{x}) = \mathbf{n}(\mathbf{x}) \wedge (f (\mathbf{x}) \mathbf{u})$ 
+avec $\mathbf{u}$ un vecteur constant de 
+$\mathbb{R}^3$, alors
+\begin{equation}
+\nabla_T \cdot \mathbf{F} = \nabla_T f \cdot \left( \mathbf{n} \wedge \mathbf{u} \right)
+\end{equation}
+avec $\mathbf{n}$ est le vecteur unitaire extérieur à $\mathbb{S}_a^2$.
+\label{prop:grad-div_link}
+\end{proposition}
+
+\begin{proof}
+\begin{itemize}
+\item Soit $\mathbf{x} \in \mathbb{S}_a^2$, alors 
+\begin{align*}
+\dfrac{\partial}{\partial \xi} \mathbf{n}(\mathbf{x}) & = \dfrac{1}{a} \dfrac{\partial \mathbf{x}}{\partial \xi} \\
+		& = \dfrac{1}{a} \mathbf{g}_{\xi} \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2
+\end{align*}
+De même, 
+\begin{equation*}
+\dfrac{\partial}{\partial \eta} \mathbf{n}(\mathbf{x})= \dfrac{1}{a} \mathbf{g}_{\eta} \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2.
+\end{equation*}
+
+\item On considère le terme en $\mathbf{g}^\xi$ de la divergence
+\begin{align*}
+\dfrac{\partial}{\partial \xi} \mathbf{F} \cdot \mathbf{g}^{\xi} & = \dfrac{\partial}{\partial \xi} \left( \mathbf{n} \wedge f \mathbf{w} \right) \cdot \mathbf{g}^{\xi} \\
+	& = \left( \dfrac{\partial \mathbf{n}}{\partial \xi} \wedge f \mathbf{w} + \mathbf{n} \wedge  \dfrac{\partial}{\partial \xi} \left( f \mathbf{w} \right) \right) \cdot \mathbf{g}^{\xi} \\
+	& = \left( \mathbf{n} \wedge \mathbf{w} \right) \cdot \dfrac{\partial f}{\partial \xi} \mathbf{g}^{\xi}
+\end{align*}
+car $\mathbf{n} \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ et $\mathbf{w}$ est un vecteur constant.
+De la même manière, pour le terme en $\eta$, on a 
+\begin{equation*}
+\dfrac{\partial}{\partial \eta} \mathbf{F} \cdot \mathbf{g}^{\eta} = \left( \mathbf{n} \wedge \mathbf{w} \right) \cdot \dfrac{\partial f}{\partial \eta} \mathbf{g}^{\eta}.
+\end{equation*}
+
+\item On peut assembler la divergence :
+\begin{align*}
+\nabla_T \cdot \mathbf{F} & = \dfrac{\partial}{\partial \xi} \mathbf{F} \cdot \mathbf{g}^{\xi} + \dfrac{\partial}{\partial \eta} \mathbf{F} \cdot \mathbf{g}^{\eta}\\
+	& = \left( \mathbf{n} \wedge \mathbf{w} \right) \cdot \dfrac{\partial f}{\partial \xi} \mathbf{g}^{\xi} + \left( \mathbf{n} \wedge \mathbf{w} \right) \cdot \dfrac{\partial f}{\partial \eta} \mathbf{g}^{\eta}\\
+	& = \nabla_T f \cdot \left( \mathbf{n} \wedge \mathbf{u} \right).
+\end{align*}
+\end{itemize}
+\end{proof}
+De plus, l'opérateur divergence est à moyenne nulle, c'est à dire que la relation suivante est vérifiée :
+\begin{equation}
+\gint_{\mathbb{S}_a^2} \nabla_T \cdot \mathbf{u} ( \mathbf{x} ) d \sigma ( \mathbf{x} ) = 0
+\label{eq:conservation_divergence}
+\end{equation}
+Pour valider l'opérateur de divergence approchée $\nabla_{T, \Delta} \cdot$ , on choisit de le tester sur le champ de vecteurs 
+\begin{equation}
+\mathbf{F}(\mathbf{x}) = x^p y^q z^r \mathbf{n}(\mathbf{x}) \wedge \mathbf{u}
+\label{eq:test_divergence}
+\end{equation}
+avec $p,q,r \in \mathbb{N}$ et $\mathbf{u} = [1, 1, 1]^T$. La divergence d'un tel champ de vecteur est donné par la proposition \ref{prop:grad-div_link} et la proposition \ref{prop:gradient_project}. 
+On mesure l'erreur relative donnée par 
+\begin{equation}
+\dfrac{\| \nabla_{T,\Delta} \cdot \mathbf{F} - \nabla_{T} \cdot \mathbf{F}^* \|_s}{\| \nabla_{T} \cdot \mathbf{F}^* \|_s}
+\end{equation}
+avec $s \in \left\lbrace 1, 2, \infty \right\rbrace$. $*$ désigne la restriction à la Cubed-Sphere.
+On mesure aussi l'erreur sur la conservation, c'est à dire la valeur approchée de l'intégrale \ref{eq:conservation_divergence}. Les résultats sont donnés dans les tables \ref{tab:rate_div} et \ref{tab:rate_div_t2}. Ils permettent de confirmer l'ordre 3 minimum obtenu théoriquement et donnent un ordre 4 numérique aussi bien sur l'erreur de la divergence que sur la conservation. La table \ref{tab:rate_div_t2} présente une erreur de conservation proche de l'erreur machine quel que soit le maillage, ce résultat est attribué aux symétries de la solution lorsque $(p,q,r)=(1,1,1)$.
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c||c|}
+\hline
+\textbf{N}  & \textbf{norme 1} & \textbf{norme 2} & \textbf{norme $\infty$} & \textbf{conservation}  \\
+\hline
+\hline
+$16$ & $3.3707 (-4)$ & $3.1674 (-4)$ & $3.7839 (-4)$  & $1.6810 (-6)$ \\
+$32$ & $2.0751 (-4)$ & $1.9593 (-5)$ & $2.5503 (-5)$  & $1.1083 (-7)$ \\
+$64$ & $1.2964 (-6)$ & $1.2274 (-6)$ & $1.8238 (-6)$  & $7.0272 (-9)$ \\
+$128$& $8.1231 (-8)$ & $7.6985 (-8)$ & $1.2133 (-7)$  & $4.4093 (-10)$\\
+$256$& $5.0903 (-9)$ & $4.8271 (-9)$ & $7.8110 (-9)$  & $2.7597 (-11)$\\
+$512$& $3.1888(-10)$ & $3.0280(-10)$ & $4.9564(-10)$  & $1.7256 (-12)$\\
+\hline 
+\hline
+\textbf{ordre estimé}& $4.0010$ & $3.9982$ & $3.9040$ & $3.9822$ \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Table de convergence pour la divergence de \eqref{eq:test_divergence} avec $(p,q,r)=(1,2,3)$ en normes 1, 2 et infinie. On vérifie aussi la conservation \eqref{eq:conservation_divergence}}.
+\label{tab:rate_div}
+\end{table}
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c||c|}
+\hline
+\textbf{N}  & \textbf{norme 1} & \textbf{norme 2} & \textbf{norme $\infty$} & \textbf{conservation}  \\
+\hline
+\hline
+$16$ & $4.4656 (-5)$ & $5.2622 (-5)$ & $1.1018 (-4)$  & $2.2965 (-18)$ \\
+$32$ & $2.9404 (-6)$ & $3.4964 (-6)$ & $8.9432 (-4)$  & $9.5834 (-18)$ \\
+$64$ & $1.8859 (-7)$ & $2.2566 (-7)$ & $6.3993 (-7)$  & $6.9334 (-18)$ \\
+$128$& $1.1972 (-8)$ & $1.4352 (-8)$ & $4.2842 (-8)$  & $7.5356 (-18)$\\
+$256$& $7.5548(-10)$ & $9.0630(-10)$ & $2.7721 (-9)$  & $1.3528 (-17)$\\
+$512$& $4.7499(-11)$ & $5.7106(-11)$ & $1.7640(-10)$  & $1.7256 (-18)$\\
+\hline 
+\hline
+\textbf{ordre estimé}& $3.9705$ & $3.9652$ & $3.8609$ & $3.9822$ \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Table de convergence pour la divergence de \eqref{eq:test_divergence} avec $(p,q,r)=(1,1,1)$ en normes 1, 2 et infinie. On vérifie aussi la conservation \eqref{eq:conservation_divergence}}.
+\label{tab:rate_div_t2}
+\end{table}
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{rate_div_1_123.png}
+\includegraphics[height=5cm]{rate_div_1_111.png}
+\end{center}
+\caption{Convergence de la divergence approchée avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(1,1,1)$ à droite avec différentes normes.}
+\label{fig:rate_div1}
+\end{figure}
+Les courbes de convergences en figure \ref{fig:rate_div1} sont très proches les unes des autres et ont une pente proche de l'ordre 4.
+
 
 \subsection{Variante de l'opérateur de divergence discret}
 
