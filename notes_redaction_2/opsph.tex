@@ -67,6 +67,7 @@ Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ une fonction rég
 \item \textbf{Divergence} :
 \begin{equation}
 \nabla_T \cdot \mathbf{v} = \dfrac{\partial \mathbf{v}}{\partial \xi}_{|\eta_j} \cdot \mathbf{g}^{\xi} + \dfrac{\partial \mathbf{v}}{\partial \eta}_{|\xi_i} \cdot \mathbf{g}^{\eta},
+\label{eq:divergence_v1}
 \end{equation}
 
 \item \textbf{Rotationel} :
@@ -1074,11 +1075,88 @@ Les courbes de convergences en figure \ref{fig:rate_div1} sont très proches les
 
 \subsection{Variante de l'opérateur de divergence discret}
 
-\subsubsection{Gradient moins couteux en calcul}
+La divergence utilisée dans \ref{def:divergence_disc} est couteuse en calcul. Il faut calculer 6 dérivées hermitiennes. Une méthode basée sur une divergence approchée moins coûteuse en calculs est donnée dans \cite{Croisille2015}. Cette méthode est basée sur le résultat suivant :
 
-Utilisation d'une forme du gradient en utilisant des grands cercles et moins de dérivées.
+\begin{proposition}
+Si $\mathbf{F} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{F}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ est un champ de vecteurs réguliers sur la sphère, alors l'égalité suivante est vérifiée en $\mathbf{x}_{i,j}^{(k)}$ :
+\begin{equation}
+\nabla_T \cdot \mathbf{F} = \dfrac{1}{\sqrt{\bar{\mathbf{G}}}} \left[ \dfrac{\partial}{\partial \xi} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\xi} \right)_{\eta = \eta_j} + 
+\dfrac{\partial}{\partial \eta} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\eta} \right)_{\xi = \xi_i}
+\right]
+\label{eq:divergence_v2}
+\end{equation}
+\end{proposition}
 
-\subsection{Comparaisons numériques}
+\begin{proof}
+TBA
+\end{proof}
+
+Si l'on utilise la forme de la divergence \eqref{eq:divergence_v2} au lieu \eqref{eq:divergence_v1}, il n'y a que 2 dérivées hermitiennes à calculer au lieu de 6. 
+On se concentre sur le panel $(I)$ pour détailler la procédure. Pour calculer le terme
+\begin{equation}
+\dfrac{\partial}{\partial \xi} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\xi} \right)_{\eta = \eta_j}
+\end{equation}
+on utilise encore une fois la structure en grands cercles. La fonction
+\begin{equation}
+\xi \mapsto \sqrt{\bar{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\xi}
+\end{equation}
+est bien définie sur le panel $(I)$ et peut s'étendre facilement aux panels $(I)$ et $(III)$. En effet, si $\mathbf{x}(x,y,z) \in \mathbb{S}_a^2$ on a
+\begin{equation}
+\mathbf{g}^{\xi} (\mathbf{x} ) = \dfrac{1}{1 + \dfrac{y^2}{x^2}} \begin{bmatrix}
+- \dfrac{y}{x^2} \\
+\dfrac{1}{x} \\
+0
+\end{bmatrix} \text{ ainsi que } \sqrt{\bar{\mathbf{G}}} = a^2 \dfrac{(1+X^2)(1+Y^2)}{(1+X^2+Y^2)^{3/2}}
+\label{eq:expression_div_v2}
+\end{equation}
+avec $X=\frac{y}{x}$ et $Y = \frac{z}{|x|}$.
+Cependant, sur les panels $(II)$ et $(IV)$, il est possible d'avoir $x = 0$, ce qui est impossible dans les expressions \eqref{eq:expression_div_v2} compte tenue de l'utilisation de $x \mapsto 1/x$ et $x \mapsto 1/|x|$.
+On remplace ces deux fonctions par des prolongements de classe $\mathcal{C}^2$ au voisinage de $0$ :
+\begin{equation}
+\psi_1 (x) = \left\lbrace
+\begin{array}{ll}
+\frac{1}{x} & \text{ si } |x| \geq s a \\
+\frac{1}{s^6} x^5 - \frac{3}{s^4} x^3 + \frac{3}{s^2} x \text{ si } |x| \leq s a
+\end{array}
+\right.
+\end{equation} 
+\begin{equation}
+\psi_2 (x) = \left\lbrace
+\begin{array}{ll}
+\frac{1}{|x|} & \text{ si } |x| \geq s a \\
+\frac{3}{8s^5} |x|^4 - \frac{5}{4s^3} |x|^2 + \frac{15}{8s} & \text{ si } |x| \leq s a
+\end{array}
+\right.
+\end{equation} 
+où $s$ est un paramètre de seuillage permettant de peu affecter la fonction initiale. Dans la pratique, nous utilisons $s=0.05$. On remplace dans \eqref{eq:expression_div_v2} les termes en $1/x$ et $1/|x|$ par $\psi_1(x)$ et $\psi_2(x)$. Ainsi, on pose
+\begin{equation}
+\tilde{\mathbf{g}}^{\xi} (\mathbf{x} ) = \dfrac{1}{1 + (y\psi_2(x))^2} \begin{bmatrix}
+- y\psi_1(x^2) \\
+\psi_1(x) \\
+0
+\end{bmatrix} \text{ ainsi que } \sqrt{\tilde{\mathbf{G}}} = a^2 \dfrac{(1+\tilde{X}^2)(1+ \tilde{Y}^2)}{(1+\tilde{X}^2+\tilde{Y}^2)^{3/2}}
+\label{eq:expression2_div_v2}
+\end{equation}
+avec $\tilde{X}=y \psi_1(x)$ et $Y = z \psi_2(x)$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

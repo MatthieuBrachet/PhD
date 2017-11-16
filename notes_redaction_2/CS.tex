@@ -1212,11 +1212,11 @@ De la même manière, en dérivant par rapport à $\eta$ :
 On en déduit la base sur le panel I $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta} \right)$ donnée par :
 
 \begin{equation}
-\mathbf{g}_{\xi} := \dfrac{\partial \mathbf{x}}{\partial \xi}= \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+\mathbf{g}_{\xi} := \dfrac{\partial \mathbf{x}}{\partial \xi}= \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
 -y \\ x(1+Y^2) \\ -yY
-\end{pmatrix} \text{ et } \mathbf{g}_{\eta} := \dfrac{\partial \mathbf{x}}{\partial \xi}= \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+\end{bmatrix} \text{ et } \mathbf{g}_{\eta} := \dfrac{\partial \mathbf{x}}{\partial \xi}= \dfrac{1+Y^2}{\delta^2} \begin{bmatrix}
 -z \\ -zX \\ x(1+X^2)
-\end{pmatrix}
+\end{bmatrix}
 \label{eq: base locale I}
 \end{equation}
 
@@ -1249,39 +1249,39 @@ $\mathbf{g}^{\xi}$ et $\mathbf{g}^{\eta}$ sont des vecteurs de $\mathbb{T}_{\mat
 En effectuant des produit scalaires de \eqref{eq: A B C D} par $\mathbf{g}_{\xi}$ et $\mathbf{g}_{\eta}$, on montre que :
 
 \begin{equation}
-\begin{pmatrix}
+\begin{bmatrix}
 A & B \\ C &  D
-\end{pmatrix}
+\end{bmatrix}
 \times
-\begin{pmatrix}
+\begin{bmatrix}
 \mathbf{g}_{\xi} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot \mathbf{g}_{\eta} \\
 \mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot \mathbf{g}_{\eta}
-\end{pmatrix}
-= \begin{pmatrix}
-1 & 0 \\ 0 &  0
-\end{pmatrix}
+\end{bmatrix}
+= \begin{bmatrix}
+1 & 0 \\ 0 &  1
+\end{bmatrix}
 \end{equation}
 
 On peut directement déduire :
 \begin{equation}
-\begin{pmatrix}
+\begin{bmatrix}
 A & B \\ C &  D
-\end{pmatrix} 
+\end{bmatrix} 
 =
-\begin{pmatrix}
+\begin{bmatrix}
 \mathbf{g}_{\xi} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot \mathbf{g}_{\eta} \\
 \mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot \mathbf{g}_{\eta}
-\end{pmatrix}^{-1}
+\end{bmatrix}^{-1}
 \end{equation}
 
 
 \begin{definition}
 $\mathbf{G}$ est la métrique associée à $(\mathbf{g}_{\xi}, \mathbf{g}_{\eta})$ en $\mathbf{x}$:
 \begin{equation}
-\mathbf{G} = \begin{pmatrix}
+\mathbf{G} = \begin{bmatrix}
 \mathbf{g}_{\xi} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot \mathbf{g}_{\eta} \\
 \mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot \mathbf{g}_{\eta}
-\end{pmatrix}
+\end{bmatrix}
 \end{equation}
 \end{definition}
 
@@ -1303,24 +1303,24 @@ Ainsi, si $\mathbf{G}$ est la métrique en $\mathbf{x}$ et $\mathbf{G}'$ la mét
 
 \begin{equation*}
 \begin{array}{rcl}
-\mathbf{G}' &=& \begin{pmatrix}
+\mathbf{G}' &=& \begin{bmatrix}
 \mathbf{g'}_{\xi} \cdot \mathbf{g'}_{\xi} & \mathbf{g'}_{\xi} \cdot \mathbf{g'}_{\eta} \\
 \mathbf{g'}_{\eta} \cdot \mathbf{g'}_{\xi} & \mathbf{g'}_{\eta} \cdot \mathbf{g'}_{\eta}
-\end{pmatrix}\\[10pt]
+\end{bmatrix}\\[10pt]
 &=&
-\begin{pmatrix}
+\begin{bmatrix}
 R_f \mathbf{g}_{\xi} \cdot R_f \mathbf{g}_{\xi} & R_f \mathbf{g}_{\xi} \cdot R_f \mathbf{g}_{\eta} \\
 R_f \mathbf{g}_{\eta} \cdot R_f \mathbf{g}_{\xi} & R_f \mathbf{g}_{\eta} \cdot R_f \mathbf{g}_{\eta}
-\end{pmatrix}\\[10pt]
+\end{bmatrix}\\[10pt]
 &=&
-\begin{pmatrix}
+\begin{bmatrix}
 \mathbf{g}_{\xi} \cdot R_f^{T} R_f \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot  R_f^{T} R_f \mathbf{g}_{\eta} \\
 \mathbf{g}_{\eta} \cdot  R_f^{T} R_f \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot  R_f^{T} R_f \mathbf{g}_{\eta}
-\end{pmatrix}\\[10pt]
-&=& \begin{pmatrix}
+\end{bmatrix}\\[10pt]
+&=& \begin{bmatrix}
 \mathbf{g}_{\xi} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot \mathbf{g}_{\eta} \\
 \mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot \mathbf{g}_{\eta}
-\end{pmatrix}\\[10pt]
+\end{bmatrix}\\[10pt]
 & = & \mathbf{G}
 \end{array}
 \end{equation*}
@@ -1330,22 +1330,22 @@ Donc la métrique $\mathbf{G}$ est invariante par changement de panel.
 Les calculs de produits scalaire se font facilement et donnent :
 
 \begin{equation}
-\mathbf{G} = \begin{pmatrix}
+\mathbf{G} = \begin{bmatrix}
 G_{1,1} & G_{1,2} \\ G_{2,1} & G_{2,2}
-\end{pmatrix} 
-= a^2 \dfrac{(1+X^2)(1+Y^2)}{\delta^4} \begin{pmatrix}
+\end{bmatrix} 
+= a^2 \dfrac{(1+X^2)(1+Y^2)}{\delta^4} \begin{bmatrix}
 1+X^2 & -XY \\ -XY & 1+Y^2
-\end{pmatrix}
+\end{bmatrix}
 \end{equation}
 
 qui s'inverse en :
 
 \begin{equation}
-\mathbf{G}^{-1} = \begin{pmatrix}
+\mathbf{G}^{-1} = \begin{bmatrix}
 G^{1,1} & G^{1,2} \\ G^{2,1} & G^{2,2}
-\end{pmatrix} = \dfrac{\delta^2}{a^2 (1+X^2)(1+Y^2)} \begin{pmatrix}
+\end{bmatrix} = \dfrac{\delta^2}{a^2 (1+X^2)(1+Y^2)} \begin{bmatrix}
 1+Y^2 & XY \\ XY & 1+X^2
-\end{pmatrix}
+\end{bmatrix}
 \label{eq: metrique inverse}
 \end{equation}
 
@@ -1363,11 +1363,11 @@ La base duale $(\mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ sur le panel I est donnée
 d'où :
 
 \begin{equation}
-\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{pmatrix}
+\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{bmatrix}
 -X \\ 1 \\ 0
-\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{pmatrix}
+\end{bmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{bmatrix}
 -Y \\ 0 \\ 1
-\end{pmatrix}
+\end{bmatrix}
 \label{eq: base duale I}
 \end{equation}
 
@@ -1382,88 +1382,88 @@ d'où :
 
 \hline
 \hline
-\multirow{2}{*}[-.5cm]{$I$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{y}{x} \text{, } Y=\dfrac{z}{x}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+\multirow{2}{*}[-.5cm]{$I$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{y}{x} \text{, } Y=\dfrac{z}{x}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
 -y \\ x(1+Y^2) \\ -yY
-\end{pmatrix} \text{,} \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+\end{bmatrix} \text{,} \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{bmatrix}
 -z \\ -zX \\ x(1+X^2)
-\end{pmatrix}$ \\[16pt]
+\end{bmatrix}$ \\[16pt]
 
 \cline{3-3}
-& &  $\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{pmatrix}
+& &  $\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{bmatrix}
 -X \\ 1 \\ 0
-\end{pmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{pmatrix}
+\end{bmatrix} \text{ et } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{bmatrix}
 -Y \\ 0 \\ 1
-\end{pmatrix}$ \\[16pt]
+\end{bmatrix}$ \\[16pt]
 \hline
 \hline
-\multirow{2}{*}[-.5cm]{$II$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{x}{y} \text{, } Y=\dfrac{z}{y}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+\multirow{2}{*}[-.5cm]{$II$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{x}{y} \text{, } Y=\dfrac{z}{y}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
 -y(1+Y^2) \\ x \\ xY
-\end{pmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+\end{bmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{bmatrix}
 zX \\ -z \\ y(1+X^2)
-\end{pmatrix}$ \\[16pt]
+\end{bmatrix}$ \\[16pt]
 
 \cline{3-3}
- & & $\mathbf{g}^{\xi} = \dfrac{1}{y(1+X^2)}\begin{pmatrix}
+ & & $\mathbf{g}^{\xi} = \dfrac{1}{y(1+X^2)}\begin{bmatrix}
 -1 \\ -X \\ 0
-\end{pmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{y(1+Y^2)}\begin{pmatrix}
+\end{bmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{y(1+Y^2)}\begin{bmatrix}
 0 \\ -Y \\ 1
-\end{pmatrix}$ \\[16pt]
+\end{bmatrix}$ \\[16pt]
 \hline
 \hline
-\multirow{2}{*}[-.5cm]{$III$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{y}{x} \text{, } Y=-\dfrac{z}{x}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+\multirow{2}{*}[-.5cm]{$III$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{y}{x} \text{, } Y=-\dfrac{z}{x}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
 -y \\ x(1+Y^2) \\ yY
-\end{pmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+\end{bmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{bmatrix}
 -z \\ -zX \\ x(1+X^2)
-\end{pmatrix}$ \\[16pt]
+\end{bmatrix}$ \\[16pt]
 
  \cline{3-3}
- &  & $\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{pmatrix}
+ &  & $\mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{bmatrix}
 -X \\ 1 \\ 0
-\end{pmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{pmatrix}
+\end{bmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{x(1+Y^2)}\begin{bmatrix}
 -Y \\ 0 \\ -1
-\end{pmatrix}$ \\[16pt]
+\end{bmatrix}$ \\[16pt]
 \hline
 \hline
-\multirow{2}{*}[-.5cm]{$IV$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{x}{y} \text{, } Y=-\dfrac{z}{y}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+\multirow{2}{*}[-.5cm]{$IV$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{x}{y} \text{, } Y=-\dfrac{z}{y}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
 -y(1+Y^2) \\ x \\ -xY
-\end{pmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+\end{bmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{bmatrix}
 -zX \\ z \\ -y(1+X^2)
-\end{pmatrix}$ \\[16pt]
+\end{bmatrix}$ \\[16pt]
 
 \cline{3-3}
-&  & $\mathbf{g}^{\xi} = \dfrac{1}{y(1+X^2)}\begin{pmatrix}
+&  & $\mathbf{g}^{\xi} = \dfrac{1}{y(1+X^2)}\begin{bmatrix}
 -1 \\ -X \\ 0
-\end{pmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{y(1+Y^2)}\begin{pmatrix}
+\end{bmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{y(1+Y^2)}\begin{bmatrix}
 0 \\ -Y \\ -1
-\end{pmatrix}$ \\[16pt]
+\end{bmatrix}$ \\[16pt]
 \hline
 \hline
-\multirow{2}{*}[-.5cm]{$V$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{y}{z} \text{, } Y=\dfrac{x}{z}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+\multirow{2}{*}[-.5cm]{$V$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{y}{z} \text{, } Y=\dfrac{x}{z}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
 -yY \\ z(1+Y^2) \\ -y
-\end{pmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+\end{bmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{bmatrix}
 -z(1+X^2) \\ xX \\ x
-\end{pmatrix}$ \\[16pt]
+\end{bmatrix}$ \\[16pt]
 
 \cline{3-3}
- &  & $\mathbf{g}^{\xi} = \dfrac{1}{z(1+X^2)}\begin{pmatrix}
+ &  & $\mathbf{g}^{\xi} = \dfrac{1}{z(1+X^2)}\begin{bmatrix}
 0 \\ 1 \\ -X
-\end{pmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{z(1+Y^2)}\begin{pmatrix}
+\end{bmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{z(1+Y^2)}\begin{bmatrix}
 -1 \\ 0 \\ -Y
-\end{pmatrix}$ \\[16pt]
+\end{bmatrix}$ \\[16pt]
 \hline
 \hline
-\multirow{2}{*}[-.5cm]{$VI$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{y}{z} \text{, } Y=-\dfrac{x}{z}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{pmatrix}
+\multirow{2}{*}[-.5cm]{$VI$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{y}{z} \text{, } Y=-\dfrac{x}{z}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
 -yY \\ -z(1+Y^2) \\ y
-\end{pmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{pmatrix}
+\end{bmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{bmatrix}
 -z(1+X^2) \\ -xX \\ x
-\end{pmatrix}$ \\[16pt]
+\end{bmatrix}$ \\[16pt]
 
 \cline{3-3}
- &  & $\mathbf{g}^{\xi} = \dfrac{1}{z(1+X^2)}\begin{pmatrix}
+ &  & $\mathbf{g}^{\xi} = \dfrac{1}{z(1+X^2)}\begin{bmatrix}
 0 \\ -1 \\ -X
-\end{pmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{z(1+Y^2)}\begin{pmatrix}
+\end{bmatrix} \text{, } \mathbf{g}^{\eta} = \dfrac{1}{z(1+Y^2)}\begin{bmatrix}
 -1 \\ 0 \\ -Y
-\end{pmatrix}$ \\[16pt]
+\end{bmatrix}$ \\[16pt]
 \hline
 
 \end{tabular}
@@ -1545,25 +1545,25 @@ et la relation est démontrée.
 On peut calculer les dérivées suivantes :
 
 \begin{equation}
-\dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} = \dfrac{1}{x} \begin{pmatrix}
+\dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} = \dfrac{1}{x} \begin{bmatrix}
 -\dfrac{X^2}{\delta^2}+2X \cos \xi \sin \xi -1 \\ \dfrac{X}{\delta^2}-2 \cos \xi \sin \xi \\ 0
-\end{pmatrix}
+\end{bmatrix}
 \text{ et }
-\dfrac{\partial \mathbf{g}^{\xi}}{\partial \eta} = \dfrac{1+Y^2}{\delta^2 x^2 (1+X^2)} \begin{pmatrix}
+\dfrac{\partial \mathbf{g}^{\xi}}{\partial \eta} = \dfrac{1+Y^2}{\delta^2 x^2 (1+X^2)} \begin{bmatrix}
 -X \\ 1 \\ 0
-\end{pmatrix}
+\end{bmatrix}
 \end{equation}
 
 de même :
 
 \begin{equation}
-\dfrac{\partial \mathbf{g}^{\eta}}{\partial \xi} = \dfrac{X(1+X^2)}{x \delta^2 (1+Y^2)} \begin{pmatrix}
+\dfrac{\partial \mathbf{g}^{\eta}}{\partial \xi} = \dfrac{X(1+X^2)}{x \delta^2 (1+Y^2)} \begin{bmatrix}
 -Y \\ 0 \\ 1
-\end{pmatrix}
+\end{bmatrix}
 \text{ et }
-\dfrac{\partial \mathbf{g}^{\eta}}{\partial \eta} = \dfrac{1}{x} \begin{pmatrix}
+\dfrac{\partial \mathbf{g}^{\eta}}{\partial \eta} = \dfrac{1}{x} \begin{bmatrix}
 - \dfrac{Y^2}{\delta^2} + 2 Y \cos \eta \sin \eta -1 \\ 0 \\ \dfrac{Y}{\delta^2}- 2 \cos \eta \sin \eta
-\end{pmatrix}
+\end{bmatrix}
 \end{equation}
 
 d'où les symboles de Christoffel :
@@ -1613,14 +1613,14 @@ $\mathbf{G}$ \textbf{et} $\mathbf{G}^{-1}$ & \textbf{Symboles de Christoffels}\\
 \hline
 \hline
                  &  $\Gamma_{\xi,\eta}^{\xi} = - \dfrac{Y ( 1+Y^2)}{\delta^2}$ \\ 
-$\mathbf{G}=a^2 \dfrac{(1+X^2)(1+Y^2)}{\delta^4} \begin{pmatrix}
+$\mathbf{G}=a^2 \dfrac{(1+X^2)(1+Y^2)}{\delta^4} \begin{bmatrix}
 1+X^2 & -XY \\ -XY & 1+Y^2
-\end{pmatrix}$   & $\Gamma_{\xi,\eta}^{\eta} = - \dfrac{X(1+X^2)}{\delta^2}$ \\
+\end{bmatrix}$   & $\Gamma_{\xi,\eta}^{\eta} = - \dfrac{X(1+X^2)}{\delta^2}$ \\
                  & $\Gamma_{\eta,\eta}^{\xi} = 0$ \\
                  &  $\Gamma_{\xi,\xi}^{\eta} = 0$\\
-$\mathbf{G}^{-1}=\dfrac{\delta^2}{a^2 (1+X^2)(1+Y^2)} \begin{pmatrix}
+$\mathbf{G}^{-1}=\dfrac{\delta^2}{a^2 (1+X^2)(1+Y^2)} \begin{bmatrix}
 1+Y^2 & XY \\ XY & 1+X^2
-\end{pmatrix}$   & $\Gamma_{\eta,\eta}^{\eta} = \dfrac{1+Y^2}{\delta^2} \left[ 2 \delta^2 \cos \eta \sin \eta - Y \right]$\\
+\end{bmatrix}$   & $\Gamma_{\eta,\eta}^{\eta} = \dfrac{1+Y^2}{\delta^2} \left[ 2 \delta^2 \cos \eta \sin \eta - Y \right]$\\
                  &  $\Gamma_{\xi,\xi}^{\xi} = \dfrac{1+X^2}{\delta^2} \left[ 2 \delta^2 \cos \xi \sin \xi - X \right]$ \\
 \hline
 
@@ -1921,10 +1921,10 @@ On pose $F : (X,Y) \mapsto (\alpha,  \beta)$, montrons que $F$ est bijective. La
 
 \begin{equation}
 J_{(X,Y)}F = \dfrac{1}{\delta^2} 
-\begin{pmatrix}
+\begin{bmatrix}
 \sqrt{1+Y^2} & - \dfrac{XY}{\sqrt{1+Y^2}} \\
 - \dfrac{XY}{\sqrt{1+X^2}} & \sqrt{1+X^2}
-\end{pmatrix}
+\end{bmatrix}
 \end{equation}
 
 avec $\delta = \sqrt{1+X^2+Y^2}$. $F$ est bijective si $det \left( J_{(X,Y)}F \right) \neq 0$ pour tous $X,Y \in [-1,1]^2$.
