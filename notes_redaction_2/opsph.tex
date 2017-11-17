@@ -1134,10 +1134,23 @@ où $s$ est un paramètre de seuillage permettant de peu affecter la fonction in
 - y\psi_1(x^2) \\
 \psi_1(x) \\
 0
-\end{bmatrix} \text{ ainsi que } \sqrt{\tilde{\mathbf{G}}} = a^2 \dfrac{(1+\tilde{X}^2)(1+ \tilde{Y}^2)}{(1+\tilde{X}^2+\tilde{Y}^2)^{3/2}}
+\end{bmatrix} \text{, }
+\tilde{\mathbf{g}}^{\eta} (\mathbf{x} ) = \dfrac{1}{1 + (z\psi_2(x))^2} \begin{bmatrix}
+- z\psi_1(x^2) \\
+0 \\
+\psi_1(x)
+\end{bmatrix}
+ \text{ et } \sqrt{\tilde{\mathbf{G}}} = a^2 \dfrac{(1+\tilde{X}^2)(1+ \tilde{Y}^2)}{(1+\tilde{X}^2+\tilde{Y}^2)^{3/2}}
 \label{eq:expression2_div_v2}
 \end{equation}
-avec $\tilde{X}=y \psi_1(x)$ et $Y = z \psi_2(x)$.
+avec $\tilde{X}=y \psi_1(x)$ et $\tilde{Y} = z \psi_2(x)$.
+En remplaçant $\mathbf{g}^{\xi}$, $\mathbf{g}^{\eta}$ et $\sqrt{\bar{\mathbf{G}}}$ par $\tilde{\mathbf{g}}^{\xi}$, $\tilde{\mathbf{g}}^{\eta}$ et $\sqrt{\tilde{\mathbf{G}}}$ données par \eqref{eq:expression2_div_v2}, on définit la divergence approchée en $\mathbf{x}_{i,j}^{(k)}$ par
+\begin{equation}
+\nabla_{T,\Delta,2} \cdot \mathbf{F} = \dfrac{1}{\sqrt{\tilde{\mathbf{G}}}} \left[ \left( \sqrt{\tilde{\mathbf{G}}} \mathbf{F} \cdot \tilde{\mathbf{g}}^{\xi} \right)_{,\xi} + 
+\left( \sqrt{\tilde{\mathbf{G}}} \mathbf{F} \cdot \tilde{\mathbf{g}}^{\eta} \right)_{,\eta}
+\right]
+\end{equation}
+où $f_{,\xi}$ et $f_{,\eta}$ désignent les dérivées hermitiennes en $\xi$ et en $\eta$ de $f$ obtenues en utilisant les algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta}. 
 
 
 
