@@ -9,7 +9,7 @@ global scheme nrm
 scheme='compact4';
 nrm='int';
 
-n=511;
+n=63;
 mod101
 disp('mod101 : ok')
 

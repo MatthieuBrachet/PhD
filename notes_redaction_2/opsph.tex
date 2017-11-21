@@ -1055,7 +1055,7 @@ $256$& $7.5548(-10)$ & $9.0630(-10)$ & $2.7721 (-9)$  & $1.3528 (-17)$\\
 $512$& $4.7499(-11)$ & $5.7106(-11)$ & $1.7640(-10)$  & $1.7256 (-18)$\\
 \hline 
 \hline
-\textbf{ordre estimé}& $3.9705$ & $3.9652$ & $3.8609$ & $3.9822$ \\
+\textbf{ordre estimé}& $3.9705$ & $3.9652$ & $3.8609$ & $-$ \\
 \hline
 \end{tabular}
 \end{center}
@@ -1075,7 +1075,7 @@ Les courbes de convergences en figure \ref{fig:rate_div1} sont très proches les
 
 \subsection{Variante de l'opérateur de divergence discret}
 
-La divergence utilisée dans \ref{def:divergence_disc} est couteuse en calcul. Il faut calculer 6 dérivées hermitiennes. Une méthode basée sur une divergence approchée moins coûteuse en calculs est donnée dans \cite{Croisille2015}. Cette méthode est basée sur le résultat suivant :
+La divergence utilisée dans la formule \eqref{def:divergence_disc} est coûteuse en calcul. Il faut calculer 6 dérivées hermitiennes. Une méthode basée sur une divergence approchée moins coûteuse en calculs est donnée dans \cite{Croisille2015}. Cette méthode est basée sur le résultat suivant :
 
 \begin{proposition}
 Si $\mathbf{F} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{F}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ est un champ de vecteurs réguliers sur la sphère, alors l'égalité suivante est vérifiée en $\mathbf{x}_{i,j}^{(k)}$ :
@@ -1152,9 +1152,53 @@ En remplaçant $\mathbf{g}^{\xi}$, $\mathbf{g}^{\eta}$ et $\sqrt{\bar{\mathbf{G}
 \end{equation}
 où $f_{,\xi}$ et $f_{,\eta}$ désignent les dérivées hermitiennes en $\xi$ et en $\eta$ de $f$ obtenues en utilisant les algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta}. 
 
+Comme pour la divergence précédente, on teste la précision de cette dernière sur le champ de vecteurs \eqref{eq:test_divergence}. Les résultats sont donnés dans les tables \REF et \REF.
 
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c||c|}
+\hline
+\textbf{N}  & \textbf{norme 1} & \textbf{norme 2} & \textbf{norme $\infty$} & \textbf{conservation}  \\
+\hline
+\hline
+$16$ & $4.4464 (-4)$ & $4.2619 (-4)$ & $5.7206 (-4)$  & $7.2201 (-6)$ \\
+$32$ & $2.7567 (-5)$ & $2.6414 (-5)$ & $4.3945 (-5)$  & $4.4825 (-7)$ \\
+$64$ & $1.7319 (-6)$ & $1.6606 (-6)$ & $3.0870 (-6)$  & $2.7976 (-8)$ \\
+$128$& $1.0886 (-8)$ & $1.0438 (-7)$ & $2.0521 (-7)$  & $1.7475 (-9)$\\
+$256$& $6.8327 (-9)$ & $6.5488 (-9)$ & $1.3242 (-8)$  & $1.0921 (-10)$\\
+$512$& $4.2837(-10)$ & $4.1045(-10)$ & $8.4121(-10)$  & $6.8258 (-12)$\\
+\hline 
+\hline
+\textbf{ordre estimé}& $3.9958$ & $3.9958$ & $3.8822$ & $4.0021$ \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Table de convergence pour la divergence $\nabla_{T,\Delta,2}$ de \eqref{eq:test_divergence} avec $(p,q,r)=(1,2,3)$ en normes 1, 2 et infinie. On vérifie aussi la conservation \eqref{eq:conservation_divergence}.}
+\label{tab:rate1_div_v2}
+\end{table} 
 
-
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c||c|}
+\hline
+\textbf{N}  & \textbf{norme 1} & \textbf{norme 2} & \textbf{norme $\infty$} & \textbf{conservation}  \\
+\hline
+\hline
+$16$ & $9.5570 (-5)$ & $1.1354 (-4)$ & $2.5127 (-4)$  & $9.9325 (-18)$ \\
+$32$ & $6.2727 (-6)$ & $7.4509 (-6)$ & $1.9429 (-5)$  & $9.0737 (-18)$ \\
+$64$ & $4.0293 (-7)$ & $4.7991 (-7)$ & $1.3703 (-6)$  & $1.4538 (-17)$ \\
+$128$& $2.5561 (-8)$ & $3.0505 (-8)$ & $9.1295 (-8)$  & $1.0589 (-17)$\\
+$256$& $1.6119 (-9)$ & $1.9247 (-9)$ & $5.8964 (-9)$  & $2.2899 (-18)$\\
+$512$& $1.0140(-10)$ & $1.2102(-10)$ & $3.7487(-10)$  & $1.0804 (-17)$\\
+\hline 
+\hline
+\textbf{ordre estimé}& $3.9711$ & $3.9694$ & $3.8782$ & $-$ \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Table de convergence pour la divergence $\nabla_{T,\Delta,2}$ de \eqref{eq:test_divergence} avec $(p,q,r)=(1,1,1)$ en normes 1, 2 et infinie ainsi que l'erreur de conservation \eqref{eq:conservation_divergence}.}
+\label{tab:rate2_div_v2}
+\end{table} 
 
 
 
