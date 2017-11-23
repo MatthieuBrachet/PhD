@@ -23,7 +23,7 @@ Pour $u \in L^{\infty}(\Omega)$, on note
 \end{equation}
 Une fonction $u : x \in \mathbb{R} \mapsto u(x) \in \mathbb{R}$ est \textit{périodique} de période $L$ si 
 \begin{equation}
-u(x+L) = u(x) \text{, } \forall x \in \Omega.
+u(x+L) = u(x) \text{, } \forall x \in \mathbb{R}.
 \end{equation}
 En particulier, on a $u(a)=u(b)$.
 
@@ -33,7 +33,7 @@ a=x_0 < x_1 < \ldots < x_{N-1} < x_N = b,
 \end{equation}
 où les valeurs $x_i$ sont définies par :
 \begin{equation}
-x_i = a + ih\text{, } i = 0,1, \ldots,N \text{ et } h = \dfrac{b-a}{N} \text{le pas d'espace}. 
+x_i = a + ih\text{, } i = 0,1, \ldots,N \text{ et } h = \dfrac{b-a}{N} \text{ le pas d'espace}. 
 \end{equation}
 
 \begin{figure}[htbp]
@@ -61,11 +61,11 @@ x_i = a + ih\text{, } i = 0,1, \ldots,N \text{ et } h = \dfrac{b-a}{N} \text{le 
 \label{fig:maillage1D}
 \end{figure}
 
-Les points $x_0=a$ et $x_N = a + L = b$ sont les points de bord du domaine et les points $(x_i)_{1 \leq i \leq N-1}$ désignent les points intérieurs. 
+Les points $x_0=a$ et $x_N = a + L = b$ sont les points de bord du domaine et les points $(x_j)_{1 \leq j \leq N-1}$ désignent les points intérieurs. 
 
-Nous distinguons trois types de données aux points de grille $x_i$, $0 \leq i \leq N$ :
+Nous distinguons trois types de données aux points de grille $x_j$, $0 \leq j \leq N$ :
 \begin{enumerate}
-\item Une \textit{fonction de grille} est une fonction définie uniquement aux points $(x_i)_{0 \leq i \leq N}$. Les fonctions de grilles sont notées en fonte gothique : $\mathfrak{u}$, $\mathfrak{v}$, ... 
+\item Une \textit{fonction de grille} est une fonction définie uniquement aux points $(x_j)_{0 \leq j \leq N}$. Les fonctions de grilles sont notées en fonte gothique : $\mathfrak{u}$, $\mathfrak{v}$, ... 
 On note
 \begin{equation}
 \mathfrak{u} = (\mathfrak{u}(x_0), \mathfrak{u}(x_1), \mathfrak{u}(x_2), ... , \mathfrak{u}(x_N)).
@@ -73,25 +73,27 @@ On note
 De plus, $l^2_h$ désigne l'espace des fonctions de grille, $h>0$ fixé.
 On munit cet espace du produit scalaire et de la norme associée :
 \begin{equation}
-(\mathfrak{u},\mathfrak{v})_h = h \gsum_{i=0}^N \mathfrak{u}(x_i) \mathfrak{v}(x_i) \text{,  } |\mathfrak{u}|_h^2 = h \gsum_{i=0}^N \mathfrak{u}(x_i)^2.
+(\mathfrak{u},\mathfrak{v})_h = h \gsum_{j=0}^N \mathfrak{u}(x_j) \mathfrak{v}(x_j) \text{,  } |\mathfrak{u}|_h^2 = h \gsum_{j=0}^N \mathfrak{u}(x_j)^2.
 \end{equation}
 On définit aussi la norme infinie pour les fonctions de grille :
 \begin{equation}
-\| \mathfrak{u} \|_{\infty} = \max_{0\leq i \leq N} |\mathfrak{u}(x_i)|.
+\| \mathfrak{u} \|_{\infty} = \max_{0\leq j \leq N} |\mathfrak{u}(x_j)|.
 \end{equation}
-On notera abusivement 
+On notera 
 \begin{equation}
 \mathfrak{u}_j = \mathfrak{u}(x_j) \text{ pour tout } 0\leq j \leq N.  
 \end{equation}
 
-On note $l^2_{h,per}$ l'espace des fonctions de grilles périodiques si $\mathfrak{u} \in l^2_{h,per}$ alors $\mathfrak{u}(x_0) = \mathfrak{u}(x_N)$. Le produit scalaire et la norme associée dans $l^2_{h,per}$ sont
+On note $l^2_{h,per}$ l'espace des fonctions de grilles périodiques. Si $\mathfrak{u} \in l^2_{h,per}$ alors $\mathfrak{u}(x_0) = \mathfrak{u}(x_N)$. Le produit scalaire et la norme associée dans $l^2_{h,per}$ sont
 \begin{equation}
-(\mathfrak{u},\mathfrak{v})_{h,per} = h \gsum_{i=1}^N \mathfrak{u}(x_i) \mathfrak{v}(x_i) \text{,  } |\mathfrak{u}|_h^2 = h \gsum_{i=1}^N \mathfrak{u}(x_i)^2 \text{ avec} \mathfrak{u}, \mathfrak{v} \in l^2_{h,per}.
+(\mathfrak{u},\mathfrak{v})_{h,per} = h \gsum_{j=1}^N \mathfrak{u}(x_j) \mathfrak{v}(x_j) \text{,  } |\mathfrak{u}|_h^2 = h \gsum_{j=1}^N \mathfrak{u}(x_j)^2 \text{ avec} \mathfrak{u}, \mathfrak{v} \in l^2_{h,per}.
 \end{equation}
 La norme infinie dans $l^2_{h,per}$ est
 \begin{equation}
-\| \mathfrak{u} \|_{\infty} = \max_{1\leq i \leq N} |\mathfrak{u}(x_i)|.
+\| \mathfrak{u} \|_{\infty} = \max_{1\leq j \leq N} |\mathfrak{u}(x_j)|.
 \end{equation}
+
+
 
 \item Les lettres latines capitales désignent les vecteurs de $\mathbb{R}^{N+1}$ et les matrices de $\mathbb{M}_{N+1}(\mathbb{R})$. Par exemple, soit le vecteur $U \in \mathbb{R}^{N+1}$ des composantes de $\mathfrak{u} \in l^2_h$ :
 \begin{equation}
@@ -113,20 +115,22 @@ Si $A$ est symétrique alors :
 $\rho(A)$ est nommé \textit{rayon spectrale} de $A$.
 La norme infinie de $U$ est donnée par :
 \begin{equation}
-|U|_{\infty} = \max_{1 \leq i \leq N+1} |U_i|.
+|U|_{\infty} = \max_{1 \leq j \leq N+1} |U_j|.
 \end{equation}
 La norme sur $\mathbb{M}_{N+1}(\mathbb{R})$ subordonnée à $|\cdot|_{\infty}$ est
 \begin{equation}
 |A|_{\infty} = \sup_{U \neq 0} \dfrac{|AU|_{\infty}}{|U|_{\infty}} = \max_{1 \leq i \leq N+1} \gsum_{j=1}^{N+1} |A_{i,j}|.
 \end{equation}
 
+
+
 \item Soit $u: x \in \Omega \mapsto u(x)$, on définit la \textit{fonction de grille} $u^*$ associée à $u$ par :
 \begin{equation}
-u^*_i = u^*(x_i) \text{ pour } 0 \leq i \leq N.
+u^*_j = u^*(x_j) \text{ pour } 0 \leq j \leq N.
 \end{equation}
-$u^*$ est donc la restriction de $u$ aux points de la grille. Si $u$ est une fonction périodique, alors 
+$u^*$ est donc la restriction de $u$ aux points de la grille. Si $u$ est une fonction périodique, alors $u^*$ est définit par
 \begin{equation}
-u^*_i = u^*(x_i) \text{ pour } 1 \leq i \leq N.
+u^*_j = u^*(x_j) \text{ pour } 1 \leq j \leq N.
 \end{equation}
 \end{enumerate}
 
@@ -139,7 +143,7 @@ Cette distinction permet de faire une claire différences entre :
 \end{itemize}
 Les fonctions de grilles contiennent toutes les échelles nécessaires dans le contexte physique alors que les vecteurs sont sans dimension. De plus, le raisonnement au niveau discret est plus naturel avec les fonctions de grilles. Il s'effectue d'une façon abstraite à l'aide d'opérateurs aux différences. En revanche, le codage est effectuée dans le cadre de l'algèbre linéaire.
 
-Par exemple, si $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ régulière telle que $u(a) = u(b) = 0$ alors $(\partial_x u)^*$ désigne la fonction de grille associée à la dérivée première de $u$. On peut approcher cette donnée à l'aide de la fonction de grille $\mathfrak{u}_x$ obtenue grâce à l'opérateur $\delta_x$ agissant sur les fonctions de grilles et donné par
+Si $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$est une fonction régulière telle que $u(a) = u(b) = 0$ alors $(\partial_x u)^*$ désigne la restriction à la grille de la fonction $\partial_x u$ associée à la dérivée première de $u$. On peut approcher cette donnée à l'aide de $\mathfrak{u}_x$ obtenue grâce à l'opérateur $\delta_x$ agissant sur les fonctions de grilles et donné par
 \begin{equation}
 \mathfrak{u}_{x,j} = \delta_x u^*(x_j) = \dfrac{u(x_{j+1}) - u(x_{j-1})}{2h}.
 \end{equation}
@@ -151,14 +155,14 @@ De la même manière, en $x_j-h$, on a
 \begin{equation}
 u(x_j-h) = u(x_j) - h \partial_x u(x_j) + \dfrac{h^2}{2} \partial_x^2 u(x_j) - \dfrac{h^3}{6} \partial_x^3 u(\eta) \text{ avec } \eta \in [x_j-h, x_j].
 \end{equation}
-On a alors
+Soit $0 \leq j \leq N$, alors
 \begin{align*}
 \delta_x u^*(x_j) & = \dfrac{u(x_{j+1}) - u(x_{j-1})}{2h}\\
                   & = \dfrac{1}{2h} \left[ 2h \partial_x u(x_j) + \dfrac{h^3}{6} \partial_x^3 u(\xi) + \dfrac{h^3}{6} \partial_x^3 u(\eta) \right]\\
                   & = \partial_x u(x_j) + \dfrac{h^2}{2} \left[ \dfrac{1}{6} \partial_x^3 u(\xi) + \dfrac{1}{6} \partial_x^3 u(\eta) \right] \\
                   & = \partial_x u(x_j) + \dfrac{h^2}{6} \partial_x^3 u(\gamma) \text{ avec } \gamma \in ]x_j-h , x_j+h[ \text{ par théorème des valeurs intermédiaires.}
 \end{align*}
-Ainsi l'erreur de troncature est une fonction de grille définie en chaque point du $x_j$ par
+L'erreur de troncature est une fonction de grille définie en chaque point du $x_j$ par
 \begin{align*}
 \mathfrak{t}(x_j) & = \delta_x u^*(x_j) - \delta_x u^*(x_j)\\
                   & = \dfrac{h^2}{6} \partial_x^3 u(\gamma) \text{ avec } \gamma \in ]x_j-h , x_j+h[.
@@ -173,27 +177,34 @@ Ainsi l'erreur de troncature est une fonction de grille définie en chaque point
 
 
 
+
+
+
+
+
+
+
 \subsection{Opérateurs de translations}
 
-On considère $\Omega = [0,L]$. Les notations employées sont celles de la partie \ref{sec:notation_1D} dans le contexte périodique.
+Les notations employées sont celles de la partie \ref{sec:notation_1D} dans le contexte périodique avec $a=0$ et $b=L$.
 
 \begin{definition}
-L'\textit{opérateur de translation} $\tau_p$, $p \in \mathbb{Z}$, est tel que si $\mathfrak{u}$ est une fonction de grille périodique alors pour tout $1 \leq i \leq N$
+L'opérateur $\tau_p$, $p \in \mathbb{Z}$, est définit, pour $\mathfrak{u}$ une fonction de grille périodique, pour tout $1 \leq j \leq N$ par
 \begin{equation}
-(\tau_p \mathfrak{u})_i = \mathfrak{u}_{i+p}.
+(\tau_p \mathfrak{u})_j = \mathfrak{u}_{j+p}.
 \end{equation}
 \end{definition}
 
-Cet opérateur permettra de définir les opérateurs aux différences. L'opérateur $\tau_p$ agit sur les fonctions de grille périodiques $u^*$ par :
+L'opérateur $\tau_p$ agit sur les fonctions périodiques $u$ par :
 \begin{equation}
-(\tau_p u^*)_i = u^*_{i+p} = u(x_{i+p}).
+\tau_p u(x_j) = (\tau_p u^*)_j = u^*_{j+p} = u(x_{j+p}).
 \end{equation}
-en considérant les propriétés de périodicité lorsque $i+p > N$ ou $i+p<1$.
-De la même manière, on définit l'opérateur $\tau$ par 
+en considérant les propriétés de périodicité lorsque $j+p > N$ ou $j+p<1$.
+En particulier, lorsque $p=1$, on note $\tau$ l'\textit{opérateur de translation à droite} :
 \begin{equation}
 \tau = \tau_{1}
 \end{equation}
-On note $\tau^p$, où $p$ est un entier naturel, l'opérateur
+de plus, il est clair que l'on a
 \begin{equation}
 \begin{array}{rcl}
 \tau^0 & = & id\\
@@ -201,71 +212,89 @@ On note $\tau^p$, où $p$ est un entier naturel, l'opérateur
 \end{array}
 \end{equation}
 
-\begin{proposition}
 L'égalité suivante est vérifiée :
 \begin{equation}
 \tau^p = \tau_p
 \end{equation}
-En particulier, on a $\tau^N = \tau_N = id$.
-\end{proposition}
-
-\begin{proof}
-Résultat vrai par récurrence immédiate.
-\end{proof}
-Il est intéressant de rechercher les valeurs propres et les vecteurs propres de $\tau$ de manière à en déduire le spectre des opérateurs qui sont issus de $\tau$.
-
+En particulier, on a $\tau^N = \tau_N = id$, donc $\tau$ est inversible et
+\begin{equation}
+\tau^{-1} = \tau^{N-1}.
+\end{equation}
+L'analyse des opérateurs périodiques repose sur la diagonalisation de $\tau$. C'est l'objet de la proposition suivante.
 
 \begin{proposition}
-Les fonctions propres de $\tau$ sont les fonctions de grilles $\mathfrak{u}^k$ vérifiant :
+les valeurs propres de $\tau$ sont $\omega^k$ avec
 \begin{equation}
-\mathfrak{u}_j^k = \exp \left[ i j \dfrac{2 \pi k}{N} \right]
+\omega = \exp \left[ i \dfrac{2 \pi}{N} \right].
+\end{equation}
+
+Chaque valeur propre $\omega^k$ est associée à une fonction propre $\mathfrak{u}^k$ périodiques :
+\begin{equation}
+\mathfrak{u}_j^k = \dfrac{1}{\sqrt{N}}  \exp \left[ i j \dfrac{2 \pi k}{N} \right]
 \label{eq:vecteurpropre_tau}
 \end{equation}
-Chaque vecteur propre est associé à la valeur propre $\lambda^k$ avec 
-\begin{equation}
-\lambda = \exp \left[ i \dfrac{2 \pi}{N} \right].
-\end{equation}
-et $1 \leq k \leq N$.
+avec $-\frac{N}{2}+1 \leq k \leq \frac{N}{2}$.
+\label{prop:eigenvaluevector_tau}
 \end{proposition}
 
-
 \begin{proof}
-On calcule $(\tau \mathfrak{u}^k)_j$ :
+Soit $j$ et $k$ tels que $1 \leq j \leq N$ et $-\frac{N}{2}+1 \leq k \leq \frac{N}{2}$. Alors
 \begin{equation}
-(\tau \mathfrak{u}^k)_j = \exp \left[ i (j+1) \dfrac{2 \pi k}{N} \right] = \exp \left[ i j \dfrac{2 \pi k}{N} \right] \exp \left[ i \dfrac{2 \pi k}{N} \right]  = \mathfrak{u}_j^k \lambda^k
+(\tau \mathfrak{u}^k)_j = \exp \left[ i (j+1) \dfrac{2 \pi k}{N} \right] = \exp \left[ i j \dfrac{2 \pi k}{N} \right] \exp \left[ i \dfrac{2 \pi k}{N} \right]  = \omega^k \mathfrak{u}_j^k
 \end{equation}
-De plus, il est facile de voir que $\mathfrak{u}$ vérifie l'hypothèse de périodicité, d'où le résultat.
+d'où le résultat.
 \end{proof}
-Si $P(X)$ est un polynôme en $X$ de degré au plus $N-1$, \textit{i.e.} $P \in \mathbb{R}_{N-1} [x]$ alors les valeurs propres et fonctions propres de $P(\tau)$ sont connues.
+Connaissant les valeurs et fonctions propres de $\tau$, on déduit en déduit la diagonalisation de $\tau$.
+
+\begin{corollaire}
+L'opérateur $\tau$ est diagonalisable et 
+\begin{equation}
+\tau = \gsum_{k = -N/2+1}^{N/2} \omega^k \mathfrak{u}^k
+\end{equation}
+où les fonctions propres $\mathfrak{u}^k$ et les valeurs propres $\omega^k$ sont données dans la proposition \ref{prop:eigenvaluevector_tau}
+\end{corollaire}
+
+Soit $P \in \mathbb{C}[X]$ un polynôme alors les valeurs propres et fonctions propres de $P(\tau)$ sont connues.
 
 \begin{proposition}
-Les fonctions propres de $P(\tau)$ sont les fonctions de grilles $\mathfrak{u}^k$ vérifiant :
-\begin{equation}
-\mathfrak{u}_j^k = \exp \left[ i j \dfrac{2 \pi k}{N} \right]
-\end{equation}
-Chaque vecteur propre est associé à la valeur propre $P(\lambda^k)$ avec 
-\begin{equation}
-\lambda = \exp \left[ i \dfrac{2 \pi}{N} \right]
-\end{equation}
-avec $1 \leq k \leq N$.
+Les fonctions propres de $P(\tau)$ sont les fonctions de grilles $\mathfrak{u}^k$.
+Chaque fonction propre est associé à la valeur propre $P(\omega^k)$ avec 
+avec $-N/2+1 \leq k \leq N/2$.
 \label{prop:eigen_tau}
 \end{proposition}
 
 \begin{proof}
-Soient $(a_i)_{0 \leq i \leq N-1}$ des réels tels que 
+$P$ est un polynôme de $\mathbb{C}[X]$ donc il existe un nombre finis d'éléments de $\mathbb{C}$ notés $a_0$, $a_1$, $a_2$, ... tels que
 \begin{equation}
-P(x) = \gsum_{i=0}^{N-1} a_i x^i,
+P(X) = \gsum_{n=0} a_n X^n.
 \end{equation}
-
-Calculons $P(\tau) \mathfrak{u}^k$. Soit $j$ un entier compris entre $1$ et $N$, 
-
+Soient $j$ et $k$ tels que $1 \leq j \leq N$ et $-N/2+1 \leq k \leq N/2$, alors 
 \begin{equation}
-(P(\tau) \mathfrak{u}^k)_j = \left( \gsum_{i=1}^{N} a_i \tau_ p \mathfrak{u}^k \right)_j = \gsum_{i=1}^{N} a_i (\lambda^k)^p \mathfrak{u}^k_j = P(\lambda^k) \mathfrak{u}^k_j
+(P(\tau) \mathfrak{u}^k)_j = \left( \gsum_{n=0} a_i \tau_n \mathfrak{u}^k \right)_j = \gsum_{n=0} a_n (\lambda^k)^n \mathfrak{u}^k_j = P(\omega^k) \mathfrak{u}^k_j
 \end{equation}
-
 d'où le résultat.
 \end{proof}
-L'opérateur de translation $\tau$ agit sur les fonctions de grilles $\mathfrak{u}$. Il est associé à $T \in \mathbb{M}_N \left( \mathbb{R} \right)$ la matrice agissant sur les vecteurs $U$ de $\mathbb{R}^N$
+
+Notons que cette proposition est vraie pour tout opérateur diagonalisable à la place de $\tau$.
+
+L'opérateur de translation $\tau$ agit sur les fonctions de grilles $\mathfrak{u}$. Il est associé à $T \in \mathbb{M}_N \left( \mathbb{R} \right)$ la matrice agissant sur les vecteurs $U$ de $\mathbb{R}^N$.
+On définit $\vec_1$ l'opérateur transformant un élément de $l_{h,per}^2$ en un vecteur de $\mathbb{R}^N$ :
+
+\begin{definition}
+Soient $\mathfrak{u} \in l^2_{h,per}$ une fonction de grille et $(\mathbf{e}_j)_{1 \leq j \leq N}$ la base canonique de $\mathbb{R}^N$. On définit l'opérateur $\vec_1$ par :
+\begin{equation}
+\begin{array}{rcl}
+\vec_1 : l^2_{h,per} & \rightarrow & \mathbb{R}^N\\
+         \mathfrak{u} & \mapsto & \vec_1 ( \mathfrak{u} ) 
+\end{array}
+\end{equation}
+avec 
+\begin{equation}
+\vec_1 ( \mathfrak{u} ) =\gsum_{j=1}^N \mathfrak{u}_j \mathbf{e}_j.
+\end{equation}
+\end{definition}
+
+Il s'agit d'un opérateur transformant directement une fonction de grille $\mathfrak{u} \in l^2_{h,per}$ en un vecteur $U$ de $\mathbb{R}^N$ 
 \begin{equation}
 U = \begin{bmatrix}
 \mathfrak{u}_1\\
@@ -289,42 +318,35 @@ T = \begin{bmatrix}
 La matrice $T$ agit sur un vecteur $U = \begin{bmatrix}
 U_1 & U_2 & \cdots & U_{N} 
 \end{bmatrix}^T \in \mathbb{R}^N $ de telle manière que, pour tout $1 \leq j \leq N$, on a 
-
 \begin{equation}
 (TU)_j = U_{j+1}
 \end{equation}
+C'est à dire
+\begin{equation}
+\vec_1 ( \tau \mathfrak{u} ) = T \vec_1 ( \mathfrak{u} ). 
+\end{equation}
 Les propriétés concernant les valeurs propres de $\tau$ sont aussi vérifiées par $T$.
 
-\begin{proposition}
+\begin{corollaire}
 \begin{itemize}
-\item Les valeurs propres de $T$ sont les valeurs $(\lambda^k)_{1 \leq k \leq N}$ avec 
+\item Les valeurs propres de $T$ sont les valeurs $(\lambda^k)_{-N/2+1 \leq k \leq N/2}$. 
+Chaque valeur propre est associée à un vecteur propre $U^k$ vérifiant :
 \begin{equation}
-\lambda = \exp \left[ i \dfrac{2 \pi}{N} \right].
-\label{eq:eigenvalueT}
-\end{equation}
-les vecteurs propres associés sont donnés par $\left( U^k \right)_{1 \leq k \leq N}$ vérifiant :
-\begin{equation}
-U^k = \dfrac{1}{\sqrt{N}} \begin{bmatrix}
-\mathfrak{u}_0^k\\
-\mathfrak{u}_1^k\\
-\vdots \\
-\mathfrak{u}_{N-1}^k
-\end{bmatrix}
+U^k = \vec_1 (\mathfrak{u}^k )
 \label{eq:eigenvectorT}
 \end{equation}
-où $\mathfrak{u}^k$ est la fonction de grille \eqref{eq:vecteurpropre_tau}.
+où $\mathfrak{u}^k$ et $\omega$ sont données dans la proposition \ref{prop:eigen_tau}.
 
 \item Si $P \in \mathbb{R}_{N-1}[X]$ alors les valeurs propres de $P(T)$ sont 
 \begin{equation}
-P(\lambda)
+P(\omega^k)
 \end{equation}
-avec $\lambda$ donné par \eqref{eq:eigenvalueT}.
+chaque valeur propre $P(\omega^k)$ de $T$ est associée au vecteur propre $\vec_1 (\mathfrak{u}^k )$.
 \end{itemize}
-Les vecteurs propres sont donnés par \eqref{eq:eigenvectorT}.
 \label{prop:eigen_P(tau)}
-\end{proposition}
+\end{corollaire}
 
-Les vecteurs propres de $T$ donnés par \eqref{eq:eigenvectorT} forment clairement une base orthonormée pour le produit scalaire usuel, en effet on a 
+Les vecteurs propres de $T$ forment une base orthonormée de $\mathbb{R}^N$ pour le produit scalaire usuel, en effet
 \begin{equation}
 (\bar{U^k})^T \cdot U^{k'} = \delta_{k,k'}
 \end{equation}
@@ -340,9 +362,66 @@ où $\delta_{k,k'}$ désigne le symbole de Kronecker et vaut $1$ si $k=k'$ et $0
 
 
 
+\subsection{Transformée de Fourier discrète}
+
+L'espace des fonctions de grille périodique $l^2_{h,per}$ forme un espace vectoriel de dimension $N$. Les vecteurs $(\mathfrak{u}^k)_{-N/2+1 \leq k \leq N/2}$ forment une base orthonormée de cet espace. En effet, soient $-N/2+1 \leq k, k' \leq N/2$, alors 
+\begin{equation}
+(\mathfrak{u}^k, \mathfrak{u}^{k'})_{h,per} = \delta_{k,k'}.
+\end{equation}
+
+Si $\mathfrak{v} \in l^2_{h,per}$, alors il existe $(\hat{\mathfrak{v}}^k )_{-N/2 \leq k \leq N/2}$ tels que 
+\begin{equation}
+\mathfrak{v} = \gsum_{-N/2+1}^{N/2} \hat{\mathfrak{v}}^k \mathfrak{u}^k
+\end{equation}
+En effectuant un produit scalaire par $\mathfrak{u}^{k'}$ un vecteur de base, on obtient
+\begin{align*}
+(\mathfrak{v}, \mathfrak{u}^{k'})_{h,per} & = \gsum_{k=-N/2+1}^{N/2} \hat{\mathfrak{v}}^k (\mathfrak{u}^k, \mathfrak{u}^{k'})_{h,per} \\
+		& = \hat{\mathfrak{v}}^{k'}
+\end{align*}
+Ainsi, les coefficients $\hat{\mathfrak{v}}^{k}$ sont donnés par
+\begin{equation}
+\hat{\mathfrak{v}}^{k} = (\mathfrak{v}, \mathfrak{u}^{k})_{h,per}.
+\end{equation}
+
+De plus, la relation de Parseval est vérifiée.
+\begin{proposition}
+\textbf{(Relation de Parseval discrète)} Pour tout $\mathfrak{v} \in l^2_{h,per}$, on a 
+\begin{equation}
+|\mathfrak{v}|_h^2 = \gsum_{k = -N/2+1}^{N/2} |\hat{\mathfrak{v}}^{k}|^2
+\end{equation}
+\end{proposition}
 
 
-\subsection{Opérateur centré d'ordre 2}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Opérateurs aux différences discrets}
+
+Soit $L$ un opérateur différentiel. On s'intéresse ici à approcher cet opérateur par $L_h$ et à estimer l'erreur commise via cette approximation.
+
+\begin{definition}
+Le couple $(L_h, R_h)$ est consistant avec $L$ à l'ordre $\alpha$ si pour tout $u : \mathbf{x} \in \mathbb{R} \mapsto u(\mathbf{x}) \in \mathbb{R}$ régulière et périodique alors 
+\begin{equation}
+L_h u^* - R_h (Lu)^* = \mathcal{O} \left ( h^{\alpha} \right)
+\end{equation}
+avec $R_h$ un opérateur d'interpolation et $L_h$ un opérateur d'approximation de $L$.
+\end{definition}
+
+\subsubsection{Opérateur centré d'ordre 2}
 
 Introduisons l'\textit{opérateurs aux différences centré} usuel
 \begin{equation}
@@ -357,7 +436,7 @@ Il s'agit d'un opérateur permettant d'approcher la dérivée première au sens 
 \begin{proposition}
 Soit $u: x \in \Omega \mapsto u(x) \in \mathbb{R}$ et $u^*$ la fonction de grille correspondante. Si $u \in \mathcal{C}^3 (\Omega)$ alors 
 \begin{equation}
-\delta_x u^*_i - u'(x_i) = \dfrac{h^2}{12} \left[ u^{(3)}(\xi_i) + u^{(3)}(\eta_i) \right]  \text{ avec } \xi_i , \eta_i \in [x_{i-1}, x_{i+1}],
+\delta_x u^*_i - u'(x_i) = \dfrac{h^2}{6} u^{(3)}(\alpha_i) \text{ avec } \alpha_i \in [x_{i-1}, x_{i+1}],
 \end{equation}
 \end{proposition}
 
@@ -374,16 +453,17 @@ Alors par différence, on retrouve la formule souhaitée :
 \begin{equation}
 \delta_x u^*_i = u'(x_i) + \dfrac{h^2}{12} \left[ u^{(3)}(\xi_i) + u^{(3)}(\eta_i) \right]  \text{ avec } \xi_i, \eta_i \in [x_{i-1}, x_{i+1}],
 \end{equation}
+On conclut grâce au théorème des valeurs intermédiaires.
 \end{proof}
 
 Ainsi, $\delta_x$ est un opérateur d'approximation de la dérivée première à l'ordre 2. L'opérateur $\delta_x$ est associé à une matrice $K$ de telle manière que si 
 \begin{equation}
-U = \begin{bmatrix}
+U = \vec_1( \mathfrak{u}) = \begin{bmatrix}
 \mathfrak{u}_1\\
 \mathfrak{u}_2\\
 \vdots\\
 \mathfrak{u}_{N}\\
-\end{bmatrix} \in \mathbb{R}^N \text{ et } U_x = \begin{bmatrix}
+\end{bmatrix} \in \mathbb{R}^N \text{ et } U_x = \vec_1( \delta_x \mathfrak{u}) = \begin{bmatrix}
 \delta_x \mathfrak{u}_1\\
 \delta_x \mathfrak{u}_2\\
 \vdots\\
@@ -426,7 +506,7 @@ En particulier, on remarque que $\theta^N = 0$ donc la matrice $K$ n'est pas inv
 
 
 
-\subsection{Schémas Hermitien}
+\subsubsection{Schémas Hermitien}
 
 Dans son article \cite{Lele1991}, S. K. Lele présente une méthode permettant d'approcher la dérivée en un point en ajoutant une partie implicite aux schémas classiques. Définissons l'opérateur de Simpson $\sigma_{x}$ par :
 
@@ -444,10 +524,7 @@ Les valeurs propres de $\sigma_x$ sont
 \begin{equation}
 \mu^k = \dfrac{2}{3} + \dfrac{1}{3} \cos \left( \dfrac{2 \pi k}{N} \right)
 \end{equation}
-avec $1 \leq k \leq N$. Chaque valeur propre est associé à la fonction propre $\mathfrak{u}^k$ avec 
-\begin{equation}
-\mathfrak{u}_j^k = \exp \left[ i j \dfrac{2 \pi k}{N} \right]
-\end{equation}
+avec $1 \leq k \leq N$. Chaque valeur propre $\mu^k$ est associée à la fonction propre $\mathfrak{u}^k$ donnée en proposition \ref{prop:eigen_tau}.
 \label{prop:vp_sigma}
 \end{proposition}
 
@@ -472,9 +549,9 @@ De plus, on note que si $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est une f
 \begin{proposition}
 Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ une fonction de $\mathcal{C}^5 ( \Omega )$, soit $u^*$ la fonction de grille associée. On note $u'$ la dérivée de $u$ et $u'^*$ la fonction de grille associée. Alors 
 \begin{equation}
-\sigma_x u'^*_i - \delta_x u^*_i = \dfrac{h^4}{144} \left( u^{(5)}(\xi'_i) + u^{(5)}(\eta'_i) \right) - \dfrac{h^4}{240} \left( u^{(5)}(\xi_i) + u^{(5)}(\eta_i) \right)
+\sigma_x u'^*_i - \delta_x u^*_i = \dfrac{h^4}{180}u^{(5)}(\alpha_i)
 \end{equation}
-avec $\xi_i$, $\xi'_i$ dans $[x_i, x_{i+1}]$ et $\eta_i$, $\eta'_i$ dans $[x_{i-1}, x_{i}]$.
+avec $\alpha_i$ dans $[x_{i-1}, x_{i+1}]$.
 \label{prop:consistence_herm}
 \end{proposition}
 
@@ -496,10 +573,10 @@ De la même manière, on a
 \begin{equation}
 \sigma_x u'^*_i = u'(x_i) +  \dfrac{h^2}{6} u^{(3)}u(x_i) + \dfrac{h^4}{144} \left( u^{(5)}(\xi'_i) + u^{(5)}(\eta'_i) \right).
 \end{equation}
-Ainsi, on retrouve le résultat souhaité.
+Ainsi, on retrouve le résultat souhaité grâce au théorème des valeurs intermédiaires.
 \end{proof}
 
-L'opérateur $\sigma_x$ est inversible, donc on peut définir l'\textit{opérateur hermitien d'ordre 4} :
+L'opérateur $\sigma_x$ est inversible car aucune valeur propre n'est nulle. On peut définir l'\textit{opérateur hermitien d'ordre 4} par :
 \begin{equation}
 \delta_x^H = \sigma_x^{-1} \circ \delta_x
 \label{def:herm_4}
@@ -532,23 +609,20 @@ C = \dfrac{1}{45} \| \sigma^{-1}_x \|_{\infty} \| u^{(5)} \|_{\infty}.
 \begin{proposition}
 Les valeurs propres de $\delta_x^H$ sont données par 
 \begin{equation}
-\omega^k = \dfrac{i}{h} \dfrac{\sin \left( \dfrac{2 \pi k}{N} \right)}{\dfrac{2}{3} + \dfrac{1}{3} \cos \left( \dfrac{2 \pi k}{N} \right)}
+\Theta^k = \dfrac{i}{h} \dfrac{\sin \left( \dfrac{2 \pi k}{N} \right)}{\dfrac{2}{3} + \dfrac{1}{3} \cos \left( \dfrac{2 \pi k}{N} \right)}
 \end{equation}
-avec $1 \leq k \leq N$. Chaque valeur propre est associé à la fonction propre $\mathfrak{u}^k$ avec 
-\begin{equation}
-\mathfrak{u}_j^k = \exp \left[ i j \dfrac{2 \pi k}{N} \right]
-\end{equation}
+avec $1 \leq k \leq N$. Chaque valeur propre est associé à la fonction propre $\mathfrak{u}^k$.
 \label{prop:vp_herm}
 \end{proposition}
 
 \begin{proof}
 On a déjà vu dans la proposition \ref{prop:vp_sigma} que 
 \begin{equation}
-\sigma_x \mathfrak{u}^k = \varepsilon^k \mathfrak{u}^k.
+\sigma_x \mathfrak{u}^k = \mu^k \mathfrak{u}^k.
 \end{equation}
 De plus, $\sigma_x$ est inversible, donc 
 \begin{equation}
-\sigma_x^{-1} \mathfrak{u}^k = \dfrac{1}{\varepsilon^k} \mathfrak{u}^k.
+\sigma_x^{-1} \mathfrak{u}^k = \dfrac{1}{\mu^k} \mathfrak{u}^k.
 \end{equation}
 
 On sait aussi que 
@@ -557,9 +631,9 @@ On sait aussi que
 \end{equation}
 donc en composant par $\sigma_x^{-1}$, on obtient directement 
 \begin{equation}
-\delta^H_x \mathfrak{u}^k = \sigma_x^{-1} \delta_x \mathfrak{u}^k = \dfrac{i}{h} \dfrac{\sin \left( \dfrac{2 \pi k}{N} \right)}{\mu^k} \mathfrak{u}^k = \omega^k \mathfrak{u}^k.
+\delta^H_x \mathfrak{u}^k = \sigma_x^{-1} \delta_x \mathfrak{u}^k = \dfrac{i}{h} \dfrac{\sin \left( \dfrac{2 \pi k}{N} \right)}{\mu^k} \mathfrak{u}^k = \Theta^k \mathfrak{u}^k
 \end{equation}
-C'est à dire le résultat souhaité.
+le résultat souhaité.
 \end{proof}
 
 On note $P$ l'opérateur associé à $\sigma_x$ agissant sur les vecteurs $U = [U_1, U_2, \ldots, U_N]^T \in \mathbb{R}^N$. $P$ s'exprime sous la forme suivante :
@@ -576,13 +650,13 @@ P = \dfrac{1}{6}
 
 Alors si
 \begin{equation}
-U = \begin{bmatrix}
+U = \vec_1 (\mathfrak{u}) = \begin{bmatrix}
 \mathfrak{u}_1 \\
 \mathfrak{u}_2 \\
 \vdots \\
 \mathfrak{u}_N \\
 \end{bmatrix} \text{ et } 
-U' = \begin{bmatrix}
+U' = \vec_1 (\delta_x^H \mathfrak{u}) = \begin{bmatrix}
 \delta_x^H \mathfrak{u}_1 \\
 \delta_x^H \mathfrak{u}_2 \\
 \vdots \\
@@ -597,11 +671,11 @@ P U' = K U.
 \begin{proposition}
 La dérivée hermitienne $\delta_x^H$ est associée à la matrice $P^{-1}K$ dont les valeurs propres sont
 \begin{equation}
-\omega^k = \dfrac{i}{h} \dfrac{\sin \left( \dfrac{2 \pi k}{N} \right)}{\dfrac{2}{3} + \dfrac{1}{3}\cos \left( \dfrac{2 \pi k}{N} \right)}
+\Theta^k = \dfrac{i}{h} \dfrac{\sin \left( \dfrac{2 \pi k}{N} \right)}{\dfrac{2}{3} + \dfrac{1}{3}\cos \left( \dfrac{2 \pi k}{N} \right)}
 \end{equation}
 avec $1 \leq k \leq N$. Chaque valeur propre $\omega^k$ est associée à un vecteur propre $U^k$ donné par
 \begin{equation}
-U^k = \dfrac{1}{\sqrt{N}} \begin{bmatrix}
+U^k = \begin{bmatrix}
 \mathfrak{u}^k_1 \\
 \mathfrak{u}^k_2 \\
 \vdots \\
@@ -765,6 +839,17 @@ Par calcul immédiat, on a :
 \end{equation}
 car $K$ est antisymétrique et $P$ est symétrique (donc $P^{-1}$ aussi). 
 \end{proof}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
