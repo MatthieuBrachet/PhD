@@ -1,0 +1,816 @@
+% disc.tex
+\chapter{Analyse numérique}
+
+\section{Opérateur de filtrage }
+
+\subsection{Opérateur de filtrage en dimension 1}
+
+Lors de la discrétisation via un schéma aux différences finies et suite à la discrétisation en temps, des oscillations parasites du type "+1/-1" peuvent apparaître. Il s'agit de phénomènes haute fréquences qui peuvent provoquer des instabilités numériques. 
+
+Si $\mathfrak{u}$ est une fonction de grille périodique, on note le filtre passe-bas $\mathcal{F}\mathfrak{u}$. Dans la pratique, nous cherchons $\mathcal{F}$ sous la forme 
+
+\begin{equation}
+\mathcal{F} = \gsum_{k=0}^F a_k \dfrac{\tau^k + \tau^{-k}}{2}
+\label{eq:ftr}
+\end{equation}
+
+Les coefficients $(a_k)_{0 \leq k \leq F}$ sont déterminés de manière à supprimer les phénomènes oscillants hautes fréquences (figure \ref{fig:hf_waves}) de la formes $\mathfrak{u}$ avec 
+\begin{equation}
+\mathfrak{u}_j = (-1)^j
+\end{equation}
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{tikzpicture}[scale=1.4]
+	\draw (-4,1) -- (-3,-1) ;
+	\draw (-3,-1) -- (-2,1) ;
+	\draw (-2,1) -- (-1,-1) ;
+	\draw (-1,-1) -- (0,1) ;
+	\draw (0,1) -- (1,-1) ;
+	\draw (1,-1) -- (2,1) ;
+	\draw (2,1) -- (3,-1) ;
+	\draw (3,-1) -- (4,1) ;
+	
+	\draw (4,0) -- (-4,0) ;
+	\foreach \k in {-3,...,3}
+		{\draw  (\k,0) node[color=blue] {$\bullet$} ;
+	   	\draw (\k,0) node {$\circ$} ;
+	   	}
+\end{tikzpicture}
+\end{center}
+\caption{Ondes de type "+1/-1".}
+\label{fig:hf_waves}
+\end{figure}
+
+
+En considérant cette fonction de grille, on cherche $(a_k)_{0\leq k \leq F}$ tels que $\mathcal{F} \mathfrak{u} = \mathfrak{0}$, soit :
+\begin{equation}
+\mathcal{F}\mathfrak{u}_i = \gsum_{k=0}^F a_k \dfrac{\mathfrak{u}_{i+k} + \mathfrak{u}_{i-k}}{2} = \gsum_{k=0}^F a_k  \dfrac{(-1)^{i+k} + (-1)^{i-k}}{2} = 0.
+\end{equation}
+Cette équation est équivalente à 
+\begin{equation}
+\gsum_{k=0}^F a_k (-1)^k = 0
+\label{eq:ftr_ftrcond}
+\end{equation}
+La relation \eqref{eq:ftr_ftrcond} nous donne une condition alors qu'il y a $F+1$ paramètres à déterminer. Il reste $F$ degrés de libertés dans l'opérateur de filtrage. Le choix qui est fait est de maximiser l'ordre du filtrage de manière à perturber un minimum la donnée initiale tout en supprimant les ondes parasites.
+
+Le filtre doit conserver les très basses fréquences, lorsque $\mathfrak{u} = \mathfrak{1}$, on doit alors $\mathcal{F}\mathfrak{u} = \mathfrak{1}$.
+C'est à dire que les coefficients $(a_k)_{0 \leq k \leq F}$ vérifient la relation de consistance
+\begin{equation}
+\gsum_{k=0}^F a_k = 1
+\label{eq:ftr_conscond}
+\end{equation}
+
+Enfin, on remarque que si $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ et si $u^*$ est la fonction de grille associée à $u$, alors on a 
+\begin{equation}
+\begin{array}{rcl}
+u(x_i + kh) & = & u(x_i) + p k u'(x_j) + \cdots + \dfrac{(kh)^l}{l!}u^{(l)}(x_i) + \cdots +\dfrac{(kh)^{2F}}{2F!} u^{(2F)}(\xi_k)\\
+u(x_i - kh) & = & u(x_i) - p k u'(x_j) + \cdots + \dfrac{(-kh)^l}{l!}u^{(l)}(x_i) + \cdots +\dfrac{(-kh)^{2F}}{2F!} u^{(2F)}(\eta_k)
+\end{array}
+\end{equation}
+avec $\xi_k \in [x_i, x_i+kh]$ et $\eta_k \in [x_i-kh, x_i]$. Alors par combinaison linéaire en considérant \eqref{eq:ftr_conscond} vérifiée, 
+\begin{equation}
+\mathcal{F}u^* - u^* = \gsum_{l=1}^{2F-1} \gsum_{k=0}^F \dfrac{a_k}{2} \underbrace{\dfrac{(kh)^l + (-kh)^l}{l!}}_{=0 \text{ pour } l \text{ impair.}}u^{(l)}(x_i) + \gsum_{k=0}^F \dfrac{a_k}{2}\dfrac{(kh)^{2F}}{2F!} \left( u^{(2F)}(\xi_k) + u^{(2F)}(\eta_k) \right)
+\end{equation}
+Ainsi, la condition de précision est 
+\begin{equation}
+\gsum_{k=0}^F a_k k^{2l} = 0 \text{ pour } 1 \leq l \leq F-1.
+\label{eq:ftr_prescond}
+\end{equation}
+
+\begin{theoreme}
+Soit $F \in \mathbb{N}^{\star}$. Il existe un unique $(a_k)_{0 \leq k \leq F}$ tel que $\mathcal{F}$ soit à la fois consistant en vérifiant \eqref{eq:ftr_conscond}, précis en vérifiant \eqref{eq:ftr_prescond} et soit un filtre passe bas en satisfesant \eqref{eq:ftr_ftrcond}. L'erreur de troncature du filtre est alors donnée par 
+\begin{equation}
+\mathcal{F}u^* - u^* = h^{2F} \gsum_{k=0}^F \dfrac{a_k}{2} \dfrac{k^{2F}}{2F!} \left( u^{(2F)}(\xi_k) + u^{(2F)}(\eta_k) \right).
+\end{equation}
+\label{prop:filter_def}
+\end{theoreme}
+
+\begin{proof}
+La forme de l'erreur de troncature a déjà été vue, il reste à prouver l'unicité.
+
+Après avoir retiré \eqref{eq:ftr_ftrcond} à \eqref{eq:ftr_conscond}, dire qu'il existe une unique $(a_j)_{0 \leq j \leq J}$ satisfesant les conditions est équivalent à dire que la matrice
+
+\begin{equation}
+A=\begin{bmatrix}
+1 &  1  &  1  &  1  &  1  &  1  & \cdots\\  
+0 &  2  &  0  &  2  &  0  & 2  & \cdots\\
+0 &  1  & 2^2 & 3^2 & 4^2 & 5^2 & \cdots\\
+0 &  1  & 2^4 & 3^4 & 4^4 & 5^4 & \cdots\\
+0 &  1  & 2^6 & 3^6 & 4^6 & 5^6 & \cdots\\
+&&& \vdots &  \vdots &
+\end{bmatrix} \in \mathbb{M}_{J+1} \left( \mathbb{R} \right)
+\end{equation}
+est inversible car $a = [a_0, a_1, \cdots, a_J]^T$ est solution de 
+\begin{equation}
+A a = e_1
+\end{equation}
+avec $e = [1,1/2, 0,\cdots,0]^T$. En développant la seconde ligne de $A$, on a
+\begin{equation}
+\det ( A ) = \begin{vmatrix} 
+2  &  0  &  2  &  0  & 2  & \cdots\\
+1  & 2^2 & 3^2 & 4^2 & 5^2 & \cdots\\
+1  & 2^4 & 3^4 & 4^4 & 5^4 & \cdots\\
+1  & 2^6 & 3^6 & 4^6 & 5^6 & \cdots\\
+& & \vdots &  \vdots &
+\end{vmatrix} = 2 \sum_{k=1}^{\lfloor\frac{F-1}{2}\rfloor} \Delta_{2k+1}
+\end{equation}
+avec $\Delta_k$ donné par
+\begin{equation}
+\Delta_k = \begin{vmatrix} 
+1 & 2^2 & \cdots & (k-1)^2 & (k+1)^2 & \cdots\\
+1 & 2^4 & \cdots & (k-1)^4 & (k+1)^4 & \cdots\\
+1 & 2^6 & \cdots & (k-1)^6 & (k+1)^6 & \cdots\\
+&&& \vdots &  \vdots &
+\end{vmatrix} = \dfrac{((F-1)!)^2}{k^2} \begin{vmatrix} 
+1 & 1 & \cdots & 1 & 1 & \cdots\\
+1 & (2^2)^1 & \cdots & ((k-1)^2)^1 & ((k+1)^2)^1 & \cdots\\
+1 & (2^2)^2 & \cdots & ((k-1)^2)^2 & ((k+1)^2)^2 & \cdots\\
+&&& \vdots &  \vdots &
+\end{vmatrix}
+\end{equation}
+On reconnaît un déterminant de Van-Der-Monde, donc $\Delta_k = \prod_{1 \leq i < j \leq F-1} \left( \alpha_j - \alpha_i \right)$, avec 
+\begin{equation}
+\alpha_j = \left\lbrace
+\begin{array}{ll}
+j^2 & \text{ avec } 1 \leq j \leq k-1\\
+(j+1)^2 & \text{ avec } k \leq j \leq J-2\\
+\end{array}
+\right.
+\end{equation}
+Si $i<j$, on a $\alpha_i < \alpha_j$, donc $\Delta_k>0$ et $\det A$ est une somme de déterminants tous strictements positifs donc $\det A > 0$. $A$ est inversible et le résultat est prouvé.
+\end{proof}
+Quelques filtres particuliers sont donnés dans la table \ref{tab:filter} en fonction de leur ordre de précision.
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||cccccc|}
+\hline
+\textbf{Ordre de précision} & $a_0$ & $a_1$ & $a_2$ & $a_3$ & $a_4$ & $a_5$ \\
+\hline \hline
+$2$ & $1/2$ & $1/2$ & & & & \\
+\hline
+$4$ & $10/16$ & $8/16$ & $-2/16$ & & & \\
+\hline
+$6$ & $44/64$ & $30/64$ & $-12/64$ & $2/64$ & & \\
+\hline
+$8$ & $186/256$ & $112/256$ & $-56/256$ & $16/256$ & $-2/256$ & \\
+\hline
+$10$ & $772/1024$ & $420/1024$ & $-240/1024$ & $90/1024$ & $-20/1024$ & $2/1024$ \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Exemples de filtres de la forme \eqref{eq:ftr} et leurs ordres de précision.}
+\label{tab:filter}
+\end{table}
+Dans la suite, nous supposerons que $(a_k)_{0 \leq k \leq F}$ satisfait les conditions \eqref{eq:ftr_conscond}, \eqref{eq:ftr_prescond} et \eqref{eq:ftr_ftrcond}.
+Les valeurs propres et fonctions propres de $\mathcal{F}$ sont issues de la proposition \ref{prop:eigen_P(tau)}.
+
+\begin{theoreme}
+Les valeurs propres de $\mathcal{F}$ sont données par $\beta^k$ avec 
+\begin{equation}
+\beta^k = \gsum_{f=0}^F a_k \cos \left( \dfrac{2 \pi k f}{N} \right)
+\end{equation}
+pour tout $0 \leq k \leq N-1$, $\beta^k$ est associé à la fonction propre $\mathfrak{u}^k$ telle que 
+\begin{equation}
+\mathfrak{u}^k_j = \exp \left[ i j \dfrac{2 \pi k}{N} \right].
+\end{equation}
+\end{theoreme}
+
+On définit le \textit{symbole} du filtre $\mathcal{F}$ par la fonction $\beta : \theta \in [0, \pi] \mapsto \beta(\theta) \in \mathbb{R}$ donnée par :
+\begin{equation}
+\beta( \theta ) = \gsum_{f=0}^F a_k \cos \left( f \theta \right)
+\end{equation}
+
+\begin{proposition}
+Il existe un unique polynôme $P$ de degré $F$ tel que 
+\begin{equation}
+\beta(\theta) = P(\cos \theta )
+\end{equation}
+De plus,
+\begin{equation}
+P(x) = 1 -\dfrac{1}{(-2)^F} (X - 1)^F.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Soit $\theta \in [0, \pi]$, 
+\begin{equation}
+\beta(\theta) = \gsum_{f=0}^F a_f \cos \left( f \theta \right) = \gsum_{f=0}^F a_f T_f ( \cos \theta )
+\end{equation}
+où $T_f \in \mathbb{R}_f [X]$ est le $k-$ieme polynome de Tchebytchev. 
+Ainsi il existe $P \in \mathbb{R}_F [x]$ tel que $\beta( \theta ) = P( \cos \theta )$. Ce polynôme est unique. Montrons que 
+\begin{equation}
+P(x) = 1 -\dfrac{1}{(-2)^F} (X - 1)^F.
+\end{equation}
+convient.
+
+\begin{itemize}
+\item on montre facilement que 
+\begin{equation}
+P( \cos 0 ) = 1 -\dfrac{1}{(-2)^F} (\cos 0 - 1)^F = 1,
+\end{equation}
+de même,
+\begin{equation}
+P( \cos \pi ) = 1 -\dfrac{1}{(-2)^F} (\cos \pi - 1)^F 1 -\dfrac{(-2)^F}{(-2)^F} = 0.
+\end{equation}
+\item On rappelle la formule de Fàa Di Bruno permettant de calculer la dérivée $n-$ième d'une composée. Si $f$ et $g$ sont des fonctions régulières, on a 
+\begin{equation}
+\dfrac{d^n}{dx^n} \left( f \circ g \right)(x) = \gsum_{k=1}^n f^{(k)}\left( g(x) \right) B_{n,k}\left( g'(x), g''(x), \cdots , g^{n-k+1}(x) \right)
+\end{equation}
+où $B_{n,k}$ est un polynôme de Bell. En utilisant cette formule avec $f = P$ et $g = \cos$, évaluée en $\theta = 0$, on montre que :
+\begin{equation}
+\dfrac{d^n}{d\theta^n} \left( P \circ \cos \right)(0) = \gsum_{k=1}^n P^{(k)}\left(1\right) B_{n,k}\left( -1,0,1,0, \cdots\right)
+\end{equation}
+Or, $P^{(k)}\left(1\right) = 0$ pour tout $k \geq 1$. Donc 
+\begin{equation}
+\dfrac{d^n}{d\theta^n} \left( P \circ \cos \right)(0) = 0
+\end{equation}
+\end{itemize}
+Le polynôme $P$ convient et 
+\begin{equation}
+\beta( \theta ) = 1 - \dfrac{1}{(-2)^F}(\cos \theta -1)^F.
+\end{equation}
+\end{proof}
+
+\begin{proposition}
+Pour tout $\theta \in [0, \pi]$, on a 
+\begin{equation}
+0 \leq \beta ( \theta ) \leq 1
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Supposons qu'il existe $\theta \in [0, \pi]$ tel que $\beta(\theta) < 0$ ou $\beta(\theta) > 1$. Comme $\beta(0)=1$ et $\beta(\pi) = 0$, il existe $\tilde{\theta} \in ]0, \pi[$ tel que 
+\begin{equation}
+\beta'(\tilde{\theta}) = - \sin \tilde{\theta} P'(\cos \tilde{\theta} ) = 0
+\end{equation}
+Or $\sin \tilde{\theta} \neq 0$ pour $\tilde{\theta} \in ]0, \pi[$.
+De plus, 
+\begin{equation}
+P'(X) = \dfrac{F}{(-2)^F}(X-1)^{F-1}
+\end{equation}
+donc en prenant $X = \cos \tilde{\theta}$,
+\begin{equation*}
+P'(X) = 0 \Leftrightarrow \cos \tilde{\theta} = 1
+\end{equation*}
+Ce qui est impossible pour $\tilde{\theta} \in ]0, \pi[$. Donc par l'absurde, le résultat est vérifié.
+\end{proof}
+
+La fonction $\beta$ permet de considérer le comportement du filtre sur les différentes fréquences $\theta \in [0, \pi]$. Les basses fréquences sont bien conservées alors que les hautes fréquences ($\theta$ proche de $\pi$) sont atténuées. Cette observation est visible sur la figure \ref{fig:freq_filter} représentant la fonction $\beta : \theta \mapsto \beta(\theta)$ associée aux filtres d'ordre 2, 4, 6, 8 et 10. 
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.7]{freq_filter.png}
+\end{center}
+\caption{Fonction d'amplification $\beta$ pour les filtres explicites d'ordre 2, 4, 6, 8 et 10.}
+\label{fig:freq_filter}
+\end{figure}
+Comme on s'y attendais, un filtre d'ordre élevé laisse passer un plus grand nombre de basses fréquences. Dans le tableau \ref{tab:filter_095}, on représente la fréquence $\theta_{0.95}$ maximale qui est conservée à $95\%$. Comme la fonction $\beta$ est strictement décroissante et continue sur $[0,\pi]$, c'est une bijection de $[0,\pi]$ dans $[0,1]$ et on a 
+\begin{equation}
+\theta_{0.95} = \beta^{-1}(0.95)= \arccos \left[ 1-2 (0.05)^{1/F} \right].
+\end{equation}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|c||c|}
+\hline
+\textbf{Ordre du filtre} & \textbf{Fréquence conservée à } $95\%$\\
+\hline
+\hline
+$10$&$1.6695$\\
+$8$&$1.5165$\\
+$6$&$1.3045$\\
+$4$&$0.9851$\\
+$2$&$0.4510$\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Fréquence conservée à $95\%$ en fonction de l'ordre du filtre.}
+\label{tab:filter_095}
+\end{table}
+
+La fonction $F \mapsto \theta_{0.95} = \beta^{-1}(0.95)$ est croissante, ce qui confirme que lorsque l'ordre de précision croit, $\theta_{0.95}$ croit et le filtre conserve un plus grand nombre de fréquences. De plus, 
+\begin{equation}
+\lim_{F \rightarrow +\infty} \theta_{0.95} = \pi.
+\end{equation}
+Ce qui confirme la prise en compte d'un grand nombre de fréquence lorsque l'on augmente l'ordre du filtre. Cependant lorsque l'ordre du filtre augmente, l'effet de filtrage des hautes fréquences diminue.
+
+Le filtre utilisé est linéaire et agit sur les composantes des fonctions de grilles. Si $\mathfrak{u}$ est une fonction de grille, on pose $U$ et $\tilde{U}$ les vecteurs de $\mathbb{R}^N$ tel que
+\begin{equation}
+U = \begin{bmatrix}
+\mathfrak{u}_1\\
+\mathfrak{u}_2\\
+\vdots \\
+\mathfrak{u}_N\\
+\end{bmatrix} \text{ et } 
+\tilde{U} = \begin{bmatrix}
+\mathcal{F}\mathfrak{u}_1\\
+\mathcal{F}\mathfrak{u}_2\\
+\vdots \\
+\mathcal{F}\mathfrak{u}_N\\
+\end{bmatrix}
+\end{equation}
+Alors $U$ et $\tilde{U}$ vérifient la relation
+\begin{equation}
+\tilde{U} = M U
+\end{equation}
+avec $M \in \mathbb{M}_N \left( \mathbb{R} \right)$ la matrice associée au filtrage des données en dimension 1. Lorsque le filtre est d'ordre 4, ($F=2$), la matrice $M$ est donnée par
+\begin{equation}
+M = \dfrac{1}{2}
+\begin{bmatrix}
+2a_0 & a_1 & a_2 &   &   &   & a_2 & a_1 \\ 
+a_1 & 2 a_0 & a_1 & a_2 &   &   &   & a_2 \\ 
+a_2 & a_1 & 2a_0 & a_1 & a_2 & (0) &   &   \\ 
+  & a_2 & a_1 & 2a_0 & a_1 & a_2 &   &   \\ 
+  &   & \ddots & \ddots & \ddots & \ddots & \ddots &   \\ 
+  &   & (0) & a_2 & a_1 & 2 a_0 & a_1 & a_2 \\ 
+a_2 &   &   &   & a_2 & a_1 & 2a_0 & a_1 \\ 
+a_1 & a_2 &   &   &   & a_2 & a_1 & 2a_0
+\end{bmatrix}
+\end{equation}
+Plus généralement, pour un filtre d'ordre quelconque, on a
+\begin{equation}
+M_{i,j} = \left\lbrace
+\begin{array}{cl}
+a_0 & \text{ si } i=j \\
+\dfrac{1}{2} a_k & \text{ si } i+j \equiv k [N]\\
+0 & \text{ sinon.}
+\end{array}
+\right.
+\end{equation}
+La matrice $M$ est symétrique.
+
+
+
+
+
+
+
+
+\subsection{Opérateur de filtrage en géométrie cartésienne 2D}
+
+Dans cette partie, nous utilisons toujours les notations de la section \ref{sec:notation_2D} en contexte périodique. Définissons les opérateurs de filtrage dans les directions $x$ et $y$ par
+\begin{eqnarray*}
+\mathcal{F}_x = \gsum_{k=0}^F a_k \dfrac{\tau_x^k + \tau_x^{-k}}{2} \\
+\mathcal{F}_y = \gsum_{k=0}^F a_k \dfrac{\tau_y^k + \tau_y^{-k}}{2} \\
+\end{eqnarray*}
+
+Avec $(a_k)_{0 \leq k \leq F}$ vérifiant \ref{prop:filter_def}. Comme la géométrie est cartésienne, on remarque que 
+\begin{equation}
+\mathcal{F}_x \circ \mathcal{F}_y = \mathcal{F}_y \circ \mathcal{F}_x.
+\end{equation}
+Ce qui est faux lorsque la métrique n'est pas orthogonale.
+La proposition \ref{prop:filter_def} permet de vérifier la consistance des opérateurs de filtrages.
+Si $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$ est fonction de $\mathcal{C}^{2F}$ alors :
+\begin{eqnarray*}
+\mathcal{F}_x u^*_{i,j} - u^*_{i,j} & = & C_xh^{2F}\\
+\mathcal{F}_y u^*_{i,j} - u^*_{i,j} & = & C_yh^{2F}
+\end{eqnarray*}
+où $C_x$ et $C_y$ sont des constantes indépendantes de $h$.
+En particulier, en composant les opérateurs, on peut définir un nouvel opérateur de filtrage. En effet  
+\begin{equation}
+(\mathcal{F}_x \circ \mathcal{F}_y) u_{i,j}^* - u_{i,j}^* = Ch^{2F}.
+\end{equation}
+
+L'écriture matricielle de l'opérateur de filtrage est donnée par la proposition suivante :
+\begin{proposition}
+Soit $\mathbf{u}$ une fonction de grille. Alors les opérateurs de filtrages s'écrivent à l'aide de matrices comme :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\text{vec}_2 (\mathcal{F}_x \mathbf{u}) & = & (Id \otimes M) \text{vec}_2 (\mathbf{u})\\
+\text{vec}_2 (\mathcal{F}_y \mathbf{u}) & = & (M \otimes Id) \text{vec}_2 (\mathbf{u})\\
+\end{array}
+\right.
+\end{equation}
+\end{proposition}
+Comme la matrice $M$ est symétrique, il est immédiat que $Id \otimes M$ et $M \otimes Id$ sont symétriques aussi.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Discrétisation temporelle}
+
+La résolution numérique des équations considérées se fait par la méthode des lignes. Il s'agit de discrétiser dans un premier temps les opérateurs spatiaux pour aboutir à une équations semi-discrétisée. Il ne reste que la dimension temporelle à considérer : il s'agit de la résolution numérique d'une équation aux dérivées ordinaires (EDO). Nous considérons ici des EDO de la forme
+\begin{equation}
+\dfrac{d q}{dt} = J_{\Delta} (q)
+\label{eq:edo}
+\end{equation}
+avec la condition initiale $q(0)=q_0$. 
+Ce choix de méthode est essentiellement pratique. La discrétisation spatiale et la discrétisation temporelle sont séparées, cela facilite le développement de nouvelles méthodes de discrétisations qui peuvent aisément être changées dans le code.
+
+\subsection{Discrétisation de Runge-Kutta d'ordre 4}
+
+Le schéma de résolution temporelle de référence que nous considérons est le schéma de Runge-Kutta d'ordre 4 (RK4). Si nous connaissons l'état de $q$ au temps $t^n = n \Delta t$ (que nous noterons $q^n$) alors nous cherchons à déterminer de façon explicite une valeur approchée de $q$ au temps $t^{n+1} = (n+1) \Delta t$. C'est à dire que nous cherchons $Q$ tel que
+\begin{equation}
+q^{n+1} = Q(q^n)
+\end{equation}
+Le schéma de Runge-Kutta d'ordre 4 est l'une des méthodes de Runge-Kutta les plus répandu, il s'écrit suivant l'algorithme \ref{alg:RK4}.
+
+\begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: RK4}\label{alg:RK4}
+    \begin{algorithmic}[1]
+    \State $q^0 = q_0$ connu,
+    \For{$n=0,1, \ldots$}
+             \State  $K^{(1)} = J_{\Delta} \left( q^n \right)$,
+             \State  $K^{(2)} = J_{\Delta} \left( q^n + \dfrac{\Delta t}{2} K^{(1)}\right)$,
+             \State  $K^{(3)} = J_{\Delta} \left( q^n + \dfrac{\Delta t}{2} K^{(2)}\right)$,
+             \State  $K^{(4)} = J_{\Delta} \left( q^n + \Delta t K^{(3)}\right)$,  
+             \State  $q^{n+1} = q^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right)$.
+            \EndFor
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center}
+
+On dit qu'une méthode numérique est consistante si
+\begin{equation}
+q^n - q(n \Delta t) = e^n
+\end{equation}
+et $e^n \rightarrow 0$ lors que $\Delta t \rightarrow 0$. Le schéma de Runge-Kutta d'ordre 4 est consistant à l'ordre 4. C'est à dire que l'erreur $e^n$ est de la forme
+\begin{equation}
+e^n = C \Delta t^4.
+\end{equation}
+où $C$ est indépendant de $\Delta t$. On renvoi à \cite{Demailly2016} pour preuve de consistance des méthodes de Runge-Kutta.
+
+Il existe autres méthodes de Runge-Kutta explicites. On pensera par exemples à la méthode d'Euler Explicite ou le schéma de Heun. Il est classique de représenter une méthode de Runge-Kutta par son \textit{tableau de Butcher} :
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{c|c}
+$b$ & $R$ \\
+\hline
+    & $c^T$
+\end{tabular}
+\end{center}
+\caption{Tableau de Butcher d'une méthode de Runge-Kutta.}
+\label{tab:butcher}
+\end{table}
+
+où $R$ est une matrice, $b$ et $c$ sont des vecteurs. Par exemple, le tableau de Butcher de la méthode de Runge Kutta d'ordre 4 de l'algorithme \ref{alg:RK4} est donné par :
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{c|cccc}
+$0$   &       &      &      &      \\
+$1/2$ & $1/2$ &      &      &      \\
+$1/2$ & $0$   & $1/2$&      &      \\
+$1$   & $0$   & $0$  & $1$  &      \\  
+\hline
+      & $1/6$ & $1/3$& $1/3$& $1/6$\\
+\end{tabular}
+\end{center}
+\caption{Tableau de Butcher de la méthode de Runge Kutta d'ordre 4 (algorithme \ref{alg:RK4}).}
+\end{table}
+Les matrices associées au tableau de Butcher pour RK4 sont
+\begin{equation}
+R= \begin{bmatrix}
+0 & 0 & 0 & 0 \\
+1/2& 0& 0 & 0 \\
+0 &1/2& 0 & 0 \\
+0 & 0 & 1 & 0
+\end{bmatrix}
+\hspace{1cm}
+b=\begin{bmatrix}
+0\\1/2\\1/2\\1
+\end{bmatrix}
+\hspace{1cm}
+c=\begin{bmatrix}
+1/6\\1/3\\1/3\\1/6
+\end{bmatrix}.
+\end{equation}
+
+\begin{proposition}
+Une méthode de Runge-Kutta est explicite si $R$ est triangulaire inférieure strictement.
+\end{proposition}
+
+
+
+
+\subsection{Stabilité}
+
+La \textit{stabilité linéaire} d'un schémas en temps est une notion essentielle associée à un schéma. Cette notion recouvre de nombreux aspects dans la littérature.
+Un schéma d'intégration en temps permet de calculer $q^n$ une approximation de $q(n \Delta t)$ à une erreur $e^n$ près :
+\begin{equation}
+q^n = q(n \Delta t) + e^n.
+\label{eq:scheme_erreur}
+\end{equation}
+
+La stabilité du schéma est essentielle. Nous distinguons deux principales notions de stabilité :
+\begin{enumerate}
+\item La \textit{stabilité au sens de Von Neumann} établi une relation de convergence de $q^n$ vers $q(n \Delta t)$ pour tout $1 \leq n \leq N$ lorsque $\Delta t \rightarrow 0$ et $N \rightarrow + \infty$. 
+La stabilité de Von Neumann du schéma \eqref{eq:scheme_erreur} se traduit par
+\begin{equation}
+\exists C >0, \forall n \in \{ 0 , \cdots , N \}, \forall (N, \Delta t) \in \left\lbrace \mathbb{N} \times \mathbb{R}^+ \text{ tels que } N \Delta t = T \right\rbrace, \| q^n \| \leq C.
+\end{equation}
+Cette propriété traduit le fait que l'erreur doit rester uniformément bordée lorsque l'on raffine la discrétisation. La stabilité au sens de Von Neumann ne permet pas d'assurer la convergence vers la solution de l'équation différentielle lorsque l'on raffine le maillage, il s'agit là de la consistance. Si un schéma est stable et consistant, alors il y a convergence de la solution numérique vers la solution exacte sur un intervalle borné lorsque l'on raffine, il s'agit du théorème de Lax.
+
+\item La \textit{Stabilité asymptotique} se caractérise par le compostement de la solution numérique $q^n$ sur un intervalle non borné à $\Delta t$ fixé. On distingues deux types de stabilités asymptotiques :
+\begin{itemize}
+\item la suite $(q^n)_{n \in \mathbb{N}}$ est bornée,
+\item La suite $q^n \rightarrow 0$ lorsque $n \rightarrow + \infty$.
+\end{itemize}
+la stabilité asymptotique est liée à l'équation différentielle résolue. En effet si la solution exacte de l'équation résolue tend vers $0$ alors la solution numérique doit tendre vers $0$ aussi. On note cependant que la stabilité asymptotique peut n'être vérifiée que sous une contrainte sur $\Delta t$.
+\end{enumerate} 
+
+Nous nous limitons à la notion de \textit{stabilité linéaire asymptotique}, appelée stabilité linéaire. Il s'agit de la stabilité asymptotique appliquée à l'équation de Dahlquist :
+\begin{equation}
+\left\lbrace 
+\begin{array}{rcl}
+q' & = & \lambda q \\
+q(0) & = & q_0.
+\end{array}
+\right.
+\label{eq:dahlquist}
+\end{equation}
+avec $\lambda \in \mathbb{C}^- = \{ \lambda_1 + i \lambda_2 \text{ tels que } (\lambda_1, \lambda_2) \in \mathbb{R}^- \times \mathbb{R} \}$. La solution de cette équation est explicitement donnée par 
+\begin{equation}
+q(t) = e^{\lambda t} q_0
+\end{equation}
+On remarque immédiatement que $q$ est bornée (par $q_0$) si Re$(\lambda) \leq 0$ et $q(t) \rightarrow 0$ lorsque $t \rightarrow + \infty$ si Re$(\lambda) <0$.
+
+\begin{proposition}
+Soit une méthode de Runge-Kutta appliquée à la résolution de l'équation \eqref{eq:dahlquist}. En utilisant les notations du tableau de Butcher \ref{tab:butcher}, on a 
+\begin{equation}
+q^{n+1} = r(\lambda \Delta t) q^n,
+\end{equation}
+avec $r$ donné par 
+\begin{equation}
+r(\theta) = 1 + \theta c^T \cdot \left( (id - \theta R)^{-1} \mathbf{1} \right).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Si l'on note $K = [K_1, K_2, ...]^T$, alors $K$ est solution de 
+\begin{equation}
+K = \lambda q^n +  \lambda \Delta t R K
+\end{equation}
+donc, $K = (id - \lambda \Delta t R)^{-1} \mathbf{1}$.
+De là, il découle que 
+\begin{equation}
+q^{n+1} = q^n + \theta c^T \cdot \left( (id - \theta R)^{-1} q^n \right).
+\end{equation} 
+avec $\theta = \lambda \Delta t$. D'où le résultat.
+\end{proof}
+On note que si la méthode est explicite alors $R$ est nilpotente donc $r$ est polynomiale en $\theta$, 
+en particulier, pour la méthode de Runge-Kutta d'ordre 4, on a 
+\begin{equation}
+r(\theta) = 1 + \theta + \dfrac{\theta^2}{2} + \dfrac{\theta^3}{6} + \dfrac{\theta^4}{24} 
+\end{equation}
+alors le résultat de stabilité est le suivant :
+\begin{proposition}
+La méthode de Runge-Kutta d'ordre 4 (RK4) est asymptotiquement stable pour l'équation \eqref{eq:dahlquist} si et seulement si
+\begin{equation}
+\vert 1 + \theta + \dfrac{\theta^2}{2} + \dfrac{\theta^3}{6} + \dfrac{\theta^4}{24}  \vert \leq 1,
+\end{equation}
+avec $\theta = \lambda \Delta t$.
+\end{proposition}
+On définit la zone de stabilité de RK4, notée $\mathcal{D}_{RK4}$, par
+\begin{equation}
+\mathcal{D}_{RK4} = \left\lbrace \theta \in \mathbb{C} \text{ tels que } \vert 1 + \theta + \dfrac{\theta^2}{2} + \dfrac{\theta^3}{6} + \dfrac{\theta^4}{24}  \vert \leq 1 \right\rbrace
+\end{equation} 
+Dans la figure \ref{fig:stab_area}, on présente les zones de stabilités de différentes méthodes de Runge-Kutta explicites.
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.2]{stabilityarea_color.jpeg}
+\end{center}
+\caption{Zones de stabilités de différentes méthodes de Runge-Kutta explicites dans le plan complexe. La zone de stabilité de RK4 est délimitée par le trait noir. Les traits vert, bleu et rouge sont respectivement pour des méthodes de Runge-Kutta d'ordre 3, 2 et la méthode d'Euler Explicite.}
+\label{fig:stab_area}
+\end{figure}
+En particulier, comme détaillé dans \cite{Hundsdorfer2013}, on note que
+\begin{equation}
+\mathcal{D}_{RK4} \cap i \mathbb{R} = i \left[-\sqrt{2},\sqrt{2}\right].
+\end{equation}
+
+
+
+
+
+\subsection{Schémas de Runge-Kutta pour les systèmes d'équations différentielles}
+
+La notion de stabilité linéaire appliquée à l'équation de Dahlquist \eqref{eq:dahlquist} est étendue au système d'équations différentielles
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\mathbf{q}' & = & J \mathbf{q} \\
+\mathbf{q}(0) & = & \mathbf{q}_0 
+\end{array}
+\right.
+\label{eq:dahlquist_mat}
+\end{equation}
+où $\mathbf{q} = \begin{bmatrix}
+q_1(t) & q_2(t) & \cdots & q_N(t)
+\end{bmatrix}^T \in \mathbb{R}^N$.
+$q_i$ désigne une fonction de $\mathbb{R}^+$ dans $\mathbb{C}$, $J \in \mathbb{M}_N (\mathbb{C})$ désigne une matrice carré. On se restreint au cas où $J$ est une matrice diagonalisable telle que 
+\begin{equation}
+\text{Sp}(J) \subset \mathbb{C}^-.
+\end{equation}
+Cette dernière propriété permet d'assurer que la solution de \eqref{eq:dahlquist_mat} est bornée. Cette solution est donnée par 
+\begin{equation}
+\mathbf{q}(t) = e^{Jt}\mathbf{q}_0 \text{ avec } t \in \mathbb{R}^+.
+\end{equation}
+Comme $J$ est diagonalisable, il existe $P \in \mathbb{M}_N(\mathbb{R})$ une matrice de passage et $\Lambda \in \mathbb{M}_N(\mathbb{R})$ matrice diagonale (contenant les valeurs propres de $J$) tels que
+\begin{equation}
+J = P^{-1}\Lambda P
+\end{equation}
+De la, il vient que 
+\begin{equation}
+e^{Jt} = P^{-1}e^{\Lambda t}P,
+\end{equation}
+donc la solution de \eqref{eq:dahlquist_mat} vérifie l'égalité 
+\begin{equation}
+\mathbf{q}(t) = e^{Jt}\mathbf{q}_0 = P^{-1}e^{\Lambda t}P\mathbf{q}_0.
+\end{equation}
+
+A présent,considérons que l'équation \eqref{eq:dahlquist_mat} est discrétisée via la méthode de Runge Kutta d'ordre 4 de l'algorithme \ref{alg:RK4}. On obtient alors 
+\begin{equation}
+\mathbf{q}^{n+1} = r(\Delta t J) \mathbf{q}^n
+\end{equation}
+où $r$ est donné par 
+\begin{equation}
+r(\theta) = 1 + \theta + \dfrac{\theta^2}{2} + \dfrac{\theta^3}{6} + \dfrac{\theta^4}{24}.
+\end{equation}
+Comme $J$ est diagonalisable, on a même
+\begin{equation}
+\mathbf{q}^{n+1} = P^{-1}r(\Delta t \Lambda)P \mathbf{q}^n
+\end{equation}
+De la, on déduit la relation liant $\mathbf{q}^n$ à la condition initiale $\mathbf{q}_0$ : 
+\begin{equation}
+\mathbf{q}^n = r(\Delta t J) \mathbf{q}_0 = P^{-1}r(\Delta t \Lambda)P \mathbf{q}_0.
+\end{equation}
+Le schémas utilisé est dit linéairement stable si $\left( \| \mathbf{q}^n \| \right)_{n \in \mathbb{N}}$ est une suite bornée. Comme $J$ est diagonalisable, cela revient à dire que $| r(\Delta t \lambda) | \leq 1$ avec $\lambda \in $ Sp$(J)$.
+
+\begin{proposition}
+Le schéma d'intégration est linéairement stable si
+\begin{equation}
+\forall \lambda \in \text{Sp}(J), |r(\Delta t \lambda)| \leq 1.
+\end{equation}
+Ce qui est équivalent à dire
+\begin{equation}
+\text{Sp}(\Delta t J) \subset \mathcal{D}_{RK4}.
+\end{equation}
+Comme $r$ est un polynôme, on a même la stabilité linéaire si
+\begin{equation}
+\rho(r(\Delta t J)) \leq 1
+\end{equation}
+où $\rho$ désigne le rayon spectrale.
+\end{proposition}
+
+
+
+
+
+
+
+
+
+
+\section{Equation d'advection en dimension 1}
+
+Dans cette section, on s'intéresse à l'équation de transport
+\begin{equation}
+\dfrac{\partial u}{\partial t} + c \dfrac{\partial u}{\partial x} = 0
+\label{eq:transport_1D}
+\end{equation}
+pour $x \in [0,L]$, $t>0$ et avec $u(t=0,x)=u_0(x)$. On se place en contexte périodique, de période $L$. On a en particulier $u(t,0)=u(t,L)$ pour tout $t \geq 0$. $c$ est une constante positive. La solution exacte de cette équation est connue et donnée par 
+\begin{proposition}
+La solution de l'équation \eqref{eq:transport_1D} est donnée par 
+\begin{equation}
+u(t,x) = u_0(x-ct) = \gsum_{k \in \mathbb{Z}} \exp \left[ i \dfrac{2 \pi k}{L} (x-ct) \right] \hat{u}_0^k
+\end{equation}
+où $\hat{u}_0^k = \dfrac{1}{\sqrt{L}} \gint_0^L u_0(x) \exp \left[ - i \dfrac{2 \pi k}{L}x \right] dx$ désigne la $ki$ème transformée de Fourier de $u_0$.
+\end{proposition}
+
+\begin{proof}
+La solution de \eqref{eq:transport_1D} est unique, en effet si $u_1$ et $u_2$ sont solutions (distinctes) de \eqref{eq:transport_1D} alors $w = u_1-u_2$ est une solution $L-$périodique de 
+\begin{equation}
+\dfrac{\partial w}{\partial t} = - \dfrac{\partial  cw}{\partial x}
+\end{equation}
+vérifiant $w(t=0,x)=0$ pour tout $x$. En multipliant par $w$ et en intégrant sur $[0,L]$, on obtient l'équation
+\begin{equation*}
+\dfrac{1}{2} \dfrac{d}{dt} \| w \|_{L^2}^2 = - \gint_{0}^L cw \dfrac{\partial w}{\partial x} = - \dfrac{c}{2} \gint_{0}^L \dfrac{\partial w^2}{\partial x} = 0 \text{ par périodicité de }w.
+\end{equation*}
+donc $\| w \|_{L^2}^2=\| w_{|t=0} \|_{L^2}^2 = 0$ et $w=0$, d'où l'unicité.
+
+On peut facilement vérifier que $(t,x) \mapsto u_0(x-ct)$ et $(t,x) \mapsto \gsum_{k \in \mathbb{Z}} \exp \left[ i \dfrac{2 \pi k}{L} (x-ct) \right] \hat{u}_0^k$ sont solutions de \eqref{eq:transport_1D}. Par unicité de la solution, on obtient le résultat souhaité.
+\end{proof}
+Cette solution est une translation périodique de la condition initiale. Dans cette section, nous comparons la solution théorique de \eqref{eq:transport_1D} avec une solution numérique obtenue à l'aide de différents opérateurs ou outils de discrétisations évoqués dans les parties précédentes.
+
+
+
+
+
+
+
+
+
+\subsection{Discrétisation}
+
+La discrétisation est effectuée en utilisant la méthode des lignes. Dans un premier temps, il s'agit de discrétiser les opérateurs spatiaux. On aboutit à une EDO que nous résolvons par une méthode de Runge-Kutta. Nous utilisons dans cette partie les notations de la section \ref{sec:notation_1D}.
+ 
+On a vu dans les parties précédentes que $\delta_x^H u^*$ était une bonne approximation de $\partial_x u^*$. On remplace l'opérateur de dérivation spatiale $\partial_x$ par l'opérateur de dérivation hermitien $\delta_x^H$.
+On cherche alors $\mathfrak{u}$ approximation de $u^*$ aux points du maillage et solution de 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{d \mathfrak{u}}{dt} & = & - c \delta_x^H \mathfrak{u} \\
+\mathfrak{u}_{|t=0} & = & u_0^*
+\end{array}
+\right.
+\end{equation}
+Si l'on note matriciellement 
+\begin{equation}
+U = \begin{bmatrix}
+\mathfrak{u}_1 \\
+\mathfrak{u}_2 \\
+\vdots \\
+\mathfrak{u}_N
+\end{bmatrix} \in \mathbb{R}^N \text{ et } U_0 = \begin{bmatrix}
+u_0(x_1) \\
+u_0(x_2) \\
+\vdots \\
+u_0(x_N)
+\end{bmatrix} \in \mathbb{R}^N
+\end{equation}
+les vecteurs contenant les composantes de $\mathfrak{u}$ (chaque composante est dépendante de $t$) et de $u_0^*$, alors $U$ est solution du système d'équations différentielles :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{d U}{dt} & = & - c P^{-1}K U \\
+U_{|t=0} & = & U_0
+\end{array}
+\right. .
+\end{equation}
+La solution d'un tel système est donnée par 
+\begin{equation}
+U(t) = \exp\left[ - c P^{-1}K t\right] U_0.
+\end{equation}
+
+On a déjà vu dans la proposition \ref{prop:eigen_mat_hermitien} que $P^{-1}K$ est une matrice de $\mathbb{M}_N(\mathbb{R})$ qui admet $N$ valeur propres distinctes. $P^{-1}K$ est diagonalisable, il existe $V$ une matrice de passage et $\Lambda$ une matrice diagonale tels que 
+\begin{equation}
+P^{-1}K = V^T \Lambda V.
+\end{equation}
+Ces matrices sont données par 
+\begin{equation}
+\Lambda = \begin{bmatrix}
+\omega^1 &   &   &   &   \\ 
+  & \omega^2 &   & (0) &   \\ 
+  &   & \ddots &   &   \\ 
+  & (0) &   & \omega^{N-1} &   \\ 
+  &   &   &   & \omega^N
+\end{bmatrix} \text{ et }
+V = \begin{bmatrix}
+  &   &   &   &   \\ 
+\vdots & \vdots  &   & \vdots  & \vdots  \\ 
+U^1 & U^2 & \cdots & U^{N-1} & U^N \\ 
+\vdots &\vdots &  &\vdots &\vdots \\ 
+  &   &   &   &  
+\end{bmatrix} 
+\end{equation}
+avec les vecteurs propres $U^k$ vérifiant
+\begin{equation}
+U^k = \begin{bmatrix}
+\mathfrak{u}^k_1\\
+\mathfrak{u}^k_2\\
+\vdots \\
+\mathfrak{u}^k_N\\
+\end{bmatrix}
+\end{equation} 
+et les valeurs propres associées $\omega^k$. Les valeurs de $\omega^k$ et $\mathfrak{u}^k_j$ sont données par la proposition \ref{prop:vp_herm}. On déduit directement de ces égalités que 
+\begin{equation}
+U(t) = V^T \exp \left[-c \Lambda t \right] V U_0
+\end{equation}
+d'où la solution approchée de \eqref{eq:transport_1D} discrétisée en espace et évaluée en $x_j$ est donnée par 
+\begin{equation}
+u(t,x_m) \approx \mathfrak{u}_j(t) = \dfrac{1}{N} \gsum_{k=1}^N \gsum_{j=1}^N  \exp \left[ i l \left( k + j \right) \dfrac{2 \pi}{N} \right] \exp \left[ - c \omega^j \right] u_0(x_p)
+\end{equation}
+
+
+\subsection{Stabilité}
+
+\subsection{Relations de conservations}
+
+
+
+
+\section{Equation des ondes}
+
+\subsection{Discrétisation}
+
+\subsection{Consistance et Stabilité}
+
+\subsection{Relations de conservations}
