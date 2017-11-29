@@ -1,0 +1,38 @@
+\documentclass[10pt,a4paper]{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[left=2.5cm,right=2.5cm,top=3cm,bottom=3cm]{geometry}
+
+\author{Brachet Matthieu}
+\title{Research Project : Numerical resolution of three dimensions PDE - Applications in numerical climatology and oceanography.}
+\date\today
+
+\def\REF{\textbf{REF} }
+\begin{document}
+\maketitle
+
+In \cite{Croisille-10, Croisille-12, Brachet-Croisille}, a finite difference scheme for partial differential equation is introduced and studied. The grid used is the Cubed-Sphere grid. This grid is quasi cartesian and composed of six patch matching with faces of a cube.
+The calculation of the approximated divergence, gradient and curl operator is based on the evaluation of approximated derivative in a periodic context. Each derivative is made with an hermitian compact scheme. This method is possible thanks to the similarities between each patch and a square and thanks to a great circle structure permitting to construct the Cubed-Sphere grid.
+
+The time scheme is an explicit four order Runge-Kutta method in which a space filtering procedure is added on each time step. A Courant-Friedrich-Levi condition (CFL) depending of the space step and caracteristic velocity is used.
+The complete method present good results on Shallow Water equation and Linearized Shallow Water equation on classicals tests case for oceanography and climatology.
+
+The main goal of this research project is to extend the method to solve three dimension problems like Global Non-hydrostatic fluid equation. In \cite{Ullrich}, a Runge-Kutta-Rosenbrock scheme and splitting scheme are used to solve the equation and in \cite{Choi-Hong} the vertical space discretization is based on finite difference.
+
+Considering the difference of scale between the tangential dimension and the vertical dimension, an explicit time scheme should be too restrictive considering the CFL condition. Then, the main point is to obtain a fully implicit scheme. This kind of scheme is expansive but the time step can be greater than with an explicit time scheme. 
+
+The quasi-cartesian structure of the Cubed-Sphere permits a good representation of Spherical Harmonics. Then, spherical harmonics interpolation process can be introduced and study. This way concern fast solver and fast evaluation of each operator.
+
+A mathematical analysis of the method will be undertaken. This analysis will concern accuracy of the method but also the conservation properties and stability of the scheme. 
+
+In order to analyse the robustness and the accuracy of the scheme, different test cases are available and can be considered. 
+
+
+
+\bibliographystyle{plain}
+\bibliography{bibox_JPC}
+\end{document}
