@@ -500,7 +500,7 @@ Ainsi, $\delta_x$ est un opérateur d'approximation de la dérivée première à
 Soit $P \in \mathbb{N}^*$. 
 On définit $\delta_{P,x}$ l'opérateur
 \begin{equation}
-\delta_{P,x} = \gsum_{j=1}^P a_j \dfrac{\tau_j - \tau_{-j}}{2 j h}
+\delta_{2P,x} = \gsum_{j=1}^P a_j \dfrac{\tau_j - \tau_{-j}}{2 j h}
 \label{eq:explicite_dx}
 \end{equation}
 où  pour tout $1 \leq j \leq P$, on a $a_j \in \mathbb{R}$. 
@@ -509,7 +509,7 @@ où  pour tout $1 \leq j \leq P$, on a $a_j \in \mathbb{R}$.
 
 
 \begin{theoreme}
-L'opérateur $\delta_{P,x}$ est un opérateur d'approximation de la dérivée première à l'ordre $2P$ si et seulement si les coefficients $(a_j)_{1 \leq j \leq P}$ sont solutions de :
+L'opérateur $\delta_{2P,x}$ est un opérateur d'approximation de la dérivée première à l'ordre $2P$ si et seulement si les coefficients $(a_j)_{1 \leq j \leq P}$ sont solutions de :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcll}
@@ -521,8 +521,9 @@ L'opérateur $\delta_{P,x}$ est un opérateur d'approximation de la dérivée pr
 \end{equation}
 L'erreur de troncature est de la forme :
 \begin{equation}
-\left(u' \right)_i^* - \delta_{P,x} u^*_i = h^{2P}\sum_{j=1}^P a_l \dfrac{j^{2P}}{2(2P+1)!} \left( u^{(2P+1)}(\xi_j) + u^{(2P+1)}(\eta_j) \right).
+\left(u' \right)_i^* - \delta_{2P,x} u^*_i = h^{2P}\sum_{j=1}^P a_j 2P \dfrac{j^{2P}}{2(2P+1)!} u^{(2P+1)}(\alpha_i) .
 \end{equation}
+avec $\alpha_i \in [x_{i-P}, x_{i+P}]$.
 \label{th:consistance_delta_x_explicite}
 \end{theoreme}
 
@@ -560,8 +561,9 @@ La seconde égalité est vérifiée pour tout $k$ pair. Ce système se simplifie
 \end{equation}
 L'erreur de troncature prend la forme
 \begin{equation}
-u'(x_i) - \delta_{P,x} u^*_i = h^{2P} \sum_{j=1}^P a_j \dfrac{j^{2P}}{2(2P+1)!} \left( u^{(2P+1)}(\xi_j) + u^{(2P+1)}(\eta_j) \right).
+u'(x_i) - \delta_{2P,x} u^*_i = h^{2P} \sum_{j=1}^P a_j \dfrac{j^{2P}}{2(2P+1)!} \left( u^{(2P+1)}(\xi_j) + u^{(2P+1)}(\eta_j) \right).
 \end{equation}
+pour conclure, on utilise le théorème des valeurs intermédiaires.
 \end{proof}
 
 \begin{proposition}
@@ -575,7 +577,7 @@ A = \begin{bmatrix}
 (1^2)^0 & (2^2)^0 & (3^2)^0 & (4^2)^0 & \cdots & (P^2)^0\\
 (1^2)^1 & (2^2)^1 & (3^2)^1 & (4^2)^1 & \cdots & (P^2)^1\\
 (1^2)^2 & (2^2)^2 & (3^2)^2 & (4^2)^2 & \cdots & (P^2)^2\\
-\vdots  &         &         & \vdots  &        &        \\
+\vdots  &         &         & \vdots  &        &  \vdots\\
 (1^2)^{P-1} & (2^2)^{P-1} & (3^2)^{P-1} & (4^2)^{P-1} & \cdots & (P^2)^{P-1}
 \end{bmatrix} 
 \end{equation}
@@ -583,31 +585,25 @@ alors $A$ est inversible.
 On remarque que $\det (A)$ est un déterminant de Van Der Monde dont les coefficients sont strictement croissants donc $\det(A) > 0$ et en particulier, $A$ est inversible. La solution de \eqref{eq:syst_opexplicite_P} existe et est unique.
 \end{proof}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+On suppose à présent les coefficients de $\delta_{P,x}$ issus du système \ref{eq:syst_opexplicite_P}. Il existe $(a_j)_{1 \leq j \leq P}$ tels que 
+\begin{equation}
+\delta_{2P,x} = \gsum_{j=1}^P a_j \dfrac{\tau_j - \tau_{-j}}{2jh}
+\end{equation}
+Or, on a déja vu que $\tau^{-1} = \tau_{-1} = \tau^{N-1}$, c'est à dire plus généralement
+\begin{equation}
+\tau_{-l} = \tau^{-l} = \tau^{N-l} \text{ avec } l \in \mathbb{Z}.
+\end{equation}
+D'où
+\begin{align*}
+\delta_{2P,x} & = \gsum_{j=1}^P a_j \dfrac{\tau_j - \tau_{-j}}{2jh}\\
+	& = \gsum_{j=1}^P \dfrac{a_j}{2jh} \left( \tau_j - \tau_{-j} \right)\\
+	& = \gsum_{j=1}^P \dfrac{a_j}{2jh} \left( \tau^j - \tau^{N-j} \right)\\
+	& = \dfrac{1}{h} Q_P(\tau)
+\end{align*}
+avec $Q_P$ un polynôme de $\mathbb{R}_{N-1}[X]$ donné par
+\begin{equation}
+Q_{2P}(X) = \gsum_{j=1}^P \dfrac{a_j}{2j} \left( X^j - X^{N-j} \right)
+\end{equation}
 
 On en déduit quelques opérateurs d'approximation de la dérivée première.
 \begin{corollaire}
@@ -615,30 +611,51 @@ Soit $u :  x \in \Omega \mapsto u(x) \in \mathbb{R}$ une fonction donnée.
 \begin{itemize}
 \item Si $u \in \mathcal{C}^3 (\Omega)$ alors l'opérateur :
 \begin{equation}
-\delta_{2,x} = \delta_x = \dfrac{\tau_1 - \tau_{-1}}{2h}
+\delta_{2,x} = \delta_x = \dfrac{\tau_1 - \tau_{-1}}{2h} = \dfrac{1}{h}Q_2(\tau)
 \label{eq:derprem_order2}
 \end{equation}
-est un opérateur d'approximation de la dérivée première à l'ordre 2 ($P=1$),
+est un opérateur d'approximation de la dérivée première à l'ordre 2 ($P=1$) avec 
+\begin{equation}
+Q_2(X) = \dfrac{1}{2}(X-X^{N-1}),
+\end{equation}
 \item Si $u \in \mathcal{C}^5 (\Omega)$ alors l'opérateur :
 \begin{equation}
-\delta_{4,x} = \dfrac{4}{3} \dfrac{\tau_1 - \tau_{-1}}{2h} - \dfrac{1}{3} \dfrac{\tau_2 - \tau_{-2}}{4h}
+\delta_{4,x} = \dfrac{4}{3} \dfrac{\tau_1 - \tau_{-1}}{2h} - \dfrac{1}{3} \dfrac{\tau_2 - \tau_{-2}}{4h} = \dfrac{1}{h}Q_4(X)
 \label{eq:derprem_order4}
 \end{equation}
-est un opérateur d'approximation de la dérivée première à l'ordre 4 ($P=2$),
+est un opérateur d'approximation de la dérivée première à l'ordre 4 ($P=2$), avec
+\begin{equation}
+Q_4(X) = \dfrac{2}{3} (X-X^{N-1}) - \dfrac{1}{12} (X^2-X^{N-2})
+\end{equation}
 \item Si $u \in \mathcal{C}^7 (\Omega)$ alors l'opérateur :
 \begin{equation}
-\delta_{6,x} = \dfrac{3}{2} \dfrac{\tau_1 - \tau_{-1}}{2h} - \dfrac{3}{5} \dfrac{\tau_2 - \tau_{-2}}{4h} + \dfrac{1}{10} \dfrac{\tau_3 - \tau_{-3}}{6h}
+\delta_{6,x} = \dfrac{3}{2} \dfrac{\tau_1 - \tau_{-1}}{2h} - \dfrac{3}{5} \dfrac{\tau_2 - \tau_{-2}}{4h} + \dfrac{1}{10} \dfrac{\tau_3 - \tau_{-3}}{6h} = \dfrac{1}{4} Q_6(X)
 \label{eq:derprem_order6}
 \end{equation}
-est un opérateur d'approximation de la dérivée première à l'ordre 6 ($P=3$),
+est un opérateur d'approximation de la dérivée première à l'ordre 6 ($P=3$), avec
+\begin{equation}
+Q_6(X) = \dfrac{3}{4} (X-X^{N-1}) - \dfrac{3}{20} (X^2-X^{N-2}) + \dfrac{1}{60} (X^3-X^{N-3})
+\end{equation}
 \item Si $u \in \mathcal{C}^9 (\Omega)$ alors l'opérateur :
 \begin{equation}
-\delta_{8,x} = \dfrac{8}{5} \dfrac{\tau_1 - \tau_{-1}}{2h} - \dfrac{4}{5} \dfrac{\tau_2 - \tau_{-2}}{4h} + \dfrac{8}{35} \dfrac{\tau_3 - \tau_{-3}}{6h} - \dfrac{1}{35} \dfrac{\tau_4 - \tau_{-4}}{8h}
+\delta_{8,x} = \dfrac{8}{5} \dfrac{\tau_1 - \tau_{-1}}{2h} - \dfrac{4}{5} \dfrac{\tau_2 - \tau_{-2}}{4h} + \dfrac{8}{35} \dfrac{\tau_3 - \tau_{-3}}{6h} - \dfrac{1}{35} \dfrac{\tau_4 - \tau_{-4}}{8h} = \dfrac{1}{h}Q_8(X)
 \label{eq:derprem_order8}
 \end{equation}
-est un opérateur d'approximation de la dérivée première à l'ordre 8 ($P=4$).
+est un opérateur d'approximation de la dérivée première à l'ordre 8 ($P=4$), avec
+\begin{equation}
+Q_8(X) = \dfrac{4}{5} (X-X^{N-1}) - \dfrac{1}{5} (X^2-X^{N-2}) + \dfrac{4}{105} (X^3-X^{N-3}) - \dfrac{1}{180} (X^4-X^{N-4}).
+\end{equation}
 \end{itemize}
 \end{corollaire} 
+
+Les valeurs propres de $\delta_{2P,x}$ sont immédiatement connues grâce à sa forme polynomiale et la proposition \ref{prop:eigen_P(tau)} :
+\begin{proposition}
+Les valeurs propres de 
+\begin{equation}
+\delta_{2P,x} = \dfrac{1}{h}Q_{2P}(\tau)
+\end{equation}
+sont les racines de l'unité $\omega^k$, avec $-N/2+1 \leq k \leq N/2$, associées aux fonction propres $\mathfrak{u}^k$.
+\end{proposition}
 
 
 

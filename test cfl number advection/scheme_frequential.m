@@ -1,6 +1,6 @@
 clc; clear all; close all;
 
-teta=linspace(0,pi,100);
+teta=linspace(0,pi,1000);
 
 se2=sin(teta);
 se4=(4/3)*sin(teta)-(1/3)*sin(2*teta)/2;

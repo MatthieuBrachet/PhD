@@ -18,7 +18,7 @@ p(end,1)=1/6; p(1,end)=1/6;
 p=sparse(p);
 
 
-opt_ftr='redonnet10';
+opt_ftr='hyt';
 if strcmp(opt_ftr,'redonnet10')==1
     ftr0=772/1024;
     ftr1=420/1024;
@@ -61,9 +61,9 @@ end
 ftr=sparse(ftr);
 
 
-u=(abs(x-.3)<0.2);
+%u=(abs(x-.3)<0.2);
 %u=exp(-500*(x-.3).^2);
-%u=.4*cos(2*pi*x)+.5;
+u=.4*cos(2*pi*x)+.5;
 int=sum(u)*h;
 
 e=[]; cons=[];
@@ -101,7 +101,7 @@ while t+ddt<tmax
     clf
     figure(1)
     plot(x,u)
-   % axis([0 1 -.2 1.2])
+    axis([0 1 -.2 1.2])
 end
 
 
