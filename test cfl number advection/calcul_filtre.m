@@ -14,7 +14,9 @@ delta=0.0;
 
 figure(1)
 plot(theta,ftr3,theta,ftr4,theta,ftr5,theta,ftr6,theta,ftr7,theta,ones(size(theta)),'k-','linewidth',2)
-legend('expl. 2','expl. 4','expl. 6','expl. 8','expl. 10','theoric.') 
+legend('expl. 2','expl. 4','expl. 6','expl. 8','expl. 10','theorique') 
 xlabel('\theta')
 ylabel('F(\theta)')
+xticks([0 pi/4 pi/2 3*pi/4 pi])
+xticklabels({'0','\pi/4','\pi/2','3\pi /4','\pi'})
 grid on

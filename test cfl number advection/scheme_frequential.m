@@ -22,21 +22,27 @@ sk4=((a)*sin(teta)+(b)*sin(2*teta)/2+(c)*sin(3*teta)/3)./(1+2*(alpha)*cos(teta))
 
 figure(1)
 plot(teta,se2,'--',teta,se4,'--',teta,se6,'--',teta,se8,'--',teta,sc4,'-',teta,sc6,'-',teta,sc8,'-',teta,teta,'k-','Linewidth',2)
-legend('expl. 2','expl. 4','expl. 6','expl. 8','comp. 4','comp. 6','comp. 8','theoric.','Location','northwest')
+legend('expl. 2','expl. 4','expl. 6','expl. 8','comp. 4','comp. 6','comp. 8','théorique','Location','northwest')
 xlabel('\theta')
-ylabel('modified \theta : \theta_m')
+ylabel('\theta modifié')
+xticks([0 pi/4 pi/2 3*pi/4 pi])
+xticklabels({'0','\pi/4','\pi/2','3\pi /4','\pi'})
 grid on
 
 figure(2)
 plot(teta,se2,'-',teta,se4,'-',teta,se6,'-',teta,se8,'-',teta,teta,'k-','Linewidth',2)
-legend('expl. 2','expl. 4','expl. 6','expl. 8','theoric.','Location','northwest')
+legend('expl. 2','expl. 4','expl. 6','expl. 8','théorique','Location','northwest')
 xlabel('\theta')
-ylabel('modified \theta : \theta_m')
+ylabel('\theta modifié')
+xticks([0 pi/4 pi/2 3*pi/4 pi])
+xticklabels({'0','\pi/4','\pi/2','3\pi /4','\pi'})
 grid on
 
 figure(3)
 plot(teta,se4,teta,sc4,teta,sk4,teta,teta,'k-','Linewidth',2)
-legend('expli. 4','comp. 4','opt. 4','theoric.','Location','northwest')
+legend('expli. 4','comp. 4','opt. 4','théorique','Location','northwest')
 xlabel('\theta')
-ylabel('modified \theta : \theta_m')
+ylabel('\theta modifié')
+xticks([0 pi/4 pi/2 3*pi/4 pi])
+xticklabels({'0','\pi/4','\pi/2','3\pi /4','\pi'})
 grid on
