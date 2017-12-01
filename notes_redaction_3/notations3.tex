@@ -652,11 +652,91 @@ Les valeurs propres de $\delta_{2P,x}$ sont immédiatement connues grâce à sa 
 \begin{proposition}
 Les valeurs propres de 
 \begin{equation}
-\delta_{2P,x} = \dfrac{1}{h}Q_{2P}(\tau)
+\delta_{2P,x} = \dfrac{1}{h}Q_{2P}(\omega^k)
 \end{equation}
-sont les racines de l'unité $\omega^k$, avec $-N/2+1 \leq k \leq N/2$, associées aux fonction propres $\mathfrak{u}^k$.
+où $\omega^k$ est la k-ième racine de l'unité, avec $-N/2+1 \leq k \leq N/2$, et est associée à la fonction propre $\mathfrak{u}^k$.
 \end{proposition}
 
+Soit $-N/2+1 \leq k \leq N/2$. On rappelle que
+\begin{equation}
+\mathfrak{u}^k = \sqrt{h}(u^k)^* \text{ avec } u^k(x)=\dfrac{1}{\sqrt{L}} \exp \left( i \dfrac{2 \pi x}{L} \right)
+\end{equation}
+On a alors directement les deux égalités suivantes 
+\begin{equation*}
+\begin{array}{rcl}
+\delta_{2P,x} (u^k)^* & = & \dfrac{1}{h}Q_{2P} (\omega^k) (u^k)^*\\
+(\partial_x u^k)^* & = & i \dfrac{2 \pi k}{L} (u^k)^*
+\end{array}
+\end{equation*}
+On considère que l'opérateur $\delta_{2P,x}$ est consistant avec $\partial_x$ à l'ordre $2P$, alors
+\begin{align*}
+-ih \left( \delta_{2P,x} (u^k)^* - (\partial_x u^k)^* \right) & = \left( -i Q_{2P}(\omega^k) + \dfrac{2 \pi k}{N} \right) \\
+	& = \left( -i Q_{2P}\left( \exp(i \theta) \right) + \theta \right) \text{ avec } \theta = \dfrac{2 \pi k}{N}\\
+	& = \mathcal{O} \left( h^{2P+1} \right).
+\end{align*}
+La consistance du schéma assure que $i Q_{2P}\left( \exp(i \theta) \right)$ est proche de $\theta$. En particulier, on remarque que
+\begin{equation}
+ i Q_{2P}(e^{i0}) = 0 \text{ et }  i Q_{2P}(e^{i \pi}) = 0 \neq \pi
+\end{equation}
+Ainsi, la fréquence $k=0$ est parfaitement représentée et la fréquence $k = N/2$ est très mal représentée par l'ensemble des schémas aux différences finies considérées.
+
+On sait que $-N/2+1 \leq k \leq N/2$ donc $-\pi \leq \theta \leq \pi$. De plus, la fonction de $\theta$ modifiée : $\theta \mapsto -i Q_{2P}\left( \exp(i \theta) \right)$  est donnée par
+\begin{equation}
+-i Q_{2P}\left( \exp(i \theta) \right) = \gsum_{j=1}^P a_j \sin(j \theta)
+\end{equation}
+et est impaire. On peut se contenter de comparer $\theta$ et $-i Q_{2P}\left( \exp(i \theta) \right)$ pour $\theta \in [0 , \pi]$. Le graphique de comparaison est donné dans en Fig. \ref{fig:freq_classic}. On constate que plus le schéma est d'ordre élevé, meilleure est la représentation des hautes fréquences.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=.6]{freq_classic.eps}
+\end{center}
+\caption{Représentation de $i Q_{2P}\left( \exp(i \theta) \right)$ en fonction de $\theta$ pour les schémas d'approximation explicites $\delta_{x,P}$ d'ordres 2, 4, 6 et 8.}
+\label{fig:freq_classic}
+\end{figure}
+
+On définit $D_{2P} \in \mathbb{M}_N(\mathbb{R})$ la matrice associée à l'opérateur $\delta_{2P,x}$ :
+\begin{equation}
+D_{2P} = \dfrac{1}{h} Q_{2P}(T).
+\end{equation}
+La relation suivante est alors vérifiée
+\begin{equation}
+\vec_1(\delta_{2P,x} \mathfrak{u}) = D_{2P} \vec_1 ( \mathfrak{u} )
+\end{equation}
+pour tout $\mathfrak{u} \in l^2_{h,per}$.
+
+Par exemple, le schéma centré d'ordre 2 $\delta_x = \delta_{2,x}$ est associée à la matrice
+\begin{equation}
+D_2 = \dfrac{1}{2h}
+\begin{bmatrix}
+0 & 1 &   &   &   & -1 \\ 
+-1 & 0 & 1 &   & (0) &   \\ 
+  & -1 & 0 & 1 &   &   \\ 
+  &   & \ddots & \ddots & \ddots &   \\ 
+  & (0) &   & -1 & 0 & 1 \\ 
+1 &   &   &   & -1 & 0
+\end{bmatrix} 
+\end{equation}
+
+\begin{proposition}
+Les valeurs propres de $D_{2P}$ sont données par $\dfrac{1}{h}Q_{2P}(\omega^k)$ avec $-N/2 +1 \leq k \leq N/2$. Chaque valeur propre est associée à un vecteur propre $\vec_1{\mathfrak{u}^k}$.
+\end{proposition}
+
+\begin{proposition}
+La matrice $D_{2P}$ est antisymétrique.
+\end{proposition}
+
+\begin{proof}
+Montrons que $D_{2P}^T = - D_{2P}$ :
+\begin{align*}
+D_{2P}^T & = \dfrac{1}{h} Q_{2P}(T)^T \\
+	& = \dfrac{1}{h} \left( \gsum_{j=1}^P \dfrac{a_j}{2j} (T^j - T^{N-j}) \right)^T\\
+	& = \dfrac{1}{h}\gsum_{j=1}^P \dfrac{a_j}{2j} ((T^j)^T - (T^{N-j})^T) \\
+	& = \dfrac{1}{h}\gsum_{j=1}^P \dfrac{a_j}{2j} (T^{N-j} - T^{j}) \\
+	& = - \dfrac{1}{h} \gsum_{j=1}^P \dfrac{a_j}{2j} (T^j - T^{N-j}) \\
+	& = - D_{2P}
+\end{align*}
+d'où le résultat.
+\end{proof}
 
 
 
@@ -665,6 +745,91 @@ sont les racines de l'unité $\omega^k$, avec $-N/2+1 \leq k \leq N/2$, associé
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Opérateurs Hermitiens périodiques 1D}
+
+Dans son article \cite{Lele1991}, S. K. Lele présente une méthode permettant d'approcher la dérivée en un point en ajoutant une partie implicite au schéma de la forme \eqref{eq:explicite_dx}. Dans ce chapitre, nous ne considérons que les schémas à 3 points implicites. Définissons l'opérateur $\sigma_{3,x}$ par :
+
+\begin{equation}
+(\sigma_{x} \mathfrak{u})_j = (1-2\beta) \mathfrak{u}_j + \beta \left( \mathfrak{u}_{j+1} + \mathfrak{u}_{j-1} \right)
+\end{equation}
+
+\begin{theoreme}
+Si les coefficients réels $\beta$ et $(a_i)_{1 \leq i \leq P}$ sont solutions de 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\gsum_{p=0}^P a_p & = & 1 \\
+\gsum_{p=0}^P a_p \dfrac{p^{2n}}{2n+1} & = & 2 \beta  \text{ pour } n=1,2,...P
+\end{array}
+\right.
+\label{eq:hermitian_system}
+\end{equation}
+et si $u$ est une fonction de $\mathcal{C}^{2P+3}$, alors pour tout $0 \leq i \leq N-1$, on a 
+\begin{equation}
+(\delta_{P,x} u^*)_i - (\sigma_{3,x} u'^*)_i = \\
+h^{2P+2} \left( \gsum_{p=0}^P a_p  \dfrac{j^{2P+2} P}{(2P+3)!}  - \dfrac{2\beta}{(2P+2)!}   \right)u^{(2P+3)}(\rho)
+\end{equation}
+avec $\rho \in [x_{i-P}, x_{i+P}]$.
+\end{theoreme}
+
+\begin{proof}
+Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ une fonction de classe $\mathcal{C}^{2P+3}( \Omega)$ et $u^*$ la fonction de grille correspondante.
+
+On considère les développements de Taylor :
+\begin{equation}
+\begin{array}{rcl}
+u(x_i + ph) & = & u(x_i) + p h u'(x_j) + \cdots + \dfrac{(ph)^k}{k!}u^{(k)}(x_i) + \cdots +\dfrac{(ph)^{2P+3}}{(2P+3)!} u^{(2P+3)}(\xi_p)\\
+u(x_i - ph) & = & u(x_i) - p h u'(x_j) + \cdots + \dfrac{(-ph)^k}{k!}u^{(k)}(x_i) + \cdots +\dfrac{(-ph)^{2P+3}}{(2P+3)!} u^{(2P+3)}(\eta_p)
+\end{array}
+\end{equation}
+avec $\xi_p \in [x_i, x_i+ph]$ et $\eta_p \in [x_i-ph, x_i]$. En combinant ces deux égalités, on a
+\begin{equation}
+\dfrac{\tau_pu^*_i - \tau_{-p} u^*_i}{2ph} = u'(x_i) + \cdots + \dfrac{(ph)^{k-1}(1 - (-1)^k)}{2 \cdot k!} u^{(k)}(x_i) + \cdots +\dfrac{(ph)^{2P+2}}{2(2P+3)!} \left( u^{(2P+3)}(\xi_p) + u^{(2P+3)}(\eta_p) \right)
+\label{eq:preuve_herm1}
+\end{equation}
+
+D'autres part, on a 
+\begin{equation}
+(1-2\beta) u'^*_i + \beta \left( \tau_1 u'^*_{i} + \tau_{-1} u'^*_{i} \right) = u'^*_i +  \gsum_{k=1}^{2P+1} \beta \dfrac{h^{k}}{k!} \left( 1 + (-1)^k \right) u^{(k+1)}(x_i)+ \beta \dfrac{h^{2P+2}}{(2P+2)!} \left(u^{(2P+3)}(\varrho) + u^{(2P+3)}(\sigma) \right) 
+\label{eq:preuve_herm2}
+\end{equation}
+avec $\varrho \in [x_i, x_i + h]$ et $\sigma \in [x_i, x_i - h]$. 
+
+On remarque directement que \eqref{eq:preuve_herm2} et $\gsum_{p=0}^P a_p  \eqref{eq:preuve_herm1}$ coïncident pour les puissances de $h$ impaires. 
+
+Pour les autres valeurs, l'égalité est vrai si les coefficients $a_p$ et $\beta$ sont solutions de \eqref{eq:hermitian_system}. L'erreur de troncature prend directement la forme 
+
+\begin{multline}
+(\delta_{P,x} u^*)_i - (\sigma_{3,x} u'^*)_i = \\
+h^{2P+2} \left( \gsum_{p=0}^P a_p  \dfrac{j^{2P+2}}{2(2P+3)!} \left( u^{(2P+3)}(\xi_j) + u^{(2P+3)}(\eta_j) \right) - \dfrac{\beta}{(2P+2)!} \left(u^{(2P+3)}(\varrho) + u^{(2P+3)}(\sigma) \right) \right)
+\end{multline}
+On conclut alors en utilisant le théorème des valeurs intermédiaires.
+\end{proof}
+
+\begin{proposition}
+Le système \eqref{eq:hermitian_system} admet une unique solution.
+\end{proposition}
 
 
 
