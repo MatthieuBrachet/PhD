@@ -650,9 +650,9 @@ Q_8(X) = \dfrac{4}{5} (X-X^{N-1}) - \dfrac{1}{5} (X^2-X^{N-2}) + \dfrac{4}{105} 
 
 Les valeurs propres de $\delta_{2P,x}$ sont immédiatement connues grâce à sa forme polynomiale et la proposition \ref{prop:eigen_P(tau)} :
 \begin{proposition}
-Les valeurs propres de 
+Les valeurs propres de $\delta_{2P,x}$ sont
 \begin{equation}
-\delta_{2P,x} = \dfrac{1}{h}Q_{2P}(\omega^k)
+\dfrac{1}{h}Q_{2P}(\omega^k)
 \end{equation}
 où $\omega^k$ est la k-ième racine de l'unité, avec $-N/2+1 \leq k \leq N/2$, et est associée à la fonction propre $\mathfrak{u}^k$.
 \end{proposition}
@@ -768,7 +768,7 @@ d'où le résultat.
 
 \subsection{Opérateurs Hermitiens périodiques 1D}
 
-Dans son article \cite{Lele1991}, S. K. Lele présente une méthode permettant d'approcher la dérivée en un point en ajoutant une partie implicite au schéma de la forme \eqref{eq:explicite_dx}. Dans ce chapitre, nous ne considérons que les schémas à 3 points implicites. Définissons l'opérateur $\sigma_{3,x}$ par :
+Dans son article \cite{Lele1991}, S. K. Lele présente une méthode permettant d'approcher la dérivée en un point en ajoutant une partie implicite au schéma de la forme \eqref{eq:explicite_dx}. Dans ce chapitre, nous ne considérons que les schémas à 3 points implicites. Définissons l'opérateur $\sigma_{x}$ par :
 
 \begin{equation}
 (\sigma_{x} \mathfrak{u})_j = (1-2\beta) \mathfrak{u}_j + \beta \left( \mathfrak{u}_{j+1} + \mathfrak{u}_{j-1} \right)
@@ -779,16 +779,17 @@ Si les coefficients réels $\beta$ et $(a_i)_{1 \leq i \leq P}$ sont solutions d
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\gsum_{p=0}^P a_p & = & 1 \\
-\gsum_{p=0}^P a_p \dfrac{p^{2n}}{2n+1} & = & 2 \beta  \text{ pour } n=1,2,...P
+\gsum_{p=1}^P a_p & = & 1 \\
+\gsum_{p=1}^P a_p \dfrac{p^{2n}}{2n+1} & = & 2 \beta  \text{ pour } n=1,2,...P
 \end{array}
 \right.
 \label{eq:hermitian_system}
 \end{equation}
 et si $u$ est une fonction de $\mathcal{C}^{2P+3}$, alors pour tout $0 \leq i \leq N-1$, on a 
 \begin{equation}
-(\delta_{P,x} u^*)_i - (\sigma_{3,x} u'^*)_i = \\
-h^{2P+2} \left( \gsum_{p=0}^P a_p  \dfrac{j^{2P+2} P}{(2P+3)!}  - \dfrac{2\beta}{(2P+2)!}   \right)u^{(2P+3)}(\rho)
+(\delta_{2P,x} u^*)_i - (\sigma_{3,x} u'^*)_i = \\
+h^{2P+2} \left( \gsum_{p=1}^P a_p  \dfrac{j^{2P+2} P}{(2P+3)!}  - \dfrac{2\beta}{(2P+2)!}   \right)u^{(2P+3)}(\rho)
+\label{eq:eq_cons}
 \end{equation}
 avec $\rho \in [x_{i-P}, x_{i+P}]$.
 \end{theoreme}
@@ -821,16 +822,129 @@ On remarque directement que \eqref{eq:preuve_herm2} et $\gsum_{p=0}^P a_p  \eqre
 Pour les autres valeurs, l'égalité est vrai si les coefficients $a_p$ et $\beta$ sont solutions de \eqref{eq:hermitian_system}. L'erreur de troncature prend directement la forme 
 
 \begin{multline}
-(\delta_{P,x} u^*)_i - (\sigma_{3,x} u'^*)_i = \\
-h^{2P+2} \left( \gsum_{p=0}^P a_p  \dfrac{j^{2P+2}}{2(2P+3)!} \left( u^{(2P+3)}(\xi_j) + u^{(2P+3)}(\eta_j) \right) - \dfrac{\beta}{(2P+2)!} \left(u^{(2P+3)}(\varrho) + u^{(2P+3)}(\sigma) \right) \right)
+(\delta_{2P,x} u^*)_i - (\sigma_{3,x} u'^*)_i = \\
+h^{2P+2} \left( \gsum_{p=1}^P a_p  \dfrac{p^{2P+2}}{2(2P+3)!} \left( u^{(2P+3)}(\xi_j) + u^{(2P+3)}(\eta_j) \right) - \dfrac{\beta}{(2P+2)!} \left(u^{(2P+3)}(\varrho) + u^{(2P+3)}(\sigma) \right) \right)
 \end{multline}
-On conclut alors en utilisant le théorème des valeurs intermédiaires.
+On conclut en utilisant le théorème des valeurs intermédiaires.
 \end{proof}
 
 \begin{proposition}
 Le système \eqref{eq:hermitian_system} admet une unique solution.
 \end{proposition}
 
+\begin{proof}
+TBA.
+\end{proof}
+
+\begin{proposition}
+Les valeurs propres de $\sigma_x$ sont
+\begin{equation}
+R(\omega^k) \text{ avec } R(X) = (1-2 \beta) + \beta(X+X^{N-1}) \text{ et } -N/2+1 \leq k \leq N/2.
+\end{equation}
+Le vecteur propre associé à $R(\omega^k)$ est $\mathfrak{u}^k$.
+\end{proposition}
+
+\begin{proof}
+TBA.
+\end{proof}
+
+\begin{corollaire}
+L'opérateur $\sigma_x$ est inversible si
+\begin{equation}
+\beta < \dfrac{1}{4}.
+\end{equation}
+\end{corollaire}
+
+\begin{definition}
+On suppose que $\beta$ et $(a_p)_{1 \leq p \leq P}$ sont solutions de \eqref{eq:hermitian_system} et que $\beta < 1/4$, on définit l'\textit{opérateur hermitien} d'approximation de la dérivée première $\delta_x^H$ par 
+\begin{equation}
+\delta_{2P,x}^H = \sigma_x^{-1} \circ \delta_{2P,x}.
+\end{equation}
+\end{definition}
+
+\begin{theoreme}
+Si $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est une fonction de classe $\mathcal{C}^{(2P+3)}$.
+Alors 
+\begin{equation}
+\| u'^* - \delta_{2P,x}^H u^* \|_{\infty} \leq C h^{2P+2} \| u^{(2P+3)} \|_{\infty}
+\end{equation}
+où $C$ est une constante indépendante de $u$.
+\end{theoreme}
+
+\begin{proof}
+Par calcul immédiat, on a :
+\begin{equation}
+\begin{array}{rcl}
+\|  u'^* - \delta_{2P,x}^H u^* \|_{\infty} &=& \| \sigma_{3,x}^{-1} \circ \left( \sigma_{3,x} u'^*  - \delta_{2P,x}u^*\right) \|_{\infty}\\
+                                      &\leq& \| \sigma_{3,x}^{-1} \|_{\infty} \| \sigma_{3,x} u'^*  - \delta_{2P,x}u^*\|_{\infty}\\
+                                      &\leq& C h^{2P+2}  \| u^{(2P+3)} \|_{\infty}
+\end{array}
+\end{equation}
+en utilisant $\sigma_{3,x}$ inversible et l'équation \eqref{eq:eq_cons}.
+\end{proof}
+
+
+Quelques exemples de schémas hermitiens sont donnés dans le corollaire suivant.
+
+\begin{corollaire}
+Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ alors 
+\begin{itemize}
+\item Si $u \in \mathcal{C}^{5}(\Omega)$ alors 
+\begin{equation}
+\begin{array}{rcl}
+\sigma_{x} &=& \dfrac{4}{6} id + \dfrac{1}{6} \left( \tau_1 + \tau_{-1} \right)\\
+\delta_{1,x} &=& \dfrac{\tau_1 - \tau_{-1}}{2h} \\ 
+\end{array}
+\label{eq:comp4}
+\end{equation}
+et $\delta^H_{2,x} = \sigma_x^{-1} \circ \delta_{2,x}$ définit un opérateur d'approximation de la dérivée première à l'ordre 4,
+
+\item Si $u \in \mathcal{C}^{7}(\Omega)$ alors 
+\begin{equation}
+\begin{array}{rcl}
+\sigma_{x} &=& \dfrac{1}{2} id + \dfrac{1}{4}\left( \tau_1 + \tau_{-1} \right) \\
+\delta_{2,x} &=& \dfrac{5}{6} \dfrac{\tau_1 - \tau_{-1}}{2h} + \dfrac{1}{6} \dfrac{\tau_2 - \tau_{-2}}{4h}\\ 
+\end{array}
+\label{eq:comp6}
+\end{equation}
+et $\delta^H_{4,x} = \sigma_{x}^{-1} \circ \delta_{4,x}$ définit un opérateur d'approximation de la dérivée première à l'ordre 6,
+
+
+\item Si $u \in \mathcal{C}^{9}(\Omega)$ alors 
+\begin{equation}
+\begin{array}{rcl}
+\sigma_{x} &=& \dfrac{4}{7} id + \dfrac{3}{14}\left( \tau_1 + \tau_{-1} \right) \\
+\delta_{3,x} &=& \dfrac{25}{28} \dfrac{\tau_1 - \tau_{-1}}{2h} + \dfrac{4}{35} \dfrac{\tau_2 - \tau_{-2}}{4h} - \dfrac{1}{140} \dfrac{\tau_3 - \tau_{-3}}{6h} \\ 
+\end{array}
+\label{eq:comp8}
+\end{equation}
+et $\delta^H_{6,x} = \sigma_{x}^{-1} \circ \delta_{6,x}$ définit un opérateur d'approximation de la dérivée première à l'ordre 8.
+
+\end{itemize}
+\end{corollaire}
+
+Comme les opérateurs $\sigma_x$ et $\sigma_{2P,x}$ s’expriment en fonction de $\tau$, ils commutent tout comme $\sigma_x^{-1}$ et $\sigma_{2P,x}$:
+\begin{equation}
+\delta_{2P,x}^H = \sigma_x^{-1} \circ \delta_{2P,x} = \delta_{2P,x} \circ \sigma_x^{-1}
+\end{equation}
+Il existe donc une fraction rationnelle $Q_{2P}^H \in \mathbb{R}(X)$ telle que 
+\begin{equation}
+\delta_{2P,x}^H = \dfrac{1}{h} Q_{2P}^H( \tau ).
+\end{equation}
+Cette fraction rationnelle est donnée par
+\begin{equation}
+Q_{2P}^H(X) = \dfrac{Q_{2P}(X)}{R(X)} = \dfrac{\gsum_{j=1}^P \dfrac{a_j}{2j} (X^j - X^{N-j})}{(1-2\beta) + \beta ( X + X^{N-1})}.
+\end{equation}
+
+Les valeurs propres de $\delta_{2P,x}^H$ s'expriment grâce à $Q_{2P}^H(X)$.
+
+\begin{proposition}
+Les valeurs propres de $\delta_{2P,x}^H$ sont 
+\begin{equation}
+\dfrac{1}{h} Q_{2P}^H (\omega^k)
+\end{equation}
+où $-N/2+1 \leq k \leq N/2$. $\omega^k$ est associé à la fonction propre $\mathfrak{u}^k$.
+\end{proposition}
 
 
 
