@@ -1266,7 +1266,7 @@ A=\begin{bmatrix}
 \end{equation}
 est inversible car $a = [a_0, a_1, \cdots, a_J]^T$ est solution de 
 \begin{equation}
-A a = e_1
+A a = e
 \end{equation}
 avec $e = [1,1/2, 0,\cdots,0]^T$. En développant la seconde ligne de $A$, on a
 \begin{equation}
@@ -1671,7 +1671,7 @@ On note ces vecteurs par des lettres capitales.
 
 
 
-
+%
 \subsection{Opérateurs aux différences en géométrie cartésienne}
 
 En utilisant les notations de la partie \ref{sec:notation_2D} en contexte périodique, nous définissons des opérateurs agissant sur les fonctions de grilles en dimension 2.
@@ -1885,13 +1885,13 @@ U_y &=& (P \otimes Id)^{-1}(D_{2P} \otimes Id) U &=& (P^{-1}D_{2P} \otimes Id)U\
 Conséquence directe des propositions \ref{prop:op_der_simpson_mat} et \ref{prop:pdt_kron}.
 \end{proof}
 
-La matrice du schéma hermitien $(Id \otimes P^{-1}K)$ en direction $x$ et $(P^{-1}K \otimes Id)$ en direction $y$ vérifient des propriétés d'antisymétriques similaires à celles en dimension 1.
+%La matrice du schéma hermitien $(Id \otimes P^{-1}K)$ en direction $x$ et $(P^{-1}K \otimes Id)$ en direction $y$ vérifient des propriétés d'antisymétriques similaires à celles en dimension 1.
 \begin{proposition}
-Les matrices $(Id \otimes P^{-1}K)$ et $(P^{-1}K \otimes Id)$ sont antisymétrique.
+Les matrices $(Id \otimes P^{-1}D_{2P})$ et $(P^{-1}D_{2P} \otimes Id)$ sont antisymétrique.
 \end{proposition}
 
 \begin{proof}
-$P^{-1}K$ est antisymétrique. D'où le résultat.
+$P^{-1}D_{2P}$ est antisymétrique. D'où le résultat.
 \end{proof}
 
 
