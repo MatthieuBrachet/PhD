@@ -10,15 +10,15 @@ Dans ce chapitre, les notations employées telles que $\xi$, $\eta$, $\alpha$, .
 \section{Opérateurs différentiels sur la Cubed-sphere}
 
 \subsection{Définition des opérateurs}
-Soit $\mathbf{x}_{i,j}^k$ un point de la Cubed-sphere avec $- N/2 \leq i,j \leq N/2$ et $k = (I) \cdots (VI)$. Alors il existe deux grands cercles $C_i^{(1)}$ et $C_j^{(2)}$ deux grands cercles tels que $\mathbf{x}_{i,j}^k \in C_i^{(1)} \cap C^{(2)}_j$. $\alpha$ et $\beta$ sont respectivement les angles paramétrant $C_i^{(1)}$ et $C_j^{(2)}$.
+Soit $\mathbf{x}_{i,j}^k$ un point de la Cubed-sphere avec $- N/2 \leq i,j \leq N/2$ et $k = (I) \cdots (VI)$. Alors il existe deux grands cercles $C_i^{(1)}$ et $C_j^{(2)}$ tels que $\mathbf{x}_{i,j}^k \in C_i^{(1)} \cap C^{(2)}_j$. $\alpha$ et $\beta$ sont respectivement les angles paramétrant $C_i^{(1)}$ et $C_j^{(2)}$.
 
 On a définit le gradient en $\mathbf{x}_{i,j}^k$ par 
 \begin{equation}
 \nabla_T h = \dfrac{\partial h}{\partial \alpha}_{|C^{(2)}_j} \mathbf{g}^{\alpha} + \dfrac{\partial h}{\partial \beta}_{|C^{(1)}_i} \mathbf{g}^{\beta},
 \end{equation}
-où $h \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ est une fonction régulière sur la sphère.
+où $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ est une fonction régulière sur la sphère.
 
-Le cercle $C_i^{(1)}$ (resp. $C_j^{(2)}$) est une isocline $\xi = \xi_i$ (resp $\eta = \eta_j$) constant. D'après le théorème \eqref{th:gradient_xieta}, le gradient est calculable via la formule
+Le cercle $C_i^{(1)}$ (resp. $C_j^{(2)}$) est une isocline $\xi = \xi_i$ (resp $\eta = \eta_j$) constant. D'après le théorème \eqref{th:gradient_xieta}, le gradient est 
 \begin{equation}
 \nabla_T h = \dfrac{\partial h}{\partial \xi}_{|\eta_j} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta}_{|\xi_i} \mathbf{g}^{\eta}.
 \end{equation}
@@ -49,7 +49,7 @@ La \textit{vorticité} du champ de vecteurs $\mathbf{v}$ est la composante norma
 \vort ( \mathbf{v} ) = \left( \nabla_T \wedge \mathbf{v} \right) \cdot \mathbf{k}
 \label{eq:vorticité}
 \end{equation}
-avec $\mathbf{k}$ le vecteur unitaire extérieur à la sphère en $\mathbf{x} \in \mathbb{S}_a^2$, il vérifie l'égalité
+avec $\mathbf{k}$ le vecteur unitaire extérieur à la sphère en $\mathbf{x} \in \mathbb{S}_a^2$, vérifiant l'égalité
 \begin{equation}
 \mathbf{k} = \dfrac{1}{a} \mathbf{x}.
 \end{equation}
@@ -86,7 +86,7 @@ f_{\eta,i,j} \rightarrow \partial_{\eta} f ( \mathbf{x}_{i,j}^k) & \text{ lorsqu
 \end{array}
 \right.
 \end{equation}
-La section suivante consiste à détailler une procédure pour calculer ces dérivées partielles approchées et à déterminer l'erreur effectuée lors du calcul.
+La section suivante consiste à détailler une procédure pour calculer ces dérivées partielles approchées et à déterminer l'erreur de troncature effectuée lors du calcul.
 
 
 
@@ -97,9 +97,8 @@ La section suivante consiste à détailler une procédure pour calculer ces dér
 On pose $f : \mathbf{x}\in \mathbb{S}_a^2 \mapsto f(\mathbf{x})$ la fonction que l'on souhaite dérivée le long des grands cercles aux points du maillage de la Cubed-Sphere.
 Si $\mathbf{x}_{i,j}^k$ est un point de la Cubed-Sphere avec $k = (I) \cdots (VI)$, ainsi que $-N/2 \leq i,j \leq N/2$. On souhaite calculer une valeur approchée de 
 $
-\partial_{\xi} f (\mathbf{x}_{i,j}^k) \text{ et } \partial_{\xi} f (\mathbf{x}_{i,j}^k)
-$.
-On suppose par exemple $k = (I)$ mais la méthode est la même sur les autres panels. Alors il existe deux grands cercles de la Cubed-Sphere $C_i^{(1)}$ et $C_j^{(2)}$ tels que 
+\partial_{\xi} f (\mathbf{x}_{i,j}^k)$ et $\partial_{\eta} f (\mathbf{x}_{i,j}^k)$.
+On suppose $k = (I)$, la méthode est la même sur les autres panels. Il existe deux grands cercles de la Cubed-Sphere $C_i^{(1)}$ et $C_j^{(2)}$ tels que 
 \begin{equation}
 \mathbf{x}_{i,j}^k \in C_i^{(1)} \cap C^{(2)}_j.
 \end{equation}
@@ -107,7 +106,7 @@ $C^{(1)}_i$ est une isoligne en $\xi = \xi_i$ constant et $C^{(2)}_j$ est une is
 Pour calculer une valeur approchée de $\partial_{\xi} f (\mathbf{x}_{i,j}^{(I)})$, on souhaite connaître toutes les valeurs de $f$ aux points équirépartis le long du cercle $C^{(2)}_j$. On pose $\mathbf{m}_p$ avec $0 \leq p \leq 4N-1$ les points de $C^{(2)}_j$ construits de la manière suivante :
 \begin{itemize}
 \item si $0 \leq p \leq N$ alors $\mathbf{m}_p = \mathbf{x}^{(I)}_{p-N/2,j}$, il s'agit des points du cercle $C^{(2)}_j$ associés au panel $(I)$ sur le maillage. Ils sont représentés par des ronds bleus sur les figures \ref{fig:patron_cs} et \ref{fig: panel II_interp},
-\item si $N+1 \leq p \leq 2N-1$ alors les points ne font pas partis du maillages. Il s'agit des des points d'intersections de $C^{(2)}_j$ avec les isoligne $\xi = \xi_i^{(II)}$ du panel $(II)$. C'est à dire l'intersection de $C^{(2)}_j$ avec les cercles de $(II_{\beta})$. Ces points sont représentés par les carrés bleus dans les figures \ref{fig:patron_cs} et \ref{fig: panel II_interp}. Les coordonnées de ces points ont été calculées dans la partie \REF.
+\item si $N+1 \leq p \leq 2N-1$ alors les points ne font pas partis du maillages. Il s'agit des points d'intersections de $C^{(2)}_j$ avec les isoligne $\xi = \xi_i^{(II)}$ du panel $(II)$. C'est à dire l'intersection de $C^{(2)}_j$ avec les cercles de $(II_{\beta})$. Ces points sont représentés par les carrés bleus dans les figures \ref{fig:patron_cs} et \ref{fig: panel II_interp}. Les coordonnées de ces points ont été calculées dans la partie \REF.
 \item si $2N \leq p \leq 3N$ alors $\mathbf{m}_p = \mathbf{x}^{(III)}_{p-3N/2}$. Il s'agit des points de la Cubed-Sphere du panel $(III)$ représentés par des ronds bleus sur la figure \ref{fig:patron_cs},
 \item si $3N+1 \leq p \leq 4N-1$ alors $\mathbf{m}_p$ est constitués des points d'intersections de $C^{(2)}_j$ avec les cercles de $(IV_{\beta})$. Il ne s'agit pas de points de la grille. Ces points sont représentés par les carrés bleus dans la figure \ref{fig:patron_cs}.
 \end{itemize}
@@ -182,7 +181,7 @@ Pour calculer une valeur approchée de $\partial_{\xi} f (\mathbf{x}_{i,j}^{(I)}
 	   	
 	\draw [>=stealth, <-] (0.25,1.75) -- (0.125,2.5) ;
 	\draw [>=stealth, <-] (0.625,1.85) -- (0.125,2.5) ;
-	\draw  (0.125,2.5) node[above] {Lignes d'interpolation} ;
+	\draw  (0.125,2.5) node[above] {Cercles de $(IV_{\beta})$} ;
 \end{tikzpicture}
 \caption{Les grands cercles associés aux panels $(I)$ et $(III)$ ne sont pas passent pas par des points du la Cubed-Sphere sur les panels $(II)$ et $(IV)$.}
 \label{fig:patron_cs}
@@ -339,7 +338,7 @@ La périodicité sur les grands cercles permet d'assurer que $\mathbf{m}_p = \ma
 \end{equation}
 Si $f_p = f(\mathbf{m}_p)$ est connue pour tout $p$ vérifiant $0 \leq p \leq 4N-1$ alors on peut calculer la dérivée approchée $f_{\xi,i,j}^k$ de $\partial_{\xi}f(\mathbf{x}_{i,j}^k)$ à l'ordre $4$ grâce à la formule de dérivation hermitienne \eqref{eq:comp4}
 \begin{equation}
-f_{\xi,i,j}^k = \delta_{\xi}^H f_p.
+f_{\xi,i,j}^k = \delta_{4,\xi}^H f_p.
 \end{equation}
 Cependant, les valeurs de $f_p$ ne sont pas toutes connues car les points $\mathbf{m}_p$ ne sont pas des points du maillages lorsque $N+1 \leq p \leq 2N-1$ ou $3N+4 \leq p \leq 4N-1$. Il faut donc construire un procéder permettant d'obtenir des valeurs en ces points. Le procédé utilisé dans ce travail est basé sur une interpolation à l'aide de Splines Cubiques.
 
@@ -526,8 +525,8 @@ que l'on restreint aux points du maillage par
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-f_{\xi,i,j}^{(I)} & = & \delta_{\Delta \xi}^H f_{i-N/2}\\
-f_{\xi,i,j}^{(III)} & = & \delta_{\Delta \xi}^H f_{i+3N/2}
+f_{\xi,i,j}^{(I)} & = & \delta_{4, \xi}^H f_{i-N/2}\\
+f_{\xi,i,j}^{(III)} & = & \delta_{4, \xi}^H f_{i+3N/2}
 \end{array}
 \right.
 \text{ pour } C^{(2)}_j \text{ fixé.}
@@ -548,9 +547,9 @@ Finalement, le procédé total de calcul des dérivées hermitienne est $\xi$ su
              \State  $\mathbf{m}_p = \mathbf{m}_{p-3N/2,j}^{(III)}$ pour $2N  \leq p \leq 3N-1$ donc $f_p = f(\mathbf{m}_p)$,
              \State $f_p = P_{C_p}(\mathbf{m}_p)$, où $P_{C_p}$ est la fonction d'interpolation utilisant les points de l'isoligne $\xi = \xi^{(VI)}_{p-3N/2+1}$ pour $3N+1 \leq p \leq 4N-1$.
             \EndFor
-    \State Calcul de $\delta_{\Delta \xi}^H f_p$,
-    \State Affectation $f_{\xi,i,j}^{(I)} = \delta_{\Delta \xi}^H f_{i+N/2}$,
-    \State Affectation $f_{\xi,i,j}^{(III)} = \delta_{\Delta \xi}^H f_{i+3N/2}$.
+    \State Calcul de $\delta_{4, \xi}^H f_p$,
+    \State Affectation $f_{\xi,i,j}^{(I)} = \delta_{4, \xi}^H f_{i+N/2}$,
+    \State Affectation $f_{\xi,i,j}^{(III)} = \delta_{4, \xi}^H f_{i+3N/2}$.
     \EndFor
     \end{algorithmic}
     \end{algorithm}
@@ -570,9 +569,9 @@ De la même manière, l'algorithme de construction des dérivées approchées en
              \State  $\mathbf{m}_p = \mathbf{m}_{i,5N/2-p}^{(III)}$ pour $2N  \leq p \leq 3N-1$ donc $f_p = f(\mathbf{m}_p)$ (Attention à l'orientation sur les panels),
              \State $f_p = P_{C_p}(\mathbf{m}_p)$, où $P_{C_p}$ est la fonction d'interpolation utilisant les points de l'isoligne $\eta = \eta^{(VI)}_{p-3N/2+1}$ pour $3N+1 \leq p \leq 4N-1$.
             \EndFor
-    \State Calcul de $\delta_{\Delta \eta}^H f_p$,
-    \State Affectation $f_{\eta,i,j}^{(I)} = \delta_{\Delta \xi}^H f_{i+N/2}$,
-    \State Affectation $f_{\eta,i,j}^{(III)} = \delta_{\Delta \xi}^H f_{i+3N/2}$.
+    \State Calcul de $\delta_{4, \eta}^H f_p$,
+    \State Affectation $f_{\eta,i,j}^{(I)} = \delta_{4, \eta}^H f_{i+N/2}$,
+    \State Affectation $f_{\eta,i,j}^{(III)} = \delta_{4, \eta}^H f_{i+3N/2}$.
     \EndFor
     \end{algorithmic}
     \end{algorithm}
@@ -604,11 +603,11 @@ f_p = f(\mathbf{m}_p) + \mathcal{O}(\Delta \eta^4)
 \end{equation}
 Donc dans le calcul effectif de la dérivée Hermitienne, on a 
 \begin{equation}
-\delta_{\xi} f_p = \dfrac{f_{p+1} - f_{p-1}}{2 \Delta \xi} = \dfrac{f(\mathbf{m}_{p+1}) - f(\mathbf{m}_{p-1})}{2 \Delta \xi} + \mathcal{O}\left( \dfrac{\Delta \eta^4}{\Delta \xi} \right).
+\delta_{2,\xi} f_p = \dfrac{f_{p+1} - f_{p-1}}{2 \Delta \xi} = \dfrac{f(\mathbf{m}_{p+1}) - f(\mathbf{m}_{p-1})}{2 \Delta \xi} + \mathcal{O}\left( \dfrac{\Delta \eta^4}{\Delta \xi} \right).
 \end{equation}
 On considère que sur la Cubed-Sphere $\Delta \xi = \Delta \eta$. Alors en composant par $\sigma_{\xi}^{-1}$, on a 
 \begin{align*}
-\delta_{\xi}^H f_p & = \sigma_{\xi}^{-1} \circ \delta_{\xi} f_p \\
+\delta_{4,\xi}^H f_p & = \sigma_{\xi}^{-1} \circ \delta_{2,\xi} f_p \\
                    & = \sigma_{\xi}^{-1} \circ \left( \dfrac{f(\mathbf{m}_{p+1}) - f(\mathbf{m}_{p-1})}{2 \Delta \xi} + \mathcal{O}\left( \Delta \eta^3 \right) \right)\\
                    & = \sigma_{\xi}^{-1} \circ \left( \dfrac{f(\mathbf{m}_{p+1}) - f(\mathbf{m}_{p-1})}{2 \Delta \xi}\right)  + \mathcal{O}\left( \Delta \eta^3 \right) \\
                    & = \partial_{\xi}f(\mathbf{m}_p) + \mathcal{O}\left( \Delta \eta^3 \right) + \mathcal{O}\left( \Delta \xi^4 \right) \\
@@ -616,13 +615,19 @@ On considère que sur la Cubed-Sphere $\Delta \xi = \Delta \eta$. Alors en compo
 \end{align*}
 On assigne les dérivées aux points des panels à l'aide de $\mathbf{m}_p=\mathbf{x}^{(k)}_{p-N/2,j}$ pour $p = 0 \ldots N$. Le résultat est alors :
 \begin{equation}
-f^{(k)}_{\xi,i,j} = \delta_{\xi}^H f_{i+N/2} = \partial_{\xi} f(\mathbf{x}^{(k)}_{i+N/2,j}) + \mathcal{O}\left( \Delta \eta^3 \right).
+f^{(k)}_{\xi,i,j} = \delta_{4,\xi}^H f_{i+N/2} = \partial_{\xi} f(\mathbf{x}^{(k)}_{i+N/2,j}) + \mathcal{O}\left( \Delta \eta^3 \right).
 \end{equation}
 Le résultat concernant la dérivée en $\eta$ est obtenu de la même manière.
 \end{proof}
 
 D'après le théorème \ref{th:consistance_der_xieta}, la méthode de calcul est d'ordre au moins 3. Cependant, on note que l'interpolation (qui empêche la méthode d'être d'ordre 4) n'intervient qu'en dehors des panels où l'on souhaite calculer la dérivée.
 Lorsque l'on souhaite calculer une approximation de $\partial_{\xi}f(\mathbf{x}_{i,j}^{(I)})$, l'interpolation intervient sur les panels $(II)$ et $(IV)$ mais pas sur le panel $(I)$. Dans la pratique, on s'attend à ce que la méthode soit d'ordre $4$, en particulier loin des bords des panels.
+
+
+
+
+
+
 
 
 
@@ -642,7 +647,7 @@ avec $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \ldots , (VI)$ ainsi que $h_{\xi,i,
 L'opérateur gradient discret de $h$, $\nabla_{T,\Delta} h_{i,j}^{(k)}$ donne une approximation du gradient continu en $\mathbf{x}_{i,j}^{(k)}$. En effet, le résultat de consistance suivant est vérifié:
 
 \begin{proposition}
-Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x}) \in \mathbb{R}$ une fonction régulière sur la Sphère. Alors, pour tout $-N/2 \leq i,j \leq N/2$ et $(k)=(I), \ldots , (VI)$, on a
+Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x}) \in \mathbb{R}$ une fonction régulière sur la Sphère. Pour tous $-N/2 \leq i,j \leq N/2$ et $(k)=(I), \ldots , (VI)$, on a
 \begin{equation}
 \nabla_{T,\Delta} h_{i,j}^{(k)} - (\nabla_T h)^{*,(k)}_{i,j} = \mathcal{O} \left( \Delta^3 \right)
 \end{equation}
@@ -739,32 +744,29 @@ $511$  & $2.7115(-10)$ & $4.5361(-10)$ \\
 
 
 
+
+
+
+
+
+
 \subsection{Variante de l'opérateur de gradient discret}
 
 
 \subsubsection{Gradient discret utilisant un schéma compact d'ordre 8}
 
-Une variante pour la calcul du gradient approché est d'utiliser un schéma aux différences finies 1D d'ordre plus élevé que $\delta_x^H$ (qui est d'ordre 4). On définit les opérateurs 
-\begin{equation}
-\left\lbrace
-\begin{array}{rcl}
-\sigma_{3,x} & = & id + \dfrac{3}{8} (\tau + \tau^{-1})\\
-\delta_{3,x} & = & \dfrac{25}{16} \dfrac{\tau - \tau^{-1}}{2h} + \dfrac{1}{5} \dfrac{\tau^2 - \tau^{-2}}{4h} + \dfrac{1}{80} \dfrac{\tau^3 - \tau^{-3}}{6h}
-\end{array}
-\right.
-\end{equation}
-L'opérateur centré hermitien $\delta_{8,x}^H = \sigma_{3,x}^{-1} \circ \delta_{3,x}$ est un opérateur d'approximation de la dérivée première à l'ordre $8$.
+Une variante pour la calcul du gradient approché est d'utiliser un schéma aux différences finies 1D d'ordre plus élevé que $\delta_{4,x}^H$ (qui est d'ordre 4). 
+L'opérateur centré hermitien $\delta_{8,x}^H$ est un opérateur d'approximation de la dérivée première à l'ordre $8$.
+On remplace $\delta_{4, \xi}^H$ et $\delta_{4, \eta}^H$ dans les algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta} de calcul de dérivées sur les grands cercles par $\delta_{8, \xi}^H$ et $\delta_{8, \eta}^H$, le reste étant inchangé. Le nouveau gradient approché vérifie toujours la proposition \ref{prop:accuracy_gradient}, le facteur limitant la montée en ordre étant la fonction d'interpolation.
 
-On remplace $\delta_{\Delta \xi}^H$ et $\delta_{\Delta \eta}^H$ dans les algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta} de calcul de dérivées sur les grands cercles par $\delta_{8,\Delta \xi}^H$ et $\delta_{8,\Delta \eta}^H$, le reste étant inchangé. Le nouveau gradient approché vérifie toujours la proposition \ref{prop:accuracy_gradient}, le facteur limitant la montée en ordre étant la fonction d'interpolation.
-
-Dans la figure \ref{fig:rate_grad2}, nous présentons les courbes de convergence comparant le schéma utilisant $\delta^H_x$ et $\delta^H_{8,x}$. On constate que le premier schéma est meilleur en ordre que le schéma utilisant $\delta^H_{8,x}$. En revanche, l'erreur pour des $N$ plus faible est bien meilleure pour le schéma utilisant $\delta^H_{8,x}$ comme on peut le voir dans le tableau \ref{tab:rate_grad2}.
+Dans la figure \ref{fig:rate_grad2}, nous présentons les courbes de convergence comparant le schéma utilisant $\delta^H_{4,x}$ et $\delta^H_{8,x}$. On constate que le premier schéma est meilleur en ordre que le schéma utilisant $\delta^H_{8,x}$. En revanche, l'erreur pour des $N$ plus faible est bien meilleure pour le schéma utilisant $\delta^H_{8,x}$ comme on peut le voir dans le tableau \ref{tab:rate_grad2}.
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[height=5cm]{rate_grad_2_123.png}
 \includegraphics[height=5cm]{rate_grad_2_222.png}
 \end{center}
-\caption{Convergence du gradient de \eqref{eq:grad_test} avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(2,2,2)$ à droite. Nous comparons l'utilisation de $\delta^H_{x}$ en magenta avec l'utilisation de $\delta^H_{8,x}$ en noir.}
+\caption{Convergence du gradient de \eqref{eq:grad_test} avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(2,2,2)$ à droite. Nous comparons l'utilisation de $\delta^H_{4,x}$ en magenta avec l'utilisation de $\delta^H_{8,x}$ en noir.}
 \label{fig:rate_grad2}
 \end{figure}
 
@@ -775,7 +777,7 @@ Dans la figure \ref{fig:rate_grad2}, nous présentons les courbes de convergence
 \hline
   & \multicolumn{2}{c||}{$\mathbf{(p,q,r)=(1,2,3)}$} & \multicolumn{2}{c|}{$\mathbf{(p,q,r)=(2,2,2)}$} \\
 \hline
-$\mathbf{N}$    &  $\delta^H_{x}$  & $\delta^H_{8,x}$  &  $\delta^H_{x}$  & $\delta^H_{8,x}$     \\
+$\mathbf{N}$    &  $\delta^H_{4,x}$  & $\delta^H_{8,x}$  &  $\delta^H_{4,x}$  & $\delta^H_{8,x}$     \\
 \hline
 \hline
 $16$   & $1.8636 (-4)$ & $1.8475 (-5)$ & $3.1368 (-4)$ & $3.1349 (-5)$ \\
@@ -822,7 +824,7 @@ On observe que l'erreur est concentrée là où l'interpolation est la plus mauv
 
 \subsubsection{Gradient sans interpolation}
 
-Nous avons vu que la méthode de calcul du gradient approché repose sur le calcul de dérivées hermitiennes périodique le long de grands cercles. L'utilisation de splines cubiques empêche de passer à un ordre supérieur à 3 en changeant l'ordre de la dérivée Hermitienne. Dans cette sous section, nous utilisons un schéma décentré à proximité du bord de manière à n'utiliser que les point intérieur du panel $(k)$ pour calculer le gradient en $\mathbf{x}_{i,j}^{(k)}$ avec $(k) = (I), \ldots ,(VI)$ et $-N/2 \leq i,j \leq N/2$.
+Nous avons vu que la méthode de calcul du gradient approché repose sur le calcul de dérivées hermitiennes périodique le long de grands cercles. L'utilisation de splines cubiques empêche de passer à un ordre supérieur à 3 en changeant l'ordre de la dérivée Hermitienne. Dans cette sous section, nous utilisons un schéma décentré à proximité du bord de manière à n'utiliser que les points intérieurs du panel $(k)$ pour calculer le gradient en $\mathbf{x}_{i,j}^{(k)}$ avec $(k) = (I), \ldots ,(VI)$ et $-N/2 \leq i,j \leq N/2$.
 
 Soit $(\mathfrak{u}_p)_{-N/2 \leq p \leq N/2}$ une fonction de grille. On définit l'opérateur explicite $\delta_{\dec,x}$ par
 \begin{equation}
@@ -848,8 +850,8 @@ L'opérateur hermitien $\delta^H_{\dec,x} = \sigma_{\dec,x}^{-1} \circ \delta_{\
 \begin{equation}
 \left\lbrace
 \begin{array}{rcll}
-h_{\xi,i,j} & = & \delta^H_{\dec,\Delta \xi} h_{i,j} & j \text{fixé,}\\
-h_{\eta,i,j} & = & \delta^H_{\dec,\Delta \eta} h_{i,j} & i \text{fixé.}
+h_{\xi,i,j}^{(k)} & = & \delta^H_{\dec,\Delta \xi} h_{i,j}^{(k)} & j \text{ fixé,}\\
+h_{\eta,i,j}^{(k)} & = & \delta^H_{\dec,\Delta \eta} h_{i,j}^{(k)} & i \text{ fixé.}
 \end{array}
 \right.
 \end{equation}
@@ -949,7 +951,7 @@ où $*$ désigne la restriction à la Cubed-Sphere et $\Delta  = \Delta \xi = \D
 Conséquence du théorème \ref{th:consistance_der_xieta}.
 \end{proof}
 
-Pour construire un test pour évaluer les performances du gradient approché $\nabla_{T, \Delta} \cdot$, certaines propriétés son utiles.
+Pour construire un test permettant d'évaluer les performances du gradient approché $\nabla_{T, \Delta} \cdot$, certaines propriétés son utiles.
 \begin{lemme}
 Soit $\mathbf{w} : \mathbf{x} \mapsto \mathbf{w}(\mathbf{x}) \in \mathbb{R}^3$ un champ de vecteurs. Si on note $ \mathbf{n}(\mathbf{x}) = \mathbf{x}/a$ le vecteur normal unitaire à $\mathbb{S}_a^2$, alors si $\mathbf{x} \in \mathbb{S}_a^2$
 \begin{equation}
@@ -1200,6 +1202,7 @@ $512$& $1.0140(-10)$ & $1.2102(-10)$ & $3.7487(-10)$  & $1.0804 (-17)$\\
 \label{tab:rate2_div_v2}
 \end{table} 
 
+Les résultats numériques obtenus sur la divergence approchée $\nabla_{T,\Delta} \cdot$ et ceux obtenus sur $\nabla_{T,\Delta,2} \cdot$ sont tout à fait comparables. le calcul de la divergence $\nabla_{T,\Delta} \codt$ nécessite le calcul de 6 dérivées hermitiennes alors que le calcul de $\nabla_{T,\Delta} \codt$. Cependant, il n'y a pas de résultats théorique disponible pour garantir la consistance de $\nabla_{T,\Delta,2} \codt$.
 
 
 

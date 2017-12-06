@@ -858,7 +858,7 @@ L'opérateur $\sigma_x$ est inversible si
 \begin{definition}
 On suppose que $\beta$ et $(a_p)_{1 \leq p \leq P}$ sont solutions de \eqref{eq:hermitian_system} et que $\beta < 1/4$, on définit l'\textit{opérateur hermitien} d'approximation de la dérivée première $\delta_x^H$ par 
 \begin{equation}
-\delta_{2P,x}^H = \sigma_x^{-1} \circ \delta_{2P,x}.
+\delta_{2P+2,x}^H = \sigma_x^{-1} \circ \delta_{2P,x}.
 \end{equation}
 \end{definition}
 
@@ -866,7 +866,7 @@ On suppose que $\beta$ et $(a_p)_{1 \leq p \leq P}$ sont solutions de \eqref{eq:
 Si $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est une fonction de classe $\mathcal{C}^{(2P+3)}$.
 Alors 
 \begin{equation}
-\| u'^* - \delta_{2P,x}^H u^* \|_{\infty} \leq C h^{2P+2} \| u^{(2P+3)} \|_{\infty}
+\| u'^* - \delta_{2P+2,x}^H u^* \|_{\infty} \leq C h^{2P+2} \| u^{(2P+3)} \|_{\infty}
 \end{equation}
 où $C$ est une constante indépendante de $u$.
 \label{th:consistence_herm2}
@@ -876,7 +876,7 @@ où $C$ est une constante indépendante de $u$.
 Par calcul immédiat, on a :
 \begin{equation}
 \begin{array}{rcl}
-\|  u'^* - \delta_{2P,x}^H u^* \|_{\infty} &=& \| \sigma_{3,x}^{-1} \circ \left( \sigma_{3,x} u'^*  - \delta_{2P,x}u^*\right) \|_{\infty}\\
+\|  u'^* - \delta_{2P+2,x}^H u^* \|_{\infty} &=& \| \sigma_{3,x}^{-1} \circ \left( \sigma_{3,x} u'^*  - \delta_{2P,x}u^*\right) \|_{\infty}\\
                                       &\leq& \| \sigma_{3,x}^{-1} \|_{\infty} \| \sigma_{3,x} u'^*  - \delta_{2P,x}u^*\|_{\infty}\\
                                       &\leq& C h^{2P+2}  \| u^{(2P+3)} \|_{\infty}
 \end{array}
@@ -898,7 +898,7 @@ Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ alors
 \end{array}
 \label{eq:comp4}
 \end{equation}
-et $\delta^H_{2,x} = \sigma_x^{-1} \circ \delta_{2,x}$ définit un opérateur d'approximation de la dérivée première à l'ordre 4,
+et $\delta^H_{4,x} = \sigma_x^{-1} \circ \delta_{2,x}$ définit un opérateur d'approximation de la dérivée première à l'ordre 4,
 
 \item Si $u \in \mathcal{C}^{7}(\Omega)$ alors 
 \begin{equation}
@@ -908,7 +908,7 @@ et $\delta^H_{2,x} = \sigma_x^{-1} \circ \delta_{2,x}$ définit un opérateur d'
 \end{array}
 \label{eq:comp6}
 \end{equation}
-et $\delta^H_{4,x} = \sigma_{x}^{-1} \circ \delta_{4,x}$ définit un opérateur d'approximation de la dérivée première à l'ordre 6,
+et $\delta^H_{6,x} = \sigma_{x}^{-1} \circ \delta_{4,x}$ définit un opérateur d'approximation de la dérivée première à l'ordre 6,
 
 
 \item Si $u \in \mathcal{C}^{9}(\Omega)$ alors 
@@ -919,22 +919,22 @@ et $\delta^H_{4,x} = \sigma_{x}^{-1} \circ \delta_{4,x}$ définit un opérateur 
 \end{array}
 \label{eq:comp8}
 \end{equation}
-et $\delta^H_{6,x} = \sigma_{x}^{-1} \circ \delta_{6,x}$ définit un opérateur d'approximation de la dérivée première à l'ordre 8.
+et $\delta^H_{8,x} = \sigma_{x}^{-1} \circ \delta_{6,x}$ définit un opérateur d'approximation de la dérivée première à l'ordre 8.
 
 \end{itemize}
 \end{corollaire}
 
 Comme les opérateurs $\sigma_x$ et $\sigma_{2P,x}$ s’expriment en fonction de $\tau$, ils commutent tout comme $\sigma_x^{-1}$ et $\sigma_{2P,x}$:
 \begin{equation}
-\delta_{2P,x}^H = \sigma_x^{-1} \circ \delta_{2P,x} = \delta_{2P,x} \circ \sigma_x^{-1}
+\delta_{2P+2,x}^H = \sigma_x^{-1} \circ \delta_{2P,x} = \delta_{2P,x} \circ \sigma_x^{-1}
 \end{equation}
-Il existe donc une fraction rationnelle $Q_{2P}^H \in \mathbb{R}(X)$ telle que 
+Il existe donc une fraction rationnelle $Q_{2P+2}^H \in \mathbb{R}(X)$ telle que 
 \begin{equation}
-\delta_{2P,x}^H = \dfrac{1}{h} Q_{2P}^H( \tau ).
+\delta_{2P+2,x}^H = \dfrac{1}{h} Q_{2P+2}^H( \tau ).
 \end{equation}
 Cette fraction rationnelle est donnée par
 \begin{equation}
-Q_{2P}^H(X) = \dfrac{Q_{2P}(X)}{R(X)} = \dfrac{\gsum_{j=1}^P \dfrac{a_j}{2j} (X^j - X^{N-j})}{(1-2\beta) + \beta ( X + X^{N-1})}.
+Q_{2P+2}^H(X) = \dfrac{Q_{2P}(X)}{R(X)} = \dfrac{\gsum_{j=1}^P \dfrac{a_j}{2j} (X^j - X^{N-j})}{(1-2\beta) + \beta ( X + X^{N-1})}.
 \end{equation}
 
 Les valeurs propres de $\delta_{2P,x}^H$ s'expriment grâce à $Q_{2P}^H(X)$.
@@ -942,7 +942,7 @@ Les valeurs propres de $\delta_{2P,x}^H$ s'expriment grâce à $Q_{2P}^H(X)$.
 \begin{proposition}
 Les valeurs propres de $\delta_{2P,x}^H$ sont 
 \begin{equation}
-\dfrac{1}{h} Q_{2P}^H (\omega^k)
+\dfrac{1}{h} Q_{2P+2}^H (\omega^k)
 \end{equation}
 où $-N/2+1 \leq k \leq N/2$. $\omega^k$ est associé à la fonction propre $\mathfrak{u}^k$.
 \label{prop:eigen_mat_hermitien}
@@ -953,15 +953,15 @@ Comme pour les schémas aux différences finies classiques, si on pose \begin{eq
 \end{equation}
 on montre directement que
 \begin{equation}
-\theta - i Q_{2P}^H ( e^{i \theta} ) = \mathcal{O} \left( h^{2P+3} \right).
+\theta - i Q_{2P+2}^H ( e^{i \theta} ) = \mathcal{O} \left( h^{2P+3} \right).
 \end{equation}
 
-De plus, on note que $i Q_{2P}^H(e^{i0}) = 0$ et $i Q_{2P}^H(e^{i\pi}) = 0 \neq \pi$. Comme pour les schémas de la forme $\delta_{2P,x}$, on compare $\theta \in [0 , \pi] \mapsto - i Q_{2P}^H(e^{i \theta})$ et $\theta$ en Fig. \ref{fig:freq_herm}.
+De plus, on note que $i Q_{2P+2}^H(e^{i0}) = 0$ et $i Q_{2P+2}^H(e^{i\pi}) = 0 \neq \pi$. Comme pour les schémas de la forme $\delta_{2P,x}$, on compare $\theta \in [0 , \pi] \mapsto - i Q_{2P+2}^H(e^{i \theta})$ et $\theta$ en Fig. \ref{fig:freq_herm}.
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=.6]{compact_freq.png}
 \end{center}
-\caption{Représentation de $i Q_{2P}^H \left( e^{i \theta} \right)$ en fonction de $\theta$ pour les schémas d'approximation hermitien $\delta_{2P,x}^H$ d'ordres 2, 4, 6 et 8. Les courbes en pointillés représentent les fonctions $i Q_{2P}\left( e^{i \theta} \right)$ associées aux opérateurs d'approximations $\delta_{2P,x}$.}
+\caption{Représentation de $i Q_{2P+2}^H \left( e^{i \theta} \right)$ en fonction de $\theta$ pour les schémas d'approximation hermitien $\delta_{2P+2,x}^H$ d'ordres 2, 4, 6 et 8. Les courbes en pointillés représentent les fonctions $i Q_{2P}\left( e^{i \theta} \right)$ associées aux opérateurs d'approximations $\delta_{2P,x}$.}
 \label{fig:freq_herm}
 \end{figure}
 On constate que les schémas hermitiens représentent mieux les fréquences que les schémas classiques au même ordre de précision. Comme pour les schémas $\delta_{2P,x}$, augmenter l'ordre permet d'assurer une meilleure représentation des hautes fréquences.
@@ -977,7 +977,7 @@ P & = R(T) \\
     & \ddots & \ddots & \ddots &   \\ 
     & (0) & \beta & 1 - 2 \beta & \beta \\ 
   \beta &   &   & \beta & 1 - 2 \beta
-  \end{bmatrix} 
+  \end{bmatrix} \in \mathbb{M}_{N}(\mathbb{R})
 \end{align}
 et l'on a 
 \begin{equation}
@@ -996,7 +996,7 @@ avec $-N/2+1 \leq k \leq N/2$. Chaque valeur propre est associé au vecteur prop
 $P$ est inversible si $|\beta |<1/4$ et trivialement symétrique. 
 De la même manière, on a déjà vu que 
 \begin{equation}
-D_{2P} = \dfrac{1}{h} Q_{2P}(T)
+D_{2P} = \dfrac{1}{h} Q_{2P}(T) \in \mathbb{M}_{N}(\mathbb{R})
 \end{equation}
 donc 
 \begin{equation}
@@ -1005,7 +1005,7 @@ donc
 
 Le calcul de $\delta^H_{2P,x} \mathfrak{u}$ se fait par la résolution du système
 \begin{equation}
-P \vec_1 (\delta_{2P,x}^H \mathfrak{u}) = D_{2P} \vec_1 (\mathfrak{u})
+P \vec_1 (\delta_{2P+2,x}^H \mathfrak{u}) = D_{2P} \vec_1 (\mathfrak{u})
 \end{equation}
 
 La solution de ce système peut être calculée grâce à la formule de Shermann-Morisson-Woodbury couplé à un solveur tridiagonal comme l'algorithme de Thomas.
@@ -1097,7 +1097,7 @@ S = \begin{bmatrix}
 \end{equation}
 \end{proposition}
 
-il découle l'algorithme le calcul de $\vec_1 (\delta_{2P,x}^H \mathfrak{u}) = P^{-1}D_{2P} \vec_1 (\mathfrak{u})$ donné par
+il découle l'algorithme le calcul de $\vec_1 (\delta_{2P+2,x}^H \mathfrak{u}) = P^{-1}D_{2P} \vec_1 (\mathfrak{u})$ donné par
 
 \begin{center}
 \begin{minipage}[H]{12cm}
@@ -1110,7 +1110,7 @@ il découle l'algorithme le calcul de $\vec_1 (\delta_{2P,x}^H \mathfrak{u}) = P
 	\State Calcul de $V_3 = (Id + S^T \tilde{P}^{-1}R)^{-1} V_2$ (résolution d'un système de taille $2 \times 2$),
 	\State Calcul de $V_4 = R V_3$,
 	\State Calcul de $V_5 = \tilde{P}^{-1} V_4$,
-	\State Calcul de $\vec_1 (\delta_{2P,x}^H \mathfrak{u}) = V_1 - V_5$.
+	\State Calcul de $\vec_1 (\delta_{2P+2,x}^H \mathfrak{u}) = V_1 - V_5$.
     \end{algorithmic}
     \end{algorithm}
 \end{minipage}
@@ -1714,8 +1714,8 @@ L'opérateur hermitien en dimension 1 $\delta_x^H$ est étendue en dimension 2 g
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\delta_{2P,x}^H & = & \sigma_x^{-1} \circ \delta_{2P,x} \\
-\delta_{2P,y}^H & = & \sigma_y^{-1} \circ \delta_{2P,y}
+\delta_{2P+2,x}^H & = & \sigma_x^{-1} \circ \delta_{2P,x} \\
+\delta_{2P+2,y}^H & = & \sigma_y^{-1} \circ \delta_{2P,y}
 \end{array}
 \right.
 \label{eq:der_herm_2D}
@@ -1725,8 +1725,8 @@ L'opérateur hermitien en dimension 1 $\delta_x^H$ est étendue en dimension 2 g
 Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est une fonction de $\mathcal{C}^5 (\Omega)$. On note $u^*$ la fonction de grille associée à $u$ et $u_x^*$ (resp. $u_y^*$) la fonction de grille associée à la dérivée de $u$ dans la direction $x$ (resp. $y$) notée $\partial_x u$ (resp. $\partial_y u$). Alors
 \begin{equation}
 \begin{array}{rcl}
-|u^*_{x} - \delta_{2P,x}^H u^*|_{\infty} &\leq& C h^{2P+2}\\
-|u^*_{y} - \delta_{2P,y}^H u^*|_{\infty} &\leq& C h^{2P+2}
+|u^*_{x} - \delta_{2P+2,x}^H u^*|_{\infty} &\leq& C h^{2P+2}\\
+|u^*_{y} - \delta_{2P+2,y}^H u^*|_{\infty} &\leq& C h^{2P+2}
 \end{array}
 \end{equation}
 Si les coefficients de $R$ et $Q_{2P}$ vérifient \eqref{eq:hermitian_system}.
@@ -1857,7 +1857,7 @@ Par définition de $\text{vec}_2$, on a
 les autres égalités se montrent de la même manière
 \end{proof}
 
-De ces égalités, il découle le calcul matriciel de $\delta_{2P,x}^H \mathfrak{u}$ et de $\delta_{2P,y}^H \mathfrak{u}$.
+De ces égalités, il découle le calcul matriciel de $\delta_{2P+2,x}^H \mathfrak{u}$ et de $\delta_{2P+2,y}^H \mathfrak{u}$.
 
 \begin{theoreme}
 Soit $\mathfrak{u}$ une fonction de grille. Alors, si on pose 
@@ -1865,8 +1865,8 @@ Soit $\mathfrak{u}$ une fonction de grille. Alors, si on pose
 \left\lbrace
 \begin{array}{rcl}
 U & = & \text{vec}_2 (\mathfrak{u}) \\
-U_x & = & \text{vec}_2 (\delta_{2P,x}^H \mathfrak{u}) \\
-U_y & = & \text{vec}_2 (\delta_{2P,y}^H \mathfrak{u}) \\
+U_x & = & \text{vec}_2 (\delta_{2P+2,x}^H \mathfrak{u}) \\
+U_y & = & \text{vec}_2 (\delta_{2P+2,y}^H \mathfrak{u}) \\
 \end{array}
 \right.
 \end{equation}
