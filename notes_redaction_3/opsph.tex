@@ -766,7 +766,7 @@ Dans la figure \ref{fig:rate_grad2}, nous présentons les courbes de convergence
 \includegraphics[height=5cm]{rate_grad_2_123.png}
 \includegraphics[height=5cm]{rate_grad_2_222.png}
 \end{center}
-\caption{Convergence du gradient de \eqref{eq:grad_test} avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(2,2,2)$ à droite. Nous comparons l'utilisation de $\delta^H_{4,x}$ en magenta avec l'utilisation de $\delta^H_{8,x}$ en noir.}
+\caption{Convergence du gradient de \eqref{eq:grad_test} avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(2,2,2)$ à droite. Nous comparons l'utilisation de $\delta^H_{4,x}$ en magenta avec l'utilisation de $\delta^H_{8,x}$ en bleu.}
 \label{fig:rate_grad2}
 \end{figure}
 
@@ -924,6 +924,7 @@ avec $(\mathbf{i}, \mathbf{j}, \mathbf{k})$ la base canonique de $\mathbb{R}^3$ 
 \end{array}
 \right.
 \text{ pour } -N/2 \leq  i,j \leq N/2 \text{, } (k) = (I), \ldots, (VI). 
+\label{eq:der_partiel_vect}
 \end{equation}
 où les fonctions de grilles $(u_{\xi,i,j}^{(k)}), (u_{\eta,i,j}^{(k)}),  \ldots$ sont construites grâce aux algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta}.
 
@@ -1202,7 +1203,7 @@ $512$& $1.0140(-10)$ & $1.2102(-10)$ & $3.7487(-10)$  & $1.0804 (-17)$\\
 \label{tab:rate2_div_v2}
 \end{table} 
 
-Les résultats numériques obtenus sur la divergence approchée $\nabla_{T,\Delta} \cdot$ et ceux obtenus sur $\nabla_{T,\Delta,2} \cdot$ sont tout à fait comparables. le calcul de la divergence $\nabla_{T,\Delta} \codt$ nécessite le calcul de 6 dérivées hermitiennes alors que le calcul de $\nabla_{T,\Delta} \codt$. Cependant, il n'y a pas de résultats théorique disponible pour garantir la consistance de $\nabla_{T,\Delta,2} \codt$.
+Les résultats numériques obtenus sur la divergence approchée $\nabla_{T,\Delta} \cdot$ et ceux obtenus sur $\nabla_{T,\Delta,2} \cdot$ sont tout à fait comparables. le calcul de la divergence $\nabla_{T,\Delta} \cdot$ nécessite le calcul de 6 dérivées hermitiennes alors que le calcul de $\nabla_{T,\Delta} \cdot$. Cependant, il n'y a pas de résultat théorique disponible pour garantir la consistance de $\nabla_{T,\Delta,2} \cdot$ avec la divergence.
 
 
 

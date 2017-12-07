@@ -1850,7 +1850,7 @@ Par définition de $\text{vec}_2$, on a
 \text{vec}_2 (\delta_{2P,x} \mathfrak{u}) & = \gsum_{i,j=0}^P (e_j \otimes e_i) \delta_{2P,x} \mathfrak{u}_{i,j} \\
 	& = \gsum_{i,j=0}^{N-1} \gsum_{p=1}^P (e_j \otimes e_i) \dfrac{a_p}{2ph} (\mathfrak{u}_{i+p,j} - \mathfrak{u}_{i-p,j}) \\
 	& = \gsum_{p=1}^P \dfrac{a_p}{2ph} \left( \gsum_{i,j=0}^{N-1} (e_j \otimes e_i) \mathfrak{u}_{i+p,j} - (e_j \otimes e_i) \mathfrak{u}_{i-p,j} \right) \\
-	& = \gsum_{p=1}^P \dfrac{a_p}{2ph} \gsum_{i,j=0}^{N-1} e_j \otimes \left( e_j \otimes (e_i \mathfrak{u}_{i+p,j} - e_i \otimes \mathfrak{u}_{i-p,j}) \right)\\
+	& = \gsum_{p=1}^P \dfrac{a_p}{2ph} \gsum_{i,j=0}^{N-1} e_j \otimes (e_i \mathfrak{u}_{i+p,j} - e_i \otimes \mathfrak{u}_{i-p,j})\\
 	& = \gsum_{p=1}^P \dfrac{a_p}{2ph} \left( Id \otimes \left( T^p - T^{-p}  \right) \right) \vec_2 (\mathfrak{u}) \\
 	& = (Id \otimes D_{2P}) \vec_2 (\mathfrak{u})
 \end{align*}

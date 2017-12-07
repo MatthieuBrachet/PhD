@@ -11,7 +11,7 @@ global teta0 teta1
 teta0=-3*pi/16;
 teta1=3*pi/16;
 opt_ftr=0;
-n=127;
+n=31;
 mod72;
 
 [vt_fI,rotvt_fI] = sol_exacte_rot(x_fI,y_fI,z_fI);

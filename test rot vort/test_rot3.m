@@ -9,7 +9,7 @@ global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
 global opt_ftr test
 global teta0 teta1
 
-n=100;
+n=30;
 test = 0;
 opt_ftr=0;
 teta0=-3*pi/16;
