@@ -70,9 +70,9 @@ Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ une fonction rég
 \label{eq:divergence_v1}
 \end{equation}
 
-\item \textbf{Rotationel} :
+\item \textbf{Vorticité} :
 \begin{equation}
-\nabla_T \cdot \mathbf{v} = \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{v}}{\partial \xi}_{|\eta_j} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{v}}{\partial \eta}_{|\xi_i}.
+\vort( \mathbf{v} ) = \left( \nabla_T \cdot \mathbf{v} \right) \cdot \mathbf{k} = \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{v}}{\partial \xi}_{|\eta_j} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{v}}{\partial \eta}_{|\xi_i}.
 \end{equation}
 \end{itemize} 
 \end{theoreme}
@@ -1062,7 +1062,7 @@ $512$& $4.7499(-11)$ & $5.7106(-11)$ & $1.7640(-10)$  & $1.7256 (-18)$\\
 \hline
 \end{tabular}
 \end{center}
-\caption{Table de convergence pour la divergence de \eqref{eq:test_divergence} avec $(p,q,r)=(1,1,1)$ en normes 1, 2 et infinie. On vérifie aussi la conservation \eqref{eq:conservation_divergence}}.
+\caption{Table de convergence pour la divergence de \eqref{eq:test_divergence} avec $(p,q,r)=(1,1,1)$ en normes 1, 2 et infinie. On vérifie aussi la conservation \eqref{eq:conservation_divergence}.}
 \label{tab:rate_div_t2}
 \end{table}
 \begin{figure}[htbp]
@@ -1073,6 +1073,7 @@ $512$& $4.7499(-11)$ & $5.7106(-11)$ & $1.7640(-10)$  & $1.7256 (-18)$\\
 \caption{Convergence de la divergence approchée avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(1,1,1)$ à droite avec différentes normes.}
 \label{fig:rate_div1}
 \end{figure}
+
 Les courbes de convergences en figure \ref{fig:rate_div1} sont très proches les unes des autres et ont une pente proche de l'ordre 4.
 
 
@@ -1228,6 +1229,43 @@ Les résultats numériques obtenus sur la divergence approchée $\nabla_{T,\Delt
 
 
 \subsection{Opérateur rotationnel discret}
+
+Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur régulier sur la sphère. En tout point de la Cubed-Sphere $\mathbf{x}_{i,j}^{(k)}$, avec $-N/2 \leq i,j \leq N/2$ et $(k) = (I), ..., (VI)$, les dérivées partielles approchées de $\mathbf{v}$ sont données par \eqref{eq:der_partiel_vect}. Alors on peut définir le rotationnel approché par 
+
+\begin{definition}
+On définit l'opérateur \textit{rotationnel discret} par 
+\begin{equation}
+\rot_{\Delta} (\mathbf{v}_{i,j}^{(k)}) = (\nabla_{T,\Delta} \wedge \mathbf{v}_{i,j}^{(k)}) \cdot \mathbf{n} = \left( ( \mathbf{g}^{\xi} )_{i,j}^{(k)} \wedge \mathbf{v}_{\xi,i,j}^{(k)}   + ( \mathbf{g}^{\eta} )_{i,j}^{(k)} \wedge \mathbf{v}_{\eta,i,j}^{(k)} \right) \cdot \mathbf{n}(\mathbf{x}_{i,j}^{(k)}) \in \mathbb{C}
+\end{equation}
+avec $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \ldots , (VI)$.
+\label{def:rotationnel_disc}
+\end{definition}
+
+Il s'agit d'un opérateur d'approximation du rotationnel. Le théorème \ref{th:consistance_der_xieta} permet de montrer directement :
+
+\begin{proposition}
+Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur régulier sur la sphère. Pour tous $-N/2 \leq i,j \leq N/2$ et $(k) = (I), ..., (VI)$, on a
+\begin{equation}
+\rot_{\Delta}(\mathbf{v}_{i,j}^{(k)}) - \rot(\mathbf{v})^{*,(k)}_{i,j} = \mathcal{O} \left( \Delta^3  \right) 
+\end{equation}
+où $^*$ désigne la restriction à la Cubed-Sphere et $\Delta = \Delta \xi = \Delta \eta$.
+\end{proposition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
