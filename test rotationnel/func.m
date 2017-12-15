@@ -1,6 +1,6 @@
 function [ f, vort ] = func(x,y,z)
 global radius
-test=1;
+test=2;
 if test == 1
     p=3;
     q=3;
@@ -22,7 +22,7 @@ if test == 1
 
     vort=h.*tan(teta)./radius-(1./radius).*dhteta;
 elseif test == 2
-    p=1;
+    p=4;
     q=2;
     r=3;
     h=x.^p.*y.^q.*z.^r;
