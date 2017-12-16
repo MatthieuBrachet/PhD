@@ -21,7 +21,7 @@ Soit $C$ un grand cercle et $\mathbf{x}_0 \in C$ un point fixé. On choisit l'un
 \begin{equation}
 \longarc{\mathbf{x}_0  \mathbf{x}} = a \alpha
 \end{equation}
-où $\alpha \in [ 0, 2 \pi[$ désigne la l'angle $\widehat{\mathbf{x}_0  \mathbf{x}}$ dans le sens choisit (Voir figure \ref{fig: grand cercle}). $\alpha$ est \textit{l'angle géodésique} entre $\mathbf{x}_0$ et $\mathbf{x}$.
+où $\alpha \in [ 0, 2 \pi[$ désigne la l'angle $\widehat{\mathbf{x}_0  \mathbf{x}}$ dans le sens choisit (Fig. \ref{fig: grand cercle}). $\alpha$ est \textit{l'angle géodésique} entre $\mathbf{x}_0$ et $\mathbf{x}$.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -66,12 +66,12 @@ où $\alpha \in [ 0, 2 \pi[$ désigne la l'angle $\widehat{\mathbf{x}_0  \mathbf
     \draw (4.8,-.8) node {$C$};
 \end{tikzpicture}
 \end{center}
-\caption{Un grand cercle sur la sphère $\mathbb{S}_a^2$, l'angle $\alpha$  et l'abscisse curviligne de $\mathbf{x}_0$.}
+\caption{Un grand cercle sur la sphère $\mathbb{S}_a^2$. L'angle $\alpha$ est tel que $\widehat{\mathbf{x}_0 \mathbf{x}} = \alpha$ et l'abscisse curviligne de $\mathbf{x}$ comptée à partir de $\mathbf{x}_0$ est $a \alpha$.}
 \label{fig: grand cercle}
 \end{figure}
 
 Soit $\overline{\mathbf{x}} \in \mathbb{S}_a^2$ fixé. Soient $C_1$ et $C_2$ deux grands cercles distincts arbitraires tels que $\overline{\mathbf{x}} \in C_1 \cap C_2$.
-Soit $\alpha$ et $\beta$ les abscisses curvilignes le long de $C_1$ et $C_2$, définis à partir de $\mathbf{x}_{1,0} \in C_1$ et $\mathbf{x}_{2,0} \in C_2$ arbitrairement choisis. On définit les vecteurs $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ (Voir figure \ref{fig: e_alpha et e_beta}) par
+Soit $\alpha$ et $\beta$ les abscisses curvilignes le long de $C_1$ et $C_2$, définis à partir de $\mathbf{x}_{1,0} \in C_1$ et $\mathbf{x}_{2,0} \in C_2$ arbitrairement choisis. On définit les vecteurs $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ (Fig. \ref{fig: e_alpha et e_beta}) par
 
 \begin{equation}
 \mathbf{e}_{\alpha}(\overline{\mathbf{x}}) := \dfrac{d \mathbf{x}}{d \alpha}(\overline{\mathbf{x}}) \text{ et } \mathbf{e}_{\beta}(\overline{\mathbf{x}}) := \dfrac{d \mathbf{x}}{d \beta}(\overline{\mathbf{x}})
@@ -119,8 +119,6 @@ On appelle \textit{plan tangent} à la sphère $\mathbb{S}_a^2$ au point $\overl
 \end{equation}
 \end{definition}
 
-Les vecteurs $\mathbf{e}_{\alpha}(\mathbf{x})$ et $\mathbf{e}_{\beta}(\mathbf{x})$ appartiennent au plan tangent $\mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$.
-
 \begin{proposition}
 Soit $\overline{\mathbf{x}} \in \mathbb{S}_a^2$, alors :
 \begin{equation}
@@ -148,7 +146,7 @@ En particulier, en $\overline{\mathbf{x}}$, on a :
 d'où : $\mathbf{e}_{\alpha}(\overline{\mathbf{x}}) \in \mathbb{T}_{\overline{\mathbf{x}}} \mathbb{S}_a^2$. En dérivant par rapport à $\beta$, on a $\mathbf{e}_{\beta}(\overline{\mathbf{x}}) \in \mathbb{T}_{\overline{\mathbf{x}}} \mathbb{S}_a^2$.
 \end{proof}
 
-$\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ sont dans le plan $\mathbb{T}_{\overline{\mathbf{x}}}\mathbb{S}_a^2$. De plus, $C_1 \neq C_2$ donc $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ ne sont pas colinéaires. On en déduit que $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ engendrent $\mathbb{T}_{\overline{\mathbf{x}}} \mathbb{S}_a^2$. Cependant, ces deux vecteurs ne sont, a priori, pas orthogonaux non plus.
+$\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ sont dans le plan $\mathbb{T}_{\overline{\mathbf{x}}}\mathbb{S}_a^2$. De plus, $C_1 \neq C_2$ donc $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ ne sont pas colinéaires. On en déduit que $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ engendrent $\mathbb{T}_{\overline{\mathbf{x}}} \mathbb{S}_a^2$. En général, $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ ne sont pas orthogonaux.
 
 \begin{definition}
 On définit $(\mathbf{e}^{\alpha}(\overline{\mathbf{x}}), \mathbf{e}^{\beta}(\overline{\mathbf{x}}))$ la \textit{base duale} de $(\mathbf{e}_{\alpha}(\overline{\mathbf{x}}), \mathbf{e}_{\beta}(\overline{\mathbf{x}}))$.
@@ -167,117 +165,42 @@ Les vecteurs $\mathbf{e}^{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}^{\beta}
 \end{definition}
 
 \begin{proposition}
-$(\mathbf{e}^{\alpha}(\overline{\mathbf{x}}), \mathbf{e}^{\beta}(\overline{\mathbf{x}}))$ la base duale de $(\mathbf{e}_{\alpha}(\overline{\mathbf{x}}), \mathbf{e}_{\beta}(\overline{\mathbf{x}}))$ est unique.
+$(\mathbf{e}^{\alpha}(\overline{\mathbf{x}}), \mathbf{e}^{\beta}(\overline{\mathbf{x}}))$ la base duale de $(\mathbf{e}_{\alpha}(\overline{\mathbf{x}}), \mathbf{e}_{\beta}(\overline{\mathbf{x}}))$ est définie de façon unique.
 \end{proposition}
 
 \begin{proof}
-Soit $(\mathbf{u}, \mathbf{v})$ une base duale de  $(\mathbf{e}_{\alpha}(\overline{\mathbf{x}}), \mathbf{e}_{\beta}(\overline{\mathbf{x}}))$ distincte de $(\mathbf{e}^{\alpha}(\overline{\mathbf{x}}), \mathbf{e}^{\beta}(\overline{\mathbf{x}}))$. Montrons que l'on a nécessairement $\mathbf{u} = \mathbf{e}^{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{v} = \mathbf{e}^{\beta}(\overline{\mathbf{x}})$. Pour cela, évaluons $\mathbf{u}$ et $\mathbf{v}$ dans trois directions distinctes de $\mathbb{R}^3$ :
-
-\begin{itemize}
-\item \textbf{Direction } $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$, par construction, on a :
-
-$$
-\begin{array}{rcccl}
-\mathbf{u} \cdot \mathbf{e}_{\alpha}(\overline{\mathbf{x}}) & = & 1 & = & \mathbf{e}^{\alpha}(\overline{\mathbf{x}}) \cdot \mathbf{e}_{\alpha}(\overline{\mathbf{x}})\\
-\mathbf{v} \cdot \mathbf{e}_{\alpha}(\overline{\mathbf{x}}) & = & 0 & = & \mathbf{e}^{\beta}(\overline{\mathbf{x}}) \cdot \mathbf{e}_{\alpha}(\overline{\mathbf{x}})\\
-\end{array}
-$$
-
-\item \textbf{Direction } $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$, de la même manière
-
-$$
-\begin{array}{rcccl}
-\mathbf{u} \cdot \mathbf{e}_{\beta}(\overline{\mathbf{x}}) & = & 0 & = & \mathbf{e}^{\alpha}(\overline{\mathbf{x}}) \cdot \mathbf{e}_{\beta}(\overline{\mathbf{x}})\\
-\mathbf{v} \cdot \mathbf{e}_{\beta}(\overline{\mathbf{x}}) & = & 1 & = & \mathbf{e}^{\beta}(\overline{\mathbf{x}}) \cdot \mathbf{e}_{\beta}(\overline{\mathbf{x}})\\
-\end{array}
-$$
-
-\item \textbf{Dans la direction normale :} $\mathbf{u}$, $\mathbf{v}$, $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}}) \in \mathbb{T}_{\overline{\mathbf{x}}} \mathbb{S}_a^2$ donc :
-
-$$
-\mathbf{u} \cdot \overline{\mathbf{x}}=\mathbf{v} \cdot \overline{\mathbf{x}}=\mathbf{e}_{\alpha}(\overline{\mathbf{x}}) \cdot \overline{\mathbf{x}}=\mathbf{e}_{\beta}(\overline{\mathbf{x}}) \cdot \overline{\mathbf{x}}
-$$ 
-\end{itemize}
-
-Or, $(\mathbf{e}_{\alpha}(\overline{\mathbf{x}}), \mathbf{e}_{\beta}(\overline{\mathbf{x}}), \overline{\mathbf{x}})$ est une base de $\mathbb{R}^3$, donc $\mathbf{u} = \mathbf{e}^{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{v} = \mathbf{e}^{\beta}(\overline{\mathbf{x}})$.
+Il suffit de remarquer que
+\begin{equation}
+\begin{bmatrix}
+\mathbf{e}_{\alpha}(\overline{\mathbf{x}}) , \mathbf{e}_{\beta}(\overline{\mathbf{x}})
+\end{bmatrix}^T \cdot 
+\begin{bmatrix}
+\mathbf{e}^{\alpha}(\overline{\mathbf{x}}) , \mathbf{e}^{\beta}(\overline{\mathbf{x}})
+\end{bmatrix} = Id
+\end{equation}
+Alors 
+\begin{equation}
+\begin{bmatrix}
+\mathbf{e}^{\alpha}(\overline{\mathbf{x}}) , \mathbf{e}^{\beta}(\overline{\mathbf{x}})
+\end{bmatrix} = 
+\begin{bmatrix}
+\mathbf{e}_{\alpha}(\overline{\mathbf{x}}) , \mathbf{e}_{\beta}(\overline{\mathbf{x}})
+\end{bmatrix}^{-T}.
+\end{equation}
 \end{proof}
 
-A partir de ces différentes bases, on définit le \textit{gradient}.
+A partir de ces différentes bases, le \textit{gradient} est donné par
 
-\begin{definition}
-Soit $h : \mathbb{S}_a^2 \mapsto \mathbb{R}$ une fonction régulière, le gradient de $h$ est donné par :
+\begin{proposition}
+Soit $h : \mathbb{S}_a^2 \mapsto \mathbb{R}$ une fonction régulière, le gradient de $h$, $\nabla_T h(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}}\mathbb{S}^2_a$, est
 
 \begin{equation}
 \nabla_{T} h(\overline{\mathbf{x}}) := \dfrac{\partial}{\partial \alpha} \left( h(\overline{\mathbf{x}}) \right)_{| \mathbf{x} \in C_1} \mathbf{e}^{\alpha}(\overline{\mathbf{x}}) + \dfrac{\partial}{\partial \beta}\left(  h(\overline{\mathbf{x}}) \right)_{| \mathbf{x} \in C_2} \mathbf{e}^{\beta}(\overline{\mathbf{x}}).
 \label{eq: gradient}
 \end{equation}
-\end{definition}
-
-\begin{proposition}
-Soit $\mathbf{x} \in \mathbb{S}_a^2$, alors $\nabla_{T} h (\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$.
 \end{proposition}
 
-\begin{proof}
-$\nabla_{T} h (\mathbf{x})$ est une combinaison linéaire de $\mathbf{e}^{\alpha}(\mathbf{x})$ et $\mathbf{e}^{\beta}(\mathbf{x})$. Ces deux vecteurs engendrent le plan $\mathbb{T}_{\mathbf{x}}\mathbb{S}_a^2$, d'où le résultat.
-\end{proof}
-
-Pour alléger les notations, nous noterons abusivement les quantités $h$, $\mathbf{e}_{\alpha}$, $\mathbf{e}^{\alpha}$... au lieu de $h(\mathbf{x})$, $\mathbf{e}_{\alpha}(\mathbf{x})$, $\mathbf{e}^{\alpha}(\mathbf{x})$...
-
-\begin{proposition}
-Le gradient \eqref{eq: gradient} est bien défini. Il ne dépend pas du choix des deux grands cercles $C_1$ et $C_2$ choisis.
-\end{proposition}
-
-\begin{proof}
-Soit $(\tilde{C}_1, \tilde{C}_2)$ un couple de grands cercles tels que  $(\tilde{C}_1, \tilde{C}_2) \neq (C_1, C_2$). $\tilde{\alpha}$ et $\tilde{\beta}$ les abscisses curvilignes associées. On pose :
-
-\begin{equation}
-\mathbf{e}_{\tilde{\alpha}} = \dfrac{\partial \mathbf{x}}{\partial \tilde{\alpha}} \text{ et } \mathbf{e}_{\tilde{\beta}} = \dfrac{\partial \mathbf{x}}{\partial \tilde{\beta}}
-\end{equation}
-la base de $\mathbb{T}_{\overline{\mathbf{x}}}\mathbb{S}_a^2$ associée à $(\tilde{\alpha}$ et $\tilde{\beta}$. $\left( \mathbf{e}^{\tilde{\alpha}}, \mathbf{e}^{\tilde{\beta}} \right)$ est construite comme base duale de $\left( \mathbf{e}_{\tilde{\alpha}}, \mathbf{e}_{\tilde{\beta}} \right)$ :
-
-\begin{equation}
-\left\lbrace
-\begin{array}{rcccl}
-\mathbf{e}_{\tilde{\alpha}} \cdot \mathbf{e}^{\tilde{\alpha}} & = & 1 & = & \mathbf{e}_{\tilde{\beta}} \cdot \mathbf{e}^{\tilde{\beta}} \\
-\mathbf{e}_{\tilde{\alpha}} \cdot \mathbf{e}^{\tilde{\beta}} & = & 0 & = & \mathbf{e}_{\tilde{\beta}} \cdot \mathbf{e}^{\tilde{\alpha}} \\
-\end{array}
-\right. .
-\end{equation}
-Le problème est de savoir si $\dfrac{\partial h}{\partial \alpha} \mathbf{e}^{\alpha} + \dfrac{\partial h}{\partial \beta} \mathbf{e}^{\beta}$ est égal à $\dfrac{\partial h}{\partial \tilde{\alpha}} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial h}{\partial \tilde{\beta}} \mathbf{e}^{\tilde{\beta}}$.
-D'une part, on a :
-
-\begin{equation}
-\begin{array}{rcl}
-\mathbf{e}_{\alpha} & = & \dfrac{\partial \tilde{\alpha}}{\partial \alpha} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial \tilde{\beta}}{\partial \alpha} \mathbf{e}^{\tilde{\beta}} \\
-\mathbf{e}_{\beta} & = & \dfrac{\partial \tilde{\alpha}}{\partial \beta} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial \tilde{\beta}}{\partial \beta} \mathbf{e}^{\tilde{\beta}} \\
-\end{array}
-\end{equation}
-De plus :
-
-\begin{equation}
-\dfrac{\partial h}{\partial \tilde{\alpha}} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial h}{\partial \tilde{\beta}} \mathbf{e}^{\tilde{\beta}} = \dfrac{\partial h}{\partial \alpha}  \underbrace{\left( \dfrac{\partial \alpha}{\partial \tilde{\alpha}} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial \alpha}{\partial \tilde{\beta}} \mathbf{e}^{\tilde{\beta}}  \right)} _{=\mathbf{u}} + \dfrac{\partial h}{\partial \alpha}  \underbrace{\left( \dfrac{\partial \beta}{\partial \tilde{\alpha}} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial \beta}{\partial \tilde{\beta}} \mathbf{e}^{\tilde{\beta}} \right)}_{= \mathbf{v}} 
-\label{eq: prop u v}
-\end{equation}
-On cherche le lien entre les vecteurs $\mathbf{u}$, $\mathbf{v}$ et les vecteurs $\mathbf{e}^{\alpha}$, $\mathbf{e}^{\beta}$.
-
-\begin{equation}
-\mathbf{e}_{\alpha} \cdot \mathbf{u} = \dfrac{\partial \tilde{\alpha}}{\partial \alpha} \dfrac{\partial \alpha}{\partial \tilde{\alpha}} + \dfrac{\partial \tilde{\beta}}{\partial \alpha} \dfrac{\partial \alpha}{\partial \tilde{\beta}} = \dfrac{\partial \alpha}{\partial \alpha} = 1.
-\end{equation}
-De même : $\mathbf{e}_{\beta} \cdot \mathbf{v} = 1$.
-De la même manière, on a :
-
-\begin{equation}
-\mathbf{e}_{\alpha} \cdot \mathbf{v} = \dfrac{\partial \tilde{\alpha}}{\partial \alpha} \dfrac{\partial \beta}{\partial \tilde{\alpha}} + \dfrac{\partial \tilde{\beta}}{\partial \alpha} \dfrac{\partial \beta}{\partial \tilde{\beta}} = \dfrac{\partial \beta}{\partial \alpha} = 0.
-\end{equation}
-Ainsi que $\mathbf{e}_{\beta} \cdot \mathbf{u} = 0$.
-Donc $\mathbf{u}$ et $\mathbf{v}$ vérifient \eqref{eq: dualite alpha beta}. De plus, $\mathbf{u}, \mathbf{v} \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$. Donc $\mathbf{u} = \mathbf{e}^{\alpha}$ et $\mathbf{v} = \mathbf{e}^{\beta}$. Ainsi, en utilisant \eqref{eq: prop u v}, on a bien :
-
-\begin{equation}
-\dfrac{\partial h}{\partial \tilde{\alpha}} \mathbf{e}^{\tilde{\alpha}} + \dfrac{\partial h}{\partial \tilde{\beta}} \mathbf{e}^{\tilde{\beta}} = \dfrac{\partial h}{\partial \alpha} \mathbf{e}^{\alpha} + \dfrac{\partial h}{\partial \beta} \mathbf{e}^{\beta}
-\end{equation}
-Le gradient est bien défini car indépendant du choix des grands cercles.
-\end{proof}
-
+Pour alléger les notations, nous noterons abusivement les quantités $h$, $\mathbf{e}_{\alpha}$, $\mathbf{e}^{\beta}$ ... au lieu de $h(\mathbf{x})$, $\mathbf{e}_{\alpha}(\mathbf{x})$, $\mathbf{e}^{\beta}(\mathbf{x})$, ...
 
 
 \begin{proposition}
@@ -390,19 +313,19 @@ On définit les points suivants (Voir Figure \ref{fig: sphere NSEWFB}) sur la sp
     \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
 \end{tikzpicture}
 \end{center}
-\caption{Sphère $\mathbb{S}_a^2$, points $\mathbf{N}$, $\mathbf{S}$, $\mathbf{E}$, $\mathbf{W}$, $\mathbf{F}$ et $\mathbf{B}$.}
+\caption{Sphère $\mathbb{S}_a^2$ avec les 6 points $\mathbf{N}$ (Nord), $\mathbf{S}$ (Sud), $\mathbf{E}$ (Est), $\mathbf{W}$ (Ouest), $\mathbf{F}$ (Avant) et $\mathbf{B}$ (Arrière).}
 \label{fig: sphere NSEWFB}
 \end{figure}
 
-Un grand cercle est l'intersection de la sphère $\mathbb{S}_a^2$ avec un plan contenant le point $\mathbf{O}$. On définit les grands cercles suivants (Voir figure \ref{fig: grands cercles panel I}) :
+Un grand cercle est l'intersection de la sphère $\mathbb{S}_a^2$ avec un plan contenant le point $\mathbf{O}$. On définit les grands cercles suivants (Fig \ref{fig: grands cercles panel I}) :
 
 \begin{itemize}
-\item $C_V^1 = Vect(\mathbf{i}-\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$,
-\item $C_V^2 = Vect(\mathbf{i}+\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$, il s'agit d'une rotation de $C_V^1$ d'un angle de $\pi/2$ autour de $(Oz)$,
-\item $C_{II}^1 = Vect(\mathbf{i}+\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$, $C_{II}^2$ est une rotation de $C_{II}^1$ d'un angle de $\pi/2$ autour de $(Oy)$,
-\item $C_{II}^2 = Vect(\mathbf{i}-\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$,
-\item $C_I^1=Vect(\mathbf{j}-\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$,
-\item $C_I^2=Vect(\mathbf{j}+\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$, $C_I^2$ est une rotation de $C_I^1$ autour de $(Ox)$ d'un angle de $\pi/2$
+\item $C_V^1 = \Vect(\mathbf{i}-\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$,
+\item $C_V^2 = \Vect(\mathbf{i}+\mathbf{j}, \mathbf{k}) \cap \mathbb{S}_a^2$, il s'agit d'une rotation de $C_V^1$ d'un angle de $\pi/2$ autour de $(Oz)$,
+\item $C_{II}^1 = \Vect(\mathbf{i}+\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$, $C_{II}^2$ est une rotation de $C_{II}^1$ d'un angle de $\pi/2$ autour de $(Oy)$,
+\item $C_{II}^2 = \Vect(\mathbf{i}-\mathbf{k}, \mathbf{j}) \cap \mathbb{S}_a^2$,
+\item $C_I^1=\Vect(\mathbf{j}-\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$,
+\item $C_I^2=\Vect(\mathbf{j}+\mathbf{k},\mathbf{i}) \cap \mathbb{S}_a^2$, $C_I^2$ est une rotation de $C_I^1$ autour de $(Ox)$ d'un angle de $\pi/2$
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -462,13 +385,13 @@ Un grand cercle est l'intersection de la sphère $\mathbb{S}_a^2$ avec un plan c
 \label{fig: grands cercles panel I}
 \end{figure}
 
-La construction de la Cubed-Sphère fait intervenir six zones recouvrant la sphère $\mathbb{S}_a^2$, il s'agit des \textit{panels}. Chaque panel est délimité par quatre grands cercles (voir figure \ref{fig: panel I to VI}).
+La construction de la Cubed-Sphere fait intervenir six zones recouvrant la sphère $\mathbb{S}_a^2$ appelés \textit{panels}. Chaque panel est délimité par quatre grands cercles (Fig. \ref{fig: panel I to VI}).
 
 \begin{definition}
 \begin{itemize}
-\item Les panels I et III sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{II}^1$ et $C_{II}^2$. Le panel III est le symétrique du panel I par la symétrie ponctuelle de centre $\mathbf{O}$.Le panel I ne contient que des points $(x,y,z)$ tels que $x>0$, le panel III ne contient que des points tels que $x<0$.
-\item Les panels II et IV sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{I}^1$ et $C_{I}^2$. Le panel IV est le symétrique du panel II par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel II ne contient que des points $(x,y,z)$ tels que $y>0$, le panel IV ne contient que des points tels que $y<0$.
-\item Les panels V et VI sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_I^1$, $C_I^2$, $C_{II}^1$ et $C_{II}^2$. Le panel VI est le symétrique du panel V par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel V ne contient que des points $(x,y,z)$ tels que $z>0$, le panel VI ne contient que des points tels que $z<0$.
+\item  \textbf{Panels I et III : }Les panels I et III sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{II}^1$ et $C_{II}^2$. Le panel III est le symétrique du panel I par la symétrie ponctuelle de centre $\mathbf{O}$.Le panel I ne contient que des points $(x,y,z)$ tels que $x>0$, le panel III ne contient que des points tels que $x<0$.
+\item \textbf{Panels II et IV : }Les panels II et IV sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{I}^1$ et $C_{I}^2$. Le panel IV est le symétrique du panel II par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel II ne contient que des points $(x,y,z)$ tels que $y>0$, le panel IV ne contient que des points tels que $y<0$.
+\item \textbf{Panels V et VI : }Les panels V et VI sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_I^1$, $C_I^2$, $C_{II}^1$ et $C_{II}^2$. Le panel VI est le symétrique du panel V par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel V ne contient que des points $(x,y,z)$ tels que $z>0$, le panel VI ne contient que des points tels que $z<0$.
 \end{itemize}
 \end{definition}
 
@@ -744,27 +667,45 @@ La construction de la Cubed-Sphère fait intervenir six zones recouvrant la sph�
 
 La grille Cubed-Sphere est constituée de l'intersection d'un ensemble de grands cercles sur chaque panel. On commence par introduire le système de coordonnées $(\xi,\eta)$ associés aux cercles centraux de chaque panel. Les paramètres $\xi$ et  $\eta$ sont définis comme il suit :
 
-\begin{itemize}
-\item Les courbes $\xi = 0$ et $\eta = 0$ sont les grands cercles de référence, notés respectivement $C_0^{(1)}$ et $C_0^{(2)}$ (en pointillés gras sur la Figure sur \ref{fig: panel I xi eta} et sur \ref{fig: panel I}), ils passent par les points centraux de certains panels. Pour le panel I, $C_0^{(1)}$ est le grand cercle passant par les points $\mathbf{N}$, $\mathbf{F}$ et $\mathbf{S}$. Il coupe orthogonalement $C_0^{(2)}$ qui est le grand cercle passant par $\mathbf{W}$, $\mathbf{F}$ et $\mathbf{E}$,
+\begin{definition}
 
-\item $\xi$ est l'angle géodésique mesuré sur $C_0^{(2)}$ et $\eta$ l'angle géodésique mesuré sur $C_0^{(1)}$,
+les lignes de coordonnées $\xi = 0$ et $\eta = 0$ sont les grands cercles équatoriaux, notés respectivement $C_0^{(1)}$ et $C_0^{(2)}$ (en pointillés gras sur la Figure sur \ref{fig: panel I xi eta} et sur \ref{fig: panel I}).  Les deux cercles passent par les points centraux de chaque panel. 
 
-\item si $\mathbf{x}$ est un point d'un panel, il est localisé grâce aux angles géodésiques $\xi$ et $\eta$  (voir Figure \ref{fig: panel I xi eta}),
+\begin{enumerate}
+\item $C_0^{(1)}$ est le grand cercle passant par les points $\mathbf{N}$, $\mathbf{F}$ et $\mathbf{S}$.
 
-\item un panel est défini pour :
+\item $C_0^{(2)}$ est le grand cercle passant par les points $\mathbf{E}$, $\mathbf{F}$ et $\mathbf{W}$.
+\end{enumerate} 
+$C_0^{(1)}$ et $C_0^{(2)}$ se coupent orthogonalement en $\mathbf{F}$ et $\mathbf{B}$.
+$\xi$ est l'angle géodésique mesuré sur $C_0^{(2)}$ et $\eta$ l'angle géodésique mesuré sur $C_0^{(1)}$. $\xi = 0$ correspond à l'équateur ordinaire et $\eta=0$ correspond à l'équateur verticale.
+\end{definition}
+
+Tout $\mathbf{x}$ du panel est localisé grâce aux angles géodésiques $\xi$ et $\eta$  (voir Fig. \ref{fig: panel I xi eta}).
+Un panel est donné par le domaine
 \begin{equation}
 - \dfrac{\pi}{4} \leq \xi\text{, }\eta \leq \dfrac{\pi}{4},
 \end{equation}
 
-\item Soit $\mathbf{x}_{i,j}$ est un point du panel $K \in \lbrace I, II, III, IV, V, VI \rbrace$, c'est un point du maillage si il est localisé grâce à ses coordonnées $(\xi_i, \eta_j)$ données par :
+Soit $\mathbf{x}_{i,j}$ un point du panel $K \in \lbrace I, II, III, IV, V, VI \rbrace$. C'est un point du maillage si ses coordonnées $(\xi_i, \eta_j)$ sont données par :
 \begin{equation}
 \xi_i = i \Delta \xi \text{ et } \eta_j = j \Delta \eta \text{ avec } -\dfrac{N}{2} \leq i,j \leq \dfrac{N}{2},
 \end{equation}
-dans ce qui suit, nous supposerons $N$ pair. $\Delta \xi$ et $\Delta \eta$ représentent le pas séparant régulièrement les grands cercles dans le système de coordonnées $(\xi, \eta)$ :
+Dans ce qui suit, nous supposerons $N$ pair. $\Delta \xi$ et $\Delta \eta$ représentent le pas angulaire séparant régulièrement les grands cercles dans le système de coordonnées $(\xi, \eta)$. On a
 \begin{equation}
 \Delta \xi = \Delta \eta = \dfrac{\pi}{2N}.
 \end{equation} 
-\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
 
 Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudinale de $2 \pi$, on peut donc insérer les 4 panels notés $I$, $II$, $III$ et $IV$. De même, le long de $C_0^{(1)}$, sont présents les panels $I$, $V$, $III$ et $VI$.
 
@@ -938,11 +879,11 @@ Le maillage associé au panel I est constitué des points d'intersections des $N
 En reproduisant le procédé pour chaque panel, on constitue la Cubed-Sphere associée à la base $(\mathbf{i},\mathbf{j},\mathbf{k})$ et de paramètre $N$.
 
 \begin{definition}
-La Cubed-Sphere est une grille de la sphère $\mathbb{S}_a^2$. Elle est constituée d'une partition de la sphère en 6 panels identiques notés panel I (Front), II (East), III (Bottom), IV (West), V (North) et VI (South). Chaque panel est doté d'un système de coordonnées :
+La Cubed-Sphere est une grille de la sphère $\mathbb{S}_a^2$. La sphère est couverte par 6 panels identiques notés panel I (Front), II (East), III (Bottom), IV (West), V (North) et VI (South). Chaque panel est doté d'un système de coordonnées :
 \begin{equation}
 \left( \xi^{(k)}, \eta^{(k)} \right) \text{, } -\dfrac{\pi}{4} \leq \xi^{(k)}, \eta^{(k)} \leq \dfrac{\pi}{4} \text{, } I \leq k \leq VI
 \end{equation}
-définis précédemment. Les points de la Cubed-Sphere sont notés $\mathbf{x}_{i,j}^{(k)}$. Ils ont pour coordonnées $\left( \xi_i^{(k)}, \eta_j^{(k)}  \right)$ avec :
+définis précédemment. Les points de la Cubed-Sphere sont notés $\mathbf{x}_{i,j}^{(k)}$. Ils sont définis par leurs coordonnées $\left( \xi_i^{(k)}, \eta_j^{(k)}  \right)$ avec :
 \begin{equation}
 \xi_i^{(k)} = i \Delta \xi \text{, } \eta_j^{(k)} = j \Delta \eta \text{, } -N/2 \leq i, j \leq N/2 \text{ et } I \leq k \leq VI,
 \end{equation}
@@ -1858,13 +1799,13 @@ Conséquence des relations entre $(x,y,z)$ et $(\xi, \beta)$, $(\alpha, \eta)$ p
 
 
 \begin{proposition}
-Expression de $\alpha$ (à $\bar{\eta}$ fixé) et $\beta$ (à $\bar{\xi}$ fixé) en fonction de $\xi$ et $\eta$ :
+$\alpha$ et $\beta$ s'expriment en fonction de $\xi$ et $\eta$ :
 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\alpha(\xi) & = & \arctan \left[ \dfrac{\tan \xi}{\sqrt{1+\tan^2 \bar{\eta}}} \right] \\
-\beta(\eta) & = & \arctan \left[ \dfrac{\tan \eta}{\sqrt{1+\tan^2 \bar{\xi}}} \right] 
+\alpha(\xi, \eta) & = & \arctan \left[ \dfrac{\tan \xi}{\sqrt{1+\tan^2 \eta}} \right] \\
+\beta(\xi,\eta) & = & \arctan \left[ \dfrac{\tan \eta}{\sqrt{1+\tan^2 \xi}} \right] 
 \end{array}
 \right.
 \label{eq: alpha et beta fct de xi et eta}
@@ -1874,29 +1815,22 @@ Expression de $\alpha$ (à $\bar{\eta}$ fixé) et $\beta$ (à $\bar{\xi}$ fixé)
 \begin{proof}
 Sur le panel I, $\alpha$ est une fonction construite sur un grand cercle, donc $\alpha$ sur le cercle constitué des points avec $\eta=\bar{\eta}$ constant. De même, $\beta$ varie avec $\xi= \bar{\xi}$ constant. 
 
-A $\xi= \bar{\xi}$ fixé, on a :
+On a :
 \begin{equation}
 x^2 + y^2 = a^2 \cos^2 \beta
 \end{equation}
-
-donc on déduit facilement :
-
+d'où on déduit facilement :
 \begin{equation}
 \tan^2 \beta = \dfrac{z^2}{x^2+y^2} = \dfrac{Y^2}{1+X^2}
 \end{equation}
-
-d'où l'expression de $\beta$ suivante :
-
+L'expression de $\beta$ suivante se déduit
 \begin{equation}
-\beta(\eta) = \arctan \left[ \dfrac{\tan \eta}{\sqrt{1+\tan^2 \bar{\xi}}} \right]
+\beta(\eta) = \arctan \left[ \dfrac{\tan \eta}{\sqrt{1+\tan^2 \xi}} \right]
 \end{equation}
-
 De la même manière on obtient :
-
 \begin{equation}
-\alpha(\xi) = \arctan \left[ \dfrac{\tan \xi}{\sqrt{1+\tan^2 \bar{\eta}}} \right].
+\alpha(\xi) = \arctan \left[ \dfrac{\tan \xi}{\sqrt{1+\tan^2 \eta}} \right].
 \end{equation}
-
 De plus, ces équations se retrouvent sur chaque panel.
 \end{proof}
 

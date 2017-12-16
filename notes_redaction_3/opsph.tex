@@ -70,9 +70,9 @@ Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ une fonction rég
 \label{eq:divergence_v1}
 \end{equation}
 
-\item \textbf{Rotationel} :
+\item \textbf{Vorticité} :
 \begin{equation}
-\nabla_T \cdot \mathbf{v} = \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{v}}{\partial \xi}_{|\eta_j} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{v}}{\partial \eta}_{|\xi_i}.
+\vort( \mathbf{v} ) = \left( \nabla_T \cdot \mathbf{v} \right) \cdot \mathbf{k} = \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{v}}{\partial \xi}_{|\eta_j} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{v}}{\partial \eta}_{|\xi_i}.
 \end{equation}
 \end{itemize} 
 \end{theoreme}
@@ -1062,7 +1062,7 @@ $512$& $4.7499(-11)$ & $5.7106(-11)$ & $1.7640(-10)$  & $1.7256 (-18)$\\
 \hline
 \end{tabular}
 \end{center}
-\caption{Table de convergence pour la divergence de \eqref{eq:test_divergence} avec $(p,q,r)=(1,1,1)$ en normes 1, 2 et infinie. On vérifie aussi la conservation \eqref{eq:conservation_divergence}}.
+\caption{Table de convergence pour la divergence de \eqref{eq:test_divergence} avec $(p,q,r)=(1,1,1)$ en normes 1, 2 et infinie. On vérifie aussi la conservation \eqref{eq:conservation_divergence}.}
 \label{tab:rate_div_t2}
 \end{table}
 \begin{figure}[htbp]
@@ -1073,6 +1073,7 @@ $512$& $4.7499(-11)$ & $5.7106(-11)$ & $1.7640(-10)$  & $1.7256 (-18)$\\
 \caption{Convergence de la divergence approchée avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(1,1,1)$ à droite avec différentes normes.}
 \label{fig:rate_div1}
 \end{figure}
+
 Les courbes de convergences en figure \ref{fig:rate_div1} sont très proches les unes des autres et ont une pente proche de l'ordre 4.
 
 
@@ -1228,6 +1229,175 @@ Les résultats numériques obtenus sur la divergence approchée $\nabla_{T,\Delt
 
 
 \subsection{Opérateur rotationnel discret}
+
+Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur régulier sur la sphère. En tout point de la Cubed-Sphere $\mathbf{x}_{i,j}^{(k)}$, avec $-N/2 \leq i,j \leq N/2$ et $(k) = (I), ..., (VI)$, les dérivées partielles approchées de $\mathbf{v}$ sont données par \eqref{eq:der_partiel_vect}. Alors on peut définir le rotationnel approché par 
+
+\begin{definition}
+On définit l'opérateur \textit{rotationnel discret} par 
+\begin{equation}
+\rot_{\Delta} (\mathbf{v}_{i,j}^{(k)}) = (\nabla_{T,\Delta} \wedge \mathbf{v}_{i,j}^{(k)}) \cdot \mathbf{n} = \left( ( \mathbf{g}^{\xi} )_{i,j}^{(k)} \wedge \mathbf{v}_{\xi,i,j}^{(k)}   + ( \mathbf{g}^{\eta} )_{i,j}^{(k)} \wedge \mathbf{v}_{\eta,i,j}^{(k)} \right) \cdot \mathbf{n}(\mathbf{x}_{i,j}^{(k)}) \in \mathbb{C}
+\end{equation}
+avec $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \ldots , (VI)$.
+\label{def:rotationnel_disc}
+\end{definition}
+
+Il s'agit d'un opérateur d'approximation du rotationnel. Le théorème \ref{th:consistance_der_xieta} permet de montrer directement :
+
+\begin{proposition}
+Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur régulier sur la sphère. Pour tous $-N/2 \leq i,j \leq N/2$ et $(k) = (I), ..., (VI)$, on a
+\begin{equation}
+\rot_{\Delta}(\mathbf{v}_{i,j}^{(k)}) - \rot(\mathbf{v})^{*,(k)}_{i,j} = \mathcal{O} \left( \Delta^3  \right) 
+\end{equation}
+où $^*$ désigne la restriction à la Cubed-Sphere et $\Delta = \Delta \xi = \Delta \eta$.
+\end{proposition}
+
+Si un point $\mathbf{x}_{i,j}^{(k)}$ appartient à plusieurs panels ($i$ ou $j$ vaut $\pm N/2$) alors plusieurs rotationnels approchés sont calculés en ce point. La moyenne de ces valeurs est conservée.
+
+Si $\mathbf{v}$ est un champ de vecteurs sur la sphère, il existe $v_{\lambda}$ et $v_{\theta}$ tels que 
+\begin{equation}
+\mathbf{v} = v_{\lambda} \mathbf{e}_{\lambda} + v_{\theta} \mathbf{e}_{\theta}
+\end{equation} 
+où $(\lambda,\theta)$ représentent les coordonnées longitude/latitude et $(\mathbf{e}_{\lambda}, \mathbf{e}_{\theta})$ les vecteurs unitaires de base donnés en annexe \REF.
+Dans le cadre, si $\mathbf{v}$ est un champ de vecteur régulier, alors le rotationnel est donné par 
+\begin{equation}
+\rot(\mathbf{v}) = v_{\lambda} \dfrac{\tan \theta}{a} + \dfrac{1}{a \cos \theta} \dfrac{\partial v_{\theta}}{\partial \lambda} - \dfrac{1}{a} \dfrac{\partial v_{\lambda}}{\partial \theta}.
+\end{equation}
+Cette relation permet de construire des tests pour évaluer numériquement le rotationnel et le comparer à à sa valeur exacte. On compare donc
+\begin{equation}
+\dfrac{\| \rot(\mathbf{v})^* - \rot_{\Delta} (\mathbf{v}^*) \|_s}{\| \rot(\mathbf{v})^* \|_s}
+\end{equation}
+avec $s \in \left\lbrace 1, 2, \infty \right\rbrace$. Les résultats obtenus sont présentés dans les tables \ref{tab:rate_rot} et \ref{tab:rate_rot2}. On constate que les méthodes convergent à un ordre proche de 4, ce qui confirme l'ordre théorique et donne même une convergence plus rapide. Le graphique de convergence est donné en figure \ref{fig:rate_rot} pour ces mêmes test.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c|}
+\hline
+\textbf{N}  & \textbf{norme 1} & \textbf{norme 2} & \textbf{norme $\infty$} \\
+\hline
+\hline
+$8$  & $1.9936(-2)$ & $1.8717(-2)$ & $1.5623(-2)$  \\
+$16$ & $1.1325(-3)$ & $1.0216(-3)$ & $1.4497(-3)$  \\
+$32$ & $6.8262(-5)$ & $6.1471(-5)$ & $8.9084(-5)$  \\
+$64$ & $4.2292(-6)$ & $3.8166(-6)$ & $5.5817(-6)$  \\
+$128$& $2.6413(-7)$ & $2.3881(-7)$ & $3.5265(-7)$  \\
+$256$& $1.6559(-8)$ & $1.4975(-8)$ & $2.2194(-8)$  \\
+\hline 
+\hline
+\textbf{ordre estimé}& $4.0345$ & $4.0418$ & $4.0202$\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Table de convergence pour le rotationnel $\rot_{\Delta}$ de $ x^3 y^3 z^3 \mathbf{e}_{\lambda}$ en normes 1, 2 et $\infty$.}
+\label{tab:rate_rot}
+\end{table} 
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c|}
+\hline
+\textbf{N}  & \textbf{norme 1} & \textbf{norme 2} & \textbf{norme $\infty$} \\
+\hline
+\hline
+$8$  & $1.6305(-2)$ & $1.5494(-2)$ & $1.7473(-2)$  \\
+$16$ & $9.0026(-4)$ & $8.1833(-4)$ & $9.5002(-4)$  \\
+$32$ & $5.4527(-5)$ & $4.9215(-5)$ & $7.3232(-5)$  \\
+$64$ & $3.3854(-6)$ & $3.0551(-6)$ & $5.1367(-6)$  \\
+$128$& $2.1153(-7)$ & $1.9108(-7)$ & $3.3731(-7)$  \\
+$256$& $1.3242(-8)$ & $1.1976(-8)$ & $2.1624(-8)$  \\
+\hline 
+\hline
+\textbf{ordre estimé}& $4.0381$ & $4.0491$ & $3.8952$\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Table de convergence pour le rotationnel $\rot_{\Delta}$ de $ x^4 y^2 z^3 \mathbf{e}_{\theta}$ en normes 1, 2 et $\infty$.}
+\label{tab:rate_rot2}
+\end{table} 
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{rate_rot_1_333.png}
+\includegraphics[height=5cm]{rate_rot_1_423.png}
+\end{center}
+\caption{Convergence du rotationnel approché de $ x^3 y^3 z^3 \mathbf{e}_{\lambda}$ (gauche) et $ x^4 y^2 z^3 \mathbf{e}_{\theta}$ (droite) pour différentes normes.}
+\label{fig:rate_rot}
+\end{figure}
+
+De plus, la proposition suivante permet de coupler l'opérateur rotationnel et l'opérateur gradient.
+
+\begin{proposition}
+Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ une fonction régulière. Alors 
+\begin{equation}
+\rot \left( \nabla_T h \right) = 0
+\end{equation}
+\label{prop:rot_grad}
+\end{proposition}
+
+\begin{proof}
+On connait des expressions du gradient et de la divergence dans le système $(\xi, \eta)$, alors
+\begin{equation}
+\nabla_T \wedge \nabla_T h = \mathbf{g}^{\xi} \wedge \dfrac{\partial}{\partial \xi} \left( \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\eta}\right) + \mathbf{g}^{\eta} \wedge \dfrac{\partial}{\partial \eta} \left( \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\eta}\right)
+\end{equation}
+
+On a alors
+\begin{align*}
+\mathbf{g}^{\xi} \wedge \dfrac{\partial}{\partial \xi} \nabla_T h & = \dfrac{\partial^2 h}{\partial \xi^2} \mathbf{g}^{\xi} \wedge \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} + \dfrac{\partial^2 h}{\partial \eta^2} \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{g}^{\xi}}{\partial \eta}\\
+& = \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} + \dfrac{\partial^2 h}{\partial \eta^2} \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{g}^{\xi}}{\partial \eta}\\
+& = - \Gamma_{\eta, \xi}^{\xi} \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta} + \dfrac{\partial^2 h}{\partial \eta^2} \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta} - \Gamma_{\eta, \xi}^{\xi} \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta}\\
+& = \left( - \Gamma_{\eta, \xi}^{\xi} \dfrac{\partial h}{\partial \xi} + \dfrac{\partial^2 h}{\partial \eta^2} - \Gamma_{\eta, \eta}^{\xi} \dfrac{\partial h}{\partial \eta} \right) \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta}\\
+& = \left( - \Gamma_{\eta, \xi}^{\xi} \dfrac{\partial h}{\partial \xi} + \dfrac{\partial^2 h}{\partial \eta^2} \right) \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta}\\
+\end{align*}
+
+De la même manière, on a :
+\begin{align*}
+\mathbf{g}^{\eta} \wedge \dfrac{\partial}{\partial \eta} \nabla_T h & = \left( - \Gamma_{\xi, \eta}^{\eta} \dfrac{\partial h}{\partial \eta} + \dfrac{\partial^2 h}{\partial \xi^2} \right) \mathbf{g}^{\eta} \wedge \mathbf{g}^{\xi}\\
+&  = \left( \Gamma_{\xi, \eta}^{\eta} \dfrac{\partial h}{\partial \eta} - \dfrac{\partial^2 h}{\partial \xi^2} \right) \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta}
+\end{align*}
+Donc 
+\begin{equation}
+\nabla_T \wedge \nabla_T h = \left( - \Gamma_{\eta, \xi}^{\xi} \dfrac{\partial h}{\partial \xi} + \dfrac{\partial^2 h}{\partial \eta^2} +  \Gamma_{\xi, \eta}^{\eta} \dfrac{\partial h}{\partial \eta} - \dfrac{\partial^2 h}{\partial \xi^2} \right) \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta}
+\end{equation}
+
+A COMPLETER PLUS TARD...
+
+\end{proof}
+
+Ainsi, si on choisit une fonction $h$ quelconque, on doit retrouver numériquement la proposition \ref{prop:rot_grad}. Le résultat numérique est donné en table \ref{tab:rate_rotgrad} où l'on donne
+\begin{equation}
+\dfrac{1}{4 \pi a^2} \| \rot_{\Delta} \left( \nabla_{T,\Delta} h^* \right) - \rot \left( \nabla_{T} h \right)^* \|_s
+\end{equation}
+Cette table permet d'illustrer la convergence du gradient et de l'opérateur rotationnel.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c|}
+\hline
+\textbf{N}  & \textbf{norme 1} & \textbf{norme 2} & \textbf{norme $\infty$} \\
+\hline
+\hline
+$8$  & $3.4770(-4)$  & $1.4286(-4)$  & $1.1470(-4)$  \\
+$16$ & $1.6686(-5)$  & $7.0948(-6)$  & $1.0256(-5)$  \\
+$32$ & $1.0089(-6)$  & $4.1258(-7)$  & $6.2778(-7)$  \\
+$64$ & $6.3688(-8)$  & $2.5581(-8)$  & $3.7403(-8)$  \\
+$128$& $4.0283(-9)$  & $1.6143(-9)$  & $2.2653(-9)$  \\
+$256$& $2.5396(-10)$ & $1.0283(-10)$ & $1.9459(-10)$ \\
+\hline 
+\hline
+\textbf{ordre estimé}& $4.0559$ & $4.0670$ & $3.8956$\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Table de convergence $\rot_{\Delta} \left(\nabla_T h \right)$ avec $ h(x,y,z)=x^3 y^2 z^3$ en normes 1, 2 et $\infty$.}
+\label{tab:rate_rotgrad}
+\end{table} 
+
+
+
+
+
+
+
+
 
 
 

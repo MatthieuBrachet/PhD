@@ -383,16 +383,11 @@ U^1 & U^2 & \cdots & U^{N-1} & U^N \\
 \end{equation}
 avec les vecteurs propres $U^k$ vérifiant
 \begin{equation}
-U^k = \begin{bmatrix}
-\mathfrak{u}^k_1\\
-\mathfrak{u}^k_2\\
-\vdots \\
-\mathfrak{u}^k_N\\
-\end{bmatrix}
+U^k = \vec_1 ( \mathfrak{u}^k )
 \end{equation} 
 et les valeurs propres associées $\omega^k$. On déduit directement de ces égalités que 
 \begin{equation}
-U(t) = V^T \exp \left[-c \Lambda t \right] V U_0
+U(t) = \bar{V}^T \exp \left[-c \Lambda t \right] V U_0
 \end{equation}
 d'où la solution approchée de \eqref{eq:transport_1D} discrétisée en espace et évaluée en $x_j$ est donnée par 
 \begin{equation}
