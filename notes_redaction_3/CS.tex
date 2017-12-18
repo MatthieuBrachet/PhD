@@ -1546,6 +1546,24 @@ $$\Gamma_{\tau, \mu}^{\tau}(\mathbf{x})=\Gamma_{\tau, \mu}^{\tau}(\mathbf{x}')$$
 d'où l'invariance par changement de panel.
 \end{proof}
 
+\begin{proposition}
+Les égalités suivantes sont vérifiées :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} & = & - \Gamma_{\xi, \xi}^{\xi} \mathbf{g}^{\xi} - \Gamma_{\xi, \eta}^{\xi} \mathbf{g}^{\eta}\\
+\dfrac{\partial \mathbf{g}^{\eta}}{\partial \xi} & = & - \Gamma_{\xi, \xi}^{\eta} \mathbf{g}^{\xi} - \Gamma_{\xi, \eta}^{\eta} \mathbf{g}^{\eta}\\
+\dfrac{\partial \mathbf{g}^{\eta}}{\partial \eta} & = & - \Gamma_{\eta, \eta}^{\eta} \mathbf{g}^{\eta} - \Gamma_{\eta, \xi}^{\eta} \mathbf{g}^{\xi}\\
+\dfrac{\partial \mathbf{g}^{\xi}}{\partial \eta} & = & - \Gamma_{\eta, \eta}^{\xi} \mathbf{g}^{\eta} - \Gamma_{\eta, \xi}^{\xi} \mathbf{g}^{\xi}\\
+\end{array}
+\right.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+
+\end{proof}
+
 
 \begin{table}[htbp]
 \begin{center}
@@ -1825,11 +1843,11 @@ d'où on déduit facilement :
 \end{equation}
 L'expression de $\beta$ suivante se déduit
 \begin{equation}
-\beta(\eta) = \arctan \left[ \dfrac{\tan \eta}{\sqrt{1+\tan^2 \xi}} \right]
+\beta(\xi, \eta) = \arctan \left[ \dfrac{\tan \eta}{\sqrt{1+\tan^2 \xi}} \right]
 \end{equation}
 De la même manière on obtient :
 \begin{equation}
-\alpha(\xi) = \arctan \left[ \dfrac{\tan \xi}{\sqrt{1+\tan^2 \eta}} \right].
+\alpha(\xi, \eta) = \arctan \left[ \dfrac{\tan \xi}{\sqrt{1+\tan^2 \eta}} \right].
 \end{equation}
 De plus, ces équations se retrouvent sur chaque panel.
 \end{proof}
@@ -1981,12 +1999,12 @@ En continuant ce procédé, nous obtenons des valeurs tout du long du cercle $C$
 
 
 
-On peut calculer les dérivées partielles $\dfrac{\partial h}{\partial \alpha}_{|C_1}$ et $\dfrac{\partial h}{\partial \beta}_{|C_2}$ en fonction des paramètres $\xi$ et $\eta$. Comme précédemment, lorsque $\alpha$ varie ($\mathbf{x} \in C_1$), $\eta = \bar{\eta}$ est fixé. De même, lorsque $\beta$ varie ($\mathbf{x} \in C_2$), $\xi = \bar{\xi}$ est fixé. Donc, par composition, les relations suivantes sont vérifiées :
+On peut calculer les dérivées partielles $\dfrac{\partial h}{\partial \alpha}_{|C_1}$ et $\dfrac{\partial h}{\partial \beta}_{|C_2}$ en fonction des paramètres $\xi$ et $\eta$. Par composition, les relations suivantes sont vérifiées :
 
 \begin{equation}
 \begin{array}{rcl}
-\dfrac{\partial h}{\partial \alpha}_{|C_1} & = &  \dfrac{1}{\alpha'(\xi)} \dfrac{\partial h}{\partial \xi}_{|C_1} \\
-\dfrac{\partial h}{\partial \beta}_{|C_2} & = &  \dfrac{1}{\beta'(\eta)} \dfrac{\partial h}{\partial \eta}_{|C_2} \\
+\dfrac{\partial h}{\partial \alpha}_{|C_1} & = &  \dfrac{1}{\frac{\partial \alpha}{\partial \xi}} \dfrac{\partial h}{\partial \xi}_{|C_1} \\
+\dfrac{\partial h}{\partial \beta}_{|C_2} & = &  \dfrac{1}{\frac{\partial \beta}{\partial \eta}} \dfrac{\partial h}{\partial \eta}_{|C_2} \\
 \end{array}
 \label{eq: derivee partiel link}
 \end{equation}
@@ -2001,44 +2019,44 @@ On peut calculer les vecteurs $\mathbf{g}_{\alpha}$, $\mathbf{g}_{\beta}$, $\mat
 \begin{proposition}
 Les expressions suivantes sont vérifiées :
 \begin{itemize}
-\item $\mathbf{e}_{\alpha} = \dfrac{1}{\alpha'(\xi)} \mathbf{g}_{\xi}$,
-\item $\mathbf{e}_{\beta} = \dfrac{1}{\beta'(\eta)} \mathbf{g}_{\eta}$,
-\item $\mathbf{e}^{\alpha} = \alpha'(\xi) \mathbf{g}^{\xi}$,
-\item $\mathbf{e}^{\beta} = \beta'(\eta) \mathbf{g}^{\eta}$.
+\item $\mathbf{e}_{\alpha} = \dfrac{1}{\frac{\partial \alpha}{\partial \xi}} \mathbf{g}_{\xi}$,
+\item $\mathbf{e}_{\beta} = \dfrac{1}{\frac{\partial \beta}{\partial \eta}} \mathbf{g}_{\eta}$,
+\item $\mathbf{e}^{\alpha} = \dfrac{\partial \alpha}{\partial \xi} \mathbf{g}^{\xi}$,
+\item $\mathbf{e}^{\beta} = \dfrac{\partial \beta}{\partial \eta} \mathbf{g}^{\eta}$.
 \end{itemize}
 \label{prop: g_alpha g_beta fct de g_xi g_eta}
 \end{proposition}
 
 \begin{proof}
 \begin{itemize}
-\item Par définition et composition, avec $\eta = \bar{\eta}$ fixé, on a :
+\item Par définition et composition, on a :
 
 \begin{equation}
-\mathbf{g}_{\xi} = \dfrac{d \mathbf{x}}{d \xi} = \alpha'(\xi) \dfrac{d \mathbf{x}}{d \alpha} = \alpha'(\xi) \mathbf{e}_{\alpha}.
+\mathbf{g}_{\xi} = \dfrac{d \mathbf{x}}{d \xi} = \dfrac{\partial \alpha}{\partial \xi} \dfrac{d \mathbf{x}}{d \alpha} = \dfrac{\partial \alpha}{\partial \xi} \mathbf{e}_{\alpha}.
 \end{equation}
 
 d'où le premier résultat :
 
 \begin{equation}
-\mathbf{e}_{\alpha} = \dfrac{1}{\alpha'(\xi)} \mathbf{g}_{\xi}
+\mathbf{e}_{\alpha} = \dfrac{1}{\frac{\partial \alpha}{\partial \xi}} \mathbf{g}_{\xi}
 \end{equation}
 
 De la même manière :
 
 \begin{equation}
-\mathbf{e}_{\beta} = \dfrac{1}{\beta'(\eta)} \mathbf{g}_{\eta}
+\mathbf{e}_{\beta} = \dfrac{1}{\frac{\partial \beta}{\partial \eta}} \mathbf{g}_{\eta}
 \end{equation}
 
-\item On pose $\mathbf{u} = \alpha'(\xi) \mathbf{g}^{\xi}$ et $\mathbf{v} = \beta'(\eta) \mathbf{g}^{\eta}$. Alors :
+\item On pose $\mathbf{u} = \dfrac{\partial \alpha}{\partial \xi} \mathbf{g}^{\xi}$ et $\mathbf{v} = \dfrac{\partial \beta}{\partial \eta} \mathbf{g}^{\eta}$. Alors :
 
 \begin{equation}
-\mathbf{e}_{\alpha} \cdot \mathbf{u} = \dfrac{\alpha'(\xi)}{\alpha'(\xi)} \mathbf{g}_{\xi} \cdot \mathbf{g}^{\xi} = 1.
+\mathbf{e}_{\alpha} \cdot \mathbf{u} = \dfrac{\frac{\partial \alpha}{\partial \xi}}{\frac{\partial \alpha}{\partial \xi}} \mathbf{g}_{\xi} \cdot \mathbf{g}^{\xi} = 1.
 \end{equation}
 
 De plus :
 
 \begin{equation}
-\mathbf{e}_{\beta} \cdot \mathbf{u} = \dfrac{\alpha'(\xi)}{\beta'(\eta)} \mathbf{g}_{\eta} \cdot \mathbf{g}^{\xi} = 0
+\mathbf{e}_{\beta} \cdot \mathbf{u} = \dfrac{\frac{\partial \alpha}{\partial \xi}}{\frac{\partial \beta}{\partial \eta}} \mathbf{g}_{\eta} \cdot \mathbf{g}^{\xi} = 0
 \end{equation}
 
 Donc $\mathbf{e}^{\alpha} = \mathbf{u}$. De la même manière, on montre que $\mathbf{e}^{\beta} = \mathbf{v}$.

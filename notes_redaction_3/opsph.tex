@@ -1328,9 +1328,9 @@ De plus, la proposition suivante permet de coupler l'opérateur rotationnel et l
 \begin{proposition}
 Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ une fonction régulière. Alors 
 \begin{equation}
-\rot \left( \nabla_T h \right) = 0
+\nabla_T \wedge \nabla_T h = \mathbf{0}
 \end{equation}
-\label{prop:rot_grad}
+\label{prop:vort_grad}
 \end{proposition}
 
 \begin{proof}
@@ -1339,33 +1339,37 @@ On connait des expressions du gradient et de la divergence dans le système $(\x
 \nabla_T \wedge \nabla_T h = \mathbf{g}^{\xi} \wedge \dfrac{\partial}{\partial \xi} \left( \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\eta}\right) + \mathbf{g}^{\eta} \wedge \dfrac{\partial}{\partial \eta} \left( \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\eta}\right)
 \end{equation}
 
-On a alors
+D'une part, on a :
 \begin{align*}
-\mathbf{g}^{\xi} \wedge \dfrac{\partial}{\partial \xi} \nabla_T h & = \dfrac{\partial^2 h}{\partial \xi^2} \mathbf{g}^{\xi} \wedge \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} + \dfrac{\partial^2 h}{\partial \eta^2} \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{g}^{\xi}}{\partial \eta}\\
-& = \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} + \dfrac{\partial^2 h}{\partial \eta^2} \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{g}^{\xi}}{\partial \eta}\\
-& = - \Gamma_{\eta, \xi}^{\xi} \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta} + \dfrac{\partial^2 h}{\partial \eta^2} \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta} - \Gamma_{\eta, \xi}^{\xi} \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta}\\
-& = \left( - \Gamma_{\eta, \xi}^{\xi} \dfrac{\partial h}{\partial \xi} + \dfrac{\partial^2 h}{\partial \eta^2} - \Gamma_{\eta, \eta}^{\xi} \dfrac{\partial h}{\partial \eta} \right) \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta}\\
-& = \left( - \Gamma_{\eta, \xi}^{\xi} \dfrac{\partial h}{\partial \xi} + \dfrac{\partial^2 h}{\partial \eta^2} \right) \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta}\\
+\mathbf{g}^{\xi} \wedge \dfrac{\partial}{\partial \xi} \left( \nabla_T h  \right) & = \mathbf{g}^{\xi} \wedge \dfrac{\partial}{\partial \xi} \left( \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\eta}\right)\\
+	& = \mathbf{g}^{\xi} \wedge \left( \dfrac{\partial^2 h}{\partial \xi^2} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \xi} \dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} + \dfrac{\partial^2 h}{\partial \xi \partial \eta} \mathbf{g}^{\eta} + \dfrac{\partial h}{\partial \eta} \dfrac{\partial \mathbf{g}^{\eta}}{\partial \xi} \right)\\
+	& = \mathbf{g}^{\xi} \wedge \left( \dfrac{\partial^2 h}{\partial \xi^2} \mathbf{g}^{\xi} - \dfrac{\partial h}{\partial \xi} \left( \Gamma_{\xi, \xi}^{\xi} \mathbf{g}^{\xi} + \Gamma_{\xi, \eta}^{\xi} \mathbf{g}^{\eta} \right) + \dfrac{\partial^2 h}{\partial \xi \partial \eta} \mathbf{g}^{\eta} - \dfrac{\partial h}{\partial \eta} \left( \Gamma_{\xi, \xi}^{\eta} \mathbf{g}^{\xi} + \Gamma_{\xi, \eta}^{\eta} \mathbf{g}^{\eta} \right) \right)\\
+	& = \left( - \dfrac{\partial h}{\partial \xi} \Gamma_{\xi, \eta}^{\xi} + \dfrac{\partial^2 h}{\partial \xi \partial \eta} - \dfrac{\partial h}{\partial \eta} \Gamma_{\xi, \eta}^{\eta} \right) \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta}
 \end{align*}
 
-De la même manière, on a :
+De la même manière, on montre que 
+
 \begin{align*}
-\mathbf{g}^{\eta} \wedge \dfrac{\partial}{\partial \eta} \nabla_T h & = \left( - \Gamma_{\xi, \eta}^{\eta} \dfrac{\partial h}{\partial \eta} + \dfrac{\partial^2 h}{\partial \xi^2} \right) \mathbf{g}^{\eta} \wedge \mathbf{g}^{\xi}\\
-&  = \left( \Gamma_{\xi, \eta}^{\eta} \dfrac{\partial h}{\partial \eta} - \dfrac{\partial^2 h}{\partial \xi^2} \right) \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta}
+\mathbf{g}^{\eta} \wedge \dfrac{\partial}{\partial \eta} \left( \nabla_T h  \right) & = \left( - \dfrac{\partial h}{\partial \eta} \Gamma_{\eta, \xi}^{\eta} + \dfrac{\partial^2 h}{\partial \xi \partial \eta} - \dfrac{\partial h}{\partial \xi} \Gamma_{\eta, \xi}^{\xi} \right) \mathbf{g}^{\eta} \wedge \mathbf{g}^{\xi}\\
+	& = \left( \dfrac{\partial h}{\partial \eta} \Gamma_{\xi, \eta}^{\eta} - \dfrac{\partial^2 h}{\partial \xi \partial \eta} + \dfrac{\partial h}{\partial \xi} \Gamma_{\xi, \eta}^{\xi} \right) \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta}
 \end{align*}
-Donc 
+
+D'où en sommant ces deux égalités :
 \begin{equation}
-\nabla_T \wedge \nabla_T h = \left( - \Gamma_{\eta, \xi}^{\xi} \dfrac{\partial h}{\partial \xi} + \dfrac{\partial^2 h}{\partial \eta^2} +  \Gamma_{\xi, \eta}^{\eta} \dfrac{\partial h}{\partial \eta} - \dfrac{\partial^2 h}{\partial \xi^2} \right) \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta}
+\nabla_T \wedge \nabla_T h = \mathbf{0}
 \end{equation}
-
-A COMPLETER PLUS TARD...
-
 \end{proof}
 
-Ainsi, si on choisit une fonction $h$ quelconque, on doit retrouver numériquement la proposition \ref{prop:rot_grad}. Le résultat numérique est donné en table \ref{tab:rate_rotgrad} où l'on donne
+Ainsi, si on choisit une fonction $h$ quelconque, on doit retrouver numériquement la proposition \ref{prop:vort_grad}. En particulier, dans la direction normale, on doit avoir
+\begin{equation}
+\rot\left( \nabla_T h \right) = \left( \nabla_T \wedge \nabla_T h \right) \cdot \mathbf{n} = 0
+\label{eq:rot_grad}
+\end{equation}
+La convergence associée à ce résultat est doné dans la table \ref{tab:rate_rotgrad} où l'on donne
 \begin{equation}
 \dfrac{1}{4 \pi a^2} \| \rot_{\Delta} \left( \nabla_{T,\Delta} h^* \right) - \rot \left( \nabla_{T} h \right)^* \|_s
 \end{equation}
+en fonction de $N$, le paramètre du maillage.
 Cette table permet d'illustrer la convergence du gradient et de l'opérateur rotationnel.
 
 \begin{table}[htbp]
@@ -1391,7 +1395,13 @@ $256$& $2.5396(-10)$ & $1.0283(-10)$ & $1.9459(-10)$ \\
 \label{tab:rate_rotgrad}
 \end{table} 
 
-
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{rate_rotgrad.png}
+\end{center}
+\caption{Convergence $\rot_{\Delta} \left(\nabla_T h \right)$ avec $ h(x,y,z)=x^3 y^2 z^3$ en normes 1, 2 et $\infty$.}
+\label{fig:rate_rotgrad}
+\end{figure}
 
 
 
