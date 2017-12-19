@@ -1471,7 +1471,7 @@ Les relations suivantes sont vérifiées :
 \begin{proof}
 Nous ne démontrons que la première égalité, les autres se retrouvent la même manière.
 
-$$\left[ \dfrac{\partial \mathbf{g}_{\xi}}{\partial \xi} \right] \cdot \mathbf{g}^{\xi} = \left[ \Gamma_{\xi,\xi}^{\xi} \mathbf{g}_{\xi} + \Gamma_{\xi,\xi}^{\eta} \mathbf{g}_{\eta} \right] \cdot \mathbf{g}^{\xi}$$
+$$\left[ \dfrac{\partial \mathbf{g}_{\xi}}{\partial \xi} \right] \cdot \mathbf{g}^{\xi} = \left[ \Gamma_{\xi,\xi}^{\xi} \mathbf{g}_{\xi} + \Gamma_{\xi,\xi}^{\eta} \mathbf{g}_{\eta} + \Gamma_{\xi,\xi}^r \mathbf{n}\right] \cdot \mathbf{g}^{\xi}$$
 
 Or $\mathbf{g}_{\xi} \cdot \mathbf{g}^{\xi} = 1$ et $\mathbf{g}_{\eta} \cdot \mathbf{g}^{\xi} = 0$, d'où la première partie :
 
@@ -1497,8 +1497,8 @@ de même pour $\Gamma_{\eta,\xi}^{\xi}=\Gamma_{\xi,\eta}^{\xi}$ et $\Gamma_{\eta
 On peut calculer les dérivées suivantes :
 
 \begin{equation}
-\dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} = \dfrac{1}{x} \begin{bmatrix}
--\dfrac{X^2}{\delta^2}+2X \cos \xi \sin \xi -1 \\ \dfrac{X}{\delta^2}-2 \cos \xi \sin \xi \\ 0
+\dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} = \dfrac{1}{\delta^2 x (1+X^2)} \begin{bmatrix}
+X^2Y^2 - \delta^2 \\ -X(Y^2+\delta^2) \\ 0
 \end{bmatrix}
 \text{ et }
 \dfrac{\partial \mathbf{g}^{\xi}}{\partial \eta} = \dfrac{1+Y^2}{\delta^2 x^2 (1+X^2)} \begin{bmatrix}
@@ -1513,8 +1513,8 @@ de même :
 -Y \\ 0 \\ 1
 \end{bmatrix}
 \text{ et }
-\dfrac{\partial \mathbf{g}^{\eta}}{\partial \eta} = \dfrac{1}{x} \begin{bmatrix}
-- \dfrac{Y^2}{\delta^2} + 2 Y \cos \eta \sin \eta -1 \\ 0 \\ \dfrac{Y}{\delta^2}- 2 \cos \eta \sin \eta
+\dfrac{\partial \mathbf{g}^{\eta}}{\partial \eta} = \dfrac{1}{x \delta^2 (1+Y^2)} \begin{bmatrix}
+X^2 Y^2 - \delta^2 \\ 0 \\ -Y(X^2 - \delta^2)
 \end{bmatrix}
 \end{equation}
 
@@ -1527,8 +1527,11 @@ d'où les symboles de Christoffel :
 \Gamma_{\xi,\eta}^{\eta} & = & - \dfrac{X(1+X^2)}{\delta^2}\\
 \Gamma_{\eta,\eta}^{\xi} & = & 0 \\
 \Gamma_{\xi,\xi}^{\eta} & = & 0 \\
-\Gamma_{\eta,\eta}^{\eta} & = & \dfrac{1+Y^2}{\delta^2} \left[ 2 \delta^2 \cos \eta \sin \eta - Y \right]\\
-\Gamma_{\xi,\xi}^{\xi} & = & \dfrac{1+X^2}{\delta^2} \left[ 2 \delta^2 \cos \xi \sin \xi - X \right]
+\Gamma_{\eta,\eta}^{\eta} & = & \dfrac{2 X^2 Y}{\delta^2}\\
+\Gamma_{\xi,\xi}^{\xi} & = & \dfrac{2 X Y^2}{\delta^2}\\
+\Gamma_{\xi,\xi}^{r} & = & - \dfrac{a (1+Y^2)(1+X^2)^2}{\delta^4}\\
+\Gamma_{\eta,\eta}^{r} & = & - \dfrac{a (1+Y^2)^2(1+X^2)}{\delta^4} \\
+\Gamma_{\xi,\eta}^r & = & a XY \dfrac{(1+X^2)(1+Y^2)}{\delta^4}\\
 \end{array}
 \right.
 \end{equation}
@@ -1560,17 +1563,50 @@ Les égalités suivantes sont vérifiées :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} & = & - \Gamma_{\xi, \xi}^{\xi} \mathbf{g}^{\xi} - \Gamma_{\xi, \eta}^{\xi} \mathbf{g}^{\eta}\\
+\dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} & = & - \Gamma_{\xi, \xi}^{\xi} \mathbf{g}^{\xi} - \Gamma_{\xi, \eta}^{\xi} \mathbf{g}^{\eta}- \dfrac{1}{a} \mathbf{n}\\
+
+\dfrac{\partial \mathbf{g}^{\xi}}{\partial \eta} & = & - \Gamma_{\xi, \eta}^{\xi} \mathbf{g}^{\xi} - \Gamma_{\eta, \eta}^{\xi} \mathbf{g}^{\eta}\\
+
+\dfrac{\partial \mathbf{g}^{\eta}}{\partial \eta} & = & - \Gamma_{\xi, \eta}^{\eta} \mathbf{g}^{\xi} - \Gamma_{\eta, \eta}^{\eta} \mathbf{g}^{\eta}- \dfrac{1}{a} \mathbf{n}\\
+
 \dfrac{\partial \mathbf{g}^{\eta}}{\partial \xi} & = & - \Gamma_{\xi, \xi}^{\eta} \mathbf{g}^{\xi} - \Gamma_{\xi, \eta}^{\eta} \mathbf{g}^{\eta}\\
-\dfrac{\partial \mathbf{g}^{\eta}}{\partial \eta} & = & - \Gamma_{\eta, \eta}^{\eta} \mathbf{g}^{\eta} - \Gamma_{\eta, \xi}^{\eta} \mathbf{g}^{\xi}\\
-\dfrac{\partial \mathbf{g}^{\xi}}{\partial \eta} & = & - \Gamma_{\eta, \eta}^{\xi} \mathbf{g}^{\eta} - \Gamma_{\eta, \xi}^{\xi} \mathbf{g}^{\xi}\\
 \end{array}
 \right.
 \end{equation}
 \end{proposition}
 
 \begin{proof}
+$(\mathbf{g}^{\xi}, \mathbf{g}^{\eta}, \mathbf{n})$ forme une base de $\mathbb{R}^3$, donc il existe $A_{\xi}$, $A_{\eta}$ et $A_r$ tels que 
+\begin{equation}
+\dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} = A_{\xi} \mathbf{g}^{\xi} + A_{\eta} \mathbf{g}^{\eta} + A_r \mathbf{n}.
+\end{equation}
+Alors par produit scalaire, on a 
+\begin{equation}
+\dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} \cdot \mathbf{g}_{\xi} = A_{\xi} = - \Gamma_{\xi, \xi}^{\xi}.
+\end{equation}
+De la même manière, on a 
+\begin{equation}
+\dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} \cdot \mathbf{g}_{\eta} = A_{\eta} = - \gamma_{\xi, \eta}^{\xi},
+\end{equation}
+ainsi que
+\begin{equation}
+\dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} \cdot \mathbf{n} = A_r = - \mathbf{g}^{\xi} \cdot \dfrac{\partial \mathbf{n}}{\partial \xi} = - \dfrac{1}{a} \mathbf{g}^{\xi} \cdot \mathbf{g}_{\xi} = -\dfrac{1}{a}.
+\end{equation}
 
+De la même manière, il existe $B_{\xi}$, $B_{\eta}$ et $B_r$ tels que
+\begin{equation}
+\dfrac{\partial \mathbf{g}^{\xi}}{\partial \eta} = B_{\xi} \mathbf{g}^{\xi} + B_{\eta} \mathbf{g}^{\eta} + B_r \mathbf{n}
+\end{equation}
+et on a, par produit scalaire
+\begin{equation}
+B_{\xi} = - \gamma_{\xi, \eta}^{\xi} \mathbf{g}^{\xi} \text{ et } B_{\eta} = - \gamma_{\eta, \eta}^{\xi} \mathbf{g}^{\xi}.
+\end{equation}
+De plus
+\begin{equation}
+B_r = \dfrac{\partial \mathbf{g}^{\xi}}{\partial \eta} \cdot \mathbf{n} = - \dfrac{1}{a} \mathbf{g}^{\xi} \cdot \mathbf{g}_{\eta} = 0.
+\end{equation}
+
+Les résultats pour $\dfrac{\partial \mathbf{g}^{\eta}}{\partial \eta}$ et $\dfrac{\partial \mathbf{g}^{\eta}}{\partial \xi}$ se démontrent de la même manière.
 \end{proof}
 
 
@@ -1583,15 +1619,18 @@ $\mathbf{G}$ \textbf{et} $\mathbf{G}^{-1}$ & \textbf{Symboles de Christoffels}\\
 \hline
 \hline
                  &  $\Gamma_{\xi,\eta}^{\xi} = - \dfrac{Y ( 1+Y^2)}{\delta^2}$ \\ 
+                 & $\Gamma_{\xi,\eta}^{\eta} = - \dfrac{X(1+X^2)}{\delta^2}$ \\
+                 & $\Gamma_{\eta,\eta}^{\xi} = 0$ \\
 $\mathbf{G}=a^2 \dfrac{(1+X^2)(1+Y^2)}{\delta^4} \begin{bmatrix}
 1+X^2 & -XY \\ -XY & 1+Y^2
-\end{bmatrix}$   & $\Gamma_{\xi,\eta}^{\eta} = - \dfrac{X(1+X^2)}{\delta^2}$ \\
-                 & $\Gamma_{\eta,\eta}^{\xi} = 0$ \\
-                 &  $\Gamma_{\xi,\xi}^{\eta} = 0$\\
+\end{bmatrix}$ &  $\Gamma_{\xi,\xi}^{\eta} = 0$\\
+               & $\Gamma_{\eta,\eta}^{\eta} = \dfrac{2X^2Y}{\delta^2}$\\
+                 &  $\Gamma_{\xi,\xi}^{\xi} = \dfrac{2XY^2}{\delta^2}$ \\
 $\mathbf{G}^{-1}=\dfrac{\delta^2}{a^2 (1+X^2)(1+Y^2)} \begin{bmatrix}
 1+Y^2 & XY \\ XY & 1+X^2
-\end{bmatrix}$   & $\Gamma_{\eta,\eta}^{\eta} = \dfrac{1+Y^2}{\delta^2} \left[ 2 \delta^2 \cos \eta \sin \eta - Y \right]$\\
-                 &  $\Gamma_{\xi,\xi}^{\xi} = \dfrac{1+X^2}{\delta^2} \left[ 2 \delta^2 \cos \xi \sin \xi - X \right]$ \\
+\end{bmatrix}$  &  $\Gamma_{\xi,\xi}^{r} = -\dfrac{a(1+Y^2)(1+X^2)^2}{\delta^4}$ \\
+                 &  $\Gamma_{\eta,\eta}^{r} = -\dfrac{a(1+Y^2)^2(1+X^2)}{\delta^4}$ \\
+                 &  $\Gamma_{\xi,\eta}^{r} = aXY\dfrac{(1+Y^2)(1+X^2)}{\delta^4}$ \\
 \hline
 
 \end{tabular}
