@@ -46,12 +46,12 @@ où $\wedge$ désigne le produit vectoriel.
 \end{definition}
 La \textit{vorticité} du champ de vecteurs $\mathbf{v}$ est la composante normale du rotationnel :
 \begin{equation}
-\vort ( \mathbf{v} ) = \left( \nabla_T \wedge \mathbf{v} \right) \cdot \mathbf{k}
+\vort ( \mathbf{v} ) = \left( \nabla_T \wedge \mathbf{v} \right) \cdot \mathbf{n}
 \label{eq:vorticité}
 \end{equation}
-avec $\mathbf{k}$ le vecteur unitaire extérieur à la sphère en $\mathbf{x} \in \mathbb{S}_a^2$, vérifiant l'égalité
+avec $\mathbf{n}$ le vecteur unitaire extérieur à la sphère en $\mathbf{x} \in \mathbb{S}_a^2$, vérifiant l'égalité
 \begin{equation}
-\mathbf{k} = \dfrac{1}{a} \mathbf{x}.
+\mathbf{n} = \dfrac{1}{a} \mathbf{x}.
 \end{equation}
 
 En utilisant la proposition \ref{prop: g_alpha g_beta fct de g_xi g_eta}, il est facile de montrer que des égalités permettant de calculer les opérateurs à l'aide des dérivées en $\xi$ et en $\eta$.
@@ -72,7 +72,7 @@ Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ une fonction rég
 
 \item \textbf{Vorticité} :
 \begin{equation}
-\vort( \mathbf{v} ) = \left( \nabla_T \cdot \mathbf{v} \right) \cdot \mathbf{k} = \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{v}}{\partial \xi}_{|\eta_j} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{v}}{\partial \eta}_{|\xi_i}.
+\vort( \mathbf{v} ) = \left( \nabla_T \cdot \mathbf{v} \right) \cdot \mathbf{n} =  \left( \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{v}}{\partial \xi}_{|\eta_j} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{v}}{\partial \eta}_{|\xi_i} \right) \cdot \mathbf{n}.
 \end{equation}
 \end{itemize} 
 \end{theoreme}
@@ -1328,44 +1328,47 @@ De plus, la proposition suivante permet de coupler l'opérateur rotationnel et l
 \begin{proposition}
 Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ une fonction régulière. Alors 
 \begin{equation}
-\nabla_T \wedge \nabla_T h = \mathbf{0}
+\nabla_T \wedge \nabla_T h = \dfrac{1}{a} \mathbf{n} \wedge \nabla_T h.
+\end{equation}
+En particulier, dans la direction de $\mathbf{n}$ :
+\begin{equation}
+\rot(\nabla_T h) = 0
 \end{equation}
 \label{prop:vort_grad}
 \end{proposition}
 
 \begin{proof}
-On connait des expressions du gradient et de la divergence dans le système $(\xi, \eta)$, alors
+On connaît des expressions du gradient et de la divergence dans le système $(\xi, \eta)$, alors
 \begin{equation}
 \nabla_T \wedge \nabla_T h = \mathbf{g}^{\xi} \wedge \dfrac{\partial}{\partial \xi} \left( \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\eta}\right) + \mathbf{g}^{\eta} \wedge \dfrac{\partial}{\partial \eta} \left( \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\eta}\right)
 \end{equation}
 
 D'une part, on a :
-\begin{align*}
-\mathbf{g}^{\xi} \wedge \dfrac{\partial}{\partial \xi} \left( \nabla_T h  \right) & = \mathbf{g}^{\xi} \wedge \dfrac{\partial}{\partial \xi} \left( \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\eta}\right)\\
-	& = \mathbf{g}^{\xi} \wedge \left( \dfrac{\partial^2 h}{\partial \xi^2} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \xi} \dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} + \dfrac{\partial^2 h}{\partial \xi \partial \eta} \mathbf{g}^{\eta} + \dfrac{\partial h}{\partial \eta} \dfrac{\partial \mathbf{g}^{\eta}}{\partial \xi} \right)\\
-	& = \mathbf{g}^{\xi} \wedge \left( \dfrac{\partial^2 h}{\partial \xi^2} \mathbf{g}^{\xi} - \dfrac{\partial h}{\partial \xi} \left( \Gamma_{\xi, \xi}^{\xi} \mathbf{g}^{\xi} + \Gamma_{\xi, \eta}^{\xi} \mathbf{g}^{\eta} \right) + \dfrac{\partial^2 h}{\partial \xi \partial \eta} \mathbf{g}^{\eta} - \dfrac{\partial h}{\partial \eta} \left( \Gamma_{\xi, \xi}^{\eta} \mathbf{g}^{\xi} + \Gamma_{\xi, \eta}^{\eta} \mathbf{g}^{\eta} \right) \right)\\
-	& = \left( - \dfrac{\partial h}{\partial \xi} \Gamma_{\xi, \eta}^{\xi} + \dfrac{\partial^2 h}{\partial \xi \partial \eta} - \dfrac{\partial h}{\partial \eta} \Gamma_{\xi, \eta}^{\eta} \right) \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta}
-\end{align*}
+\begin{equation}
+\mathbf{g}^{\xi} \wedge \dfrac{\partial}{\partial \xi}\nabla_T h = - \Gamma_{\xi,\eta}^{\xi} \dfrac{\partial h}{\partial \xi} - \dfrac{1}{a} \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} \wedge \mathbf{n} + \dfrac{\partial^2 h}{\partial \xi \partial \eta} \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta} - \Gamma_{\xi, \eta}^{\eta} \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta}.
+\end{equation}
 
 De la même manière, on montre que 
-
-\begin{align*}
-\mathbf{g}^{\eta} \wedge \dfrac{\partial}{\partial \eta} \left( \nabla_T h  \right) & = \left( - \dfrac{\partial h}{\partial \eta} \Gamma_{\eta, \xi}^{\eta} + \dfrac{\partial^2 h}{\partial \xi \partial \eta} - \dfrac{\partial h}{\partial \xi} \Gamma_{\eta, \xi}^{\xi} \right) \mathbf{g}^{\eta} \wedge \mathbf{g}^{\xi}\\
-	& = \left( \dfrac{\partial h}{\partial \eta} \Gamma_{\xi, \eta}^{\eta} - \dfrac{\partial^2 h}{\partial \xi \partial \eta} + \dfrac{\partial h}{\partial \xi} \Gamma_{\xi, \eta}^{\xi} \right) \mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta}
-\end{align*}
-
-D'où en sommant ces deux égalités :
 \begin{equation}
-\nabla_T \wedge \nabla_T h = \mathbf{0}
+\mathbf{g}^{\eta} \wedge \dfrac{\partial}{\partial \eta}\nabla_T h = - \Gamma_{\eta,\xi}^{\eta} \dfrac{\partial h}{\partial \eta} - \dfrac{1}{a} \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\eta} \wedge \mathbf{n} + \dfrac{\partial^2 h}{\partial \xi \partial \eta} \mathbf{g}^{\eta} \wedge \mathbf{g}^{\xi} - \Gamma_{\eta, \xi}^{\xi} \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\eta} \wedge \mathbf{g}^{\xi}.
 \end{equation}
+
+En sommant ces deux égalités et en considérant que \begin{equation}
+\mathbf{g}^{\xi} \wedge \mathbf{g}^{\eta} = -\mathbf{g}^{\eta} \wedge \mathbf{g}^{\xi},
+\end{equation}
+on obtient
+\begin{equation}
+\nabla_T \wedge \nabla_T h = \dfrac{1}{a} \mathbf{n} \wedge \left( \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\eta} \right) \dfrac{1}{a} \mathbf{n} \wedge \nabla_T h.
+\end{equation}
+La seconde formule est obtenue en effectuant un produit scalaire par $\mathbf{n}$.
 \end{proof}
 
-Ainsi, si on choisit une fonction $h$ quelconque, on doit retrouver numériquement la proposition \ref{prop:vort_grad}. En particulier, dans la direction normale, on doit avoir
+Ainsi, si on choisit une fonction $h$ quelconque, on doit retrouver numériquement la proposition \ref{prop:vort_grad}. En particulier, dans la direction normale $\mathbf{n}$ : 
 \begin{equation}
-\rot\left( \nabla_T h \right) = \left( \nabla_T \wedge \nabla_T h \right) \cdot \mathbf{n} = 0
+\rot\left( \nabla_T h \right) = \left( \nabla_T \wedge \nabla_T h \right) \cdot \mathbf{n} = 0.
 \label{eq:rot_grad}
 \end{equation}
-La convergence associée à ce résultat est doné dans la table \ref{tab:rate_rotgrad} où l'on donne
+La convergence associée à ce résultat est donnée dans la table \ref{tab:rate_rotgrad} où l'on donne
 \begin{equation}
 \dfrac{1}{4 \pi a^2} \| \rot_{\Delta} \left( \nabla_{T,\Delta} h^* \right) - \rot \left( \nabla_{T} h \right)^* \|_s
 \end{equation}
