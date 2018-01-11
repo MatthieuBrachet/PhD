@@ -225,7 +225,7 @@ Cette dernière propriété permet d'assurer que la solution de \eqref{eq:dahlqu
 \end{equation}
 Comme $J$ est diagonalisable, il existe $P \in \mathbb{M}_N(\mathbb{R})$ une matrice de passage et $\Lambda \in \mathbb{M}_N(\mathbb{R})$ matrice diagonale (contenant les valeurs propres de $J$) tels que
 \begin{equation}
-J = P^{-1}\Lambda P
+J = P^{-1} \Lambda P
 \end{equation}
 De la, il vient que 
 \begin{equation}
@@ -362,7 +362,7 @@ U(t) = \exp\left[ - c P^{-1}K t\right] U_0.
 
 On a déjà vu dans la proposition \ref{prop:eigen_mat_hermitien} que $P^{-1}K$ est une matrice de $\mathbb{M}_N(\mathbb{R})$ qui admet $N$ valeur propres distinctes. $P^{-1}K$ est diagonalisable, il existe $V$ une matrice de passage et $\Lambda$ une matrice diagonale tels que 
 \begin{equation}
-P^{-1}K = V^T \Lambda V.
+P^{-1}K = V \Lambda \bar{V}^T.
 \end{equation}
 Ces matrices sont données par 
 \begin{equation}
@@ -381,18 +381,16 @@ U^1 & U^2 & \cdots & U^{N-1} & U^N \\
   &   &   &   &  
 \end{bmatrix} 
 \end{equation}
-avec les vecteurs propres $U^k$ vérifiant
+où les vecteurs propres $U^k$ vérifiant
 \begin{equation}
 U^k = \vec_1 ( \mathfrak{u}^k )
 \end{equation} 
 et les valeurs propres associées $\omega^k$. On déduit directement de ces égalités que 
 \begin{equation}
-U(t) = \bar{V}^T \exp \left[-c \Lambda t \right] V U_0
+U(t) = V \exp \left[-c \Lambda t \right] \bar{V}^T U_0
 \end{equation}
 d'où la solution approchée de \eqref{eq:transport_1D} discrétisée en espace et évaluée en $x_j$ est donnée par 
-\begin{equation}
-u(t,x_m) \approx \mathfrak{u}_j(t) = \dfrac{1}{N} \gsum_{k=1}^N \gsum_{j=1}^N  \exp \left[ i l \left( k + j \right) \dfrac{2 \pi}{N} \right] \exp \left[ - c \omega^j \right] u_0(x_p)
-\end{equation}
+
 
 
 \subsection{Stabilité}

@@ -42,7 +42,7 @@ nrmg./MM
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,'infty');
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,MM]=nrm101(vorte_fI,vorte_fII,vorte_fIII,vorte_fIV,vorte_fV,vorte_fVI,n,nn,'infty');
 nrmg./MM
-% 
+
 % figure(1)
 % plot_cs100(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
 % title('vort. numerique')
@@ -50,12 +50,12 @@ nrmg./MM
 % 
 % figure(2)
 % plot_cs100(n,nn,vorte_fI,vorte_fII,vorte_fIII,vorte_fIV,vorte_fV,vorte_fVI)
-% title('vort.')
+% title('vort. exacte')
 % colorbar
 % 
 % figure(3)
 % plot_cs100(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI)
-% title('vort.')
+% title('vort. app.')
 % colorbar
 % 
 % fig_placier

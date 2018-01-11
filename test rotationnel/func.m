@@ -1,6 +1,6 @@
 function [ f, vort ] = func(x,y,z)
 global radius
-test=2;
+test=5;
 if test == 1
     p=3;
     q=3;
@@ -40,5 +40,41 @@ elseif test == 2
     
     vort=-dhx.*sin(lambda)+dhy.*cos(lambda);
     
+elseif test == 3
+   f(:,:,1)=exp(y/radius);
+   f(:,:,2)=exp(z/radius);
+   f(:,:,3)=exp(x/radius);
+   
+   rx=-exp(z/radius)/radius;
+   ry=-exp(x/radius)/radius;
+   rz=-exp(y/radius)/radius;
+   
+   vort=(rx.*x+ry.*y+rz.*z)./radius;
+   
+elseif test == 4
+    alpha=3;
+    u0=1;
+    [lambda, teta,~]=cart2sph(x,y,z);
+    h=u0.*cos(teta).^alpha;
+    elx=-sin(lambda);
+    ely=cos(lambda);
+    elz=0;
+
+    f(:,:,1)=h.*elx;
+    f(:,:,2)=h.*ely;
+    f(:,:,3)=h.*elz;
+
+    dh=-u0.*alpha.*sin(teta).*cos(teta).^(alpha-1);
+    %vort=(1./radius).*(h.*tan(teta)-dh);
+    
+    vort=(alpha+1)/radius.*cos(teta).^(alpha-1).*sin(teta);
+elseif test == 5
+   a=radius;
+   f(:,:,1)=y/a.*exp(y/a)-z/a.*exp(x/a);
+   f(:,:,2)=z/a.*exp(z/a)-x/a.*exp(y/a);
+   f(:,:,3)=x/a.*exp(x/a)-y/a.*exp(z/a);
+   
+   vort=-x/a.*(2+z/a).*exp(z/a)-y/a.*(2+x/a).*exp(x/a)-z/a.*(2+y/a).*exp(y/a);
+   vort=vort./a;
 end
 
