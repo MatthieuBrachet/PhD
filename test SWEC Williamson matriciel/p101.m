@@ -2,13 +2,14 @@
 % Solve SWEC on the Cubed-Sphere.
 % *** options :
 % test = 0  : test 2 of Williamson & al.,
-%        1  : test 5 of Williamson & al..
+%        1  : test 5 of Williamson & al.,
 %        2  : test 5 of Williamson with smooth mountain,
 %        3  : stationnary Galewsky (exp),
 %        4  : Galewsky with perturbation (exp),
 %        5  : Rossby-Haurwitz waves,
 %        6  : Polar rotating low-high,
 %        7  : Modified Rossby-Haurwitz waves,
+%        8  : test 3 of Williamson & al., 
 %        -1 : test with Earth topography
 %        -2 : bump
 % scheme : numerical spatial scheme used. 
@@ -29,17 +30,17 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=1;
+test=8;
 video = 'no';
 sauvegarde = 0;
 filtre='symetric';
 opt_ftr='redonnet10';
 scheme='compact4';
-snapshot='yes';
+snapshot='no';
 nrm='int';
 
-n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=15;
+n=15; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=1;
 cfl=0.9;
 mod101
 disp('mod101 : ok')
@@ -82,6 +83,10 @@ elseif test == 5
 elseif test == 6
     alpha=0;
     h0=5.768*10^4/gp;
+    u0=2*pi*radius/(12*24*3600);
+elseif test == 8
+    alpha=pi/3;
+    h0=2.94*10^4/gp;
     u0=2*pi*radius/(12*24*3600);
 else
     alpha=0;

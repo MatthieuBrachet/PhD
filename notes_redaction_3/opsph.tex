@@ -1253,20 +1253,28 @@ où $^*$ désigne la restriction à la Cubed-Sphere et $\Delta = \Delta \xi = \D
 
 Si un point $\mathbf{x}_{i,j}^{(k)}$ appartient à plusieurs panels ($i$ ou $j$ vaut $\pm N/2$) alors plusieurs rotationnels approchés sont calculés en ce point. La moyenne de ces valeurs est conservée.
 
+Pour tester le rotationnel discret $\rot_{\Delta}$, on mesure l'erreur relative en norme $l$ donnée par
+\begin{equation}
+e_l = \dfrac{\| \rot(\mathbf{v}(\mathbf{x}_{i,j}^{(k)})) - \rot_{\Delta}(\mathbf{v})_{i,j}^{(k)} \|_l}{\| \rot(\mathbf{v}(\mathbf{x}_{i,j}^{(k)})) \|_l}
+\end{equation}
+avec $l \in \lbrace 1, 2, \infty \rbrace$, où $\mathbf{v} \in \mathbb{T}\mathbb{S}_a^2$/
+
 Si $\mathbf{v}$ est un champ de vecteurs sur la sphère, il existe $v_{\lambda}$ et $v_{\theta}$ tels que 
 \begin{equation}
 \mathbf{v} = v_{\lambda} \mathbf{e}_{\lambda} + v_{\theta} \mathbf{e}_{\theta}
 \end{equation} 
-où $(\lambda,\theta)$ représentent les coordonnées longitude/latitude et $(\mathbf{e}_{\lambda}, \mathbf{e}_{\theta})$ les vecteurs unitaires de base donnés en annexe \REF.
-Dans le cadre, si $\mathbf{v}$ est un champ de vecteur régulier, alors le rotationnel est donné par 
+où $(\lambda,\theta)$ représentent les coordonnées longitude/latitude et $(\mathbf{e}_{\lambda}, \mathbf{e}_{\theta})$ les vecteurs de base donnés en annexe \REF.
+
+Supposons $\mathbf{v}$ un champ de vecteur zonal donné par
 \begin{equation}
-\rot(\mathbf{v}) = v_{\lambda} \dfrac{\tan \theta}{a} + \dfrac{1}{a \cos \theta} \dfrac{\partial v_{\theta}}{\partial \lambda} - \dfrac{1}{a} \dfrac{\partial v_{\lambda}}{\partial \theta}.
+\mathbf{v}(\lambda, \theta) = \cos^{\alpha}(\theta) \mathbf{e}_{\lambda}
 \end{equation}
-Cette relation permet de construire des tests pour évaluer numériquement le rotationnel et le comparer à à sa valeur exacte. On compare donc
+alors le rotationnel de $\mathbf{v}$ est donné par
 \begin{equation}
-\dfrac{\| \rot(\mathbf{v})^* - \rot_{\Delta} (\mathbf{v}^*) \|_s}{\| \rot(\mathbf{v})^* \|_s}
+\rot(\mathbf{v}) = \dfrac{\alpha+1}{a} \cos^{\alpha-1} \theta \sin \theta .
 \end{equation}
-avec $s \in \left\lbrace 1, 2, \infty \right\rbrace$. Les résultats obtenus sont présentés dans les tables \ref{tab:rate_rot} et \ref{tab:rate_rot2}. On constate que les méthodes convergent à un ordre proche de 4, ce qui confirme l'ordre théorique et donne même une convergence plus rapide. Le graphique de convergence est donné en figure \ref{fig:rate_rot} pour ces mêmes test.
+Dans la pratique, on choisit $\alpha = 3$ pour éviter les problèmes de singularités aux pôles. Les fonctions zonales jouent un rôle particulièrement important en climatologie et en océanographie. La table \ref{tab:rate_rot1} et la figure \ref{fig:rate_rot1} associée permet de mettre en évidence une convergence à l'ordre 4.
+
 
 \begin{table}[htbp]
 \begin{center}
@@ -1275,22 +1283,105 @@ avec $s \in \left\lbrace 1, 2, \infty \right\rbrace$. Les résultats obtenus son
 \textbf{N}  & \textbf{norme 1} & \textbf{norme 2} & \textbf{norme $\infty$} \\
 \hline
 \hline
-$8$  & $1.9936(-2)$ & $1.8717(-2)$ & $1.5623(-2)$  \\
-$16$ & $1.1325(-3)$ & $1.0216(-3)$ & $1.4497(-3)$  \\
-$32$ & $6.8262(-5)$ & $6.1471(-5)$ & $8.9084(-5)$  \\
-$64$ & $4.2292(-6)$ & $3.8166(-6)$ & $5.5817(-6)$  \\
-$128$& $2.6413(-7)$ & $2.3881(-7)$ & $3.5265(-7)$  \\
-$256$& $1.6559(-8)$ & $1.4975(-8)$ & $2.2194(-8)$  \\
+$8$  & $2.9158(-4)$  & $3.3039(-4)$  & $6.7103(-4)$  \\
+$16$ & $1.7719(-5)$  & $1.9906(-5)$  & $4.0648(-5)$  \\
+$32$ & $1.1025(-6)$  & $1.2416(-6)$  & $2.5207(-6)$  \\
+$64$ & $6.9056(-8)$  & $7.7821(-8)$  & $1.6433(-7)$  \\
+$128$& $4.3244(-9)$  & $4.8755(-9)$  & $1.0822(-8)$  \\
+$256$& $2.7061(-10)$ & $3.0522(-10)$ & $6.9474(-10)$ \\
 \hline 
 \hline
-\textbf{ordre estimé}& $4.0345$ & $4.0418$ & $4.0202$\\
+\textbf{ordre estimé}& $4.0056$ & $4.0060$ & $3.9706$\\
 \hline
 \end{tabular}
 \end{center}
-\caption{Table de convergence pour le rotationnel $\rot_{\Delta}$ de $ x^3 y^3 z^3 \mathbf{e}_{\lambda}$ en normes 1, 2 et $\infty$.}
-\label{tab:rate_rot}
+\caption{Table de convergence $\rot_{\Delta} ( \mathbf{v} )$ avec $\mathbf{v} ( \lambda, \theta ) = \cos^3 \theta \mathbf{e}_{\lambda}$ en normes 1, 2 et $\infty$.}
+\label{tab:rate_rot1}
 \end{table} 
 
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{rate_rot1.png}
+\end{center}
+\caption{Convergence $\rot_{\Delta} ( \mathbf{v} )$ avec $\mathbf{v} ( \lambda, \theta ) = \cos^3 \theta \mathbf{e}_{\lambda}$ en normes 1, 2 et $\infty$.}
+\label{fig:rate_rot1}
+\end{figure}
+
+
+Supposons un champ de vecteur $\mathbf{v}$ défini dans $\mathbb{R}^3$ et tangent à la sphère :
+\begin{equation}
+\mathbf{v} : \mathbf{x} \in \mathbb{R}^3 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{R}^3.
+\end{equation}
+
+Alors le champ le rotationnel sphérique $\rot$ et la vorticité de $\mathbb{R}^3$ sont liés par la proposition suivante :
+
+\begin{proposition}
+Soit le champ de vecteur $\mathbf{v} : \mathbf{x} \in \mathbb{R}^3 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{R}^3$, alors en tout point de la sphère $\mathbb{S}_a^2$ on a
+\begin{equation}
+\rot (\mathbf{v} ) = \left( \nabla_{\mathbb{R}^3} \wedge \mathbf{v} \right) \cdot \mathbf{n}
+\end{equation}
+avec $\mathbf{n}$ la normale extérieure à la sphère $\mathbf{n} = \mathbf{x}/a$ et $\mathbf{x} \in \mathbb{S}_a^2$.
+\end{proposition}
+
+\begin{proof}
+Le rotationnel d'un champ de vecteur de $\mathbf{v}$ s'exprime par
+\begin{equation}
+\nabla_{\mathbb{R}^3} \wedge \mathbf{v} = \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{v}}{\partial \xi} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{v}}{\partial \eta} + \mathbf{n}\wedge \dfrac{\partial \mathbf{v}}{\partial r}
+\end{equation}
+avec $r$ la coordonnée radiale. 
+Or, la dernière composante est tangente à la sphère
+\begin{equation}
+\mathbf{n}\wedge \dfrac{\partial \mathbf{v}}{\partial r} \in \mathbb{T}\mathbb{S}_a^2
+\end{equation}
+donc
+\begin{equation}
+\left(  \mathbf{n}\wedge \dfrac{\partial \mathbf{v}}{\partial r} \right) \cdot \mathbf{n} = 0.
+\end{equation}
+
+Ainsi, on retrouve en tout point de la sphère $\mathbb{S}_a^2$ :
+\begin{align}
+\left(  \nabla_{\mathbb{R}^3} \wedge \mathbf{v} \right) \cdot \mathbf{n} & = \left(  \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{v}}{\partial \xi} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{v}}{\partial \eta} + \mathbf{n}\wedge \dfrac{\partial \mathbf{v}}{\partial r} \right) \cdot \mathbf{n} \\
+& = \left(  \mathbf{g}^{\xi} \wedge \dfrac{\partial \mathbf{v}}{\partial \xi} + \mathbf{g}^{\eta} \wedge \dfrac{\partial \mathbf{v}}{\partial \eta} \right) \cdot \mathbf{n} \\
+& = \rot ( \mathbf{v} ).
+\end{align}
+\end{proof}
+
+De plus, si $\mathbf{F} = F_x \mathbf{i} + F_y \mathbf{j} + F_z  \mathbf{k}$, alors
+\begin{equation}
+\nabla_{\mathbb{R}^3} \wedge \mathbf{F} =
+\begin{bmatrix}
+\partial_y F_z - \partial_z F_y \\
+\partial_z F_x - \partial_x F_z \\
+\partial_x F_y - \partial_y F_x
+\end{bmatrix} 
+\end{equation}
+
+On choisit le champ de vecteur tangent à la sphère suivant :
+\begin{equation}
+\mathbf{v}(x,y,z) = \mathbf{n}(x,y,z) \wedge \begin{bmatrix}
+\exp (y/a) \\ \exp (x/a) \\ \exp (z/a)
+\end{bmatrix} =
+\begin{bmatrix}
+(y/a) \exp (y/a) - (z/a) \exp (x/a)\\
+(z/a) \exp (z/a) - (x/a) \exp (y/a)\\
+(y/a) \exp (x/a) - (y/a) \exp (z/a)
+\end{bmatrix} 
+\label{eq:fun1_rot}
+\end{equation}
+avec $(x,y,z) \in \mathbb{R}^3$. On a bien $\mathbf{v} \in \mathbb{T}\mathbb{S}_a^2$.
+La vorticité de $\mathbf{v}$ est donnée par
+\begin{equation}
+\nabla_{\mathbb{R}^3} \wedge \mathbf{v} = \dfrac{1}{a} \begin{bmatrix}
+-(2+z/a) \exp (z/a)\\ -(2+x/a) \exp (x/a)\\ -(2+y/a) \exp (y/a)
+\end{bmatrix}.
+\end{equation}
+
+De là, on peut déduire le rotationnel sphérique de $\mathbf{v}$ :
+\begin{equation}
+\rot ( \mathbf{v} ) = - \dfrac{1}{a} \left( \dfrac{x}{a} \left( 2 + \dfrac{z}{a}  \right) \exp \left( \dfrac{z}{a} \right) + \dfrac{y}{a} \left( 2 + \dfrac{x}{a}  \right) \exp \left( \dfrac{x}{a} \right) + \dfrac{z}{a} \left( 2 + \dfrac{y}{a}  \right) \exp \left( \dfrac{y}{a} \right) \right)
+\end{equation}
+avec $(x,y,z) \in \mathbb{S}_a^2$. On peut comparer ce rotationnel et le rotationnel approché, la convergence de la méthode est donnée dans la table \REF
+
 \begin{table}[htbp]
 \begin{center}
 \begin{tabular}{|c||c|c|c|}
@@ -1298,30 +1389,52 @@ $256$& $1.6559(-8)$ & $1.4975(-8)$ & $2.2194(-8)$  \\
 \textbf{N}  & \textbf{norme 1} & \textbf{norme 2} & \textbf{norme $\infty$} \\
 \hline
 \hline
-$8$  & $1.6305(-2)$ & $1.5494(-2)$ & $1.7473(-2)$  \\
-$16$ & $9.0026(-4)$ & $8.1833(-4)$ & $9.5002(-4)$  \\
-$32$ & $5.4527(-5)$ & $4.9215(-5)$ & $7.3232(-5)$  \\
-$64$ & $3.3854(-6)$ & $3.0551(-6)$ & $5.1367(-6)$  \\
-$128$& $2.1153(-7)$ & $1.9108(-7)$ & $3.3731(-7)$  \\
-$256$& $1.3242(-8)$ & $1.1976(-8)$ & $2.1624(-8)$  \\
+$8$  & $1.0377(-4)$  & $1.2588(-4)$  & $3.6670(-4)$  \\
+$16$ & $6.3236(-6)$  & $7.4682(-6)$  & $2.2222(-5)$  \\
+$32$ & $3.9444(-7)$  & $4.6278(-7)$  & $1.3713(-6)$  \\
+$64$ & $2.4726(-8)$  & $2.8931(-8)$  & $8.5415(-8)$  \\
+$128$& $1.5500(-9)$  & $1.8111(-9)$  & $5.3339(-9)$  \\
+$256$& $9.7139(-11)$ & $1.1342(-10)$ & $3.3330(-10)$ \\
 \hline 
 \hline
-\textbf{ordre estimé}& $4.0381$ & $4.0491$ & $3.8952$\\
+\textbf{ordre estimé}& $4.0032$ & $4.0125$ & $4.0121$\\
 \hline
 \end{tabular}
 \end{center}
-\caption{Table de convergence pour le rotationnel $\rot_{\Delta}$ de $ x^4 y^2 z^3 \mathbf{e}_{\theta}$ en normes 1, 2 et $\infty$.}
+\caption{Table de convergence $\rot_{\Delta} ( \mathbf{v} )$ avec $\mathbf{v}$ donné par \eqref{eq:fun1_rot} en normes 1, 2 et $\infty$.}
 \label{tab:rate_rot2}
 \end{table} 
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[height=5cm]{rate_rot_1_333.png}
-\includegraphics[height=5cm]{rate_rot_1_423.png}
+\includegraphics[height=5cm]{rate_rot2.png}
 \end{center}
-\caption{Convergence du rotationnel approché de $ x^3 y^3 z^3 \mathbf{e}_{\lambda}$ (gauche) et $ x^4 y^2 z^3 \mathbf{e}_{\theta}$ (droite) pour différentes normes.}
-\label{fig:rate_rot}
+\caption{Convergence $\rot_{\Delta} ( \mathbf{v} )$ avec $\mathbf{v}$ donné par \eqref{eq:fun1_rot} en normes 1, 2 et $\infty$.}
+\label{fig:rate_rot2}
 \end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 De plus, la proposition suivante permet de coupler l'opérateur rotationnel et l'opérateur gradient.
 

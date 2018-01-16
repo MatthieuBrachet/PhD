@@ -304,5 +304,52 @@ elseif test == 7
     
     ht=ght./gp + htilde;
     
+elseif test == 8
+    %   Test 3 of Williamson
+    [lambda, teta,r]=cart2sph(x,y,z);
+    [ lambdap, tetap ] = rotated_coord( lambda, teta );
+    up=u_test3(tetap);
+    vv=-up.*sin(alpha).*sin(lambdap)./cos(teta);
+    uu=((vv.*sin(teta).*sin(lambda)+up.*cos(lambdap))./cos(lambda)).*(cos(lambda)~=0);
+    
+    elambda_x = -sin(lambda);
+    elambda_y =  cos(lambda);
+    elambda_z = zeros(size(x));
+    eteta_x = -sin(teta).*cos(lambda);
+    eteta_y = -sin(teta).*sin(lambda);
+    eteta_z =  cos(teta);
+
+    vt(:,:,1)=uu.*elambda_x + vv.*eteta_x;
+    vt(:,:,2)=uu.*elambda_y + vv.*eteta_y;
+    vt(:,:,3)=uu.*elambda_z + vv.*eteta_z;
+    
+    %% integrale
+    nnn=10000;
+    a=-pi/2;
+    b=tetap;
+    fa=fun12(a);
+    fb=fun12(b);
+    h=(b-a)/nnn;
+
+    s1=0;
+    for kk=1:nnn/2-1
+        x=a+(2*kk).*h;
+        fx=fun12(x);
+        s1=s1+fx;
+    end
+
+    s2=0;
+    for kk=1:nnn/2
+        x=a+(2*kk-1).*h;
+        fx=fun12(x);
+        s2=s2+fx;
+    end
+
+    int=(h/3).*(fa+2*s1+4*s2+fb);
+    
+    ht=h0-radius./gp.*int;
+    
+    
+    
 end
 
