@@ -30,17 +30,17 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=8;
+test=5;
 video = 'no';
-sauvegarde = 0;
+sauvegarde = 1;
 filtre='symetric';
 opt_ftr='redonnet10';
 scheme='compact4';
-snapshot='no';
+snapshot='yes';
 nrm='int';
 
-n=15; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=1;
+n=127; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=80;
 cfl=0.9;
 mod101
 disp('mod101 : ok')
@@ -392,7 +392,7 @@ while t<Tmax && iter<itermax
     end
     
     %% snapshot
-    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(16*ddt))) == 0
+    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(40*ddt))) == 0
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         clf;
         
@@ -423,9 +423,9 @@ while t<Tmax && iter<itermax
             mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             v=[mm 8100:100:10500 MM];
-            plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
+            plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
             title(['solution at time : ', num2str(time(end))])
-            colorbar
+            %colorbar
         elseif test == -2
             plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,h_fVI);
             title(['exact solution at time = ', num2str(time(end))]);

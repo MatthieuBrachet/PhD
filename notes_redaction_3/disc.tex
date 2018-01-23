@@ -322,12 +322,12 @@ Cette solution est une translation périodique de la condition initiale. Dans ce
 
 La discrétisation est effectuée en utilisant la méthode des lignes. Dans un premier temps, il s'agit de discrétiser les opérateurs spatiaux. On aboutit à une EDO que nous résolvons par une méthode de Runge-Kutta. Nous utilisons dans cette partie les notations de la section \ref{sec:notation_1D}.
  
-On a vu dans les parties précédentes que $\delta_x^H u^*$ était une bonne approximation de $\partial_x u^*$. On remplace l'opérateur de dérivation spatiale $\partial_x$ par l'opérateur de dérivation hermitien $\delta_x^H$.
+On a vu dans les parties précédentes que $\delta_x^H u^*$ était une bonne approximation de $\partial_x u^*$. On remplace l'opérateur de dérivation spatiale $\partial_x$ par l'opérateur de dérivation hermitien $\delta_{4,x}^H$.
 On cherche alors $\mathfrak{u}$ approximation de $u^*$ aux points du maillage et solution de 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\dfrac{d \mathfrak{u}}{dt} & = & - c \delta_x^H \mathfrak{u} \\
+\dfrac{d \mathfrak{u}}{dt} & = & - c \delta_{4,x}^H \mathfrak{u} \\
 \mathfrak{u}_{|t=0} & = & u_0^*
 \end{array}
 \right.
@@ -367,11 +367,11 @@ P^{-1}K = V \Lambda \bar{V}^T.
 Ces matrices sont données par 
 \begin{equation}
 \Lambda = \begin{bmatrix}
-\omega^1 &   &   &   &   \\ 
-  & \omega^2 &   & (0) &   \\ 
+\lambda_1 &   &   &   &   \\ 
+  & \lambda_2 &   & (0) &   \\ 
   &   & \ddots &   &   \\ 
-  & (0) &   & \omega^{N-1} &   \\ 
-  &   &   &   & \omega^N
+  & (0) &   & \lambda_{N-1} &   \\ 
+  &   &   &   & \lambda_N
 \end{bmatrix} \text{ et }
 V = \begin{bmatrix}
   &   &   &   &   \\ 
@@ -385,11 +385,135 @@ où les vecteurs propres $U^k$ vérifiant
 \begin{equation}
 U^k = \vec_1 ( \mathfrak{u}^k )
 \end{equation} 
-et les valeurs propres associées $\omega^k$. On déduit directement de ces égalités que 
+et les valeurs propres associées $\lambda_k$ sont les valeurs propres de $\delta_{4,x}^H$ données par la proposition \ref{prop:eigen_mat_hermitien}. On déduit directement de ces égalités que 
 \begin{equation}
 U(t) = V \exp \left[-c \Lambda t \right] \bar{V}^T U_0
 \end{equation}
-d'où la solution approchée de \eqref{eq:transport_1D} discrétisée en espace et évaluée en $x_j$ est donnée par 
+d'où, la solution approchée de \eqref{eq:transport_1D} discrétisée en espace et évaluée en $x_j$ est donnée par 
+
+\begin{equation}
+u(x_j, t) \approx U_j ( t ) = \dfrac{1}{N} \gsum_{k=0}^{N-1}  \exp \left[ i \dfrac{2 \pi k}{L} x_j - x \omega_k t \right] \gsum_{l=0}^{N-1} \exp \left[ i \dfrac{2 \pi k}{L} x_l \right] u_0 (x_l)
+\end{equation}
+
+
+
+
+\begin{lemme}
+Pour tout $\alpha > 0$, $\mathfrak{u}, \mathfrak{v} \in \mathcal{l}^2_{h,per}$, on a
+\begin{equation}
+\alpha |\mathfrak{u}|_{h,per} + \dfrac{1}{4 \alpha} |\mathfrak{v}|_{h,per} \geq |(\mathfrak{u},\mathfrak{v})_{h,per}|
+\end{equation}
+\label{lem:ineg_1}
+\end{lemme}
+
+\begin{proof}
+On a immédiatement
+\begin{equation}
+\left( \sqrt{\alpha} |\mathfrak{u}|_{h,per} - \dfrac{1}{2 \sqrt{\alpha}} |\mathfrak{v}|_{h,per} \right)^2 \geq 0
+\end{equation}
+donc en développant, on a
+\begin{equation}
+\alpha |\mathfrak{u}|_{h,per}^2 - |\mathfrak{u}|_{h,per} |\mathfrak{v}|_{h,per} + \dfrac{1}{4 \alpha} |\mathfrak{v}|_{h,per}^2 \geq 0.
+\end{equation}
+Ainsi, en utilisant l'inégalité de Cauchy-Schwarz, il vient
+\begin{equation}
+\alpha |\mathfrak{u}|_{h,per}^2 + \dfrac{1}{4 \alpha} |\mathfrak{v}|_{h,per}^2 \geq |\mathfrak{u}|_{h,per} |\mathfrak{v}|_{h,per} \geq |(\mathfrak{u}, \mathfrak{v})_{h,per}|.
+\end{equation}
+\end{proof}
+
+
+
+
+
+
+
+\begin{proposition}
+Dans le contexte des fonctions $L-$périodique.
+Soit $u : (x,t) \in [0,L] \times [O, T] \mapsto u(x,t) \in \mathbb{R}$ la solution de 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial u}{\partial t} + c \dfrac{\partial u}{\partial x} & = & 0\\
+u(x,0) & = & u_0(x) 
+\end{array}
+\right.
+\end{equation}
+avec $x \in [0,L]$ et $t \in [0,T]$, $T>0$.
+On pose $\mathfrak{u}$ la fonction de grille solution de 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{d \mathfrak{u}}{dt} + c \delta_{4,x}^H \mathfrak{u} & = & 0\\
+\mathfrak{u}(0) & = & u_0^* 
+\end{array}
+\right. .
+\end{equation}
+Alors l'erreur est donnée par
+\begin{equation}
+\| \mathfrak{u} - u^* \|_{h,per} \leq C h^4 \| \partial^5_x u \|_{\infty}
+\end{equation}
+où $C>0$ est une constante indépendante de $h$ et de $u$.
+\end{proposition}
+
+\begin{proof}
+On pose la fonction de grille d'erreur $\mathfrak{e} = u^* - \mathfrak{u}$ dépendant du temps $t$ ainsi que $\mathfrak{\tau} = \delta_{4,x}^H u^* - (\partial_x u)^*$, alors
+\begin{align*}
+\dfrac{d \mathfrak{e}}{dt} & = \left(\dfrac{\partial u}{\partial t}\right)^* - \dfrac{d \mathfrak{u}}{dt} \\
+	& = - c \left( \dfrac{\partial u}{\partial x} \right)^* + c \delta_{4,x}^H \mathfrak{u} \\
+	& = c \mathfrak{\tau} - c \delta_{4,x}^H \mathfrak{e}
+\end{align*}
+
+On a vu que $\delta_{4,x}^H$ est un opérateur antisymétrique d'où
+\begin{equation}
+( \delta_{4,x}^H \mathfrak{e}, \mathfrak{e} )_{h,per} = 0.
+\end{equation}
+
+De ce dernier résultat, on peut déduire :
+\begin{equation}
+( \dfrac{d \mathfrak{e}}{dt} , \mathfrak{e} )_{h,per} = c ( \mathfrak{\tau}, \mathfrak{e})_{h,per}
+\end{equation}
+Ainsi, on appliquant le lemme \ref{lem:ineg_1} et en utilisant les propriétés de la dérivation, on a
+\begin{align*}
+\dfrac{d}{dt} |\mathfrak{e}|_{h,per}^2 & = 2 c ( \mathfrak{\tau}, \mathfrak{e})_{h,per} \\
+   & \leq 2 c |( \mathfrak{\tau}, \mathfrak{e})_{h,per}| \\
+   & \leq 2c \left[ \alpha |\mathfrak{e}|_{h,per}^2 + \dfrac{1}{4 \alpha} |\mathfrak{\tau}|_{h,per}^2 \right] \text{ETAPE A REVOIR POUR LE CHOIX DES NORMES???} \\
+   & \leq 2c \left[ \alpha |\mathfrak{e}|_{h,per}^2 + \dfrac{1}{4 \alpha} C^2 h^8 |\partial_x^5 u|_{\infty}^2 \right] 
+\end{align*}
+pour tout $\alpha > 0$.
+
+D'après le lemme de Gronwall, on a
+\begin{align*}
+|\mathfrak{e}|_{h,per}^2 & \leq \dfrac{C^2 h^8 |\partial_x^5 u|_{\infty}^2}{4 \alpha^2} \left( \exp \left( 2 \alpha c t \right) -1  \right) \\
+    & \leq \dfrac{C^2 h^8 |\partial_x^5 u|_{\infty}^2}{4 \alpha^2} \left( \exp \left( 2 \alpha c T \right) -1  \right).
+\end{align*}
+
+Or la fonction
+\begin{equation}
+g : \alpha \in ]0, \infty \mapsto \dfrac{1}{4 \alpha^2} \left( \exp \left( 2 \alpha c T \right) -1  \right)
+\end{equation}
+est continue. De plus pour tout $\alpha \in ]0, \infty[$, $g(\alpha) >0$ et 
+\begin{equation*}
+\lim_{\alpha \rightarrow 0^+} g(\alpha) = \lim_{\alpha \rightarrow + \infty} g(\alpha) = + \infty
+\end{equation*}
+donc $g$ est minorée par son ensemble de définition par $m>0$ et on a 
+\begin{equation}
+|\mathfrak{e}|_{h,per}^2 \leq C^2 m h^8 |\partial_x^5 u|_{infty},
+\end{equation}
+d'où le résultat.
+
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
