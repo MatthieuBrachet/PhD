@@ -1640,7 +1640,52 @@ $\mathbf{G}^{-1}=\dfrac{\delta^2}{a^2 (1+X^2)(1+Y^2)} \begin{bmatrix}
 \label{tab: bmetrique G et symboles de christoffel}
 \end{table}
 
+\begin{proposition}
+\textbf{(Contraction des symboles de Christoffel)}
+Les égalités suivantes sont vérifiées :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\Gamma_{\eta,\xi}^{\eta} + \Gamma_{\xi,\xi}^{\xi} & = & \dfrac{1}{\sqrt{\det (\mathbf{G})}} \dfrac{\partial}{\partial \xi} \left( \sqrt{\det (\mathbf{G})} \right)\\
 
+\Gamma_{\xi,\eta}^{\xi} + \Gamma_{\eta,\eta}^{\eta} & = & \dfrac{1}{\sqrt{\det (\mathbf{G})}} \dfrac{\partial}{\partial \eta} \left( \sqrt{\det (\mathbf{G})} \right)
+\end{array}
+\right.
+\end{equation}
+\label{prop:constraction_Christoffel}
+\end{proposition}
+
+\begin{proof}
+Soient $i,j, k  \in \left\lbrace \xi, \eta \right\rbrace$, donc en dérivant $g_{i,j} = \mathbf{g}_i \cdot \mathbf{g}_j$ par rapport à $k$, on trouve :
+\begin{align*}
+\partial_k (g_{i,j}) & = (\partial_k \mathbf{g}_i ) \cdot \mathbf{g}_j + (\partial_k \mathbf{g}_j ) \cdot \mathbf{g}_i\\
+	& = \left( \Gamma_{k,i}^{\xi} \mathbf{g}_{\xi} + \Gamma_{k,i}^{\eta} \mathbf{g}_{\eta} + \Gamma_{k,i}^{r} \textbf{n} \right) \cdot \mathbf{g}_j + \left( \Gamma_{k,j}^{\xi} \mathbf{g}_{\xi} + \Gamma_{k,j}^{\eta} \mathbf{g}_{\eta} + \Gamma_{k,j}^{r} \textbf{n} \right) \cdot \mathbf{g}_i \\
+	& = \Gamma_{k,i}^{\xi} g_{\xi,j} + \Gamma_{k,i}^{\eta} g_{\eta,j} + \Gamma_{k,j}^{\xi} g_{\xi,i} + \Gamma_{k,j}^{\eta} g_{\eta,i} 
+\end{align*}
+De la même manière, on a 
+\begin{equation}
+\partial_i (g_{j,k}) = \Gamma_{i,j}^{\xi} g_{\xi,k} + \Gamma_{i,j}^{\eta} g_{\eta,k} + \Gamma_{i,k}^{\xi} g_{\xi,j} + \Gamma_{i,k}^{\eta} g_{\eta,j}
+\end{equation}
+ainsi que
+\begin{equation}
+\partial_k (g_{k,i}) = \Gamma_{j,k}^{\xi} g_{\xi,i} + \Gamma_{j,k}^{\eta} g_{\eta,i} + \Gamma_{j,i}^{\xi} g_{\xi,k} + \Gamma_{j,i}^{\eta} g_{\eta,k}.
+\end{equation}
+En combinant ces trois relations, on obtient
+\begin{equation}
+\partial_k (g_{i,j}) + \partial_i (g_{j,k}) - \partial_j (g_{k,i}) = 2 \Gamma_{k,i}^{\xi} g_{\xi,j} + 2 \Gamma_{k,i}^{\eta} g_{\eta,j}.
+\end{equation}
+Ainsi en considérant les cas $j=\xi$ et $j=\eta$, on trouve le système :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\frac{1}{2} \left( \partial_k (g_{i,\xi}) + \partial_i (g_{\xi,k}) - \partial_{\xi} (g_{k,i}) \right) & = & \Gamma_{k,i}^{\xi} g_{\xi,\xi} + \Gamma_{k,i}^{\eta} g_{\eta,\xi} \\
+\frac{1}{2} \left( \partial_k (g_{i,\eta}) + \partial_i (g_{\eta,k}) - \partial_{\eta} (g_{k,i}) \right) & = & \Gamma_{k,i}^{\xi} g_{\xi,\eta} + \Gamma_{k,i}^{\eta} g_{\eta,\eta} \\
+\end{array}
+\right.
+\end{equation}
+
+A COMPLETER BIEN SUR.
+\end{proof}
 
 
 

@@ -147,7 +147,7 @@ Cette distinction permet de faire une claire différences entre :
 \end{itemize}
 Les fonctions de grilles contiennent toutes les échelles nécessaires dans le contexte physique alors que les vecteurs sont sans dimension. De plus, le raisonnement au niveau discret est plus naturel avec les fonctions de grilles. Il s'effectue d'une façon abstraite à l'aide d'opérateurs aux différences. En revanche, le codage est effectuée dans le cadre de l'algèbre linéaire.
 
-Si $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$est une fonction régulière telle que $u(a) = u(b) = 0$ alors $(\partial_x u)^*$ désigne la restriction à la grille de la fonction $\partial_x u$ associée à la dérivée première de $u$. On peut approcher cette donnée à l'aide de $\mathfrak{u}_x$ obtenue grâce à l'opérateur $\delta_x$ agissant sur les fonctions de grilles et donné par
+Si $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est une fonction régulière telle que $u(a) = u(b) = 0$ alors $(\partial_x u)^*$ désigne la restriction à la grille de la fonction $\partial_x u$ associée à la dérivée première de $u$. On peut approcher cette donnée à l'aide de $\mathfrak{u}_x$ obtenue grâce à l'opérateur $\delta_x$ agissant sur les fonctions de grilles et donné par
 \begin{equation}
 \mathfrak{u}_{x,j} = \delta_x u^*(x_j) = \dfrac{u(x_{j+1}) - u(x_{j-1})}{2h}.
 \end{equation}
@@ -168,7 +168,7 @@ Soit $0 \leq j \leq N$, alors
 \end{align*}
 L'erreur de troncature est une fonction de grille définie en chaque point du $x_j$ par
 \begin{align*}
-\mathfrak{t}(x_j) & = \delta_x u^*(x_j) - \delta_x u^*(x_j)\\
+\mathfrak{t}(x_j) & = \delta_x u^*(x_j) - \partial_x u(x_j)\\
                   & = \dfrac{h^2}{6} \partial_x^3 u(\gamma) \text{ avec } \gamma \in ]x_j-h , x_j+h[.
 \end{align*}
 
@@ -227,6 +227,7 @@ De plus, si $k=k'$, on a :
 		& = \dfrac{1}{N} \gsum_{j=0}^{N-1} 1 \\
 		& = 1.
 \end{align*}
+Les foncions de grille $(\mathfrak{u}^k)_{-N/2+1 \leq k \leq N/2}$ forment une famille libre de $N$ fonctions de grilles dans $l^2_{h,per}$ (espace de dimension $N$)), ils en forment donc une base.
 \end{proof}
 
 Alors pour tout $\mathfrak{v} \in l^2_{h,per}$ il existe $(\hat{\mathfrak{v}}_k )_{-N/2 \leq k \leq N/2}$ tels que 
@@ -235,15 +236,13 @@ Alors pour tout $\mathfrak{v} \in l^2_{h,per}$ il existe $(\hat{\mathfrak{v}}_k 
 \end{equation}
 En effectuant un produit scalaire par $\mathfrak{u}^{k'}$ un vecteur de base, on obtient
 \begin{align*}
-(\mathfrak{v}, \mathfrak{u}^{k'})_{h,per} & = \gsum_{k=-N/2+1}^{N/2} \hat{\mathfrak{v}}^k (\mathfrak{u}^k, \mathfrak{u}^{k'})_{h,per} \\
+(\mathfrak{v}, \mathfrak{u}^{k'})_{h,per} & = \gsum_{k=-N/2+1}^{N/2} \hat{\mathfrak{v}}^k \underbrace{(\mathfrak{u}^k, \mathfrak{u}^{k'})_{h,per}}_{\delta_{k,k'}} \\
 		& = \hat{\mathfrak{v}}_{k'}
 \end{align*}
-Ainsi, les coefficients $\hat{\mathfrak{v}}_{k} \in \mathbb{C}$ sont donnés par
+La transformée de Fourier discrète de $\mathfrak{v}$ est $(\hat{\mathfrak{v}}_{k})_k$ où
 \begin{equation}
 \hat{\mathfrak{v}}_{k} = (\mathfrak{v}, \mathfrak{u}^{k})_{h,per}.
 \end{equation}
-
-La donnée $(\hat{\mathfrak{v}}_{k})_{-N/2+1 \leq k \leq N/2} \in \mathbb{C}^N$ est la \textit{transformée de Fourier discrète} de $\mathfrak{v}$. La transformée de Fourier discrète vérifie la formule de Parseval.
 
 \begin{proposition}
 \textbf{(Relation de Parseval discrète)} 
@@ -316,7 +315,7 @@ les valeurs propres de $\tau$ sont les racines de l'unité $\omega^k \in \mathbb
 \omega = \exp \left[ i \dfrac{2 \pi}{N} \right].
 \end{equation}
 
-Chaque valeur propre $\omega^k$ est associée à une fonction propre $\mathfrak{u}^k \in l^2_{h,per}$, avec $-\frac{N}{2}+1 \leq k \leq \frac{N}{2}$, données par la proposition \ref{eq:base_fourier_disc}.
+Chaque valeur propre $\omega^k$ est associée à une fonction propre $\mathfrak{u}^k \in l^2_{h,per}$, avec $-\frac{N}{2}+1 \leq k \leq \frac{N}{2}$, données par l'équation \ref{eq:base_fourier_disc}.
 \label{prop:eigenvaluevector_tau}
 \end{proposition}
 
@@ -327,7 +326,7 @@ Soit $j$ et $k$ tels que $1 \leq j \leq N$ et $-\frac{N}{2}+1 \leq k \leq \frac{
 \end{equation}
 d'où le résultat.
 \end{proof}
-Connaissant les valeurs et fonctions propres de $\tau$, on déduit en déduit la diagonalisation de $\tau$.
+Connaissant les valeurs et fonctions propres de $\tau$, on déduit la diagonalisation de $\tau$.
 
 \begin{corollaire}
 L'opérateur $\tau$ est diagonalisable et 
@@ -356,7 +355,7 @@ Soient $j$ et $k$ tels que $1 \leq j \leq N$ et $-N/2+1 \leq k \leq N/2$, alors
 d'où le résultat.
 \end{proof}
 
-Notons que cette proposition est vraie pour tout opérateur diagonalisable à la place de $\tau$.
+Cette proposition est vraie pour tout opérateur diagonalisable à la place de $\tau$.
 
 L'opérateur de translation $\tau$ agit sur les fonctions de grilles $\mathfrak{u}$. Il est associé à $T \in \mathbb{M}_N \left( \mathbb{R} \right)$ la matrice agissant sur les vecteurs $U$ de $\mathbb{R}^N$.
 On définit $\vec_1$ l'opérateur transformant un élément de $l_{h,per}^2$ en un vecteur de $\mathbb{R}^N$ :
@@ -397,7 +396,7 @@ T = \begin{bmatrix}
 \end{equation}
 
 La matrice $T$ agit sur un vecteur $U = \begin{bmatrix}
-U_0 & U_0 & \cdots & U_{N-1} 
+U_0 & U_1 & \cdots & U_{N-1} 
 \end{bmatrix}^T \in \mathbb{R}^N $ de telle manière que, pour tout $1 \leq j \leq N$, on a 
 \begin{equation}
 (TU)_j = U_{j+1}
@@ -498,12 +497,12 @@ On conclut grâce au théorème des valeurs intermédiaires.
 
 Ainsi, $\delta_x$ est un opérateur d'approximation de la dérivée première à l'ordre 2. Il est possible de généraliser ce procéder.
 Soit $P \in \mathbb{N}^*$. 
-On définit $\delta_{P,x}$ l'opérateur
+On définit $\delta_{2P,x}$ l'opérateur
 \begin{equation}
 \delta_{2P,x} = \gsum_{j=1}^P a_j \dfrac{\tau_j - \tau_{-j}}{2 j h}
 \label{eq:explicite_dx}
 \end{equation}
-où  pour tout $1 \leq j \leq P$, on a $a_j \in \mathbb{R}$. 
+pour tout $1 \leq j \leq P$, $a_j \in \mathbb{R}$. 
 
 
 
@@ -555,7 +554,7 @@ La seconde égalité est vérifiée pour tout $k$ pair. Ce système se simplifie
 \left\lbrace
 \begin{array}{rcll}
 \gsum_{j=1}^P a_j & = & 1 & \\
-\gsum_{j=1}^P j^{2k} a_j & = & 0 \text{ pour tous } 1 \leq k \leq P-1.
+\gsum_{j=1}^P j^{2k} a_j & = & 0 \text{ pour tout } 1 \leq k \leq P-1.
 \end{array}
 \right.
 \end{equation}
@@ -585,7 +584,7 @@ alors $A$ est inversible.
 On remarque que $\det (A)$ est un déterminant de Van Der Monde dont les coefficients sont strictement croissants donc $\det(A) > 0$ et en particulier, $A$ est inversible. La solution de \eqref{eq:syst_opexplicite_P} existe et est unique.
 \end{proof}
 
-On suppose à présent les coefficients de $\delta_{P,x}$ issus du système \ref{eq:syst_opexplicite_P}. Il existe $(a_j)_{1 \leq j \leq P}$ tels que 
+On suppose à présent les coefficients de $\delta_{2P,x}$ issus du système \ref{eq:syst_opexplicite_P}. Il existe $(a_j)_{1 \leq j \leq P}$ tels que 
 \begin{equation}
 \delta_{2P,x} = \gsum_{j=1}^P a_j \dfrac{\tau_j - \tau_{-j}}{2jh}
 \end{equation}
