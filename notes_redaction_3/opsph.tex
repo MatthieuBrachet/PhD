@@ -1540,6 +1540,77 @@ $256$& $2.5396(-10)$ & $1.0283(-10)$ & $1.9459(-10)$ \\
 
 Les opérateurs de filtrages en $\xi$ et en $\eta$, respectivement notés $\mathcal{F}_{\xi}$ et $\mathcal{F}_{\eta}$, sont construit de manière très similaire aux opérateurs de dérivations donnés par les algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta} en remplaçant l'opérateur de dérivation approchée $\delta^H_{4,\xi}$ (ou $\delta^H_{4,\eta}$) par un opérateur de filtrage.
 
+Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x}) \in \mathbb{R}$ une fonction. L'opérateur de filtrage $\mathcal{F}_{\xi}$ agit sur les fonctions de grilles sur la Cubed-Sphere grâce à un algorithme similaire à celui utilisé pour la dérivation (algorithme  \ref{alg:deltaxi}) en remplaçant, sur chaque grand cercle l'opérateur de dérivation hermitien $\delta_{4,\xi}^H$. On définit $\mathcal{F}_{\xi}$ le filtrage dans la direction de $\xi$, l'algorithme \ref{alg:ftrxi} fixe le fonctionnement de ce filtre.
+
+\begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: Calcul de $\mathcal{F}_{\xi}(h)_{i,j}^{(I)}$ et $\mathcal{F}_{\xi}(h)_{i,j}^{(III)}$}\label{alg:ftrxi}
+    \begin{algorithmic}[1]
+    \For{ $j=-N/2, \ldots , N/2$, }
+    \State pour un grand cercle $C_j^{(2)}$ fixé,
+    \For{$p=0,1, \ldots 4N-1$ définir les points $\mathbf{m}_p$}
+             \State  $\mathbf{m}_p = \mathbf{m}_{p-N/2,j}^{(I)}$ pour $0  \leq p \leq N$ donc $h_p = h(\mathbf{m}_p)$,
+             \State $h_p = P_{C_p}(\mathbf{m}_p)$, où $P_{C_p}$ est la fonction d'interpolation utilisant les points de l'isoligne $\xi = \xi^{(II)}_{p-N/2+1}$ pour $N+1 \leq p \leq 2N-1$,
+             \State  $\mathbf{m}_p = \mathbf{m}_{p-3N/2,j}^{(III)}$ pour $2N  \leq p \leq 3N-1$ donc $h_p = h(\mathbf{m}_p)$,
+             \State $h_p = P_{C_p}(\mathbf{m}_p)$, où $P_{C_p}$ est la fonction d'interpolation utilisant les points de l'isoligne $\xi = \xi^{(VI)}_{p-3N/2+1}$ pour $3N+1 \leq p \leq 4N-1$.
+            \EndFor
+    \State Calcul de $\mathcal{F}(h_p)$,
+    \State Affectation $\mathcal{F}(h)_{\xi,i,j}^{(I)} = \mathcal{F}(f)_{i+N/2}$,
+    \State Affectation $\mathcal{F}(h)_{\xi,i,j}^{(III)} = \mathcal{F}(f)_{i+3N/2}$.
+    \EndFor
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center}
+$\mathcal{F}$ désigne un opérateur de filtrage 1D. Dans la direction de $\eta$, on définit le filtre $\mathcal{F}_{\eta}$ agissant sur les fonctions de grille sur la Cubed-Sphere. L'algorithme \ref{alg:ftreta} précise le fonctionnement de $\mathcal{F}_{\eta}$ :
+
+\begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: Calcul de $\mathcal{F}_{\eta}(h)_{i,j}^{(I)}$ et $\mathcal{F}_{\xi}(h)_{i,j}^{(III)}$}\label{alg:ftreta}
+    \begin{algorithmic}[1]
+    \For{ $i=-N/2, \ldots , N/2$, }
+    \State pour un grand cercle $C_i^{(1)}$ fixé,
+    \For{$p=0,1, \ldots 4N-1$ définir les points $\mathbf{m}_p$}
+             \State  $\mathbf{m}_p = \mathbf{m}_{i,p-N/2}^{(I)}$ pour $0  \leq p \leq N$ donc $h_p = h(\mathbf{m}_p)$,
+             \State $h_p = P_{C_p}(\mathbf{m}_p)$, où $P_{C_p}$ est la fonction d'interpolation utilisant les points de l'isoligne $\eta = \eta^{(II)}_{p-N/2+1}$ pour $N+1 \leq p \leq 2N-1$,
+             \State  $\mathbf{m}_p = \mathbf{m}_{i,p-3N/2}^{(III)}$ pour $2N  \leq p \leq 3N-1$ donc $h_p = h(\mathbf{m}_p)$,
+             \State $h_p = P_{C_p}(\mathbf{m}_p)$, où $P_{C_p}$ est la fonction d'interpolation utilisant les points de l'isoligne $\eta = \eta^{(VI)}_{p-3N/2+1}$ pour $3N+1 \leq p \leq 4N-1$.
+            \EndFor
+    \State Calcul de $\mathcal{F}(h_p)$,
+    \State Affectation $\mathcal{F}(h)_{\eta,i,j}^{(I)} = \mathcal{F}(f)_{j+N/2}$,
+    \State Affectation $\mathcal{F}(h)_{\eta,i,j}^{(III)} = \mathcal{F}(f)_{j+3N/2}$.
+    \EndFor
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center}
+
+Les opérateurs $\mathcal{F}_{\xi}$ et $\mathcal{F}_{\eta}$ définissent des perturbations de l'identité.
+
+\begin{proposition}
+Pour toute fonction $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x}) \in \mathbb{R}$ régulière, on a 
+\begin{equation}
+\mathcal{F}_{\xi}(h) = h + \mathcal{O}\left( \Delta^{\min(4,\alpha)} \right)
+\end{equation}
+et dans la direction $\eta$ :
+\begin{equation}
+\mathcal{F}_{\eta}(h) = h + \mathcal{O}\left( \Delta^{\min(4,\alpha)} \right)
+\end{equation}
+où $\alpha$ est l'ordre choisit pour l'opérateur de filtrage 1D et $\Delta = \Delta \xi = \Delta \eta$.
+\end{proposition}
+
+\begin{proof}
+Preuve a faire et quelques remarques
+\begin{itemize}
+\item il faut définir des fonctions de grille comme dans le cas cartésien. C'est plus propre pour faire les preuves,
+\item Bien relire ce chapitre, la construction des algorithmes ne me semble pas claire.
+\end{itemize}
+\end{proof}
+
+
+
 \subsection{Composition des filtrages directionnels}
 
 \subsection{Filtrage numérique}
