@@ -4,9 +4,9 @@ global scheme
 global opt_ftr
 
 scheme='compact4';
-opt_ftr='bogey6';
+opt_ftr='redonnet10';
 
-n=31;
+n=255;
 mod101
 disp('mod101 : ok')
 
@@ -39,20 +39,20 @@ e2=nrmg./MMM
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=nrm101(errI,errII,errIII,errIV,errV,errVI,n,nn,'infty');
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,MMM]=nrm101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn,'infty');
 einf=nrmg./MMM
-
-figure(1)
-plot_cs102(n,nn,mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI)
-title('initial map')
-colorbar
-
-figure(2)
-plot_cs102(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
-title('filtered map')
-colorbar
-
-figure(3)
-plot_cs102(n,nn,errI,errII,errIII,errIV,errV,errVI)
-title('error')
-colorbar
-
-fig_placier
+% 
+% figure(1)
+% plot_cs102(n,nn,mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI)
+% title('initial map')
+% colorbar
+% 
+% figure(2)
+% plot_cs102(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
+% title('filtered map')
+% colorbar
+% 
+% figure(3)
+% plot_cs102(n,nn,errI,errII,errIII,errIV,errV,errVI)
+% title('error')
+% colorbar
+% 
+% fig_placier

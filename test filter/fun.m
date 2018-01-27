@@ -1,6 +1,6 @@
 function [ h ] = fun(x,y,z)
 global radius
-test=2;
+test=3;
 if test ==1
     h=cos(2*pi*x/radius).*cos(2*pi*y/radius).*cos(2*pi*z/radius)+3;
 elseif test == 2
