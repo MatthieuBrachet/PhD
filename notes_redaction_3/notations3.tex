@@ -943,7 +943,7 @@ Les valeurs propres de $\delta_{2P,x}^H$ sont
 \begin{equation}
 \dfrac{1}{h} Q_{2P+2}^H (\omega^k)
 \end{equation}
-où $-N/2+1 \leq k \leq N/2$. $\omega^k$ est associé à la fonction propre $\mathfrak{u}^k$.
+où $-N/2+1 \leq k \leq N/2$. Chacune de ces valeurs propre est associé à la fonction propre $\mathfrak{u}^k$.
 \label{prop:eigen_mat_hermitien}
 \end{proposition}
 
@@ -1808,6 +1808,40 @@ Soient $A$, $B$, $C$ et $D$ des matrices et $\alpha$ un réel.
 \end{itemize}
 \label{prop:pdt_kron}
 \end{proposition}
+
+\begin{proposition}
+Si $\lambda \in \mathbb{R}$ est la valeur propre associée à $X \in \mathbb{R}^N$ de $A \in \mathbb{M}_N ( \mathbb{R} )$, alors si $Id \in \mathbb{M}_N ( \mathbb{R} )$ est la matrice identité,
+\begin{itemize}
+\item $\lambda$ est la valeur propre (de multiplicité $N$) associée aux vecteurs propres $X \otimes \mathbf{e}_i$ ($1 \leq i \leq N$) pour la matrice $A \otimes Id$,
+
+\item $\lambda$ est la valeur propre (de multiplicité $N$) associée aux vecteurs propres $\mathbf{e}_i \otimes X$ ($1 \leq i \leq N$) pour la matrice $Id \otimes A$.
+\end{itemize}
+\label{prop:eigen_pdtkron}
+\end{proposition}
+
+\begin{proof}
+Soit $i$ un entier entre $1$ et $N$.
+On effectue directement le calcul
+\begin{align*}
+(A \otimes Id) (X \otimes \mathfrak{e}_i) & = AX \otimes \mathbf{e}_i \\
+	& = \lambda X \otimes \mathbf{e}_i \\
+	& = \lambda (X \otimes \mathbf{e}_i).
+\end{align*}
+De la même manière on a 
+\begin{align*}
+(Id \otimes A) (\mathbf{e}_i \otimes X) & = (\mathbf{e}_i \otimes AX) \\
+	& = (\mathbf{e}_i \otimes \lambda X ) \\
+	& = \lambda (\mathbf{e}_i \otimes X ).
+\end{align*}
+Ce qui nous donne les relations souhaitées sur les valeurs propres et les vecteurs propres.
+\end{proof}
+
+
+
+
+
+
+
 L'application $\text{vec}_2$ permet de transformer une fonction de grille $\mathbf{u}$ en un vecteur $U$.
 
 \begin{definition}
@@ -1891,6 +1925,18 @@ Les matrices $(Id \otimes P^{-1}D_{2P})$ et $(P^{-1}D_{2P} \otimes Id)$ sont ant
 
 \begin{proof}
 $P^{-1}D_{2P}$ est antisymétrique. D'où le résultat.
+\end{proof}
+
+\begin{proposition}
+Les valeurs propres de $\delta_{2P+2,x}^H$ sont données avec une multiplicité de $N$ par
+\begin{equation}
+\dfrac{1}{h}Q_{2P+2}^H(\omega^k)
+\end{equation}
+où $-N/2+1 \leq k \leq N/2$. Chacune de ces valeurs propres est associées aux vecteurs $\mathfrak{u}^k \otimes \mathbf{e}_i$ pour $1 \leq i \leq N$.
+\end{proposition}
+
+\begin{proof}
+Il s'agit d'une conséquence de la proposition \ref{prop:eigen_pdtkron}.
 \end{proof}
 
 

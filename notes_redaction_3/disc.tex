@@ -401,7 +401,7 @@ u(x_j, t) \approx U_j ( t ) = \dfrac{1}{N} \gsum_{k=0}^{N-1}  \exp \left[ i \dfr
 \begin{lemme}
 Pour tout $\alpha > 0$, $\mathfrak{u}, \mathfrak{v} \in \mathcal{l}^2_{h,per}$, on a
 \begin{equation}
-\alpha |\mathfrak{u}|_{h,per} + \dfrac{1}{4 \alpha} |\mathfrak{v}|_{h,per} \geq |(\mathfrak{u},\mathfrak{v})_{h,per}|
+\alpha |\mathfrak{u}|_{h,per} + \dfrac{1}{\alpha} |\mathfrak{v}|_{h,per} \geq 2 |(\mathfrak{u},\mathfrak{v})_{h,per}|
 \end{equation}
 \label{lem:ineg_1}
 \end{lemme}
@@ -409,15 +409,15 @@ Pour tout $\alpha > 0$, $\mathfrak{u}, \mathfrak{v} \in \mathcal{l}^2_{h,per}$, 
 \begin{proof}
 On a immédiatement
 \begin{equation}
-\left( \sqrt{\alpha} |\mathfrak{u}|_{h,per} - \dfrac{1}{2 \sqrt{\alpha}} |\mathfrak{v}|_{h,per} \right)^2 \geq 0
+\left( \sqrt{\alpha} |\mathfrak{u}|_{h,per} - \dfrac{1}{\sqrt{\alpha}} |\mathfrak{v}|_{h,per} \right)^2 \geq 0
 \end{equation}
 donc en développant, on a
 \begin{equation}
-\alpha |\mathfrak{u}|_{h,per}^2 - |\mathfrak{u}|_{h,per} |\mathfrak{v}|_{h,per} + \dfrac{1}{4 \alpha} |\mathfrak{v}|_{h,per}^2 \geq 0.
+\alpha |\mathfrak{u}|_{h,per}^2 - 2 |\mathfrak{u}|_{h,per} |\mathfrak{v}|_{h,per} + \dfrac{1}{\alpha} |\mathfrak{v}|_{h,per}^2 \geq 0.
 \end{equation}
 Ainsi, en utilisant l'inégalité de Cauchy-Schwarz, il vient
 \begin{equation}
-\alpha |\mathfrak{u}|_{h,per}^2 + \dfrac{1}{4 \alpha} |\mathfrak{v}|_{h,per}^2 \geq |\mathfrak{u}|_{h,per} |\mathfrak{v}|_{h,per} \geq |(\mathfrak{u}, \mathfrak{v})_{h,per}|.
+\alpha |\mathfrak{u}|_{h,per}^2 + \dfrac{1}{\alpha} |\mathfrak{v}|_{h,per}^2 \geq |\mathfrak{u}|_{h,per} |\mathfrak{v}|_{h,per} \geq 2|(\mathfrak{u}, \mathfrak{v})_{h,per}|.
 \end{equation}
 \end{proof}
 
@@ -450,7 +450,7 @@ On pose $\mathfrak{u}$ la fonction de grille solution de
 \end{equation}
 Alors l'erreur est donnée par
 \begin{equation}
-\| \mathfrak{u} - u^* \|_{h,per} \leq C h^4 \| \partial^5_x u \|_{\infty}
+\| \mathfrak{u} - u^* \|_{h,per} \leq C T h^4 \| \partial^5_x u \|_{\infty,[0,T] \times [0,L]}
 \end{equation}
 où $C>0$ est une constante indépendante de $h$ et de $u$.
 \end{proposition}
@@ -462,49 +462,85 @@ On pose la fonction de grille d'erreur $\mathfrak{e} = u^* - \mathfrak{u}$ dépe
 	& = - c \left( \dfrac{\partial u}{\partial x} \right)^* + c \delta_{4,x}^H \mathfrak{u} \\
 	& = c \mathfrak{\tau} - c \delta_{4,x}^H \mathfrak{e}
 \end{align*}
-
 On a vu que $\delta_{4,x}^H$ est un opérateur antisymétrique d'où
 \begin{equation}
 ( \delta_{4,x}^H \mathfrak{e}, \mathfrak{e} )_{h,per} = 0.
 \end{equation}
-
 De ce dernier résultat, on peut déduire :
 \begin{equation}
 ( \dfrac{d \mathfrak{e}}{dt} , \mathfrak{e} )_{h,per} = c ( \mathfrak{\tau}, \mathfrak{e})_{h,per}
 \end{equation}
 Ainsi, on appliquant le lemme \ref{lem:ineg_1} et en utilisant les propriétés de la dérivation, on a
 \begin{align*}
-\dfrac{d}{dt} |\mathfrak{e}|_{h,per}^2 & = 2 c ( \mathfrak{\tau}, \mathfrak{e})_{h,per} \\
+\dfrac{d}{dt} \|\mathfrak{e}\|_{h,per}^2 & = 2 c ( \mathfrak{\tau}, \mathfrak{e})_{h,per} \\
    & \leq 2 c |( \mathfrak{\tau}, \mathfrak{e})_{h,per}| \\
-   & \leq 2c \left[ \alpha |\mathfrak{e}|_{h,per}^2 + \dfrac{1}{4 \alpha} |\mathfrak{\tau}|_{h,per}^2 \right] \text{ETAPE A REVOIR POUR LE CHOIX DES NORMES???} \\
-   & \leq 2c \left[ \alpha |\mathfrak{e}|_{h,per}^2 + \dfrac{1}{4 \alpha} C^2 h^8 |\partial_x^5 u|_{\infty}^2 \right] 
+   & \leq c \left[ \alpha \|\mathfrak{\tau}\|_{h,per}^2 + \dfrac{1}{\alpha} \|\mathfrak{e}\|_{\infty}^2 \right] \\
+   & \leq c \alpha \|\mathfrak{\tau}\|^2_{h,per} + \dfrac{c}{\alpha} \|\mathfrak{e}\|^2_{h,per} 
 \end{align*}
 pour tout $\alpha > 0$.
-
 D'après le lemme de Gronwall, on a
+\begin{equation}
+\|\mathfrak{e}\|_{h,per}^2 \leq \alpha^2 \max_{t \in [0,T]} \|\mathfrak{\tau}\|_{h,per}^2   \left( \exp \left( \dfrac{ct}{\alpha} \right) -1  \right).
+\end{equation}
+On note alors que
 \begin{align*}
-|\mathfrak{e}|_{h,per}^2 & \leq \dfrac{C^2 h^8 |\partial_x^5 u|_{\infty}^2}{4 \alpha^2} \left( \exp \left( 2 \alpha c t \right) -1  \right) \\
-    & \leq \dfrac{C^2 h^8 |\partial_x^5 u|_{\infty}^2}{4 \alpha^2} \left( \exp \left( 2 \alpha c T \right) -1  \right).
+\|\mathfrak{\tau}\|_{h,per}^2 = h \gsum_{j=0}^{N-1} |\mathfrak{\tau_j}|^2 & \leq h N \|\mathfrak{\tau}\|_{\infty}^2 \\
+	& \leq  L \|\mathfrak{\tau}\|_{\infty}^2 \\
+	& \leq L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty}^2 \text{ D'après le théorème \ref{th:consistence_herm2}.}
 \end{align*}
-
-Or la fonction
+De là, on peut déduire que
 \begin{equation}
-g : \alpha \in ]0, \infty \mapsto \dfrac{1}{4 \alpha^2} \left( \exp \left( 2 \alpha c T \right) -1  \right)
+\|\mathfrak{e}\|_{h,per}^2 \leq \alpha^2 L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]]}^2 \max_{t \in [0,T]} \left( \exp \left( \dfrac{ct}{\alpha} \right) -1  \right).
 \end{equation}
-est continue. De plus pour tout $\alpha \in ]0, \infty[$, $g(\alpha) >0$ et 
+On pose $\beta = \alpha/(ct) \in \mathbb{R}^+$, on a alors directement :
+\begin{align*}
+\|\mathfrak{e}\|_{h,per}^2 & \leq L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]]}^2 c^2 t^2 \beta^2 \left( \exp \left( \dfrac{1}{\beta} \right) -1  \right) \\
+      & \leq L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]]}^2 c^2 T^2 \beta^2 \left( \exp \left( \dfrac{1}{\beta} \right) -1  \right).
+\end{align*}
+Or la fonction $g$ définit par
+\begin{equation}
+g :\beta \in \mathbb{R}^+ \mapsto \beta^2 \left( \exp \left( \dfrac{1}{\beta} \right) -1  \right)
+\end{equation}
+est continue, positive et de plus :
+\begin{equation}
+\lim_{\beta \rightarrow + \infty} g(\beta) = \lim_{\beta \rightarrow 0^+} g(\beta) = + \infty
+\end{equation}
+donc il existe $m > 0$ telle que pour tout $\beta > 0$, on a $g(\beta)>m$. On peut trouver graphiquement $m \approx 1.545$. De là, il découle que
 \begin{equation*}
-\lim_{\alpha \rightarrow 0^+} g(\alpha) = \lim_{\alpha \rightarrow + \infty} g(\alpha) = + \infty
+\|\mathfrak{e}\|_{h,per}^2 \leq L C^2 m c^2 T^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]]}^2.
 \end{equation*}
-donc $g$ est minorée par son ensemble de définition par $m>0$ et on a 
-\begin{equation}
-|\mathfrak{e}|_{h,per}^2 \leq C^2 m h^8 |\partial_x^5 u|_{infty},
-\end{equation}
-d'où le résultat.
-
+On peut conclure en prenant la racine carré de cette dernière équation.
 \end{proof}
 
-
-
+L'équation semidiscrétisée de l'équation de transport
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{d \mathfrak{u}}{dt} + c \delta_{4,x}^H \mathfrak{u} & = 0 \\
+\mathfrak{u}(0) & = & u_0^*
+\end{array}
+\text{ avec } t \in [0,T]
+\right.
+\end{equation}
+est discrétisée en utilisant la méthode de Runge-Kutta d'ordre 4. L'algorithme de résolution est donné par l'algorithme \ref{alg:RK4_transport1d}.
+\begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: RK4}\label{alg:RK4_transport1d}
+    \begin{algorithmic}[1]
+    \State $\mathfrak{u}^0 = u_0^*$ connu,
+    \For{$n=0,1, \ldots$}
+             \State  $K^{(1)} = - c \delta_{4,x}^H \left( \mathfrak{u}^n \right)$,
+             \State  $K^{(2)} = - c \delta_{4,x}^H \left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(1)}\right)$,
+             \State  $K^{(3)} = - c \delta_{4,x}^H \left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(2)}\right)$,
+             \State  $K^{(4)} = - c \delta_{4,x}^H \left( \mathfrak{u}^n + \Delta t K^{(3)}\right)$,  
+             \State  $\mathfrak{u}^{n+1} = \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right)$.
+            \EndFor
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center}
+Dans cet algorithme, $\Delta t > 0$ désigne le pas de discrétisation et $\mathfrak{u}^n$ est une approximation de $\mathfrak{u}(n \Delta t)$.
 
 
 
@@ -521,13 +557,17 @@ d'où le résultat.
 
 \subsection{Relations de conservations}
 
+\subsection{Résultats numériques}
 
 
 
-\section{Equation des ondes}
+
+\section{Equation des ondes en dimension 2}
 
 \subsection{Discrétisation}
 
 \subsection{Consistance et Stabilité}
 
 \subsection{Relations de conservations}
+
+\subsection{Résultats numériques}
