@@ -9,7 +9,7 @@ global scheme nrm
 scheme='compact4';
 nrm='int';
 
-n=255;
+n=31;
 mod101
 disp('mod101 : ok')
 
@@ -43,19 +43,19 @@ nrmg./MM
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,MM]=nrm101(vorte_fI,vorte_fII,vorte_fIII,vorte_fIV,vorte_fV,vorte_fVI,n,nn,'infty');
 nrmg./MM
 
-% figure(1)
-% plot_cs100(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
-% title('vort. numerique')
-% colorbar
-% 
-% figure(2)
-% plot_cs100(n,nn,vorte_fI,vorte_fII,vorte_fIII,vorte_fIV,vorte_fV,vorte_fVI)
-% title('vort. exacte')
-% colorbar
-% 
-% figure(3)
-% plot_cs100(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI)
-% title('vort. app.')
-% colorbar
-% 
-% fig_placier
+figure(1)
+plot_cs100(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
+title('vort. numerique')
+colorbar
+
+figure(2)
+plot_cs100(n,nn,vorte_fI,vorte_fII,vorte_fIII,vorte_fIV,vorte_fV,vorte_fVI)
+title('vort. exacte')
+colorbar
+
+figure(3)
+plot_cs100(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI)
+title('vort. app.')
+colorbar
+
+fig_placier

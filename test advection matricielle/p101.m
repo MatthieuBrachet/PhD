@@ -4,7 +4,7 @@
 % authors : Matthieu Brachet
 %           Jean-Pierre Croisille
 % ----------------------------------
-clear all; clc; close all;
+clear all; clc; close all; format shorte
 vvv=[1 1 1];
 %% construction des variables globales
 global n nn;
@@ -25,7 +25,7 @@ time1=cputime;
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 2;
+coef = 1;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;
@@ -51,7 +51,7 @@ scheme='compact4'; % compact ou explicite
  n=39;
  nn=n+2;
  cfl=0.9;
- ndaymax=12;
+ ndaymax=24;
  err=2;
  mm=0;
  MM=1000;
@@ -71,7 +71,7 @@ scheme='compact4'; % compact ou explicite
      gamma=5;
  elseif coef == 2
      %% test de Nair et Jablonowski
-     alphad=0; 
+     alphad=pi/4; 
      lambda0 = 0;
      teta0 = 0;
      lambda_p=pi;                                                          % position du pole nord à t=0, i.e. position du vortex nord à t=0
@@ -90,7 +90,7 @@ scheme='compact4'; % compact ou explicite
  end
 
 %% données du problème
-itestop=20;
+itestop=2000;
 tstart=cputime;
 mod101
 tmax=24*3600*ndaymax;

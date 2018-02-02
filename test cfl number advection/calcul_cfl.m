@@ -4,9 +4,9 @@ clc; clear all; close all
 time='rk4';
 c=4;
 space='implicit';
-f=10;
-delta=0.499;
-filtre='visbal';
+f=2;
+delta=0;
+filtre='redonnet';
 
 %% research of cfl number max
 epsi=10^-10;
@@ -18,7 +18,7 @@ teta = linspace(0,pi,100000);
 a=0;
 b=5;
 
-while abs(b-a)>epsi && iter < itermax
+while iter < itermax && abs(b-a)>eps
     lambda=0.5*(a+b);
     g = atsf(lambda, teta,time,c,space,f,filtre,delta);
     h=floor(max(abs(g))/epsi)*epsi;
@@ -32,7 +32,7 @@ end
 cfl=lambda
 iter
 
-abs(cfl-2.82/sqrt(3))/abs(2.82/sqrt(3))
+abs(cfl-2*sqrt(2/3))
 
 g = atsf(cfl, teta,time,c,space,f,filtre,delta);
 figure(1)

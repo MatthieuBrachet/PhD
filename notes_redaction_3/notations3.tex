@@ -393,6 +393,7 @@ T = \begin{bmatrix}
   & (0) &   & 0 & 1 \\ 
 1 &   &   &   & 0
 \end{bmatrix} 
+\label{eq:matrice_translation}
 \end{equation}
 
 La matrice $T$ agit sur un vecteur $U = \begin{bmatrix}
@@ -934,6 +935,7 @@ Il existe donc une fraction rationnelle $Q_{2P+2}^H \in \mathbb{R}(X)$ telle que
 Cette fraction rationnelle est donnée par
 \begin{equation}
 Q_{2P+2}^H(X) = \dfrac{Q_{2P}(X)}{R(X)} = \dfrac{\gsum_{j=1}^P \dfrac{a_j}{2j} (X^j - X^{N-j})}{(1-2\beta) + \beta ( X + X^{N-1})}.
+\label{eq:pol_hermitien}
 \end{equation}
 
 Les valeurs propres de $\delta_{2P,x}^H$ s'expriment grâce à $Q_{2P}^H(X)$.
@@ -1175,6 +1177,7 @@ Si $\mathfrak{u}$ est une fonction de grille périodique, on note le filtre pass
 avec $S \in \mathbb{R}_{N-1}[X]$ et 
 \begin{equation}
 S(X) = \gsum_{k=0}^F a_k \dfrac{X^k + X^{N-k}}{2}
+\label{eq:pol_filtrage}
 \end{equation}
 Les coefficients $(a_k)_{0 \leq k \leq F}$ sont déterminés de manière à supprimer les phénomènes oscillants hautes fréquences (figure \ref{fig:hf_waves}) de la formes $\mathfrak{u}$ avec 
 \begin{equation}
@@ -1337,13 +1340,13 @@ pour tout $0 \leq k \leq N-1$, $\beta^k$ est associé à la fonction propre $\ma
 
 On définit le \textit{symbole} du filtre $\mathcal{F}$ par la fonction $\beta : \theta \in [0, \pi] \mapsto \beta(\theta) \in \mathbb{R}$ donnée par :
 \begin{equation}
-\beta( \theta ) = \gsum_{f=0}^F a_k \cos \left( f \theta \right) = S(e^{i \theta}).
+S(e^{i\theta)}) = \gsum_{f=0}^F a_k \cos \left( f \theta \right.
 \end{equation}
 
 \begin{proposition}
 Il existe un unique polynôme $P$ de degré $F$ tel que 
 \begin{equation}
-\beta(\theta) = P(\cos \theta )
+S(e^{i\theta)}) = P(\cos \theta )
 \end{equation}
 De plus,
 \begin{equation}
@@ -1354,7 +1357,7 @@ P(x) = 1 -\dfrac{1}{(-2)^F} (X - 1)^F.
 \begin{proof}
 Soit $\theta \in [0, \pi]$, 
 \begin{equation}
-\beta(\theta) = \gsum_{f=0}^F a_f \cos \left( f \theta \right) = \gsum_{f=0}^F a_f T_f ( \cos \theta )
+S(e^{i\theta)}) = \gsum_{f=0}^F a_f \cos \left( f \theta \right) = \gsum_{f=0}^F a_f T_f ( \cos \theta )
 \end{equation}
 où $T_f \in \mathbb{R}_f [X]$ est le $k-$ieme polynome de Tchebytchev. 
 Ainsi il existe $P \in \mathbb{R}_F [x]$ tel que $\beta( \theta ) = P( \cos \theta )$. Ce polynôme est unique. Montrons que 
@@ -1387,21 +1390,22 @@ Or, $P^{(k)}\left(1\right) = 0$ pour tout $k \geq 1$. Donc
 \end{itemize}
 Le polynôme $P$ convient et 
 \begin{equation}
-\beta( \theta ) = 1 - \dfrac{1}{(-2)^F}(\cos \theta -1)^F.
+S(e^{i\theta)}) = 1 - \dfrac{1}{(-2)^F}(\cos \theta -1)^F.
 \end{equation}
 \end{proof}
 
 \begin{proposition}
 Pour tout $\theta \in [0, \pi]$, on a 
 \begin{equation}
-0 \leq \beta ( \theta ) \leq 1
+0 \leq S(e^{i\theta)}) \leq 1
 \end{equation}
+\label{prop:ampli_ftr}
 \end{proposition}
 
 \begin{proof}
-Supposons qu'il existe $\theta \in [0, \pi]$ tel que $\beta(\theta) < 0$ ou $\beta(\theta) > 1$. Comme $\beta(0)=1$ et $\beta(\pi) = 0$, il existe $\tilde{\theta} \in ]0, \pi[$ tel que 
+Supposons qu'il existe $\theta \in [0, \pi]$ tel que $S(e^{i\theta)}) < 0$ ou $S(e^{i\theta)}) > 1$. Comme $S(e^{i 0)})=1$ et $S(e^{i\pi)}) = 0$, il existe $\tilde{\theta} \in ]0, \pi[$ tel que 
 \begin{equation}
-\beta'(\tilde{\theta}) = - \sin \tilde{\theta} P'(\cos \tilde{\theta} ) = 0
+S(e^{i\theta)})'(\theta) = - \sin \tilde{\theta} P'(\cos \tilde{\theta} ) = 0
 \end{equation}
 Or $\sin \tilde{\theta} \neq 0$ pour $\tilde{\theta} \in ]0, \pi[$.
 De plus, 
@@ -1415,18 +1419,18 @@ P'(X) = 0 \Leftrightarrow \cos \tilde{\theta} = 1
 Ce qui est impossible pour $\tilde{\theta} \in ]0, \pi[$. Donc par l'absurde, le résultat est vérifié.
 \end{proof}
 
-La fonction $\beta$ permet de considérer le comportement du filtre sur les différentes fréquences $\theta \in [0, \pi]$. Les basses fréquences sont bien conservées alors que les hautes fréquences ($\theta$ proche de $\pi$) sont atténuées. Cette observation est visible sur la figure \ref{fig:freq_filter} représentant la fonction $\beta : \theta \mapsto \beta(\theta)$ associée aux filtres d'ordre 2, 4, 6, 8 et 10. 
+La fonction $\theta \mapsto S(e^{i\theta)})$ permet de considérer le comportement du filtre sur les différentes fréquences $\theta \in [0, \pi]$. Les basses fréquences sont bien conservées alors que les hautes fréquences ($\theta$ proche de $\pi$) sont atténuées. Cette observation est visible sur la figure \ref{fig:freq_filter} représentant la fonction $\beta : \theta \mapsto \beta(\theta)$ associée aux filtres d'ordre 2, 4, 6, 8 et 10. 
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=0.7]{freq_filter.eps}
 \end{center}
-\caption{Fonction d'amplification $\beta$ pour les filtres explicites d'ordre 2, 4, 6, 8 et 10.}
+\caption{Fonction d'amplification $\theta \mapsto S(e^{i\theta)})$ pour les filtres explicites d'ordre 2, 4, 6, 8 et 10.}
 \label{fig:freq_filter}
 \end{figure}
-Comme on s'y attendais, un filtre d'ordre élevé laisse passer un plus grand nombre de basses fréquences. Dans le tableau \ref{tab:filter_095}, on représente la fréquence $\theta_{0.95}$ maximale qui est conservée à $95\%$. Comme la fonction $\beta$ est strictement décroissante et continue sur $[0,\pi]$, c'est une bijection de $[0,\pi]$ dans $[0,1]$ et on a 
+Comme on s'y attendais, un filtre d'ordre élevé laisse passer un plus grand nombre de basses fréquences. Dans le tableau \ref{tab:filter_095}, on représente la fréquence $\theta_{0.95}$ maximale qui est conservée à $95\%$. Comme la fonction $\theta \mapsto S(e^{i\theta)})$ est strictement décroissante et continue sur $[0,\pi]$, c'est une bijection de $[0,\pi]$ dans $[0,1]$ et on a 
 \begin{equation}
-\theta_{0.95} = \beta^{-1}(0.95)= \arccos \left[ 1-2 (0.05)^{1/F} \right].
+\theta_{0.95} = \arccos \left[ 1-2 (0.05)^{1/F} \right].
 \end{equation}
 
 \begin{table}
@@ -1448,7 +1452,7 @@ $2$&$0.4510$\\
 \label{tab:filter_095}
 \end{table}
 
-La fonction $F \mapsto \theta_{0.95} = \beta^{-1}(0.95)$ est croissante, ce qui confirme que lorsque l'ordre de précision croit, $\theta_{0.95}$ croit et le filtre conserve un plus grand nombre de fréquences. De plus, 
+La fonction $F \mapsto \theta_{0.95}$ est croissante, ce qui confirme que lorsque l'ordre de précision croit, $\theta_{0.95}$ croit et le filtre conserve un plus grand nombre de fréquences. De plus, 
 \begin{equation}
 \lim_{F \rightarrow +\infty} \theta_{0.95} = \pi.
 \end{equation}
@@ -1461,6 +1465,7 @@ Le filtre utilisé est linéaire et agit sur les composantes des fonctions de gr
 et la matrice $M$ est donnée par
 \begin{equation}
 M = S(T).
+\label{eq:matrice_filtrage}
 \end{equation}
 
 \begin{proposition}

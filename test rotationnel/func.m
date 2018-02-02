@@ -1,6 +1,6 @@
 function [ f, vort ] = func(x,y,z)
 global radius
-test=5;
+test=2;
 if test == 1
     p=3;
     q=3;
@@ -22,10 +22,11 @@ if test == 1
 
     vort=h.*tan(teta)./radius-(1./radius).*dhteta;
 elseif test == 2
+    a=radius;
     p=4;
     q=2;
     r=3;
-    h=x.^p.*y.^q.*z.^r;
+    h=(x/a).^p.*(y/a).^q.*(z/a).^r;
     [lambda, teta,~]=cart2sph(x,y,z);
     etx=-sin(teta).*cos(lambda);
     ety=-sin(teta).*sin(lambda);
@@ -35,10 +36,11 @@ elseif test == 2
     f(:,:,2)=h.*ety;
     f(:,:,3)=h.*etz;
     
-    dhx=p.*x.^(p-1).*y.^q.*z.^r;
-    dhy=q.*x.^p.*y.^(q-1).*z.^r;
+    dhx=p.*(x/a).^(p-1).*(y/a).^q.*(z/a).^r;
+    dhy=q.*(x/a).^p.*(y/a).^(q-1).*(z/a).^r;
     
     vort=-dhx.*sin(lambda)+dhy.*cos(lambda);
+    vort=vort/a;
     
 elseif test == 3
    f(:,:,1)=exp(y/radius);

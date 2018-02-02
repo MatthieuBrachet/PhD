@@ -1,0 +1,160 @@
+date : 31-Jan-2018
+ref. : 7370917487
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 79
+time step         : 2916
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.0038902
+max(er_2)         : 0.014811
+max(er_infty)     : 0.090827
+***********************************
+  
+  
+date : 31-Jan-2018
+ref. : 7370917533
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 39
+time step         : 5832
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.013103
+max(er_2)         : 0.036111
+max(er_infty)     : 0.15601
+***********************************
+  
+  
+date : 31-Jan-2018
+ref. : 7370917546
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 159
+time step         : 1458
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.00024188
+max(er_2)         : 0.0010836
+max(er_infty)     : 0.011414
+***********************************
+  
+  
+date : 31-Jan-2018
+ref. : 7370917789
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 79
+time step         : 2916
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 36
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.0097875
+max(er_2)         : 0.031964
+max(er_infty)     : 0.16071
+***********************************
+  
+  
+date : 31-Jan-2018
+ref. : 7370917849
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 79
+time step         : 2916
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 60
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.019052
+max(er_2)         : 0.053858
+max(er_infty)     : 0.2369
+***********************************
+  
+  
+date : 31-Jan-2018
+ref. : 7370917938
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 79
+time step         : 2916
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 100
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.021556
+max(er_2)         : 0.054553
+max(er_infty)     : 0.25635
+***********************************
+  
+  
+date : 01-Feb-2018
+ref. : 7370924565
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 79
+time step         : 2916
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 
+(lambdap,thetap)  : (45,45)
+***********************************
+max(er_1)         : 0.0019494
+max(er_2)         : 0.0087528
+max(er_infty)     : 0.053347
+***********************************
+  
+  
+date : 01-Feb-2018
+ref. : 7370924599
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 39
+time step         : 5832
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 
+(lambdap,thetap)  : (45,45)
+***********************************
+max(er_1)         : 0.0088649
+max(er_2)         : 0.02783
+max(er_infty)     : 0.12548
+***********************************
+  
+  

@@ -342,12 +342,3 @@ switch str
     nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI; 
         
 end
-
-
-
-
-
-
-
-
-
