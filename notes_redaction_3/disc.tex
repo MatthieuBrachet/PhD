@@ -37,15 +37,11 @@ Le schéma de Runge-Kutta d'ordre 4 est l'une des méthodes de Runge-Kutta les p
 \end{minipage}
 \end{center}
 
-On dit qu'une méthode numérique est consistante si
+On dit qu'une méthode numérique est consistante \cite{Demailly2016} si
 \begin{equation}
 q^n - q(n \Delta t) = e^n
 \end{equation}
-et $e^n \rightarrow 0$ lors que $\Delta t \rightarrow 0$. Le schéma de Runge-Kutta d'ordre 4 est consistant à l'ordre 4. C'est à dire que l'erreur $e^n$ est de la forme
-\begin{equation}
-e^n = C \Delta t^4.
-\end{equation}
-où $C$ est indépendant de $\Delta t$. On renvoi à \cite{Demailly2016} pour preuve de consistance des méthodes de Runge-Kutta.
+et $e^n \rightarrow 0$ lors que $\Delta t \rightarrow 0$.
 
 Il existe autres méthodes de Runge-Kutta explicites. On pensera par exemples à la méthode d'Euler Explicite ou le schéma de Heun. Il est classique de représenter une méthode de Runge-Kutta par son \textit{tableau de Butcher} :
 
@@ -194,9 +190,36 @@ Dans la figure \ref{fig:stab_area}, on présente les zones de stabilités de dif
 \end{figure}
 En particulier, comme détaillé dans \cite{Hundsdorfer2013}, on note que
 \begin{equation}
-\mathcal{D}_{RK4} \cap i \mathbb{R} = i \left[-\sqrt{2},\sqrt{2}\right].
+\mathcal{D}_{RK4} \cap i \mathbb{R} = i \left[-2 \sqrt{2},2 \sqrt{2}\right].
 \end{equation}
 
+\begin{proposition}
+On suppose que $\Delta t = T/(n+1)$ est choisit tel que $|r(\lambda \Delta t ) | \leq 1$ (RK4 est asymprotiquement stable), alors si $q^{n+1}$ est la solution approchée par RK4 de \eqref{eq:dahlquist} et $q(t)$ la solution exacte en $t \in [0,T]$, il existe $C>0$ tel que
+\begin{equation}
+| e^{n+1} | = | q^{n+1} - q(t^{n+1}) | \leq C T \Delta t^4 \max_{0 \leq t \leq T} | q(t) |.
+\end{equation}
+\label{prop:consistance_rk4}
+\end{proposition}
+
+\begin{proof}
+Par construction des différents termes, on a
+\begin{align*}
+e^{n+1} & = r(\lambda \Delta t) q^n - \exp \left( \lambda \Delta t \right) q(t^n) \\
+	& = r(\lambda \Delta t) \left( q^n - q(t^n) \right) + \left( r(\lambda \Delta t) - \exp \left( \lambda \Delta t  \right) \right) q(t^n) \\
+	& = r(\lambda \Delta t) e^n + \left( r(\lambda \Delta t) - \exp \left( \lambda \Delta t  \right) \right) q(t^n).
+\end{align*}
+D'où, en prenant la valeur absolue, 
+\begin{align*}
+|e^{n+1}| & \leq |r(\lambda \Delta t)| |e^n| + C \lambda^5 \Delta t^5 q(t^n) \\
+		& \leq  |r(\lambda \Delta t| \left[ |r(\lambda \Delta t)| |e^{n-1}| + C \lambda^5 \Delta t^5 |q(t^{n-1})| \right] + C \lambda^5 \Delta t^5 |q(t^n)| \\
+		& \leq |r(\lambda \Delta t)|^2 |e^{n-1}| + C \lambda^5 \Delta t^5 |r(\lambda \Delta t)| |q(t^{n-1})| + C \lambda^5 \Delta t^5 |q(t^n)| \\
+		& \leq |r(\lambda \Delta t)|^2 |e^{n-1}| + C \lambda^5 \Delta t^5  |q(t^{n-1})| + C \lambda^5 \Delta t^5 |q(t^n)| \text{ par hyposthèse de stabilité.}
+		& \leq \vdots \\
+		& \leq |r(\lambda \Delta t)|^{n+1} | e^0 | + (n+1) C \lambda^5 \Delta t^5 \max_{0 \leq t \leq T} |q(t)| \\
+		& \leq + (n+1) C \lambda^5 \Delta t^5 \max_{0 \leq t \leq T} |q(t)| \text{ car } e^0 = 0 \\
+		& \leq C T \lambda^5 \Delta t^4 \max_{0 \leq t \leq T} |q(t)|.
+\end{align*}
+\end{proof}
 
 
 
@@ -271,8 +294,6 @@ Comme $r$ est un polynôme, on a même la stabilité linéaire si
 où $\rho$ désigne le rayon spectrale.
 \label{prop:stab_rk4_mat}
 \end{proposition}
-
-
 
 
 
@@ -563,7 +584,7 @@ alors l'algorithme \ref{alg:RK4_transport1d} nous donne
 \begin{align*}
 U^{n+1} & = M \left( 1 - c \Delta t P^{-1}D_2 + \dfrac{(c \Delta t P^{-1}D_2)^2}{2} - \dfrac{(c \Delta t P^{-1}D_2)^3}{6} + \dfrac{(c \Delta t P^{-1}D_2)^4}{24} \right) U^n \\
 		& = S(T) r(- c \Delta t P^-1D_2) U^n \text{ avec } r(x)=1+x+\dfrac{x^2}{2}+\dfrac{x^3}{6}+\dfrac{x^4}{24}\\
-		& = S(T) \left( -\lambda Q_{4}^H(T) \right) U^n
+		& = S(T) r \left( -\lambda Q_{4}^H(T) \right) U^n
 \end{align*}
 où $M=S(T)$ est la matrice associée au filtrage $\mathcal{F}$ donnée par \eqref{eq:matrice_filtrage} et \eqref{eq:pol_filtrage}. La matrice $T$ est la matrice de translation \ref{eq:matrice_translation}. $P^{-1}D = Q_4^H(T)$ est donné par \eqref{eq:pol_hermitien}. On pose $\lambda = c \Delta t / h$.
 
@@ -607,7 +628,7 @@ S(\omega^k)r(-\lambda Q_4^H(\omega^k))  \text{ pour } -N/2+1 \leq k \leq N/2.
 
 Considérons dans un premier temps le cas sans filtrage. On a alors $S(T) = Id$, c'est à dire $\mathcal{F} = id$. On a alors
 \begin{equation}
-\lambda_{\infty} = \max \left\lbrace \lambda \in \mathbb{R}^+ \text{ tels que } \max_{0 \leq \theta \leq \pi} \left( | r(-\lambda Q_4^H(\theta) | \right) \right\rbrace
+\lambda_{\infty} = \max \left\lbrace \lambda \in \mathbb{R}^+ \text{ tels que } \max_{0 \leq \theta \leq \pi} \left( | r(-\lambda Q_4^H(e^{i \theta}) | \right) \right\rbrace
 \end{equation}
 
 \begin{theoreme}
@@ -670,8 +691,8 @@ Quel que soit le filtre $\mathcal{F}$ d'ordre $2F$, on a
 \begin{proof}
 On a 
 \begin{align*}
-\lambda_{2F} & = \max \left\lbrace \lambda \in \mathbb{R}^+ \text{ tels que } \max_{0 \leq \theta \leq \pi} \left(|S(e^{i \theta})| | r(-\lambda Q_4^H(\theta) | \right) \right\rbrace \\
-		& \leq \max \left\lbrace \lambda \in \mathbb{R}^+ \text{ tels que } \max_{0 \leq \theta \leq \pi} \left(| r(-\lambda Q_4^H(\theta) | \right) \right\rbrace\\
+\lambda_{2F} & = \max \left\lbrace \lambda \in \mathbb{R}^+ \text{ tels que } \max_{0 \leq \theta \leq \pi} \left(|S(e^{i \theta})| | r(-\lambda Q_4^H(e^{i \theta}) | \right) \right\rbrace \\
+		& \leq \max \left\lbrace \lambda \in \mathbb{R}^+ \text{ tels que } \max_{0 \leq \theta \leq \pi} \left(| r(-\lambda Q_4^H(e^{i \theta}) | \right) \right\rbrace\\
 		& = \lambda_{\infty}
 \end{align*}
 car pour tout $\theta \in [0, \pi]$, 
@@ -704,17 +725,257 @@ $ 2$ & $1.9749$ \\
 \end{table}
 
 
+
+
+
+
+
+
+
+
+
+
+
 \subsection{Dissipation et dispersion numérique}
+
+De manière similaire à \cite{Desquesnes2007} et \cite{Dubois2016}, on rappelle dans cette section l'étude de la dissipation et de la dispersion pour un schéma linéaire appliqué à l'équation de transport \eqref{eq:transport_1D}.
+
+La solution de l'équation de transport \eqref{eq:transport_1D} en contexte périodique est donnée pour tout $x \in [0,L]$ et $t>0$ par
+\begin{equation}
+u(x,t)=u_0(x-ct).
+\end{equation}
+Si la fonction initiale $u_0$ est donnée par une onde de la forme 
+\begin{equation}
+u_0(x) = \exp \left( i \dfrac{2 \pi k}{L} x \right)
+\end{equation}
+avec $-N/2 +1 \leq k \leq N/2 $, alors la solution est
+\begin{equation}
+u(x,t) = \exp \left( i \dfrac{2 \pi k}{L} (x-ct) \right)
+\end{equation}
+et vérifie en $x_j = j h = j L/N$ et $t^n = n \Delta t$ :
+\begin{equation}
+u(x_j,t^{n+1}) = e^{-i \lambda \theta} u(x_j, t^n)
+\label{eq:e(ilambdateta)}
+\end{equation}
+où $\lambda = c \Delta t /h$ et $\theta = 2 \pi k / N$.
+
+D'autres part, l'application d'un schéma de discrétisation spatiale linéaire et puis d'un schéma d'intégration temporel à \eqref{eq:transport_1D} donne la relation suivante 
+\begin{equation}
+\mathfrak{u}_j^{n+1} = G(\lambda, \theta) \mathfrak{u}_j^n
+\end{equation}
+où $\mathfrak{u}_j^n$ est une approximation de $u(x_j, t^n)$.
+$(\lambda,\theta)\mapsto G(\lambda,\theta)$ est la fonction d'amplification du schéma numérique.
+Par exemple, en utilisant l'algorithme \ref{alg:RK4_transport1d}, on trouve
+\begin{equation}
+G(\lambda, \theta) = S(e^{i \theta}) r(- \lambda Q^H_{4}(e^{i \theta})
+\end{equation}
+où $r(x) =  1 + x + \frac{1}{2}x^2 + \frac{1}{6}x^3 + \frac{1}{24}x^4$, $S$ est issu du filtrage $\mathcal{F}$ et donné par \eqref{eq:pol_filtrage}, $Q_4^H$ est associé au schéma hermitien $\delta_4^H$ et donné par l'équation \eqref{eq:pol_hermitien}.
+
+Par comparaison avec \eqref{eq:e(ilambdateta)}, on définit la  vitesse numérique de phase du schéma $c(\lambda,\theta) = c_R(\lambda,\theta) + i c_I(\lambda,\theta)$ ($c_R(\lambda,\theta),c_I(\lambda,\theta) \in \mathbb{R}$) par
+\begin{equation}
+G(\lambda, \theta) = \exp \left( - i \dfrac{c(\lambda,\theta)}{c} \lambda \theta \right).
+\end{equation}
+De là, il vient la relation suivante :
+\begin{align*}
+\varepsilon(\lambda,\theta) & = \dfrac{G(\lambda,\theta)}{e^{- i \lambda \theta}} \\
+	& = \exp \left( \dfrac{c_I(\lambda, \theta)}{c} \lambda \theta \right) \exp \left( - i \lambda \theta \left( \dfrac{c_R(\lambda, \theta)}{c} -1 \right) \right) \\
+	& = |G(\lambda, \theta)| \exp \left( - i \lambda \theta \left( \dfrac{c_R(\lambda, \theta)}{c} -1 \right) \right).
+\end{align*}
+A $\lambda$ fixé, on définit \textit{la fonction de dissipation} $\varepsilon_D$ et \textit{ la fonction de dispersion} $\varepsilon_{\Phi}$ par
+
+\begin{definition}
+La fonction de dissipation $\varepsilon_D$ est définie par
+\begin{equation}
+\begin{array}{rcl}
+\varepsilon_D : ]- \pi, \pi[ & \rightarrow & \mathbb{R} \\
+\theta & \mapsto & |\varepsilon(\lambda,\theta)| = |G(\lambda, \theta)|
+\end{array},
+\end{equation}
+la fonction de dispersion $\varepsilon_{\Phi}$ est définie par
+\begin{equation}
+\begin{array}{rcl}
+\varepsilon_{\Phi} : ]- \pi, \pi[ & \rightarrow & \mathbb{R} \\
+\theta & \mapsto & c_R(\lambda, \theta)/c,
+\end{array}
+\end{equation}
+on remarque facilement que 
+\begin{equation}
+\varepsilon_{\Phi}(\lambda, \theta) = 1 - \dfrac{1}{\lambda \theta} \arg \left( \dfrac{G(\lambda, \theta)}{|G(\lambda,\theta)| e^{i \lambda \theta}} \right).
+\end{equation}
+\end{definition}
+
+Avec de telles notations, on remarque que
+\begin{equation}
+\varepsilon(\lambda,\theta) = \varepsilon_D(\lambda,\theta) \exp \left( - i \lambda \theta \left( \varepsilon_{\Phi}(\lambda,\theta) -1 \right) \right).
+\end{equation}
+
+L'opérateur de filtrage n'a aucune influence sur la fonction de dissipation, en effet, il s'agit de la multiplication par un scalaire de la fonction d'amplification $G(\lambda,\theta)$.
+
+La fonction de dissipation $\varepsilon_D$ mesure la dissipation du schéma numérique. On note en particulier que le schéma est asymptotiquement stable si et seulement si pour tout $\theta$, on a 
+\begin{equation}
+\varepsilon_D(\lambda,\theta) \leq 1
+\end{equation}
+ce qui implique directement $c_I(\lambda,\theta) \leq 0$. Lorsque $\varepsilon_D(\lambda, \theta) = 1$, le schéma n'est pas dissipatif. Si $\varepsilon_D(\lambda,\theta) < 1$, le schéma amorti les ondes. Si la fonction de dissipation est nulle, les ondes sont totalement amorties.
+
+La fonction de dispersion $\varepsilon_{\Phi}$ mesure l'erreur de phase du schéma numérique. Si $\varepsilon_{\Phi}(\lambda, \theta) > 1$ alors $c_R(\lambda,\theta) > c$ et le schéma est en avance de phase, inversement si $\varepsilon_{\Phi}(\lambda, \theta) < 1$, il est en retard. Lorsque $\varepsilon_{\Phi}(\lambda, \theta) = 1$, il n'y a pas de retard de phase.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{dissip1.eps}
+\includegraphics[scale=0.5]{dissipf1.eps}\\
+\includegraphics[scale=0.5]{dissip2.eps}
+\includegraphics[scale=0.5]{dissipf2.eps}\\
+\includegraphics[scale=0.5]{dissip3.eps}
+\includegraphics[scale=0.5]{dissipf3.eps}\\
+\includegraphics[scale=0.5]{dissip4.eps}
+\includegraphics[scale=0.5]{dissipf4.eps}
+\end{center}
+\caption{Fonction de dissipation et de dispersion associée à l'algorithme \ref{alg:RK4_transport1d} de résolution de l'équation \eqref{eq:transport_1D} sans un filtre (gauche) et avec filtre d'ordre 10 (droite) pour différentes valeurs de $\lambda = c \Delta t / h$.}
+\label{fig:dissip_disper}
+\end{figure}
+
+Dans la figure \ref{fig:dissip_disper}, on représente la fonction de dissipation $\varepsilon_D$ et la fonction de dissipation $\varepsilon_{\Phi}$ pour différentes valeurs de $\lambda$. Le schéma utilisé est celui de Runge-Kutta d'ordre 4 avec un schéma compact d'ordre 4. On compare le résultat sans filtrage et avec le filtrage d'ordre 10. Il s'agit du schéma donné dans l'algorithme \ref{alg:RK4_transport1d}.
+On ne trace ces fonctions que pour $\theta \in [0, \pi]$ pour des raisons de parité. Comme attendu le filtrage dissipe les valeurs de $\theta$ prochent de $\pi$. De plus, plus le nombre $\lambda$ est proche de $0$, moins la dissipation des basses valeurs de $\theta$ est importante. 
+
+
+
+
+
+
 
 \subsection{Relations de conservations}
 
+L'équation de transport \eqref{eq:transport_1D} est une équation de conservation. En effet, la proposition suivante est vérifiée :
+
+\begin{proposition}
+Si $u$ est une solution périodique de \eqref{eq:transport_1D} alors pour tout $t>0$, on a
+\begin{equation}
+\gint_0^1 u(x,t)dx = \gint_0^1 u_0(x)dx,
+\end{equation}
+la "masse" de $u$ est conservée au cours du temps.
+\end{proposition}
+
+\begin{proof}
+Il suffit de montrer que la quantité
+\begin{equation}
+\gint_0^1 u(x,t)dx
+\end{equation}
+est indépendante du temps $t$.
+
+Comme $u$ est solution de \eqref{eq:transport_1D}, on a
+\begin{align*}
+\dfrac{d}{dt} \gint_0^1 u(x,t) dx & = \gint_0^1 \dfrac{\partial u}{\partial t}(x,t) dx \\
+	& = - c \gint_0^1 \dfrac{\partial u}{\partial x} (x,t) dx \\
+	& = - c \left[ u(x,t) \right]_{x=0}^{x=1}
+	& = 0 \text{ par périodicité de la solution.}
+\end{align*}
+d'où le résultat souhaité.
+\end{proof}
+
+Dans la pratique, la résolution par un schéma numérique peut entraîner une perte de conservation. 
+Le schéma utilisé ici dans l'algorithme \ref{alg:RK4_transport1d} est conservatif.
+
+\begin{proposition}
+Pour tout $n \in \mathbb{N}$, si $\mathfrak{u}^n$ est calculée par l'algorithme \ref{alg:RK4_transport1d} alors
+\begin{equation}
+(\mathfrak{u}^{n+1}, \mathfrak{1})_{h,per} = (\mathfrak{u}^n, \mathfrak{1})_{h,per}.
+\end{equation}
+où $\mathfrak{1}$ est la fonction de grille constante égale à 1.
+\end{proposition}
+
+\begin{proof}
+Soit $\mathfrak{b} \in l^2_{h,per}$ une fonction de grille quelconque, alors, en notant $b=\vec(\mathfrak{b})$, on a
+\begin{align*}
+(\delta_{4,x}^H \mathfrak{b}, \mathfrak{1})_{h,per} & = \dfrac{1}{h} \left( Q_4^H(T) b \right) \cdot \mathbf{1}^T \\
+	& = \dfrac{1}{h} b \cdot (\bar{Q}_4^H(T) \mathbf{1})^T \\
+	& = \dfrac{1}{h} b \cdot \mathbf{0}^T \text{ par antisymétrie de }Q_4^H(T)\\
+	& = 0.
+\end{align*}
+De cette égalité, on peut déduire directement que
+\begin{equation}
+(K^{(i)}, \mathfrak{1})_{h,per} = 0
+\end{equation}
+pour tout $i \in \left\lbrace 1, 2, 3, 4 \right\rbrace$.
+
+De là, on déduit :
+\begin{align*}
+(\mathfrak{u}^{n+1},\mathfrak{1})_{h,per} & =  \left( S(T) \left( U^n + \dfrac{\Delta t}{6}(K^{(1)}+2K^{(2)}+2K^{(3)}+K^{(4)})  \right) \right) \cdot \mathbf{1}^T \\
+	& = \left( U^n + \dfrac{\Delta t}{6}(K^{(1)}+2K^{(2)}+2K^{(3)}+K^{(4)})  \right) \cdot \mathbf{1}^T \text{ par symétrie de } S(T)\\
+	& = (\mathfrak{u}^n , \mathfrak{1})_{h,per}.
+\end{align*}
+avec $U^n = \vec_1(\mathfrak{u}^n)$.
+\end{proof}
+
 \subsection{Résultats numériques}
 
+Pour évaluer numériquement les performances du schéma numérique, on considère $\Omega=[0,1]$, $c=0.2$ et deux conditions initiales possibles :
+\begin{itemize}
+\item une condition initiale régulière :
+\begin{equation}
+u_0(x) = \dfrac{1}{\sqrt{2}} \left[ \cos (2 \pi x) \sin (4 \pi x) + \sin ( 2 \pi x ) \right]
+\label{eq:transport1d_test_reg}
+\end{equation}
+avec $x \in \Omega$,
+\item un créneau :
+\begin{equation}
+u_0(x) = \left\lbrace
+\begin{array}{rl}
+1 & \text{ si } 0.25 \leq x \leq 0.75 \\
+0 & \text{sinon.}
+\end{array}
+\right.
+\label{eq:transport1d_test_ireg}
+\end{equation}
+\end{itemize}
 
+Pour établir la précision du schéma, on compare la solution exacte en considérant la condition initiale \eqref{eq:transport1d_test_reg} avec la solution numérique associée. L'erreur relative
+\begin{equation}
+e_l^n = \dfrac{\| \mathfrak{u}^n - u^*(t^n) \|_l}{\| u^*(t^n) \|_l}
+\end{equation}
+calculée au temps $t^n$ et $l \in \lbrace 2, \infty \rbrace$. Les valeurs obtenues sont données dans la table \ref{tab:transport1d_test_reg}. Les résultats permettent de confirmer la convergence à l'ordre 4 attendue.
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c|}
+\hline
+\textbf{N}  & \textbf{norme 2} & \textbf{norme $\infty$} \\
+\hline
+\hline
+$50$   & $1.1158(-2)$  & $1.2630(-2)$  \\
+$100$  & $7.1441(-4)$  & $8.0641(-4)$  \\
+$500$  & $1.1484(-6)$  & $1.2998(-6)$  \\
+$1000$ & $7.1839(-8)$  & $8.1303(-8)$  \\
+\hline 
+\hline
+\textbf{ordre estimé}& $3.9917$ & $3.9913$\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Table de convergence de l'algorithme \ref{alg:RK4_transport1d} avec un filtre d'ordre 10 en considérant la condition initiale \eqref{tab:transport1d_test_reg} au temps final $t^n = 10$ et avec $c \Delta t/ h = 1.5$.}
+\label{tab:rate_transport1d_test_reg}
+\end{table} 
+L'erreur est tracée au cours du temps dans la figure \ref{fig:transport1d_test_reg} en normes 2 et infinie.
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.7]{erreurf2_reg.eps}
+\end{center}
+\caption{Table de convergence de l'algorithme \ref{alg:RK4_transport1d} avec un filtre d'ordre 10 en considérant la condition initiale \label{tab:transport1d_test_reg} au temps final $t^n = 10$, $c \Delta t/ h = 1.6883$ (droite). Le schéma est utilisé avec $N=100$ points de discrétisation.}
+\label{fig:transport1d_test_reg}
+\end{figure}
 
-
-
-
+La condition initiale \eqref{eq:transport1d_test_reg} est régulière, la solution attendue doit rester régulière. Comme cela est visible dans la figure \ref{fig:comp_ireg}, si l'on utilise la condition initiale \eqref{eq:transport1d_test_ireg}, des oscillations parasites importantes peuvent apparaitre. Il s'agit de phénomènes haute-fréquences qui doivent être atténués par l'utilisation d'un filtre. On compare donc dans la figure \ref{fig:comp_ireg}, la solution au temps $t=10$ obtenue par différentes méthodes de filtrage.
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{creneau_noftr.eps}
+\includegraphics[scale=0.5]{creneau_ftr2.eps}\\
+\includegraphics[scale=0.5]{creneau_ftr4.eps}
+\includegraphics[scale=0.5]{creneau_ftr6.eps}\\
+\includegraphics[scale=0.5]{creneau_ftr8.eps}
+\includegraphics[scale=0.5]{creneau_ftr10.eps}\\
+\end{center}
+\caption{Comparaison de la solution exacte (bleu) avec la solution obtenue par l'algorithme \ref{alg:RK4_transport1d} (rouge) au temps $t=10$ pour la résolution de l'équation \eqref{eq:transport_1D} avec différents filtres. $\lambda = c \Delta t / h = 1.5$ et $N=100$.}
+\label{fig:comp_ireg}
+\end{figure}
+On constate dans la figure \ref{fig:comp_ireg} que le filtrage d'ordre 2 permet de supprimer les oscillations parasites mais est beaucoup trop dissipatifs. Les filtres d'ordre 4, 6, 8 et 10 donnent des résultats moins dissipatifs et les oscillations parasites sont atténuées.
 
 
 
@@ -734,11 +995,72 @@ $ 2$ & $1.9749$ \\
 
 \section{Equation de Burgers en dimension 1}
 
-\subsection{Choc}
+La solution de l'équation de transport \eqref{eq:transport_1D} ne présente pas d'irrégularités si la solution initiale n'en comporte pas. Cependant lors de la résolution d'équations de conservations non linéaires, des chocs peuvent apparaître, ces solutions sont irrégulières et contiennent des hautes fréquences. On renvoie à \cite{Witham1974} pour plus de détails.
 
-\subsection{Discrétisation}
+L'exemple le plus simple d'équation de conservation non linéaire est l'équation de Burgers :
+\begin{equation}
+\dfrac{\partial u}{\partial t} + \dfrac{\partial}{\partial x} \left( \dfrac{u^2}{2}  \right) = 0
+\label{eq:burgers_1D}
+\end{equation}
+pour $x \in [0,L]$, $t>0$ et avec $u(x,t=0)=u_0(x)$. Comme pour l'équation de transport \eqref{eq:transport_1D}, on se place en contexte périodique.
 
-\subsection{Résultats numériques}
+Le schéma numérique utilisé pour résoudre numériquement cette équation est donné par l'algorithme \ref{alg:RK4_burgers1d} où $\mathfrak{u}^n$ est une approximation de $u^*(t^n)$.
+\begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: RK4}\label{alg:RK4_burgers1d}
+    \begin{algorithmic}[1]
+    \State $\mathfrak{u}^0 = u_0^*$ connu,
+    \For{$n=0,1, \ldots$}
+             \State  $K^{(1)} = - \dfrac{1}{2}\delta_{4,x}^H \left(\left( \mathfrak{u}^n \right)^2\right)$,
+             \State  $K^{(2)} = - \dfrac{1}{2}\delta_{4,x}^H \left(\left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(1)}\right)^2\right)$,
+             \State  $K^{(3)} = - \dfrac{1}{2}\delta_{4,x}^H \left(\left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(2)}\right)^2\right)$,
+             \State  $K^{(4)} = - \dfrac{1}{2}\delta_{4,x}^H \left(\left( \mathfrak{u}^n + \Delta t K^{(3)}\right)^2\right)$,  
+             \State  $\mathfrak{u}^{n+1} = \mathcal{F}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
+            \EndFor
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center}
+
+On peut directement démontrer la proposition suivante :
+\begin{proposition}
+Pour tout $n \in \mathbb{N}$, si $\mathfrak{u}^n$ est calculée par l'algorithme \ref{alg:RK4_burgers1d} alors
+\begin{equation}
+(\mathfrak{u}^{n+1}, \mathfrak{1})_{h,per} = (\mathfrak{u}^n, \mathfrak{1})_{h,per}.
+\end{equation}
+où $\mathfrak{1}$ est la fonction de grille constante égale à 1.
+\end{proposition}
+
+L'équation de Burgers \eqref{eq:burgers_1D} est connue pour comporter une discontinuité en temps fini. On choisit $L=1$ et
+\begin{equation}
+u_0(x) = \sin ( 2 \pi x) \text{ pour tout } x \in [0,L]=[0,1].
+\end{equation}
+
+Les résultats sont donnés pour l'algorithme \ref{alg:RK4_burgers1d} sans filtrage dans la figure \ref{fig:comp_burgers}. Des oscillations parasites apparaissent en rendent le calcul très instable. Le schéma numérique ne donne plus de résultats au temps $t=0.4$.
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{burgers_t1.eps}
+\includegraphics[height=5cm]{burgers_t2.eps}
+\end{center}
+\caption{Comparaison de la solution numériques obtenue par l'algorithme \ref{alg:RK4_burgers1d} à différents temps pour la résolution de l'équation \eqref{eq:burgers_1D}. On choisit ici $N=100$ et $\Delta t = 10^{-3}$.}
+\label{fig:comp_burgers}
+\end{figure}
+
+On compare la solution obtenue à l'aide de l'algorithme \ref{alg:RK4_burgers1d} en utilisant différents ordres pour l'opérateur de filtrage. Les résultats sont donnés en figure \ref{fig:comp_burgers_ftr}.
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{burgers_ftr2.eps}
+\includegraphics[height=5cm]{burgers_ftr4.eps}\\
+\includegraphics[height=5cm]{burgers_ftr6.eps}
+\includegraphics[height=5cm]{burgers_ftr8.eps}\\
+\includegraphics[height=5cm]{burgers_ftr10.eps}
+\end{center}
+\caption{Comparaison de différentes solution numériques obtenue par l'algorithme \ref{alg:RK4_burgers1d} au temps $t=5$ pour la résolution de l'équation \eqref{eq:burgers_1D} avec différents filtres. On choisit ici $N=100$ et $\Delta t = 10^{-3}$.}
+\label{fig:comp_burgers_ftr}
+\end{figure}
+Le filtrage d'ordre 2 est beaucoup trop dissipatif. Les filtrages d'ordres plus élevés représentent mieux le choc et permettent au schéma de rester stable jusqu'à $t=5$.
+
 
 
 

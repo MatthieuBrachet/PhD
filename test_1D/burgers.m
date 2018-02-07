@@ -1,12 +1,13 @@
 clc; clear all; close all;
 
-n=200;
+n=100;
 h=1./n;
 x=[h:h:1]';
 
-cfl=.8;
-ddt=cfl*h/.5;
-tmax=1;
+% cfl=0.7;
+% ddt=cfl*h/.5;
+ddt=0.001
+tmax=100;
 
 k=diag(ones(n-1,1),1)-diag(ones(n-1,1),-1);
 k(1,end)=-1; k(end,1)=1;
@@ -15,7 +16,7 @@ p=1/6*diag(ones(n-1,1),1)+1/6*diag(ones(n-1,1),-1)+4/6*eye(n,n);
 p(end,1)=1/6; p(1,end)=1/6;
 p=sparse(p);
 
-opt_ftr='bogey6';
+opt_ftr='redonnet10';
 if strcmp(opt_ftr,'redonnet10')==1
     ftr0=772/1024;
     ftr1=420/1024;
@@ -25,6 +26,27 @@ if strcmp(opt_ftr,'redonnet10')==1
     ftr5=2/1024;
     J=diag(ones(n-1,1),1); J(end,1)=1;
     ftr=ftr0.*eye(n,n)+ftr1/2*(J+J^(n-1))+ftr2/2*(J^2+J^(n-2))+ftr3/2*(J^3+J^(n-3))+ftr4/2*(J^4+J^(n-4))+ftr5/2*(J^5+J^(n-5));
+    
+elseif strcmp(opt_ftr,'redonnet8')==1
+    ftr0=186/256; 
+    ftr1=112/256;
+    ftr2=-56/256;
+    ftr3=16/256;
+    ftr4=-2/256;
+    ftr5=0;
+    J=diag(ones(n-1,1),1); J(end,1)=1;
+    ftr=ftr0.*eye(n,n)+ftr1/2*(J+J^(n-1))+ftr2/2*(J^2+J^(n-2))+ftr3/2*(J^3+J^(n-3))+ftr4/2*(J^4+J^(n-4))+ftr5/2*(J^5+J^(n-5));
+    
+elseif strcmp(opt_ftr,'redonnet6')==1
+    ftr0=44/64;
+    ftr1=30/64;
+    ftr2=-12/64;
+    ftr3=2/64;
+    ftr4=0;
+    ftr5=0;
+    J=diag(ones(n-1,1),1); J(end,1)=1;
+    ftr=ftr0.*eye(n,n)+ftr1/2*(J+J^(n-1))+ftr2/2*(J^2+J^(n-2))+ftr3/2*(J^3+J^(n-3))+ftr4/2*(J^4+J^(n-4))+ftr5/2*(J^5+J^(n-5));
+    
 elseif strcmp(opt_ftr,'redonnet4')==1
     ftr0=10/16;
     ftr1=8/16;
@@ -56,13 +78,13 @@ else
     ftr=speye(n,n);
 end
 
-u=.5+.4*sin(2*pi*x);
+u=sin(2*pi*x);
 %u=exp(-500*(x-.4).^2);
 int=sum(u)*h;
 
 e=[];cons=[];
 t=0;
-while t+ddt<tmax
+while t<tmax
      clc; t=t+ddt
     
     fu=u;
@@ -90,17 +112,18 @@ while t+ddt<tmax
     
     cons=[cons sum(u)*h-int];
     
-%     w=k*u;
-%     dux=p\w;
-%     w=k*dux;
-%     duxx=p\w;
-    
-    pause(0.00001)
-    clf
-    figure(1)
-    plot(x,u)
-    axis([0 1 0 1])
+%     pause(0.00001)
+%     clf
+%     figure(1)
+%     plot(x,u)
+%     axis([0 1 0 1])
 end
 
-figure(2)
-plot(cons)
+% figure(2)
+% plot(cons)
+
+figure(3)
+plot(x,u,'Linewidth',2)
+grid on
+%axis([0 1 -1 1])
+title(['Filtre d''ordre 10'])

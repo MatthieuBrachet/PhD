@@ -1,14 +1,14 @@
-clc; clear all; close all;
+clc; clear all; close all; format shorte
 
 c=1/5;
 
-n=200;
+n=100;
 h=1./n;
 x=[h:h:1]';
 
-cfl=2*sqrt(2/3);
+cfl=1.5;
 ddt=cfl*h/c;
-tmax=8;
+tmax=10;
 
 k=diag(ones(n-1,1),1)-diag(ones(n-1,1),-1);
 k(1,end)=-1; k(end,1)=1;
@@ -18,7 +18,7 @@ p(end,1)=1/6; p(1,end)=1/6;
 p=sparse(p);
 
 
-opt_ftr='hyt';
+opt_ftr='redonnet10';
 if strcmp(opt_ftr,'redonnet10')==1
     ftr0=772/1024;
     ftr1=420/1024;
@@ -28,6 +28,27 @@ if strcmp(opt_ftr,'redonnet10')==1
     ftr5=2/1024;
     J=diag(ones(n-1,1),1); J(end,1)=1;
     ftr=ftr0.*eye(n,n)+ftr1/2*(J+J^(n-1))+ftr2/2*(J^2+J^(n-2))+ftr3/2*(J^3+J^(n-3))+ftr4/2*(J^4+J^(n-4))+ftr5/2*(J^5+J^(n-5));
+    
+elseif strcmp(opt_ftr,'redonnet8')==1
+    ftr0=186/256; 
+    ftr1=112/256;
+    ftr2=-56/256;
+    ftr3=16/256;
+    ftr4=-2/256;
+    ftr5=0;
+    J=diag(ones(n-1,1),1); J(end,1)=1;
+    ftr=ftr0.*eye(n,n)+ftr1/2*(J+J^(n-1))+ftr2/2*(J^2+J^(n-2))+ftr3/2*(J^3+J^(n-3))+ftr4/2*(J^4+J^(n-4))+ftr5/2*(J^5+J^(n-5));
+    
+elseif strcmp(opt_ftr,'redonnet6')==1
+    ftr0=44/64;
+    ftr1=30/64;
+    ftr2=-12/64;
+    ftr3=2/64;
+    ftr4=0;
+    ftr5=0;
+    J=diag(ones(n-1,1),1); J(end,1)=1;
+    ftr=ftr0.*eye(n,n)+ftr1/2*(J+J^(n-1))+ftr2/2*(J^2+J^(n-2))+ftr3/2*(J^3+J^(n-3))+ftr4/2*(J^4+J^(n-4))+ftr5/2*(J^5+J^(n-5));
+    
 elseif strcmp(opt_ftr,'redonnet4')==1
     ftr0=10/16;
     ftr1=8/16;
@@ -61,14 +82,13 @@ end
 ftr=sparse(ftr);
 
 
-%u=(abs(x-.3)<0.2);
-%u=exp(-500*(x-.3).^2);
-u=.4*cos(2*pi*x)+.5;
+u=fun(x);
 int=sum(u)*h;
 
-e=[]; cons=[];
+e1=[]; e2=[]; ei=[];
+cons=[];
 t=0;
-while t+ddt<tmax
+while t<tmax
      clc; t=t+ddt
     
     du=k*u;
@@ -90,24 +110,41 @@ while t+ddt<tmax
     fu=u+ddt/6*(k1+2*k2+2*k3+k4);
     u=ftr*fu;
     
-    %uex=exp(-500*(x-c*t-.3).^2);
-    uex=(abs(x-c*t-.3)<0.2);
-    %uex=.4*cos(2*pi*(x-c*t))+.5;
-    e=[e norm(u-uex,inf)];
+    uex=fun(x-c*t);
+    e1=[e1 norm(u-uex,1)./norm(uex,1)];
+    e2=[e2 norm(u-uex,2)./norm(uex,2)];
+    ei=[ei norm(u-uex,inf)./norm(uex,inf)];
     cons=[cons sum(u)*h-int];
 
     
-    pause(0.001)
-    clf
-    figure(1)
-    plot(x,u)
-    axis([0 1 -.2 1.2])
+%     pause(0.001)
+%     clf
+%     figure(1)
+%     plot(x,u,'Linewidth',2)
+%     axis([0 1 -1.2 1.2])
 end
 
-
 figure(2)
-semilogy(e)
+semilogy([1:length(e1)]*ddt,e2,[1:length(e1)]*ddt,ei,'Linewidth',2)
+legend('norme 2','norme \infty','Location','SouthEast')
+xlabel('Temps')
+ylabel('Erreur')
+title(['\lambda = ', num2str(cfl)])
+grid on
 
-figure(3)
-plot(cons)
+% figure(3)
+% plot([1:length(e1)]*ddt,cons,'Linewidth',2)
+
+    figure(4)
+    plot(x,u,'Linewidth',2)
+    axis([0 1 -1.2 1.2])
+
+    uex=fun(x);
+    figure(5)
+    plot(x,uex,x,u,'Linewidth',2)
+    axis([0 1 -1.2 1.2])
+    xlabel('x')
+    title('Filtrage d''ordre 10')
+
+[e1(end) e2(end) ei(end)]
 
