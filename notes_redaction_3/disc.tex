@@ -41,9 +41,9 @@ On dit qu'une méthode numérique est consistante \cite{Demailly2016} si
 \begin{equation}
 q^n - q(n \Delta t) = e^n
 \end{equation}
-et $e^n \rightarrow 0$ lors que $\Delta t \rightarrow 0$.
+et $e^n \rightarrow 0$ lorsque $\Delta t \rightarrow 0$.
 
-Il existe autres méthodes de Runge-Kutta explicites. On pensera par exemples à la méthode d'Euler Explicite ou le schéma de Heun. Il est classique de représenter une méthode de Runge-Kutta par son \textit{tableau de Butcher} :
+Il existe autres méthodes de Runge-Kutta explicites. On pensera par exemples à la méthode d'Euler Explicite ou le schéma de Heun. Il est classique de représenter une méthode de Runge-Kutta par son \textit{tableau de Butcher} en table \ref{tab:butcher}.
 
 \begin{table}[htbp]
 \begin{center}
@@ -57,8 +57,7 @@ $b$ & $R$ \\
 \label{tab:butcher}
 \end{table}
 
-où $R$ est une matrice, $b$ et $c$ sont des vecteurs. Par exemple, le tableau de Butcher de la méthode de Runge Kutta d'ordre 4 de l'algorithme \ref{alg:RK4} est donné par :
-
+où $R$ est une matrice, $b$ et $c$ sont des vecteurs. Par exemple, le tableau de Butcher de la méthode de Runge Kutta d'ordre 4 de l'algorithme \ref{alg:RK4} est donné ;
 \begin{table}[htbp]
 \begin{center}
 \begin{tabular}{c|cccc}
@@ -89,17 +88,14 @@ c=\begin{bmatrix}
 1/6\\1/3\\1/3\\1/6
 \end{bmatrix}.
 \end{equation}
-
-\begin{proposition}
 Une méthode de Runge-Kutta est explicite si $R$ est triangulaire inférieure strictement.
-\end{proposition}
 
 
 
 
 \subsection{Stabilité}
 
-La \textit{stabilité linéaire} d'un schémas en temps est une notion essentielle associée à un schéma. Cette notion recouvre de nombreux aspects dans la littérature.
+La \textit{stabilité linéaire} d'un schéma en temps est une notion essentielle associée à un schéma. Cette notion recouvre de nombreux aspects dans la littérature.
 Un schéma d'intégration en temps permet de calculer $q^n$ une approximation de $q(n \Delta t)$ à une erreur $e^n$ près :
 \begin{equation}
 q^n = q(n \Delta t) + e^n.
@@ -165,7 +161,7 @@ avec $\theta = \lambda \Delta t$. D'où le résultat.
 On note que si la méthode est explicite alors $R$ est nilpotente donc $r$ est polynomiale en $\theta$, 
 en particulier, pour la méthode de Runge-Kutta d'ordre 4, on a 
 \begin{equation}
-r(\theta) = 1 + \theta + \dfrac{\theta^2}{2} + \dfrac{\theta^3}{6} + \dfrac{\theta^4}{24} 
+r(z) = 1 + z + \dfrac{z^2}{2} + \dfrac{z^3}{6} + \dfrac{z^4}{24} 
 \end{equation}
 alors le résultat de stabilité est le suivant :
 \begin{proposition}
@@ -213,8 +209,8 @@ D'où, en prenant la valeur absolue,
 |e^{n+1}| & \leq |r(\lambda \Delta t)| |e^n| + C \lambda^5 \Delta t^5 q(t^n) \\
 		& \leq  |r(\lambda \Delta t| \left[ |r(\lambda \Delta t)| |e^{n-1}| + C \lambda^5 \Delta t^5 |q(t^{n-1})| \right] + C \lambda^5 \Delta t^5 |q(t^n)| \\
 		& \leq |r(\lambda \Delta t)|^2 |e^{n-1}| + C \lambda^5 \Delta t^5 |r(\lambda \Delta t)| |q(t^{n-1})| + C \lambda^5 \Delta t^5 |q(t^n)| \\
-		& \leq |r(\lambda \Delta t)|^2 |e^{n-1}| + C \lambda^5 \Delta t^5  |q(t^{n-1})| + C \lambda^5 \Delta t^5 |q(t^n)| \text{ par hyposthèse de stabilité.}
-		& \leq \vdots \\
+		& \leq |r(\lambda \Delta t)|^2 |e^{n-1}| + C \lambda^5 \Delta t^5  |q(t^{n-1})| + C \lambda^5 \Delta t^5 |q(t^n)| \text{ par hyposthèse de stabilité.}\\
+		& \leq \hspace{0.5cm} \vdots \\
 		& \leq |r(\lambda \Delta t)|^{n+1} | e^0 | + (n+1) C \lambda^5 \Delta t^5 \max_{0 \leq t \leq T} |q(t)| \\
 		& \leq + (n+1) C \lambda^5 \Delta t^5 \max_{0 \leq t \leq T} |q(t)| \text{ car } e^0 = 0 \\
 		& \leq C T \lambda^5 \Delta t^4 \max_{0 \leq t \leq T} |q(t)|.
@@ -441,7 +437,7 @@ donc en développant, on a
 \end{equation}
 Ainsi, en utilisant l'inégalité de Cauchy-Schwarz, il vient
 \begin{equation}
-\alpha |\mathfrak{u}|_{h,per}^2 + \dfrac{1}{\alpha} |\mathfrak{v}|_{h,per}^2 \geq |\mathfrak{u}|_{h,per} |\mathfrak{v}|_{h,per} \geq 2|(\mathfrak{u}, \mathfrak{v})_{h,per}|.
+\alpha |\mathfrak{u}|_{h,per}^2 + \dfrac{1}{\alpha} |\mathfrak{v}|_{h,per}^2 \geq 2 |\mathfrak{u}|_{h,per} |\mathfrak{v}|_{h,per} \geq 2|(\mathfrak{u}, \mathfrak{v})_{h,per}|.
 \end{equation}
 \end{proof}
 
@@ -453,12 +449,12 @@ Ainsi, en utilisant l'inégalité de Cauchy-Schwarz, il vient
 
 \begin{proposition}
 Dans le contexte des fonctions $L-$périodique.
-Soit $u : (x,t) \in [0,L] \times [O, T] \mapsto u(x,t) \in \mathbb{R}$ la solution de 
+Soit $u : (t,x) \in [O, T] \times [0,L] \mapsto u(t,x) \in \mathbb{R}$ la solution de 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
 \dfrac{\partial u}{\partial t} + c \dfrac{\partial u}{\partial x} & = & 0\\
-u(x,0) & = & u_0(x) 
+u(0,x) & = & u_0(x) 
 \end{array}
 \right.
 \end{equation}
@@ -508,18 +504,18 @@ D'après le lemme de Gronwall, on a
 \end{equation}
 On note alors que
 \begin{align*}
-\|\mathfrak{\tau}\|_{h,per}^2 = h \gsum_{j=0}^{N-1} |\mathfrak{\tau_j}|^2 & \leq h N \|\mathfrak{\tau}\|_{\infty}^2 \\
+\|\mathfrak{\tau}\|_{h,per}^2 = h \gsum_{j=0}^{N-1} |\mathfrak{\tau_j}|^2 & \leq h N \|\mathfrak{\tau}\|_{h,per}^2 \\
 	& \leq  L \|\mathfrak{\tau}\|_{\infty}^2 \\
 	& \leq L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty}^2 \text{ D'après le théorème \ref{th:consistence_herm2}.}
 \end{align*}
 De là, on peut déduire que
 \begin{equation}
-\|\mathfrak{e}\|_{h,per}^2 \leq \alpha^2 L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]]}^2 \max_{t \in [0,T]} \left( \exp \left( \dfrac{ct}{\alpha} \right) -1  \right).
+\|\mathfrak{e}\|_{h,per}^2 \leq \alpha^2 L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]}^2 \max_{t \in [0,T]} \left( \exp \left( \dfrac{ct}{\alpha} \right) -1  \right).
 \end{equation}
 On pose $\beta = \alpha/(ct) \in \mathbb{R}^+$, on a alors directement :
 \begin{align*}
-\|\mathfrak{e}\|_{h,per}^2 & \leq L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]]}^2 c^2 t^2 \beta^2 \left( \exp \left( \dfrac{1}{\beta} \right) -1  \right) \\
-      & \leq L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]]}^2 c^2 T^2 \beta^2 \left( \exp \left( \dfrac{1}{\beta} \right) -1  \right).
+\|\mathfrak{e}\|_{h,per}^2 & \leq L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]}^2 c^2 t^2 \beta^2 \left( \exp \left( \dfrac{1}{\beta} \right) -1  \right) \\
+      & \leq L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]}^2 c^2 T^2 \beta^2 \left( \exp \left( \dfrac{1}{\beta} \right) -1  \right).
 \end{align*}
 Or la fonction $g$ définit par
 \begin{equation}
@@ -531,14 +527,14 @@ est continue, positive et de plus :
 \end{equation}
 donc il existe $m > 0$ telle que pour tout $\beta > 0$, on a $g(\beta)>m$. On peut trouver graphiquement $m \approx 1.545$. De là, il découle que
 \begin{equation*}
-\|\mathfrak{e}\|_{h,per}^2 \leq L C^2 m c^2 T^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]]}^2.
+\|\mathfrak{e}\|_{h,per}^2 \leq L C^2 m c^2 T^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]}^2.
 \end{equation*}
 On peut conclure en prenant la racine carré de cette dernière équation.
 \end{proof}
 
-La présence du terme de temps $T$ dans le terme d'erreur permet de mettre en évidence la détérioration linéaire de l'erreur au fil du temps. 
+La présence du temps $T$ dans le terme d'erreur permet de mettre en évidence la détérioration linéaire de l'erreur au fil du temps. 
 
-L'équation semidiscrétisée de l'équation de transport
+L'équation semi discrétisée de l'équation de transport \eqref{eq:transport_1D_SD} :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -547,8 +543,9 @@ L'équation semidiscrétisée de l'équation de transport
 \end{array}
 \text{ avec } t \in [0,T]
 \right.
+\label{eq:transport_1D_SD}
 \end{equation}
-est discrétisée en utilisant la méthode de Runge-Kutta d'ordre 4. L'algorithme de résolution est donné par l'algorithme \ref{alg:RK4_transport1d}.
+est résolue en utilisant la méthode de Runge-Kutta d'ordre 4. L'algorithme de résolution est donné par l'algorithme \ref{alg:RK4_transport1d} auquel on ajoute une étape de filtrage.
 \begin{center}
 \begin{minipage}[H]{12cm}
   \begin{algorithm}[H]
@@ -568,7 +565,7 @@ est discrétisée en utilisant la méthode de Runge-Kutta d'ordre 4. L'algorithm
 \end{center}
 Dans cet algorithme, $\Delta t > 0$ désigne le pas de discrétisation et $\mathfrak{u}^n$ est une approximation de $\mathfrak{u}(n \Delta t)$.
 
-Comme l'algorithme RK4 et l'opérateur d'approximation $\delta_{4,x}^H$ est une approximation d'ordre 4, on s'attend à une erreur d'ordre 4 en temps et en espace sur l'approximation globale lorsqu'il n'y a pas d'opérateur de filtrage $\mathcal{F}$. L'opérateur de filtrage $\mathcal{F}$ perturbe à un ordre imposé $2F$, on s'attend à un algorithme d'ordre global $\min(2F,4)$.
+Comme l'algorithme RK4 et l'opérateur d'approximation $\delta_{4,x}^H$ permettent des approximations d'ordre 4, on s'attend à une erreur d'ordre 4 en temps et en espace sur l'approximation globale lorsqu'il n'y a pas d'opérateur de filtrage $\mathcal{F}$. L'opérateur de filtrage $\mathcal{F}$ perturbe à un ordre imposé $2F$, on s'attend à un algorithme d'ordre global $\min(2F,4)$.
 La convergence de la méthode est assurée par le théorème de Lax-Richtmyer \cite{Lax1956} si l'algorithme est stable.
 
 
@@ -583,19 +580,18 @@ U^n = \vec_2(\mathfrak{u}^n)
 alors l'algorithme \ref{alg:RK4_transport1d} nous donne
 \begin{align*}
 U^{n+1} & = M \left( 1 - c \Delta t P^{-1}D_2 + \dfrac{(c \Delta t P^{-1}D_2)^2}{2} - \dfrac{(c \Delta t P^{-1}D_2)^3}{6} + \dfrac{(c \Delta t P^{-1}D_2)^4}{24} \right) U^n \\
-		& = S(T) r(- c \Delta t P^-1D_2) U^n \text{ avec } r(x)=1+x+\dfrac{x^2}{2}+\dfrac{x^3}{6}+\dfrac{x^4}{24}\\
+		& = S(T) r(- c \Delta t P^{-1}D_2) U^n \text{ avec } r(x)=1+x+\dfrac{x^2}{2}+\dfrac{x^3}{6}+\dfrac{x^4}{24}\\
 		& = S(T) r \left( -\lambda Q_{4}^H(T) \right) U^n
 \end{align*}
-où $M=S(T)$ est la matrice associée au filtrage $\mathcal{F}$ donnée par \eqref{eq:matrice_filtrage} et \eqref{eq:pol_filtrage}. La matrice $T$ est la matrice de translation \ref{eq:matrice_translation}. $P^{-1}D = Q_4^H(T)$ est donné par \eqref{eq:pol_hermitien}. On pose $\lambda = c \Delta t / h$.
+où $M=S(T)$ est la matrice associée au filtrage $\mathcal{F}$ donnée par \eqref{eq:matrice_filtrage} et \eqref{eq:pol_filtrage}. La matrice $T$ est la matrice de translation \eqref{eq:matrice_translation}. $P^{-1}D = Q_4^H(T)$ est donné par \eqref{eq:pol_hermitien}. On pose $\lambda = c \Delta t / h$.
 
-Pour que la méthode soit asymptotiquement stable et d'après la proposition \ref{prop:stab_rk4_mat}.
-On cherche le plus grand $\lambda$, noté $\lambda_{2F}$, vérifiant
+Pour que la méthode soit asymptotiquement stable et d'après la proposition \ref{prop:stab_rk4_mat}, on cherche le plus grand $\lambda$, noté $\lambda_{2F}$, vérifiant
 \begin{equation}
 \Sp \left( S(T) r \right( -\lambda Q_{4}^H(T) \left) \right) \subset \mathcal{D}_{RK4}.
 \end{equation}
-$2F$ désigne ici l'ordre du filtre. On note $\lambda_{\infty}$ le cas sans filtrage, correspondant à $M=Id$.
+L'indice "$2F$" désigne ici l'ordre du filtre utilisé. On note $\lambda_{\infty}$ le cas sans filtrage, correspondant à $M=Id$.
 
-La condition de stabilité devient alors
+La condition de stabilité s'exprime 
 \begin{equation}
 \lambda = \dfrac{c \Delta t}{h} \leq \lambda_{2F}
 \end{equation}
@@ -613,12 +609,12 @@ on a directement :
 \begin{equation}
 \begin{array}{rcl}
 S(T) & = & V S(\Omega) \bar{V}^T \\
-Q_4^H(T) & = & V Q_4^H(T) \bar{V}^T
+Q_4^H(T) & = & V Q_4^H(\Omega) \bar{V}^T
 \end{array}
 \end{equation}
 d'où la diagonalisation suivante :
 \begin{equation}
-S(T)r(-\lambda Q_4^H(T)) = V \left[ S(\Gamma)r(-\lambda Q_4^H(\Gamma)) \right] \bar{V}^T.
+S(T)r(-\lambda Q_4^H(T)) = V \left[ S(\Omega)r(-\lambda Q_4^H(\Omega)) \right] \bar{V}^T.
 \end{equation}
 Les valeurs propres de $S(T)r(-\lambda Q_4^H(T))$ sont
 \begin{equation}
@@ -626,7 +622,7 @@ S(\omega^k)r(-\lambda Q_4^H(\omega^k))  \text{ pour } -N/2+1 \leq k \leq N/2.
 \end{equation}
 
 
-Considérons dans un premier temps le cas sans filtrage. On a alors $S(T) = Id$, c'est à dire $\mathcal{F} = id$. On a alors
+Considérons dans un premier temps le cas sans filtrage. On a alors $S(T) = Id$, c'est à dire $\mathcal{F} = id$, d'où
 \begin{equation}
 \lambda_{\infty} = \max \left\lbrace \lambda \in \mathbb{R}^+ \text{ tels que } \max_{0 \leq \theta \leq \pi} \left( | r(-\lambda Q_4^H(e^{i \theta}) | \right) \right\rbrace
 \end{equation}
@@ -636,7 +632,7 @@ En l'absence de filtrage, le schéma est asymptotiquement stable si
 \begin{equation}
 \lambda \max_{-N/2+1 \leq k \leq N/2} \dfrac{\sin \left( \frac{2 k \pi}{N} \right)}{\frac{2}{3} + \frac{1}{3} \cos \left( \frac{2 k \pi}{N} \right)} \leq K_{RK4} = 2 \sqrt{2},
 \end{equation}
-ou de manière équivalente
+ce qui donne
 \begin{equation}
 \lambda \leq \lambda_{\infty} = 2\sqrt{\dfrac{2}{3}}.
 \end{equation}
@@ -659,17 +655,17 @@ g(x) = \dfrac{\sin(x)}{2/3 + 1/3 \cos (x)}
 \end{equation}
 D'après la proposition \ref{prop:stab_rk4_mat}, l'algorithme \ref{alg:RK4_transport1d} sans filtrage ($\mathcal{F} = id$) est asymptotiquement stable si
 \begin{equation}
-|\lambda r(- \lambda Q_4^H(\omega^k))| \leq 1
+| r(- \lambda Q_4^H(\omega^k))| \leq 1
 \end{equation}
 ce qui est équivalent à avoir
 \begin{align}
-|\lambda Q_4^H(\omega^k)| = \lambda g \left( \frac{2\pi k}{N} \right) \leq 2 \sqrt{2}
+|\lambda Q_4^H(\omega^k)| = |\lambda g \left( \frac{2\pi k}{N} \right)| \leq 2 \sqrt{2}
 \end{align}
 car $Q_4^H(\omega^k) \in i \mathbb{R}$.
-Or $g(x)$ est majorée par $\sqrt{3}$ (lorsque $x=\frac{2 \pi}{3}$ par exemple).
+Or $g(x)$ est majorée par $\sqrt{3}$, borne atteinte lorsque $x=\frac{2 \pi}{3}$.
 Donc 
 \begin{align*}
-\lambda g \left( \frac{2 k \pi}{N} \right) \leq 2 \sqrt{2} & \Leftrightarrow \lambda \leq \dfrac{2 \sqrt{2}}{\max_{0 \leq x \leq \pi} g(x)} \\
+| \lambda g \left( \frac{2 k \pi}{N} \right)| \leq 2 \sqrt{2} & \Leftrightarrow \lambda \leq \dfrac{2 \sqrt{2}}{\max_{0 \leq x \leq \pi} g(x)} \\
 	& \Leftrightarrow \lambda \leq 2 \sqrt{\dfrac{2}{3}}. 
 \end{align*}
 \end{proof}
@@ -742,7 +738,7 @@ De manière similaire à \cite{Desquesnes2007} et \cite{Dubois2016}, on rappelle
 
 La solution de l'équation de transport \eqref{eq:transport_1D} en contexte périodique est donnée pour tout $x \in [0,L]$ et $t>0$ par
 \begin{equation}
-u(x,t)=u_0(x-ct).
+u(t,x)=u_0(x-ct).
 \end{equation}
 Si la fonction initiale $u_0$ est donnée par une onde de la forme 
 \begin{equation}
@@ -750,16 +746,16 @@ u_0(x) = \exp \left( i \dfrac{2 \pi k}{L} x \right)
 \end{equation}
 avec $-N/2 +1 \leq k \leq N/2 $, alors la solution est
 \begin{equation}
-u(x,t) = \exp \left( i \dfrac{2 \pi k}{L} (x-ct) \right)
+u(t,x) = \exp \left( i \dfrac{2 \pi k}{L} (x-ct) \right)
 \end{equation}
 et vérifie en $x_j = j h = j L/N$ et $t^n = n \Delta t$ :
 \begin{equation}
-u(x_j,t^{n+1}) = e^{-i \lambda \theta} u(x_j, t^n)
+u(t^{n+1},x_j) = e^{-i \lambda \theta} u(t^n,x_j)
 \label{eq:e(ilambdateta)}
 \end{equation}
 où $\lambda = c \Delta t /h$ et $\theta = 2 \pi k / N$.
 
-D'autres part, l'application d'un schéma de discrétisation spatiale linéaire et puis d'un schéma d'intégration temporel à \eqref{eq:transport_1D} donne la relation suivante 
+D'autres part, l'application d'un schéma de discrétisation spatiale linéaire et d'un schéma d'intégration temporel à \eqref{eq:transport_1D} donne une relation suivante de la forme
 \begin{equation}
 \mathfrak{u}_j^{n+1} = G(\lambda, \theta) \mathfrak{u}_j^n
 \end{equation}
@@ -767,7 +763,7 @@ où $\mathfrak{u}_j^n$ est une approximation de $u(x_j, t^n)$.
 $(\lambda,\theta)\mapsto G(\lambda,\theta)$ est la fonction d'amplification du schéma numérique.
 Par exemple, en utilisant l'algorithme \ref{alg:RK4_transport1d}, on trouve
 \begin{equation}
-G(\lambda, \theta) = S(e^{i \theta}) r(- \lambda Q^H_{4}(e^{i \theta})
+G(\lambda, \theta) = S(e^{i \theta}) r(- \lambda Q^H_{4}(e^{i \theta}) )
 \end{equation}
 où $r(x) =  1 + x + \frac{1}{2}x^2 + \frac{1}{6}x^3 + \frac{1}{24}x^4$, $S$ est issu du filtrage $\mathcal{F}$ et donné par \eqref{eq:pol_filtrage}, $Q_4^H$ est associé au schéma hermitien $\delta_4^H$ et donné par l'équation \eqref{eq:pol_hermitien}.
 
@@ -781,9 +777,10 @@ De là, il vient la relation suivante :
 	& = \exp \left( \dfrac{c_I(\lambda, \theta)}{c} \lambda \theta \right) \exp \left( - i \lambda \theta \left( \dfrac{c_R(\lambda, \theta)}{c} -1 \right) \right) \\
 	& = |G(\lambda, \theta)| \exp \left( - i \lambda \theta \left( \dfrac{c_R(\lambda, \theta)}{c} -1 \right) \right).
 \end{align*}
-A $\lambda$ fixé, on définit \textit{la fonction de dissipation} $\varepsilon_D$ et \textit{ la fonction de dispersion} $\varepsilon_{\Phi}$ par
+A $\lambda$ fixé, on définit \textit{la fonction de dissipation} $\varepsilon_D$ et \textit{la fonction de dispersion} $\varepsilon_{\Phi}$.
 
 \begin{definition}
+Soit $\lambda$ fixé.
 La fonction de dissipation $\varepsilon_D$ est définie par
 \begin{equation}
 \begin{array}{rcl}
@@ -791,7 +788,11 @@ La fonction de dissipation $\varepsilon_D$ est définie par
 \theta & \mapsto & |\varepsilon(\lambda,\theta)| = |G(\lambda, \theta)|
 \end{array},
 \end{equation}
-la fonction de dispersion $\varepsilon_{\Phi}$ est définie par
+On note que 
+\begin{equation}
+\varepsilon_D(\theta) = \exp \left( \dfrac{c_I(\lambda, \theta)}{c} \lambda \theta \right).
+\end{equation}
+La fonction de dispersion $\varepsilon_{\Phi}$ est définie par
 \begin{equation}
 \begin{array}{rcl}
 \varepsilon_{\Phi} : ]- \pi, \pi[ & \rightarrow & \mathbb{R} \\
@@ -809,7 +810,7 @@ Avec de telles notations, on remarque que
 \varepsilon(\lambda,\theta) = \varepsilon_D(\lambda,\theta) \exp \left( - i \lambda \theta \left( \varepsilon_{\Phi}(\lambda,\theta) -1 \right) \right).
 \end{equation}
 
-L'opérateur de filtrage n'a aucune influence sur la fonction de dissipation, en effet, il s'agit de la multiplication par un scalaire de la fonction d'amplification $G(\lambda,\theta)$.
+L'opérateur de filtrage n'a aucune influence sur la fonction de dispersion, en effet, il s'agit de la multiplication par un scalaire de la fonction d'amplification $G(\lambda,\theta)$.
 
 La fonction de dissipation $\varepsilon_D$ mesure la dissipation du schéma numérique. On note en particulier que le schéma est asymptotiquement stable si et seulement si pour tout $\theta$, on a 
 \begin{equation}
@@ -830,7 +831,7 @@ La fonction de dispersion $\varepsilon_{\Phi}$ mesure l'erreur de phase du sché
 \includegraphics[scale=0.5]{dissip4.eps}
 \includegraphics[scale=0.5]{dissipf4.eps}
 \end{center}
-\caption{Fonction de dissipation et de dispersion associée à l'algorithme \ref{alg:RK4_transport1d} de résolution de l'équation \eqref{eq:transport_1D} sans un filtre (gauche) et avec filtre d'ordre 10 (droite) pour différentes valeurs de $\lambda = c \Delta t / h$.}
+\caption{Fonctions de dissipation et de dispersion associées à l'algorithme \ref{alg:RK4_transport1d} de résolution de l'équation \eqref{eq:transport_1D} sans un filtre (gauche) et avec filtre d'ordre 10 (droite) pour différentes valeurs de $\lambda = c \Delta t / h$.}
 \label{fig:dissip_disper}
 \end{figure}
 
@@ -850,7 +851,7 @@ L'équation de transport \eqref{eq:transport_1D} est une équation de conservati
 \begin{proposition}
 Si $u$ est une solution périodique de \eqref{eq:transport_1D} alors pour tout $t>0$, on a
 \begin{equation}
-\gint_0^1 u(x,t)dx = \gint_0^1 u_0(x)dx,
+\gint_0^1 u(t,x)dx = \gint_0^1 u_0(x)dx,
 \end{equation}
 la "masse" de $u$ est conservée au cours du temps.
 \end{proposition}
@@ -858,15 +859,15 @@ la "masse" de $u$ est conservée au cours du temps.
 \begin{proof}
 Il suffit de montrer que la quantité
 \begin{equation}
-\gint_0^1 u(x,t)dx
+\gint_0^1 u(t,x)dx
 \end{equation}
 est indépendante du temps $t$.
 
 Comme $u$ est solution de \eqref{eq:transport_1D}, on a
 \begin{align*}
-\dfrac{d}{dt} \gint_0^1 u(x,t) dx & = \gint_0^1 \dfrac{\partial u}{\partial t}(x,t) dx \\
-	& = - c \gint_0^1 \dfrac{\partial u}{\partial x} (x,t) dx \\
-	& = - c \left[ u(x,t) \right]_{x=0}^{x=1}
+\dfrac{d}{dt} \gint_0^1 u(t,x) dx & = \gint_0^1 \dfrac{\partial u}{\partial t}(t,x) dx \\
+	& = - c \gint_0^1 \dfrac{\partial u}{\partial x} (t,x) dx \\
+	& = - c \left[ u(t,x) \right]_{x=0}^{x=1} \\
 	& = 0 \text{ par périodicité de la solution.}
 \end{align*}
 d'où le résultat souhaité.
@@ -886,9 +887,9 @@ où $\mathfrak{1}$ est la fonction de grille constante égale à 1.
 \begin{proof}
 Soit $\mathfrak{b} \in l^2_{h,per}$ une fonction de grille quelconque, alors, en notant $b=\vec(\mathfrak{b})$, on a
 \begin{align*}
-(\delta_{4,x}^H \mathfrak{b}, \mathfrak{1})_{h,per} & = \dfrac{1}{h} \left( Q_4^H(T) b \right) \cdot \mathbf{1}^T \\
-	& = \dfrac{1}{h} b \cdot (\bar{Q}_4^H(T) \mathbf{1})^T \\
-	& = \dfrac{1}{h} b \cdot \mathbf{0}^T \text{ par antisymétrie de }Q_4^H(T)\\
+(\delta_{4,x}^H \mathfrak{b}, \mathfrak{1})_{h,per} & = \dfrac{1}{h} \left( Q_4^H(T) b \right)^T \cdot \mathbf{1} \\
+	& = \dfrac{1}{h} b^T \cdot (\bar{Q}_4^H(T) \mathbf{1}) \\
+	& = \dfrac{1}{h} b^T \cdot \mathbf{0} \text{ par antisymétrie de }Q_4^H(T)\\
 	& = 0.
 \end{align*}
 De cette égalité, on peut déduire directement que
@@ -899,8 +900,8 @@ pour tout $i \in \left\lbrace 1, 2, 3, 4 \right\rbrace$.
 
 De là, on déduit :
 \begin{align*}
-(\mathfrak{u}^{n+1},\mathfrak{1})_{h,per} & =  \left( S(T) \left( U^n + \dfrac{\Delta t}{6}(K^{(1)}+2K^{(2)}+2K^{(3)}+K^{(4)})  \right) \right) \cdot \mathbf{1}^T \\
-	& = \left( U^n + \dfrac{\Delta t}{6}(K^{(1)}+2K^{(2)}+2K^{(3)}+K^{(4)})  \right) \cdot \mathbf{1}^T \text{ par symétrie de } S(T)\\
+(\mathfrak{u}^{n+1},\mathfrak{1})_{h,per} & =  \left( S(T) \left( U^n + \dfrac{\Delta t}{6}(K^{(1)}+2K^{(2)}+2K^{(3)}+K^{(4)})  \right) \right)^T \cdot \mathbf{1} \\
+	& = \left( U^n + \dfrac{\Delta t}{6}(K^{(1)}+2K^{(2)}+2K^{(3)}+K^{(4)})  \right)^T \cdot \mathbf{1} \text{ par symétrie de } S(T)\\
 	& = (\mathfrak{u}^n , \mathfrak{1})_{h,per}.
 \end{align*}
 avec $U^n = \vec_1(\mathfrak{u}^n)$.
@@ -995,7 +996,7 @@ On constate dans la figure \ref{fig:comp_ireg} que le filtrage d'ordre 2 permet 
 
 \section{Equation de Burgers en dimension 1}
 
-La solution de l'équation de transport \eqref{eq:transport_1D} ne présente pas d'irrégularités si la solution initiale n'en comporte pas. Cependant lors de la résolution d'équations de conservations non linéaires, des chocs peuvent apparaître, ces solutions sont irrégulières et contiennent des hautes fréquences. On renvoie à \cite{Witham1974} pour plus de détails.
+La solution de l'équation de transport \eqref{eq:transport_1D} ne présente pas d'irrégularités si la solution initiale n'en comporte pas. Cependant lors de la résolution d'équations de conservations non linéaires, des chocs peuvent apparaître, les solutions sont alors irrégulières et contiennent des hautes fréquences. On renvoie à \cite{Witham1974} pour plus de détails.
 
 L'exemple le plus simple d'équation de conservation non linéaire est l'équation de Burgers :
 \begin{equation}
@@ -1037,7 +1038,7 @@ L'équation de Burgers \eqref{eq:burgers_1D} est connue pour comporter une disco
 u_0(x) = \sin ( 2 \pi x) \text{ pour tout } x \in [0,L]=[0,1].
 \end{equation}
 
-Les résultats sont donnés pour l'algorithme \ref{alg:RK4_burgers1d} sans filtrage dans la figure \ref{fig:comp_burgers}. Des oscillations parasites apparaissent en rendent le calcul très instable. Le schéma numérique ne donne plus de résultats au temps $t=0.4$.
+Les résultats sont donnés pour l'algorithme \ref{alg:RK4_burgers1d} sans filtrage dans la figure \ref{fig:comp_burgers}. Des oscillations parasites apparaissent et rendent le calcul très instable. Le schéma numérique ne donne plus de résultats au temps $t=0.4$.
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[height=5cm]{burgers_t1.eps}
@@ -1046,7 +1047,6 @@ Les résultats sont donnés pour l'algorithme \ref{alg:RK4_burgers1d} sans filtr
 \caption{Comparaison de la solution numériques obtenue par l'algorithme \ref{alg:RK4_burgers1d} à différents temps pour la résolution de l'équation \eqref{eq:burgers_1D}. On choisit ici $N=100$ et $\Delta t = 10^{-3}$.}
 \label{fig:comp_burgers}
 \end{figure}
-
 On compare la solution obtenue à l'aide de l'algorithme \ref{alg:RK4_burgers1d} en utilisant différents ordres pour l'opérateur de filtrage. Les résultats sont donnés en figure \ref{fig:comp_burgers_ftr}.
 \begin{figure}[htbp]
 \begin{center}
@@ -1059,7 +1059,7 @@ On compare la solution obtenue à l'aide de l'algorithme \ref{alg:RK4_burgers1d}
 \caption{Comparaison de différentes solution numériques obtenue par l'algorithme \ref{alg:RK4_burgers1d} au temps $t=5$ pour la résolution de l'équation \eqref{eq:burgers_1D} avec différents filtres. On choisit ici $N=100$ et $\Delta t = 10^{-3}$.}
 \label{fig:comp_burgers_ftr}
 \end{figure}
-Le filtrage d'ordre 2 est beaucoup trop dissipatif. Les filtrages d'ordres plus élevés représentent mieux le choc et permettent au schéma de rester stable jusqu'à $t=5$.
+Le filtrage d'ordre 2 est trop dissipatif. Les filtrages d'ordres plus élevés représentent mieux le choc et permettent au schéma de rester stable jusqu'à $t=5$.
 
 
 
@@ -1076,12 +1076,353 @@ Le filtrage d'ordre 2 est beaucoup trop dissipatif. Les filtrages d'ordres plus 
 
 
 
-\section{Equation des ondes en dimension 2}
+\section{Équation des ondes en dimension 2}
 
-\subsection{Discrétisation}
+On considère dans cette partie l'équation des ondes sur un carré périodique avec un paramètre du type Coriolis. Cette équation peut être obtenue comme un linéarisé de l'équation Shallow Water et s'écrit 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial \eta}{\partial t} + H \left( \dfrac{\partial u}{\partial x} + \dfrac{\partial v}{\partial y} \right) & = & 0 \\
+\dfrac{\partial u}{\partial t} + g \dfrac{\partial \eta}{\partial x} - f v & = & 0 \\
+\dfrac{\partial v}{\partial t} + g \dfrac{\partial \eta}{\partial y} + f u & = & 0 \\
+\end{array}
+\right.
+\label{eq:ondes_2D}
+\end{equation}
+Les fonctions $\eta_0$, $u_0$ et $v_0$ sont données de $\Omega = [0,1]^2$ dans $\mathbb{R}$ et sont $1-$périodiques. On ajoute, à cette équation, une condition initiale de la forme
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\eta(0,x,y) & = & \eta_0(x,y)\\
+u(0,x,y) & = & u_0(x,y)\\
+v(0,x,y) & = & v_0(x,y)
+\end{array}
+\right.
+\end{equation}
+avec $(x,y) \in \Omega.$. 
 
-\subsection{Consistance et Stabilité}
+\begin{proposition}
+Si $\eta$, $u$ et $v$ sont trois fonctions de $\mathbb{R}^+ \times [0,1]^2$ dans $\mathbb{R}$ solutions de \eqref{eq:ondes_2D} alors les relations de conservation suivantes sont vérifiées :
+\begin{itemize}
+\item \textbf{Conservation de la masse :}
+\begin{equation}
+\dfrac{d}{dt} \gint_{[0,1]^2} h(t,x,y)dxdy = 0,
+\end{equation}
+\item \textbf{Conservation de l'énergie :}
+\begin{equation}
+\dfrac{d}{dt} \gint_{[0,1]^2} \left( \dfrac{1}{2} g h(t,x,y)^2 + \dfrac{1}{2} H \left( u(t,x,y)^2 + v(t,x,y)^2 \right) \right).
+\end{equation}
+\end{itemize}
+\end{proposition}
 
-\subsection{Relations de conservations}
+\begin{proof}
+Soient $\eta$, $u$ et $v$ trois fonctions de $\mathbb{R}^+ \times [0,1]^2$ dans $\mathbb{R}$ solutions de \eqref{eq:ondes_2D} alors :
+\begin{itemize}
+\item \textbf{Conservation de la masse :}
+\begin{align*}
+\dfrac{d}{dt} \gint_{[0,1]^2} \eta(t,x,y)dxdy & = - H \gint_{[0,1]^2} \dfrac{\partial u}{\partial x}(t,x,y) + \dfrac{\partial v}{\partial y}(t,x,y) dx dy \\
+	& - H \gint_0^1 \left( u(t,1,y) - u(t,0,y) \right)dy  - H \gint_0^1 \left( u(t,x,1) - u(t,x,0) \right)dx \\
+	& = 0 \text{ par périodicité de } u \text{ et } v. 
+\end{align*}
+
+\item \textbf{Conservation de l'énergie :} en multipliant la première équation de \eqref{eq:ondes_2D} par $\eta$ et en intégrant, on a 
+\begin{align*}
+\dfrac{1}{2} \dfrac{d}{dt} \gint_{[0,1]^2} \eta(t,x,y)^2 dx dy & = \gint_{[0,1]^2} \eta(t,x,y) \dfrac{\partial \eta}{\partial t}(t,x,y) dx dy \\
+	& = - H \gint_{[0,1]^2} \eta(t,x,y) \left( \dfrac{\partial u}{\partial x}(t,x,y) + \dfrac{\partial v}{\partial y}(t,x,y) \right) dx dy.
+\end{align*}
+D'autres part, on a 
+\begin{align*}
+\dfrac{1}{2} \dfrac{d}{dt} \gint_{[0,1]^2} u(t,x,y)^2 dx dy & = \gint_{[0,1]^2} u(t,x,y) \dfrac{\partial u}{\partial t}(t,x,y) dx dy \\
+& = \gint_{[0,1]^2} f u(t,x,y) v(t,x,y) - g u(t,x,y) \dfrac{\partial \eta}{\partial x}(t,x,y) dx dy,
+\end{align*}
+ainsi que 
+\begin{equation*}
+\dfrac{1}{2} \dfrac{d}{dt} \gint_{[0,1]^2} v(t,x,y)^2 dx dy =  \gint_{[0,1]^2}  - f u(t,x,y) v(t,x,y) - g u(t,x,y) \dfrac{\partial \eta}{\partial y}(t,x,y) dx dy.
+\end{equation*}
+En combinant ces trois dernières relations, on montre que
+\begin{multline*}
+\dfrac{d}{dt} \gint_{[0,1]^2} \left( \dfrac{1}{2} g h(t,x,y)^2 + \dfrac{1}{2} H \left( u(t,x,y)^2 + v(t,x,y)^2 \right) \right) = \\
+- g H \gint_{[0,1]^2} \dfrac{\partial}{\partial x} \left( \eta(t,x,y) u (t,x,y) \right) +  \dfrac{\partial}{\partial y} \left( \eta(t,x,y) v (t,x,y) \right) dx dy
+= 0
+\end{multline*}
+en utilisant la périodicité de $\eta$, $u$ et $v$.
+\end{itemize}
+\end{proof}
+
+
+
+
+
+
+\subsection{Schéma numérique}
+
+Comme pour l'équation de transport \eqref{eq:transport_1D}, on procède par la méthode des lignes. On commence donc par discrétisée en espace l'équation \eqref{eq:ondes_2D} en espace :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{d \etafrak}{dt} + H ( \delta_{x,4}^H \mathfrak{u} + \delta_{y,4}^H \mathfrak{v} ) & = & 0 \\
+\dfrac{d \mathfrak{u}}{dt} + g \delta_{x,4}^H \etafrak - f \mathfrak{v} & = & 0 \\
+\dfrac{d \mathfrak{v}}{dt} + g \delta_{y,4}^H \etafrak + f \mathfrak{u} & = & 0 \\
+\end{array}
+\right. .
+\label{eq:ondes_2D_SD}
+\end{equation}
+où $H$, $g$ et $f$ sont des constantes positives.
+On cherche alors $\etafrak$, $\mathfrak{u}$ et $\mathfrak{v}$ des fonctions de $\mathbb{R}^+$ dans $L^2_{h,per}$.
+
+\begin{proposition}
+$\etafrak$, $\mathfrak{u}$ et $\mathfrak{v}$ solutions de \eqref{eq:ondes_2D_SD} convergent vers $\eta$, $u$ et $v$ solutions de \eqref{eq:ondes_2D} sur $[0,T]$ au sens où il existe $\tilde{C}>0$ tel que
+\begin{equation}
+E(t) \leq g^2 H^2 T^2 \tilde{C} \max_{t \in [0,T]} \left( \dfrac{1}{H} \| \partial_x^{(5)} u \|^2_{\infty}, \dfrac{1}{H} \| \partial_y^{(5)} v \|^2_{\infty}, \dfrac{1}{g} \| \partial_x^{(5)} \eta \|^2_{\infty}, \dfrac{1}{g} \| \partial_y^{(5)} \eta \|^2_{\infty}  \right) h^4
+\end{equation}
+avec les termes d'erreur $\mathfrak{e}_{\eta} = \eta^* - \etafrak$, $\mathfrak{e}_{u} = u^* - \mathfrak{u}$ et $\mathfrak{e}_{v} = v^* - \mathfrak{v}$ ainsi que $E(t) = g \| \mathfrak{e}_{\eta} \|^2_{h,per} + H \| \mathfrak{e}_u \|^2_{h,per} + H \| \mathfrak{e}_v \|^2_{h,per}$.
+\end{proposition}
+
+\begin{proof}
+On définit les termes de troncature $\mathbf{\tau}_x \eta = \delta_{4,x}^H \etafrak- (\partial_x \eta)^*$, $\mathbf{\tau}_y \eta = \delta_{4,y}^H \etafrak- (\partial_y \eta)^*$, $\mathbf{\tau}_x u = \delta_{4,x}^H \mathfrak{u}- (\partial_x u)^*$ et $\mathbf{\tau}_y v = \delta_{4,y}^H \mathfrak{v}- (\partial_y v)^*$.
+
+Les termes d'erreur et de troncature sont solutions de 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcccl}
+d_t \mathfrak{e}_{\eta} & = &  H \left( \delta_{4,x}^H \mathfrak{e}_u + \delta_{4,y}^H \mathfrak{e}_v \right) & + & H \left( \tau_x u + \tau_y v \right)\\
+d_t \mathfrak{e}_u & = & -g \delta_{4,x}^H \mathfrak{e}_{\eta} + f \mathfrak{e}_v & - & g \tau_x \eta \\
+d_t \mathfrak{e}_v & = & - g \delta_{4,y}^H \mathfrak{e}_{\eta} - f \mathfrak{e}_u
+ & - & g \tau_y \eta  \end{array}
+\right.
+\end{equation}
+
+Dès lors, par produit scalaire avec $\mathfrak{e}_{\eta}$ de la première équation on trouve :
+\begin{equation}
+\dfrac{1}{2} \dfrac{d}{dt} \| \mathfrak{e}_{\eta} \|_{h,per}^2 = (d_t \mathfrak{e}_{\eta}, \mathfrak{e}_{\eta})_{h,per} = - H ( \delta_{4,x}^H \mathfrak{e}_{u} + \delta_{4,y}^H \mathfrak{e}_{v}, \mathfrak{e}_{\eta})_{h,per}  + H ( \tau_x u + \tau_y v, \mathfrak{e}_{\eta})_{h,per}
+\label{eq:consist_ondes1}
+\end{equation}
+En effectuant les produits scalaires de la seconde et troisième équation par $\mathfrak{e}_u$ et $\mathfrak{e}_v$, on trouve :
+\begin{equation}
+(d_t \mathfrak{e}_u, \mathfrak{e}_u)_{h,per} = - g (\delta_{4,x}^H \mathfrak{e}_{\eta}, \mathfrak{e}_u)_{h,per} + f(\mathfrak{e}_v, \mathfrak{e}_u)_{h,per} - g(\tau_x \eta, \mathfrak{e}_u)_{h,per}
+\end{equation}
+ainsi que 
+\begin{equation}
+(d_t \mathfrak{e}_v, \mathfrak{e}_v)_{h,per} = - g (\delta_{4,y}^H \mathfrak{e}_{\eta}, \mathfrak{e}_v)_{h,per} - f(\mathfrak{e}_u, \mathfrak{e}_v)_{h,per} - g(\tau_y \eta, \mathfrak{e}_v)_{h,per}.
+\end{equation}
+Alors, en sommant ces deux équations et en utilisant l’anti-symétrie de $\delta_{4,x}^H$ et $\delta_{4,y}^H$, on a
+\begin{align}
+\dfrac{1}{2} \dfrac{d}{dt} \left( \| \mathfrak{e}_{u} \|_{h,per}^2 + \| \mathfrak{e}_{v} \|_{h,per}^2 \right) & = (d_t \mathfrak{e}_u, \mathfrak{e}_u)_{h,per}) + (d_t \mathfrak{e}_v, \mathfrak{e}_v)_{h,per} \\
+& = g (\delta_{4,x}^H \mathfrak{e}_u + \delta_{4,y}^H \mathfrak{e}_v, \mathfrak{e}_{\eta})_{h,per} - g(\tau_x \eta, \mathfrak{e}_u)_{h,per} - g(\tau_y \eta, \mathfrak{e}_v)_{h,per}
+\label{eq:consist_ondes2}
+\end{align}
+En sommant $g \times $\eqref{eq:consist_ondes1} $+ H \times$\eqref{eq:consist_ondes2}, on trouve :
+\begin{equation}
+\dfrac{d}{dt} E(t) = 2 g H \left( (\tau_x u + \tau_y v, \mathfrak{e}_{\eta})_{h,per} - (\tau_x \eta, \mathfrak{e}_u )_{h,per} - (\tau_y \eta, \mathfrak{e}_v )_{h,per} \right).
+\end{equation}
+Dès lors, en prenant la valeur absolue, on peut majorer le terme de droite :
+\begin{equation}
+\dfrac{d}{dt} E(t) \leq 2 g H \left( |(\tau_x u + \tau_y v, \mathfrak{e}_{\eta})_{h,per}| + |(\tau_x \eta, \mathfrak{e}_u )_{h,per}| + |(\tau_y \eta, \mathfrak{e}_v )_{h,per}|  \right)
+\end{equation}
+En utilisant le lemme \ref{lem:ineg_1}, on montre que
+\begin{equation}
+\dfrac{d}{dt} E(t) \leq 2 g H \left( \dfrac{\alpha}{H} \|\tau_x u + \tau_y v \|_{h,per}^2 + \dfrac{H}{\alpha} \| \mathfrak{e}_{\eta} \|_{h,per}^2 + \dfrac{\alpha}{g} \| \tau_x \eta \|_{h,per}^2  + \dfrac{\alpha}{g} \| \tau_y \eta \|_{h,per}^2 + \dfrac{g}{\alpha} \| \mathfrak{e}_u \|_{h,per}^2 + \dfrac{g}{\alpha} \| \mathfrak{e}_v \|_{h,per}^2   \right)
+\end{equation}
+C'est à dire
+\begin{equation}
+\dfrac{d}{dt} E(t)\leq 2 g H \left( \alpha \Upsilon + \dfrac{1}{\alpha} E(t) \right)
+\end{equation}
+avec $\Upsilon = \dfrac{1}{H} \| \tau_x u + \tau_y v \|^2_{h,per} + \dfrac{1}{g} \left( \| \tau_x \eta \|^2_{h,per} + \| \tau_y \eta \|^2_{h,per} \right)$.
+D'après le lemme de Gronwall :
+\begin{equation}
+E(t) \leq \alpha^2 \Upsilon \left( \exp \left( \dfrac{2 g H}{\alpha} \right) -1 \right)
+\label{eq:preuve_consist1}
+\end{equation}
+Par consistance de l'opérateur $\delta_{4,x}^H$ et de l'opérateur $\delta_{4,y}^H$, il est facile de montrer qu'il existe une constante $C>0$ telle que
+\begin{equation}
+\Upsilon \leq C \max_{t \in [0,T]} \left( \dfrac{1}{H} \| \partial_x^{(5)} u \|^2_{\infty}, \dfrac{1}{H} \| \partial_y^{(5)} v \|^2_{\infty}, \dfrac{1}{g} \| \partial_x^{(5)} \eta \|^2_{\infty}, \dfrac{1}{g} \| \partial_y^{(5)} \eta \|^2_{\infty}  \right) h^4
+\end{equation}
+De plus, on pose $\beta = \alpha/(2gHt)$ et l'équation \eqref{eq:preuve_consist1} devient 
+\begin{equation}
+E(t) \leq g^2 H^2 t^2 C \max_{t \in [0,T]} \left( \dfrac{1}{H} \| \partial_x^{(5)} u \|^2_{\infty}, \dfrac{1}{H} \| \partial_y^{(5)} v \|^2_{\infty}, \dfrac{1}{g} \| \partial_x^{(5)} \eta \|^2_{\infty}, \dfrac{1}{g} \| \partial_y^{(5)} \eta \|^2_{\infty}  \right) a(\beta)
+\end{equation}
+avec la fonction $a$ définit par
+\begin{equation}
+a :\beta \in \mathbb{R}^+ \mapsto \beta^2 \left( \exp \left( \dfrac{1}{\beta} \right) -1  \right).
+\end{equation}
+$a$ est continue, positive et de plus :
+\begin{equation}
+\lim_{\beta \rightarrow + \infty} a(\beta) = \lim_{\beta \rightarrow 0^+} a(\beta) = + \infty
+\end{equation}
+donc il existe $m > 0$ telle que pour tout $\beta > 0$, on a $a(\beta)>m$. On peut trouver graphiquement $m \approx 1.545$.
+
+Ainsi, on a 
+\begin{equation}
+E(t) \leq g^2 H^2 T^2 C m \max_{t \in [0,T]} \left( \dfrac{1}{H} \| \partial_x^{(5)} u \|^2_{\infty}, \dfrac{1}{H} \| \partial_y^{(5)} v \|^2_{\infty}, \dfrac{1}{g} \| \partial_x^{(5)} \eta \|^2_{\infty}, \dfrac{1}{g} \| \partial_y^{(5)} \eta \|^2_{\infty}  \right) h^4.
+\end{equation}
+\end{proof}
+
+De plus, le système semi-discrétisé \eqref{eq:ondes_2D_SD}vérifie des relations de conservations très semblables à celles de l'équation d'origine \eqref{eq:ondes_2D}.
+
+\begin{proposition}
+Si $\etafrak$, $\mathfrak{u}$ et $\mathfrak{v}$ sont solutions de \eqref{eq:ondes_2D_SD} alors les relations de conservation suivantes sont vérifiées :
+\begin{itemize}
+\item \textbf{Conservation de la masse :}
+\begin{equation}
+\dfrac{d}{dt} (\etafrak, \mathfrak{1})_{h,per} = 0,
+\end{equation}
+\item \textbf{Conservation de l'énergie :}
+\begin{equation}
+\dfrac{d}{dt} \left( \dfrac{1}{2} g \| \etafrak \|_{h,per}^2 + \dfrac{1}{2} H ( \| \mathfrak{u} \|_{h,per}^2 +  \| \mathfrak{v} \|_{h,per}^2) \right) = 0.
+\end{equation}
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+\begin{itemize}
+\item \textbf{Conservation de la masse :}
+par consistance des opérateurs $\delta_{4,x}^H$ et $\delta_{4,y}^H$, on note que $\delta_{4,x}^H \mathfrak{1} = \mathfrak{0}$ et $\delta_{4,y}^H \mathfrak{1} = \mathfrak{0}$, où $\mathfrak{1}$ (resp. $\mathfrak{0}$) est la fonction de grille égale à $1$ (resp. $0$). De là, il découle :
+\begin{align*}
+\dfrac{d}{dt} (\etafrak, \mathfrak{1})_{h,per} & = ( d_t \etafrak, \mathfrak{1} )_{h,per} \\
+	& = - H (\delta_{4,x} \mathfrak{u}, \mathfrak{1})_{h,per} - H (\delta_{4,y} \mathfrak{v}, \mathfrak{1})_{h,per} \\
+	& H (\mathfrak{u}, \delta_{4,x} \mathfrak{1})_{h,per} + H (\mathfrak{v}, \delta_{4,y} \mathfrak{1})_{h,per} \\
+	& 0
+\end{align*}
+en utilisant l'anti-symétrie des opérateurs.
+
+\item \textbf{Conservation de l'énergie :}
+Il est facile de montrer que 
+\begin{equation}
+(d_t \etafrak, \etafrak)_{h,per} = \dfrac{1}{2} \dfrac{d}{dt} \| \etafrak \|^2_{h,per} = - H (\delta_{4,x} \mathfrak{u}, \etafrak)_{h,per} - H (\delta_{4,y} \mathfrak{v}, \etafrak)_{h,per}.
+\end{equation}
+De même, on a :
+\begin{equation}
+\dfrac{1}{2} \dfrac{d}{dt} (\| \mathfrak{u} \|_{h,per}^2 + \| \mathfrak{v} \|_{h,per}^2) = g (\delta_{4,x}^H \mathfrak{u}+\delta_{4,y}^H \mathfrak{v}, \etafrak)_{h,per}.
+\end{equation}
+Alors par combinaison, on trouve bien le résultat souhaité :
+\begin{equation}
+\dfrac{d}{dt} \left( \dfrac{1}{2} g \| \etafrak \|_{h,per}^2 + \dfrac{1}{2} H ( \| \mathfrak{u} \|_{h,per}^2 +  \| \mathfrak{v} \|_{h,per}^2) \right) = 0.
+\end{equation}
+\end{itemize}
+\end{proof}
+
+A partir d'ici, on pose $F : (L_{h,per}^2)^3 rightarrow (L_{h,per}^2)^3$ l'application linéaire définie par
+\begin{equation}
+F : \begin{pmatrix}
+\etafrak \\ \mathfrak{u} \\ \mathfrak{v}
+\end{pmatrix} \mapsto \begin{pmatrix}
+- H (\delta_{4,x}^H \mathfrak{u} + \delta_{4,y}^H \mathfrak{v}) \\
+- g \delta_{4,x}^H \etafrak + f \mathfrak{v} \\
+- g \delta_{4,y}^H \etafrak - f \mathfrak{u}
+\end{pmatrix}.
+\end{equation}
+alors, le problème \eqref{eq:ondes_2D_SD} s'écrit
+\begin{equation}
+\dfrac{d}{dt} \begin{pmatrix}
+\etafrak \\ \mathfrak{u} \\ \mathfrak{v}
+\end{pmatrix} = F\begin{pmatrix}
+\etafrak \\ \mathfrak{u} \\ \mathfrak{v}
+\end{pmatrix}.
+\end{equation}
+On note $\Delta t>0$ le pas de temps et $\etafrak^n$, $\mathfrak{u}^n$ et $\mathfrak{v}^n$ les approximations de $\etafrak(n\Delta t)$, $\mathfrak{u}(n \Delta t)$ et $\mathfrak{v}(n \Delta t)$ obtenues par un algorithme de type RK4 filtré. On note $\mathcal{F} = \mathcal{F}_x \circ \mathcal{F}_y$ l'opérateur de filtrage tel que $\mathcal{F}_x$ (resp. $\mathcal{F}_y$) est un opérateur de filtrage dans la direction de $x$ (resp. $y$). La méthode est détaillé dans l'algorithme \ref{alg:RK4_ondes2d}.
+
+\begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: RK4}\label{alg:RK4_ondes2d}
+    \begin{algorithmic}[1]
+    \State $\etafrak^0 = \eta_0^*$, $\mathfrak{u}^0 = u_0^*$ et $\mathfrak{v}^0 = v_0^*$ connus,
+    \For{$n=0,1, \ldots$}
+             \State  $\left(K^{(1)}_{\eta}, K^{(1)}_{u}, K^{(1)}_{v}\right) = F(\etafrak^n, \mathfrak{u}^n, \mathfrak{v}^n)$,
+             \State  $\left(K^{(2)}_{\eta}, K^{(2)}_{u}, K^{(2)}_{v}\right) = F\left(\etafrak^n + \dfrac{\Delta t}{2}K^{(1)}_{\eta}, \mathfrak{u}^n + \dfrac{\Delta t}{2}K^{(1)}_{u}, \mathfrak{v}^n + \dfrac{\Delta t}{2}K^{(1)}_{v}\right)$,
+             \State   $\left(K^{(3)}_{\eta}, K^{(3)}_{u}, K^{(3)}_{v}\right) = F\left(\etafrak^n + \dfrac{\Delta t}{2}K^{(2)}_{\eta}, \mathfrak{u}^n + \dfrac{\Delta t}{2}K^{(2)}_{u}, \mathfrak{v}^n + \dfrac{\Delta t}{2}K^{(2)}_{v}\right)$,
+             \State   $\left(K^{(4)}_{\eta}, K^{(4)}_{u}, K^{(4)}_{v}\right) = F\left(\etafrak^n + \Delta t K^{(3)}_{\eta}, \mathfrak{u}^n + \Delta tK^{(3)}_{u}, \mathfrak{v}^n + \Delta t K^{(3)}_{v}\right)$,
+             \State  $\etafrak^{n+1} = \mathcal{F}\left( \etafrak^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{\eta} + 2 K^{(2)}_{\eta} + 2 K^{(3)}_{\eta} + K^{(4)}_{\eta} \right) \right)$,
+             \State  $\mathfrak{u}^{n+1} = \mathcal{F}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{u} + 2 K^{(2)}_{u} + 2 K^{(3)}_{u} + K^{(4)}_{u} \right) \right)$,
+             \State  $\mathfrak{v}^{n+1} = \mathcal{F}\left( \mathfrak{v}^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{v} + 2 K^{(2)}_{v} + 2 K^{(3)}_{v} + K^{(4)}_{v} \right) \right)$.
+            \EndFor
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center}
+Pour assurer la précision de la méthode utilisée, il faut que l'algorithme \eqref{alg:RK4_ondes2d} soit stable. On considère dans un premier temps l'algorithme sans filtrage, c'est à dire $\mathcal{F}=id$. On a déjà vu que l'algorithme est stable si et seulement si
+\begin{equation}
+\Sp ( F ) \subset \mathcal{D}_{RK4}.
+\end{equation}
+Cela donne lui à la proposition suivante.
+
+\begin{proposition}
+$\lambda \in \Sp(F)$ si et seulement si $\lambda = 0$ ou $\lambda^2 \in \Sp \left( gH (\delta_{4,x}^H \circ \delta_{4,x}^H + \delta_{4,y}^H \circ \delta_{4,y}^H) - f^2 \right)$.
+\end{proposition}
+
+\begin{proof}
+Si $\lambda \in \Sp(F)$ alors il existe $\etafrak$, $\mathfrak{u}$ et $\mathfrak{v}$ non tous nuls dans $L^2_{h,per}$ tels que
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\lambda \etafrak + H \delta_{4,x}^H \mathfrak{u} + H \delta_{4,y}^H \mathfrak{v} & = & 0 \\
+g \delta_{4,x}^H \etafrak + \lambda \mathfrak{u} - f \mathfrak{v} & = & 0 \\
+g \delta_{4,y}^H \etafrak + f \mathfrak{u} + \lambda \mathfrak{v} & = & 0
+\end{array}
+\right.
+\label{eq:preuve_stab1}
+\end{equation}
+On ne peut pas avoir $\etafrak$ une fonction de grille constante, car sinon, on a 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\lambda \mathfrak{u} - f \mathfrak{v} & = & 0 \\
+f \mathfrak{u} + \lambda \mathfrak{v} & = & 0
+\end{array}
+\right.
+\end{equation}
+et on aurait $\mathfrak{u} = \mathfrak{v} = \etafrak = 0$, ce qui est absurde. Donc $\delta_{4,y}^H \etafrak \neq 0$.
+
+En considérant la première et la deuxième équation de \eqref{eq:preuve_stab1}, on montre que 
+\begin{equation}
+(\lambda f + gH \delta_{4,x}^H \circ \delta_{4,y}^H) \etafrak + (Hf \delta_{4,x}^H + H \lambda \delta_{4,y}^H) \mathfrak{u} = 0.
+\label{eq:preuve_stab2}
+\end{equation}
+En revanche, si on considère la première et la troisième équation de \eqref{eq:preuve_stab1}, on trouve
+\begin{equation}
+(\lambda^2 - gH \delta_{4,y}^H \circ \delta_{4,y}^H) \etafrak + (H \lambda \delta_{4,x}^H - f H \delta_{4,y}^H) \mathfrak{u} = 0.
+\label{eq:preuve_stab3}
+\end{equation}
+Comme les opérateurs $\delta_{4,x}^H$ et $\delta_{4,y}^H$ commutent, on montre, en utilisant \eqref{eq:preuve_stab2} et \eqref{eq:preuve_stab3} que
+\begin{equation}
+\lambda \left( gH (\delta_{4,x}^H \circ \delta_{4,x}^H + \delta_{4,y}^H \circ \delta_{4,y}^H) - f^2 - \lambda^2 \right) \delta_{4,y}^H \etafrak = 0.
+\end{equation}
+Donc $\lambda = 0$ ou $\left( gH (\delta_{4,x}^H \circ \delta_{4,x}^H + \delta_{4,y}^H \circ \delta_{4,y}^H) - f^2\right) \delta_{4,y}^H \etafrak = \lambda^2 \delta_{4,y}^H \etafrak$,
+ce qui prouve le résultat souhaité.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Résultats numériques}

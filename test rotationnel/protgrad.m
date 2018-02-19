@@ -9,7 +9,7 @@ global scheme nrm
 scheme='compact4';
 nrm='int';
 
-n=63;
+n=15;
 mod101
 disp('mod101 : ok')
 
@@ -19,7 +19,6 @@ disp('mod101 : ok')
 [mfunfIV] = fun(x_fIV,y_fIV,z_fIV);
 [mfunfV] = fun(x_fV,y_fV,z_fV);
 [mfunfVI] = fun(x_fVI,y_fVI,z_fVI);
-%[nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,Esurf]=nrm101(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn,'infty');
 Esurf=4*pi*radius^2;
 
 [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=gr101(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
@@ -37,8 +36,8 @@ title('vort. numerique')
 colorbar
 
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=nrm101(vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI,n,nn,'1');
-nrmg./Esurf
+nrmg
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=nrm101(vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI,n,nn,'2');
-nrmg./Esurf
+nrmg
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=nrm101(vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI,n,nn,'infty');
-nrmg./Esurf
+nrmg

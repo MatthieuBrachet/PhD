@@ -1,5 +1,5 @@
 function [y] = fun(x)
-xx=x*2*pi;
+% xx=x*2*pi;
 % y=cos(xx).*sin(2*xx)+sin(xx);
 % y=y./sqrt(2);
 % y=exp(cos(xx));

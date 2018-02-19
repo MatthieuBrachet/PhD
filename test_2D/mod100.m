@@ -1,15 +1,20 @@
-clc; clear all; close all; format shorte
+global n X Y
+global opt_ftr
+global gp hp omega coriolis
+global FTR kx ky px py
 
-c=1/5;
+omega=7.292d-05;
+teta0=pi/2; coriolis=2.*omega.*sin(teta0);
+gp=9.80616;
+hp=10;
 
-n=1000;
 h=1./n;
-x=[h:h:1]';
+x=h:h:1;
+[X,Y]=meshgrid(x,x);
+X=reshape(X,[],1);
+Y=reshape(Y,[],1);
 
-cfl=1.5;
-ddt=cfl*h/c;
-tmax=10;
-
+id=speye(n,n);
 k=diag(ones(n-1,1),1)-diag(ones(n-1,1),-1);
 k(1,end)=-1; k(end,1)=1;
 k=sparse(k./(2*h));
@@ -17,8 +22,12 @@ p=1/6*diag(ones(n-1,1),1)+1/6*diag(ones(n-1,1),-1)+4/6*eye(n,n);
 p(end,1)=1/6; p(1,end)=1/6;
 p=sparse(p);
 
+kx=kron(id,k);
+ky=kron(k,id);
+px=kron(id,p);
+py=kron(p,id);
 
-opt_ftr='redonnet2';
+
 if strcmp(opt_ftr,'redonnet10')==1
     ftr0=772/1024;
     ftr1=420/1024;
@@ -81,71 +90,7 @@ else
 end
 ftr=sparse(ftr);
 
-
-u=fun(x);
-int=sum(u)*h;
-
-e1=[]; e2=[]; ei=[];
-cons=[];
-t=0;
-while t+ddt<tmax
-     clc; t=t+ddt
-    
-    du=k*u;
-    w=p\du;
-    k1=-c*w;
-    
-    du=k*(u+ddt/2*k1);
-    w=p\du;
-    k2=-c*w;
-    
-    du=k*(u+ddt/2*k2);
-    w=p\du;
-    k3=-c*w;
-    
-    du=k*(u+ddt*k3);
-    w=p\du;
-    k4=-c*w;
-    
-    fu=u+ddt/6*(k1+2*k2+2*k3+k4);
-    u=ftr*fu;
-    
-    uex=fun(x-c*t);
-    e1=[e1 norm(u-uex,1)./norm(uex,1)];
-    e2=[e2 norm(u-uex,2)./norm(uex,2)];
-    ei=[ei norm(u-uex,inf)./norm(uex,inf)];
-    cons=[cons sum(u)*h-int];
-
-    
-%     pause(0.001)
-%     clf
-%     figure(1)
-%     plot(x,u,'Linewidth',2)
-%     axis([0 1 -1.2 1.2])
-end
-time=[1:length(e1)]*ddt;
-
-figure(2)
-semilogy(time, 1e-5*time,time,e2,time,ei,'Linewidth',2)
-legend('temps','norme 2','norme \infty','Location','SouthEast')
-xlabel('Temps')
-ylabel('Erreur')
-title(['\lambda = ', num2str(cfl)])
-grid on
-
-% figure(3)
-% plot([1:length(e1)]*ddt,cons,'Linewidth',2)
-
-    figure(4)
-    plot(x,u,'Linewidth',2)
-    axis([0 1 -1.2 1.2])
-
-    uex=fun(x);
-    figure(5)
-    plot(x,uex,x,u,'Linewidth',2)
-    axis([0 1 -1.2 1.2])
-    xlabel('x')
-    title('Filtrage d''ordre 10')
-
-[e1(end) e2(end) ei(end)]
+ftrx=kron(id,ftr);
+ftry=kron(ftr,id);
+FTR=ftrx*ftry;
 

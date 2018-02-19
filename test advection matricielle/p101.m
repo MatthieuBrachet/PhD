@@ -25,13 +25,13 @@ time1=cputime;
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 1;
+coef = 2;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 0;
+save_graph = 1;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
 opt_ftr ='redonnet10';
@@ -44,14 +44,14 @@ coupe = 0;
 % sauvegarde = 1 : sauvegarde toutes les données,
 %            = 0 : ne les sauvegarde pas, (utiliser load('namefile') pour
 %            recharger les données).
-sauvegarde = 0;
+sauvegarde = 1;
 % choix du schéma aux différences finies
 scheme='compact4'; % compact ou explicite
 %% *** Benchmarks data ****************************************************
- n=39;
- nn=n+2;
- cfl=0.9;
- ndaymax=24;
+ n=79;
+ nn=n+9;
+ cfl=1/2.34375;
+ ndaymax=12;
  err=2;
  mm=0;
  MM=1000;
@@ -72,7 +72,7 @@ scheme='compact4'; % compact ou explicite
  elseif coef == 2
      %% test de Nair et Jablonowski
      alphad=pi/4; 
-     lambda0 = 0;
+     lambda0 = 3*pi/2;
      teta0 = 0;
      lambda_p=pi;                                                          % position du pole nord à t=0, i.e. position du vortex nord à t=0
      teta_p=pi/2 - alphad;
@@ -569,3 +569,4 @@ if coupe == 1
 end
 
 fig_placier;
+[er1(end) er2(end) erinfty(end)]

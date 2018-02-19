@@ -16,7 +16,7 @@
 % video  : 'yes' ou 'no', do a video or not,
 % nper   :  periodicity of frames in the video.
 % sauvegarde = 0 (do not save data), 1 (save all data).
-% opt_ftr : explicit (redonnet).
+% opt_ftr : explicit (redonnet10, redonnet8, ...).
 %% ************************************************************************
 clc; clear all; close all;timest=clock;
 format long
@@ -39,8 +39,8 @@ scheme='compact4';
 snapshot='yes';
 nrm='int';
 
-n=127; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=80;
+n=79; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=14;
 cfl=0.9;
 mod101
 disp('mod101 : ok')
@@ -392,7 +392,7 @@ while t<Tmax && iter<itermax
     end
     
     %% snapshot
-    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(40*ddt))) == 0
+    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(2*ddt))) == 0
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         clf;
         
