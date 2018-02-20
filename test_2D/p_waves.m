@@ -4,12 +4,15 @@ global n X Y
 global gp hp coriolis
 global opt_ftr
 global FTR
-opt_ftr='redonnet4';
 
-n=256;
+opt_ftr='redonnet100';
+
+n=64;
 mod100
-gg=6*n^2*gp*hp+coriolis;
+gg=6*n^2*gp*hp+coriolis^2;
 ddt=2*sqrt(2)/sqrt(gg);
+ddt=1e-4;
+
 
 [h,u,v] = fun100(X,Y);
 cons=[];
@@ -17,7 +20,7 @@ ener=[];
 time=[];
 consref=sum(h)/(n^2);
 energyref=energy(h,u,v);
-t=0;tmax=1;
+t=0;tmax=2;
 while t<tmax
     t=t+ddt;
     time=[time t];
@@ -60,11 +63,11 @@ while t<tmax
     cons=[cons sum(h)/(n^2)];
     ener=[ener energy(h,u,v)];
     
-    %% plot
-    hplot=reshape(h,n,n);
-    xplot=reshape(X,n,n);
-    yplot=reshape(Y,n,n);
-    
+%     %% plot
+%     hplot=reshape(h,n,n);
+%     xplot=reshape(X,n,n);
+%     yplot=reshape(Y,n,n);
+%     
 %     pause(1e-10)
 %     clf
 %     figure(1)
@@ -77,11 +80,35 @@ while t<tmax
     clc; [t ener(end)/energyref-1]
 end
 
-% figure(2)
-% plot(time,cons/consref-1)
+figure(2)
+plot(time,cons/consref-1,'Linewidth',2)
+title('Erreur sur la conservation de la masse')
 
-% figure(3)
-% plot(time,ener./energyref-1)
+
+figure(3)
+plot(time,ener./energyref-1,'Linewidth',2)
+title('Erreur sur la conservation de l''energie')
+grid on
+
+%% plot
+hplot=reshape(h,n,n);
+xplot=reshape(X,n,n);
+yplot=reshape(Y,n,n);
+
+figure(4)
+surf(xplot,yplot,hplot)
+shading interp;
+axis([0 1 0 1 -1/3 1])
+%alpha 0.7
+colormap jet
+colorbar
+caxis([-0.5 1])
+
+hFig=figure(5);
+contourf(xplot,yplot,hplot)
+set(hFig, 'Position', [50 50 500 500])
+colorbar
+
 
 max(abs(ener./energyref-1))
 

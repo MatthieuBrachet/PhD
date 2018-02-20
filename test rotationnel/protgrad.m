@@ -9,7 +9,7 @@ global scheme nrm
 scheme='compact4';
 nrm='int';
 
-n=15;
+n=255;
 mod101
 disp('mod101 : ok')
 
@@ -24,16 +24,17 @@ Esurf=4*pi*radius^2;
 [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=gr101(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI,n,nn);
 [vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI]=vort101(grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI,n,nn);
 
-figure(1)
-plot_cs100(n,nn,mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI)
-title('h')
-colorbar
+% figure(1)
+% plot_cs100(n,nn,mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI)
+% title('h')
+% colorbar
+% 
+% 
+% figure(2)
+% plot_cs100(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
+% title('vort. numerique')
+% colorbar
 
-
-figure(2)
-plot_cs100(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
-title('vort. numerique')
-colorbar
 
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=nrm101(vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI,n,nn,'1');
 nrmg

@@ -6,7 +6,7 @@ global FTR kx ky px py
 omega=7.292d-05;
 teta0=pi/2; coriolis=2.*omega.*sin(teta0);
 gp=9.80616;
-hp=10;
+hp=100;
 
 h=1./n;
 x=h:h:1;

@@ -4,5 +4,5 @@ global radius
 % q=2;
 % r=3;
 % h=(x/radius).^p.*(y/radius).^q.*(z/radius).^r;
-z=z/radius;
-h=1./(101-100.*z);
+[lambda, teta, rr]=cart2sph(x,y,z);
+h=cos(teta).^5.*sin(30.*lambda);
