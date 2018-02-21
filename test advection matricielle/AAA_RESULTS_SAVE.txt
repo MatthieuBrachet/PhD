@@ -438,3 +438,403 @@ max(er_infty)     : 0.0057459
 ***********************************
   
   
+date : 21-Feb-2018
+ref. : 7371124671
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 79
+time step         : 2916
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.0050699
+max(er_2)         : 0.06091
+max(er_infty)     : 1.5375
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371124688
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 79
+time step         : 2916
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 
+(lambdap,thetap)  : (45,45)
+***********************************
+max(er_1)         : 0.0019494
+max(er_2)         : 0.0087528
+max(er_infty)     : 0.053347
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371124738
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 39
+time step         : 5832
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.013103
+max(er_2)         : 0.036111
+max(er_infty)     : 0.15601
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371124751
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 39
+time step         : 5832
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.014263
+max(er_2)         : 0.037856
+max(er_infty)     : 0.16735
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371124762
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 79
+time step         : 2916
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.0050699
+max(er_2)         : 0.06091
+max(er_infty)     : 1.5375
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371124788
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 39
+time step         : 5832
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.014263
+max(er_2)         : 0.037856
+max(er_infty)     : 0.16735
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371124824
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 79
+time step         : 2916
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.0050699
+max(er_2)         : 0.06091
+max(er_infty)     : 1.5375
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371124857
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 59
+time step         : 3888
+cfl               : 0.9
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.014575
+max(er_2)         : 0.079379
+max(er_infty)     : 1.8492
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371124881
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 59
+time step         : 3024
+cfl               : 0.7
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.0079363
+max(er_2)         : 0.02595
+max(er_infty)     : 0.13254
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371124908
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 79
+time step         : 2268
+cfl               : 0.7
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.0044946
+max(er_2)         : 0.016854
+max(er_infty)     : 0.096321
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371125384
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 39
+time step         : 4536
+cfl               : 0.7
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.01375
+max(er_2)         : 0.036677
+max(er_infty)     : 0.15933
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371125660
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 39
+time step         : 4536
+cfl               : 0.7
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 24
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.01375
+max(er_2)         : 0.036677
+max(er_infty)     : 0.15933
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371127088
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 39
+time step         : 4536
+cfl               : 0.7
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.0029241
+max(er_2)         : 0.010246
+max(er_infty)     : 0.057267
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371127098
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 49
+time step         : 3628.8
+cfl               : 0.7
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.0013634
+max(er_2)         : 0.0053187
+max(er_infty)     : 0.033187
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371127116
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 59
+time step         : 3024
+cfl               : 0.7
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.00066453
+max(er_2)         : 0.0027522
+max(er_infty)     : 0.018792
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371127132
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 79
+time step         : 2268
+cfl               : 0.7
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.00020635
+max(er_2)         : 0.0008817
+max(er_infty)     : 0.006335
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371127160
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 99
+time step         : 1814.4
+cfl               : 0.7
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 8.2353e-05
+max(er_2)         : 0.00035454
+max(er_infty)     : 0.0027479
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371127202
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 149
+time step         : 1209.6
+cfl               : 0.7
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 1.6044e-05
+max(er_2)         : 7.0918e-05
+max(er_infty)     : 0.00059455
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371129026
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 79
+time step         : 1382.4
+cfl               : 0.42667
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.00016712
+max(er_2)         : 0.00072287
+max(er_infty)     : 0.0057459
+***********************************
+  
+  
+date : 21-Feb-2018
+ref. : 7371129073
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 79
+time step         : 1382.4
+cfl               : 0.42667
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.00016712
+max(er_2)         : 0.00072287
+max(er_infty)     : 0.0057459
+***********************************
+  
+  

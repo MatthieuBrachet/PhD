@@ -49,7 +49,7 @@ sauvegarde = 1;
 scheme='compact4'; % compact ou explicite
 %% *** Benchmarks data ****************************************************
  n=79;
- nn=n+9;
+ nn=n+2;
  cfl=1/2.34375;
  ndaymax=12;
  err=2;
@@ -166,7 +166,7 @@ xdays(1)=0;
 ite =1;
 erinfty(1)=0; er2(1)=0; er1(1)=0;
 ref=floor(10000*now);
-while ite<itemax & erinfty(end)<1
+while ite<itemax & erinfty(end)<10
     clc; disp(num2str([ite itemax er1(end) er2(end) erinfty(end)]));
 
     %% filtrage avant de commencer le calcul...

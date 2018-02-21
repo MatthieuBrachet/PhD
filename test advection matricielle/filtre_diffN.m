@@ -43,7 +43,7 @@ save_graph = 0;
  elseif coef == 2
  %% test de Nair et Jablonowski
  alphad=pi/4; 
- lambda0 = 0;
+ lambda0 = 3*pi/2;
  teta0 = 0;
  lambda_p=pi;                                                              % position du pole nord à t=0, i.e. position du vortex nord à t=0
  teta_p=pi/2 - alphad;
@@ -88,7 +88,7 @@ if coupe == 1
     plot(xa,fa,'ko',xb,fb,'kx',xe,fe,'k-')
     grid on;
     legend(['approximate solution with N=' num2str(Na+1)],['approximate solution with N=' num2str(Nb+1)],'exact solution')
-    xlabel('path Front')
+   
     if save_graph==1
         mkdir(['./filtre-' date '/']);
         print('-dpng', ['./filtre-' date '/ref_' num2str(ref) '_coupefaceI_equateur_test_' num2str(coef) '.png'])
