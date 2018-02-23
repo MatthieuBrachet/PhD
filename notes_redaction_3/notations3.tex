@@ -248,19 +248,21 @@ La transformée de Fourier discrète de $\mathfrak{v}$ est $(\hat{\mathfrak{v}}_
 \textbf{(Relation de Parseval discrète)} 
 Pour tout $\mathfrak{v} \in l^2_{h,per}$, on a 
 \begin{equation}
-|\mathfrak{v}|_{h,per} = L \gsum_{k=-N/2+1}^{N/2} |\hat{\mathfrak{v}}_k|^2
+|\mathfrak{v}|_{h,per}^2 = L \gsum_{k=-N/2+1}^{N/2} |\hat{\mathfrak{v}}_k|^2
 \end{equation}
 \end{proposition}
 
 \begin{proof}
 On vérifie la relation par le calcul suivant :
 \begin{align*}
-|\mathfrak{v}|_{h,per} & = h \gsum_{j=0}^{N-1} \mathfrak{v}_j \bar{\mathfrak{v}_j} \\
+|\mathfrak{v}|_{h,per}^2 & = h \gsum_{j=0}^{N-1} \mathfrak{v}_j \bar{\mathfrak{v}_j} \\
 	& = h \gsum_{j=0}^{N-1} \gsum_{k=-N/2+1}^{N/2} |\hat{\mathfrak{v}}_k|^2 \underbrace{|\bar{\mathfrak{u}}_j^k|^2}_{=1}\\
 	& = h N \gsum_{k=-N/2+1}^{N/2} |\hat{\mathfrak{v}}_k|^2 \\
 	& = L \gsum_{k=-N/2+1}^{N/2} |\hat{\mathfrak{v}}_k|^2
 \end{align*}
 \end{proof}
+
+
 
 
 
@@ -1167,10 +1169,10 @@ car $D_{2P}$ est antisymétrique et $P$ est symétrique (donc $P^{-1}$ aussi).
 
 Lors de la discrétisation via un schéma aux différences finies et suite à la discrétisation en temps, des oscillations parasites du type "+1/-1" peuvent apparaître. Il s'agit de phénomènes haute fréquences qui peuvent provoquer des instabilités numériques. 
 
-Si $\mathfrak{u}$ est une fonction de grille périodique, on note le filtre passe-bas $\mathcal{F}\mathfrak{u}$. Dans la pratique, nous cherchons $\mathcal{F}$ sous la forme 
+Si $\mathfrak{u}$ est une fonction de grille périodique, on note le filtre passe-bas $\mathcal{F}_{2F,x}\mathfrak{u}$. Dans la pratique, nous cherchons $\mathcal{F}_{2F,x}$ sous la forme 
 
 \begin{equation}
-\mathcal{F} = \gsum_{k=0}^F a_k \dfrac{\tau^k + \tau^{-k}}{2} = S(\tau)
+\mathcal{F}_{2F,x} = \gsum_{k=0}^F a_k \dfrac{\tau^k + \tau^{-k}}{2} = S(\tau)
 \label{eq:ftr}
 \end{equation}
 
@@ -1208,9 +1210,9 @@ Les coefficients $(a_k)_{0 \leq k \leq F}$ sont déterminés de manière à supp
 \end{figure}
 
 
-En considérant cette fonction de grille, on cherche $(a_k)_{0\leq k \leq F}$ tels que $\mathcal{F} \mathfrak{u} = \mathfrak{0}$, soit :
+En considérant cette fonction de grille, on cherche $(a_k)_{0\leq k \leq F}$ tels que $\mathcal{F}_{2F,x} \mathfrak{u} = \mathfrak{0}$, soit :
 \begin{equation}
-\mathcal{F}\mathfrak{u}_i = \gsum_{k=0}^F a_k \dfrac{\mathfrak{u}_{i+k} + \mathfrak{u}_{i-k}}{2} = \gsum_{k=0}^F a_k  \dfrac{(-1)^{i+k} + (-1)^{i-k}}{2} = 0.
+\mathcal{F}_{2F,x}\mathfrak{u}_i = \gsum_{k=0}^F a_k \dfrac{\mathfrak{u}_{i+k} + \mathfrak{u}_{i-k}}{2} = \gsum_{k=0}^F a_k  \dfrac{(-1)^{i+k} + (-1)^{i-k}}{2} = 0.
 \end{equation}
 Cette équation est équivalente à 
 \begin{equation}
@@ -1219,7 +1221,7 @@ Cette équation est équivalente à
 \end{equation}
 La relation \eqref{eq:ftr_ftrcond} nous donne une condition alors qu'il y a $F+1$ paramètres à déterminer. Il reste $F$ degrés de libertés dans l'opérateur de filtrage. Le choix qui est fait est de maximiser l'ordre du filtrage de manière à perturber un minimum la donnée initiale tout en supprimant les ondes parasites.
 
-Le filtre doit conserver les très basses fréquences, lorsque $\mathfrak{u} = \mathfrak{1}$, on doit alors $\mathcal{F}\mathfrak{u} = \mathfrak{1}$.
+Le filtre doit conserver les très basses fréquences, lorsque $\mathfrak{u} = \mathfrak{1}$, on doit alors $\mathcal{F}_{2F,x}\mathfrak{u} = \mathfrak{1}$.
 C'est à dire que les coefficients $(a_k)_{0 \leq k \leq F}$ vérifient la relation de consistance
 \begin{equation}
 \gsum_{k=0}^F a_k = 1
@@ -1235,7 +1237,7 @@ u(x_i - kh) & = & u(x_i) - p k u'(x_j) + \cdots + \dfrac{(-kh)^l}{l!}u^{(l)}(x_i
 \end{equation}
 avec $\xi_k \in [x_i, x_i+kh]$ et $\eta_k \in [x_i-kh, x_i]$. Alors par combinaison linéaire en considérant \eqref{eq:ftr_conscond} vérifiée, 
 \begin{equation}
-\mathcal{F}u^* - u^* = \gsum_{l=1}^{2F-1} \gsum_{k=0}^F \dfrac{a_k}{2} \underbrace{\dfrac{(kh)^l + (-kh)^l}{l!}}_{=0 \text{ pour } l \text{ impair.}}u^{(l)}(x_i) + \gsum_{k=0}^F \dfrac{a_k}{2}\dfrac{(kh)^{2F}}{2F!} \left( u^{(2F)}(\xi_k) + u^{(2F)}(\eta_k) \right)
+\mathcal{F}_{2F,x}u^* - u^* = \gsum_{l=1}^{2F-1} \gsum_{k=0}^F \dfrac{a_k}{2} \underbrace{\dfrac{(kh)^l + (-kh)^l}{l!}}_{=0 \text{ pour } l \text{ impair.}}u^{(l)}(x_i) + \gsum_{k=0}^F \dfrac{a_k}{2}\dfrac{(kh)^{2F}}{2F!} \left( u^{(2F)}(\xi_k) + u^{(2F)}(\eta_k) \right)
 \end{equation}
 Ainsi, la condition de précision est 
 \begin{equation}
@@ -1244,9 +1246,9 @@ Ainsi, la condition de précision est
 \end{equation}
 
 \begin{theoreme}
-Soit $F \in \mathbb{N}^{\star}$. Il existe un unique $(a_k)_{0 \leq k \leq F}$ tel que $\mathcal{F}$ soit à la fois consistant en vérifiant \eqref{eq:ftr_conscond}, précis en vérifiant \eqref{eq:ftr_prescond} et soit un filtre passe bas en satisfesant \eqref{eq:ftr_ftrcond}. L'erreur de troncature du filtre est alors donnée par 
+Soit $F \in \mathbb{N}^{\star}$. Il existe un unique $(a_k)_{0 \leq k \leq F}$ tel que $\mathcal{F}_{2F,x}$ soit à la fois consistant en vérifiant \eqref{eq:ftr_conscond}, précis en vérifiant \eqref{eq:ftr_prescond} et soit un filtre passe bas en satisfesant \eqref{eq:ftr_ftrcond}. L'erreur de troncature du filtre est alors donnée par 
 \begin{equation}
-\mathcal{F}u^* - u^* = h^{2F} \gsum_{k=0}^F \dfrac{a_k}{2} \dfrac{k^{2F}}{2F!} \left( u^{(2F)}(\xi_k) + u^{(2F)}(\eta_k) \right).
+\mathcal{F}_{2F,x}u^* - u^* = h^{2F} \gsum_{k=0}^F \dfrac{a_k}{2} \dfrac{k^{2F}}{2F!} \left( u^{(2F)}(\xi_k) + u^{(2F)}(\eta_k) \right).
 \end{equation}
 \label{prop:filter_def}
 \end{theoreme}
@@ -1331,14 +1333,14 @@ Dans la suite, nous supposerons que $(a_k)_{0 \leq k \leq F}$ satisfait les cond
 Les valeurs propres et fonctions propres de $\mathcal{F}$ sont issues de la proposition \ref{prop:eigen_Ptau}.
 
 \begin{theoreme}
-Les valeurs propres de $\mathcal{F}$ sont données par $\beta^k$ avec 
+Les valeurs propres de $\mathcal{F}_{2F,x}$ sont données par $\beta^k$ avec 
 \begin{equation}
 \beta^k = S(\omega^k) = \gsum_{f=0}^F a_k \cos \left( \dfrac{2 \pi k f}{N} \right)
 \end{equation}
 pour tout $0 \leq k \leq N-1$, $\beta^k$ est associé à la fonction propre $\mathfrak{u}^k$.
 \end{theoreme}
 
-On définit le \textit{symbole} du filtre $\mathcal{F}$ par la fonction $\beta : \theta \in [0, \pi] \mapsto \beta(\theta) \in \mathbb{R}$ donnée par :
+On définit le \textit{symbole} du filtre $\mathcal{F}_{2F,x}$ par la fonction $\beta : \theta \in [0, \pi] \mapsto \beta(\theta) \in \mathbb{R}$ donnée par :
 \begin{equation}
 S(e^{i\theta)}) = \gsum_{f=0}^F a_k \cos \left( f \theta \right.
 \end{equation}
@@ -1458,20 +1460,20 @@ La fonction $F \mapsto \theta_{0.95}$ est croissante, ce qui confirme que lorsqu
 \end{equation}
 Ce qui confirme la prise en compte d'un grand nombre de fréquence lorsque l'on augmente l'ordre du filtre. Cependant lorsque l'ordre du filtre augmente, l'effet de filtrage des hautes fréquences diminue.
 
-Le filtre utilisé est linéaire et agit sur les composantes des fonctions de grilles. Il existe $M \in \mathbb{M}_N \left( \mathbb{R} \right)$ la matrice associée au filtrage des données en dimension 1 telle que
+Le filtre utilisé est linéaire et agit sur les composantes des fonctions de grilles. Il existe $M_{2F} \in \mathbb{M}_N \left( \mathbb{R} \right)$ la matrice associée au filtrage des données en dimension 1 telle que
 \begin{equation}
-\mathcal{F} \mathfrak{u} = M \mathfrak{u}
+\mathcal{F}_{2F,x} \mathfrak{u} = M_{2F} \vec_1(\mathfrak{u})
 \end{equation}
 et la matrice $M$ est donnée par
 \begin{equation}
-M = S(T).
+M_{2F} = S(T).
 \label{eq:matrice_filtrage}
 \end{equation}
 
 \begin{proposition}
-La matrice $M$ est symétrique :
+La matrice $M_{2F}$ est symétrique :
 \begin{equation}
-M = M^T.
+M_{2F} = M^T_{2F}.
 \end{equation}
 \end{proposition}
 
@@ -1955,25 +1957,25 @@ Il s'agit d'une conséquence de la proposition \ref{prop:eigen_pdtkron}.
 
 Dans cette partie, nous utilisons toujours les notations de la section \ref{sec:notation_2D} en contexte périodique. Définissons les opérateurs de filtrage dans les directions $x$ et $y$ par
 \begin{eqnarray*}
-\mathcal{F}_x = \gsum_{k=0}^F a_k \dfrac{\tau_x^k + \tau_x^{-k}}{2}  = S(\tau_x)\\
-\mathcal{F}_y = \gsum_{k=0}^F a_k \dfrac{\tau_y^k + \tau_y^{-k}}{2} = S(\tau_y) \\
+\mathcal{F}_{2F,x} = \gsum_{k=0}^F a_k \dfrac{\tau_x^k + \tau_x^{-k}}{2}  = S(\tau_x)\\
+\mathcal{F}_{2F,y} = \gsum_{k=0}^F a_k \dfrac{\tau_y^k + \tau_y^{-k}}{2} = S(\tau_y) \\
 \end{eqnarray*}
 
 Avec $(a_k)_{0 \leq k \leq F}$ vérifiant le système \eqref{prop:filter_def}. Comme la géométrie est cartésienne, on remarque que 
 \begin{equation}
-\mathcal{F}_x \circ \mathcal{F}_y = \mathcal{F}_y \circ \mathcal{F}_x.
+\mathcal{F}_{2F,x} \circ \mathcal{F}_{2F,y} = \mathcal{F}_{2F,y} \circ \mathcal{F}{2F,x}.
 \end{equation}
 Ce qui est faux lorsque la métrique n'est pas orthogonale.
 La proposition \ref{prop:filter_def} permet de vérifier la consistance des opérateurs de filtrages.
 Si $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$ est fonction de $\mathcal{C}^{2F}$ alors :
 \begin{eqnarray*}
-\mathcal{F}_x u^*_{i,j} - u^*_{i,j} & = & C_xh^{2F}\\
-\mathcal{F}_y u^*_{i,j} - u^*_{i,j} & = & C_yh^{2F}
+\mathcal{F}_{2F,x} u^*_{i,j} - u^*_{i,j} & = & C_xh^{2F}\\
+\mathcal{F}_{2F,y} u^*_{i,j} - u^*_{i,j} & = & C_yh^{2F}
 \end{eqnarray*}
 où $C_x$ et $C_y$ sont des constantes indépendantes de $h$.
 En particulier, en composant les opérateurs, on peut définir un nouvel opérateur de filtrage. En effet  
 \begin{equation}
-(\mathcal{F}_x \circ \mathcal{F}_y) u_{i,j}^* - u_{i,j}^* = Ch^{2F}.
+(\mathcal{F}_{2F,x} \circ \mathcal{F}_{2F,y}) u_{i,j}^* - u_{i,j}^* = Ch^{2F}.
 \end{equation}
 
 L'écriture matricielle de l'opérateur de filtrage est donnée par la proposition suivante :
@@ -1982,10 +1984,10 @@ Soit $\mathbf{u}$ une fonction de grille. Alors les opérateurs de filtrages s'�
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\text{vec}_2 (\mathcal{F}_x \mathbf{u}) & = & (Id \otimes M) \text{vec}_2 (\mathbf{u})\\
-\text{vec}_2 (\mathcal{F}_y \mathbf{u}) & = & (M \otimes Id) \text{vec}_2 (\mathbf{u})\\
+\text{vec}_2 (\mathcal{F}_{2F,x} \mathbf{u}) & = & (Id \otimes M_{2F}) \text{vec}_2 (\mathbf{u})\\
+\text{vec}_2 (\mathcal{F}_{2F,x} \mathbf{u}) & = & (M_{2F} \otimes Id) \text{vec}_2 (\mathbf{u})\\
 \end{array}
 \right.
 \end{equation}
 \end{proposition}
-Comme la matrice $M$ est symétrique, il est immédiat que $Id \otimes M$ et $M \otimes Id$ sont symétriques aussi.
+Comme la matrice $M_{2F}$ est symétrique, il est immédiat que $Id \otimes M_{2F}$ et $M_{2F} \otimes Id$ sont symétriques aussi.

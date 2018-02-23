@@ -36,14 +36,14 @@ dx=2*pi*radius./(4*N);
 % e3=[3.3243e-17 2.4699e-18 1.8005e-19 1.1002e-20 6.8031e-22 7.5741e-23];
 N=[8 16 32 64 128 256];
 dx=2*pi*radius./(4*N);
-e1=[6.7655e-1 5.5017e+1 8.0953e+0 4.3791e-1 2.5533e-2 1.5590e-3];
-e2=[5.1432e-8 3.3097e-6 4.7068e-7 2.4642e-8 1.4237e-9 8.6829e-11];
+e1=[6.7655e-1 5.5017e+1 8.0953e+0 4.3791e-1 2.5533e-2 1.5590e-3]./(4*pi*radius*radius);
+e2=[5.1432e-8 3.3097e-6 4.7068e-7 2.4642e-8 1.4237e-9 8.6829e-11]./sqrt(4*pi*radius*radius);
 e3=[6.6711e-15 4.9935e-13 4.5428e-14 2.6199e-15 1.3325e-16 9.4033e-18];
 
 % N=[16 32 64 128 256];
 % dx=2*pi*radius./(4*N);
-% e1=[5.5017e+1 8.0953e+0 4.3791e-1 2.5533e-2 1.5590e-3];
-% e2=[3.3097e-6 4.7068e-7 2.4642e-8 1.4237e-9 8.6829e-11];
+% e1=[5.5017e+1 8.0953e+0 4.3791e-1 2.5533e-2 1.5590e-3]./(4*pi*radius*radius);
+% e2=[3.3097e-6 4.7068e-7 2.4642e-8 1.4237e-9 8.6829e-11]./sqrt(4*pi*radius*radius);
 % e3=[4.9935e-13 4.5428e-14 2.6199e-15 1.3325e-16 9.4033e-18];
 
 ldx=log10(dx);
@@ -63,11 +63,11 @@ set(hl1,'MarkerEdgeColor','k');
 hold on;
 [a1,b1]=polyfit(ldx,le1,1);
 tt=linspace(min(ldx),max(ldx),10);
-%lsq1=a1(2)+a1(1)*tt;
-a1=[3.8523 -2.0431e+1]; lsq1=a1(2)+a1(1)*tt;
+lsq1=a1(2)+a1(1)*tt;
+a1=[3.8523 -35.1389]; lsq1=a1(2)+a1(1)*tt;
 % %% courbes...
 %hlf1=plot(tt,lsq1,'-r');
-hlf1=plot(tt,lsq1,':k');
+hlf1=plot(tt,lsq1,'k');
 set(hlf1,'LineWidth',2.0);
 
 
@@ -81,8 +81,8 @@ set(hl2,'MarkerEdgeColor','k');
 hold on;
 [a2,b1]=polyfit(ldx,le2,1);
 tt=linspace(min(ldx),max(ldx),10);
-%lsq1=a2(2)+a2(1)*tt;
-a2=[3.8805 -2.7821e+1]; lsq1=a2(2)+a2(1)*tt;
+lsq1=a2(2)+a2(1)*tt;
+a2=[3.8805 -35.1747]; lsq1=a2(2)+a2(1)*tt;
 % %% courbes...
 %hlf2=plot(tt,lsq1,'-b');
 hlf2=plot(tt,lsq1,'--k');
@@ -98,11 +98,11 @@ set(hl3,'MarkerEdgeColor','k');
 hold on;
 [a3,b1]=polyfit(ldx,le3,1);
 tt=linspace(min(ldx),max(ldx),10);
-%lsq1=a3(2)+a3(1)*tt;
-a3=[3.9806 -3.5302e+1]; lsq1=a3(2)+a3(1)*tt;
+lsq1=a3(2)+a3(1)*tt;
+a3=[3.9806 -35.3017]; lsq1=a3(2)+a3(1)*tt;
 % %% courbes...
 %hlf3=plot(tt,lsq1,'-g');
-hlf3=plot(tt,lsq1,'-k');
+hlf3=plot(tt,lsq1,':k');
 set(hlf3,'LineWidth',2.0);
 
 ha=gca;
@@ -124,15 +124,15 @@ set(ya,'FontSize',12);
 legend([hlf1,hlf2,hlf3],{['norm 1 - slope = ' num2str(a1(1))],['norm 2 - slope = ' num2str(a2(1))],['norm \infty - slope = ' num2str(a3(1))]},'Location','NorthWest')
 
 %% texte
-ht=text('Position',[4.5,-15,0],'String','N=256');
+ht=text('Position',[4.5,-16,0],'String','N=256');
 set(ht,'FontSize',12);
-ht=text('Position',[4.8,-14,0],'String','N=128');
+ht=text('Position',[4.8,-15,0],'String','N=128');
 set(ht,'FontSize',12);
-ht=text('Position',[5.1,-13,0],'String','N=64');
+ht=text('Position',[5.1,-14,0],'String','N=64');
 set(ht,'FontSize',12);
-ht=text('Position',[5.4,-12,0],'String','N=32');
+ht=text('Position',[5.4,-12.5,0],'String','N=32');
 set(ht,'FontSize',12);
-ht=text('Position',[5.7,-11,0],'String','N=16');
+ht=text('Position',[5.7,-11.6,0],'String','N=16');
 set(ht,'FontSize',12);
-ht=text('Position',[6,-16,0],'String','N=8');
+ht=text('Position',[6,-13.5,0],'String','N=8');
 set(ht,'FontSize',12);
