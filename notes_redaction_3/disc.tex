@@ -557,7 +557,7 @@ est résolue en utilisant la méthode de Runge-Kutta d'ordre 4. L'algorithme de 
              \State  $K^{(2)} = - c \delta_{4,x}^H \left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(1)}\right)$,
              \State  $K^{(3)} = - c \delta_{4,x}^H \left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(2)}\right)$,
              \State  $K^{(4)} = - c \delta_{4,x}^H \left( \mathfrak{u}^n + \Delta t K^{(3)}\right)$,  
-             \State  $\mathfrak{u}^{n+1} = \mathcal{F}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
+             \State  $\mathfrak{u}^{n+1} = \mathcal{F}_{2F,x}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
             \EndFor
     \end{algorithmic}
     \end{algorithm}
@@ -565,7 +565,7 @@ est résolue en utilisant la méthode de Runge-Kutta d'ordre 4. L'algorithme de 
 \end{center}
 Dans cet algorithme, $\Delta t > 0$ désigne le pas de discrétisation et $\mathfrak{u}^n$ est une approximation de $\mathfrak{u}(n \Delta t)$.
 
-Comme l'algorithme RK4 et l'opérateur d'approximation $\delta_{4,x}^H$ permettent des approximations d'ordre 4, on s'attend à une erreur d'ordre 4 en temps et en espace sur l'approximation globale lorsqu'il n'y a pas d'opérateur de filtrage $\mathcal{F}$. L'opérateur de filtrage $\mathcal{F}$ perturbe à un ordre imposé $2F$, on s'attend à un algorithme d'ordre global $\min(2F,4)$.
+Comme l'algorithme RK4 et l'opérateur d'approximation $\delta_{4,x}^H$ permettent des approximations d'ordre 4, on s'attend à une erreur d'ordre 4 en temps et en espace sur l'approximation globale lorsqu'il n'y a pas d'opérateur de filtrage $\mathcal{F}_{2F,x}$. L'opérateur de filtrage $\mathcal{F}_{2F,x}$ perturbe à un ordre imposé $2F$, on s'attend à un algorithme d'ordre global $\min(2F,4)$.
 La convergence de la méthode est assurée par le théorème de Lax-Richtmyer \cite{Lax1956} si l'algorithme est stable.
 
 
@@ -580,14 +580,14 @@ U^n = \vec_2(\mathfrak{u}^n)
 alors l'algorithme \ref{alg:RK4_transport1d} nous donne
 \begin{align*}
 U^{n+1} & = M \left( 1 - c \Delta t P^{-1}D_2 + \dfrac{(c \Delta t P^{-1}D_2)^2}{2} - \dfrac{(c \Delta t P^{-1}D_2)^3}{6} + \dfrac{(c \Delta t P^{-1}D_2)^4}{24} \right) U^n \\
-		& = S(T) r(- c \Delta t P^{-1}D_2) U^n \text{ avec } r(x)=1+x+\dfrac{x^2}{2}+\dfrac{x^3}{6}+\dfrac{x^4}{24}\\
-		& = S(T) r \left( -\lambda Q_{4}^H(T) \right) U^n
+		& = S_{2F,x}(T) r(- c \Delta t P^{-1}D_2) U^n \text{ avec } r(x)=1+x+\dfrac{x^2}{2}+\dfrac{x^3}{6}+\dfrac{x^4}{24}\\
+		& = S_{2F,x}(T) r \left( -\lambda Q_{4}^H(T) \right) U^n
 \end{align*}
 où $M=S(T)$ est la matrice associée au filtrage $\mathcal{F}$ donnée par \eqref{eq:matrice_filtrage} et \eqref{eq:pol_filtrage}. La matrice $T$ est la matrice de translation \eqref{eq:matrice_translation}. $P^{-1}D = Q_4^H(T)$ est donné par \eqref{eq:pol_hermitien}. On pose $\lambda = c \Delta t / h$.
 
 Pour que la méthode soit asymptotiquement stable et d'après la proposition \ref{prop:stab_rk4_mat}, on cherche le plus grand $\lambda$, noté $\lambda_{2F}$, vérifiant
 \begin{equation}
-\Sp \left( S(T) r \right( -\lambda Q_{4}^H(T) \left) \right) \subset \mathcal{D}_{RK4}.
+\Sp \left( S_{2F,x}(T) r \right( -\lambda Q_{4}^H(T) \left) \right) \subset \mathcal{D}_{RK4}.
 \end{equation}
 L'indice "$2F$" désigne ici l'ordre du filtre utilisé. On note $\lambda_{\infty}$ le cas sans filtrage, correspondant à $M=Id$.
 
@@ -608,13 +608,13 @@ On parle de condition de Courant–Friedrichs–Lewy \cite{Courant1928} (notée 
 on a directement :
 \begin{equation}
 \begin{array}{rcl}
-S(T) & = & V S(\Omega) \bar{V}^T \\
+S_{2F,x}(T) & = & V S(\Omega) \bar{V}^T \\
 Q_4^H(T) & = & V Q_4^H(\Omega) \bar{V}^T
 \end{array}
 \end{equation}
 d'où la diagonalisation suivante :
 \begin{equation}
-S(T)r(-\lambda Q_4^H(T)) = V \left[ S(\Omega)r(-\lambda Q_4^H(\Omega)) \right] \bar{V}^T.
+S_{2F,x}(T)r(-\lambda Q_4^H(T)) = V \left[ S(\Omega)r(-\lambda Q_4^H(\Omega)) \right] \bar{V}^T.
 \end{equation}
 Les valeurs propres de $S(T)r(-\lambda Q_4^H(T))$ sont
 \begin{equation}
@@ -672,13 +672,13 @@ Donc
 
 Cette condition de stabilité donne une bonne indication de la condition CFL lorsqu'un opérateur de filtrage est présent. Comme l'opérateur de filtrage est symétrique, ses valeurs propres sont réelles et on a :
 \begin{equation}
-\lambda_{2J} = \max \left\lbrace \lambda \in \mathbb{R}^+ \text{ tels que } \max_{0 \leq \theta \leq \pi} \left(|S(e^{i \theta})| | r(-\lambda Q_4^H(\theta) | \right) \right\rbrace
+\lambda_{2J} = \max \left\lbrace \lambda \in \mathbb{R}^+ \text{ tels que } \max_{0 \leq \theta \leq \pi} \left(|S_{2F,x}(e^{i \theta})| | r(-\lambda Q_4^H(\theta) | \right) \right\rbrace
 \end{equation}
-où $S$ est issue de l'opérateur de filtrage d'ordre $2J$ et donnée par \eqref{eq:pol_filtrage}.
+où $S_{2F,x}$ est issue de l'opérateur de filtrage d'ordre $2F$ et donnée par \eqref{eq:pol_filtrage}.
 
 D'après la proposition \ref{prop:ampli_ftr}, on obtient directement le théorème suivant
 \begin{theoreme}
-Quel que soit le filtre $\mathcal{F}$ d'ordre $2F$, on a 
+Quel que soit le filtre $\mathcal{F}_{2F,x}$ d'ordre $2F$, on a 
 \begin{equation}
 \lambda_{2F} \leq \lambda_{\infty}.
 \end{equation}
@@ -687,24 +687,24 @@ Quel que soit le filtre $\mathcal{F}$ d'ordre $2F$, on a
 \begin{proof}
 On a 
 \begin{align*}
-\lambda_{2F} & = \max \left\lbrace \lambda \in \mathbb{R}^+ \text{ tels que } \max_{0 \leq \theta \leq \pi} \left(|S(e^{i \theta})| | r(-\lambda Q_4^H(e^{i \theta}) | \right) \right\rbrace \\
+\lambda_{2F} & = \max \left\lbrace \lambda \in \mathbb{R}^+ \text{ tels que } \max_{0 \leq \theta \leq \pi} \left(|S_{2F,x}(e^{i \theta})| | r(-\lambda Q_4^H(e^{i \theta}) | \right) \right\rbrace \\
 		& \leq \max \left\lbrace \lambda \in \mathbb{R}^+ \text{ tels que } \max_{0 \leq \theta \leq \pi} \left(| r(-\lambda Q_4^H(e^{i \theta}) | \right) \right\rbrace\\
 		& = \lambda_{\infty}
 \end{align*}
 car pour tout $\theta \in [0, \pi]$, 
 \begin{equation}
-|S(e^{i \theta})| \leq 1
+|S_{2F,x}(e^{i \theta})| \leq 1
 \end{equation}
 d'après la proposition \ref{prop:ampli_ftr}.
 \end{proof}
 
-Il est possible d'évaluer numériquement la valeur de $\lambda_{2F}$ grâce à un algorithme de Dichotomie. Les valeurs obtenues sont données dans la table \ref{tab:cfl_adv1d}. On constate que plus le filtre est d'ordre bas (il affecte alors beaucoup les données) plus la condition CFL $\lambda_{2J}$ est grande, ce qui autorise un pas de temps plus grand.
+Il est possible d'évaluer numériquement la valeur de $\lambda_{2F}$ grâce à un algorithme de Dichotomie. Les valeurs obtenues sont données dans la table \ref{tab:cfl_adv1d}. On constate que plus le filtre est d'ordre bas (il affecte alors beaucoup les données) plus la condition CFL $\lambda_{2F}$ est grande, ce qui autorise un pas de temps plus grand.
 
 \begin{table}[htbp]
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
-\textbf{Ordre du filtre} $\mathcal{F}$ : $2J$ & $\lambda_{2J}$ \\
+\textbf{Ordre du filtre} $\mathcal{F}_{2F,x}$ : $2F$ & $\lambda_{2F}$ \\
 \hline
 \hline
 Pas de filtrage & $2 \sqrt{2/3} \approx 1.6329$ \\
@@ -716,7 +716,7 @@ $ 2$ & $1.9749$ \\
 \hline
 \end{tabular}
 \end{center}
-\caption{Valeur de $\lambda_{2J}$ pour différentes valeurs de $J$}
+\caption{Valeur de $\lambda_{2F}$ pour différentes valeurs de $J$}
 \label{tab:cfl_adv1d}
 \end{table}
 
@@ -763,7 +763,7 @@ où $\mathfrak{u}_j^n$ est une approximation de $u(x_j, t^n)$.
 $(\lambda,\theta)\mapsto G(\lambda,\theta)$ est la fonction d'amplification du schéma numérique.
 Par exemple, en utilisant l'algorithme \ref{alg:RK4_transport1d}, on trouve
 \begin{equation}
-G(\lambda, \theta) = S(e^{i \theta}) r(- \lambda Q^H_{4}(e^{i \theta}) )
+G(\lambda, \theta) = S_{2F}(e^{i \theta}) r(- \lambda Q^H_{4}(e^{i \theta}) )
 \end{equation}
 où $r(x) =  1 + x + \frac{1}{2}x^2 + \frac{1}{6}x^3 + \frac{1}{24}x^4$, $S$ est issu du filtrage $\mathcal{F}$ et donné par \eqref{eq:pol_filtrage}, $Q_4^H$ est associé au schéma hermitien $\delta_4^H$ et donné par l'équation \eqref{eq:pol_hermitien}.
 
@@ -900,7 +900,7 @@ pour tout $i \in \left\lbrace 1, 2, 3, 4 \right\rbrace$.
 
 De là, on déduit :
 \begin{align*}
-(\mathfrak{u}^{n+1},\mathfrak{1})_{h,per} & =  \left( S(T) \left( U^n + \dfrac{\Delta t}{6}(K^{(1)}+2K^{(2)}+2K^{(3)}+K^{(4)})  \right) \right)^T \cdot \mathbf{1} \\
+(\mathfrak{u}^{n+1},\mathfrak{1})_{h,per} & =  \left( S_{2F}(T) \left( U^n + \dfrac{\Delta t}{6}(K^{(1)}+2K^{(2)}+2K^{(3)}+K^{(4)})  \right) \right)^T \cdot \mathbf{1} \\
 	& = \left( U^n + \dfrac{\Delta t}{6}(K^{(1)}+2K^{(2)}+2K^{(3)}+K^{(4)})  \right)^T \cdot \mathbf{1} \text{ par symétrie de } S(T)\\
 	& = (\mathfrak{u}^n , \mathfrak{1})_{h,per}.
 \end{align*}
@@ -1017,7 +1017,7 @@ Le schéma numérique utilisé pour résoudre numériquement cette équation est
              \State  $K^{(2)} = - \dfrac{1}{2}\delta_{4,x}^H \left(\left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(1)}\right)^2\right)$,
              \State  $K^{(3)} = - \dfrac{1}{2}\delta_{4,x}^H \left(\left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(2)}\right)^2\right)$,
              \State  $K^{(4)} = - \dfrac{1}{2}\delta_{4,x}^H \left(\left( \mathfrak{u}^n + \Delta t K^{(3)}\right)^2\right)$,  
-             \State  $\mathfrak{u}^{n+1} = \mathcal{F}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
+             \State  $\mathfrak{u}^{n+1} = \mathcal{F}_{2F,x}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
             \EndFor
     \end{algorithmic}
     \end{algorithm}
@@ -1320,7 +1320,7 @@ alors, le problème \eqref{eq:ondes_2D_SD} s'écrit
 \etafrak \\ \mathfrak{u} \\ \mathfrak{v}
 \end{pmatrix}.
 \end{equation}
-On note $\Delta t>0$ le pas de temps et $\etafrak^n$, $\mathfrak{u}^n$ et $\mathfrak{v}^n$ les approximations de $\etafrak(n\Delta t)$, $\mathfrak{u}(n \Delta t)$ et $\mathfrak{v}(n \Delta t)$ obtenues par un algorithme de type RK4 filtré. On note $\mathcal{F} = \mathcal{F}_x \circ \mathcal{F}_y$ l'opérateur de filtrage tel que $\mathcal{F}_x$ (resp. $\mathcal{F}_y$) est un opérateur de filtrage dans la direction de $x$ (resp. $y$). La méthode est détaillé dans l'algorithme \ref{alg:RK4_ondes2d}.
+On note $\Delta t>0$ le pas de temps et $\etafrak^n$, $\mathfrak{u}^n$ et $\mathfrak{v}^n$ les approximations de $\etafrak(n\Delta t)$, $\mathfrak{u}(n \Delta t)$ et $\mathfrak{v}(n \Delta t)$ obtenues par un algorithme de type RK4 filtré. On note $\mathcal{F}_{2F} = \mathcal{F}_{2F,x} \circ \mathcal{F}_{2F,y}$ l'opérateur de filtrage tel que $\mathcal{F}_{2F,x}$ (resp. $\mathcal{F}_{2F,y}$) est un opérateur de filtrage dans la direction de $x$ (resp. $y$). La méthode est détaillé dans l'algorithme \ref{alg:RK4_ondes2d}.
 
 \begin{center}
 \begin{minipage}[H]{12cm}
@@ -1333,15 +1333,15 @@ On note $\Delta t>0$ le pas de temps et $\etafrak^n$, $\mathfrak{u}^n$ et $\math
              \State  $\left(K^{(2)}_{\eta}, K^{(2)}_{u}, K^{(2)}_{v}\right) = F_h\left(\etafrak^n + \dfrac{\Delta t}{2}K^{(1)}_{\eta}, \mathfrak{u}^n + \dfrac{\Delta t}{2}K^{(1)}_{u}, \mathfrak{v}^n + \dfrac{\Delta t}{2}K^{(1)}_{v}\right)$,
              \State   $\left(K^{(3)}_{\eta}, K^{(3)}_{u}, K^{(3)}_{v}\right) = F_h\left(\etafrak^n + \dfrac{\Delta t}{2}K^{(2)}_{\eta}, \mathfrak{u}^n + \dfrac{\Delta t}{2}K^{(2)}_{u}, \mathfrak{v}^n + \dfrac{\Delta t}{2}K^{(2)}_{v}\right)$,
              \State   $\left(K^{(4)}_{\eta}, K^{(4)}_{u}, K^{(4)}_{v}\right) = F_h\left(\etafrak^n + \Delta t K^{(3)}_{\eta}, \mathfrak{u}^n + \Delta tK^{(3)}_{u}, \mathfrak{v}^n + \Delta t K^{(3)}_{v}\right)$,
-             \State  $\etafrak^{n+1} = \mathcal{F}\left( \etafrak^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{\eta} + 2 K^{(2)}_{\eta} + 2 K^{(3)}_{\eta} + K^{(4)}_{\eta} \right) \right)$,
-             \State  $\mathfrak{u}^{n+1} = \mathcal{F}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{u} + 2 K^{(2)}_{u} + 2 K^{(3)}_{u} + K^{(4)}_{u} \right) \right)$,
-             \State  $\mathfrak{v}^{n+1} = \mathcal{F}\left( \mathfrak{v}^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{v} + 2 K^{(2)}_{v} + 2 K^{(3)}_{v} + K^{(4)}_{v} \right) \right)$.
+             \State  $\etafrak^{n+1} = \mathcal{F}_{2F}\left( \etafrak^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{\eta} + 2 K^{(2)}_{\eta} + 2 K^{(3)}_{\eta} + K^{(4)}_{\eta} \right) \right)$,
+             \State  $\mathfrak{u}^{n+1} = \mathcal{F}_{2F}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{u} + 2 K^{(2)}_{u} + 2 K^{(3)}_{u} + K^{(4)}_{u} \right) \right)$,
+             \State  $\mathfrak{v}^{n+1} = \mathcal{F}_{2F}\left( \mathfrak{v}^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{v} + 2 K^{(2)}_{v} + 2 K^{(3)}_{v} + K^{(4)}_{v} \right) \right)$.
             \EndFor
     \end{algorithmic}
     \end{algorithm}
 \end{minipage}
 \end{center}
-Pour assurer la précision de la méthode utilisée, il faut que l'algorithme \eqref{alg:RK4_ondes2d} soit stable. On considère dans un premier temps l'algorithme sans filtrage, c'est à dire $\mathcal{F}=id$. On a déjà vu que l'algorithme est stable si et seulement si
+Pour assurer la précision de la méthode utilisée, il faut que l'algorithme \eqref{alg:RK4_ondes2d} soit stable. On considère dans un premier temps l'algorithme sans filtrage, c'est à dire $\mathcal{F}_{2F}=id$. On a déjà vu que l'algorithme est stable si et seulement si
 \begin{equation}
 \Sp ( \Delta t F_h ) \subset \mathcal{D}_{RK4}.
 \end{equation}
@@ -1445,7 +1445,7 @@ d'où
 \end{proof}
 Comme le spectre de l'opérateur de filtrage est inclus dans $[-1,1]$ :
 \begin{equation}
-\Sp \left( \mathcal{F} \right) \subset [-1,1],
+\Sp \left( \mathcal{F}_{2F} \right) \subset [-1,1],
 \end{equation}
 même en présence d'un opérateur de filtrage, le schéma est stable sous la condition \eqref{eq:stabilityc_conditions_ondes2D}.
 
@@ -1471,9 +1471,9 @@ car les opérateurs $\delta_{4,x}^H$ et $\delta_{4,y}^H$ sont anti-symétriques.
 
 Ainsi, on a
 \begin{equation}
-(\etafrak^{n+1}, \mathfrak{1})_{h,per} = \left( \mathcal{F}\left( \etafrak^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{\eta} + 2 K^{(2)}_{\eta} + 2 K^{(3)}_{\eta} + K^{(4)}_{\eta} \right) \right) , \mathfrak{1} \right)_{h,per}
+(\etafrak^{n+1}, \mathfrak{1})_{h,per} = \left( \mathcal{F}_{2F}\left( \etafrak^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{\eta} + 2 K^{(2)}_{\eta} + 2 K^{(3)}_{\eta} + K^{(4)}_{\eta} \right) \right) , \mathfrak{1} \right)_{h,per}
 \end{equation}
-en utilisant la symétrie de $\mathcal{F}$ et $\mathcal{F}(\mathfrak{1}) = \mathfrak{1}$, on a
+en utilisant la symétrie de $\mathcal{F}_{2F}$ et $\mathcal{F}_{2F}(\mathfrak{1}) = \mathfrak{1}$, on a
 \begin{equation}
 (\etafrak^{n+1}, \mathfrak{1})_{h,per} = \left( \etafrak^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{\eta} + 2 K^{(2)}_{\eta} + 2 K^{(3)}_{\eta} + K^{(4)}_{\eta} \right) , \mathfrak{1}\right)_{h,per}
 \end{equation}

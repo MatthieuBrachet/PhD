@@ -77,12 +77,12 @@ Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ une fonction rég
 \end{itemize} 
 \end{theoreme}
 
-Pour calculer une valeur approchée des opérateurs gradient, divergence et rotationnel aux points du maillage de la Cubed-Sphere, il faut calculer une valeur approchée de la dérivée d'une fonction le long d'un grand cercle. C'est à dire, calculer $f_{\xi,i,j}$ et $f_{\eta,i,j}$ tels que 
+Pour calculer une valeur approchée des opérateurs gradient, divergence et rotationnel aux points du maillage de la Cubed-Sphere, il faut calculer une valeur approchée de la dérivée d'une fonction le long d'un grand cercle. C'est à dire, calculer $\dxi f_{i,j}^{(k)}$ et $\deta f_{i,j}^{(k)}$ tels que 
 \begin{equation}
 \left\lbrace
 \begin{array}{rl}
-f_{\xi,i,j} \rightarrow \partial_{\xi} f ( \mathbf{x}_{i,j}^k) & \text{ lorsque } \Delta \xi \rightarrow 0\\
-f_{\eta,i,j} \rightarrow \partial_{\eta} f ( \mathbf{x}_{i,j}^k) & \text{ lorsque } \Delta \eta \rightarrow 0
+\dxi f_{i,j}^{(k)} \rightarrow \partial_{\xi} f ( \mathbf{x}_{i,j}^k) & \text{ lorsque } \Delta \xi \rightarrow 0\\
+\deta f_{i,j}^{(k)} \rightarrow \partial_{\eta} f ( \mathbf{x}_{i,j}^k) & \text{ lorsque } \Delta \eta \rightarrow 0
 \end{array}
 \right.
 \end{equation}
@@ -106,7 +106,7 @@ $C^{(1)}_i$ est une isoligne en $\xi = \xi_i$ constant et $C^{(2)}_j$ est une is
 Pour calculer une valeur approchée de $\partial_{\xi} f (\mathbf{x}_{i,j}^{(I)})$, on souhaite connaître toutes les valeurs de $f$ aux points équirépartis le long du cercle $C^{(2)}_j$. On pose $\mathbf{m}_p$ avec $0 \leq p \leq 4N-1$ les points de $C^{(2)}_j$ construits de la manière suivante :
 \begin{itemize}
 \item si $0 \leq p \leq N$ alors $\mathbf{m}_p = \mathbf{x}^{(I)}_{p-N/2,j}$, il s'agit des points du cercle $C^{(2)}_j$ associés au panel $(I)$ sur le maillage. Ils sont représentés par des ronds bleus sur les figures \ref{fig:patron_cs} et \ref{fig: panel II_interp},
-\item si $N+1 \leq p \leq 2N-1$ alors les points ne font pas partis du maillages. Il s'agit des points d'intersections de $C^{(2)}_j$ avec les isoligne $\xi = \xi_i^{(II)}$ du panel $(II)$. C'est à dire l'intersection de $C^{(2)}_j$ avec les cercles de $(II_{\beta})$. Ces points sont représentés par les carrés bleus dans les figures \ref{fig:patron_cs} et \ref{fig: panel II_interp}. Les coordonnées de ces points ont été calculées dans la partie \REF.
+\item si $N+1 \leq p \leq 2N-1$ alors les points ne font pas partis du maillages. Il s'agit des points d'intersections de $C^{(2)}_j$ avec les isoligne $\xi = \xi_i^{(II)}$ du panel $(II)$. C'est à dire l'intersection de $C^{(2)}_j$ avec les cercles de $(II_{\beta})$. Ces points sont représentés par les carrés bleus dans les figures \ref{fig:patron_cs} et \ref{fig: panel II_interp}. Les coordonnées de ces points ont été calculées dans la partie \eqref{eq:coord_cross}.
 \item si $2N \leq p \leq 3N$ alors $\mathbf{m}_p = \mathbf{x}^{(III)}_{p-3N/2}$. Il s'agit des points de la Cubed-Sphere du panel $(III)$ représentés par des ronds bleus sur la figure \ref{fig:patron_cs},
 \item si $3N+1 \leq p \leq 4N-1$ alors $\mathbf{m}_p$ est constitués des points d'intersections de $C^{(2)}_j$ avec les cercles de $(IV_{\beta})$. Il ne s'agit pas de points de la grille. Ces points sont représentés par les carrés bleus dans la figure \ref{fig:patron_cs}.
 \end{itemize}
@@ -338,7 +338,7 @@ La périodicité sur les grands cercles permet d'assurer que $\mathbf{m}_p = \ma
 \end{equation}
 Si $f_p = f(\mathbf{m}_p)$ est connue pour tout $p$ vérifiant $0 \leq p \leq 4N-1$ alors on peut calculer la dérivée approchée $f_{\xi,i,j}^k$ de $\partial_{\xi}f(\mathbf{x}_{i,j}^k)$ à l'ordre $4$ grâce à la formule de dérivation hermitienne \eqref{eq:comp4}
 \begin{equation}
-f_{\xi,i,j}^k = \delta_{4,\xi}^H f_p.
+\dxi f_{i,j}^{(k)} = \delta_{4,\xi}^H f_p.
 \end{equation}
 Cependant, les valeurs de $f_p$ ne sont pas toutes connues car les points $\mathbf{m}_p$ ne sont pas des points du maillages lorsque $N+1 \leq p \leq 2N-1$ ou $3N+4 \leq p \leq 4N-1$. Il faut donc construire un procéder permettant d'obtenir des valeurs en ces points. Le procédé utilisé dans ce travail est basé sur une interpolation à l'aide de Splines Cubiques.
 
@@ -525,19 +525,19 @@ que l'on restreint aux points du maillage par
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-f_{\xi,i,j}^{(I)} & = & \delta_{4, \xi}^H f_{i-N/2}\\
-f_{\xi,i,j}^{(III)} & = & \delta_{4, \xi}^H f_{i+3N/2}
+\dxi f_{i,j}^{(I)} & = & \delta_{4, \xi}^H f_{i-N/2}\\
+\deta f_{i,j}^{(III)} & = & \delta_{4, \xi}^H f_{i+3N/2}
 \end{array}
 \right.
 \text{ pour } C^{(2)}_j \text{ fixé.}
 \end{equation}
 
-Finalement, le procédé total de calcul des dérivées hermitienne est $\xi$ sur un panel $k$ est donné par l'algorithme \ref{alg:deltaxi}.
+Le procédé total de calcul des dérivées hermitienne est $\xi$ sur un panel $k$ est donné par l'algorithme \ref{alg:deltaxi}.
 
 \begin{center}
 \begin{minipage}[H]{12cm}
   \begin{algorithm}[H]
-    \caption{: Calcul de $f_{\xi, i, j}^{(I)}$ et $f_{\xi, i, j}^{(III)}$}\label{alg:deltaxi}
+    \caption{: Calcul de $\dxi f_{i, j}^{(I)}$ et $\dxi f_{i, j}^{(III)}$}\label{alg:deltaxi}
     \begin{algorithmic}[1]
     \For{ $j=-N/2, \ldots , N/2$, }
     \State pour un grand cercle $C_j^{(2)}$ fixé,
@@ -548,8 +548,8 @@ Finalement, le procédé total de calcul des dérivées hermitienne est $\xi$ su
              \State $f_p = P_{C_p}(\mathbf{m}_p)$, où $P_{C_p}$ est la fonction d'interpolation utilisant les points de l'isoligne $\xi = \xi^{(VI)}_{p-3N/2+1}$ pour $3N+1 \leq p \leq 4N-1$.
             \EndFor
     \State Calcul de $\delta_{4, \xi}^H f_p$,
-    \State Affectation $f_{\xi,i,j}^{(I)} = \delta_{4, \xi}^H f_{i+N/2}$,
-    \State Affectation $f_{\xi,i,j}^{(III)} = \delta_{4, \xi}^H f_{i+3N/2}$.
+    \State Affectation $\dxi f_{i,j}^{(I)} = \delta_{4, \xi}^H f_{i+N/2}$,
+    \State Affectation $\dxi f_{i,j}^{(III)} = \delta_{4, \xi}^H f_{i+3N/2}$.
     \EndFor
     \end{algorithmic}
     \end{algorithm}
@@ -559,7 +559,7 @@ De la même manière, l'algorithme de construction des dérivées approchées en
 \begin{center}
 \begin{minipage}[H]{12cm}
   \begin{algorithm}[H]
-    \caption{: Calcul de $f_{\eta, i, j}^{(I)}$ et $f_{\eta, i, j}^{(III)}$}\label{alg:deltaeta}
+    \caption{: Calcul de $\deta f_{i, j}^{(I)}$ et $\deta f_{i, j}^{(III)}$}\label{alg:deltaeta}
     \begin{algorithmic}[1]
     \For{ $i=-N/2, \ldots , N/2$, }
     \State pour un grand cercle $C_i^{(1)}$ fixé,
@@ -570,8 +570,8 @@ De la même manière, l'algorithme de construction des dérivées approchées en
              \State $f_p = P_{C_p}(\mathbf{m}_p)$, où $P_{C_p}$ est la fonction d'interpolation utilisant les points de l'isoligne $\eta = \eta^{(VI)}_{p-3N/2+1}$ pour $3N+1 \leq p \leq 4N-1$.
             \EndFor
     \State Calcul de $\delta_{4, \eta}^H f_p$,
-    \State Affectation $f_{\eta,i,j}^{(I)} = \delta_{4, \eta}^H f_{i+N/2}$,
-    \State Affectation $f_{\eta,i,j}^{(III)} = \delta_{4, \eta}^H f_{i+3N/2}$.
+    \State Affectation $\deta f_{i,j}^{(I)} = \delta_{4, \eta}^H f_{i+N/2}$,
+    \State Affectation $\deta f_{i,j}^{(III)} = \delta_{4, \eta}^H f_{i+3N/2}$.
     \EndFor
     \end{algorithmic}
     \end{algorithm}
@@ -584,8 +584,8 @@ Pour tous $-N/2 \leq i,j \leq N/2$ et $(k) = (I) , \ldots , (VI)$ et pour $f : \
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-f_{\xi,i,j}^{(k)} & = & \partial_{\xi} f(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}(\Delta \eta^3) \\
-f_{\eta,i,j}^{(k)} & = & \partial_{\eta} f(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}(\Delta \xi^3)
+\dxi f_{i,j}^{(k)} & = & \partial_{\xi} f(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}(\Delta \eta^3) \\
+\deta f_{i,j}^{(k)} & = & \partial_{\eta} f(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}(\Delta \xi^3)
 \end{array}
 \right.
 \end{equation}
@@ -595,7 +595,7 @@ f_{\eta,i,j}^{(k)} & = & \partial_{\eta} f(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}
 \begin{proof}
 La preuve est la même sur chaque panel, on se concentre ici sur le panel $(I)$. De plus, par symétrie, nous ne montrons que le premier résultat :
 \begin{equation}
-f_{\xi,i,j}^{(k)} = \partial_{\xi} f(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}(\Delta \eta^3)
+\dxi f_{i,j}^{(k)} = \partial_{\xi} f(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}(\Delta \eta^3)
 \end{equation}
 Le procédé de construction des valeur sur un grand cercle $C_j^{(2)}$, aux points $\mathbf{m}_p$ avec $0 \leq p \leq 4N-1$, nous donne le résultat
 \begin{equation}
@@ -615,7 +615,7 @@ On considère que sur la Cubed-Sphere $\Delta \xi = \Delta \eta$. Alors en compo
 \end{align*}
 On assigne les dérivées aux points des panels à l'aide de $\mathbf{m}_p=\mathbf{x}^{(k)}_{p-N/2,j}$ pour $p = 0 \ldots N$. Le résultat est alors :
 \begin{equation}
-f^{(k)}_{\xi,i,j} = \delta_{4,\xi}^H f_{i+N/2} = \partial_{\xi} f(\mathbf{x}^{(k)}_{i+N/2,j}) + \mathcal{O}\left( \Delta \eta^3 \right).
+\dxi f^{(k)}_{i,j} = \delta_{4,\xi}^H f_{i+N/2} = \partial_{\xi} f(\mathbf{x}^{(k)}_{i+N/2,j}) + \mathcal{O}\left( \Delta \eta^3 \right).
 \end{equation}
 Le résultat concernant la dérivée en $\eta$ est obtenu de la même manière.
 \end{proof}
@@ -639,9 +639,9 @@ Nous notons $( \mathbf{g}^{\xi} )_{i,j}^{(k)} = \mathbf{g}^{\xi} (\mathbf{x}_{i,
 \begin{definition}
 On définit l'opérateur \textit{gradient discret} par 
 \begin{equation}
-\nabla_{T,\Delta} h_{i,j}^{(k)} = h_{\xi,i,j}^{(k)} ( \mathbf{g}^{\xi} )_{i,j}^{(k)} + h_{\eta,i,j}^{(k)} ( \mathbf{g}^{\eta} )_{i,j}^{(k)}
+\nabla_{T,\Delta} h_{i,j}^{(k)} = \dxi h_{i,j}^{(k)} ( \mathbf{g}^{\xi} )_{i,j}^{(k)} + \deta h_{i,j}^{(k)} ( \mathbf{g}^{\eta} )_{i,j}^{(k)}
 \end{equation}
-avec $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \ldots , (VI)$ ainsi que $h_{\xi,i,j}^{(k)}$ et $h_{\eta,i,j}^{(k)}$ obtenus grâce aux algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta}.
+avec $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \ldots , (VI)$ ainsi que $\dxi h_{i,j}^{(k)}$ et $\deta h_{i,j}^{(k)}$ obtenus grâce aux algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta}.
 \label{def:gradient_disc}
 \end{definition}
 L'opérateur gradient discret de $h$, $\nabla_{T,\Delta} h_{i,j}^{(k)}$ donne une approximation du gradient continu en $\mathbf{x}_{i,j}^{(k)}$. En effet, le résultat de consistance suivant est vérifié:
@@ -694,7 +694,7 @@ Si $\mathbf{u}$ est une fonction vectorielle définit sur la Cubed-Sphere, alors
 \end{equation}
 On définit la norme $\mathcal{N}$ par
 \begin{equation}
-\mathcal{N}(\mathbf{u}) = \max_{-N/2 \leq i,j \leq N/2} \max_{(k) = (I) \ldots (VI)} \max (u_{i,j}^{(k)}, v_{i,j}^{(k)}, w_{i,j}^{(k)}).
+\mathcal{N}(\mathbf{u}) = \max_{-N/2 \leq i,j \leq N/2} \max_{(k) = (I) \ldots (VI)} \max (|u_{i,j}^{(k)}|, |v_{i,j}^{(k)}|, |w_{i,j}^{(k)}|).
 \end{equation}
 On mesure l'erreur faite sur le calcul du gradient approché par
 \begin{equation}
@@ -915,23 +915,23 @@ Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) 
 \begin{equation}
 \mathbf{v}(\mathbf{x}) = u(\mathbf{x}) \mathbf{i} + v (\mathbf{x}) \mathbf{j} + w(\mathbf{x}) \mathbf{k}
 \end{equation}
-avec $(\mathbf{i}, \mathbf{j}, \mathbf{k})$ la base canonique de $\mathbb{R}^3$ et $\mathbf{x} \in \mathbb{S}_a^2$. On définit $\mathbf{v}_{\xi,i,j}^{(k)}$ et $\mathbf{v}_{\eta,i,j}^{(k)}$ par
+avec $(\mathbf{i}, \mathbf{j}, \mathbf{k})$ la base canonique de $\mathbb{R}^3$ et $\mathbf{x} \in \mathbb{S}_a^2$. On définit $\dxi \mathbf{v}_{i,j}^{(k)}$ et $\deta \mathbf{v}_{i,j}^{(k)}$ par
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\mathbf{v}_{\xi,i,j}^{(k)} & = & u_{\xi,i,j}^{(k)} \mathbf{i} + v_{\xi,i,j}^{(k)} \mathbf{j} + w_{\xi,i,j}^{(k)} \mathbf{k} \\
-\mathbf{v}_{\eta,i,j}^{(k)} & = & u_{\eta,i,j}^{(k)} \mathbf{i} + v_{\eta,i,j}^{(k)} \mathbf{j} + w_{\eta,i,j}^{(k)} \mathbf{k}
+\dxi \mathbf{v}_{i,j}^{(k)} & = & \dxi u_{i,j}^{(k)} \mathbf{i} + \dxi v_{i,j}^{(k)} \mathbf{j} + \dxi w_{i,j}^{(k)} \mathbf{k} \\
+\deta \mathbf{v}_{i,j}^{(k)} & = & \deta u_{i,j}^{(k)} \mathbf{i} + \deta v_{i,j}^{(k)} \mathbf{j} + \deta w_{i,j}^{(k)} \mathbf{k}
 \end{array}
 \right.
 \text{ pour } -N/2 \leq  i,j \leq N/2 \text{, } (k) = (I), \ldots, (VI). 
 \label{eq:der_partiel_vect}
 \end{equation}
-où les fonctions de grilles $(u_{\xi,i,j}^{(k)}), (u_{\eta,i,j}^{(k)}),  \ldots$ sont construites grâce aux algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta}.
+où les fonctions de grilles $(\dxi u_{i,j}^{(k)}), (\deta u_{i,j}^{(k)}),  \ldots$ sont construites grâce aux algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta}.
 
 \begin{definition}
 On définit l'opérateur \textit{divergence discrète} par 
 \begin{equation}
-\nabla_{T,\Delta} \cdot \mathbf{v}_{i,j}^{(k)} = \mathbf{v}_{\xi,i,j}^{(k)} \cdot ( \mathbf{g}^{\xi} )_{i,j}^{(k)} + \mathbf{v}_{\eta,i,j}^{(k)} \cdot ( \mathbf{g}^{\eta} )_{i,j}^{(k)}
+\nabla_{T,\Delta} \cdot \mathbf{v}_{i,j}^{(k)} = \dxi \mathbf{v}_{i,j}^{(k)} \cdot ( \mathbf{g}^{\xi} )_{i,j}^{(k)} + \deta \mathbf{v}_{i,j}^{(k)} \cdot ( \mathbf{g}^{\eta} )_{i,j}^{(k)}
 \end{equation}
 avec $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \ldots , (VI)$.
 \label{def:divergence_disc}
@@ -1017,7 +1017,7 @@ Pour valider l'opérateur de divergence approchée $\nabla_{T, \Delta} \cdot$ , 
 avec $p,q,r \in \mathbb{N}$ et $\mathbf{u} = [1, 1, 1]^T$. La divergence d'un tel champ de vecteur est donné par la proposition \ref{prop:grad-div_link} et la proposition \ref{prop:gradient_project}. 
 On mesure l'erreur relative donnée par 
 \begin{equation}
-\dfrac{\| \nabla_{T,\Delta} \cdot \mathbf{F} - \nabla_{T} \cdot \mathbf{F}^* \|_s}{\| \nabla_{T} \cdot \mathbf{F}^* \|_s}
+\dfrac{\| \left(\nabla_{T,\Delta} \cdot \mathbf{F}^* \right) - \left( \nabla_{T} \cdot \mathbf{F}\right)^* \|_s}{\| \left( \nabla_{T} \cdot \mathbf{F} \right)^* \|_s}
 \end{equation}
 avec $s \in \left\lbrace 1, 2, \infty \right\rbrace$. $*$ désigne la restriction à la Cubed-Sphere.
 On mesure aussi l'erreur sur la conservation, c'est à dire la valeur approchée de l'intégrale \ref{eq:conservation_divergence}. Les résultats sont donnés dans les tables \ref{tab:rate_div} et \ref{tab:rate_div_t2}. Ils permettent de confirmer l'ordre 3 minimum obtenu théoriquement et donnent un ordre 4 numérique aussi bien sur l'erreur de la divergence que sur la conservation. La table \ref{tab:rate_div_t2} présente une erreur de conservation proche de l'erreur machine quel que soit le maillage, ce résultat est attribué aux symétries de la solution lorsque $(p,q,r)=(1,1,1)$.
@@ -1150,11 +1150,11 @@ où $s$ est un paramètre de seuillage permettant de peu affecter la fonction in
 avec $\tilde{X}=y \psi_1(x)$ et $\tilde{Y} = z \psi_2(x)$.
 En remplaçant $\mathbf{g}^{\xi}$, $\mathbf{g}^{\eta}$ et $\sqrt{\bar{\mathbf{G}}}$ par $\tilde{\mathbf{g}}^{\xi}$, $\tilde{\mathbf{g}}^{\eta}$ et $\sqrt{\tilde{\mathbf{G}}}$ données par \eqref{eq:expression2_div_v2}, on définit la divergence approchée en $\mathbf{x}_{i,j}^{(k)}$ par
 \begin{equation}
-\nabla_{T,\Delta,2} \cdot \mathbf{F} = \dfrac{1}{\sqrt{\tilde{\mathbf{G}}}} \left[ \left( \sqrt{\tilde{\mathbf{G}}} \mathbf{F} \cdot \tilde{\mathbf{g}}^{\xi} \right)_{,\xi} + 
-\left( \sqrt{\tilde{\mathbf{G}}} \mathbf{F} \cdot \tilde{\mathbf{g}}^{\eta} \right)_{,\eta}
+\nabla_{T,\Delta,2} \cdot \mathbf{F} = \dfrac{1}{\sqrt{\tilde{\mathbf{G}}}} \left[ \dxi \left( \sqrt{\tilde{\mathbf{G}}} \mathbf{F} \cdot \tilde{\mathbf{g}}^{\xi} \right) + 
+\deta \left( \sqrt{\tilde{\mathbf{G}}} \mathbf{F} \cdot \tilde{\mathbf{g}}^{\eta} \right)
 \right]
 \end{equation}
-où $f_{,\xi}$ et $f_{,\eta}$ désignent les dérivées hermitiennes en $\xi$ et en $\eta$ de $f$ obtenues en utilisant les algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta}. 
+où $\dxi f$ et $\deta f$ désignent les dérivées hermitiennes en $\xi$ et en $\eta$ de $f$ obtenues en utilisant les algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta}. 
 
 Comme pour la divergence précédente, on teste la précision de cette dernière sur le champ de vecteurs \eqref{eq:test_divergence}. Les résultats sont donnés dans les tables \ref{tab:rate1_div_v2} et \ref{tab:rate2_div_v2}.
 
@@ -1235,7 +1235,7 @@ Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) 
 \begin{definition}
 On définit l'opérateur \textit{rotationnel discret} par 
 \begin{equation}
-\rot_{\Delta} (\mathbf{v}_{i,j}^{(k)}) = (\nabla_{T,\Delta} \wedge \mathbf{v}_{i,j}^{(k)}) \cdot \mathbf{n} = \left( ( \mathbf{g}^{\xi} )_{i,j}^{(k)} \wedge \mathbf{v}_{\xi,i,j}^{(k)}   + ( \mathbf{g}^{\eta} )_{i,j}^{(k)} \wedge \mathbf{v}_{\eta,i,j}^{(k)} \right) \cdot \mathbf{n}(\mathbf{x}_{i,j}^{(k)}) \in \mathbb{C}
+\rot_{\Delta} (\mathbf{v}_{i,j}^{(k)}) = (\nabla_{T,\Delta} \wedge \mathbf{v}_{i,j}^{(k)}) \cdot \mathbf{n} = \left( ( \mathbf{g}^{\xi} )_{i,j}^{(k)} \wedge \dxi \mathbf{v}_{i,j}^{(k)}   + ( \mathbf{g}^{\eta} )_{i,j}^{(k)} \wedge \deta \mathbf{v}_{i,j}^{(k)} \right) \cdot \mathbf{n}(\mathbf{x}_{i,j}^{(k)}) \in \mathbb{C}
 \end{equation}
 avec $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \ldots , (VI)$.
 \label{def:rotationnel_disc}
@@ -1255,7 +1255,7 @@ Si un point $\mathbf{x}_{i,j}^{(k)}$ appartient à plusieurs panels ($i$ ou $j$ 
 
 Pour tester le rotationnel discret $\rot_{\Delta}$, on mesure l'erreur relative en norme $l$ donnée par
 \begin{equation}
-e_l = \dfrac{\| \rot(\mathbf{v}(\mathbf{x}_{i,j}^{(k)})) - \rot_{\Delta}(\mathbf{v})_{i,j}^{(k)} \|_l}{\| \rot(\mathbf{v}(\mathbf{x}_{i,j}^{(k)})) \|_l}
+e_l = \dfrac{\| \rot(\mathbf{v})^* - \rot_{\Delta}(\mathbf{v}^*) \|_l}{\| \rot(\mathbf{v})^* \|_l}
 \end{equation}
 avec $l \in \lbrace 1, 2, \infty \rbrace$, où $\mathbf{v} \in \mathbb{T}\mathbb{S}_a^2$/
 
@@ -1380,7 +1380,7 @@ De là, on peut déduire le rotationnel sphérique de $\mathbf{v}$ :
 \begin{equation}
 \rot ( \mathbf{v} ) = - \dfrac{1}{a} \left( \dfrac{x}{a} \left( 2 + \dfrac{z}{a}  \right) \exp \left( \dfrac{z}{a} \right) + \dfrac{y}{a} \left( 2 + \dfrac{x}{a}  \right) \exp \left( \dfrac{x}{a} \right) + \dfrac{z}{a} \left( 2 + \dfrac{y}{a}  \right) \exp \left( \dfrac{y}{a} \right) \right)
 \end{equation}
-avec $(x,y,z) \in \mathbb{S}_a^2$. On peut comparer ce rotationnel et le rotationnel approché, la convergence de la méthode est donnée dans la table \REF
+avec $(x,y,z) \in \mathbb{S}_a^2$. On peut comparer ce rotationnel et le rotationnel approché, la convergence de la méthode est donnée dans la table \ref{tab:rate_rot2}.
 
 \begin{table}[htbp]
 \begin{center}
@@ -1538,9 +1538,9 @@ $256$& $2.5396(-10)$ & $1.0283(-10)$ & $1.9459(-10)$ \\
 
 \subsection{Définition des opérateurs de filtrage}
 
-Les opérateurs de filtrages en $\xi$ et en $\eta$, respectivement notés $\mathcal{F}_{\xi}$ et $\mathcal{F}_{\eta}$, sont construit de manière très similaire aux opérateurs de dérivations donnés par les algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta} en remplaçant l'opérateur de dérivation approchée $\delta^H_{4,\xi}$ (ou $\delta^H_{4,\eta}$) par un opérateur de filtrage.
+Les opérateurs de filtrages en $\xi$ et en $\eta$, respectivement notés $\mathcal{F}_{\xi}$ et $\mathcal{F}_{\eta}$, sont construits de manière très similaire aux opérateurs de dérivations donnés par les algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta} en remplaçant l'opérateur hermitien $\delta^H_{4,\xi}$ (ou $\delta^H_{4,\eta}$) par un opérateur de filtrage $\mathcal{F}_{2F,\xi}$ ou $\mathcal{F}_{2F,\eta}$.
 
-Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x}) \in \mathbb{R}$ une fonction. L'opérateur de filtrage $\mathcal{F}_{\xi}$ agit sur les fonctions de grilles sur la Cubed-Sphere grâce à un algorithme similaire à celui utilisé pour la dérivation (algorithme  \ref{alg:deltaxi}) en remplaçant, sur chaque grand cercle l'opérateur de dérivation hermitien $\delta_{4,\xi}^H$. On définit $\mathcal{F}_{\xi}$ le filtrage dans la direction de $\xi$, l'algorithme \ref{alg:ftrxi} fixe le fonctionnement de ce filtre.
+Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x}) \in \mathbb{R}$ une fonction. L'opérateur de filtrage $\mathcal{F}_{\xi}$ agit sur les fonctions de grilles sur la Cubed-Sphere grâce à un algorithme similaire à celui utilisé pour la dérivation (algorithme  \ref{alg:deltaxi}) en remplaçant, sur chaque grand cercle l'opérateur de dérivation hermitien $\delta_{4,\xi}^H$. On définit $\mathcal{F}_{\xi}$ l'opérateur de filtrage dans la direction $\xi$ grâce à l'algorithme \ref{alg:ftrxi}.
 
 \begin{center}
 \begin{minipage}[H]{12cm}
@@ -1555,15 +1555,15 @@ Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x}) \in \mathbb{R}$ un
              \State  $\mathbf{m}_p = \mathbf{m}_{p-3N/2,j}^{(III)}$ pour $2N  \leq p \leq 3N-1$ donc $h_p = h(\mathbf{m}_p)$,
              \State $h_p = P_{C_p}(\mathbf{m}_p)$, où $P_{C_p}$ est la fonction d'interpolation utilisant les points de l'isoligne $\xi = \xi^{(VI)}_{p-3N/2+1}$ pour $3N+1 \leq p \leq 4N-1$.
             \EndFor
-    \State Calcul de $\mathcal{F}(h_p)$,
-    \State Affectation $\mathcal{F}(h)_{\xi,i,j}^{(I)} = \mathcal{F}(f)_{i+N/2}$,
-    \State Affectation $\mathcal{F}(h)_{\xi,i,j}^{(III)} = \mathcal{F}(f)_{i+3N/2}$.
+    \State Calcul de $\mathcal{F}_{2F,\xi}(h_p)$,
+    \State Affectation $\mathcal{F}_{\xi}(h_{\xi,i,j}^{(I)}) = \mathcal{F}_{2F,\xi}(h)_{i+N/2}$,
+    \State Affectation $\mathcal{F}_{\xi}(h_{\xi,i,j}^{(III)}) = \mathcal{F}_{2F,\xi}(h)_{i+3N/2}$.
     \EndFor
     \end{algorithmic}
     \end{algorithm}
 \end{minipage}
 \end{center}
-$\mathcal{F}$ désigne un opérateur de filtrage 1D. Dans la direction de $\eta$, on définit le filtre $\mathcal{F}_{\eta}$ agissant sur les fonctions de grille sur la Cubed-Sphere. L'algorithme \ref{alg:ftreta} précise le fonctionnement de $\mathcal{F}_{\eta}$ :
+$\mathcal{F}_{2F,\xi}$ désigne un opérateur de filtrage 1D. Dans la direction de $\eta$, on définit l'opérateur de filtrage $\mathcal{F}_{\eta}$ agissant sur les fonctions de grille sur la Cubed-Sphere. L'algorithme \ref{alg:ftreta} définit l'opérateur $\mathcal{F}_{\eta}$ :
 
 \begin{center}
 \begin{minipage}[H]{12cm}
@@ -1578,17 +1578,15 @@ $\mathcal{F}$ désigne un opérateur de filtrage 1D. Dans la direction de $\eta$
              \State  $\mathbf{m}_p = \mathbf{m}_{i,p-3N/2}^{(III)}$ pour $2N  \leq p \leq 3N-1$ donc $h_p = h(\mathbf{m}_p)$,
              \State $h_p = P_{C_p}(\mathbf{m}_p)$, où $P_{C_p}$ est la fonction d'interpolation utilisant les points de l'isoligne $\eta = \eta^{(VI)}_{p-3N/2+1}$ pour $3N+1 \leq p \leq 4N-1$.
             \EndFor
-    \State Calcul de $\mathcal{F}(h_p)$,
-    \State Affectation $\mathcal{F}(h)_{\eta,i,j}^{(I)} = \mathcal{F}(f)_{j+N/2}$,
-    \State Affectation $\mathcal{F}(h)_{\eta,i,j}^{(III)} = \mathcal{F}(f)_{j+3N/2}$.
+    \State Calcul de $\mathcal{F}_{2F,\eta}(h_p)$,
+    \State Affectation $\mathcal{F}_{\eta}(h_{i,j}^{(I)}) = \mathcal{F}_{2F,\eta}(h)_{j+N/2}$,
+    \State Affectation $\mathcal{F}_{\eta}(h_{i,j}^{(III)}) = \mathcal{F}_{2F,\eta}(h)_{j+3N/2}$.
     \EndFor
     \end{algorithmic}
     \end{algorithm}
 \end{minipage}
 \end{center}
-
 Les opérateurs $\mathcal{F}_{\xi}$ et $\mathcal{F}_{\eta}$ définissent des perturbations de l'identité.
-
 \begin{proposition}
 Pour toute fonction $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x}) \in \mathbb{R}$ régulière, on a 
 \begin{equation}
