@@ -1,11 +1,54 @@
-clc; clear all; close all;
+clc; clear all; close all; format shorte
+global n nn radius
+global scheme
+global opt_ftr
 
-radius=6371220;
-N=[8 16 32 64 128 256];
+scheme='compact4';
+opt_ftr='redonnet2';
+
+NN=[31 63 127 255 511];
+for l=1:length(NN)
+    n=NN(l);
+    mod101
+    disp('mod101 : ok')
+
+    [mfunfI]   = fun(x_fI,y_fI,z_fI);
+    [mfunfII]  = fun(x_fII,y_fII,z_fII);
+    [mfunfIII] = fun(x_fIII,y_fIII,z_fIII);
+    [mfunfIV]  = fun(x_fIV,y_fIV,z_fIV);
+    [mfunfV]   = fun(x_fV,y_fV,z_fV);
+    [mfunfVI]  = fun(x_fVI,y_fVI,z_fVI);
+
+    [funfI,funfII,funfIII,funfIV,funfV,funfVI]=ftr_mixte101(mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI, n, nn);
+
+    errI   = abs(funfI-mfunfI);
+    errII  = abs(funfII-mfunfII);
+    errIII = abs(funfIII-mfunfIII);
+    errIV  = abs(funfIV-mfunfIV);
+    errV   = abs(funfV-mfunfV);
+    errVI  = abs(funfVI-mfunfVI);
+
+
+    [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=nrm101(errI,errII,errIII,errIV,errV,errVI,n,nn,'1');
+    [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,MMM]=nrm101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn,'1');
+    e1(l)=nrmg./MMM;
+
+    [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=nrm101(errI,errII,errIII,errIV,errV,errVI,n,nn,'2');
+    [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,MMM]=nrm101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn,'2');
+    e2(l)=nrmg./MMM;
+
+    [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=nrm101(errI,errII,errIII,errIV,errV,errVI,n,nn,'infty');
+    [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,MMM]=nrm101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn,'infty');
+    e3(l)=nrmg./MMM;
+end
+
+
+
+
+
+
+N=NN+1;
 dx=2*pi*radius./(4*N);
-e1=[6.0168e-03   1.5281e-03   3.8365e-04   9.6037e-05   2.4020e-05   6.0062e-06];
-e2=[6.0690e-03   1.5225e-03   3.8031e-04   9.4973e-05   2.3726e-05   5.9290e-06];
-e3=[2.4651e-6 8.4471e-9 6.1885e-10 3.9985e-11 2.5708e-12 1.6163e-13];
 
 ldx=log10(dx);
 le1=log10(e1);
@@ -77,3 +120,4 @@ set(ya,'FontSize',12);
 
 %% legend
 legend([hlf1,hlf2,hlf3],{['norm 1 - slope = ' num2str(a1(1))],['norm 2 - slope = ' num2str(a2(1))],['norm \infty - slope = ' num2str(a3(1))]},'Location','SouthEast')
+

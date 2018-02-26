@@ -12,8 +12,8 @@ global alfa1;
 
 %% --- axis
 lmin=-pi;lmax=pi;temin=-pi/2;temax=pi/2;
-umin=min(min([funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe]));
-umax=max(max([funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe]));
+umin=min(min([funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe]))*.99;
+umax=max(max([funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe]))*1.01;
 
 %% -- FACE I
 [lam_I,the_I,xwk]=cart2sph(x_fI,y_fI,z_fI);
@@ -272,7 +272,6 @@ plot3(lam_IV(:,1),the_IV(:,1),funfIVe(:,1)+eps,'k','LineWidth',xline); hold on;
 plot3(lam_IV(:,nn),the_IV(:,nn),funfIVe(:,nn)+eps,'k','LineWidth',xline); hold on;
 
 %% --- coast line
-umax=max(max([funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe]));
 load coast
 sz=size(long);
 plot3(long*pi/180,lat*pi/180,umax*ones(sz),'k-')
