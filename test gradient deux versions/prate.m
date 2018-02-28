@@ -4,7 +4,7 @@ radius=6371220;
 N=[16 32 64 128 256 512];
 dx=2*pi*radius./(4*N);
 e=[1.8636*10^-4 1.3545*10^-5 9.7564*10^-7 6.5592*10^-8 4.2563*10^-9 2.7115*10^-10];
-e=[3.1368*10^-4 2.3910*10^-5 1.6716*10^-6 1.1088*10^-7 7.1437*10^-9 4.5361*10^-10];
+%e=[3.1368*10^-4 2.3910*10^-5 1.6716*10^-6 1.1088*10^-7 7.1437*10^-9 4.5361*10^-10];
 
 
 ldx=log10(dx);
@@ -26,16 +26,16 @@ tt=linspace(min(ldx),max(ldx),1000);
 lsq1=a11(2)+a11(1)*tt;
 
 % %% courbes...
-hlf1=plot(tt,lsq1,'-m');
+hlf1=plot(tt,lsq1,'-k');
 set(hlf1,'LineWidth',2.0);
 
 %% legend
-legend(hlf1,{['slope = ' num2str(a11(1))]},'Location','SouthEast')
+legend(hlf1,{['pente = ' num2str(a11(1))]},'Location','SouthEast')
 
 ha=gca;
 xa=get(gca,'Xlabel');
 set(ha,'Xgrid','on');
-set(xa,'String','Log_{10}(dx)');
+set(xa,'String','Log_{10}(\Delta)');
 set (xa,'FontName','Calibri');
 set(xa,'FontSize',12);
 

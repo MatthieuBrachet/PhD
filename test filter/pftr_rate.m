@@ -4,7 +4,7 @@ global scheme
 global opt_ftr
 
 scheme='compact4';
-opt_ftr='redonnet2';
+opt_ftr='redonnet10';
 
 NN=[31 63 127 255 511];
 for l=1:length(NN)
@@ -121,3 +121,14 @@ set(ya,'FontSize',12);
 %% legend
 legend([hlf1,hlf2,hlf3],{['norm 1 - slope = ' num2str(a1(1))],['norm 2 - slope = ' num2str(a2(1))],['norm \infty - slope = ' num2str(a3(1))]},'Location','SouthEast')
 
+%% texte
+ht=text('Position',[4.28,-14,0],'String','N=512');
+set(ht,'FontSize',12);
+ht=text('Position',[4.58,-15.3,0],'String','N=256');
+set(ht,'FontSize',12);
+ht=text('Position',[4.9,-13.8,0],'String','N=128');
+set(ht,'FontSize',12);
+ht=text('Position',[5.2,-12.3,0],'String','N=64');
+set(ht,'FontSize',12);
+ht=text('Position',[5.45,-10.9,0],'String','N=32');
+set(ht,'FontSize',12);

@@ -38,24 +38,24 @@ e2=nrmg./MMM
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=nrm101(errI,errII,errIII,errIV,errV,errVI,n,nn,'infty');
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,MMM]=nrm101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn,'infty');
 einf=nrmg./MMM
-% 
-% hFig = figure(1);
-% set(gcf,'PaperPositionMode','auto')
-% set(hFig, 'Position', [50 50 1000 500])
-% plot_cs102(n,nn,mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI)
-% %title('initial map')
-% colorbar
-% 
-% hFig = figure(2);
-% set(gcf,'PaperPositionMode','auto')
-% set(hFig, 'Position', [50 50 1000 500])
-% plot_cs102(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
-% %title('filtered map')
-% colorbar
-% 
-% hFig = figure(3);
-% set(gcf,'PaperPositionMode','auto')
-% set(hFig, 'Position', [50 50 1000 500])
-% plot_cs102(n,nn,errI./MMM,errII./MMM,errIII./MMM,errIV./MMM,errV./MMM,errVI./MMM)
-% %title('error')
-% colorbar
+
+hFig = figure(1);
+set(gcf,'PaperPositionMode','auto')
+set(hFig, 'Position', [50 50 1000 500])
+plot_cs102(n,nn,mfunfI,mfunfII,mfunfIII,mfunfIV,mfunfV,mfunfVI)
+%title('initial map')
+colorbar
+
+hFig = figure(2);
+set(gcf,'PaperPositionMode','auto')
+set(hFig, 'Position', [50 50 1000 500])
+plot_cs102(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
+%title('filtered map')
+colorbar
+
+hFig = figure(3);
+set(gcf,'PaperPositionMode','auto')
+set(hFig, 'Position', [50 50 1000 500])
+plot_cs102(n,nn,errI./MMM,errII./MMM,errIII./MMM,errIV./MMM,errV./MMM,errVI./MMM)
+%title('error')
+colorbar

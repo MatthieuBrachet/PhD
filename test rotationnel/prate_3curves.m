@@ -57,7 +57,7 @@ figure(11);
 hl1=plot(ldx,le1,'ok');
 set(hl1,'LineWidth',2.0);
 set(hl1,'MarkerSize',10);
-set(hl1,'MarkerFaceColor','m');
+%set(hl1,'MarkerFaceColor','m');
 %set(hl1,'MarkerEdgeColor','k');
 
 hold on;
@@ -67,7 +67,7 @@ lsq1=a1(2)+a1(1)*tt;
 a1=[3.8523 -35.1389]; lsq1=a1(2)+a1(1)*tt;
 % %% courbes...
 %hlf1=plot(tt,lsq1,'-r');
-hlf1=plot(tt,lsq1,'k');
+hlf1=plot(tt,lsq1,':k');
 set(hlf1,'LineWidth',2.0);
 
 
@@ -75,7 +75,7 @@ set(hlf1,'LineWidth',2.0);
 hl2=plot(ldx,le2,'ok');
 set(hl2,'LineWidth',2.0);
 set(hl2,'MarkerSize',10);
-set(hl2,'MarkerFaceColor','b');
+%set(hl2,'MarkerFaceColor','b');
 %set(hl2,'MarkerEdgeColor','k');
 
 hold on;
@@ -85,14 +85,14 @@ lsq1=a2(2)+a2(1)*tt;
 a2=[3.8805 -35.1747]; lsq1=a2(2)+a2(1)*tt;
 % %% courbes...
 %hlf2=plot(tt,lsq1,'-b');
-hlf2=plot(tt,lsq1,'k');
+hlf2=plot(tt,lsq1,'--k');
 set(hlf2,'LineWidth',2.0);
 
 %% curve 3
 hl3=plot(ldx,le3,'ok');
 set(hl3,'LineWidth',2.0);
 set(hl3,'MarkerSize',10);
-set(hl3,'MarkerFaceColor','r');
+%set(hl3,'MarkerFaceColor','r');
 %set(hl3,'MarkerEdgeColor','k');
 
 hold on;
@@ -102,7 +102,7 @@ lsq1=a3(2)+a3(1)*tt;
 a3=[3.9806 -35.3017]; lsq1=a3(2)+a3(1)*tt;
 % %% courbes...
 %hlf3=plot(tt,lsq1,'-g');
-hlf3=plot(tt,lsq1,'k');
+hlf3=plot(tt,lsq1,'-k');
 set(hlf3,'LineWidth',2.0);
 
 ha=gca;
@@ -121,7 +121,7 @@ set (ya,'FontName','Calibri');
 set(ya,'FontSize',12);
 
 %% legend
-legend([hl1,hl2,hl3],{['norm 1 - slope = ' num2str(a1(1))],['norm 2 - slope = ' num2str(a2(1))],['norm \infty - slope = ' num2str(a3(1))]},'Location','NorthWest')
+legend([hlf1,hlf2,hlf3],{['norme 1 - pente = ' num2str(a1(1))],['norme 2 - pente = ' num2str(a2(1))],['norme \infty - pente = ' num2str(a3(1))]},'Location','NorthWest')
 
 %% texte
 ht=text('Position',[4.5,-16,0],'String','N=256');

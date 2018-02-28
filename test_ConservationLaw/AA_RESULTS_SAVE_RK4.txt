@@ -1,0 +1,32 @@
+date : 28-Feb-2018
+ref. : 7371195624
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 32
+time step         : 0.015
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 28-Feb-2018
+ref. : 7371195660
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.015
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  

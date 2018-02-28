@@ -3,10 +3,6 @@
 
 \chapter{Approximation des opérateurs sphériques sur la Cubed-sphere}
 
-La résolution des équations de type Shallow-Water \REF la sphère $\mathbb{S}_a^2$ demande le calcul approché d'opérateurs classiques. Les opérateurs différentiels sont indispensables pour la discrétisation spatiale. On pense en particulier aux opérateurs divergence, gradient ou rotationnel. Dans cette section, nous les définissons sur la Cubed-sphere. 
-Nous avons vu dans le cas 1D qu'un opérateur de filtrage peut être utile pour supprimer les modes de type "$+1/-1$" qui perturbent le calcul lors de la discrétisation en temps. Nous définissons les opérateurs de filtrages permettant d'aboutir au filtrage qui sera utilisé dans la discrétisation temporelle des équations.
-Dans ce chapitre, les notations employées telles que $\xi$, $\eta$, $\alpha$, ... sont celles employées dans le chapitre \REF concernant la Cubed-sphere.
-
 \section{Opérateurs différentiels sur la Cubed-sphere}
 
 \subsection{Définition des opérateurs}
@@ -18,13 +14,13 @@ On a définit le gradient en $\mathbf{x}_{i,j}^k$ par
 \end{equation}
 où $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ est une fonction régulière sur la sphère.
 
-Le cercle $C_i^{(1)}$ (resp. $C_j^{(2)}$) est une isocline $\xi = \xi_i$ (resp $\eta = \eta_j$) constant. D'après le théorème \eqref{th:gradient_xieta}, le gradient est 
+Le cercle $C_i^{(1)}$ (resp. $C_j^{(2)}$) est une isocline $\xi = \xi_i$ (resp $\eta = \eta_j$) constant. D'après le théorème \ref{th:gradient_xieta}, le gradient est 
 \begin{equation}
 \nabla_T h = \dfrac{\partial h}{\partial \xi}_{|\eta_j} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta}_{|\xi_i} \mathbf{g}^{\eta}.
 \end{equation}
 On remarque que si l'on est capable de calculer les dérivées partielles $\partial_{\xi}$ et $\partial_{\eta}$ le long des grands cercles, alors on est capable de déterminer la valeur du gradient.
 
-Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur tangent à la sphère. On définit la \textit{divergence} et le \textit{rotationnel} de $\mathbf{v}$ notés $\nabla_T \cdot \mathbf{v}$ et $\nabla_T \wedge \mathbf{v}$.
+Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur tangent à la sphère. On définit la \textit{divergence} et le \textit{rotationnel} de $\mathbf{v}$, notés $\nabla_T \cdot \mathbf{v}$ et $\nabla_T \wedge \mathbf{v}$.
 
 \begin{definition}
 Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur régulier sur la sphère. Alors la divergence de $\mathbf{v}$ en $\mathbf{x} \in C_i^{(1)} \cap C_j^{(2)}$ est donnée par
@@ -34,7 +30,6 @@ Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) 
 \label{def:divergence}
 La notation $\cdot$ désigne le produit scalaire usuel dans $\mathbb{R}^3$.
 \end{definition}
-Le rotationnel d'un champ de vecteurs représente la tendance des lignes de courant de $\mathbf{v}$ à tourner autour d'un point. Il est définit par
 
 \begin{definition}
 Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur régulier sur la sphère. Alors le rotationnel de $\mathbf{v}$ en $\mathbf{x} \in C_i^{(1)} \cap C_j^{(2)}$ est donnée par
@@ -94,19 +89,19 @@ La section suivante consiste à détailler une procédure pour calculer ces dér
 
 \subsection{Approximation de dérivées sur les grands cercles}
 
-On pose $f : \mathbf{x}\in \mathbb{S}_a^2 \mapsto f(\mathbf{x})$ la fonction que l'on souhaite dérivée le long des grands cercles aux points du maillage de la Cubed-Sphere.
-Si $\mathbf{x}_{i,j}^k$ est un point de la Cubed-Sphere avec $k = (I) \cdots (VI)$, ainsi que $-N/2 \leq i,j \leq N/2$. On souhaite calculer une valeur approchée de 
+Soit $f : \mathbf{x}\in \mathbb{S}_a^2 \mapsto f(\mathbf{x})$ la fonction que l'on souhaite dérivée le long des grands cercles aux points du maillage de la Cubed-Sphere.
+Si $\mathbf{x}_{i,j}^{(k)}$ est un point de la Cubed-Sphere avec $(k) = (I) \cdots (VI)$, ainsi que $-N/2 \leq i,j \leq N/2$. On souhaite calculer une valeur approchée de 
 $
-\partial_{\xi} f (\mathbf{x}_{i,j}^k)$ et $\partial_{\eta} f (\mathbf{x}_{i,j}^k)$.
-On suppose $k = (I)$, la méthode est la même sur les autres panels. Il existe deux grands cercles de la Cubed-Sphere $C_i^{(1)}$ et $C_j^{(2)}$ tels que 
+\partial_{\xi} f (\mathbf{x}_{i,j}^{(k)})$ et $\partial_{\eta} f (\mathbf{x}_{i,j}^{(k)})$.
+On suppose $(k) = (I)$, la méthode est la même sur les autres panels. Il existe deux grands cercles de la Cubed-Sphere $C_i^{(1)}$ et $C_j^{(2)}$ tels que 
 \begin{equation}
-\mathbf{x}_{i,j}^k \in C_i^{(1)} \cap C^{(2)}_j.
+\mathbf{x}_{i,j}^{(k)} \in C_i^{(1)} \cap C^{(2)}_j.
 \end{equation}
 $C^{(1)}_i$ est une isoligne en $\xi = \xi_i$ constant et $C^{(2)}_j$ est une isoligne en $\eta = \eta_j$ constant.
 Pour calculer une valeur approchée de $\partial_{\xi} f (\mathbf{x}_{i,j}^{(I)})$, on souhaite connaître toutes les valeurs de $f$ aux points équirépartis le long du cercle $C^{(2)}_j$. On pose $\mathbf{m}_p$ avec $0 \leq p \leq 4N-1$ les points de $C^{(2)}_j$ construits de la manière suivante :
 \begin{itemize}
 \item si $0 \leq p \leq N$ alors $\mathbf{m}_p = \mathbf{x}^{(I)}_{p-N/2,j}$, il s'agit des points du cercle $C^{(2)}_j$ associés au panel $(I)$ sur le maillage. Ils sont représentés par des ronds bleus sur les figures \ref{fig:patron_cs} et \ref{fig: panel II_interp},
-\item si $N+1 \leq p \leq 2N-1$ alors les points ne font pas partis du maillages. Il s'agit des points d'intersections de $C^{(2)}_j$ avec les isoligne $\xi = \xi_i^{(II)}$ du panel $(II)$. C'est à dire l'intersection de $C^{(2)}_j$ avec les cercles de $(II_{\beta})$. Ces points sont représentés par les carrés bleus dans les figures \ref{fig:patron_cs} et \ref{fig: panel II_interp}. Les coordonnées de ces points ont été calculées dans la partie \eqref{eq:coord_cross}.
+\item si $N+1 \leq p \leq 2N-1$ alors les points ne font pas partis du maillages. Il s'agit des points d'intersections de $C^{(2)}_j$ avec les isoligne $\xi = \xi_i^{(II)}$ du panel $(II)$. C'est à dire l'intersection de $C^{(2)}_j$ avec les cercles de $(II_{\beta})$. Ces points sont représentés par les carrés bleus dans les figures \ref{fig:patron_cs} et \ref{fig: panel II_interp}. Les coordonnées sont calculées dans \eqref{eq:coord_cross}.
 \item si $2N \leq p \leq 3N$ alors $\mathbf{m}_p = \mathbf{x}^{(III)}_{p-3N/2}$. Il s'agit des points de la Cubed-Sphere du panel $(III)$ représentés par des ronds bleus sur la figure \ref{fig:patron_cs},
 \item si $3N+1 \leq p \leq 4N-1$ alors $\mathbf{m}_p$ est constitués des points d'intersections de $C^{(2)}_j$ avec les cercles de $(IV_{\beta})$. Il ne s'agit pas de points de la grille. Ces points sont représentés par les carrés bleus dans la figure \ref{fig:patron_cs}.
 \end{itemize}
@@ -532,7 +527,7 @@ que l'on restreint aux points du maillage par
 \text{ pour } C^{(2)}_j \text{ fixé.}
 \end{equation}
 
-Le procédé total de calcul des dérivées hermitienne est $\xi$ sur un panel $k$ est donné par l'algorithme \ref{alg:deltaxi}.
+L'algorithme de calcul des dérivées hermitienne est $\xi$ sur un panel $(k)$ est donné par l'algorithme \ref{alg:deltaxi}.
 
 \begin{center}
 \begin{minipage}[H]{12cm}
@@ -728,7 +723,7 @@ $256$  & $4.2563 (-9)$ & $7.1437 (-9)$ \\
 $511$  & $2.7115(-10)$ & $4.5361(-10)$ \\
 \hline
 \hline
-\textbf{ordre estimé} & $3.8787$ & $3.8868$ \\
+\textbf{ordre estimé} & $3.88$ & $3.89$ \\
 \hline 
 \end{tabular}
 \end{center}
@@ -766,7 +761,7 @@ Dans la figure \ref{fig:rate_grad2}, nous présentons les courbes de convergence
 \includegraphics[height=5cm]{rate_grad_2_123.png}
 \includegraphics[height=5cm]{rate_grad_2_222.png}
 \end{center}
-\caption{Convergence du gradient de \eqref{eq:grad_test} avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(2,2,2)$ à droite. Nous comparons l'utilisation de $\delta^H_{4,x}$ en magenta avec l'utilisation de $\delta^H_{8,x}$ en bleu.}
+\caption{Convergence du gradient de \eqref{eq:grad_test} avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(2,2,2)$ à droite. Nous comparons l'utilisation de $\delta^H_{4,x}$ en trait plein (-) avec l'utilisation de $\delta^H_{8,x}$ en pointillés (--).}
 \label{fig:rate_grad2}
 \end{figure}
 
@@ -788,7 +783,7 @@ $256$  & $4.2563 (-9)$ & $2.9159 (-9)$ & $7.1437 (-9)$ & $3.8473 (-9)$ \\
 $511$  & $2.7115(-10)$ & $3.5643 (-10)$& $4.5361(-10)$ & $7.2161(-10)$ \\
 \hline
 \hline
-\textbf{ordre estimé} & $3.8787$ & $3.1363$ & $3.8868$ & $3.1266$\\
+\textbf{ordre estimé} & $3.88$ & $3.14$ & $3.89$ & $3.13$\\
 \hline 
 \end{tabular}
 \end{center}
@@ -866,7 +861,7 @@ Nous observons en figure \ref{fig:rate_grad3} la convergence de ce gradient $\na
 \includegraphics[height=5cm]{rate_grad_3_123.png}
 \includegraphics[height=5cm]{rate_grad_3_222.png}
 \end{center}
-\caption{Convergence du gradient approché avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(2,2,2)$ à droite. Nous comparons le gradient $\nabla_{T,\dec}$ en bleu et le gradient $\nabla_{T,\Delta}$ en magenta.}
+\caption{Convergence du gradient approché avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(2,2,2)$ à droite. Nous comparons le gradient $\nabla_{T,\dec}$ en pointillés (--) et le gradient $\nabla_{T,\Delta}$ en trait plein (-).}
 \label{fig:rate_grad3}
 \end{figure}
 Les ordres de convergence sont pratiquement les mêmes. Cependant, les erreurs à $N$ fixé sont bien plus faible pour $\nabla_{T,\Delta}$ qu'avec $\nabla_{T,\dec}$ comme on peut le voir dans la table \ref{tab:rate_grad3}.
@@ -888,7 +883,7 @@ $256$  & $4.2563 (-9)$ & $1.4700 (-7)$ & $7.1437 (-9)$ & $2.6521 (-7)$ \\
 $511$  & $2.7115(-10)$ & $9.4135 (-9)$ & $4.5361(-10)$ & $1.6554 (-8)$ \\
 \hline
 \hline
-\textbf{ordre estimé} & $3.8787$ & $3.8036$ & $3.8868$ & $3.8997$\\
+\textbf{ordre estimé} & $3.88$ & $3.80$ & $3.89$ & $3.90$\\
 \hline 
 \end{tabular}
 \end{center}
@@ -949,7 +944,7 @@ où $*$ désigne la restriction à la Cubed-Sphere et $\Delta  = \Delta \xi = \D
 \end{proposition}
 
 \begin{proof}
-Conséquence du théorème \ref{th:consistance_der_xieta}.
+Comme l'opérateur divergence et linéaire, on peut utiliser le théorème \ref{th:consistance_der_xieta} pour conclure.
 \end{proof}
 
 Pour construire un test permettant d'évaluer les performances du gradient approché $\nabla_{T, \Delta} \cdot$, certaines propriétés son utiles.
@@ -1029,18 +1024,18 @@ On mesure aussi l'erreur sur la conservation, c'est à dire la valeur approchée
 \hline
 \hline
 $16$ & $3.3707 (-4)$ & $3.1674 (-4)$ & $3.7839 (-4)$  & $1.6810 (-6)$ \\
-$32$ & $2.0751 (-4)$ & $1.9593 (-5)$ & $2.5503 (-5)$  & $1.1083 (-7)$ \\
+$32$ & $2.0751 (-5)$ & $1.9593 (-5)$ & $2.5503 (-5)$  & $1.1083 (-7)$ \\
 $64$ & $1.2964 (-6)$ & $1.2274 (-6)$ & $1.8238 (-6)$  & $7.0272 (-9)$ \\
 $128$& $8.1231 (-8)$ & $7.6985 (-8)$ & $1.2133 (-7)$  & $4.4093 (-10)$\\
 $256$& $5.0903 (-9)$ & $4.8271 (-9)$ & $7.8110 (-9)$  & $2.7597 (-11)$\\
 $512$& $3.1888(-10)$ & $3.0280(-10)$ & $4.9564(-10)$  & $1.7256 (-12)$\\
 \hline 
 \hline
-\textbf{ordre estimé}& $4.0010$ & $3.9982$ & $3.9040$ & $3.9822$ \\
+\textbf{ordre estimé}& $4.00$ & $4.00$ & $3.90$ & $3.98$ \\
 \hline
 \end{tabular}
 \end{center}
-\caption{Table de convergence pour la divergence de \eqref{eq:test_divergence} avec $(p,q,r)=(1,2,3)$ en normes 1, 2 et infinie. On vérifie aussi la conservation \eqref{eq:conservation_divergence}}.
+\caption{Table de convergence pour la divergence $\nabla_{T,\Delta}$ de \eqref{eq:test_divergence} avec $(p,q,r)=(1,2,3)$ en normes 1, 2 et infinie. On vérifie aussi la conservation \eqref{eq:conservation_divergence}}.
 \label{tab:rate_div}
 \end{table}
 \begin{table}[htbp]
@@ -1051,18 +1046,18 @@ $512$& $3.1888(-10)$ & $3.0280(-10)$ & $4.9564(-10)$  & $1.7256 (-12)$\\
 \hline
 \hline
 $16$ & $4.4656 (-5)$ & $5.2622 (-5)$ & $1.1018 (-4)$  & $2.2965 (-18)$ \\
-$32$ & $2.9404 (-6)$ & $3.4964 (-6)$ & $8.9432 (-4)$  & $9.5834 (-18)$ \\
+$32$ & $2.9404 (-6)$ & $3.4964 (-6)$ & $8.9432 (-6)$  & $9.5834 (-18)$ \\
 $64$ & $1.8859 (-7)$ & $2.2566 (-7)$ & $6.3993 (-7)$  & $6.9334 (-18)$ \\
 $128$& $1.1972 (-8)$ & $1.4352 (-8)$ & $4.2842 (-8)$  & $7.5356 (-18)$\\
 $256$& $7.5548(-10)$ & $9.0630(-10)$ & $2.7721 (-9)$  & $1.3528 (-17)$\\
 $512$& $4.7499(-11)$ & $5.7106(-11)$ & $1.7640(-10)$  & $1.7256 (-18)$\\
 \hline 
 \hline
-\textbf{ordre estimé}& $3.9705$ & $3.9652$ & $3.8609$ & $-$ \\
+\textbf{ordre estimé}& $3.97$ & $3.97$ & $3.86$ & $-$ \\
 \hline
 \end{tabular}
 \end{center}
-\caption{Table de convergence pour la divergence de \eqref{eq:test_divergence} avec $(p,q,r)=(1,1,1)$ en normes 1, 2 et infinie. On vérifie aussi la conservation \eqref{eq:conservation_divergence}.}
+\caption{Table de convergence pour la divergence $\nabla_{T,\Delta}$ de \eqref{eq:test_divergence} avec $(p,q,r)=(1,1,1)$ en normes 1, 2 et infinie. On vérifie aussi la conservation \eqref{eq:conservation_divergence}.}
 \label{tab:rate_div_t2}
 \end{table}
 \begin{figure}[htbp]
@@ -1070,7 +1065,7 @@ $512$& $4.7499(-11)$ & $5.7106(-11)$ & $1.7640(-10)$  & $1.7256 (-18)$\\
 \includegraphics[height=5cm]{rate_div_1_123.png}
 \includegraphics[height=5cm]{rate_div_1_111.png}
 \end{center}
-\caption{Convergence de la divergence approchée avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(1,1,1)$ à droite avec différentes normes.}
+\caption{Convergence de la divergence approchée $\nabla_{T,\Delta}$ avec $(p,q,r)=(1,2,3)$ à gauche et avec $(p,q,r)=(1,1,1)$ à droite avec différentes normes.}
 \label{fig:rate_div1}
 \end{figure}
 
@@ -1173,7 +1168,7 @@ $256$& $6.8327 (-9)$ & $6.5488 (-9)$ & $1.3242 (-8)$  & $1.0921 (-10)$\\
 $512$& $4.2837(-10)$ & $4.1045(-10)$ & $8.4121(-10)$  & $6.8258 (-12)$\\
 \hline 
 \hline
-\textbf{ordre estimé}& $3.9958$ & $3.9958$ & $3.8822$ & $4.0021$ \\
+\textbf{ordre estimé}& $4.00$ & $4.00$ & $3.88$ & $4.00$ \\
 \hline
 \end{tabular}
 \end{center}
@@ -1196,7 +1191,7 @@ $256$& $1.6119 (-9)$ & $1.9247 (-9)$ & $5.8964 (-9)$  & $2.2899 (-18)$\\
 $512$& $1.0140(-10)$ & $1.2102(-10)$ & $3.7487(-10)$  & $1.0804 (-17)$\\
 \hline 
 \hline
-\textbf{ordre estimé}& $3.9711$ & $3.9694$ & $3.8782$ & $-$ \\
+\textbf{ordre estimé}& $3.97$ & $3.97$ & $3.88$ & $-$ \\
 \hline
 \end{tabular}
 \end{center}
@@ -1291,7 +1286,7 @@ $128$& $4.3244(-9)$  & $4.8755(-9)$  & $1.0822(-8)$  \\
 $256$& $2.7061(-10)$ & $3.0522(-10)$ & $6.9474(-10)$ \\
 \hline 
 \hline
-\textbf{ordre estimé}& $4.0056$ & $4.0060$ & $3.9706$\\
+\textbf{ordre estimé}& $4.01$ & $4.01$ & $3.97$\\
 \hline
 \end{tabular}
 \end{center}
@@ -1397,7 +1392,7 @@ $128$& $1.5500(-9)$  & $1.8111(-9)$  & $5.3339(-9)$  \\
 $256$& $9.7139(-11)$ & $1.1342(-10)$ & $3.3330(-10)$ \\
 \hline 
 \hline
-\textbf{ordre estimé}& $4.0032$ & $4.0125$ & $4.0121$\\
+\textbf{ordre estimé}& $4.00$ & $4.01$ & $4.01$\\
 \hline
 \end{tabular}
 \end{center}
@@ -1489,7 +1484,7 @@ si $s\in \{ 1,2 \}$, et
 \begin{equation}
 e_{\infty} =  \| \rot_{\Delta} \left( \nabla_{T,\Delta} h^* \right) - \rot \left( \nabla_{T} h \right)^* \|_{\infty}
 \end{equation}
-en fonction de $N$, le paramètre du maillage. La fonction $h$ choisit est 
+en fonction de $N$, le paramètre du maillage. La fonction $h$ choisie est 
 \begin{equation}
 h(\lambda, \theta) = \cos^5 ( \theta ) \sin ( 30 \lambda ).
 \end{equation}
@@ -1844,4 +1839,77 @@ ordre 10	& \eqref{eq:fct_test2} & $6.1250(-11)$  & $2.0702(-10)$  & $3.3071(-9)$
 \label{tab:diff_ftr}
 \end{table} 
 
-La table \eqref{tab:diff_ftr} permet de confirmer que plus l'ordre du filtre est élevé, moins la fonction est affectée par l'opérateur de filtrage.
+La table \ref{tab:diff_ftr} permet de confirmer que plus l'ordre du filtre est élevé, moins la fonction est affectée par l'opérateur de filtrage. La fonction \eqref{eq:fct_test3} est fortement affectée par l'opérateur de filtrage, en effet la fonction oscille beaucoup et contient donc beaucoup de hautes fréquences.
+
+En utilisant les mêmes grilles que dans la table \ref{tab:rate_ftr10} et dans la figure \ref{fig:rate_ftr10}, on peut calculer l'ordre de convergence. Les résultats donnés pour la fonction \eqref{eq:fct_test1} dans la table \ref{tab:rate_fct1}, pour la fonction \eqref{eq:fct_test2} dans la table \ref{tab:rate_fct2} et pour la fonction \eqref{eq:fct_test3} dans la table \ref{tab:rate_fct3}.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c|c|c|}
+\hline
+\textbf{Ordre du filtre :} $2F$ & $\mathbf{2}$ & $\mathbf{4}$ & $\mathbf{6}$ & $\mathbf{8}$ & $\mathbf{10}$ \\
+\hline
+\hline
+\textbf{norme 1} & $2.00$ & $4.00$ & $5.91$ & $4.81$ & $4.68$\\
+\textbf{norme 2} & $2.00$ & $4.00$ & $5.57$ & $4.48$ & $4.47$\\
+\textbf{norme $\infty$} & $2.00$ & $3.97$ & $4.49$ & $3.98$ & $3.98$\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Ordre de convergence calculés pour différentes pour différents ordres de $\mathcal{F}_{2F,\xi}$ et $\mathcal{F}_{2F,\eta}$ et pour la fonction \eqref{eq:fct_test1}. On utilise les paramètres de grille $N=32$, $N=64$, $N=128$, $N=256$ et $N=512$.}
+\label{tab:rate_fct1}
+\end{table} 
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c|c|c|}
+\hline
+\textbf{Ordre du filtre :} $2F$ & $\mathbf{2}$ & $\mathbf{4}$ & $\mathbf{6}$ & $\mathbf{8}$ & $\mathbf{10}$ \\
+\hline
+\hline
+\textbf{norme 1}& $2.00$ & $3.99$ & $5.96$ & $5.53$ & $5.12$\\
+\textbf{norme 2} & $2.00$ & $4.00$ & $5.82$ & $4.69$ & $4.57$\\
+\textbf{norme $\infty$} & $2.00$ & $4.00$ & $4.92$ & $4.05$ & $4.04$\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Ordre de convergence calculés pour différentes pour différents ordres de $\mathcal{F}_{2F,\xi}$ et $\mathcal{F}_{2F,\eta}$ et pour la fonction \eqref{eq:fct_test2}. On utilise les paramètres de grille $N=32$, $N=64$, $N=128$, $N=256$ et $N=512$.}
+\label{tab:rate_fct2}
+\end{table} 
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c|c|c|}
+\hline
+\textbf{Ordre du filtre :} $2F$ & $\mathbf{2}$ & $\mathbf{4}$ & $\mathbf{6}$ & $\mathbf{8}$ & $\mathbf{10}$ \\
+\hline
+\hline
+\textbf{norme 1} & $2.12$ & $3.92$ & $5.67$ & $6.66$ & $6.80$\\
+\textbf{norme 2} & $2.12$ & $3.94$ & $5.56$ & $5.86$ & $5.84$\\
+\textbf{norme $\infty$} & $2.11$ & $3.91$ & $4.79$ & $4.75$ & $4.75$\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Ordre de convergence calculés pour différentes pour différents ordres de $\mathcal{F}_{2F,\xi}$ et $\mathcal{F}_{2F,\eta}$ et pour la fonction \eqref{eq:fct_test3}. On utilise les paramètres de grille $N=32$, $N=64$, $N=128$, $N=256$ et $N=512$.}
+\label{tab:rate_fct3}
+\end{table} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
