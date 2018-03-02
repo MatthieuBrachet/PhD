@@ -7,6 +7,8 @@
 %             article ('Equatorial periodic solution').
 %        2  : test 4 in M. Ben-Artzi, J. Falcovitz and P. G. Lefloch
 %             article ('Confined solutions').
+%        3  : test 2 in M. Ben-Artzi, J. Falcovitz and P. G. Lefloch
+%             article ('Steady state solution').
 % scheme : numerical spatial scheme used. 
 % video  : 'yes' ou 'no', do a video or not,
 % nper   :  periodicity of frames in the video.
@@ -23,7 +25,7 @@ global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
 global opt_ftr test scheme nrm detec
 
 comment='.';
-test=0;
+test=2;
 video = 'no';
 sauvegarde = 0;
 filtre='symetric';
@@ -32,14 +34,14 @@ scheme='compact4';
 snapshot='no';
 nrm='int';
 
-n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=100;
+n=63; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=6;
 mod101
-ddt=0.015;
+ddt=0.01;
 disp('mod101 : ok')
 
 %% ************************************************************************
-nper=4;
+nper=3;
 tstart=cputime;
 ref=floor(10000*now);
 jour=date;
@@ -183,30 +185,30 @@ while t<=Tmax && iter<itermax
     err_fVI  = htnew_fVI - h_fVI;
     
     str='infty';
-        [~,~,~,~,~,~,nrmger]=...
-      nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-   [~,~,~,~,~,~,nrmref]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
-% [~,~,nrmger,~,~,~,~]=...
-%        nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-%     [~,~,nrmref,~,~,~,~]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
+%         [~,~,~,~,~,~,nrmger]=...
+%       nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
+%    [~,~,~,~,~,~,nrmref]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
+[~,~,nrmger,~,~,~,~]=...
+       nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
+    [~,~,nrmref,~,~,~,~]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
     erri(iter)=nrmger./nrmref;
     
     str='2';
-        [~,~,~,~,~,~,nrmger]=...
-      nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-   [~,~,~,~,~,~,nrmref]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
-% [~,~,nrmger,~,~,~,~]=...
-%        nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-%     [~,~,nrmref,~,~,~,~]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
+%         [~,~,~,~,~,~,nrmger]=...
+%       nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
+%    [~,~,~,~,~,~,nrmref]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
+[~,~,nrmger,~,~,~,~]=...
+       nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
+    [~,~,nrmref,~,~,~,~]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
     err2(iter)=nrmger./nrmref;
     
     str='1';
-        [~,~,~,~,~,~,nrmger]=...
-      nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-   [~,~,~,~,~,~,nrmref]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
-% [~,~,nrmger,~,~,~,~]=...
-%        nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-%     [~,~,nrmref,~,~,~,~]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
+%         [~,~,~,~,~,~,nrmger]=...
+%       nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
+%    [~,~,~,~,~,~,nrmref]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
+[~,~,nrmger,~,~,~,~]=...
+       nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
+    [~,~,nrmref,~,~,~,~]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
     err1(iter)=nrmger./nrmref;
     
     maxi(iter)=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
@@ -323,9 +325,13 @@ if sauvegarde == 1
 end
  
 %% *** PLOT ***************************************************************
-figure(1)
-plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
+hmax=max(max(abs([h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI])));
+hFig = figure(1);
+set(gcf,'PaperPositionMode','auto')
+set(hFig, 'Position', [50 50 1000 500])
+plot_cs102(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
 title(['calculated solution at time = ', num2str(time(end))])
+colorbar
 if sauvegarde==1
     mkdir(['./RK4_results-' jour '/' num2str(ref) ])
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_courbe.png'])
@@ -333,7 +339,7 @@ if sauvegarde==1
     save(['./RK4_results-' jour '/' num2str(ref) '/ref' num2str(ref) '_test' num2str(test) '.mat']);
 end 
 
-hmax=max(max(abs([h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI])));
+hmax=max(max(abs([h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI])));hmax=1;
 hFig = figure(2);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
@@ -355,10 +361,12 @@ if sauvegarde == 1
 end
 
 [ lambdae, hte ] = equateur(ht_fI, ht_fII, ht_fIII, ht_fIV,ht_fV, ht_fVI);
+[x,y] = burgers( 127, ddt, Tmax );
 figure(4)
-plot(lambdae,hte,'-')
+plot(lambdae,hte,'o',x,y,'Linewidth',2)
 title('Equator')
 grid on
+legend('Coupe équatoriale','Burgers 1D')
 if sauvegarde == 1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_equateur.png'])
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_equateur']);

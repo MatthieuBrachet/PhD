@@ -16,7 +16,7 @@ global gamma rho0 teta_p lambda_p
 global teta0 lambda0
 global lambdac1 tetac1 lambdac2 tetac2
 %% *** OPTIONS ************************************************************
-coef = 2;
+coef = 0;
 opt_ftr = 'redonnet10';
 scheme='compact4';
 coupe = 1;
@@ -30,7 +30,7 @@ save_graph = 0;
  if coef == 0
  %% test de Williamson
  alphad=0;  
- lambdac=0;                                                           % longitude BUMP
+ lambdac=-pi/4;                                                           % longitude BUMP
  tetac=0;                                                                  % latitude BUMP
  lambda_p=pi;                                                              % position du pole nord, i.e. position du vortex nord
  teta_p=pi/2 - alphad;

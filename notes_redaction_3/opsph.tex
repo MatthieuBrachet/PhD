@@ -1597,12 +1597,12 @@ Les opérateurs $\fxi$ et $\feta$ définissent des perturbations de l'identité.
 \begin{proposition}
 Pour toute fonction $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x}) \in \mathbb{R}$ régulière, on a 
 \begin{equation}
-\fxi(h^*)_{i,j}^{(k)} = h(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}\left( \Delta^{\min(4,\alpha)} \right)
+\fxi(h^*)_{i,j}^{(k)} = h(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}\left( \Delta^{\min(4,2F)} \right)
 \label{eq:consistance_fxi}
 \end{equation}
 et dans la direction $\eta$ :
 \begin{equation}
-\feta(h^*)_{i,j}^{(k)} = h(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}\left( \Delta^{\min(4,\alpha)} \right)
+\feta(h^*)_{i,j}^{(k)} = h(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}\left( \Delta^{\min(4,2F)} \right)
 \label{eq:consistance_feta}
 \end{equation}
 Pour tout $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \cdots , (VI)$. $2F$ est l'ordre choisi pour l'opérateur de filtrage 1D et $\Delta = \Delta \xi = \Delta \eta$.
@@ -1627,11 +1627,11 @@ sur chaque grand cercle. De plus, on a, après filtrage
 donc
 \begin{align*}
 \mathcal{F}_{2F,\xi}(h_p) & = h(\mathbf{m}_p) + \mathcal{O}(\Delta \xi^{2F}) + \mathcal{O}(\Delta \eta^4) \\
-	& = h(\mathbf{m}_p) + \mathcal{O}\left( \Delta^{\min(4,\alpha)} \right)
+	& = h(\mathbf{m}_p) + \mathcal{O}\left( \Delta^{\min(4,2F)} \right)
 \end{align*}
 En particulier, si $\mathbf{m}_p$ est un point du panel $(I)$ ou $(III)$, on obtient
 \begin{equation}
-\fxi(h^*)_{i,j}^{(k)} = h(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}\left( \Delta^{\min(4,\alpha)} \right).
+\fxi(h^*)_{i,j}^{(k)} = h(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}\left( \Delta^{\min(4,2F)} \right).
 \end{equation}
 \end{proof}
 
@@ -1655,8 +1655,8 @@ Pour tout $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \cdots , (VI)$, $\Delta = \Del
 \begin{proof}
 D'après la proposition \ref{prop:consistance_ftrdir}, on a
 \begin{align*}
-\fxi(\feta (h^*) )_{i,j}^{(k)} - h(\mathbf{x}_{i,j}^{(k)}) & = \fxi(\feta (h^*) )_{i,j}^{(k)} - \fxi(h^*)_{i,j}^{(k)} + \fxi(h^*)_{i,j}^{(k)} - h(\mathbf{x}_{i,j}^{(k)})\\
-	& = \fxi(\feta (h^*) )_{i,j}^{(k)} - \fxi(h^*)_{i,j}^{(k)} + \mathcal{O} \left( \Delta^{\min(4,2F)} \right) \text{ d'après \eqref{eq:consistance_fxi}}\\
+\fxi(\feta (h^*) )_{i,j}^{(k)} - h(\mathbf{x}_{i,j}^{(k)}) & = \fxi(\feta (h^*) )_{i,j}^{(k)} - \feta(h^*)_{i,j}^{(k)} + \feta(h^*)_{i,j}^{(k)} - h(\mathbf{x}_{i,j}^{(k)})\\
+	& = \fxi(\feta (h^*) )_{i,j}^{(k)} - \feta(h^*)_{i,j}^{(k)} + \mathcal{O} \left( \Delta^{\min(4,2F)} \right) \text{ d'après \eqref{eq:consistance_fxi}}\\
 	& = \mathcal{O} \left( \Delta^{\min(4,2F)} \right) \text{ d'après \eqref{eq:consistance_feta}}.
 \end{align*}
 De la même manière, on montre le second résultat.

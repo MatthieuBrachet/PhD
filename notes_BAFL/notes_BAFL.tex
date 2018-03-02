@@ -1,0 +1,152 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\author{Brachet Matthieu}
+\title{Test  DE M. Ben-Artzi J. Falcovitz et P. G. LeFloch sur la Cubed-Sphere}
+\begin{document}
+\maketitle
+
+On s'intéresse aux lois de de conservation de la forme 
+\begin{equation}
+\dfrac{\partial u}{\partial t} + \nabla_T (\mathbf{F}(\mathbf{x},u)) = 0
+\label{eq:conservation_eq}
+\end{equation}
+pour tout $\mathbf{x} \in \mathbb{S}^2$ où $\mathbb{S}^2$ est la sphère unité dans $\mathbb{R}^3$. A cette équation, on ajoute une condition initiale qui sera précisée plus tard.
+La fonction $\mathbf{F}$ est une fonction dont l'image est dans $\mathbb{T}\mathbb{S}^2$. Tout champ de vecteur tangent à la sphère $\mathbf{F}(\mathbf{x},u)$ peut s'exprimer par
+\begin{equation}
+\mathbf{F}(\mathbf{x},u) = \mathbf{n}(\mathbf{x}) \times \mathbf{\Phi}(\mathbf{x},u)
+\end{equation}
+où $\mathbf{\Phi}(\mathbf{x},u)$ est la restriction à $\mathbb{S}^2$ d'un champ de vecteurs dans $\mathbb{R}^3$ pour un certain paramètre $u$. 
+
+\section{Premier cas test : "Equatorial periodic solutions"}
+Supposons que la fonction $\mathbf{F}(\mathbf{x},u)$ est de la forme 
+\begin{equation}
+\mathbf{F}(\mathbf{x},u) = 
+\begin{bmatrix}
+x \\ y \\ z 
+\end{bmatrix} \times
+\begin{bmatrix}
+0 \\ 0 \\ f_3(u) 
+\end{bmatrix}
+\end{equation}
+alors l'équation \eqref{eq:conservation_eq} prend la forme
+\begin{equation}
+\dfrac{\partial u}{\partial t} - \dfrac{\partial}{\partial \lambda} f_3(u) = 0
+\end{equation}
+si $u$ ne dépend que de $\lambda$, on reconnaît les équations de conservation 1D périodiques.
+
+L'idée du premier cas test est de choisir $f_3(u) = -\pi u^2$.
+Dans l'article d'origine, on choisit $u_0(\lambda,\theta) = \sin ( \lambda )$ si $0 < \lambda < 2 \pi$ et $0 < \theta < \pi/12$. L'idée est d'avoir quelque chose de semblable à l'équation de Burgers 1D pour obtenir un choc en temps fini. 
+J'ai remplacé cette condition initiale par $u_0(\lambda,\theta) = \sin ( \lambda )$ si $0 < \lambda < 2 \pi$ et $- \pi/12 < \theta < \pi/12$ de manière à pouvoir tracer une coupe de la solution calculée sans interpolation (à l'équateur, la Cubed-Sphere coincide avec le maillage Longitude-Latitude, je ne sais pas à quelle latitude est faite la coupe dans l'article de Ben-Artzi).
+
+Dans la figure \ref{fig:burgers}, on compare la solution obtenue au temps $t=1/(2 \pi)$ en résolvant Burgers 1D (sur une grille composée de 128 points) avec une coupe de long de l'équateur de la solution obtenue sur Cubed-Sphere avec $N=32$.
+On constate que les deux courbes sont très proches, de plus, si je raffine le maillage Cubed-Sphere, les courbes se rapprochent. On note que sans opérateur de filtrage, le code semble instable.
+
+\begin{figure}
+\begin{center}
+\includegraphics[height=6cm]{ref_7371198847_equateur.png}
+\caption{Comparaison le long de l'équateur de la solution de \eqref{eq:conservation_eq} au temps $t=1/(2 \pi)$ obtenue avec $N=32$ et de la solution obtenue pour Burgers 1D avec $n=128$. Le pas de temps est $\Delta t = 0.01$.}
+\end{center}
+\label{fig:burgers}
+\end{figure}
+
+\section{Troisième test : "steady state solution in a spherical cap"}
+
+Pour ce test, on considère la fonction $\mathbf{F}(\mathbf{x},u)$ donnée par
+\begin{equation}
+\mathbf{F}(\mathbf{x},u) = 
+\begin{bmatrix}
+x \\ y \\ z 
+\end{bmatrix} \times
+\begin{bmatrix}
+f_1(u) \\ f_2(u) \\ f_3(u) 
+\end{bmatrix}
+\end{equation}
+avec les fonctions $f_i$ données par
+\begin{equation}
+f_1(u) = f_2(u) = f_3(u) = \dfrac{1}{2}u^2.
+\end{equation}
+La condition initiale est donnée par
+\begin{equation}
+u_0(x,y,z) = \dfrac{x+y+z}{\sqrt{3}}
+\end{equation}
+avec $(x,y,z) \in \mathbb{S}^2$.
+
+Il s'agit d'une solution stationnaire. On peut donc comparer la solution obtenue numériquement au temps $t$ avec la solution initiale. On mesure l'erreur
+\begin{equation}
+e_s^n = \| u^n - u_0 \|_s
+\end{equation}
+avec $s \in \left\lbrace 1, 2, \infty \right\rbrace$ (cette erreur n'est pas normalisée d'où les courbes dans le mauvais ordre, mais elle n'est pas normalisée dans l'article pour le calcul de $e_1$ au temps final). $u^n$ est la solution numérique au temps $t^n = n \Delta t$. Les résultats sont donnés dans la figure \ref{fig:test3a}.
+Au temps $t=6$, on trouve $e_1^n = 2.3039(-5)$($N=64$) alors que Ben-Artzi trouve $0.013$ ($\Delta \lambda = \pi/64$, $\Delta \theta = \pi/60$).
+
+\begin{figure}
+\begin{center}
+\includegraphics[height=5cm]{ref_7371199040_err.png}
+\includegraphics[height=5cm]{ref_7371199040_snapshot_err.png}
+\caption{Erreur $e_s$ au cours du temps avec $N=32$ et $\Delta t =0.015$ (gauche) - localisation spatiale de l'erreur au temps $t=6$ (droite)}
+\end{center}
+\label{fig:test3a}
+\end{figure}
+
+Sur des temps beaucoup plus long, les résultats sont donnés en figure \ref{fig:test3b} et restent très bons. L'erreur semble cependant très localisée sur des coins de la Cubed-Sphere. Je ne sais pas si il s'agit d'un effet du maillage ou si c'est liée à la condition initiale utilisée.
+
+\begin{figure}
+\begin{center}
+\includegraphics[height=5cm]{ref_7371199122_err.png}
+\includegraphics[height=5cm]{ref_7371199122_snapshot_err.png}
+\caption{Erreur $e_s$ au cours du temps avec $N=32$ et $\Delta t =0.015$ (gauche) - localisation spatiale de l'erreur au temps $t=120$ (droite)}
+\end{center}
+\label{fig:test3b}
+\end{figure}
+
+Il faudra sûrement refaire ces courbes en normalisant l'erreur?
+
+\section{Quatriète test : "Confined solutions"}
+
+Dans cette section, on choisit 
+\begin{equation}
+\mathbf{F}(\mathbf{x},u) = \mathbf{x} \times \nabla_{\mathbb{R}^3} h
+\end{equation}
+avec $h(\mathbf{x},u) = \dfrac{1}{2} u^2 x \psi_1(x)$. On a donc
+\begin{equation}
+\nabla_{\mathbb{R}^3} h = \dfrac{1}{2}(x \psi_1'(x) + \psi_1(x)) u  \mathbf{i}
+\end{equation}
+la fonction $\psi_1$ est donnée par
+\begin{equation}
+\psi_1(x) = \left\lbrace
+\begin{array}{ccl}
+1 & \text{ si } & x<0 \\
+1 - 6 x^2 + 8/\sqrt{2} x^3 & \text{ si } & x<0 \\
+0 & \text{ si } & x \geq \sqrt{2}/2 \\
+\end{array}
+\right. .
+\end{equation}
+La condition initiale est donnée par 
+\begin{equation}
+u_0(\mathbf{x}) = \psi_1(x) \cos \lambda \cos \theta.
+\end{equation}
+
+
+Dans ce sous domaine $x<0$, le flux est donné par
+\begin{equation}
+\mathbf{F}(\mathbf{x},u) = \dfrac{1}{2} u^2 \mathbf{x} \times \mathbf{i} 
+\end{equation}
+la condition initiale doit rester constante dans cette zone. En revanche, revanche la solution peut évoluer dans la zone $(x>0)$. Contrairement à l'article, notre algorithme n'est pas stable pour $\Delta t = 0.04$. Dans la figure \ref{fig:test4}, on présente la solution au temps $t=6$ pour $N=31$. On donne aussi la représentation spatiale de $u_0 - u^n$ où $u^n$ est la solution numérique au temps $t=6$. On constate directement que la solution est effectivement inchangée pour les $x<0$ (panel III par exemple, océan Pacifique). 
+
+\begin{figure}
+\begin{center}
+\includegraphics[height=6cm]{ref_7371199664_courbe.png}
+\includegraphics[height=6cm]{ref_7371199664_snapshot_err.png}
+\caption{Solution au temps $t=6$ (haut) et comparaison spatiale $u_0-u^n$ au temps $t=6$ (bas). On a $\Delta t = 0.01$ et $N=32$.}
+\end{center}
+\label{fig:test4}
+\end{figure}
+
+
+\end{document}
