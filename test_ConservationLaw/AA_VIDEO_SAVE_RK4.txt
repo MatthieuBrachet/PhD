@@ -1,0 +1,16 @@
+date : 06-Mar-2018
+ref. : 7371257285
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.019979
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  

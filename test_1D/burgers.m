@@ -1,13 +1,13 @@
 clc; clear all; close all;
 
 n=100;
-h=1./n;
-x=[h:h:1]';
+h=2*pi./n;
+x=[h:h:2*pi]';
 
 % cfl=0.7;
 % ddt=cfl*h/.5;
-ddt=0.001
-tmax=100;
+ddt=0.0001;
+tmax=1/(2*pi);
 
 k=diag(ones(n-1,1),1)-diag(ones(n-1,1),-1);
 k(1,end)=-1; k(end,1)=1;
@@ -78,8 +78,7 @@ else
     ftr=speye(n,n);
 end
 
-u=sin(2*pi*x);
-%u=exp(-500*(x-.4).^2);
+u=sin(x);
 int=sum(u)*h;
 
 e=[];cons=[];
@@ -90,22 +89,22 @@ while t<tmax
     fu=u;
     du=k*(fu.^2);
     w=p\du;
-    k1=-.5*w;
+    k1=-pi*w;
     
     fu=u+ddt/2.*k1;
     du=k*(fu.^2);
     w=p\du;
-    k2=-.5*w;
+    k2=-pi*w;
     
     fu=u+ddt/2.*k2;
     du=k*(fu.^2);
     w=p\du;
-    k3=-.5*w;
+    k3=-pi*w;
     
     fu=u+ddt.*k3;
     du=k*(fu.^2);
     w=p\du;
-    k4=-.5*w;
+    k4=-pi*w;
     
     fu=u+ddt/6*(k1+2*k2+2*k3+k4);
     u=ftr*fu;

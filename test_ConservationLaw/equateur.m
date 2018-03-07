@@ -39,10 +39,5 @@ hte4=ht_fIII(:,pc);
 % assemblage
 x=[lambdae2b' lambdae3' lambdae4' lambdae1' lambdae2a'+2*pi];
 y=[hte2b' hte3' hte4' hte1' hte2a'];
-% figure(400)
-% %plot(lambdae1,hte1,'r',lambdae2a,hte2a,'b',lambdae2b,hte2b,'c',lambdae3,hte3,'g',lambdae4,hte4,'y')
-% plot(x,y)
-% title('Equator')
-% grid on
 end
 

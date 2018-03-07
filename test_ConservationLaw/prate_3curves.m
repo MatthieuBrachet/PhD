@@ -1,11 +1,15 @@
 clc; clear all; close all;
 
 radius=1;
-N=[16 32 64];
+N=[16 32 64 128];
 dx=2*pi*radius./(4*N);
-e1=[5.2481e-6 3.6719e-7 2.3485e-8];
-e2=[6.4333e-6 4.8035e-7 3.2587e-8];
-e3=[1.4250e-5 1.0737e-6 7.7311e-8];
+e1=[3.1446e-5 2.2000e-6 1.4092e-7 8.7856e-9];
+e2=[1.5759e-5 1.1752e-6 7.9823e-8 5.0291e-9];
+e3=[1.4251e-5 1.0776e-6 7.7308e-8 4.5510e-9];
+
+% e1=[6.9356e-6 4.4315e-7 2.8338e-8 1.7687e-9];
+% e2=[4.3733e-6 2.9918e-7 1.9272e-8 1.2084e-9];
+% e3=[6.2809e-6 4.3611e-7 2.7803e-8 1.7354e-9];
 
 ldx=log10(dx);
 le1=log10(e1);
@@ -77,3 +81,13 @@ set(ya,'FontSize',12);
 
 %% legend
 legend([hlf1,hlf2,hlf3],{['norm 1 - slope = ' num2str(a1(1))],['norm 2 - slope = ' num2str(a2(1))],['norm \infty - slope = ' num2str(a3(1))]},'Location','SouthEast')
+
+ht=text('Position',[-1.95,-7.5,0],'String','N=128');
+set(ht,'FontSize',12);
+ht=text('Position',[-1.65,-6.5,0],'String','N=64');
+set(ht,'FontSize',12);
+ht=text('Position',[-1.35,-5.3,0],'String','N=32');
+set(ht,'FontSize',12);
+ht=text('Position',[-1.05,-4.2,0],'String','N=16');
+set(ht,'FontSize',12);
+

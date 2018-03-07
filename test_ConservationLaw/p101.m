@@ -15,7 +15,7 @@
 % sauvegarde = 0 (do not save data), 1 (save all data).
 % opt_ftr : explicit (redonnet10, redonnet8, ...).
 %% ************************************************************************
-clc; clear all; close all;timest=clock;
+clc; clear all; close all;format shorte; timest=clock;
 format long
 
 global n nn
@@ -25,19 +25,19 @@ global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
 global opt_ftr test scheme nrm detec
 
 comment='.';
-test=2;
+test=0;
 video = 'no';
-sauvegarde = 0;
+sauvegarde =1;
 filtre='symetric';
 opt_ftr='redonnet10';
 scheme='compact4';
 snapshot='no';
 nrm='int';
 
-n=63; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
 ndaymax=6;
 mod101
-ddt=0.01;
+ddt=.96/pi*dxi;
 disp('mod101 : ok')
 
 %% ************************************************************************
@@ -47,7 +47,7 @@ ref=floor(10000*now);
 jour=date;
 %% ************************************************************************
 Tmax=ndaymax;
-itermax=10000000;
+itermax=200000;
 
 tstart=cputime;
 ref=floor(10000*now);
@@ -83,7 +83,7 @@ if strcmp(video,'yes')==1
 end
 
 %% *** iterations *********************************************************
-while t<=Tmax && iter<itermax
+while t<Tmax && iter<itermax
     %% filtrage
     if strcmp(filtre,'adaptatif') == 1
         [detec]=filtre101(na,'redonnet10');
@@ -184,32 +184,20 @@ while t<=Tmax && iter<itermax
     err_fV   = htnew_fV  - h_fV ;
     err_fVI  = htnew_fVI - h_fVI;
     
+    [Er1,Er2,Eri] = err101(err_fI, err_fII, err_fIII,err_fIV,err_fV,err_fVI);
+    
     str='infty';
-%         [~,~,~,~,~,~,nrmger]=...
-%       nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-%    [~,~,~,~,~,~,nrmref]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
-[~,~,nrmger,~,~,~,~]=...
-       nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-    [~,~,nrmref,~,~,~,~]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
-    erri(iter)=nrmger./nrmref;
+    [nrmref,~,~,~,~,~,~]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
+    erri(iter)=Eri./nrmref;
     
     str='2';
-%         [~,~,~,~,~,~,nrmger]=...
-%       nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-%    [~,~,~,~,~,~,nrmref]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
-[~,~,nrmger,~,~,~,~]=...
-       nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-    [~,~,nrmref,~,~,~,~]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
-    err2(iter)=nrmger./nrmref;
+    [nrmref,~,~,~,~,~,~]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
+    err2(iter)=Er2./nrmref;
     
     str='1';
-%         [~,~,~,~,~,~,nrmger]=...
-%       nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-%    [~,~,~,~,~,~,nrmref]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
-[~,~,nrmger,~,~,~,~]=...
-       nrm101(err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI,n,nn,str);
-    [~,~,nrmref,~,~,~,~]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
-    err1(iter)=nrmger./nrmref;
+    [nrmref,~,~,~,~,~,~]=nrm101(h_fI,h_fII,h_fIII,h_fIV,h_fV,h_fVI,n,nn,str);
+    err1(iter)=Er1./nrmref;
+  
     
     maxi(iter)=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
     mini(iter)=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
@@ -226,17 +214,11 @@ while t<=Tmax && iter<itermax
     if strcmp(video,'yes')==1 && mod(iter,nper) == 0
         
         clf
-        hFig = figure(9);
+        hFig = figure(1);
         set(gcf,'PaperPositionMode','auto')
         set(hFig, 'Position', [50 50 1000 500])
-        mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
-        MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
-        v=[mm 8100:100:10500 MM];
-        plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
-        title(['solution at time : ', num2str(time(end))])
+        plot_cs102(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
         colorbar
-        %caxis([-1 1]*10^-6);
-        %axis([-2.5 .5 -.5 1.5])
 
         hold off
         currFrame = getframe;
@@ -352,8 +334,8 @@ if sauvegarde == 1
 end
 
 figure(3)
-plot(time,err1,time,err2,time,erri)
-legend('norme 1','norme 2','norme \infty')
+plot(time,err1,'-k',time,err2,'--k',time,erri,'.k')
+legend('norm 1','norm 2','norm \infty')
 grid on
 if sauvegarde == 1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_err.png'])
@@ -363,7 +345,7 @@ end
 [ lambdae, hte ] = equateur(ht_fI, ht_fII, ht_fIII, ht_fIV,ht_fV, ht_fVI);
 [x,y] = burgers( 127, ddt, Tmax );
 figure(4)
-plot(lambdae,hte,'o',x,y,'Linewidth',2)
+plot(lambdae,hte,'-o',x,y,'Linewidth',2)
 title('Equator')
 grid on
 legend('Coupe équatoriale','Burgers 1D')
@@ -373,7 +355,7 @@ if sauvegarde == 1
 end
 
 figure(5)
-plot(time,err_int/Mref-1)
+plot(time,err_int,'k-')
 title('Mass conservation')
 if sauvegarde == 1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservation.png'])

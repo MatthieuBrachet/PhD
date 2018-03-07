@@ -23,9 +23,9 @@ dx=2*pi*radius./(4*N);
 % e3=[3.6670e-4 2.2222e-5 1.3713e-6 8.5415e-8 5.3339e-9 3.3330e-10];
 % 
 % %% zonale
-% e1=[2.9158e-4 1.7719e-5 1.1025e-6 6.9056e-8 4.3244e-9 2.7061e-10];
-% e2=[3.3039e-4 1.9906e-5 1.2416e-6 7.7821e-8 4.8755e-9 3.0522e-10];
-% e3=[6.7103e-4 4.0648e-5 2.5207e-6 1.6433e-7 1.0822e-8 6.9474e-10];
+e1=[2.9158e-4 1.7719e-5 1.1025e-6 6.9056e-8 4.3244e-9 2.7061e-10];
+e2=[3.3039e-4 1.9906e-5 1.2416e-6 7.7821e-8 4.8755e-9 3.0522e-10];
+e3=[6.7103e-4 4.0648e-5 2.5207e-6 1.6433e-7 1.0822e-8 6.9474e-10];
 % 
 % e1=[4.3694e-3 2.0968e-4 .2678e-5 8.0033e-7 5.0621e-8 3.1914e-9];
 % e2=[2.8177e-10 1.3994e-11 8.1375e-13 5.0456e-14 3.1840e-15 2.0282e-16];
@@ -34,11 +34,11 @@ dx=2*pi*radius./(4*N);
 % e1=[4.4832e-3 2.3244e-4 1.4639e-5 9.3537e-7 5.9638e-8 3.7867e-9];
 % e2=[2.9091e-10 1.5727e-11 9.3911e-13 5.8935e-14 3.7494e-15 2.4082e-16];
 % e3=[3.3243e-17 2.4699e-18 1.8005e-19 1.1002e-20 6.8031e-22 7.5741e-23];
-N=[8 16 32 64 128 256];
-dx=2*pi*radius./(4*N);
-e1=[6.7655e-1 5.5017e+1 8.0953e+0 4.3791e-1 2.5533e-2 1.5590e-3]./(4*pi*radius*radius);
-e2=[5.1432e-8 3.3097e-6 4.7068e-7 2.4642e-8 1.4237e-9 8.6829e-11]./sqrt(4*pi*radius*radius);
-e3=[6.6711e-15 4.9935e-13 4.5428e-14 2.6199e-15 1.3325e-16 9.4033e-18];
+% N=[8 16 32 64 128 256];
+% dx=2*pi*radius./(4*N);
+% e1=[6.7655e-1 5.5017e+1 8.0953e+0 4.3791e-1 2.5533e-2 1.5590e-3]./(4*pi*radius*radius);
+% e2=[5.1432e-8 3.3097e-6 4.7068e-7 2.4642e-8 1.4237e-9 8.6829e-11]./sqrt(4*pi*radius*radius);
+% e3=[6.6711e-15 4.9935e-13 4.5428e-14 2.6199e-15 1.3325e-16 9.4033e-18];
 
 % N=[16 32 64 128 256];
 % dx=2*pi*radius./(4*N);
@@ -64,7 +64,7 @@ hold on;
 [a1,b1]=polyfit(ldx,le1,1);
 tt=linspace(min(ldx),max(ldx),10);
 lsq1=a1(2)+a1(1)*tt;
-a1=[3.8523 -35.1389]; lsq1=a1(2)+a1(1)*tt;
+%a1=[3.8523 -35.1389]; lsq1=a1(2)+a1(1)*tt;
 % %% courbes...
 %hlf1=plot(tt,lsq1,'-r');
 hlf1=plot(tt,lsq1,':k');
@@ -82,7 +82,7 @@ hold on;
 [a2,b1]=polyfit(ldx,le2,1);
 tt=linspace(min(ldx),max(ldx),10);
 lsq1=a2(2)+a2(1)*tt;
-a2=[3.8805 -35.1747]; lsq1=a2(2)+a2(1)*tt;
+%a2=[3.8805 -35.1747]; lsq1=a2(2)+a2(1)*tt;
 % %% courbes...
 %hlf2=plot(tt,lsq1,'-b');
 hlf2=plot(tt,lsq1,'--k');
@@ -99,7 +99,7 @@ hold on;
 [a3,b1]=polyfit(ldx,le3,1);
 tt=linspace(min(ldx),max(ldx),10);
 lsq1=a3(2)+a3(1)*tt;
-a3=[3.9806 -35.3017]; lsq1=a3(2)+a3(1)*tt;
+%a3=[3.9806 -35.3017]; lsq1=a3(2)+a3(1)*tt;
 % %% courbes...
 %hlf3=plot(tt,lsq1,'-g');
 hlf3=plot(tt,lsq1,'-k');
@@ -124,15 +124,15 @@ set(ya,'FontSize',12);
 legend([hlf1,hlf2,hlf3],{['norme 1 - pente = ' num2str(a1(1))],['norme 2 - pente = ' num2str(a2(1))],['norme \infty - pente = ' num2str(a3(1))]},'Location','NorthWest')
 
 %% texte
-ht=text('Position',[4.5,-16,0],'String','N=256');
+ht=text('Position',[4.5,-8.3,0],'String','N=256');
 set(ht,'FontSize',12);
-ht=text('Position',[4.8,-15,0],'String','N=128');
+ht=text('Position',[4.8,-9,0],'String','N=128');
 set(ht,'FontSize',12);
-ht=text('Position',[5.1,-14,0],'String','N=64');
+ht=text('Position',[5.1,-7.9,0],'String','N=64');
 set(ht,'FontSize',12);
-ht=text('Position',[5.4,-12.5,0],'String','N=32');
+ht=text('Position',[5.4,-6.5,0],'String','N=32');
 set(ht,'FontSize',12);
-ht=text('Position',[5.7,-11.6,0],'String','N=16');
+ht=text('Position',[5.7,-5.5,0],'String','N=16');
 set(ht,'FontSize',12);
-ht=text('Position',[6,-13.5,0],'String','N=8');
+ht=text('Position',[6,-4.2,0],'String','N=8');
 set(ht,'FontSize',12);

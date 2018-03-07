@@ -1,0 +1,235 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+
+\def\gint{\displaystyle\int}
+\def\gsum{\displaystyle\sum\limits}
+
+\author{Brachet Matthieu}
+\title{Test  de M. Ben-Artzi J. Falcovitz et P. G. LeFloch sur la Cubed-Sphere}
+\begin{document}
+\maketitle
+
+On s'intéresse aux lois de de conservation de la forme 
+\begin{equation}
+\dfrac{\partial u}{\partial t} + \nabla_T (\mathbf{F}(\mathbf{x},u)) = 0
+\label{eq:conservation_eq}
+\end{equation}
+pour tout $\mathbf{x} \in \mathbb{S}^2$ où $\mathbb{S}^2$ est la sphère unité dans $\mathbb{R}^3$. A cette équation, on ajoute une condition initiale qui sera précisée plus tard.
+La fonction $\mathbf{F}$ est une fonction dont l'image est dans $\mathbb{T}\mathbb{S}^2$. Tout champ de vecteur tangent à la sphère $\mathbf{F}(\mathbf{x},u)$ peut s'exprimer par
+\begin{equation}
+\mathbf{F}(\mathbf{x},u) = \mathbf{n}(\mathbf{x}) \times \mathbf{\Phi}(\mathbf{x},u)
+\end{equation}
+où $\mathbf{\Phi}(\mathbf{x},u)$ est la restriction à $\mathbb{S}^2$ d'un champ de vecteurs dans $\mathbb{R}^3$ pour un certain paramètre $u$. 
+
+\section{Premier cas test : "Equatorial periodic solutions"}
+Supposons que la fonction $\mathbf{F}(\mathbf{x},u)$ est de la forme 
+\begin{equation}
+\mathbf{F}(\mathbf{x},u) = 
+\begin{bmatrix}
+x \\ y \\ z 
+\end{bmatrix} \times
+\begin{bmatrix}
+0 \\ 0 \\ f_3(u) 
+\end{bmatrix}
+\end{equation}
+alors l'équation \eqref{eq:conservation_eq} prend la forme
+\begin{equation}
+\dfrac{\partial u}{\partial t} - \dfrac{\partial}{\partial \lambda} f_3(u) = 0
+\end{equation}
+si $u$ ne dépend que de $\lambda$, on reconnaît les équations de conservation 1D périodiques.
+
+L'idée du premier cas test est de choisir $f_3(u) = -\pi u^2$.
+Dans l'article d'origine, on choisit $u_0(\lambda,\theta) = \sin ( \lambda )$ si $0 < \lambda < 2 \pi$ et $0 < \theta < \pi/12$. L'idée est d'avoir quelque chose de semblable à l'équation de Burgers 1D pour obtenir un choc en temps fini. 
+J'ai remplacé cette condition initiale par $u_0(\lambda,\theta) = \sin ( \lambda )$ si $0 < \lambda < 2 \pi$ et $- \pi/12 < \theta < \pi/12$ de manière à pouvoir tracer une coupe de la solution calculée sans interpolation (à l'équateur, la Cubed-Sphere coincide avec le maillage Longitude-Latitude, je ne sais pas à quelle latitude est faite la coupe dans l'article de Ben-Artzi).
+
+Dans la figure \ref{fig:burgers}, on compare la solution obtenue au temps $t=1/(2 \pi)$ en résolvant Burgers 1D (sur une grille composée de 128 points) avec une coupe de long de l'équateur de la solution obtenue sur Cubed-Sphere avec $N=32$.
+On constate que les deux courbes sont très proches, de plus, si je raffine le maillage Cubed-Sphere, les courbes se rapprochent. On note que sans opérateur de filtrage, le code semble instable.
+
+\begin{figure}
+\begin{center}
+\includegraphics[height=6cm]{ref_7371198847_equateur.png}
+\includegraphics[height=6cm]{ref_7371198847_equateur_10t.png}
+\caption{Comparaison le long de l'équateur de la solution de \eqref{eq:conservation_eq} au temps $t=1/(2 \pi)$ (gauche) et au temps $t=10/(2 \pi)$ (droite)  obtenue avec $N=32$ et de la solution obtenue pour Burgers 1D avec $n=128$. Le pas de temps est $\Delta t = 0.01$.}
+\end{center}
+\label{fig:burgers}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Troisième test : "steady state solution in a spherical cap"}
+
+On considère le flux $\mathbf{F}(\mathbf{x},u)$ donné par
+\begin{equation}
+\mathbf{F}(\mathbf{x},u) = 
+\begin{bmatrix}
+x \\ y \\ z 
+\end{bmatrix} \times
+\begin{bmatrix}
+f_1(u) \\ f_2(u) \\ f_3(u) 
+\end{bmatrix}
+\end{equation}
+avec les fonctions $f_i$ données par
+\begin{equation}
+f_1(u) = f_2(u) = f_3(u) = \dfrac{1}{2}u^2.
+\end{equation}
+La condition initiale est donnée par
+\begin{equation}
+u_0(x,y,z) = \dfrac{x+y+z}{\sqrt{3}}
+\end{equation}
+avec $(x,y,z) \in \mathbb{S}^2$.
+
+Il s'agit d'une solution stationnaire. On peut donc comparer la solution obtenue numériquement au temps $t^n = n \Delta t$ avec la solution initiale. On mesure l'erreur relative
+\begin{equation}
+e_s^n = \dfrac{\| u^n - u_0 \|_s}{\| u_0 \|_s}
+\end{equation}
+avec $s \in \left\lbrace 1, 2, \infty \right\rbrace$. Les figures \ref{fig:test3a} donne les résultats de conservation et d'erreur au temps $t=6$ pour une grille $6 \times 32 \times 32$ avec $\Delta t = 0.015$. Les figures \ref{fig:test3b} donne le meme type de résultat au temps $t=600$.
+
+\begin{figure}
+\begin{center}
+\includegraphics[height=5cm]{ref_7371265904_err.png}
+\includegraphics[height=5cm]{ref_7371265904_conservation.png}
+\caption{Erreur $e_s$ au cours du temps avec $N=32$ et $\Delta t =0.015$ (gauche) - localisation spatiale de l'erreur au temps $t=6$ (droite)}
+\end{center}
+\label{fig:test3a}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[height=5cm]{ref_7371258652_err.png}
+\includegraphics[height=5cm]{ref_7371258652_conservation.png}
+\caption{Erreur $e_s$ au cours du temps avec $N=32$ et $\Delta t =0.015$ (gauche) - conservation $t=600$ (droite)}
+\end{center}
+\label{fig:test3b}
+\end{figure}
+
+Dans la table \ref{tab:convergence_test3}, on donne les erreurs $e_s$ en maintenant constant le ratio
+\begin{equation}
+\dfrac{\Delta t}{\Delta \xi} = \dfrac{0.96}{\pi}.
+\end{equation}
+La convergence de l'erreur se fait à un ordre proche de $4$. On controle aussi la conservation. La condition initiale est à moyenne nulle, donc on mesure
+\begin{equation}
+\gint_{\mathbb{S}^2} u(\mathbf{x}, t) d\sigma(\mathbf{x})
+\end{equation}
+qui doit rester nul au cours du temps.
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|c||c|c|c||c|}
+\hline 
+$\mathbf{N}$ & $\mathbf{e}_1$ & $\mathbf{e}_2$ & $\mathbf{e}_{\infty}$ & \textbf{Conservation} \\ 
+\hline 
+\hline 
+$\mathbf{16}$ & $2.1446(-5)$ & $1.5759(-5)$ & $1.4251(-5)$ & $3.6380(-7)$ \\ 
+$\mathbf{32}$ & $2.2000(-6)$ & $1.1752(-6)$ & $1.0776(-6)$ & $8.3644(-9)$ \\ 
+$\mathbf{64}$ & $1.4092(-7)$ & $7.9823(-8)$ & $7.7308(-8)$ & $9.6391(-11)$ \\ 
+$\mathbf{128}$ & $8.7856(-9)$ & $5.0291(-9)$ & $4.5510(-9)$ & $8.4850(-12)$ \\ 
+\hline 
+\textbf{Ordre} & $3.94$ & $3.87$ & $3.86$ & $5.18$ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+\caption{Table de convergence pour le test 3}
+\label{tab:convergence_test3}
+\end{table}
+
+\begin{figure}
+\begin{center}
+\includegraphics[height=5cm]{rate_test3.png}
+\end{center}
+\caption{Convergence pour le test 3}
+\label{fig:convergence_test3}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Quatriète test : "Confined solutions"}
+
+Dans cette section, on choisit 
+\begin{equation}
+\mathbf{F}(\mathbf{x},u) = \mathbf{x} \times \nabla_{\mathbb{R}^3} h
+\end{equation}
+avec $h(\mathbf{x},u) = \dfrac{1}{2} u^2 x \psi_1(x)$. On a donc
+\begin{equation}
+\nabla_{\mathbb{R}^3} h = \dfrac{1}{2}(x \psi_1'(x) + \psi_1(x)) u  \mathbf{i}
+\end{equation}
+la fonction $\psi_1$ est donnée par
+\begin{equation}
+\psi_1(x) = \left\lbrace
+\begin{array}{ccl}
+1 & \text{ si } & x<0 \\
+1 - 6 x^2 + 8/\sqrt{2} x^3 & \text{ si } & x<0 \\
+0 & \text{ si } & x \geq \sqrt{2}/2 \\
+\end{array}
+\right. .
+\end{equation}
+La condition initiale est donnée par 
+\begin{equation}
+u_0(\mathbf{x}) = \psi_1(x) \cos \lambda \cos \theta.
+\end{equation}
+
+
+Dans ce sous domaine $x<0$, le flux est donné par
+\begin{equation}
+\mathbf{F}(\mathbf{x},u) = \dfrac{1}{2} u^2 \mathbf{x} \times \mathbf{i} 
+\end{equation}
+la condition initiale doit rester constante dans cette zone. En revanche, revanche la solution peut évoluer dans la zone $(x>0)$. Contrairement à l'article, notre algorithme n'est pas stable pour $\Delta t = 0.04$. Dans la figure \ref{fig:test4}, on présente la solution au temps $t=6$ pour $N=31$. On donne aussi la représentation spatiale de $u_0 - u^n$ où $u^n$ est la solution numérique au temps $t=6$. On constate directement que la solution est effectivement inchangée pour les $x<0$ (panel III par exemple, océan Pacifique). 
+
+\begin{figure}
+\begin{center}
+\includegraphics[height=6cm]{ref_7371199664_courbe.png}
+\includegraphics[height=6cm]{ref_7371199664_snapshot_err.png}
+\caption{Solution au temps $t=6$ (haut) et comparaison spatiale $u_0-u^n$ au temps $t=6$ (bas). On a $\Delta t = 0.01$ et $N=32$.}
+\end{center}
+\label{fig:test4}
+\end{figure}
+
+
+\end{document}

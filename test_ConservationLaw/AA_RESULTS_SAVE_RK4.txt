@@ -254,3 +254,419 @@ quadrature        : int
 ***********************************
   
   
+date : 05-Mar-2018
+ref. : 7371244469
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.01
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 05-Mar-2018
+ref. : 7371244506
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.01
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 05-Mar-2018
+ref. : 7371244527
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 63
+time step         : 0.01
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 05-Mar-2018
+ref. : 7371245134
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 15
+time step         : 0.039957
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 05-Mar-2018
+ref. : 7371245147
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.019979
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 05-Mar-2018
+ref. : 7371245164
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 63
+time step         : 0.0099893
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 05-Mar-2018
+ref. : 7371245224
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 127
+time step         : 0.0049946
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 05-Mar-2018
+ref. : 7371245555
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 255
+time step         : 0.0024973
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 06-Mar-2018
+ref. : 7371257190
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.019979
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 06-Mar-2018
+ref. : 7371257210
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 15
+time step         : 0.039957
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 06-Mar-2018
+ref. : 7371257219
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 63
+time step         : 0.0099893
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 06-Mar-2018
+ref. : 7371257285
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.019979
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 06-Mar-2018
+ref. : 7371257315
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 15
+time step         : 0.039957
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 06-Mar-2018
+ref. : 7371257326
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.019979
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 06-Mar-2018
+ref. : 7371257345
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 63
+time step         : 0.0099893
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 06-Mar-2018
+ref. : 7371257494
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.015
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 06-Mar-2018
+ref. : 7371257530
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 15
+time step         : 0.03
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 06-Mar-2018
+ref. : 7371257542
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 63
+time step         : 0.0075
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 06-Mar-2018
+ref. : 7371257616
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 127
+time step         : 0.00375
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 06-Mar-2018
+ref. : 7371258652
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.015
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 07-Mar-2018
+ref. : 7371264004
+***********************************
+test : 3
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.04
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 07-Mar-2018
+ref. : 7371264431
+***********************************
+test : 3
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.04
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 07-Mar-2018
+ref. : 7371265717
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.01
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 07-Mar-2018
+ref. : 7371265724
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.01
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 07-Mar-2018
+ref. : 7371265788
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.015
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 07-Mar-2018
+ref. : 7371265904
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.015
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
