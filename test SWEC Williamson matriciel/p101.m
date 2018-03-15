@@ -30,17 +30,17 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=5;
+test=0;
 video = 'no';
-sauvegarde = 1;
+sauvegarde = 0;
 filtre='symetric';
 opt_ftr='redonnet10';
 scheme='compact4';
 snapshot='yes';
 nrm='int';
 
-n=79; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=14;
+n=127; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+ndaymax=5;
 cfl=0.9;
 mod101
 disp('mod101 : ok')
@@ -53,7 +53,7 @@ jour=date;
 %% *** test data **********************************************************
 
 if test == 0
-    alpha = pi/4;
+    alpha = 0;
     u0=(2*pi*radius)/(12*24*3600);
     h0=2.94*10^4/gp;
 elseif test == 1

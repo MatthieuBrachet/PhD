@@ -626,7 +626,18 @@ Lorsque l'on souhaite calculer une approximation de $\partial_{\xi}f(\mathbf{x}_
 
 
 
-\subsection{Opérateur gradient discret}
+
+
+
+
+
+
+
+
+\section{Opérateur gradient discret}
+
+
+\subsection{Construction et consistance de l'opérateur gradient discret}
 
 Soit $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x}) \in \mathbb{R}$ une fonction régulière sur la Sphère. On note $h_{i,j}^{(k)} = h(\mathbf{x}_{i,j}^{(k)})$, avec $-N/2 \leq i,j \leq N/2$ et $(k) = (I) , \ldots , (VI)$, la valeur de $h$ au point $\mathbf{x}_{i,j}^{(k)}$ de la Cubed-Sphere.
 Nous notons $( \mathbf{g}^{\xi} )_{i,j}^{(k)} = \mathbf{g}^{\xi} (\mathbf{x}_{i,j}^{(k)})$ et $( \mathbf{g}^{\eta} )_{i,j}^{(k)} = \mathbf{g}^{\eta} (\mathbf{x}_{i,j}^{(k)})$.
@@ -904,7 +915,18 @@ $511$  & $2.7115(-10)$ & $9.4135 (-9)$ & $4.5361(-10)$ & $1.6554 (-8)$ \\
 
 
 
-\subsection{Opérateur divergence discret}
+
+
+
+
+
+
+
+
+
+\section{Opérateur divergence discret}
+
+\subsection{Construction et consistance de l'opérateur divergence discret}
 
 Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur régulier sur la sphère. Il existe alors $u$, $v$ et $w$ des fonctions régulières de $\mathbb{S}_a^2$ dans $\mathbb{R}$ telles que
 \begin{equation}
@@ -1223,7 +1245,10 @@ Les résultats numériques obtenus sur la divergence approchée $\nabla_{T,\Delt
 
 
 
-\subsection{Opérateur rotationnel discret}
+\section{Opérateur rotationnel discret}
+
+\subsection{Construction et consistance de l'opérateur rotationnel discret}
+
 
 Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur régulier sur la sphère. En tout point de la Cubed-Sphere $\mathbf{x}_{i,j}^{(k)}$, avec $-N/2 \leq i,j \leq N/2$ et $(k) = (I), ..., (VI)$, les dérivées partielles approchées de $\mathbf{v}$ sont données par \eqref{eq:der_partiel_vect}. Alors on peut définir le rotationnel approché par 
 
@@ -1407,29 +1432,6 @@ $256$& $9.7139(-11)$ & $1.1342(-10)$ & $3.3330(-10)$ \\
 \caption{Convergence $\rot_{\Delta} ( \mathbf{v} )$ avec $\mathbf{v}$ donné par \eqref{eq:fun1_rot} en normes 1, 2 et $\infty$.}
 \label{fig:rate_rot2}
 \end{figure}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 De plus, la proposition suivante permet de coupler l'opérateur rotationnel et l'opérateur gradient.
 

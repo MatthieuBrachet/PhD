@@ -670,3 +670,99 @@ quadrature        : int
 ***********************************
   
   
+date : 14-Mar-2018
+ref. : 7371334147
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 15
+time step         : 0.08
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 14-Mar-2018
+ref. : 7371334180
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 15
+time step         : 0.08
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 14-Mar-2018
+ref. : 7371334187
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 31
+time step         : 0.04
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 14-Mar-2018
+ref. : 7371334203
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 63
+time step         : 0.02
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 14-Mar-2018
+ref. : 7371334235
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 127
+time step         : 0.01
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 14-Mar-2018
+ref. : 7371336010
+***********************************
+test : 2
+---------- numerical data ---------
+number of points  : 255
+time step         : 0.005
+filtering proc.   : symetric
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+------------ comment --------------
+.
+***********************************
+  
+  

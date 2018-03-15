@@ -25,7 +25,7 @@ global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
 global opt_ftr test scheme nrm detec
 
 comment='.';
-test=0;
+test=2;
 video = 'no';
 sauvegarde =1;
 filtre='symetric';
@@ -34,10 +34,10 @@ scheme='compact4';
 snapshot='no';
 nrm='int';
 
-n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+n=511 ; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
 ndaymax=6;
 mod101
-ddt=.96/pi*dxi;
+ddt=2.56/pi*dxi;
 disp('mod101 : ok')
 
 %% ************************************************************************

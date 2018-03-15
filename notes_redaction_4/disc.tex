@@ -1001,78 +1001,7 @@ On constate dans la figure \ref{fig:comp_ireg} que le filtrage d'ordre 2 permet 
 
 
 
-\section{Equation de Burgers en dimension 1}
 
-\begin{itemize}
-\item étude de Burgers 1D et de l'apparition du choc sur $[0,\pi]$,
-\item simulation sur $[0,\pi]$,
-\item cohérence des temps finaux dans les calculs.
-\end{itemize}
-
-La solution de l'équation de transport \eqref{eq:transport_1D} ne présente pas d'irrégularités si la solution initiale n'en comporte pas. Cependant lors de la résolution d'équations de conservations non linéaires, des chocs peuvent apparaître, les solutions sont alors irrégulières et contiennent des hautes fréquences. On renvoie à \cite{Witham1974} pour plus de détails.
-
-L'exemple le plus simple d'équation de conservation non linéaire est l'équation de Burgers :
-\begin{equation}
-\dfrac{\partial u}{\partial t} + \dfrac{\partial}{\partial x} \left( \dfrac{u^2}{2}  \right) = 0
-\label{eq:burgers_1D}
-\end{equation}
-pour $x \in [0,L]$, $t>0$ et avec $u(x,t=0)=u_0(x)$. Comme pour l'équation de transport \eqref{eq:transport_1D}, on se place en contexte périodique.
-
-Le schéma numérique utilisé pour résoudre numériquement cette équation est donné par l'algorithme \ref{alg:RK4_burgers1d} où $\mathfrak{u}^n$ est une approximation de $u^*(t^n)$.
-\begin{center}
-\begin{minipage}[H]{12cm}
-  \begin{algorithm}[H]
-    \caption{: RK4}\label{alg:RK4_burgers1d}
-    \begin{algorithmic}[1]
-    \State $\mathfrak{u}^0 = u_0^*$ connu,
-    \For{$n=0,1, \ldots$}
-             \State  $K^{(1)} = - \dfrac{1}{2}\delta_{4,x}^H \left(\left( \mathfrak{u}^n \right)^2\right)$,
-             \State  $K^{(2)} = - \dfrac{1}{2}\delta_{4,x}^H \left(\left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(1)}\right)^2\right)$,
-             \State  $K^{(3)} = - \dfrac{1}{2}\delta_{4,x}^H \left(\left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(2)}\right)^2\right)$,
-             \State  $K^{(4)} = - \dfrac{1}{2}\delta_{4,x}^H \left(\left( \mathfrak{u}^n + \Delta t K^{(3)}\right)^2\right)$,  
-             \State  $\mathfrak{u}^{n+1} = \mathcal{F}_{2F,x}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
-            \EndFor
-    \end{algorithmic}
-    \end{algorithm}
-\end{minipage}
-\end{center}
-
-On peut directement démontrer la proposition suivante :
-\begin{proposition}
-Pour tout $n \in \mathbb{N}$, si $\mathfrak{u}^n$ est calculée par l'algorithme \ref{alg:RK4_burgers1d} alors
-\begin{equation}
-(\mathfrak{u}^{n+1}, \mathfrak{1})_{h,per} = (\mathfrak{u}^n, \mathfrak{1})_{h,per}.
-\end{equation}
-où $\mathfrak{1}$ est la fonction de grille constante égale à 1.
-\end{proposition}
-
-L'équation de Burgers \eqref{eq:burgers_1D} est connue pour comporter une discontinuité en temps fini. On choisit $L=1$ et
-\begin{equation}
-u_0(x) = \sin ( 2 \pi x) \text{ pour tout } x \in [0,L]=[0,1].
-\end{equation}
-
-Les résultats sont donnés pour l'algorithme \ref{alg:RK4_burgers1d} sans filtrage dans la figure \ref{fig:comp_burgers}. Des oscillations parasites apparaissent et rendent le calcul très instable. Le schéma numérique ne donne plus de résultats au temps $t=0.4$.
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[height=5cm]{burgers_t1.eps}
-\includegraphics[height=5cm]{burgers_t2.eps}
-\end{center}
-\caption{Comparaison de la solution numériques obtenue par l'algorithme \ref{alg:RK4_burgers1d} à différents temps pour la résolution de l'équation \eqref{eq:burgers_1D}. On choisit ici $N=100$ et $\Delta t = 10^{-3}$.}
-\label{fig:comp_burgers}
-\end{figure}
-On compare la solution obtenue à l'aide de l'algorithme \ref{alg:RK4_burgers1d} en utilisant différents ordres pour l'opérateur de filtrage. Les résultats sont donnés en figure \ref{fig:comp_burgers_ftr}.
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[height=5cm]{burgers_ftr2.eps}
-\includegraphics[height=5cm]{burgers_ftr4.eps}\\
-\includegraphics[height=5cm]{burgers_ftr6.eps}
-\includegraphics[height=5cm]{burgers_ftr8.eps}\\
-\includegraphics[height=5cm]{burgers_ftr10.eps}
-\end{center}
-\caption{Comparaison de différentes solution numériques obtenue par l'algorithme \ref{alg:RK4_burgers1d} au temps $t=5$ pour la résolution de l'équation \eqref{eq:burgers_1D} avec différents filtres. On choisit ici $N=100$ et $\Delta t = 10^{-3}$.}
-\label{fig:comp_burgers_ftr}
-\end{figure}
-Le filtrage d'ordre 2 est trop dissipatif. Les filtrages d'ordres plus élevés représentent mieux le choc et permettent au schéma de rester stable jusqu'à $t=5$.
 
 
 
@@ -1195,7 +1124,7 @@ On cherche alors $\etafrak$, $\mathfrak{u}$ et $\mathfrak{v}$ des fonctions de $
 \begin{proposition}
 $\etafrak$, $\mathfrak{u}$ et $\mathfrak{v}$ solutions de \eqref{eq:ondes_2D_SD} convergent vers $\eta$, $u$ et $v$ solutions de \eqref{eq:ondes_2D} sur $[0,T]$ au sens où il existe $\tilde{C}>0$ tel que
 \begin{equation}
-E(t) \leq g^2 H^2 T^2 \tilde{C} \max_{t \in [0,T]} \left( \dfrac{1}{H} \| \partial_x^{(5)} u \|^2_{\infty}, \dfrac{1}{H} \| \partial_y^{(5)} v \|^2_{\infty}, \dfrac{1}{g} \| \partial_x^{(5)} \eta \|^2_{\infty}, \dfrac{1}{g} \| \partial_y^{(5)} \eta \|^2_{\infty}  \right) h^4
+E(t) \leq g^2 H^2 T^2 \tilde{C} \max_{t \in [0,T]} \left( \dfrac{1}{H} \| \partial_x^{(5)} u \|^2_{\infty}, \dfrac{1}{H} \| \partial_y^{(5)} v \|^2_{\infty}, \dfrac{1}{g} \| \partial_x^{(5)} \eta \|^2_{\infty}, \dfrac{1}{g} \| \partial_y^{(5)} \eta \|^2_{\infty}  \right) h^8
 \end{equation}
 avec les termes d'erreur $\mathfrak{e}_{\eta} = \eta^* - \etafrak$, $\mathfrak{e}_{u} = u^* - \mathfrak{u}$ et $\mathfrak{e}_{v} = v^* - \mathfrak{v}$ ainsi que $E(t) = g \| \mathfrak{e}_{\eta} \|^2_{h,per} + H \| \mathfrak{e}_u \|^2_{h,per} + H \| \mathfrak{e}_v \|^2_{h,per}$.
 \end{proposition}
@@ -1257,11 +1186,11 @@ E(t) \leq \alpha^2 \Upsilon \left( \exp \left( \dfrac{2 g H}{\alpha} \right) -1 
 \end{equation}
 Par consistance de l'opérateur $\delta_{4,x}^H$ et de l'opérateur $\delta_{4,y}^H$, il est facile de montrer qu'il existe une constante $C>0$ telle que
 \begin{equation}
-\Upsilon \leq C \max_{t \in [0,T]} \left( \dfrac{1}{H} \| \partial_x^{(5)} u \|^2_{\infty}, \dfrac{1}{H} \| \partial_y^{(5)} v \|^2_{\infty}, \dfrac{1}{g} \| \partial_x^{(5)} \eta \|^2_{\infty}, \dfrac{1}{g} \| \partial_y^{(5)} \eta \|^2_{\infty}  \right) h^4
+\Upsilon \leq C \max_{t \in [0,T]} \left( \dfrac{1}{H} \| \partial_x^{(5)} u \|^2_{\infty}, \dfrac{1}{H} \| \partial_y^{(5)} v \|^2_{\infty}, \dfrac{1}{g} \| \partial_x^{(5)} \eta \|^2_{\infty}, \dfrac{1}{g} \| \partial_y^{(5)} \eta \|^2_{\infty}  \right) h^8
 \end{equation}
 De plus, on pose $\beta = \alpha/(2gHt)$ et l'équation \eqref{eq:preuve_consist1} devient 
 \begin{equation}
-E(t) \leq g^2 H^2 t^2 C \max_{t \in [0,T]} \left( \dfrac{1}{H} \| \partial_x^{(5)} u \|^2_{\infty}, \dfrac{1}{H} \| \partial_y^{(5)} v \|^2_{\infty}, \dfrac{1}{g} \| \partial_x^{(5)} \eta \|^2_{\infty}, \dfrac{1}{g} \| \partial_y^{(5)} \eta \|^2_{\infty}  \right) a(\beta)
+E(t) \leq g^2 H^2 t^2 C \max_{t \in [0,T]} \left( \dfrac{1}{H} \| \partial_x^{(5)} u \|^2_{\infty}, \dfrac{1}{H} \| \partial_y^{(5)} v \|^2_{\infty}, \dfrac{1}{g} \| \partial_x^{(5)} \eta \|^2_{\infty}, \dfrac{1}{g} \| \partial_y^{(5)} \eta \|^2_{\infty}  \right) a(\beta) h^8
 \end{equation}
 avec la fonction $a$ définit par
 \begin{equation}
@@ -1275,7 +1204,7 @@ donc il existe $m > 0$ telle que pour tout $\beta > 0$, on a $a(\beta)>m$. On pe
 
 Ainsi, on a 
 \begin{equation}
-E(t) \leq g^2 H^2 T^2 C m \max_{t \in [0,T]} \left( \dfrac{1}{H} \| \partial_x^{(5)} u \|^2_{\infty}, \dfrac{1}{H} \| \partial_y^{(5)} v \|^2_{\infty}, \dfrac{1}{g} \| \partial_x^{(5)} \eta \|^2_{\infty}, \dfrac{1}{g} \| \partial_y^{(5)} \eta \|^2_{\infty}  \right) h^4.
+E(t) \leq g^2 H^2 T^2 C m \max_{t \in [0,T]} \left( \dfrac{1}{H} \| \partial_x^{(5)} u \|^2_{\infty}, \dfrac{1}{H} \| \partial_y^{(5)} v \|^2_{\infty}, \dfrac{1}{g} \| \partial_x^{(5)} \eta \|^2_{\infty}, \dfrac{1}{g} \| \partial_y^{(5)} \eta \|^2_{\infty}  \right) h^8.
 \end{equation}
 \end{proof}
 
@@ -1592,6 +1521,252 @@ $128\text{ et }2.8808(-4)$& $1.2226(-3)$ & $1.2227(-3)$ & $1.2301(-3)$ & $1.9323
 \caption{Convergence de la conservation de l'énergie pour l'algorithme \ref{alg:RK4_ondes2d} et la donnée initiale \eqref{eq:waves_test1}. On représente l'erreur relative maximale pour $t<1$.}
 \label{tab:conservation_waves}
 \end{table} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Equation de Burgers en dimension 1}
+
+Dans cette partie, on s'intéresse à l'équation de Burgers \cite{Burgers1948, Witham1974} en dimension 1 dans un contexte $2 \pi -$ périodique dans la direction de $x$ :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial u}{\partial t} + 2 \pi \dfrac{\partial}{\partial x} \left( \dfrac{u^2}{2} \right) & = & 0 \\
+u(t=0,x) & = & u_0(x)
+\end{array}
+\right. \text{ pour } x \in [0, 2\pi] \text{ et } t \geq 0.
+\label{eq:Burgers_1d}
+\end{equation}
+Nous supposerons $u_0 \in \mathcal{C}^1([0,2 \pi])$ et $u_0' \in L^{\infty}([0,2 \pi])$.
+
+\begin{theoreme}
+L'équation \eqref{eq:Burgers_1d} admet une unique solution $u$ telle que
+\begin{itemize}
+\item $u \in \mathcal{C}^1(\mathbb{R}^+ \times [0, 2 \pi])$ si $2 \pi  u_0'(x) \geq 0$ pour $x \in [0,2 \pi]$,
+
+\item $u \in \mathcal{C}^1([0, -\frac{1}{\inf_{x \in [0,2\pi]} (2 \pi u_0'(x))} \times [0, 2 \pi])$, sinon.
+\end{itemize}
+De plus, cette solution $u$ vérifie pour $x \in [0, 2 \pi]$
+\begin{equation}
+u(t,2 \pi u_0(x)t + x)=u_0(x).
+\end{equation}
+\end{theoreme}
+
+\begin{proof}
+On souhaite étudier l'équation \eqref{eq:Burgers_1d} par la méthode des caractéristiques. Dans un premier temps, on suppose que $u \in \mathcal{C}^1$ solution de \eqref{eq:Burgers_1d} existe. Soit $X : \mathbf{R}^+ \mapsto \mathbb{R}$ une courbe telle que
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+X'(t) & = & 2 \pi u (t, X(t)) \\
+X(0) & = & x
+\end{array}
+\right. .
+\label{eq:systeme_eq_caract}
+\end{equation}
+D'après le théorème de Cauchy-Lipschitz, comme $X \mapsto 2 \pi u (t, X)$ est $\mathcal{C}^1$, il existe une solution maximale à \eqref{eq:systeme_eq_caract}.
+
+Dès lors, on a que $g : t \mapsto u(t,X(t))$ est constante, en effet
+\begin{align*}
+g'(t) & = \dfrac{\partial u}{\partial t}(t,X(t)) + X'(t) \dfrac{\partial u}{\partial x} (t,X(t)) \\
+	& = \dfrac{\partial u}{\partial t}(t,X(t)) + 2 \pi u (t, X(t)) \dfrac{\partial u}{\partial x} (t,X(t)) \\
+	& = \dfrac{\partial u}{\partial t}(t,X(t)) + 2 \pi  \dfrac{\partial }{\partial x} \left( \dfrac{u(t,X(t))^2}{2} \right) \\
+	& = 0.
+\end{align*}
+Comme $t \mapsto u(t,X(t))$ est constante, on a en particulier $2 \pi u (t, X(t)) = u_0(x)$ donc $X$ est en fait solution de 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+X'(t) & = & 2 \pi u_0(x) \\
+X(0) & = & x
+\end{array}
+\right. .
+\label{eq:systeme_eq_caract2}
+\end{equation}
+donc $X$ est donné par
+\begin{equation}
+X(t) = 2 \pi u_0(x) t + x.
+\end{equation}
+$u$ est constante le long de $X$ donc $u$ vérifie
+\begin{equation}
+u(t,2 \pi u_0(x)t + x)=u_0(x).
+\end{equation}
+
+Cependant, ce résultat n'est vrai que si \eqref{eq:Burgers_1d} admet une solution de classe $\mathcal{C}^1$.
+Posons $X_t(x) = 2 \pi u_0(x)t + x$, donc
+\begin{equation}
+X_t'(x) = 2 \pi u_0'(x) t + 1.
+\end{equation}
+Comme $u_0$ est régulière sur un compact, il existe $m \in \mathbb{R}$ tel que
+\begin{equation}
+m = \inf_{x \in [0, 2 \pi]} \left( 2 \pi u_0'(x) \right)
+\end{equation}
+deux cas de figures se présentent alors
+\begin{itemize}
+\item Soit $m \geq 0$, alors pour tout $x \in [0, 2 \pi]$ et $t \geq 0$, on a $X'_t(x) > X'_0(x) = 1$ et $X_t$ est une bijection de $[0, 2 \pi]$ dans $X_t([0, 2 \pi]) = \mathbb{R}$,
+
+\item soit $m < 0$ alors en posant $T = -1/m$, on a pour tout $t \in [0, T[$
+\begin{equation}
+X'_t(x) \geq m(t-T) > 0
+\end{equation}
+alors $X_t$ est i,e bijection de $[0, 2 \pi]$ dans $\mathbb{R}$.
+\end{itemize}
+
+Si $u \in \mathcal{C}^1$ est solution \eqref{eq:Burgers_1d} telle que $X_t$ est i,e bijection alors
+\begin{equation}
+u(t,x) = u_0(X_t^{-1}(x))
+\end{equation}
+et $X_t$ est une bijection si $m \geq 0$ ou si $m<0$ et $t \in [0, T[$.
+
+Vérifions que $u : (t,x) \mapsto u(t,x) = u_0(X_t^{-1}(x))$ est bien solution et de classe $\mathcal{C}^1$ (pour $t$ tel que $X_t^{-1}$ est bien défini).
+
+$X_t$ est de class $\mathcal{C}^1$, si $X_t'(x)>0$ pour tout $x \in [0, \pi]$ alors $X_t$ est inversible, $X_t^{-1}$ est $\mathcal{C}^1$. Pour tout $x \in [0,2 \pi]$, on a
+\begin{equation}
+(X_t^{-1})'(x) = \dfrac{1}{X_t'(X_t^{-1}(x))},
+\end{equation}
+donc en dérivant $u$ par rapport à $x$, on obtient
+\begin{align*}
+\dfrac{\partial u}{\partial x}(t,x) & = \dfrac{u_0'(X_t^{-1}(x))}{X_t'(X_t^{-1}(x))} \\
+	& = \dfrac{u_0'(X_t^{-1}(x))}{1 + 2 \pi u_0'(X_t^{-1}(x))},
+\end{align*}
+d'où la formule suivante 
+\begin{equation}
+\dfrac{\partial u}{\partial x}(t,x)=\dfrac{u_0'(X_t^{-1}(x))}{1 + 2 \pi u_0'(X_t^{-1}(x))}
+\label{eq:der_u_burgers_proof}
+\end{equation}
+Or, on sait que 
+\begin{align*}
+X_t(x) & = x + 2 \pi t u_0(x) \\
+	& = x + 2 \pi t u(t,2 \pi u_0(x) t + x)\\
+	& = x + 2 \pi t u(t,X_t(x)).
+\end{align*}
+Donc $x = X_t(x) - 2 \pi t u(t,X_t(x))$, d'où
+\begin{equation}
+X_t^{-1}(x) = x - 2 \pi t u(t,x).
+\end{equation}
+De là, on peut déduire la dérivée de $X_t^{-1}$ en temps :
+\begin{equation}
+\dfrac{\partial X_t^{-1}}{\partial t}(x) = - 2 \pi u(t,x) - 2 \pi t \dfrac{\partial u}{\partial t}(t,x).
+\end{equation}
+On en déduit :
+\begin{align*}
+\dfrac{\partial u}{\partial t}(tx,) & = \dfrac{\partial}{\partial t} u_0(X_t^{-1}(x)) \\
+	& = \dfrac{\partial X_t^{-1}}{\partial t}(x) u_0'(X_t^{-1}(x)) \\
+	& = (- 2 \pi u(t,x) - 2 \pi t \dfrac{\partial u}{\partial t}(t,x)) u_0'(X_t^{-1}(x)).
+\end{align*}
+Il découle :
+\begin{equation}
+\dfrac{\partial u}{\partial t}(t,x) \underbrace{(1 + 2 \pi t u_0'(X_t^{-1}(x)))}_{>0 \text{ lorsque } X_t^{-1} \text{est défini.}} = - 2 \pi u(t,x) u_0'(X_t^{-1}(x)).
+\end{equation}
+Donc, par division, on a
+\begin{align*}
+\dfrac{\partial u}{\partial t}(t,x) & = - \dfrac{2 \pi u(t,x) u_0'(X_t^{-1}(x))}{1 + 2 \pi t u_0'(X_t^{-1}(x))} \\
+	& = - 2 \pi u(t,x) \dfrac{u_0'(X_t^{-1}(x))}{1 + 2 \pi u_0'(X_t^{-1}(x))} \\
+	& = - 2 \pi u(t,x) \dfrac{\partial u}{\partial x}(t,x) \text{ d'après \eqref{eq:der_u_burgers_proof}.} \\
+	& = - 2 \pi \dfrac{\partial}{\partial x}\left( \dfrac{u(t,x)^2}{2} \right)
+\end{align*}
+donc $u$ est bien solution de \eqref{eq:Burgers_1d} et par composition c'est une fonction $\mathcal{C}^1$ sur les intervalles souhaités.
+\end{proof}
+
+\begin{remarque}
+\begin{itemize}
+\item Pour que $u$ solution de \eqref{eq:Burgers_1d} soient une solution $\mathcal{C}^1$ en tout temps $t \geq 0$, il faut que $u_0$ soit $\mathcal{C}^1$ et de dérivée positive ou nulle. Compte tenue de la périodicité, cela implique $u_0$ constante.
+
+\item Si $u_0$ est définie pour $x \in [0, 2 \pi]$ par 
+\begin{equation}
+u_0(x) \sin (x)
+\label{eq:burgers_expemple2}
+\end{equation}
+l'équation \eqref{eq:Burgers_1d} admet une unique solution de classe $\mathcal{C}^1$ pour $t \in [1, 1/(2\pi)]$. Au delà de cet intervalle, des chocs peuvent apparaître, la solution de \eqref{eq:Burgers_1d} n'est plus régulière.
+\end{itemize}
+\end{remarque}
+
+
+Les chocs rendent les solution difficiles à représenter par des schémas aux différences finies car des phénomènes haute-fréquence important sont présents. Nous souhaitons, dans cette partie, observer les performances d'un schéma numérique donné par l'algorithme \ref{alg:RK4_burgers1d} pour l'équation \eqref{eq:Burgers_1d} où $\mathfrak{u}^n$ est une approximation de $u^*(t^n)$.
+
+\begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: RK4}\label{alg:RK4_burgers1d}
+    \begin{algorithmic}[1]
+    \State $\mathfrak{u}^0 = u_0^*$ connu,
+    \For{$n=0,1, \ldots$}
+             \State  $K^{(1)} = - \pi \delta_{4,x}^H \left(\left( \mathfrak{u}^n \right)^2\right)$,
+             \State  $K^{(2)} = - \pi \delta_{4,x}^H \left(\left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(1)}\right)^2\right)$,
+             \State  $K^{(3)} = - \pi \delta_{4,x}^H \left(\left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(2)}\right)^2\right)$,
+             \State  $K^{(4)} = - \pi \delta_{4,x}^H \left(\left( \mathfrak{u}^n + \Delta t K^{(3)}\right)^2\right)$,  
+             \State  $\mathfrak{u}^{n+1} = \mathcal{F}_{2F,x}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
+            \EndFor
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center}
+
+On peut directement démontrer la proposition suivante :
+\begin{proposition}
+Pour tout $n \in \mathbb{N}$, si $\mathfrak{u}^n$ est calculée par l'algorithme \ref{alg:RK4_burgers1d} alors
+\begin{equation}
+(\mathfrak{u}^{n+1}, \mathfrak{1})_{h,per} = (\mathfrak{u}^n, \mathfrak{1})_{h,per}.
+\end{equation}
+où $\mathfrak{1}$ est la fonction de grille constante égale à 1.
+\end{proposition}
+
+Les résultats sont pour $u_0$ donné par \eqref{eq:burgers_expemple2} et pour l'algorithme \ref{alg:RK4_burgers1d} sans filtrage dans la figure \ref{fig:comp_burgers}. Des oscillations parasites apparaissent et rendent le calcul très instable. Le schéma numérique ne donne plus de résultats au temps $t=0.5$.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{burgers_t1.eps}
+\includegraphics[height=5cm]{burgers_t2.eps}
+\end{center}
+\caption{Comparaison de la solution numériques obtenue par l'algorithme \ref{alg:RK4_burgers1d} à différents temps pour la résolution de l'équation \eqref{eq:Burgers_1d}. On choisit ici $N=100$ et $\Delta t = 10^{-3}$.}
+\label{fig:comp_burgers}
+\end{figure}
+
+On compare la solution obtenue à l'aide de l'algorithme \ref{alg:RK4_burgers1d} en utilisant différents ordres pour l'opérateur de filtrage. Les résultats sont donnés en figure \ref{fig:comp_burgers_ftr}.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{burgers_ftr2.eps}
+\includegraphics[height=5cm]{burgers_ftr4.eps}\\
+\includegraphics[height=5cm]{burgers_ftr6.eps}
+\includegraphics[height=5cm]{burgers_ftr8.eps}\\
+\includegraphics[height=5cm]{burgers_ftr10.eps}
+\end{center}
+\caption{Comparaison de différentes solution numériques de \eqref{eq:Burgers_1d} obtenue par l'algorithme \ref{alg:RK4_burgers1d} au temps $t=10/(2 \pi) \approx 1.5920$ avec différents filtres. $N=100$ et $\Delta t = 10^{-3}$.}
+\label{fig:comp_burgers_ftr}
+\end{figure}
+
+Le filtrage d'ordre 2 est trop dissipatif. Les filtrages d'ordres plus élevés représentent mieux le choc et permettent au schéma de rester stable jusqu'à $t=10/(2 \pi)$ au minimum.
+
+
+
+
+
 
 
 

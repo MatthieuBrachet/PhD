@@ -4,12 +4,20 @@ global x_fI x_fII x_fIII
 global x_fIV x_fV x_fVI
 global test
 if test == 2
-    indI=(x_fI<=0);
-    indII=(x_fII<=0);
-    indIII=(x_fIII<=0);
-    indIV=(x_fIV<=0);
-    indV=(x_fV<=0);
-    indVI=(x_fVI<=0);
+    indI=(x_fI<=0)+(x_fI>(sqrt(2)/2));
+    indII=(x_fII<=0)+(x_fII>(sqrt(2)/2));
+    indIII=(x_fIII<=0)+(x_fIII>(sqrt(2)/2));
+    indIV=(x_fIV<=0)+(x_fIV>(sqrt(2)/2));
+    indV=(x_fV<=0)+(x_fV>(sqrt(2)/2));
+    indVI=(x_fVI<=0)+(x_fVI>(sqrt(2)/2));
+
+%     indI=(x_fI<=0);
+%     indII=(x_fII<=0);
+%     indIII=(x_fIII<=0);
+%     indIV=(x_fIV<=0);
+%     indV=(x_fV<=0);
+%     indVI=(x_fVI<=0);
+
 else
     indI=ones(size(x_fI));
     indII=indI;

@@ -4,10 +4,8 @@ n=100;
 h=2*pi./n;
 x=[h:h:2*pi]';
 
-% cfl=0.7;
-% ddt=cfl*h/.5;
-ddt=0.0001;
-tmax=1/(2*pi);
+ddt=0.001;
+tmax=10/(2*pi);
 
 k=diag(ones(n-1,1),1)-diag(ones(n-1,1),-1);
 k(1,end)=-1; k(end,1)=1;
@@ -16,7 +14,7 @@ p=1/6*diag(ones(n-1,1),1)+1/6*diag(ones(n-1,1),-1)+4/6*eye(n,n);
 p(end,1)=1/6; p(1,end)=1/6;
 p=sparse(p);
 
-opt_ftr='redonnet10';
+opt_ftr='redonnet6';
 if strcmp(opt_ftr,'redonnet10')==1
     ftr0=772/1024;
     ftr1=420/1024;
@@ -125,4 +123,4 @@ figure(3)
 plot(x,u,'Linewidth',2)
 grid on
 %axis([0 1 -1 1])
-title(['Filtre d''ordre 10'])
+title(['Filtre d''ordre 6'])

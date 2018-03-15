@@ -25,13 +25,13 @@ time1=cputime;
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 0;
+coef = 1;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 1;
+save_graph = 0;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
 opt_ftr ='redonnet10';
@@ -48,9 +48,9 @@ sauvegarde = 0;
 % choix du schéma aux différences finies
 scheme='compact4'; % compact ou explicite
 %% *** Benchmarks data ****************************************************
- n=31;
+ n=39;
  nn=n+2;
- cfl=.5;
+ cfl=.9;
  ndaymax=12;
  err=2;
  mm=0;
