@@ -6,7 +6,7 @@ global weights
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NEW VERSION COMPARED TO NRM72.M : COEFFT 1/4 FOR THE 8 CORNER POINTS
 switch str
-    case 'infty',
+    case 'infty'
     nrmI=max(max(abs(funfI)));
     nrmII=max(max(abs(funfII)));
     nrmIII=max(max(abs(funfIII)));
@@ -15,7 +15,7 @@ switch str
     nrmVI=max(max(abs(funfVI)));
 %
     nrmg=max([nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI]);
-    case '2',
+    case '2'
         % face I
     nrmint=(radius^2)*dxi*deta*sum(sum(dga(2:nn-1,2:nn-1).*(funfI(2:nn-1,2:nn-1).^2)));
     nrmW=(radius^2)*dxi*deta*sum(dga(1,2:nn-1).*(funfI(1,2:nn-1).^2));
@@ -154,7 +154,7 @@ switch str
     %
     nrmg=nrmI+nrmII+nrmIII+nrmIV+nrmV+nrmVI;    
     
-    case 'int', % INTEGRAL OF THE FUNCTION (IT IS NOT A NORM).
+    case 'int' % INTEGRAL OF THE FUNCTION (IT IS NOT A NORM).
         % face I
 
     nrmint=(radius^2)*dxi*deta*sum(sum(dga(2:nn-1,2:nn-1).*funfI(2:nn-1,2:nn-1)));

@@ -31,12 +31,12 @@ dx=2*pi*radius./(4*N);
 % e2=[1.8078*10^-5 1.1000*10^-6 8.4090*10^-8 6.9357*10^-9 5.9230*10^-10 5.1460*10^-11];
 % e3=[3.9774*10^-5 4.5644*10^-6 4.9238*10^-7 5.6815*10^-8 6.8074*10^-9 8.2825*10^-10];
 
-%% NM?
+% %% NM?
 e1=[1.2170e-3 4.4810e-4 1.6313e-4 2.8658e-5 8.7526e-6 1.1105e-6];
 e2=[5.2773e-3 2.1100e-3 8.2236e-4 1.4710e-4 4.1919e-5 5.7646e-6];
 e3=[3.8615e-2 1.6306e-2 6.5687e-3 1.4042e-3 4.1512e-4 6.2903e-5];
 
-% %% NJ
+%% NJ
 % e1=[2.9241e-3 1.3634e-3 6.6453e-4 2.0635e-4 8.2353e-5 1.6044e-5];
 % e2=[1.0646e-2 5.3187e-3 2.7522e-3 8.8170e-4 3.5454e-4 7.0918e-5];
 % e3=[5.7267e-2 3.3187e-2 1.8792e-2 6.3350e-3 2.7479e-3 5.9455e-4];
@@ -107,18 +107,31 @@ set (ya,'FontName','Calibri');
 set(ya,'FontSize',12);
 
 %% legend
-legend([hlf1,hlf2,hlf3],{['norm 1 - slope = ' num2str(a1(1))],['norm 2 - slope = ' num2str(a2(1))],['norm \infty - slope = ' num2str(a3(1))]},'Location','NorthWest')
+legend([hlf1,hlf2,hlf3],{['norme 1 - slope = ' num2str(a1(1))],['norme 2 - slope = ' num2str(a2(1))],['norme \infty - slope = ' num2str(a3(1))]},'Location','NorthWest')
 
 %% texte
-ht=text('Position',[5.375,-2.8,0],'String','N=40');
+% ht=text('Position',[5.375,-2.8,0],'String','N=40');
+% set(ht,'FontSize',12);
+% ht=text('Position',[5.275,-3.2,0],'String','N=50');
+% set(ht,'FontSize',12);
+% ht=text('Position',[5.2,-3.5,0],'String','N=60');
+% set(ht,'FontSize',12);
+% ht=text('Position',[5.08,-4,0],'String','N=80');
+% set(ht,'FontSize',12);
+% ht=text('Position',[4.97,-4.4,0],'String','N=100');
+% set(ht,'FontSize',12);
+% ht=text('Position',[4.8,-4.4,0],'String','N=150');
+% set(ht,'FontSize',12);
+
+ht=text('Position',[5.375,-3.3,0],'String','N=40');
 set(ht,'FontSize',12);
-ht=text('Position',[5.275,-3.2,0],'String','N=50');
+ht=text('Position',[5.275,-3.8,0],'String','N=50');
 set(ht,'FontSize',12);
-ht=text('Position',[5.2,-3.5,0],'String','N=60');
+ht=text('Position',[5.2,-4.1,0],'String','N=60');
 set(ht,'FontSize',12);
-ht=text('Position',[5.08,-4,0],'String','N=80');
+ht=text('Position',[5.08,-4.8,0],'String','N=80');
 set(ht,'FontSize',12);
-ht=text('Position',[4.97,-4.4,0],'String','N=100');
+ht=text('Position',[4.97,-5.3,0],'String','N=100');
 set(ht,'FontSize',12);
-ht=text('Position',[4.8,-4.4,0],'String','N=150');
+ht=text('Position',[4.8,-5.5,0],'String','N=150');
 set(ht,'FontSize',12);

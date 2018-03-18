@@ -77,7 +77,6 @@ time=tinit;
 % Boucles RK 4 avec filtrage
 xdays(1)=0;
 for ite=1:itemax
-clc; [ite itemax]
 % ------------------------------------------------------------------------
 %                 CALCUL DES ITERATIONS
 %  -----------------------------------------------------------------------
@@ -199,6 +198,8 @@ xdays(ite)=(time-tinit)/(24*3600);
 end
 ref=floor(10000*now);
 [ xa,fa ] = coupe_eq(funfI,funfII,funfIII,funfIV);
+
+maxi=max(max(max([funfI funfII funfIII funfIV funfV funfVI])))
 
 
 end

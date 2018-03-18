@@ -233,7 +233,7 @@ En effectuant le produit scalaire par $\mathfrak{u}^{k'}$ on obtient
 \end{align*}
 
 \begin{definition}
-On définit la \textit{transformée de Fourier discrète} de $\mathfrak{v}$ par $(\hat{\mathfrak{v}}_{k})_{-N/2+1 \leq k \leq N/2}$ où
+On défini la \textit{transformée de Fourier discrète} de $\mathfrak{v}$ par $(\hat{\mathfrak{v}}_{k})_{-N/2+1 \leq k \leq N/2}$ où
 \begin{equation}
 \hat{\mathfrak{v}}_{k} = (\mathfrak{v}, \mathfrak{u}^{k})_{h,\per}.
 \end{equation}
@@ -700,7 +700,7 @@ j^2 & \text{ si } & j<p \\
 \end{array}
 \right.
 \end{equation}
-de plus, les coefficients sont de signes alternées, c'est à dire $a_p a_{p+1}<0$.
+de plus, les coefficients sont de signes alternés, c'est à dire $a_p a_{p+1} \leq 0$ pour tout $p$.
 \end{proposition}
 
 \begin{proof}
@@ -724,7 +724,7 @@ a_1 \\ a_2 \\ a_3 \\ \vdots \\ a_J
 Ce système admet une solution si $\det (A) \neq 0$. Or on reconnait un déterminant de VanDerMonde. Donc
 \begin{align*}
 \det (A) & = \gprod_{1\leq i < j \leq J} (\alpha_j - \beta_i) \text{ avec } \beta_l = l^2 \\
-	& = \gprod_{1\leq i < j \leq J} (j^2 - i^2)
+	& = \gprod_{1\leq i < j \leq J} (j^2 - i^2)\\
 	& > 0 \text{ car } j^2 > i^2 \text{ lorsque } j>i.
 \end{align*}
 Le système \eqref{eq:syst_opexplicite_P} admet donc toujours une unique solution. Calculons cette solution. D'après la formule de Cramer, on a 
@@ -762,8 +762,7 @@ ainsi que l'alternance des signes car
 \dfrac{\gprod_{1 \leq i <j \leq J-1}(\beta_j^p - \beta_i^p)}{\gprod_{1 \leq i <j \leq J}(j^2 - i^2)} > 0.
 \end{equation}
 \end{proof}
-
-A présent, nous supposons que les coefficients $(a_p)_{1 \leq p \leq J}$ sont issus de la résolution du système \eqref{eq:syst_opexplicite_P}. On a déjà vu que $\tau^{-1} = \tau_{-1} = \tau^{N-1}$, donc à partir des coefficients $(a_p)_{1 \leq p \leq J}$ on construit le polynôme $Q_{2J}$ tel que
+A présent, dans cette section, nous supposons que les coefficients $(a_p)_{1 \leq p \leq J}$ sont issus de la résolution du système \eqref{eq:syst_opexplicite_P}. On a déjà vu que $\tau^{-1} = \tau_{-1} = \tau^{N-1}$, donc à partir des coefficients $(a_p)_{1 \leq p \leq J}$ on construit le polynôme $Q_{2J}$ tel que
 \begin{align*}
 \delta_{2J,x} & = \gsum_{p=1}^J a_p \dfrac{\tau_p - \tau_{-p}}{2ph}\\
 	& = \gsum_{p=1}^J \dfrac{a_p}{2ph} \left( \tau_p - \tau_{-p} \right)\\
@@ -998,7 +997,7 @@ d'où le résultat.
 
 \subsection{Opérateurs Hermitiens périodiques 1D}
 
-Dans ce travail, nous n'utilisons pas de schémas de la forme \eqref{eq:explicite_dx}. Les schémas hermitiens \cite{Lele1991} donnent de meilleurs résultats en ce qui concerne l'analyse fréquentielle. Ils sont couramment utilisés sur la résolution d'équations hyperboliques \cite{Chu1998} et permettent de bons résultats pour la capture des chocs \cite{Jiang2001}. De bons résultats ont aussi été donnés pour l'approximation de la dérivée seconde \cite{Abbas2011, Keller1971} ou en mécanique des fluides \cite{BenArtzi2005, BenArtzi2013}. Dans ce travail, nous ne considérons que les schémas à 3 points implicites. Définissons l'opérateur $\sigma_{x}$ par :
+Dans ce travail, nous n'utilisons pas de schémas de la forme \eqref{eq:explicite_dx}. Les schémas hermitiens \cite{Lele1991} donnent de meilleurs résultats en ce qui concerne l'analyse fréquentielle. Ils sont couramment utilisés sur la résolution d'équations hyperboliques \cite{Chu1998} et permettent de bons résultats pour la capture des chocs \cite{Jiang2001}. De bons résultats ont aussi été donnés pour l'approximation de la dérivée seconde \cite{Abbas2011, Keller1971} ou en mécanique des fluides \cite{BenArtzi2005, BenArtzi2013}. Dans ce travail, nous ne considérons que les schémas à 3 points implicites pour lesquels nous souhaitons optimiser l'ordre de convergence. D'autres travaux vise à minimiser d'autres formes d'erreurs \cite{Kim1996, Kim2007}. Nous définissons l'opérateur $\sigma_{x}$ par :
 
 \begin{equation}
 (\sigma_{x} \mathfrak{u})_j = (1-2\beta) \mathfrak{u}_j + \beta \left( \mathfrak{u}_{j+1} + \mathfrak{u}_{j-1} \right) \text{ avec } 0 \leq j \leq N-1.
@@ -1029,7 +1028,7 @@ est consistante à l'ordre $2J+2$ avec
 \end{equation}
 si $u$ est une fonction de $\mathcal{C}^{2J+3}$, alors pour tout $0 \leq j \leq N-1$, on a 
 \begin{multline}
-(\delta_{x} u^*)_j - (\sigma_{x} (\partial_x u)^*)_j = \\  h^{2J+2} \left[ \dfrac{J}{(2J+3)!}  \left( \gsum_{p=1}^J a_p  p^{2J+2} \right)\partial_x^{(2J+3)}u(\theta)  - \left( \dfrac{2\beta}{(2J+2)!}   \right) \partial_x^{(2J+3)}u(\rho) \right]
+(\delta_{x} u^*)_j - (\sigma_{x} (\partial_x u)^*)_j = \\  h^{2J+2} \left[ \dfrac{1}{(2J+3)!}  \left( \gsum_{p=1}^J a_p  p^{2J+2} \right)\partial_x^{(2J+3)}u(\theta)  - \left( \dfrac{2\beta}{(2J+2)!}   \right) \partial_x^{(2J+3)}u(\rho) \right]
 \label{eq:eq_cons}
 \end{multline} 
 avec $\rho, \theta \in ]x_{j-J}, x_{j+J}[$.
@@ -1091,7 +1090,7 @@ Dans la suit, nous aurons besoin d'inverser l'opérateur $\sigma_x$. La proprié
 \begin{corollaire}
 L'opérateur $\sigma_x$ est inversible si
 \begin{equation}
-| \beta | > \dfrac{1}{4}.
+| \beta | < \dfrac{1}{4}.
 \end{equation}
 \end{corollaire}
 
@@ -1239,7 +1238,7 @@ De plus, on a $\sin (0 ) = \sin (\pi) = 0$, donc
 \begin{equation}
 Q_{2J} \left( \exp ( i 0 ) \right) = Q_{2J} \left( \exp ( i \pi ) \right) = 0.
 \end{equation}
-Ainsi, on a bien prouvé la proposition.
+La proposition est prouvée.
 \end{proof}
 
 Par $2 \pi$-périodicité et imparité de $\theta \in \mathbb{R} \mapsto - i Q_{2J+2}^H(e^{i \theta})$, et d'après la proposition \ref{prop:hermitien_polynome}, on souhaite comparer $\theta \in \mathbb{R} \mapsto - i Q_{2J+2}^H(e^{i \theta})$ et $\theta \in \mathbb{R} \mapsto \theta$. Quelques exemples, pour les valeurs de $2J+2 = 4$, $6$ et $8$, sont tracés dans la figure \ref{fig:freq_herm}. On compare ces fonctions avec celles obtenues pour les schémas $\delta_{2J,x}$ aux ordre 2, 4, 6 et 8. On constate que les schémas hermitiens $\delta_{2J+2,x}^H$ représentent mieux $\theta$ que les schémas $\delta_{2J,x}$. De plus, plus l'ordre du schéma est élevé, mieux la fonction $\theta \in \mathbb{R} \mapsto \theta$ est représentée.
@@ -1289,7 +1288,7 @@ donc
 \end{equation}
 Le calcul de $\delta^H_{2J+2,x} \mathfrak{u}$ se fait par la résolution du système
 \begin{equation}
-P_{\sigma} \vec (\delta_{2J+2,x}^H \mathfrak{u}) = D_{2J} \vec (\mathfrak{u})
+P_{\sigma} \cdot \vec (\delta_{2J+2,x}^H \mathfrak{u}) = D_{2J} \cdot \vec (\mathfrak{u})
 \end{equation}
 et on a 
 \begin{equation}
@@ -1311,17 +1310,10 @@ La matrice $P^{-1}_{\sigma}D_{2J}$ est antisymétrique.
 \begin{proof}
 Par calcul immédiat, on a :
 \begin{equation}
-(P^{-1}_{\sigma}D_{2J})^T = D_{2H}^T P_{\sigma}^{-T} = - D_{2J} P_{\sigma}^{-1} = - P_{\sigma}^{-1} D_{2J}.
+(P^{-1}_{\sigma}D_{2J})^T = D_{2J}^T P_{\sigma}^{-T} = - D_{2J} P_{\sigma}^{-1} = - P_{\sigma}^{-1} D_{2J}.
 \end{equation}
 car $D_{2J}$ est antisymétrique et $P_{\sigma}$ est symétrique (donc $P^{-1}_{\sigma}$ aussi). 
 \end{proof}
-
-
-
-
-
-
-
 
 Le calcul de $\delta_{2J+2,x}^H \mathfrak{u}$ se fait par résolution d'un système linéaire. Ce système peut être résolu grâce à la formule de Shermann-Morisson-Woodbury couplé à un solveur tridiagonal comme l'algorithme de Thomas ou un solveur de type transformée de Fourier rapide.
 
@@ -1412,7 +1404,7 @@ S = \begin{bmatrix}
 \end{equation}
 \end{proposition}
 
-Il découle l'algorithme le calcul de $\vec (\delta_{2J+2,x}^H \mathfrak{u}) = P^{-1}_{\sigma} D_{2J} \vec (\mathfrak{u})$ donné par
+Il découle l'algorithme le calcul de $\vec (\delta_{2J+2,x}^H \mathfrak{u}) = P^{-1}_{\sigma} D_{2J} \cdot \vec (\mathfrak{u})$ donné par
 
 \begin{center}
 \begin{minipage}[H]{12cm}

@@ -5,7 +5,7 @@
 %           Jean-Pierre Croisille
 % ----------------------------------
 clear all; clc; close all; format shorte
-vvv=[1 1 1];
+vvv=[0 -1 0];
 %% construction des variables globales
 global n nn;
 global radius u0 dxi;
@@ -34,7 +34,7 @@ film = 0;
 save_graph = 0;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
-opt_ftr ='redonnet10';
+opt_ftr ='inf';
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be odd. )
 snapshot = 0;
@@ -48,9 +48,9 @@ sauvegarde = 0;
 % choix du schéma aux différences finies
 scheme='compact4'; % compact ou explicite
 %% *** Benchmarks data ****************************************************
- n=39;
+ n=31;
  nn=n+2;
- cfl=.9;
+ cfl=.7;
  ndaymax=12;
  err=2;
  mm=0;
@@ -65,8 +65,8 @@ scheme='compact4'; % compact ou explicite
      teta_p=pi/2 - alphad;
  elseif coef == 1
      %% test de Nair et Machenhauer
-     lambda_p=pi/4;                                                        % position du pole nord, i.e. position du vortex nord
-     teta_p=pi/4;
+     lambda_p=0;                                                        % position du pole nord, i.e. position du vortex nord
+     teta_p=0;
      rho0=3;
      gamma=5;
  elseif coef == 2
@@ -136,7 +136,7 @@ eteta_y=zeros(nn,nn);
 eteta_z=zeros(nn,nn);
 
 %% données pour RK4
-tinit=0.;
+tinit=0;
 % initial condition
 [funfI]=fun4_b(x_fI,y_fI,z_fI,tinit);
 [funfII]=fun4_b(x_fII,y_fII,z_fII,tinit);
@@ -146,7 +146,7 @@ tinit=0.;
 [funfVI]=fun4_b(x_fVI,y_fVI,z_fVI,tinit);
 
 %% masse de reference
-str='cor_int';
+str='int';
 [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg]=...
     nrm101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn,str);
 mass_ref=nrmg;
@@ -169,26 +169,14 @@ ref=floor(10000*now);
 while ite<itemax & erinfty(end)<10
     clc; disp(num2str([ite itemax er1(end) er2(end) erinfty(end)]));
 
-    %% filtrage avant de commencer le calcul...
-    % N.B. le filtrage est effectué sur les grands cercles complets mais une
-    % seule fois pas iteration.
-
+    % Filtrage
     [funftI,funftII,funftIII,funftIV,funftV,funftVI]=...
-        ftr_mixte101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn);
+    ftr_mixte101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn);
 
     funfI=funftI;funfII=funftII;funfIII=funftIII;
     funfIV=funftIV;funfV=funftV;funfVI=funftVI;
 
-
-    %%   CALCUL RK4
-
-    if ite==itestop,
-        figure(3); plot(aaa,'-r');
-        figure(4); plot(bbb,'-b');
-        break
-    end
-
-    %% --- iterations
+    % iterations
     %% CALCUL KK0
     [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=...
         gr101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn);
@@ -204,16 +192,13 @@ while ite<itemax & erinfty(end)<10
     kk0_V   = -(vitx_V.*grad_V(1:nn,1:nn,1)+  vity_V.*grad_V(1:nn,1:nn,2) + vitz_V.*grad_V(1:nn,1:nn,3)) ; 
     kk0_VI  = -(vitx_VI.*grad_VI(1:nn,1:nn,1)+  vity_VI.*grad_VI(1:nn,1:nn,2) + vitz_VI.*grad_VI(1:nn,1:nn,3)) ; 
 
-
     %% CALCUL KK1
-
     fun1_fI=funfI+0.5*ddt*kk0_I;
     fun1_fII=funfII+0.5*ddt*kk0_II;
     fun1_fIII=funfIII+0.5*ddt*kk0_III;
     fun1_fIV=funfIV+0.5*ddt*kk0_IV;
     fun1_fV=funfV+0.5*ddt*kk0_V;
     fun1_fVI=funfVI+0.5*ddt*kk0_VI;
-
 
     [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=...
         gr101(fun1_fI,fun1_fII,fun1_fIII,fun1_fIV,fun1_fV,fun1_fVI,n,nn);
@@ -222,14 +207,12 @@ while ite<itemax & erinfty(end)<10
         vity_I,vity_II, vity_III, vity_IV, vity_V, vity_VI, ...
         vitz_I,vitz_II, vitz_III, vitz_IV, vitz_V, vitz_VI] = vitesse_1b(time+ddt/2);
 
-
     kk1_I   = -(vitx_I.*grad_I(1:nn,1:nn,1) +  vity_I.*grad_I(1:nn,1:nn,2) + vitz_I.*grad_I(1:nn,1:nn,3)) ;
     kk1_II  = -(vitx_II.*grad_II(1:nn,1:nn,1)+  vity_II.*grad_II(1:nn,1:nn,2) + vitz_II.*grad_II(1:nn,1:nn,3)) ;     
     kk1_III = -(vitx_III.*grad_III(1:nn,1:nn,1)+  vity_III.*grad_III(1:nn,1:nn,2) + vitz_III.*grad_III(1:nn,1:nn,3)) ; 
     kk1_IV  = -(vitx_IV.*grad_IV(1:nn,1:nn,1)+  vity_IV.*grad_IV(1:nn,1:nn,2) + vitz_IV.*grad_IV(1:nn,1:nn,3)) ; 
     kk1_V   = -(vitx_V.*grad_V(1:nn,1:nn,1)+  vity_V.*grad_V(1:nn,1:nn,2) + vitz_V.*grad_V(1:nn,1:nn,3)) ; 
     kk1_VI  = -(vitx_VI.*grad_VI(1:nn,1:nn,1)+  vity_VI.*grad_VI(1:nn,1:nn,2) + vitz_VI.*grad_VI(1:nn,1:nn,3)) ; 
-
 
     %% CALCUL KK2
     fun2_fI=funfI+0.5*ddt*kk1_I;
@@ -253,7 +236,6 @@ while ite<itemax & erinfty(end)<10
     kk2_V   = -(vitx_V.*grad_V(1:nn,1:nn,1)+  vity_V.*grad_V(1:nn,1:nn,2) + vitz_V.*grad_V(1:nn,1:nn,3)) ; 
     kk2_VI  = -(vitx_VI.*grad_VI(1:nn,1:nn,1)+  vity_VI.*grad_VI(1:nn,1:nn,2) + vitz_VI.*grad_VI(1:nn,1:nn,3)) ; 
 
-
     %% CALCUL KK3
     fun3_fI=funfI+ddt*kk2_I;
     fun3_fII=funfII+ddt*kk2_II;
@@ -261,7 +243,6 @@ while ite<itemax & erinfty(end)<10
     fun3_fIV=funfIV+ddt*kk2_IV;
     fun3_fV=funfV+ddt*kk2_V;
     fun3_fVI=funfVI+ddt*kk2_VI;
-
 
      [grad_I,grad_II,grad_III,grad_IV,grad_V,grad_VI]=...
          gr101(fun3_fI,fun3_fII,fun3_fIII,fun3_fIV,fun3_fV,fun3_fVI,n,nn);
@@ -277,7 +258,6 @@ while ite<itemax & erinfty(end)<10
     kk3_V   = -(vitx_V.*grad_V(1:nn,1:nn,1)+  vity_V.*grad_V(1:nn,1:nn,2) + vitz_V.*grad_V(1:nn,1:nn,3)) ; 
     kk3_VI  = -(vitx_VI.*grad_VI(1:nn,1:nn,1)+  vity_VI.*grad_VI(1:nn,1:nn,2) + vitz_VI.*grad_VI(1:nn,1:nn,3)) ; 
 
-
     %% ASSEMBLAGE RK4
     funfInew(1:nn,1:nn)=funfI(1:nn,1:nn)+ddt*...
         ((1/6)*kk0_I(1:nn,1:nn)+(1/3)*kk1_I(1:nn,1:nn)+(1/3)*kk2_I(1:nn,1:nn)+(1/6)*kk3_I(1:nn,1:nn));
@@ -291,20 +271,16 @@ while ite<itemax & erinfty(end)<10
         ((1/6)*kk0_V(1:nn,1:nn)+(1/3)*kk1_V(1:nn,1:nn)+(1/3)*kk2_V(1:nn,1:nn)+(1/6)*kk3_V(1:nn,1:nn));
     funfVInew(1:nn,1:nn)=funfVI(1:nn,1:nn)+ddt*...
         ((1/6)*kk0_VI(1:nn,1:nn)+(1/3)*kk1_VI(1:nn,1:nn)+(1/3)*kk2_VI(1:nn,1:nn)+(1/6)*kk3_VI(1:nn,1:nn));
-    %
+
     [funfInew,funfIInew,funfIIInew,funfIVnew,funfVnew,funfVInew]=...
         ds101(funfInew,funfIInew,funfIIInew,funfIVnew,funfVnew,funfVInew,n,nn);
-
+    
     %% mise à jour du temps
-
     time=time+ddt;
-
-    %% mise a jour des données
+    % mise a jour des données
     funfI=funfInew;funfII=funfIInew;funfIII=funfIIInew;
     funfIV=funfIVnew;funfV=funfVnew;funfVI=funfVInew;
-
-    %% HISTORIQUE
-    % gestion en temps réel
+    % HISTORIQUE
     xdays(ite)=(time-tinit)/(24*3600);
 
     % solution exacte
@@ -371,7 +347,7 @@ while ite<itemax & erinfty(end)<10
         mov(ite) = getframe(gcf);
     end
 
-    str='cor_int';
+    str='int';
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,mass]=...
         nrm101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn,str);
     cons_mass(ite)=mass./mass_ref;

@@ -51,9 +51,9 @@ sauvegarde = 0;
 % choix du schéma aux différences finies
 scheme='compact4'; % compact ou explicite
 %% *** Benchmarks data ****************************************************
- n=35;
+ n=63;
  nn=n+2;
- cfl=0.05;
+ cfl=.9;
  ndaymax=12;
  err=2;
  mm=0;
@@ -556,3 +556,5 @@ if coupe == 1
         savefig(['./results-' date '/ref_' num2str(ref) '_coupefaceI_test_' num2str(coef)]);
     end
 end
+
+[er1(end) er2(end) erinfty(end)]
