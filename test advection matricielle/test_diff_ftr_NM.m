@@ -19,7 +19,7 @@ save_graph=0;
 coupe=1;
 
 %% *** Benchmarks data ****************************************************
- na=39;
+ na=49;
  ndaymax=12;
 
  coef=1;

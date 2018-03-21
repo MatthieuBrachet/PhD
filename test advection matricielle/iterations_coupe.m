@@ -16,7 +16,7 @@ global time
 n=Na;
 nn=n+2;
 mod101
-cfl=.7;
+cfl=.9;
 tmax=24*3600*ndaymax;
 ddt=cfl*radius*dxi/u0;
 itemax=floor(tmax/ddt)+1;

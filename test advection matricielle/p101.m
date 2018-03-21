@@ -5,7 +5,7 @@
 %           Jean-Pierre Croisille
 % ----------------------------------
 clear all; clc; close all; format shorte
-vvv=[0 -1 0];
+vvv=[1 1 1];
 %% construction des variables globales
 global n nn;
 global radius u0 dxi;
@@ -31,10 +31,10 @@ coef = 1;
 film = 0;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
-save_graph = 0;
+save_graph = 1;
 % option de filtre : opt_ftr = ordre souhaité pour le filtre
 % opt = 0 (sans filtre), 2, 4, 6, 8, 10
-opt_ftr ='inf';
+opt_ftr ='redonnet10';
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be odd. )
 snapshot = 0;
@@ -44,13 +44,13 @@ coupe = 0;
 % sauvegarde = 1 : sauvegarde toutes les données,
 %            = 0 : ne les sauvegarde pas, (utiliser load('namefile') pour
 %            recharger les données).
-sauvegarde = 0;
+sauvegarde = 1;
 % choix du schéma aux différences finies
 scheme='compact4'; % compact ou explicite
 %% *** Benchmarks data ****************************************************
- n=31;
+ n=34;
  nn=n+2;
- cfl=.7;
+ cfl=.5;
  ndaymax=12;
  err=2;
  mm=0;
@@ -65,8 +65,8 @@ scheme='compact4'; % compact ou explicite
      teta_p=pi/2 - alphad;
  elseif coef == 1
      %% test de Nair et Machenhauer
-     lambda_p=0;                                                        % position du pole nord, i.e. position du vortex nord
-     teta_p=0;
+     lambda_p=pi/4;                                                        % position du pole nord, i.e. position du vortex nord
+     teta_p=pi/4;
      rho0=3;
      gamma=5;
  elseif coef == 2

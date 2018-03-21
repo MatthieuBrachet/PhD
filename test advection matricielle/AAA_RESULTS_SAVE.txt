@@ -1018,3 +1018,103 @@ max(er_infty)     : 0.024631
 ***********************************
   
   
+date : 19-Mar-2018
+ref. : 7371383864
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 39
+time step         : 4536
+cfl               : 0.7
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 
+(lambdap,thetap)  : (0,0)
+***********************************
+max(er_1)         : 0.0022158
+max(er_2)         : 0.0079306
+max(er_infty)     : 0.046565
+***********************************
+  
+  
+date : 19-Mar-2018
+ref. : 7371383873
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 39
+time step         : 4536
+cfl               : 0.7
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 
+(lambdap,thetap)  : (0,0)
+***********************************
+max(er_1)         : 0.0022158
+max(er_2)         : 0.0079306
+max(er_infty)     : 0.046565
+***********************************
+  
+  
+date : 19-Mar-2018
+ref. : 7371383883
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 39
+time step         : 4536
+cfl               : 0.7
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 
+(lambdap,thetap)  : (45,45)
+***********************************
+max(er_1)         : 0.0014072
+max(er_2)         : 0.0059464
+max(er_infty)     : 0.045197
+***********************************
+  
+  
+date : 19-Mar-2018
+ref. : 7371384138
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 39
+time step         : 3240
+cfl               : 0.5
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 
+(lambdap,thetap)  : (45,45)
+***********************************
+max(er_1)         : 0.0017157
+max(er_2)         : 0.0070178
+max(er_infty)     : 0.054151
+***********************************
+  
+  
+date : 19-Mar-2018
+ref. : 7371384152
+***********************************
+test : 1
+---------- numerical data ---------
+number of points  : 34
+time step         : 3702.8571
+cfl               : 0.5
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 
+(lambdap,thetap)  : (45,45)
+***********************************
+max(er_1)         : 0.002736
+max(er_2)         : 0.010405
+max(er_infty)     : 0.075053
+***********************************
+  
+  

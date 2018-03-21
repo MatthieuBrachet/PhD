@@ -680,7 +680,7 @@ pour conclure, on utilise le théorème des valeurs intermédiaires. Comme $u \i
 \end{proof}
 
 \begin{corollaire}
-Si les coefficients $(a_p)_{1 \leq p \leq J}$ sont solutions du système \eqref{eq:syst_opexplicite_P} alors il existe $C>0$ tel que
+Si les coefficients $(a_p)_{1 \leq p \leq J}$ sont solutions du système \eqref{eq:syst_opexplicite_P} alors il existe $C>0$ tel que pour toute fonction $u$ régulière on a 
 \begin{equation}
 \| (\partial_x u)^* - \delta_{2J,x}(u^*) \|_{\infty} \leq C h^{2J} \| (\partial^{(2J+1)}_x u)^* \|_{\infty}
 \end{equation} 
@@ -1021,16 +1021,16 @@ est consistante à l'ordre $2J+2$ avec
 \left\lbrace
 \begin{array}{rcl}
 \gsum_{p=1}^J a_p & = & 1 \\
-\gsum_{p=1}^J a_p \dfrac{p^{2n}}{2n+1} & = & 2 \beta  \text{ pour } n=1,2,...P
+\gsum_{p=1}^J a_p \dfrac{p^{2n}}{2n+1} & = & 2 \beta  \text{ pour } n=1,2,...J
 \end{array}
 \right.
 \label{eq:hermitian_system}
 \end{equation}
 si $u$ est une fonction de $\mathcal{C}^{2J+3}$, alors pour tout $0 \leq j \leq N-1$, on a 
-\begin{multline}
-(\delta_{x} u^*)_j - (\sigma_{x} (\partial_x u)^*)_j = \\  h^{2J+2} \left[ \dfrac{1}{(2J+3)!}  \left( \gsum_{p=1}^J a_p  p^{2J+2} \right)\partial_x^{(2J+3)}u(\theta)  - \left( \dfrac{2\beta}{(2J+2)!}   \right) \partial_x^{(2J+3)}u(\rho) \right]
+\begin{equation}
+(\delta_{x} u^*)_j - (\sigma_{x} (\partial_x u)^*)_j = h^{2J+2} \left[ \dfrac{1}{(2J+3)!}  \left( \gsum_{p=1}^J a_p  p^{2J+2} \right)\partial_x^{(2J+3)}u(\theta)  - \left( \dfrac{2\beta}{(2J+2)!}   \right) \partial_x^{(2J+3)}u(\rho) \right]
 \label{eq:eq_cons}
-\end{multline} 
+\end{equation} 
 avec $\rho, \theta \in ]x_{j-J}, x_{j+J}[$.
 \label{th:consistance_delta_x_implicite}
 \end{theoreme}
@@ -1450,24 +1450,65 @@ Il découle l'algorithme le calcul de $\vec (\delta_{2J+2,x}^H \mathfrak{u}) = P
 \subsection{Opérateur de filtrage}
 
 
-Lors de la discrétisation via un schéma aux différences finies et suite à la discrétisation en temps, des oscillations parasites du type "+1/-1" peuvent apparaître. Il s'agit de phénomènes haute fréquences qui peuvent provoquer des instabilités numériques. 
-
-Si $\mathfrak{u}$ est une fonction de grille périodique, on note le filtre passe-bas $\mathcal{F}_{2F,x}\mathfrak{u}$. Dans la pratique, nous cherchons $\mathcal{F}_{2F,x}$ sous la forme 
-
+Pour améliorer les propriétés de stabilité d'un schéma centré en espace, il est connu que l'utilisation d'un opérateur de type "filtrage", à chaque pas de temps, est bénéfique. Un opérateur de type filtrage est un opérateur de la forme
 \begin{equation}
-\mathcal{F}_{2F,x} = \gsum_{k=0}^F a_k \dfrac{\tau^k + \tau^{-k}}{2} = S_{2F}(\tau)
+\mathcal{F}_{2J,x} = \gsum_{p=0}^J a_p \dfrac{\tau^p + \tau^{-p}}{2}
 \label{eq:ftr}
 \end{equation}
-
-avec $S_{2F} \in \mathbb{R}_{N-1}[X]$ et 
+pour $\mathfrak{u} \in l^2_{h,\per}$ fonction de grille périodique, on a
 \begin{equation}
-S_{2F}(X) = \gsum_{k=0}^F a_k \dfrac{X^k + X^{N-k}}{2}
+\mathcal{F}_{2J,x} (\mathfrak{u} )_j = \gsum_{p=0}^J a_p \dfrac{\mathfrak{u}_{j+p} + \mathfrak{u}_{j-p}}{2} \text{ avec } 0  \leq j \leq N-1.
+\end{equation}
+Soit $S_{2J} \in \mathbb{R}_{N-1}[X]$ défini par 
+\begin{equation}
+S_{2J}(X) = \gsum_{p=0}^J a_p \dfrac{X^p + X^{N-p}}{2}
 \label{eq:pol_filtrage}
 \end{equation}
-Les coefficients $(a_k)_{0 \leq k \leq F}$ sont déterminés de manière à supprimer les phénomènes oscillants hautes fréquences (figure \ref{fig:hf_waves}) de la formes $\mathfrak{u}$ avec 
+on a $\mathcal{F}_{2J,x}(\mathfrak{u})_j = S_{2J}(\tau)(\mathfrak{u})_j$ pour tout $0 \leq j \leq N-1$.
+
+L'opérateur $\mathcal{F}_{2J,x}$ est un opérateur d'interpolation au sens de la définition \ref{def:consistance}. C'est à dire qu'il est consistant avec l'identité.
+D'autres part, il joue le rôle d'une dissipation numérique. Cette contrainte se traduit par le fait que $\mathfrak{u}^{N/2}$, qui vérifie
 \begin{equation}
-\mathfrak{u}_j = (-1)^j
+\mathfrak{u}^{N/2}_j = (-1)^j \text{ pour } 0 \leq j \leq N-1,
 \end{equation}
+est inclus dans le noyaux de $\mathcal{F}_{2J,x}$ : $\mathcal{F}_{2J,x}(\mathfrak{u}^{N/2}) = \mathfrak{0}$. On note que l'on a alors
+\begin{equation}
+\ker (\mathcal{F}_{2J,x} ) \subset \ker (\delta_{2J,x} ) \text{ et } \ker (\mathcal{F}_{2J,x} ) \subset \ker (\delta_{2J,x}^H )
+\end{equation}
+En pratique, cela correspond au mode oscillant à la fréquence du maillage. A chaque itération en temps, on souhaite projeter la solution sur l'orthogonal du mode oscillant 
+\begin{equation}
+\Vect (\mathfrak{u}^{N/2})^{\perp}.
+\end{equation}
+De plus, un opérateur de filrage doit laisser $\mathfrak{u}^0$ inchangé, c'est à dire
+\begin{equation}
+\mathcal{F}_{2J,x}(\mathfrak{u}^{0}) = \mathfrak{u}^{0}.
+\end{equation}
+Comme $\mathfrak{u}^0_j = 0$ pour $0 \leq j \leq N-1$, cette condition correspond à avoir
+\begin{equation}
+\mathcal{F}_{2J,x}(\mathfrak{u}^{0}) = \gsum_{p=0}^J a_p = 1.
+\end{equation}
+Nous nous concentrons sur les filtres maximisant leur ordre de précision \cite{Redonnet2001} et perturbant les données le moins possible. D'autres filtres visent à minimiser la perturbation \cite{Bogey2004}. Dans ce cadre, nous définissons l'opérateur de filtrage par 
+
+\begin{definition}
+L'opérateur $\mathcal{F}_{2J,x}$ est appelé filtre centré s'il s'agit d'un opérateur aux différences finies de la forme \eqref{eq:ftr} si les coefficients $(a_p)_{1 \leq p \leq J}$ vérifient :
+\begin{itemize}
+\item Consistance du filtrage :
+\begin{equation}
+\gsum_{p=0}^J a_p = 1,
+\label{eq:ftr_consistance}
+\end{equation}
+\item Suppression du mode $\mathfrak{u}^{N/2}$ :
+\begin{equation}
+\gsum_{p=0}^J a_p (-1)^p = 0,
+\label{eq:ftr_filtrage}
+\end{equation}
+\item Précision de l'opérateur
+\begin{equation}
+\gsum_{p=0}^J a_p p^{2k} = 0 \text{ pour } 1 \leq k \leq J-1.
+\label{eq:ftr_precision}
+\end{equation}
+\end{itemize}
+\end{definition}
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1488,108 +1529,81 @@ Les coefficients $(a_k)_{0 \leq k \leq F}$ sont déterminés de manière à supp
 	   	}
 \end{tikzpicture}
 \end{center}
-\caption{Ondes de type "+1/-1".}
+\caption{Représentation graphique du monde $\mathfrak{u}^{N/2} \in l^2_{h,\per}$.}
 \label{fig:hf_waves}
 \end{figure}
 
-
-En considérant cette fonction de grille, on cherche $(a_k)_{0\leq k \leq F}$ tels que $\mathcal{F}_{2F,x} \mathfrak{u} = \mathfrak{0}$, soit :
+\begin{proposition}
+Si les $J$ coefficients $(a_p)_{1 \leq p \leq J}$ vérifient \eqref{eq:ftr_consistance}, \eqref{eq:ftr_filtrage} et \eqref{eq:ftr_precision}, c'est a dire
 \begin{equation}
-\mathcal{F}_{2F,x}\mathfrak{u}_i = \gsum_{k=0}^F a_k \dfrac{\mathfrak{u}_{i+k} + \mathfrak{u}_{i-k}}{2} = \gsum_{k=0}^F a_k  \dfrac{(-1)^{i+k} + (-1)^{i-k}}{2} = 0.
-\end{equation}
-Cette équation est équivalente à 
-\begin{equation}
-\gsum_{k=0}^F a_k (-1)^k = 0
-\label{eq:ftr_ftrcond}
-\end{equation}
-La relation \eqref{eq:ftr_ftrcond} nous donne une condition alors qu'il y a $F+1$ paramètres à déterminer. Il reste $F$ degrés de libertés dans l'opérateur de filtrage. Le choix qui est fait est de maximiser l'ordre du filtrage de manière à perturber un minimum la donnée initiale tout en supprimant les ondes parasites.
-
-Le filtre doit conserver les très basses fréquences, lorsque $\mathfrak{u} = \mathfrak{1}$, on doit alors $\mathcal{F}_{2F,x}\mathfrak{u} = \mathfrak{1}$.
-C'est à dire que les coefficients $(a_k)_{0 \leq k \leq F}$ vérifient la relation de consistance
-\begin{equation}
-\gsum_{k=0}^F a_k = 1
-\label{eq:ftr_conscond}
-\end{equation}
-
-Enfin, on remarque que si $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ et si $u^*$ est la fonction de grille associée à $u$, alors on a 
-\begin{equation}
+\left\lbrace
 \begin{array}{rcl}
-u(x_i + kh) & = & u(x_i) + p k u'(x_j) + \cdots + \dfrac{(kh)^l}{l!}u^{(l)}(x_i) + \cdots +\dfrac{(kh)^{2F}}{2F!} u^{(2F)}(\xi_k)\\
-u(x_i - kh) & = & u(x_i) - p k u'(x_j) + \cdots + \dfrac{(-kh)^l}{l!}u^{(l)}(x_i) + \cdots +\dfrac{(-kh)^{2F}}{2F!} u^{(2F)}(\eta_k)
-\end{array}
-\end{equation}
-avec $\xi_k \in [x_i, x_i+kh]$ et $\eta_k \in [x_i-kh, x_i]$. Alors par combinaison linéaire en considérant \eqref{eq:ftr_conscond} vérifiée, 
-\begin{equation}
-\mathcal{F}_{2F,x}u^* - u^* = \gsum_{l=1}^{2F-1} \gsum_{k=0}^F \dfrac{a_k}{2} \underbrace{\dfrac{(kh)^l + (-kh)^l}{l!}}_{=0 \text{ pour } l \text{ impair.}}u^{(l)}(x_i) + \gsum_{k=0}^F \dfrac{a_k}{2}\dfrac{(kh)^{2F}}{2F!} \left( u^{(2F)}(\xi_k) + u^{(2F)}(\eta_k) \right)
-\end{equation}
-Ainsi, la condition de précision est 
-\begin{equation}
-\gsum_{k=0}^F a_k k^{2l} = 0 \text{ pour } 1 \leq l \leq F-1.
-\label{eq:ftr_prescond}
-\end{equation}
-
-\begin{theoreme}
-Soit $F \in \mathbb{N}^{\star}$. Il existe un unique $(a_k)_{0 \leq k \leq F}$ tel que $\mathcal{F}_{2F,x}$ soit à la fois consistant en vérifiant \eqref{eq:ftr_conscond}, précis en vérifiant \eqref{eq:ftr_prescond} et soit un filtre passe bas en satisfesant \eqref{eq:ftr_ftrcond}. L'erreur de troncature du filtre est alors donnée par 
-\begin{equation}
-\mathcal{F}_{2F,x}u^* - u^* = h^{2F} \gsum_{k=0}^F \dfrac{a_k}{2} \dfrac{k^{2F}}{2F!} \left( u^{(2F)}(\xi_k) + u^{(2F)}(\eta_k) \right).
-\end{equation}
-\label{prop:filter_def}
-\end{theoreme}
-
-\begin{proof}
-La forme de l'erreur de troncature a déjà été vue, il reste à prouver l'unicité.
-
-Après avoir retiré \eqref{eq:ftr_ftrcond} à \eqref{eq:ftr_conscond}, dire qu'il existe une unique $(a_j)_{0 \leq j \leq J}$ satisfesant les conditions est équivalent à dire que la matrice
-
-\begin{equation}
-A=\begin{bmatrix}
-1 &  1  &  1  &  1  &  1  &  1  & \cdots\\  
-0 &  2  &  0  &  2  &  0  & 2  & \cdots\\
-0 &  1  & 2^2 & 3^2 & 4^2 & 5^2 & \cdots\\
-0 &  1  & 2^4 & 3^4 & 4^4 & 5^4 & \cdots\\
-0 &  1  & 2^6 & 3^6 & 4^6 & 5^6 & \cdots\\
-&&& \vdots &  \vdots &
-\end{bmatrix} \in \mathbb{M}_{J+1} \left( \mathbb{R} \right)
-\end{equation}
-est inversible car $a = [a_0, a_1, \cdots, a_J]^T$ est solution de 
-\begin{equation}
-A a = e
-\end{equation}
-avec $e = [1,1/2, 0,\cdots,0]^T$. En développant la seconde ligne de $A$, on a
-\begin{equation}
-\det ( A ) = \begin{vmatrix} 
-2  &  0  &  2  &  0  & 2  & \cdots\\
-1  & 2^2 & 3^2 & 4^2 & 5^2 & \cdots\\
-1  & 2^4 & 3^4 & 4^4 & 5^4 & \cdots\\
-1  & 2^6 & 3^6 & 4^6 & 5^6 & \cdots\\
-& & \vdots &  \vdots &
-\end{vmatrix} = 2 \sum_{k=1}^{\lfloor\frac{F-1}{2}\rfloor} \Delta_{2k+1}
-\end{equation}
-avec $\Delta_k$ donné par
-\begin{equation}
-\Delta_k = \begin{vmatrix} 
-1 & 2^2 & \cdots & (k-1)^2 & (k+1)^2 & \cdots\\
-1 & 2^4 & \cdots & (k-1)^4 & (k+1)^4 & \cdots\\
-1 & 2^6 & \cdots & (k-1)^6 & (k+1)^6 & \cdots\\
-&&& \vdots &  \vdots &
-\end{vmatrix} = \dfrac{((F-1)!)^2}{k^2} \begin{vmatrix} 
-1 & 1 & \cdots & 1 & 1 & \cdots\\
-1 & (2^2)^1 & \cdots & ((k-1)^2)^1 & ((k+1)^2)^1 & \cdots\\
-1 & (2^2)^2 & \cdots & ((k-1)^2)^2 & ((k+1)^2)^2 & \cdots\\
-&&& \vdots &  \vdots &
-\end{vmatrix}
-\end{equation}
-On reconnaît un déterminant de Van-Der-Monde, donc $\Delta_k = \prod_{1 \leq i < j \leq F-1} \left( \alpha_j - \alpha_i \right)$, avec 
-\begin{equation}
-\alpha_j = \left\lbrace
-\begin{array}{ll}
-j^2 & \text{ avec } 1 \leq j \leq k-1\\
-(j+1)^2 & \text{ avec } k \leq j \leq J-2\\
+\gsum_{p=0}^J a_p & = & 1 \\
+\gsum_{p=0}^J a_p (-1)^p & = & 0 \\
+\gsum_{p=0}^J a_p p^{2k} & = & 0 \text{ avec } 1 \leq k \leq J-1,
 \end{array}
 \right.
+\label{eq:system_ftr}
 \end{equation}
-Si $i<j$, on a $\alpha_i < \alpha_j$, donc $\Delta_k>0$ et $\det A$ est une somme de déterminants tous strictements positifs donc $\det A > 0$. $A$ est inversible et le résultat est prouvé.
+alors l'opérateur de filtrage $\mathcal{F}_{x,2J}$ est consistant avec l'identité.
+
+Soit $u$ une fonction régulière et $u^*$ la fonction de grille associée. L'erreur de troncature de l'opérateur de filtrage $\mathcal{F}_{x,2J}$ est donnée par
+\begin{equation}
+\mathcal{F}_{x,2J}(u^*)_j - u^*_j = \dfrac{h^{2J}}{(2J)!} \left( \gsum_{p=1}^J a_p p^{2J} \partial_x^{(2J)}u(\alpha_p) \right)
+\end{equation}
+avec $\alpha_p \in ]x_{j-p}, x_{j+p}[$.
+\label{prop:filter_def}
+\end{proposition}
+
+\begin{proof}
+$u$ est une fonction régulière, donc d'après la formule de Taylor-Lagrange il existe $\xi \in ]x,x+h[$ tel que
+\begin{equation}
+u(x+h) = \gsum_{k=0}^{2J-1} \dfrac{h^k}{k!} \partial_x^{(k)} u(x) +\dfrac{1}{(2J)!} \partial_x^{(2J)}u(\xi).
+\end{equation}
+D'après cette formule et le théorème des valeurs intermédiaires, on a
+\begin{align*}
+\dfrac{\tau_p \mathfrak{u}_j + \tau_{-p} \mathfrak{u}_j}{2} & = \dfrac{u(x_j + ph) - u(x_j-ph)}{2} \\
+& = \gsum_{k=0}^{2J-1} \dfrac{h^k + (-h)^k}{2k!} \partial_x^{(k)}u(x_j) + \dfrac{h^{2J}}{(2J)!} \partial_x^{(2J)} u(\alpha_p)
+\end{align*}
+avec $\alpha_p \in ]x_j - ph, x_j + ph[$. Alors en multipliant cette relation par $a_p$ et en sommant sur $p$, on obtient :
+\begin{align*}
+\dfrac{\tau_p \mathfrak{u}_j + \tau_{-p} \mathfrak{u}_j}{2} & = \gsum_{p=1}^J \gsum_{k=0}^{2J-1} a_p \dfrac{(ph)^k + (-ph)^k}{2k!} \partial_x^{(k)}u(x_j) + \gsum_{p=1}^J a_p \dfrac{(ph)^{2J}}{(2J)!} \partial_x^{(2J)}u(\alpha_p) \\
+& = \gsum_{k=0}^{2J-1} \dfrac{h^k}{2 (k!)} \left( \gsum_{p=0}^J (p^k + (-p)^k) \right) \partial_x^{(k)} u(x) + \gsum_{p=0}^J a_p \dfrac{(ph)^{2J}}{(2J)!} \partial_x^{(2J)}u(\alpha_p) \\
+& = \underbrace{ \left( \gsum_{p=0}^J a_p \right)}_{=1}u(x_j) + 
+\gsum_{k=1}^{2J-1} \dfrac{h^k}{2(k!)} \underbrace{\left( \gsum_{p=0}^J (p^k + (-p)^k)  \right)}_{=0 \text{ si } k \text{ impair.}} \partial_x^{(k)}u(x_j) + \dfrac{h^{2J}}{(2J)!} \gsum_{p=0}^Ja_p p^{2J} \partial_x^{(2J)}u(\alpha_p)  \\
+& = u(x_j) + \gsum_{k=1}^J \dfrac{h^{2k}}{k!} \underbrace{\left( \gsum_{p=0}^J a_p p^{2k} \right)}_{ = 0 \text{ d'après \eqref{eq:ftr_precision}}}
++ \dfrac{h^{2J}}{(2J)!} \left( \gsum_{p=0}^J a_p p^{2J} \partial_x^{(2J)}u(\alpha_p) \right) \\
+& = u(x_j) + \dfrac{h^{2J}}{(2J)!} \left( \gsum_{p=0}^J a_p p^{2J} \partial_x^{(2J)}u(\alpha_p) \right).
+\end{align*}
+On retrouve ainsi l'erreur de consistance souhaitée et le résultat est prouvé.
 \end{proof}
+
+\begin{corollaire}
+Si les coefficients $(a_p)_{1 \leq p \leq J}$ sont solution de \eqref{eq:system_ftr} alors il existe $C>0$ tel que pour toute fonction $u$ régulière on a 
+\begin{equation}
+\| u^* -  \mathcal{F}_{x,2J}(u^*) \|_{\infty} \leq C h^{2J} \| (\partial_x^{(2J)}u)^* \|_{\infty}.
+\end{equation}
+\end{corollaire}
+
+L'existence et l'unicité des opérateurs de filtrage $\mathcal{F}_{x,2J}$ est donnée par la proposition suivante :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Quelques filtres particuliers sont donnés dans la table \ref{tab:filter} en fonction de leur ordre de précision.
 \begin{table}[htbp]
 \begin{center}

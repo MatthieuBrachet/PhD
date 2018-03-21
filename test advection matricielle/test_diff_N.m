@@ -19,7 +19,6 @@ save_graph=0;
 coupe=1;
 
 %% *** Benchmarks data ****************************************************
- na=39;
  ndaymax=12;
 
  coef=1;
@@ -34,9 +33,9 @@ tstart=cputime;
 
 
 opt_ftr = 'redonnet10';
-[xa,fa] = iterations_coupe(29,ndaymax);
+[xa,fa] = iterations_coupe(24,ndaymax);
 
-[xb,fb] = iterations_coupe(59,ndaymax);
+[xb,fb] = iterations_coupe(49,ndaymax);
 
 
 
@@ -52,9 +51,9 @@ funfIVe=fun4_b(x_fIV,y_fIV,z_fIV,time);
 
 
 figure(10)
-plot(xex,fex,'k--',xa,fa,'rx',xb,fb,'bo','Linewidth',2)
+plot(xex,fex,'k-',xa,fa,'rx',xb,fb,'bo','Linewidth',2)
 grid minor;
-legend('Exacte','N=30','N=60','Location','NorthWest')
+legend('Exacte','N=25','N=50','Location','NorthWest')
 xticks([3*pi/2 7*pi/4 2*pi])
 xticklabels({'3\pi/2','7\pi/4','2\pi'})
 axis([3*pi/2-.05 2*pi+.05 0.4 1.6])
