@@ -32,7 +32,7 @@ On considère une grille régulière sur $\Omega$ constituée de $N + 1$ points 
 \begin{equation}
 a=x_0 < x_1 < \ldots < x_{N-1} < x_N = b,
 \end{equation}
-où les valeurs $x_i$ sont définies par :
+où les valeurs $x_j$ sont définies par :
 \begin{equation}
 x_j = a + j h\text{, } j = 0,1, \ldots,N \text{ et } h = \dfrac{b-a}{N} \text{ le pas d'espace}. 
 \end{equation}
@@ -74,7 +74,7 @@ On note
 De plus, $l^2_h$ désigne l'espace des fonctions de grille, $h>0$ fixé.
 On munit cet espace du produit scalaire $(\cdot, \cdot)_{h}$ et de la norme associée :
 \begin{equation}
-(\mathfrak{u},\mathfrak{v})_h = h \gsum_{j=0}^N \mathfrak{u}(x_j) \mathfrak{v}(x_j) \text{,  } |\mathfrak{u}|_h^2 = h \gsum_{j=0}^N \mathfrak{u}(x_j)^2.
+(\mathfrak{u},\mathfrak{v})_h = h \gsum_{j=0}^N \mathfrak{u}(x_j) \bar{\mathfrak{v}}(x_j) \text{,  } |\mathfrak{u}|_h^2 = h \gsum_{j=0}^N |\mathfrak{u}(x_j)|^2.
 \end{equation}
 On définit aussi la norme $\| \cdot \|_{\infty}$ pour les fonctions de grille :
 \begin{equation}
@@ -133,9 +133,9 @@ La norme sur $\mathbb{M}_{N+1}(\mathbb{R})$ subordonnée à $|\cdot|_{\infty}$ e
 \begin{equation}
 u^*_j = u^*(x_j) \text{ pour } 0 \leq j \leq N,
 \end{equation}
-$u^*$ est donc la restriction de $u$ aux points de la grille. Si $u$ est une fonction périodique, alors $u^*$ est définie par
+$u^*$ est donc la restriction de $u$ aux points de la grille. Si $u$ est une fonction $L-$périodique, alors $u^*$ est définie par
 \begin{equation}
-u^*_j = u^*(x_j) \text{ pour } 1 \leq j \leq N.
+u^*_j = u^*(x_j) \text{ pour } 0 \leq j \leq N-1.
 \end{equation}
 \end{enumerate}
 
@@ -178,9 +178,9 @@ On note que trois normes infinies ont été définies :
 Quitte à opérer une translation sur $x$, on peut supposer $a=0$ et $b=L$. Le pas du maillage est $h = \frac{L}{N}$.
 Soit, pour tout $k$ vérifiant $-N/2+1 \leq k \leq N/2$, la fonction $u^k : x \mapsto u^k(x) \in \mathbb{C}$ périodique de période $L$ définie par 
 \begin{equation}
-u^k(x) = \dfrac{1}{\sqrt{L}} \exp \left( \dfrac{2 i \pi x}{L} \right)
+u^k(x) = \dfrac{1}{\sqrt{L}} \exp \left( \dfrac{2 i \pi x}{L} \right).
 \end{equation}
-qui forment une famille libre et orthonormée de $N+1$ fonctions. C'est à dire
+Les fonctions $(u^k)_{-N/2 +1 \leq k \leq N/2}$ forment une famille libre et orthonormée de $N+1$ fonctions. C'est à dire
 \begin{equation}
 (u^k, u^{k'})_{L^2([a,b])} = \delta_{k,k'} \text{ avec } -N/2+1 \leq k, k' \leq N/2.
 \end{equation}
@@ -215,7 +215,7 @@ Considérons d'abord $k$ et $k'$ sont deux entiers distincts tels que $-N/2+1 \l
 \end{align*}
 De plus, si $k=k'$, on a :
 \begin{align*}
-(\mathfrak{u}^k, \mathfrak{u}^{k})_{h,\per} & = \dfrac{1}{N} \gsum_{j=0}^{N-1} \exp \left( \dfrac{2 i \pi j k}{N} \right) \exp \left( -\dfrac{2 i \pi j k'}{N} \right) \\
+(\mathfrak{u}^k, \mathfrak{u}^{k'})_{h,\per} & = \dfrac{1}{N} \gsum_{j=0}^{N-1} \exp \left( \dfrac{2 i \pi j k}{N} \right) \exp \left( -\dfrac{2 i \pi j k'}{N} \right) \\
 		& = \dfrac{1}{N} \gsum_{j=0}^{N-1} 1 \\
 		& = 1.
 \end{align*}
@@ -233,7 +233,7 @@ En effectuant le produit scalaire par $\mathfrak{u}^{k'}$ on obtient
 \end{align*}
 
 \begin{definition}
-On défini la \textit{transformée de Fourier discrète} de $\mathfrak{v}$ par $(\hat{\mathfrak{v}}_{k})_{-N/2+1 \leq k \leq N/2}$ où
+On définit la \textit{transformée de Fourier discrète} de $\mathfrak{v}$ par $(\hat{\mathfrak{v}}_{k})_{-N/2+1 \leq k \leq N/2}$ où
 \begin{equation}
 \hat{\mathfrak{v}}_{k} = (\mathfrak{v}, \mathfrak{u}^{k})_{h,\per}.
 \end{equation}
@@ -259,9 +259,9 @@ Or on sait que
 \bar{\mathfrak{v}}_j & = & \gsum_{k' = -N/2+1}^{N/2} \bar{\hat{\mathfrak{v}}}_{k'} \bar{\mathfrak{u}}_j^{k'}.
 \end{array}
 \end{equation}
-Alors, on obtiens
+Alors, on obtient
 \begin{align*}
-|\mathfrak{v}|_{h,\per}^2 & = h \gsum_{j=0}^{N-1} \gsum_{k=-N/2+1}^{N/2} \gsum_{k'=-N/2+1}^{N/2} \hat{\mathfrak{v}}_j \mathfrak{u}_j^k \bar{\hat{v}}_j \bar{\mathfrak{u}}_j^{k'} \\
+|\mathfrak{v}|_{h,\per}^2 & = h \gsum_{j=0}^{N-1} \gsum_{k=-N/2+1}^{N/2} \gsum_{k'=-N/2+1}^{N/2} \hat{\mathfrak{v}}_j \mathfrak{u}_j^k \bar{\hat{\mathfrak{v}}}_j \bar{\mathfrak{u}}_j^{k'} \\
 	& = h \gsum_{k=-N/2+1}^{N/2} \gsum_{k'=-N/2+1}^{N/2} \hat{\mathfrak{v}}_k \bar{\hat{\mathfrak{v}}}_{k'} \gsum_{j=0}^{N-1} \mathfrak{u}_j^k \bar{\mathfrak{u}}_j^{k'} \\
 	& = \gsum_{k=-N/2+1}^{N/2} \gsum_{k'=-N/2+1}^{N/2} \hat{\mathfrak{v}}_k \bar{\hat{\mathfrak{v}}}_{k'} (\mathfrak{u}^k, \mathfrak{u}^{k'})_{h,\per}.
 \end{align*}
@@ -293,7 +293,7 @@ D'où le résultat.
 \subsection{Opérateur de translation périodique}
 On se donne $\mathfrak{u} \in l^2_{h,\per}$ une fonction de grille périodique.
 \begin{definition}
-L'opérateur $\tau_p$, $p \in \mathbb{Z}$, est défini, pour $\mathfrak{u}$ fonction de grille périodique ,par
+L'opérateur $\tau_p$, $p \in \mathbb{Z}$, est défini, pour $\mathfrak{u}$ fonction de grille périodique, par
 \begin{equation}
 (\tau_p \mathfrak{u})_j = \mathfrak{u}_{j+p} \text{ avec } 0 \leq j \leq N-1.
 \end{equation}
@@ -392,10 +392,10 @@ De plus, les espaces vectoriels $\Vect (\mathfrak{u}^k)$ sont en somme directe, 
 Noter que cette proposition est vraie non seulement pour $\tau$ mais aussi pour tout opérateur diagonalisable.
 \end{remarque}
 
-On défini $\vec_1$ l'opérateur appliquant un élément de $l_{h,\per}^2$ sur un vecteur de $\mathbb{R}^N$ :
+On définit $\vec_1$ l'opérateur appliquant un élément de $l_{h,\per}^2$ sur un vecteur de $\mathbb{R}^N$ :
 
 \begin{definition}
-Soient $\mathfrak{u} \in l^2_{h,\per}$ une fonction de grille et $(\mathbf{e}_j)_{1 \leq j \leq N}$ la base canonique de $\mathbb{R}^N$. On défini l'opérateur $\vec_1$ par :
+Soient $\mathfrak{u} \in l^2_{h,\per}$ une fonction de grille et $(\mathbf{e}_j)_{1 \leq j \leq N}$ la base canonique de $\mathbb{R}^N$. On définit l'opérateur $\vec_1$ par :
 \begin{equation}
 \begin{array}{rcl}
 \vec_1 : l^2_{h,\per} & \rightarrow & \mathbb{R}^N \\
@@ -439,7 +439,7 @@ U_1 & U_2 & \cdots & U_{N}
 \end{equation}
 C'est à dire
 \begin{equation}
-\vec_1 ( \tau \mathfrak{u} ) = T ( \vec_1 ( \mathfrak{u} ) ). 
+\vec ( \tau \mathfrak{u} ) = T ( \vec ( \mathfrak{u} ) ). 
 \end{equation}
 Les propriétés spectrales de $T$ se déduisent de celles de $\tau$ :
 \begin{corollaire}
@@ -447,7 +447,7 @@ Les propriétés spectrales de $T$ se déduisent de celles de $\tau$ :
 \item Les valeurs propres de $T$ sont les valeurs $(\omega^k)_{-N/2+1 \leq k \leq N/2}$. 
 L'espace vectoriel associé est $\Vect ( U^k )$ avec
 \begin{equation}
-U^k = \vec_1 (\mathfrak{u}^k ).
+U^k = \vec (\mathfrak{u}^k ).
 \label{eq:eigenvectorT}
 \end{equation}
 $\mathfrak{u}^k$ et $\omega$ sont donnés par la proposition \ref{prop:eigenvaluevector_tau}.
@@ -457,7 +457,7 @@ $\mathfrak{u}^k$ et $\omega$ sont donnés par la proposition \ref{prop:eigenvalu
 \label{prop:eigen_P(T)}
 \end{corollaire}
 
-Les vecteurs $(U^k)_{-N/2+1 \leq k \leq N/2}$ est une base orthonormée de $\mathbb{R}^N$ pour le produit scalaire usuel.
+Les vecteurs $(U^k)_{-N/2+1 \leq k \leq N/2}$ forment une base orthonormée de $\mathbb{R}^N$ pour le produit scalaire usuel.
 
 
 
@@ -486,7 +486,7 @@ Dans cette section on s'intéresse à une approximation symétrique de $\partial
 \end{equation}
 C'est le type d'opérateur dont nous aurons besoin dans la suite pour la calcul approché d'opérateurs sphériques.
 
-Cette question est classique en analyse numérique. Elle est abordée dans des références classiques telles que \cite{Collatz2012, Ames2014, Kopal1955}. En mathématiques, on cite en particulier \cite{Collatz2012, Kopal1955} ou en mécanique des fluides numériques \cite{Hirsch2007}.
+Cette question est classique en analyse numérique. Elle est abordée dans des références classiques telles que \cite{Ames2014, Collatz2012, Kopal1955}. En mathématiques, on cite en particulier \cite{Collatz2012, Kopal1955} ou en mécanique des fluides numériques \cite{Hirsch2007}.
 
 Nous commençons par rappeler la \textit{consistance} d'un opérateur différentiel \cite{Strikwerda2004}. On s’intéresse à l'équation aux dérivées partielles
 \begin{equation}
@@ -630,9 +630,9 @@ est consistante à l'ordre $2J$ avec
 \end{equation}
 L'erreur de troncature est de la forme :
 \begin{equation}
-\left(\partial_x u \right)_j^* - \delta_{2J,x} u^*_j = h^{2J} \left(  \sum_{p=1}^J a_p p^{2J} \right) \dfrac{2J}{2(2J+1)!} \partial^{(2J+1)}_x u(\alpha)
+\left(\partial_x u \right)_j^* - \delta_{2J,x} u^*_j = h^{2J} \left(  \sum_{p=1}^J a_p p^{2J} \right) \dfrac{2J}{2(2J+1)!} \partial^{(2J+1)}_x u(\alpha_p)
 \end{equation} 
-avec $\alpha \in ]x_{j-J}, x_{j+J}[$ et $u \in \mathcal{C}^{2J+1}$.
+avec $\alpha_p \in ]x_{j-p}, x_{j+p}[$ et $u \in \mathcal{C}^{2J+1}$.
 \label{th:consistance_delta_x_explicite}
 \end{theoreme}
 
@@ -673,14 +673,14 @@ L'erreur de troncature prend la forme
 \begin{equation}
 \partial_x u(x_j) - \delta_{2J,x} u^*_j = h^{2J} \sum_{p=1}^J a_p \dfrac{p^{2J}}{2(2J+1)!} \left( \partial_x^{(2J+1)}(\xi_j) + \partial_x^{(2J+1)}u(\eta_j) \right).
 \end{equation}
-pour conclure, on utilise le théorème des valeurs intermédiaires. Comme $u \in \mathcal{C}^{2J+1}$, il existe $\alpha \in ]x_{j-J}, x_{j+J}[$ tel que
+pour conclure, on utilise le théorème des valeurs intermédiaires. Comme $u \in \mathcal{C}^{2J+1}$, il existe $\alpha_p \in ]x_{j-p}, x_{j+p}[$ tel que
 \begin{equation}
-\partial_x^{(2J+1)}(\xi_j) + \partial_x^{(2J+1)}u(\eta_j) = 2 \partial_x^{(2J+1)}u(\alpha).
+\partial_x^{(2J+1)}(\xi_j) + \partial_x^{(2J+1)}u(\eta_j) = 2 \partial_x^{(2J+1)}u(\alpha_p).
 \end{equation}
 \end{proof}
 
 \begin{corollaire}
-Si les coefficients $(a_p)_{1 \leq p \leq J}$ sont solutions du système \eqref{eq:syst_opexplicite_P} alors il existe $C>0$ tel que pour toute fonction $u$ régulière on a 
+Si les coefficients $(a_p)_{1 \leq p \leq J}$ sont solutions du système \eqref{eq:syst_opexplicite_P} alors il existe $C>0$ indépendant de $h$ et de $u$ tel que pour toute fonction $u$ régulière on a 
 \begin{equation}
 \| (\partial_x u)^* - \delta_{2J,x}(u^*) \|_{\infty} \leq C h^{2J} \| (\partial^{(2J+1)}_x u)^* \|_{\infty}
 \end{equation} 
@@ -694,7 +694,7 @@ a_p = (-1)^{p-1} \dfrac{\gprod_{1 \leq i <j \leq J-1}(\beta_j^p - \beta_i^p)}{\g
 avec 
 \begin{equation}
 \beta^p_j = \left\lbrace
-\begin{array}{rcl}
+\begin{array}{ccl}
 j^2 & \text{ si } & j<p \\
 (j+1)^2 & \text{ si } & j \geq p
 \end{array}
@@ -721,9 +721,10 @@ a_1 \\ a_2 \\ a_3 \\ \vdots \\ a_J
 \end{bmatrix}
 }_{= e_1}.
 \end{equation}
-Ce système admet une solution si $\det (A) \neq 0$. Or on reconnait un déterminant de VanDerMonde. Donc
+Ce système admet une solution si $\det (A) \neq 0$. Or on reconnaît un déterminant de Vandermonde. Donc
 \begin{align*}
-\det (A) & = \gprod_{1\leq i < j \leq J} (\alpha_j - \beta_i) \text{ avec } \beta_l = l^2 \\
+\det (A) & = \VDM(\alpha_1 , \cdots, \alpha_J) \text{ où } \VDM \text{ désigne un déterminant de Vandermonde \cite{Evans1976}} \\
+	& = \gprod_{1\leq i < j \leq J} (\alpha_j - \alpha_i) \text{ avec } \alpha_l = l^2 \\
 	& = \gprod_{1\leq i < j \leq J} (j^2 - i^2)\\
 	& > 0 \text{ car } j^2 > i^2 \text{ lorsque } j>i.
 \end{align*}
@@ -744,14 +745,35 @@ A_p = \begin{bmatrix}
 En développant le déterminant de $A_p$ par rapport à la $p-$ième colonne, on trouve
 \begin{align*}
 \det (A_p) & = (-1)^{p-1}  \begin{vmatrix}
-(1^2)^0 & (2^2)^0 & \cdots & ((p-1)^2)^0 & ((p+1)^2)^0 & \cdots & (J^2)^0 \\ 
 (1^2)^1 & (2^2)^1 & \cdots & ((p-1)^2)^1 & ((p+1)^2)^1 & \cdots & (J^2)^1 \\
 (1^2)^2 & (2^2)^2 & \cdots & ((p-1)^2)^2 & ((p+1)^2)^2 & \cdots & (J^2)^2 \\
 \vdots & \vdots &  &  & \vdots & & \vdots \\
 (1^2)^{J-1} & (2^2)^{J-1} & \cdots & ((p-1)^2)^{J-1} & ((p+1)^2)^{J-1} & \cdots & (J^2)^{J-1} \\
 \end{vmatrix} \\
-	& = (-1)^{p-1} \gprod_{1 \leq i <j \leq J-1}(\beta_j^p - \beta_i^p) \text{ (déterminant de VanDerMonde).}
+	& = (-1)^{p-1} \left( \dfrac{J!}{p!} \right)^2 \begin{vmatrix}
+(1^2)^0 & (2^2)^0 & \cdots & ((p-1)^2)^0 & ((p+1)^2)^0 & \cdots & (J^2)^0 \\ 
+(1^2)^1 & (2^2)^1 & \cdots & ((p-1)^2)^1 & ((p+1)^2)^1 & \cdots & (J^2)^1 \\
+(1^2)^2 & (2^2)^2 & \cdots & ((p-1)^2)^2 & ((p+1)^2)^2 & \cdots & (J^2)^2 \\
+\vdots & \vdots &  &  & \vdots & & \vdots \\
+(1^2)^{J-2} & (2^2)^{J-2} & \cdots & ((p-1)^2)^{J-2} & ((p+1)^2)^{J-2} & \cdots & (J^2)^{J-2} \\
+\end{vmatrix} \\
+	& = (-1)^{p-1} \left( \dfrac{J!}{p!} \right)^2 \VDM(1, 2^2, 3^2, \cdots , (p-1)^2, (p+1)^2, \cdots J^2 ) \\
+	& = (-1)^{p-1} \left( \dfrac{J!}{p!} \right)^2 \gprod_{1 \leq i <j \leq J-1}(\beta_j - \beta_i)
 \end{align*}
+avec
+\begin{equation}
+\beta_j = \left\lbrace
+\begin{array}{cl}
+j^2 & \text{ si } j < p \\
+(j+1)^2 & \text{ si } p \geq j
+\end{array}
+\right.
+\end{equation}
+$\VDM$ désigne le déterminant de Vandermonde \cite{Evans1976} déterminé par 
+\begin{equation}
+\VDM(\beta_1, \cdots, \beta_n) = \gprod_{1\leq i < j \leq n} (\beta_j - \beta_i).
+\end{equation}
+
 On note que $\beta_j > \beta_i$ lorsque $j>i$, donc $\det (A_p)$ est du signe de $(-1)^{p-1}$.
 On trouve donc 
 \begin{equation}
@@ -765,11 +787,10 @@ ainsi que l'alternance des signes car
 A présent, dans cette section, nous supposons que les coefficients $(a_p)_{1 \leq p \leq J}$ sont issus de la résolution du système \eqref{eq:syst_opexplicite_P}. On a déjà vu que $\tau^{-1} = \tau_{-1} = \tau^{N-1}$, donc à partir des coefficients $(a_p)_{1 \leq p \leq J}$ on construit le polynôme $Q_{2J}$ tel que
 \begin{align*}
 \delta_{2J,x} & = \gsum_{p=1}^J a_p \dfrac{\tau_p - \tau_{-p}}{2ph}\\
-	& = \gsum_{p=1}^J \dfrac{a_p}{2ph} \left( \tau_p - \tau_{-p} \right)\\
 	& = \gsum_{p=1}^J \dfrac{a_p}{2ph} \left( \tau^p - \tau^{N-p} \right)\\
 	& = \dfrac{1}{h} Q_{2J}(\tau)
 \end{align*}
-Le polynôme $Q_{2J}$ de $\mathbb{R}_{N-1}[X]$ est donné par
+où le polynôme $Q_{2J}$ de $\mathbb{R}_{N-1}[X]$ est donné par
 \begin{equation}
 Q_{2J}(X) = \gsum_{p=1}^J \dfrac{a_p}{2p} \left( X^p - X^{N-p} \right)
 \end{equation}
@@ -902,9 +923,10 @@ est $2 \pi -$périodique et impaire. De plus, en tenant compte de la proposition
 \label{fig:freq_classic}
 \end{figure}
 
-On s'intéresse à présent à la version matricielle de l'opérateur $\delta_{2J,x}$. On défini $D_{2J} \in \mathbb{M}_N(\mathbb{R})$ la matrice associée à l'opérateur $\delta_{2J,x}$ :
+On s'intéresse à présent à la version matricielle de l'opérateur $\delta_{2J,x}$. On définit $D_{2J} \in \mathbb{M}_N(\mathbb{R})$ la matrice associée à l'opérateur $\delta_{2J,x}$ :
 \begin{equation}
 D_{2J} = \dfrac{1}{h} Q_{2J}(T).
+\label{eq:matrice_explicite}
 \end{equation}
 pour toute fonction de grille $\mathfrak{u} \in l^2_{h,\per}$, la relation suivante est vérifiée
 \begin{equation}
@@ -1028,10 +1050,10 @@ est consistante à l'ordre $2J+2$ avec
 \end{equation}
 si $u$ est une fonction de $\mathcal{C}^{2J+3}$, alors pour tout $0 \leq j \leq N-1$, on a 
 \begin{equation}
-(\delta_{x} u^*)_j - (\sigma_{x} (\partial_x u)^*)_j = h^{2J+2} \left[ \dfrac{1}{(2J+3)!}  \left( \gsum_{p=1}^J a_p  p^{2J+2} \right)\partial_x^{(2J+3)}u(\theta)  - \left( \dfrac{2\beta}{(2J+2)!}   \right) \partial_x^{(2J+3)}u(\rho) \right]
+(\delta_{x} u^*)_j - (\sigma_{x} (\partial_x u)^*)_j = h^{2J+2} \left[ \dfrac{1}{(2J+3)!}  \left( \gsum_{p=1}^J a_p  p^{2J+2} \partial_x^{(2J+3)}u(\theta_p)\right)  - \left( \dfrac{2\beta}{(2J+2)!}    \partial_x^{(2J+3)}u(\rho_p)\right) \right]
 \label{eq:eq_cons}
 \end{equation} 
-avec $\rho, \theta \in ]x_{j-J}, x_{j+J}[$.
+avec $\rho_p, \theta_p \in ]x_{j-p}, x_{j+p}[$.
 \label{th:consistance_delta_x_implicite}
 \end{theoreme}
 
@@ -1084,30 +1106,30 @@ avec $-N/2+1 \leq k \leq N/2$. L'espace propre associé est $\Vect ( \mathfrak{u
 \end{proposition}
 
 \begin{proof}
-Il s'agit d'une conséquence \ref{prop:eigen_Ptau} appliqué au polynôme $R$.
+Il s'agit d'une conséquence de la proposition \ref{prop:eigen_Ptau} appliqué au polynôme $R$.
 \end{proof}
 Dans la suit, nous aurons besoin d'inverser l'opérateur $\sigma_x$. La propriété suivante permet de s'assurer de son inversibilité.
 \begin{corollaire}
 L'opérateur $\sigma_x$ est inversible si
 \begin{equation}
-| \beta | < \dfrac{1}{4}.
+| \beta | < \dfrac{1}{2}.
 \end{equation}
 \end{corollaire}
 
 \begin{definition}
-On suppose que $\beta$ et $(a_p)_{1 \leq p \leq J}$ sont solutions de \eqref{eq:hermitian_system} et que $|\beta| < 1/4$, on défini l'\textit{opérateur hermitien} d'approximation de la dérivée première $\delta_{2J+2,x}^H$ par 
+On suppose que $\beta$ et $(a_p)_{1 \leq p \leq J}$ sont solutions de \eqref{eq:hermitian_system} et que $|\beta| < 1/2$, on définit l'\textit{opérateur hermitien} d'approximation de la dérivée première $\delta_{2J+2,x}^H$ par 
 \begin{equation}
-\delta_{2P+2,x}^H = \sigma_x^{-1} \circ \delta_{x}.
+\delta_{2J+2,x}^H = \sigma_x^{-1} \circ \delta_{x}.
 \end{equation}
 \end{definition}
 
 \begin{theoreme}
-Si $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est une fonction de classe $\mathcal{C}^{(2P+3)}$.
+Si $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est une fonction de classe $\mathcal{C}^{(2J+3)}$.
 Alors 
 \begin{equation}
-\| (\partial_x u)^* - \delta_{2P+2,x}^H (u^*) \|_{\infty} \leq C h^{2P+2} \| u^{(2P+3)} \|_{\infty}
+\| (\partial_x u)^* - \delta_{2J+2,x}^H (u^*) \|_{\infty} \leq C h^{2J+2} \| \partial_x^{(2J+3)} u \|_{\infty}
 \end{equation}
-où $C$ est une constante indépendante de $u$.
+où $C$ est une constante indépendante de $u$ et de $h$.
 \label{th:consistence_herm2}
 \end{theoreme}
 
@@ -1115,9 +1137,9 @@ où $C$ est une constante indépendante de $u$.
 Par calcul immédiat, on a :
 \begin{equation}
 \begin{array}{rcl}
-\|  (\partial_x u)^* - \delta_{2P+2,x}^H (u^*) \|_{\infty} &=& \| \sigma_{x}^{-1} \circ \left( \sigma_{x} u'^*  - \delta_{x}u^*\right) \|_{\infty}\\
+\|  (\partial_x u)^* - \delta_{2J+2,x}^H (u^*) \|_{\infty} &=& \| \sigma_{x}^{-1} \circ \left( \sigma_{x} u'^*  - \delta_{x}u^*\right) \|_{\infty}\\
                                       &\leq& \| \sigma_{x}^{-1} \|_{\infty} \| \sigma_{x} u'^*  - \delta_{x}u^*\|_{\infty}\\
-                                      &\leq& C h^{2P+2}  \| u^{(2P+3)} \|_{\infty}
+                                      &\leq& C h^{2J+2}  \| \partial_x^{(2J+3)} u \|_{\infty}
 \end{array}
 \end{equation}
 en utilisant $\sigma_{x}$ inversible et l'équation \eqref{eq:eq_cons}.
@@ -1125,13 +1147,13 @@ en utilisant $\sigma_{x}$ inversible et l'équation \eqref{eq:eq_cons}.
 Quelques exemples de schémas hermitiens sont donnés dans le corollaire suivant.
 
 \textbf{Exemples : }
-Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ alors 
+Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ périodique alors 
 \begin{itemize}
 \item Si $u \in \mathcal{C}^{5}(\Omega)$ alors 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\sigma_{x} &=& \dfrac{4}{6} id + \dfrac{1}{6} \left( \tau_1 + \tau_{-1} \right)\\
+\sigma_{x} &=& \dfrac{4}{6} \Id + \dfrac{1}{6} \left( \tau_1 + \tau_{-1} \right)\\
 \delta_{x} &=& \dfrac{\tau_1 - \tau_{-1}}{2h} \\ 
 \end{array}
 \right.
@@ -1143,7 +1165,7 @@ et $\delta^H_{4,x} = \sigma_x^{-1} \circ \delta_{x}$ défini un opérateur d'app
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\sigma_{x} &=& \dfrac{1}{2} id + \dfrac{1}{4}\left( \tau_1 + \tau_{-1} \right) \\
+\sigma_{x} &=& \dfrac{1}{2} \Id + \dfrac{1}{4}\left( \tau_1 + \tau_{-1} \right) \\
 \delta_{x} &=& \dfrac{5}{6} \dfrac{\tau_1 - \tau_{-1}}{2h} + \dfrac{1}{6} \dfrac{\tau_2 - \tau_{-2}}{4h}\\ 
 \end{array}
 \right.
@@ -1156,7 +1178,7 @@ et $\delta^H_{x} = \sigma_{x}^{-1} \circ \delta_{4,x}$ défini un opérateur d'a
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\sigma_{x} &=& \dfrac{4}{7} id + \dfrac{3}{14}\left( \tau_1 + \tau_{-1} \right) \\
+\sigma_{x} &=& \dfrac{4}{7} \Id + \dfrac{3}{14}\left( \tau_1 + \tau_{-1} \right) \\
 \delta_{x} &=& \dfrac{25}{28} \dfrac{\tau_1 - \tau_{-1}}{2h} + \dfrac{4}{35} \dfrac{\tau_2 - \tau_{-2}}{4h} - \dfrac{1}{140} \dfrac{\tau_3 - \tau_{-3}}{6h} \\ 
 \end{array}
 \right.
@@ -1262,6 +1284,7 @@ P_{\sigma} & = R(T) \\
     & (0) & \beta & 1 - 2 \beta & \beta \\ 
   \beta &   &   & \beta & 1 - 2 \beta
   \end{bmatrix} \in \mathbb{M}_{N}(\mathbb{R}).
+\label{eq:matrice_implicitpart}
 \end{align}
 La relation suivante est immédiate
 \begin{equation}
@@ -1567,7 +1590,7 @@ D'après cette formule et le théorème des valeurs intermédiaires, on a
 \end{align*}
 avec $\alpha_p \in ]x_j - ph, x_j + ph[$. Alors en multipliant cette relation par $a_p$ et en sommant sur $p$, on obtient :
 \begin{align*}
-\dfrac{\tau_p \mathfrak{u}_j + \tau_{-p} \mathfrak{u}_j}{2} & = \gsum_{p=1}^J \gsum_{k=0}^{2J-1} a_p \dfrac{(ph)^k + (-ph)^k}{2k!} \partial_x^{(k)}u(x_j) + \gsum_{p=1}^J a_p \dfrac{(ph)^{2J}}{(2J)!} \partial_x^{(2J)}u(\alpha_p) \\
+\gsum_{p=1}^J \dfrac{\tau_p \mathfrak{u}_j + \tau_{-p} \mathfrak{u}_j}{2} & = \gsum_{p=1}^J \gsum_{k=0}^{2J-1} a_p \dfrac{(ph)^k + (-ph)^k}{2k!} \partial_x^{(k)}u(x_j) + \gsum_{p=1}^J a_p \dfrac{(ph)^{2J}}{(2J)!} \partial_x^{(2J)}u(\alpha_p) \\
 & = \gsum_{k=0}^{2J-1} \dfrac{h^k}{2 (k!)} \left( \gsum_{p=0}^J (p^k + (-p)^k) \right) \partial_x^{(k)} u(x) + \gsum_{p=0}^J a_p \dfrac{(ph)^{2J}}{(2J)!} \partial_x^{(2J)}u(\alpha_p) \\
 & = \underbrace{ \left( \gsum_{p=0}^J a_p \right)}_{=1}u(x_j) + 
 \gsum_{k=1}^{2J-1} \dfrac{h^k}{2(k!)} \underbrace{\left( \gsum_{p=0}^J (p^k + (-p)^k)  \right)}_{=0 \text{ si } k \text{ impair.}} \partial_x^{(k)}u(x_j) + \dfrac{h^{2J}}{(2J)!} \gsum_{p=0}^Ja_p p^{2J} \partial_x^{(2J)}u(\alpha_p)  \\
@@ -1579,7 +1602,7 @@ On retrouve ainsi l'erreur de consistance souhaitée et le résultat est prouvé
 \end{proof}
 
 \begin{corollaire}
-Si les coefficients $(a_p)_{1 \leq p \leq J}$ sont solution de \eqref{eq:system_ftr} alors il existe $C>0$ tel que pour toute fonction $u$ régulière on a 
+Si les coefficients $(a_p)_{1 \leq p \leq J}$ sont solution de \eqref{eq:system_ftr} alors pour toute fonction $u$ régulière il existe $C>0$ indépendant de $h$ et de $u$ tel que  on a 
 \begin{equation}
 \| u^* -  \mathcal{F}_{x,2J}(u^*) \|_{\infty} \leq C h^{2J} \| (\partial_x^{(2J)}u)^* \|_{\infty}.
 \end{equation}
@@ -1587,29 +1610,150 @@ Si les coefficients $(a_p)_{1 \leq p \leq J}$ sont solution de \eqref{eq:system_
 
 L'existence et l'unicité des opérateurs de filtrage $\mathcal{F}_{x,2J}$ est donnée par la proposition suivante :
 
+\begin{proposition}
+Le système \eqref{eq:system_ftr} admet une unique solution.
+\end{proposition}
 
+\begin{proof}
+Le système \eqref{eq:system_ftr} s'écrit en matriciel :
+\begin{equation}
+\underbrace{\begin{bmatrix}
+1 & 1 & 1 & 1 & \cdots & 1\\
+1 & -1 & 1 & -1 & \cdots & (-1)^J\\
+0 & 1 & 2^2 & 3^2 & \cdots & J^2 \\
+0 & 1 & 2^4 & 3^4 & \cdots & J^4 \\
+0 & 1 & 2^6 & 3^6 & \cdots & J^6 \\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 1 & (2^2)^{J-1} & (3^2)^{J-1} & \cdots & (J^2)^{J-1}
+\end{bmatrix}}_{= A}
+\underbrace{\begin{bmatrix}
+a_0 \\ a_1 \\ a_2 \\ a_3 \\ a_4 \\ \vdots \\ a_J
+\end{bmatrix}
+}_{=a} = \underbrace{\begin{bmatrix}
+1 \\ 0 \\ 0 \\ 0 \\ 0 \\  \vdots \\ 0
+\end{bmatrix}
+}_{= b}.
+\end{equation}
+En remplaçant la deuxième ligne par une combinaison de la première et de la deuxième ligne : $L_2 \leftarrow L_1 - L_2$, on obtiens :
+\begin{equation}
+\underbrace{\begin{bmatrix}
+1 & 1 & 1 & 1 & \cdots & 1\\
+0 & 2 & 0 & 2 & \cdots & 1-(-1)^J\\
+0 & 1 & 2^2 & 3^2 & \cdots & J^2 \\
+0 & 1 & 2^4 & 3^4 & \cdots & J^4 \\
+0 & 1 & 2^6 & 3^6 & \cdots & J^6 \\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 1 & (2^2)^{J-1} & (3^2)^{J-1} & \cdots & (J^2)^{J-1}
+\end{bmatrix}}_{= \tilde{A}}
+\underbrace{\begin{bmatrix}
+a_0 \\ a_1 \\ a_2 \\ a_3 \\ a_4 \\ \vdots \\ a_J
+\end{bmatrix}
+}_{=a} = \underbrace{\begin{bmatrix}
+1 \\ 1 \\ 0 \\ 0 \\ 0 \\ \vdots \\ 0
+\end{bmatrix}
+}_{= \tilde{b}}.
+\end{equation}
+Pour montrer que le système \eqref{eq:system_ftr}, on montre que la matrice $\tilde{A} \in \mathbb{M}_J(\mathbb{R})$ est inversible. En effet :
+\begin{align*}
+\det (\tilde{A}) & = \begin{vmatrix}
+1 & 1 & 1 & 1 & \cdots & 1\\
+0 & 2 & 0 & 2 & \cdots & 1-(-1)^J\\
+0 & 1 & 2^2 & 3^2 & \cdots & J^2 \\
+0 & 1 & 2^4 & 3^4 & \cdots & J^4 \\
+0 & 1 & 2^6 & 3^6 & \cdots & J^6 \\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 1 & (2^2)^{J-1} & (3^2)^{J-1} & \cdots & (J^2)^{J-1}
+\end{vmatrix} \\
+& = \begin{vmatrix}
+2 & 0 & 2 & \cdots & 1-(-1)^J\\
+1 & 2^2 & 3^2 & \cdots & J^2 \\
+1 & 2^4 & 3^4 & \cdots & J^4 \\
+1 & 2^6 & 3^6 & \cdots & J^6 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & (2^2)^{J-1} & (3^2)^{J-1} & \cdots & (J^2)^{J-1}
+\end{vmatrix} \\
+& = 2 \gsum_{p=0}^{\lfloor \frac{J-1}{2} \rfloor} \Delta_{2p+1}.
+\end{align*}
+On va montrer que pour tout $1 \leq p \leq J$, $\Delta_p >0$. Ainsi, $\det(\tilde{A})$ est la somme de nombres strictement positifs, donc $\det(\tilde{A})>0$. $\Delta_p$ est donné par
+\begin{align*}
+\Delta_p & = \begin{vmatrix}
+1 & 2^2 & 3^2 & \cdots & (p-1)^2 & (p+1)^2 & \cdots & J^2 \\ 
+1 & (2^2)^2 & (3^2)^2 & \cdots & ((p-1)^2)^2 & ((p+1)^2)^{2} & \cdots & (J^2)^2 \\ 
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\ 
+1 & (2^2)^{J-1} & (3^2)^{J-1} & \cdots & ((p-1)^2)^{J-1} & ((p+1)^2)^{J-1} & \cdots & (J^2)^{J-1}
+\end{vmatrix} \\
+& = \left( \dfrac{J!}{p} \right) \begin{vmatrix}
+1 & 1^2 & 1^2 & \cdots & 1^2 & 1^2 & \cdots & 1^2 \\ 
+1 & 2^2 & 3^2 & \cdots & (p-1)^2 & (p+1)^{2} & \cdots & J^2 \\ 
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\ 
+1 & (2^2)^{J-2} & (3^2)^{J-2} & \cdots & ((p-1)^2)^{J-2} & ((p+1)^2)^{J-2} & \cdots & (J^2)^{J-2}
+\end{vmatrix} \\
+& = \left( \dfrac{J!}{p} \right) \VDM(1, 2^2, 3^2, \cdots (p-1)^2, (p+1)^2, \cdots, J^2)
+\end{align*}
+Où $\VDM$ désigne un déterminant de Vandermonde \cite{Evans1976} déterminé par 
+\begin{equation}
+\VDM(\alpha_1, \cdots, \alpha_n) = \gprod_{1\leq i < j \leq n} (\alpha_j - \alpha_i).
+\end{equation}
+Dans notre cadre, on a
+\begin{equation}
+\Delta_p = \left( \dfrac{J!}{p} \right) \VDM(\alpha_1, \alpha_2, \cdots \alpha_{J-1})
+\end{equation}
+avec $\alpha_j$ donné par
+\begin{equation}
+\alpha_j = \left\lbrace
+\begin{array}{cl}
+j^2 & \text{ si } j<p \\
+(j+1)^2 & \text{ si } j \geq p.
+\end{array}
+\right.
+\end{equation}
+Ainsi, si $j>i$, on observe que $\alpha_j - \alpha_i>0$, donc
+\begin{align*}
+\Delta_p & = \left( \dfrac{J!}{p} \right) \VDM(1, 2^2, 3^2, \cdots (p-1)^2, (p+1)^2, \cdots, J^2) \\
+	& = \left( \dfrac{J!}{k} \right)  \gprod_{1\leq i < j \leq J-1} \underbrace{(\alpha_j - \alpha_i)}_{>0} >0.
+\end{align*}
+$\det(\tilde{A})$ est une somme de termes strictement positifs donc $\det(\tilde{A})>0$ et en particulier, $\det(\tilde{A}) \neq 0$ et le système admet une unique solution.
+\end{proof}
 
+\textbf{Exemples : } on donne les filtres pour $J=1$, $2$, $3$, $4$ ou $5$. 
+\begin{itemize}
+\item Soit $u \in \mathcal{C}^{2}(\Omega)$ alors
+\begin{equation}
+\mathcal{F}_{2,x} = \dfrac{1}{2} \Id + \dfrac{1}{2} \dfrac{\tau_1 + \tau_{-1}}{2}
+\end{equation}
+définit un opérateur de filtrage à l'ordre 2,
 
+\item soit $u \in \mathcal{C}^{4}(\Omega)$ alors
+\begin{equation}
+\mathcal{F}_{4,x} = \dfrac{10}{16} \Id + \dfrac{8}{16} \dfrac{\tau_1 + \tau_{-1}}{2} - \dfrac{2}{16} \dfrac{\tau_2 + \tau_{-2}}{2}
+\end{equation}
+définit un opérateur de filtrage à l'ordre 4,
 
+\item soit $u \in \mathcal{C}^{6}(\Omega)$ alors
+\begin{equation}
+\mathcal{F}_{6,x} = \dfrac{44}{64} \Id + \dfrac{30}{64} \dfrac{\tau_1 + \tau_{-1}}{2} - \dfrac{12}{64} \dfrac{\tau_2 + \tau_{-2}}{2} + \dfrac{2}{64} \dfrac{\tau_3 + \tau_{-3}}{2}
+\end{equation}
+définit un opérateur de filtrage à l'ordre 6,
 
+\item soit $u \in \mathcal{C}^{8}(\Omega)$ alors
+\begin{equation}
+\mathcal{F}_{8,x} = \dfrac{186}{256} \Id + \dfrac{112}{256} \dfrac{\tau_1 + \tau_{-1}}{2} - \dfrac{56}{256} \dfrac{\tau_2 + \tau_{-2}}{2} + \dfrac{16}{256} \dfrac{\tau_3 + \tau_{-3}}{2} - \dfrac{2}{256} \dfrac{\tau_4 + \tau_{-4}}{2}
+\end{equation}
+définit un opérateur de filtrage à l'ordre 8,
 
+\item soit $u \in \mathcal{C}^{10}(\Omega)$ alors
+\begin{equation}
+\mathcal{F}_{10,x} = \dfrac{772}{1024} \Id + \dfrac{420}{1024} \dfrac{\tau_1 + \tau_{-1}}{2} - \dfrac{240}{1024} \dfrac{\tau_2 + \tau_{-2}}{2} + \dfrac{90}{1024} \dfrac{\tau_3 + \tau_{-3}}{2} - \dfrac{20}{1024} \dfrac{\tau_4 + \tau_{-4}}{2} + \dfrac{2}{1024} \dfrac{\tau_5 + \tau_{-5}}{2}
+\end{equation}
+définit un opérateur de filtrage à l'ordre 10.
+\end{itemize}
 
-
-
-
-
-
-
-
-
-
-
-Quelques filtres particuliers sont donnés dans la table \ref{tab:filter} en fonction de leur ordre de précision.
+Quelques filtres particuliers sont donnés par la table \ref{tab:filter} en fonction de leur ordre de précision.
 \begin{table}[htbp]
 \begin{center}
 \begin{tabular}{|c||cccccc|}
 \hline
-\textbf{Ordre de précision} & $a_0$ & $a_1$ & $a_2$ & $a_3$ & $a_4$ & $a_5$ \\
+\textbf{Ordre de précision : }$\mathbf{2J}$ & $a_0$ & $a_1$ & $a_2$ & $a_3$ & $a_4$ & $a_5$ \\
 \hline \hline
 $2$ & $1/2$ & $1/2$ & & & & \\
 \hline
@@ -1626,99 +1770,142 @@ $10$ & $772/1024$ & $420/1024$ & $-240/1024$ & $90/1024$ & $-20/1024$ & $2/1024$
 \caption{Exemples de filtres de la forme \eqref{eq:ftr} et leurs ordres de précision.}
 \label{tab:filter}
 \end{table}
-Dans la suite, nous supposerons que $(a_k)_{0 \leq k \leq F}$ satisfait les conditions \eqref{eq:ftr_conscond}, \eqref{eq:ftr_prescond} et \eqref{eq:ftr_ftrcond}.
-Les valeurs propres et fonctions propres de $\mathcal{F}$ sont issues de la proposition \ref{prop:eigen_Ptau}.
+
+Les valeurs propres et fonctions propres de $\mathcal{F}_{x,2J}$ sont issus de la proposition \ref{prop:eigen_Ptau} appliqué au polynôme $S_{2J} \in \mathbb{R}_J [X]$ défini par \eqref{eq:pol_filtrage}.
+
+\begin{proposition}
+Les valeurs propres de $\mathcal{F}_{2J,x}$ sont 
+\begin{equation}
+S_{2J} (\omega^k)
+\end{equation}
+où $-N/2+1 \leq k \leq N/2$. L'espace propre associé à $S_{2J} (\omega^k)$ est donné par $\Vect( \mathfrak{u}^k )$.
+\label{prop:eigen_filtre}
+\end{proposition}
 
 \begin{theoreme}
-Les valeurs propres de $\mathcal{F}_{2F,x}$ sont données par $\beta^k$ avec 
-\begin{equation}
-\beta^k = S_{2F}(\omega^k) = \gsum_{f=0}^F a_k \cos \left( \dfrac{2 \pi k f}{N} \right)
-\end{equation}
-pour tout $0 \leq k \leq N-1$, $\beta^k$ est associé à la fonction propre $\mathfrak{u}^k$.
-\end{theoreme}
-
-On définit le \textit{symbole} du filtre $\mathcal{F}_{2F,x}$ par la fonction $\beta : \theta \in [0, \pi] \mapsto \beta(\theta) \in \mathbb{R}$ donnée par :
-\begin{equation}
-\beta (\theta) = S_{2F}(e^{i\theta)}) = \gsum_{f=0}^F a_k \cos \left( f \theta \right.
-\end{equation}
-
-\begin{proposition}
-Il existe un unique polynôme $P$ de degré $F$ tel que 
-\begin{equation}
-S(e^{i\theta)}) = P(\cos \theta )
-\end{equation}
-De plus,
-\begin{equation}
-P(x) = 1 -\dfrac{1}{(-2)^F} (X - 1)^F.
-\end{equation}
-\end{proposition}
-
-\begin{proof}
-Soit $\theta \in [0, \pi]$, 
-\begin{equation}
-S_{2F}(e^{i\theta)}) = \gsum_{f=0}^F a_f \cos \left( f \theta \right) = \gsum_{f=0}^F a_f T_f ( \cos \theta )
-\end{equation}
-où $T_f \in \mathbb{R}_f [X]$ est le $k-$ieme polynome de Tchebytchev. 
-Ainsi il existe $P \in \mathbb{R}_F [x]$ tel que $\beta( \theta ) = P( \cos \theta )$. Ce polynôme est unique. Montrons que 
-\begin{equation}
-P(x) = 1 -\dfrac{1}{(-2)^F} (X - 1)^F.
-\end{equation}
-convient.
-
+Soit $\beta : \theta \in [0, \pi] \mapsto \beta(\theta) = S_{2J}(e^{i \theta})$ le \textit{symbole} de l'opérateur de filtrage $\mathcal{F}_{2J,x}$, alors
 \begin{itemize}
-\item on montre facilement que 
+\item la relation suivante est vérifiée :
 \begin{equation}
-P( \cos 0 ) = 1 -\dfrac{1}{(-2)^F} (\cos 0 - 1)^F = 1,
+\beta(\theta) = \gsum_{p=0}^J a_p \cos (p \theta)
 \end{equation}
-de même,
+pour tout $\theta \in [0, \pi]$,
+\item il existe un unique polynome $P \in \mathbb{R}_{J}(X)$ tel que
 \begin{equation}
-P( \cos \pi ) = 1 -\dfrac{1}{(-2)^F} (\cos \pi - 1)^F 1 -\dfrac{(-2)^F}{(-2)^F} = 0.
+\beta(\theta) = P(\cos (\theta)),
 \end{equation}
-\item On rappelle la formule de Fàa Di Bruno permettant de calculer la dérivée $n-$ième d'une composée. Si $f$ et $g$ sont des fonctions régulières, on a 
+ce polynome est déterminé par
 \begin{equation}
-\dfrac{d^n}{dx^n} \left( f \circ g \right)(x) = \gsum_{k=1}^n f^{(k)}\left( g(x) \right) B_{n,k}\left( g'(x), g''(x), \cdots , g^{n-k+1}(x) \right)
+P(X) = 1 - \dfrac{1}{2^J}(1-X)^J,
 \end{equation}
-où $B_{n,k}$ est un polynôme de Bell. En utilisant cette formule avec $f = P$ et $g = \cos$, évaluée en $\theta = 0$, on montre que :
+\item Pour tout $\theta \in [0, \pi]$, on a
 \begin{equation}
-\dfrac{d^n}{d\theta^n} \left( P \circ \cos \right)(0) = \gsum_{k=1}^n P^{(k)}\left(1\right) B_{n,k}\left( -1,0,1,0, \cdots\right)
-\end{equation}
-Or, $P^{(k)}\left(1\right) = 0$ pour tout $k \geq 1$. Donc 
-\begin{equation}
-\dfrac{d^n}{d\theta^n} \left( P \circ \cos \right)(0) = 0
+0 \leq \beta(\theta) \leq 1.
 \end{equation}
 \end{itemize}
-Le polynôme $P$ convient et 
-\begin{equation}
-S_{2F}(e^{i\theta)}) = 1 - \dfrac{1}{(-2)^F}(\cos \theta -1)^F.
-\end{equation}
-\end{proof}
-
-\begin{proposition}
-Pour tout $\theta \in [0, \pi]$, on a 
-\begin{equation}
-0 \leq S_{2F}(e^{i\theta)}) \leq 1
-\end{equation}
-\label{prop:ampli_ftr}
-\end{proposition}
+\label{th:filtre_dissipatif}
+\end{theoreme}
 
 \begin{proof}
-Supposons qu'il existe $\theta \in [0, \pi]$ tel que $S_{2F}(e^{i\theta)}) < 0$ ou $S_{2F}(e^{i\theta)}) > 1$. Comme $S_{2F}(e^{i 0)})=1$ et $S_{2F}(e^{i\pi)}) = 0$, il existe $\tilde{\theta} \in ]0, \pi[$ tel que 
+\begin{itemize}
+\item D'après la formule d'Euler, on a 
 \begin{equation}
-S_{2F}(e^{i\theta)})'(\theta) = - \sin \tilde{\theta} P'(\cos \tilde{\theta} ) = 0
+\cos (p \theta) = \dfrac{e^{ip \theta} + e^{-ip \theta}}{2}.
 \end{equation}
-Or $\sin \tilde{\theta} \neq 0$ pour $\tilde{\theta} \in ]0, \pi[$.
-De plus, 
+En tenant compte de la forme de $S_{2J}$ donnée par \eqref{eq:pol_filtrage}, on obtient
+\begin{align*}
+\beta(\theta) & = S_{2J}(e^{i \theta}) \\
+	& = \gsum_{p=0}^J a_p \dfrac{e^{ip \theta} + e^{-ip \theta}}{2} \\
+	& = \gsum_{p=0}^J a_p \cos (p \theta).
+\end{align*}
+
+\item Les polynômes de Tchebytchev, notés $T_p$ , de première espèce sont définis par
 \begin{equation}
-P'(X) = \dfrac{F}{(-2)^F}(X-1)^{F-1}
+T_p(\cos (\theta)) = \cos (p \theta).
 \end{equation}
-donc en prenant $X = \cos \tilde{\theta}$,
-\begin{equation*}
-P'(X) = 0 \Leftrightarrow \cos \tilde{\theta} = 1
-\end{equation*}
-Ce qui est impossible pour $\tilde{\theta} \in ]0, \pi[$. Donc par l'absurde, le résultat est vérifié.
+On a $T_p \in \mathbb{R}_p[X]$ et les $T_p$ forment une suite de polynômes de degrés croissants. Ils forment une base de $\mathbb{R}_p[X]$ et on a
+\begin{align*}
+\beta(\theta) & = \gsum_{p=0}^J a_p \cos (p \theta) \\
+	& = \gsum_{p=0}^J a_p T_p( \cos (\theta)),
+\end{align*}
+ainsi il existe un polynôme $P = \gsum_{p=0}^J a_p T_p$ de degré $J$ tel que
+\begin{equation}
+\beta(\theta) = P(\cos (\theta)).
+\end{equation}
+Comme les polynômes $(T_p)_{0 \leq p \leq J}$ forment une base de $\mathbb{R}_{J}[X]$, ce polynôme est unique.
+
+Les fonctions $\theta \mapsto \cos (n \theta)$ forment une famille libre pour $0 \leq n \leq J$. On pose $E_J$ l'espace engendré par ces fonctions, $\dim (E_J) = J$. Alors $\beta \in E_J$ et si on pose $Q(X)= 1 - \frac{1}{2^J}(1-X)^J$, la fonction $\theta \mapsto Q(\cos(\theta))$ est une fonction de $E_J$. Montrons que ces fonctions coïncident.
+Soit la fonction de $E_J$ donnée par
+\begin{equation}
+f(\theta) = \beta(\theta) - Q(\cos (\theta)).
+\end{equation}
+Alors pour commencer, le résultat suivant est vérifié :
+\begin{equation}
+f^{(n)}(0) = 0 \text{ pour tout } 0 \leq n \leq J-1.
+\end{equation}
+En effet, pour $n=0$, on a
+\begin{align*}
+f(0) & = \beta(0) - \left( 1-\dfrac{1}{2^J}(1 - \cos (0))^J \right) \\
+	& = \gsum_{p=0}^J a_p - 1 \\
+	& = 0.
+\end{align*}
+Pour traiter le cas $1 \leq n \leq J-1$, nous utilisons la formule de Fàa Di Bruno \cite{Comtet2012}, ainsi
+\begin{equation}
+\left( Q \circ \cos \right)^{(n)}(\theta) = \gsum_{k=0}^n P^{(k)}(\cos(\theta)) B_{n,k}(-\sin \theta, - \cos \theta, \sin \theta, \cos \theta, ...).
+\end{equation}
+En particulier pour $\theta = 0$
+\begin{equation}
+\left( Q \circ \cos \right)^{(n)}(0) = \gsum_{k=0}^n Q^{(k)}(1) B_{n,k}(0, -1, 0, 1, 0, -1, ...).
+\end{equation}
+et la dérivée $k-$ième de $Q$ est donnée par
+\begin{equation}
+Q^{(k)}(X) = - \dfrac{(-1)^k}{2^J} \dfrac{J!}{(J-n)!}(1-X)^{J-n} \text{ pour tout } k>1.
+\end{equation}
+Donc $Q^{(k)}(1)=0$ et $\left( Q \circ \cos \right)^{(n)}(0) =0$. De là, il vient directement
+\begin{align*}
+f^{(n)}(0) & = \beta^{(n)}(0) - \left( Q \circ \cos \right)^{(n)}(0) \\
+	& = \gsum_{p=1}^J a_p p^{2n} - 0 \\
+	& = 0 \text{ pour } 1 \leq n \leq J-1.
+\end{align*}
+De plus,
+\begin{align*}
+f(\pi) & = \beta(\pi) - \left( 1-\dfrac{1}{2^J}(1 - \cos (\pi))^J \right) \\
+	& = \gsum_{p=1}^J a_p(-1)^p \\
+	& = 0,
+\end{align*}
+donc $f(\theta) = 0$ pour tout $\theta$ et
+\begin{equation}
+\beta(\theta) = Q(\cos\theta).
+\end{equation}
+On a bien
+\begin{equation}
+P(X) = Q(X) = 1-\dfrac{1}{2^J}(1-X)^J.
+\end{equation}
+
+\item On a vu que
+\begin{equation}
+\beta(\theta) = P(\cos (\theta)).
+\end{equation}
+Or par dérivation $P'(X) =  \dfrac{J}{2^J}(1-X)^{J-1}$ qui ne change pas de signe pour $X \in [-1,1]$, donc $P$ est monotone sur $[-1,1]$.
+
+De plus, $\cos(\theta) \in [-1,1]$ pour $\theta \in [0, \pi]$, donc $\beta(\theta) \subset [(P(-1), P(1))] = [0,1]$. De là, on déduit que pour tout $\theta \in [0,\pi]$, on a
+\begin{equation}
+0 \leq \beta(\theta) \leq 1.
+\end{equation} 
+\end{itemize}
 \end{proof}
 
-La fonction $\theta \mapsto S(e^{i\theta)})$ permet de considérer le comportement du filtre sur les différentes fréquences $\theta \in [0, \pi]$. Les basses fréquences sont bien conservées alors que les hautes fréquences ($\theta$ proche de $\pi$) sont atténuées. Cette observation est visible sur la figure \ref{fig:freq_filter} représentant la fonction $\beta : \theta \mapsto \beta(\theta)$ associée aux filtres d'ordre 2, 4, 6, 8 et 10. 
+\begin{remarque}
+On a vu dans la proposition \ref{prop:eigen_filtre} que les valeurs propres de $\mathcal{F}_{2J,x}$ sont de la forme
+\begin{align*}
+S_{2J}(\omega^k) & = S_{2J}\left(\exp \left( \dfrac{2 i \pi k}{N} \right) \right) \\
+	& = \beta \left(\dfrac{2 \pi k}{N} \right) \\
+	& \in [0,1] \text{ d'après le théorème } \ref{th:filtre_dissipatif},
+\end{align*}
+avec $-N/2+1 \leq k \leq N/2$. On en déduit que l'opérateur de filtrage $\mathcal{F}_{2J,x}$ est bien dissipatif.
+\end{remarque}
+
+La fonction $\theta \mapsto \beta(\theta)$ permet de considérer le comportement du filtre sur les différents fonctions propres. Par parité et $2 \pi -$périodicité de $\beta$, on peut observer la fonction $\beta$ sur $[0,\pi]$. On représente cette fonction dans la figure \ref{fig:freq_filter} pour les filtres d'ordres $2J = 10, 8, ..., 2$. Les fréquences proches de 0 sont peu affectés par $\mathcal{F}_{2J,x}$ alors que celles proches de $\pi$ sont de plus en plus atténuées à mesure que l'on s'approche de $\pi$ jusqu'à être supprimées. L'importance de ce filtrage sera vue au chapitre \ref{chap:2} dans l'analyse numérique.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1727,16 +1914,19 @@ La fonction $\theta \mapsto S(e^{i\theta)})$ permet de considérer le comporteme
 \caption{Fonction d'amplification $\theta \mapsto S(e^{i\theta)})$ pour les filtres explicites d'ordre 2, 4, 6, 8 et 10.}
 \label{fig:freq_filter}
 \end{figure}
-Comme on s'y attendais, un filtre d'ordre élevé laisse passer un plus grand nombre de basses fréquences. Dans le tableau \ref{tab:filter_095}, on représente la fréquence $\theta_{0.95}$ maximale qui est conservée à $95\%$. Comme la fonction $\theta \mapsto S(e^{i\theta)})$ est strictement décroissante et continue sur $[0,\pi]$, c'est une bijection de $[0,\pi]$ dans $[0,1]$ et on a 
+Pour plus de clareté, on représente dans le tableau \ref{tab:filter_095}, on représente la fréquence $\theta_{0.95}$ telle que
 \begin{equation}
-\theta_{0.95} = \arccos \left[ 1-2 (0.05)^{1/F} \right].
+\begin{array}{rcl}
+\beta(\theta) > 0.95 & \text{ si } & 0 \leq \theta \leq \theta_{0.95} \\
+\beta(\theta) < 0.95 & \text{ si } & \theta_{0.95} \leq \theta \leq \pi.
+\end{array}
 \end{equation}
 
 \begin{table}
 \begin{center}
 \begin{tabular}{|c||c|}
 \hline
-\textbf{Ordre du filtre} & \textbf{Fréquence conservée à } $95\%$\\
+\textbf{Ordre du filtre : }$\mathbf{2J}$ & $\mathbf{\theta_{0.95}(J)}$\\
 \hline
 \hline
 $10$&$1.6695$\\
@@ -1747,33 +1937,34 @@ $2$&$0.4510$\\
 \hline
 \end{tabular}
 \end{center}
-\caption{Fréquence conservée à $95\%$ en fonction de l'ordre du filtre.}
+\caption{Valeur de $\theta_{0.95}(J)$ pour quelques valeurs de $J$.}
 \label{tab:filter_095}
 \end{table}
 
-La fonction $F \mapsto \theta_{0.95}$ est croissante, ce qui confirme que lorsque l'ordre de précision croit, $\theta_{0.95}$ croit et le filtre conserve un plus grand nombre de fréquences. De plus, 
+Comme la fonction $\theta \mapsto \beta(\theta)$ est strictement décroissante et continue sur $[0,\pi]$, c'est une bijection de $[0,\pi]$ dans $[0,1]$ et on a 
+\begin{equation}
+\theta_{0.95}(J) = \arccos \left[ 1-2 (0.05)^{1/J} \right].
+\end{equation}
+
+
+La fonction $J \mapsto \theta_{0.95}(J)$ est strictement croissante donc lorsque $J$ croît, $\theta_{0.95}$ croît et les fonctions sont moins affectées par le filtre $\mathcal{F}_{2J,x}$. De plus, 
 \begin{equation}
 \lim_{F \rightarrow +\infty} \theta_{0.95} = \pi.
 \end{equation}
-Ce qui confirme la prise en compte d'un grand nombre de fréquence lorsque l'on augmente l'ordre du filtre. Cependant lorsque l'ordre du filtre augmente, l'effet de filtrage des hautes fréquences diminue.
+Cependant, il faut noter que plus $J$ augmente, plus les fonctions manipulées sont supposées régulières donc ce qui précède n'est vrai que pour des fonctions de grilles très régulières.
 
-Le filtre utilisé est linéaire et agit sur les composantes des fonctions de grilles. Il existe $M_{2F} \in \mathbb{M}_N \left( \mathbb{R} \right)$ la matrice associée au filtrage des données en dimension 1 telle que
+\begin{remarque}
+Le filtre $\mathcal{F}_{2J,x}$ est linéaire et agit sur les composantes des fonctions de grilles. Il existe $M_{2F} \in \mathbb{M}_N \left( \mathbb{R} \right)$ la matrice associée au filtrage des données en dimension 1 telle que
 \begin{equation}
-\mathcal{F}_{2F,x} \mathfrak{u} = M_{2F} \vec_1(\mathfrak{u})
+\mathcal{F}_{2J,x} \cdot \vec(\mathfrak{u}) = M_{2J} \vec(\mathfrak{u})
 \end{equation}
-et la matrice $M$ est donnée par
+La matrice $M_{2J}$ est donnée par
 \begin{equation}
-M_{2F} = S_{2F}(T).
+M_{2J} = S_{2J}(T),
 \label{eq:matrice_filtrage}
 \end{equation}
-
-\begin{proposition}
-La matrice $M_{2F}$ est symétrique :
-\begin{equation}
-M_{2F} = M^T_{2F}.
-\end{equation}
-\end{proposition}
-
+de plus, cette matrice est symétrique.
+\end{remarque}
 
 
 
@@ -1807,24 +1998,25 @@ M_{2F} = M^T_{2F}.
 
 \section{Opérateurs aux différences en dimension 2}
 
+Comme nous le verrons dans le chapitre \ref{chap:3}, la Cubed-Sphere est divisée en panel assimilables à des carrés en dimension 2. Pour cette raison, il est utile de considérer les opérateurs aux différences en dimension 2. Tous les opérateurs introduits dans la section précédente en dimension 1 peuvent être étendus à un carré périodique.
+
 
 \subsection{Notations}
 \label{sec:notation_2D}
 
-En dimension 2, les notations sont analogues de celles utilisées en dimension 1. On se limite au cas d'une géométrie carrée. Si $a$ et $b$ sont des réels positifs, nous notons $\Omega = [a,b]^2$. Chaque côté du carré est de longueur $L=b-a$. 
-Soient $u$ et $v$ deux fonctions de $\Omega$ dans $\mathbb{R}$. On note le produit scalaire dans $L^2 ( \Omega )$
+En dimension 2, les notations sont analogues à celles utilisées en dimension 1. Si $a$ et $b$ sont des réels positifs, nous notons $\Omega = [a,b]^2$. Chaque côté du carré est de longueur $L=b-a$. Soient $u$ et $v$ dans $L^2(\Omega, \mathbb{C})$. Le produit scalaire est
 \begin{equation}
-(u,v) = \gint_{\Omega} u(x,y) v(x,y) dx dy.
+(u,v) = \gint_{\Omega} u(x,y) \bar{v}(x,y) dx dy.
 \end{equation}
 La norme associée est :
 \begin{equation}
-\| u \|_{L^2(\Omega)} = \sqrt{(u,v)}. 
+\| u \|_{L^2(\Omega)} = \sqrt{(u,u)}. 
 \end{equation}
 On note également
 \begin{equation}
 \| u \|_{L^{\infty} ( \Omega )} = \max_{(x,y) \in \Omega} |u(x,y)|.
 \end{equation}
-Pour alléger les notations nous notons ces deux normes $\| u \|_{L^2}$ et $\| u \|_{L^{\infty}}$.
+Ces deux normes sont notées $\| u \|_{L^2}$ et $\| u \|_{L^{\infty}}$.
 
 Dans le domaine $\Omega$, la grille est constituée des points $(x_i,y_j)_{0 \leq i,j \leq N}$ où $N \geq 1$ avec $a = x_0 < x_1 < \ldots < x_N = b$ et $a = y_0 < y_1 < \ldots < y_N = b$. Le pas d'espace $h$ est fixe et donné par $h = \frac{L}{N}$. Les points de grilles sont $(x_i, y_j)$ avec 
 \begin{equation}
@@ -1897,7 +2089,7 @@ i \in \left\lbrace 0 , N \right\rbrace \text{ ou } j \in \left\lbrace 0 , N \rig
 \end{figure}
 
 
-On dit qu'une fonction $u : (x,y) \in \mathbb{R} \mapsto u(x,y) \in \mathbb{R}$ est $L-$\textit{périodique} dans les directions $x$ et $y$ si 
+Une fonction $u : (x,y) \in \mathbb{R} \mapsto u(x,y) \in \mathbb{C}$ est $L-$\textit{périodique} dans les directions $x$ et $y$ si 
 \begin{equation}
 \begin{array}{rcl}
 u(x,y+L) & = & u(x,y) \\
@@ -1905,44 +2097,34 @@ u(x+L,y) & = & u(x,y)
 \end{array} \text{ pour tous } (x,y) \in \mathbb{R}^2.
 \end{equation}
 
-Comme en dimension 1, nous définissons différentes notions de fonctions discrètes associées à la grille :
+Les notions de fonctions de grilles sont analogues à celles vues en dimension 1 :
 \begin{enumerate}
-\item Une \textit{fonction de grille} est une fonction définie aux points de la grille $(x_i,y_j)_{0 \leq i,j \leq N}$. Nous notons ces fonctions en fonte gothique comme $\mathfrak{u}$ ou $\mathfrak{v}$. On a :
+\item Une \textit{fonction de grille} est une fonction définie aux points de la grille $(x_i,y_j)_{0 \leq i,j \leq N}$. Nous notons les fonctions en fonte gothique comme $\mathfrak{u}$ ou $\mathfrak{v}$. On note :
 \begin{equation}
-\mathfrak{u} = \left( \mathfrak{u}(x_i,y_j) \right)_{0 \leq i,j \leq N} \text{ et } \mathfrak{u}_{i,j} = \mathfrak{u}(x_i,y_j).
+\mathfrak{u}_{i,j} = \mathfrak{u}(x_i,y_j) \text{ et }  \mathfrak{u} = \left( \mathfrak{u}_{i,j} \right)_{0 \leq i,j \leq N}.
 \end{equation}
 On note $L^2_h$ l'espace des fonctions de grilles. Cet espace est équipé d'un produit scalaire et de la norme associée :
 \begin{equation}
 (\mathfrak{u}, \mathfrak{v})_h = h^2 \gsum_{i,j=0}^N \mathfrak{u}(x_i, y_j) \bar{\mathfrak{v}}(x_i, y_j) \text{ et } |\mathfrak{u}|_h = \sqrt{(\mathfrak{u},\mathfrak{u})_h}.
 \end{equation}
-de plus, on a également
+De plus, pour $\mathfrak{u}$ fonction de grille, on note
 \begin{equation}
-| \mathfrak{u} |_{\infty} = \max_{0 \leq i,j \leq N} |\mathfrak{u}(x_i, y_j)|.
-\end{equation}
-Pour simplifier les notations, nous noterons
-\begin{equation}
-\mathfrak{u}_{i,j} = \mathfrak{u}(x_i, y_j) \text{ avec } 1 \leq i,j \leq N.
-\end{equation}
-
-$\mathfrak{u}$ est périodique si $\mathfrak{u}(x_{i},y_0) = \mathfrak{u}(x_{i},y_N)$ et $\mathfrak{u}(x_{0},y_j) = \mathfrak{u}(x_{N},y_j)$ pour tous $0 \leq i,j \leq N$. On note $L_{h,\per}^2$ l'espace des fonctions de grilles périodiques. Cet espace est doté du produit scalaire et de la norme
-\begin{equation}
-(\mathfrak{u},\mathfrak{v})_{h,\per} = h^2 \sum_{i,j=0}^{N-1} \mathfrak{u}_{i,j} \bar{\mathfrak{v}}_{i,j} \text{ et } |\mathfrak{u}|_{h,\per} = \sqrt{(\mathfrak{u}, \mathfrak{u})_{h,\per}}.
+| \mathfrak{u} |_{\infty} = \max_{0 \leq i,j \leq N} |\mathfrak{u}_{i,j}|.
 \end{equation}
 
 
-\item Soit $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$, nous définissons la fonction associée, notée $u^*$ par la restriction de $u$ à la grille :
+\item Soit $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$, nous définissons la fonction associée, notée $u^*$ est définie comme la restriction de $u$ à la grille :
 \begin{equation}
 u^*_{i,j} = u(x_i, y_j) \text{ pour tous } 0 \leq i,j \leq N.
 \end{equation}
 
-Si $u$ est périodique selon $x$ et $y$, on a $u^*_{i,0}=u^*_{i,N}$ et $u^*_{0,j}=u^*_{N,j}$ pour tous $0 \leq i,j \leq N$.
-D'une manière générale, dans un contexte périodique, les données sur des bords opposés du carrés coïncident.
+\item Cas périodique : $\mathfrak{u}$ est périodique si $\mathfrak{u}_{i,0} = \mathfrak{u}_{i,N}$ et $\mathfrak{u}_{0,j} = \mathfrak{u}_{N,j}$ pour tous $0 \leq i,j \leq N$. On note $L_{h,\per}^2$ l'espace des fonctions de grilles périodiques. Cet espace est doté du produit scalaire et de la norme
+\begin{equation}
+(\mathfrak{u},\mathfrak{v})_{h,\per} = h^2 \sum_{i,j=0}^{N-1} \mathfrak{u}_{i,j} \bar{\mathfrak{v}}_{i,j} \text{ et } |\mathfrak{u}|_{h,\per} = \sqrt{(\mathfrak{u}, \mathfrak{u})_{h,\per}}.
+\end{equation}
+Pour $u$ périodique selon $x$ et $y$, on a $u^*_{i,0}=u^*_{i,N}$ et $u^*_{0,j}=u^*_{N,j}$ pour tous $0 \leq i,j \leq N$.
 
-
-
-
-
-\item A une fonction de grille $\mathfrak{u} \in L^2_h$, on associe un vecteur $U \in \mathbb{R}^{(N+1)^2}$ constitué des valeurs de $\mathfrak{u}$ dans l'ordre anti-lexicographique :
+\item Une fonction de grille $\mathfrak{u} \in L^2_h$est associée au vecteur $U \in \mathbb{R}^{(N+1)^2}$ dont les composantes sont les valeurs de $\mathfrak{u}$ dans l'ordre anti-lexicographique :
 \begin{equation}
 U = \begin{bmatrix}
 \mathfrak{u}_{0,0}\\
@@ -1977,10 +2159,10 @@ On note ces vecteurs par des lettres capitales.
 %
 \subsection{Opérateurs aux différences en géométrie cartésienne}
 
-En utilisant les notations de la partie \ref{sec:notation_2D} en contexte périodique, nous définissons des opérateurs agissant sur les fonctions de grilles en dimension 2.
+On considère dans cette section les fonctions de grille périodiques $u \in L^2_{h,\per}$. Nous définissons les opérateur agissant sur les fonctions de grilles comme suit.
 
 \begin{definition}
-Soient $\tau_x$ et $\tau_y$ les \textit{opérateurs de translation} dans les directions $x$ et $y$ définis par
+Les opérateurs $\tau_x$ et $\tau_y$ dans les directions $x$ et $y$ sont définis par
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -1989,20 +2171,20 @@ Soient $\tau_x$ et $\tau_y$ les \textit{opérateurs de translation} dans les dir
 \end{array}
 \right.
 \end{equation}
-avec $\mathfrak{u}$ une fonction de grille et $1 \leq i,j \leq N$.
+avec $\mathfrak{u}$ une fonction de grille et $1 \leq i,j \leq N$. Il s'agit d'\textit{opérateurs de translations} dans les directions $x$ et $y$.
 \end{definition}
 
-Les opérateurs obtenus en dimension 1 sont définis en dimension 2 grâce à ces deux opérateurs de translation. On définit les opérateurs centrés dans les directions $x$ et $y$ par 
+Les opérateurs obtenus en dimension 1 sont définis en dimension 2 grâce à ces deux opérateurs de translation. Les opérateurs centrés dans les directions $x$ et $y$ par 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\delta_{2P,x} & = & \dfrac{1}{h} Q_{2P}(\tau_x) \\
-\delta_{2P,y} & = & \dfrac{1}{h} Q_{2P}(\tau_y)
+\delta_{2J,x} & = & \dfrac{1}{h} Q_{2J}(\tau_x) \\
+\delta_{2J,y} & = & \dfrac{1}{h} Q_{2J}(\tau_y)
 \end{array}
 \right.
 \label{eq:der_centrée_2D}
 \end{equation}
-De la même manière, on définis les opérateurs dans chaque direction par 
+De même, on définit les opérateurs dans chaque direction par 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -2012,31 +2194,32 @@ De la même manière, on définis les opérateurs dans chaque direction par
 \right.
 \label{eq:simpson_2D}
 \end{equation}
+où $R$ est donné par $R(X) = (1-2 \beta) + \beta (X+X^{N-1})$.
 Chacun des opérateurs $\sigma_x$ et $\sigma_y$ est inversible si $|\beta|<1/4$.
 L'opérateur hermitien en dimension 1 $\delta_x^H$ est étendue en dimension 2 grâce à la relation suivante 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\delta_{2P+2,x}^H & = & \sigma_x^{-1} \circ \delta_{2P,x} \\
-\delta_{2P+2,y}^H & = & \sigma_y^{-1} \circ \delta_{2P,y}
+\delta_{2J+2,x}^H & = & \sigma_x^{-1} \circ \delta_{2J,x} \\
+\delta_{2J+2,y}^H & = & \sigma_y^{-1} \circ \delta_{2J,y}
 \end{array}
 \right.
 \label{eq:der_herm_2D}
 \end{equation}
 
 \begin{theoreme}
-Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est une fonction de $\mathcal{C}^5 (\Omega)$. On note $u^*$ la fonction de grille associée à $u$ et $u_x^*$ (resp. $u_y^*$) la fonction de grille associée à la dérivée de $u$ dans la direction $x$ (resp. $y$) notée $\partial_x u$ (resp. $\partial_y u$). Alors
+Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est une fonction de $\mathcal{C}^5 (\Omega)$. On note $u^*$ la fonction de grille associée à $u$. Alors
 \begin{equation}
 \begin{array}{rcl}
-|u^*_{x} - \delta_{2P+2,x}^H u^*|_{\infty} &\leq& C h^{2P+2}\\
-|u^*_{y} - \delta_{2P+2,y}^H u^*|_{\infty} &\leq& C h^{2P+2}
+\|(\partial_x u)^* - \delta_{2P+2,x}^H u^*\|_{\infty} & \leq & C_x h^{2J+2} \| \partial_x^{(2J+3)}u \|_{\infty}\\
+|(\partial_y u)^* - \delta_{2P+2,y}^H u^*|_{\infty} &\leq & C_y h^{2J+2} \| \partial_y^{(2J+3)}u \|_{\infty}
 \end{array}
 \end{equation}
-Si les coefficients de $R$ et $Q_{2P}$ vérifient \eqref{eq:hermitian_system}.
+Où $C_x$, $C_y$ sont des réels positifs indépendants de $h$ et de $u$.
 \end{theoreme}
 
 \begin{proof}
-Conséquence du théorème \ref{th:consistence_herm2} appliqué dans chaque direction $x$ et $y$.
+Conséquence du théorème \ref{th:consistence_herm2} appliqué à chaque direction $x$ et $y$.
 \end{proof}
 
 
@@ -2065,9 +2248,8 @@ Conséquence du théorème \ref{th:consistence_herm2} appliqué dans chaque dire
 
 \subsection{Écriture matricielle des opérateurs aux différences en dimension 2}
 
-Dans cette section, nous précisons les notations vectorielles et matricielles utiles à l'écriture matricielle des opérateurs en dimension 2.
-
-Nous définissons la \textit{base canonique} de $\mathbb{R}^N$, notée $\left(e_i \right)_{0 \leq i \leq N-1}$ et donnée par 
+Dans cette section, nous précisons les notations vectorielles et matricielles utiles en dimension 2.
+La \textit{base canonique} de $\mathbb{R}^N$, notée $\left(e_i \right)_{0 \leq i \leq N-1}$ est donnée par 
 \begin{equation}
 \left( e_i \right) = \delta_{i,j} = \left\lbrace
 \begin{array}{rl}
@@ -2079,80 +2261,97 @@ Nous définissons la \textit{base canonique} de $\mathbb{R}^N$, notée $\left(e_
 $\delta_{i,j}$ est le symbole de Kronecker.
 
 \begin{definition}
-Soit $A$ une matrice de taille $m \times n$ et $B$ une matrice de $p \times q$, avec $m, n, p, q \in \mathbb{N}^{\star}$. La matrice $A \otimes B$ est une matrice de taille $mp \times nq$ donnée comme le produit de Kronecker de $A$ par $B$ et 
+Soit $A$ une matrice $m \times n$ et $B$ une matrice $p \times q$, avec $m, n, p, q \in \mathbb{N}^{\star}$. Le produit de Kronecker $A \otimes B$ est la matrice $mp \times nq$ définie par
 \begin{equation}
 A \otimes B = 
 \begin{bmatrix}
 a_{1,1}B & \cdots & a_{1,n}B \\ 
 \vdots & \ddots & \vdots \\ 
 a_{n,1}B & \cdots & a_{n,n}B
-\end{bmatrix} 
+\end{bmatrix} .
 \end{equation}
 \end{definition}
-On rapelle les propriétés suivantes concernant le produit de Kronecker :
+Le produit de Kronecker possède les propriétés suivantes \cite{VanLoan1992} :
 
 \begin{proposition}
-Soient $A$, $B$, $C$ et $D$ des matrices et $\alpha$ un réel.
+Soient $A$, $B$, $C$ et $D$ des matrices complexes.
 \begin{itemize}
-\item La multiplication par un scalaire vérifie
+\item Pour tout $\alpha \in \mathbb{C}$, on a
 \begin{equation}
-\alpha ( A \otimes B ) = \alpha A \otimes B = A \otimes \alpha B,
+\alpha ( A \otimes B ) = (\alpha A) \otimes B = A \otimes (\alpha B),
 \end{equation}
 
-\item si les produits $AC$ et $BD$ sont bien définis alors
+\item si $AC$ et $BD$ sont bien définis alors
 \begin{equation}
 (A \otimes B ) (C \otimes D) = AC \otimes BD,
 \end{equation} 
 
+\item par transposition, on a
+\begin{equation}
+(A \otimes B)^{T} = A^{T} \otimes B^{T}.
+\end{equation}
 
-\item si $A$ et $B$ sont inversibles
+\item si $A \in \mathbb{M}_n (\mathbb{C})$ et $B \in \mathbb{M}_p (\mathbb{C})$ sont inversibles, alors $A \otimes B$ est inversible et
 \begin{equation}
 (A \otimes B)^{-1} = A^{-1} \otimes B^{-1}.
+\end{equation}
+
+\item si $A \in \mathbb{M}_n (\mathbb{C})$ et $B \in \mathbb{M}_p (\mathbb{C})$ alors
+\begin{equation}
+\det (A \otimes B) = \det(A)^n \det(B)^p.
 \end{equation}
 \end{itemize}
 \label{prop:pdt_kron}
 \end{proposition}
 
 \begin{proposition}
-Si $\lambda \in \mathbb{R}$ est la valeur propre associée à $X \in \mathbb{R}^N$ de $A \in \mathbb{M}_N ( \mathbb{R} )$, alors si $Id \in \mathbb{M}_N ( \mathbb{R} )$ est la matrice identité,
+Soit $A \in \mathbb{M}_n(\mathbb{C})$ et $p \in \mathbb{N}^*$, alors les spectres des matrices $(A \otimes \I_p)$ et $(\I_p \otimes A)$ sont connus et on a
 \begin{itemize}
-\item $\lambda$ est la valeur propre (de multiplicité $N$) associée aux vecteurs propres $X \otimes \mathbf{e}_i$ ($1 \leq i \leq N$) pour la matrice $A \otimes Id$,
+\item $A \otimes \I_p \in \mathbb{M}_{np}(\mathbb{C})$ et
+\begin{equation}
+\Sp(A \otimes \I_p) = \Sp(A),
+\end{equation}
 
-\item $\lambda$ est la valeur propre (de multiplicité $N$) associée aux vecteurs propres $\mathbf{e}_i \otimes X$ ($1 \leq i \leq N$) pour la matrice $Id \otimes A$.
+\item $\I_p \otimes A \in \mathbb{M}_{np}(\mathbb{C})$ et
+\begin{equation}
+\Sp(\I_p \otimes A) = \Sp(A),
+\end{equation}
 \end{itemize}
+où $\I_p$ désigne la matrice identité de $\mathbb{M}_p(\mathbb{C})$.
 \label{prop:eigen_pdtkron}
 \end{proposition}
 
 \begin{proof}
-Soit $i$ un entier entre $1$ et $N$.
-On effectue directement le calcul
+\begin{itemize}
+Soit $\lambda \in \Sp(A \otimes \I_p)$ alors $\lambda$ est solution de 
+\begin{equation}
+\det(A \otimes \I_p - \lambda \I_{np}) = 0
+\end{equation}
+Donc d'après la proposition \ref{prop:pdt_kron} et comme $\I_n \otimes \I_p = \I_{np}$, on a
 \begin{align*}
-(A \otimes Id) (X \otimes \mathfrak{e}_i) & = AX \otimes \mathbf{e}_i \\
-	& = \lambda X \otimes \mathbf{e}_i \\
-	& = \lambda (X \otimes \mathbf{e}_i).
+\det((A \otimes \I_p)-\lambda \I_{np}) & = \det(A \otimes \I_p - \lambda \I_n \otimes \I_p) \\
+	& = \det(A - \lambda \I_n)^p \det(\I_p \otimes \I_n)^n \\
+	& = \det(A - \lambda \I_n)^p
 \end{align*}
-De la même manière on a 
-\begin{align*}
-(Id \otimes A) (\mathbf{e}_i \otimes X) & = (\mathbf{e}_i \otimes AX) \\
-	& = (\mathbf{e}_i \otimes \lambda X ) \\
-	& = \lambda (\mathbf{e}_i \otimes X ).
-\end{align*}
-Ce qui nous donne les relations souhaitées sur les valeurs propres et les vecteurs propres.
+Ainsi, on a 
+\begin{equation*}
+\lambda \in \Sp(A\otimes \I_p) \Leftrightarrow \lambda \in \Sp(A).
+\end{equation*}	
+De là, il découle l'égalité souhaitée sur les ensembles :
+\begin{equation}
+\Sp(A \otimes \I_p) = \Sp(A).
+\end{equation}
+La seconde égalité est obtenue de la même manière.
+\end{itemize}
 \end{proof}
 
-
-
-
-
-
-
-L'application $\text{vec}_2$ permet de transformer une fonction de grille $\mathbf{u}$ en un vecteur $U$.
+On note $\text{vec}_2$ l'opérateur suivant :
 
 \begin{definition}
-L'opérateur $\text{vec}_2$ est défini par
+L'opérateur $\vec_2$ est défini par
 \begin{equation}
 \begin{array}{rcl}
-\text{vec}_2 : L^2_h & \longrightarrow & \mathbb{R}^{N^2}\\
+\vec_2 : L^2_h & \longrightarrow & \mathbb{C}^{N^2}\\
 \mathfrak{v} & \longrightarrow & V = \text{vec}_2(\mathfrak{v})
 \end{array}
 \end{equation}
@@ -2162,81 +2361,86 @@ avec
 \end{equation}
 \end{definition}
 
-L'opérateur $\text{vec}_2$ transforme une fonction de grille $\mathfrak{v}$ en un vecteur en organisant les données dans l'ordre antilexicographique. Si $V = \text{vec}_2 (\mathfrak{v})$ alors on a l'égalité suivante :
+L'opérateur $\vec_2$ applique une fonction de grille $\mathfrak{v} \in L^2_{h,\per}$ en un vecteur $V \in \mathbb{C}^{N^2}$ dont les composantes sont déduites de $\mathfrak{v}$ dans l'ordre antilexicographique. Autrement dit $V = \vec_2(\mathfrak{v})$ est donné par
 \begin{equation}
-V=[\mathfrak{v}_{1,1}, \mathfrak{v}_{2,1}, \mathfrak{v}_{3,1}, \cdots, \mathfrak{v}_{N,1}, \mathfrak{v}_{1,2}, \mathfrak{v}_{2,2}, \cdots,  \mathfrak{v}_{N-1,N}, \mathfrak{v}_{N,N}]^T
+V=[\mathfrak{v}_{0,0}, \mathfrak{v}_{1,0}, \mathfrak{v}_{2,0}, \cdots, \mathfrak{v}_{N-1,0}, \mathfrak{v}_{0,1}, \mathfrak{v}_{1,1}, \cdots,  \mathfrak{v}_{N-1,1}, \mathfrak{v}_{N-1,N-1}]^T.
 \end{equation}
+On note $\vec$ au lieu de $\vec_2$ quand le contexte est clair.
+
 
 \begin{proposition}
 Soit $\mathfrak{u}$ une fonction de grille. Alors les opérateurs de dérivées centrées \eqref{eq:der_centrée_2D} s'écrivent matriciellement sous la forme
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\text{vec}_2(\delta_{2P,x} \mathfrak{u}) & = & (Id \otimes D_{2P}) \text{vec}_2(\mathfrak{u})\\
-\text{vec}_2(\delta_{2P,y} \mathfrak{u}) & = & (D_{2P} \otimes Id) \text{vec}_2(\mathfrak{u})\\
-\text{vec}_2(\sigma_x \mathfrak{u}) & = & (Id \otimes P) \text{vec}_2(\mathfrak{u})\\
-\text{vec}_2(\sigma_y \mathfrak{u}) & = & (P \otimes Id) \text{vec}_2(\mathfrak{u})\\
+\text{vec}(\delta_{2J,x} \mathfrak{u}) & = & (\I_N \otimes D_{2J}) \text{vec}(\mathfrak{u})\\
+\text{vec}(\delta_{2J,y} \mathfrak{u}) & = & (D_{2J} \otimes \I_N) \text{vec}(\mathfrak{u})\\
+\text{vec}(\sigma_x \mathfrak{u}) & = & (\I_N \otimes P_{\sigma}) \text{vec}(\mathfrak{u})\\
+\text{vec}(\sigma_y \mathfrak{u}) & = & (P_{\sigma} \otimes \I_N) \text{vec}(\mathfrak{u})\\
 \end{array}\right.
 \end{equation}
+où $D_{2J}$ est issu de \eqref{eq:matrice_explicite} et $P_{\sigma}$ de \eqref{eq:matrice_implicitpart}.
 \label{prop:op_der_simpson_mat}
 \end{proposition}
 
 \begin{proof}
 Par définition de $\text{vec}_2$, on a 
 \begin{align*}
-\text{vec}_2 (\delta_{2P,x} \mathfrak{u}) & = \gsum_{i,j=0}^P (e_j \otimes e_i) \delta_{2P,x} \mathfrak{u}_{i,j} \\
-	& = \gsum_{i,j=0}^{N-1} \gsum_{p=1}^P (e_j \otimes e_i) \dfrac{a_p}{2ph} (\mathfrak{u}_{i+p,j} - \mathfrak{u}_{i-p,j}) \\
-	& = \gsum_{p=1}^P \dfrac{a_p}{2ph} \left( \gsum_{i,j=0}^{N-1} (e_j \otimes e_i) \mathfrak{u}_{i+p,j} - (e_j \otimes e_i) \mathfrak{u}_{i-p,j} \right) \\
-	& = \gsum_{p=1}^P \dfrac{a_p}{2ph} \gsum_{i,j=0}^{N-1} e_j \otimes (e_i \mathfrak{u}_{i+p,j} - e_i \otimes \mathfrak{u}_{i-p,j})\\
-	& = \gsum_{p=1}^P \dfrac{a_p}{2ph} \left( Id \otimes \left( T^p - T^{-p}  \right) \right) \vec_2 (\mathfrak{u}) \\
-	& = (Id \otimes D_{2P}) \vec_2 (\mathfrak{u})
+\text{vec} (\delta_{2J,x} \mathfrak{u}) & = \gsum_{i,j=0}^J (e_j \otimes e_i) \delta_{2J,x} \mathfrak{u}_{i,j} \\
+	& = \gsum_{i,j=0}^{N-1} \gsum_{p=1}^J (e_j \otimes e_i) \dfrac{a_p}{2ph} (\mathfrak{u}_{i+p,j} - \mathfrak{u}_{i-p,j}) \\
+	& = \gsum_{p=1}^J \dfrac{a_p}{2Jh} \left( \gsum_{i,j=0}^{N-1} (e_j \otimes e_i) \mathfrak{u}_{i+p,j} - (e_j \otimes e_i) \mathfrak{u}_{i-p,j} \right) \\
+	& = \gsum_{p=1}^J \dfrac{a_p}{2ph} \gsum_{i,j=0}^{N-1} e_j \otimes (e_i \mathfrak{u}_{i+p,j} - e_i \otimes \mathfrak{u}_{i-p,j})\\
+	& = \gsum_{p=1}^J \dfrac{a_p}{2ph} \left( \I_N \otimes \left( T^p - T^{-p}  \right) \right) \vec (\mathfrak{u}) \\
+	& = (\I_N \otimes D_{2J}) \vec (\mathfrak{u})
 \end{align*}
-les autres égalités se montrent de la même manière
+les autres égalités se montrent de la même manière.
 \end{proof}
-
-De ces égalités, il découle le calcul matriciel de $\delta_{2P+2,x}^H \mathfrak{u}$ et de $\delta_{2P+2,y}^H \mathfrak{u}$.
-
+On déduit également $\vec(\delta_{2J+2,x}^H \mathfrak{u})$ et de $\vec(\delta_{2J+2,y}^H \mathfrak{u})$.
+On considère à présent les matrices associées à $\delta^H_{2J+2,x} \mathfrak{u}$ et $\delta^H_{2J+2,y} \mathfrak{u}$.
 \begin{theoreme}
 Soit $\mathfrak{u}$ une fonction de grille. Alors, si on pose 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-U & = & \text{vec}_2 (\mathfrak{u}) \\
-U_x & = & \text{vec}_2 (\delta_{2P+2,x}^H \mathfrak{u}) \\
-U_y & = & \text{vec}_2 (\delta_{2P+2,y}^H \mathfrak{u}) \\
+U & = & \text{vec} (\mathfrak{u}) \\
+U_x & = & \text{vec} (\delta_{2J+2,x}^H \mathfrak{u}) \\
+U_y & = & \text{vec} (\delta_{2J+2,y}^H \mathfrak{u}) \\
 \end{array}
 \right.
 \end{equation}
-alors les égalités suivantes sont vérifiées
+les matrices associées à $\delta^H_{2J+2,x} \mathfrak{u}$ et $\delta^H_{2J+2,y} \mathfrak{u}$ sont telles que 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcccl}
-U_x &=& (Id \otimes P)^{-1}(Id \otimes D_{2P}) U &=& (Id \otimes P^{-1}D_{2P})U \\
-U_y &=& (P \otimes Id)^{-1}(D_{2P} \otimes Id) U &=& (P^{-1}D_{2P} \otimes Id)U\\
+U_x &=& (\I_N \otimes P^{-1}_{\sigma} D_{2J})U \\
+U_y &=& (P^{-1}_{\sigma}D_{2J} \otimes \I_N)U.
 \end{array}
 \right.
 \end{equation}
 \end{theoreme}
 
 \begin{proof}
-Conséquence directe des propositions \ref{prop:op_der_simpson_mat} et \ref{prop:pdt_kron}.
-\end{proof}
-
-%La matrice du schéma hermitien $(Id \otimes P^{-1}K)$ en direction $x$ et $(P^{-1}K \otimes Id)$ en direction $y$ vérifient des propriétés d'antisymétriques similaires à celles en dimension 1.
-\begin{proposition}
-Les matrices $(Id \otimes P^{-1}D_{2P})$ et $(P^{-1}D_{2P} \otimes Id)$ sont antisymétrique.
-\end{proposition}
-
-\begin{proof}
-$P^{-1}D_{2P}$ est antisymétrique. D'où le résultat.
-\end{proof}
-
-\begin{proposition}
-Les valeurs propres de $\delta_{2P+2,x}^H$ sont données avec une multiplicité de $N$ par
+L'égalité suivante sont vérifiée
 \begin{equation}
-\dfrac{1}{h}Q_{2P+2}^H(\omega^k)
+(P_{\sigma} \otimes I_N) U_x = (D_{2J} \otimes \I_N) U.
 \end{equation}
-où $-N/2+1 \leq k \leq N/2$. Chacune de ces valeurs propres est associées aux vecteurs $\mathfrak{u}^k \otimes \mathbf{e}_i$ pour $1 \leq i \leq N$.
+Donc on obtient
+\begin{align*}
+U_y & = (P_{\sigma} \otimes I_N)^{-1}(D_{2J} \otimes \I_N) U \\
+	& = (P^{-1}_{\sigma} D_{2J} \otimes \I_N^{-1}\I_N) U \\
+	& = (P^{-1}_{\sigma} D_{2J} \otimes \I_N) U.
+\end{align*}
+La seconde égalité est obtenue de la meme manière.
+\end{proof}
+
+Les matrices $(Id \otimes P^{-1}D_{2P})$ et $(P^{-1}D_{2P} \otimes Id)$ sont antisymétrique.
+
+\begin{proposition}
+Les valeurs propres de $\delta_{2J+2,x}$ et de $\delta_{2J+2,y}$ sont
+\begin{equation}
+\dfrac{1}{h}Q^H_{2J+2}(\omega^k)
+\end{equation}
+pour $-N/2+1 \leq k \leq N/2$.
 \end{proposition}
 
 \begin{proof}
@@ -2250,41 +2454,52 @@ Il s'agit d'une conséquence de la proposition \ref{prop:eigen_pdtkron}.
 
 
 
+
+
+
 \subsection{Opérateur de filtrage}
 
-Dans cette partie, nous utilisons toujours les notations de la section \ref{sec:notation_2D} en contexte périodique. Définissons les opérateurs de filtrage dans les directions $x$ et $y$ par
-\begin{eqnarray*}
-\mathcal{F}_{2F,x} = \gsum_{k=0}^F a_k \dfrac{\tau_x^k + \tau_x^{-k}}{2}  = S_{2F}(\tau_x)\\
-\mathcal{F}_{2F,y} = \gsum_{k=0}^F a_k \dfrac{\tau_y^k + \tau_y^{-k}}{2} = S_{2F}(\tau_y) \\
-\end{eqnarray*}
-
-Avec $(a_k)_{0 \leq k \leq F}$ vérifiant le système \eqref{prop:filter_def}. Comme la géométrie est cartésienne, on remarque que 
-\begin{equation}
-\mathcal{F}_{2F,x} \circ \mathcal{F}_{2F,y} = \mathcal{F}_{2F,y} \circ \mathcal{F}{2F,x}.
-\end{equation}
-Ce qui est faux lorsque la métrique n'est pas orthogonale.
-La proposition \ref{prop:filter_def} permet de vérifier la consistance des opérateurs de filtrages.
-Si $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$ est fonction de $\mathcal{C}^{2F}$ alors :
-\begin{eqnarray*}
-\mathcal{F}_{2F,x} u^*_{i,j} - u^*_{i,j} & = & C_xh^{2F}\\
-\mathcal{F}_{2F,y} u^*_{i,j} - u^*_{i,j} & = & C_yh^{2F}
-\end{eqnarray*}
-où $C_x$ et $C_y$ sont des constantes indépendantes de $h$.
-En particulier, en composant les opérateurs, on peut définir un nouvel opérateur de filtrage. En effet  
-\begin{equation}
-(\mathcal{F}_{2F,x} \circ \mathcal{F}_{2F,y}) u_{i,j}^* - u_{i,j}^* = Ch^{2F}.
-\end{equation}
-
-L'écriture matricielle de l'opérateur de filtrage est donnée par la proposition suivante :
-\begin{proposition}
-Soit $\mathbf{u}$ une fonction de grille. Alors les opérateurs de filtrages s'écrivent à l'aide de matrices comme :
+Dans cette partie, nous utilisons les notations de la section \ref{sec:notation_2D} en contexte périodique. Définissons les opérateurs de filtrage bidimensionnel dans les directions $x$ et $y$ par
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-\text{vec}_2 (\mathcal{F}_{2F,x} \mathbf{u}) & = & (Id \otimes M_{2F}) \text{vec}_2 (\mathbf{u})\\
-\text{vec}_2 (\mathcal{F}_{2F,x} \mathbf{u}) & = & (M_{2F} \otimes Id) \text{vec}_2 (\mathbf{u})\\
+\mathcal{F}_{2J,x} & = & \gsum_{p=0}^J a_p \dfrac{\tau_x^p + \tau_x^{-p}}{2}  = S_{2J}(\tau_x), \\
+\mathcal{F}_{2J,y} & = & \gsum_{p=0}^J a_p \dfrac{\tau_y^p + \tau_y^{-p}}{2} = S_{2J}(\tau_y).
+\end{array}
+\right.
+\end{equation}
+où $S_{2J}$ est donné par \eqref{eq:pol_filtrage}. 
+Les coefficients $(a_p)_{0 \leq p \leq J}$ vérifient le système \eqref{eq:system_ftr}. Les opérateurs $\mathcal{F}_{2J,x}$ et $\mathcal{F}_{2J,y}$ commutent :
+\begin{equation}
+\mathcal{F}_{2J,x} \circ \mathcal{F}_{2J,y} = \mathcal{F}_{2J,y} \circ \mathcal{F}{2F,x}.
+\end{equation}
+La proposition \ref{prop:filter_def} permet de vérifier la consistance des opérateurs de filtrages.
+Si $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$ est fonction de $\mathcal{C}^{2F}$ alors :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\| u^* - \mathcal{F}_{2J,x}u^* \|_{\infty} & \leq & C_x h^{2J} \| \partial_x^{(2J)}u \|_{\infty}\\
+\| u^* - \mathcal{F}_{2J,y}u^* \|_{\infty} & \leq & C_y h^{2J} \| \partial_y^{(2J)}u \|_{\infty}
+\end{array}
+\right.
+\end{equation}
+où $C_x$ et $C_y$ sont des constantes indépendantes de $u$ et de $h$.
+En composant les opérateurs, l'opérateur $\mathcal{F}_{2J,x} \circ \mathcal{F}_{2J,y}$ désigne un opérateur de Filtrage au sens où
+\begin{equation}
+\| u^* - (\mathcal{F}_{2J,x} \circ \mathcal{F}_{2J,y}) u^* \|_{\infty} = C h^{2J} \max (\| \partial_x^{(2J)}u \|_{\infty}, \| \partial_y^{(2J)}u \|_{\infty}).
+\end{equation}
+où $C$ est un réel indépendant de $u$ et de $h$.
+
+L'écriture matricielle de l'opérateur de filtrage est donnée par la proposition suivante :
+\begin{proposition}
+Soit $\mathfrak{u} \in L^2_{h,\per}$ une fonction de grille. Alors les opérateurs de filtrages
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\text{vec} (\mathcal{F}_{2J,x} \mathbf{u}) & = & (\I_N \otimes M_{2J}) \text{vec} (\mathbf{u})\\
+\text{vec} (\mathcal{F}_{2J,y} \mathbf{u}) & = & (M_{2J} \otimes \I_N) \text{vec} (\mathbf{u})\\
 \end{array}
 \right.
 \end{equation}
 \end{proposition}
-Comme la matrice $M_{2F}$ est symétrique, il est immédiat que $Id \otimes M_{2F}$ et $M_{2F} \otimes Id$ sont symétriques aussi.
+Comme la matrice $M_{2J}$ est symétrique, il est immédiat que $\I_N \otimes M_{2J}$ et $M_{2J} \otimes \I_N$ sont symétriques.

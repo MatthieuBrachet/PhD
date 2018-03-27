@@ -6,14 +6,16 @@ global x_fI y_fI z_fI x_fII y_fII z_fII x_fIII y_fIII z_fIII
 global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
 global dxi
 global opt_ftr scheme filtre
+global corner
 
 filtre='classic';
 opt_ftr='redonnet10';
 scheme='compact4';
 
 
-test=-1;
+test=0;
 NN=2.^[2:7]-1;
+corner=1/4;
 
 for ii=1:length(NN)
     clc; n=NN(ii)
@@ -30,13 +32,13 @@ for ii=1:length(NN)
 
     str='int';
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg1]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
-    eint(ii)=abs((nrmV-int));
+    eint(ii)=abs((nrmg1-int))./int;
     str='test';
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg2]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
-    etest(ii)=abs((nrmV-int));
+    etest(ii)=abs((nrmg2-int))./int;
     str='simpson';
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg3]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);
-    esimpson(ii)=abs((nrmV-int));
+    esimpson(ii)=abs((nrmg3-int))./int;
 end
 
 [a11,b1]=polyfit(log(hh),log(eint),1);

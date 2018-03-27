@@ -368,7 +368,9 @@ r = a \arccos \left( \sin \theta_C \sin \theta + \cos \theta_C \cos \theta \cos 
 \end{equation}
 $(\lambda_C, \theta_C) = (3 \pi / 2 , 0)$ est la position initiale du Bump. Il s'agit d'une condition initiale de classe $\mathcal{C}^1$. Des tests existent avec des solutions initiales moins régulières, en particulier \cite{Nair2010}, mais nous ne nous concentrons pas sur ce type de problèmes ici.
 
-Les tables \ref{tab:rate1_bump} et \ref{tab:rate2_bump} donnent l'erreur obtenue sur 12 jours avec différentes tailles de maillages avec $\alpha=0$ et $\alpha = \pi/4$. Comme on peut le voir dans la figure \ref{fig:rate_bump}. De plus, en figure \ref{fig:erreur_bump}, on observe la localisation spatiale de l'erreur $h^*(t^n) - h^n$ après une rotation complète de la solution initiale, au temps $t=12$ jours ainsi que l'erreur relative au cours du temps pour $N=40$.
+Les tables \ref{tab:rate1_bump} et \ref{tab:rate2_bump} donnent l'erreur obtenue sur 12 jours avec différentes tailles de maillages avec $\alpha=0$ et $\alpha = \pi/4$. La convergence se fait à un ordre compris entre $1.5$ et $2.5$. La convergence d'ordre $3$ au moins était attendue en supposant la solution suffisamment régulière ce qui n'est pas le cas ici puisque la solution est de classe $\mathcal{C}^1$.
+
+Dans la figure \ref{fig:erreur_bump}, on observe la localisation spatiale de l'erreur $h^*(t^n) - h^n$ après une rotation complète de la solution initiale, au temps $t=12$ jours ainsi que l'erreur relative au cours du temps pour $N=40$. L'erreur est principalement localisée au bord du Bump, c'est à dire la où la fonction est la moins régulière.
 
 \begin{table}[htbp]
 \begin{center}
@@ -499,7 +501,7 @@ Filtre d'ordre $2$ & $47.52$ & $91.45$ & $170.70$ \\
 \label{fig:parasite_bump}
 \end{figure}
 
-\subsection{Formation d'un vortex}
+\subsection{Propagation de vortex}
 
 Le test précédent est un test de déplacement sans déformation de la solution initiale. Dans \cite{Nair2002}, le test est construit pour que la condition initiale soit déformée au fil du temps.
 On considère $(\lambda_C, \theta_C) \in \mathbb{S}_a^2$ un point de la sphère. Le test consiste à positionner deux vortex diamétralement opposés dont l'un est situé en $(\lambda_C, \theta_C)$. Les deux vortex s'enroulent autour de leurs centres respectifs au fil du temps, rendant la représentation de la solution de plus en plus difficile à représenter sur un maillage fixé.
@@ -625,6 +627,16 @@ v(t,\lambda, \theta) & = & - u_0 \sin \lambda \sin \alpha + a \omega_r \left( \c
 \end{array}
 \right. .
 \end{equation}
+$(\lambda_C(t), \theta_C(t)) \in \mathbb{S}_a^2$ correspond à la position du vortex au fil du temps, cette dernière est donnée dans la base "tournée" d'un angle $\alpha$ par
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\lambda_C'(t) & = & \lambda_0' + \Omega_s t \\
+\theta_C'(t) & = & \theta_0'
+\end{array}
+\right.
+\end{equation}
+avec $(\lambda_0', \theta_0')$ la position initiale du vortex dans la base 
 
 
 

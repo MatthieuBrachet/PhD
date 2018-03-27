@@ -1,5 +1,6 @@
 % disc.tex
 \chapter{Analyse numérique}
+\label{chap:2}
 
 \section{Discrétisation temporelle}
 
@@ -419,9 +420,9 @@ u(x_j, t) \approx U_j ( t ) = \dfrac{1}{N} \gsum_{k=0}^{N-1}  \exp \left[ i \dfr
 
 
 \begin{lemme}
-Pour tout $\alpha > 0$, $\mathfrak{u}, \mathfrak{v} \in \mathcal{l}^2_{h,per}$, on a
+Pour tout $\alpha > 0$, $\mathfrak{u}, \mathfrak{v} \in \mathcal{l}^2_{h,\per}$, on a
 \begin{equation}
-\alpha |\mathfrak{u}|_{h,per} + \dfrac{1}{\alpha} |\mathfrak{v}|_{h,per} \geq 2 |(\mathfrak{u},\mathfrak{v})_{h,per}|
+\alpha |\mathfrak{u}|_{h,\per} + \dfrac{1}{\alpha} |\mathfrak{v}|_{h,\per} \geq 2 |(\mathfrak{u},\mathfrak{v})_{h,\per}|
 \end{equation}
 \label{lem:ineg_1}
 \end{lemme}
@@ -429,15 +430,15 @@ Pour tout $\alpha > 0$, $\mathfrak{u}, \mathfrak{v} \in \mathcal{l}^2_{h,per}$, 
 \begin{proof}
 On a immédiatement
 \begin{equation}
-\left( \sqrt{\alpha} |\mathfrak{u}|_{h,per} - \dfrac{1}{\sqrt{\alpha}} |\mathfrak{v}|_{h,per} \right)^2 \geq 0
+\left( \sqrt{\alpha} |\mathfrak{u}|_{h,\per} - \dfrac{1}{\sqrt{\alpha}} |\mathfrak{v}|_{h,\per} \right)^2 \geq 0
 \end{equation}
 donc en développant, on a
 \begin{equation}
-\alpha |\mathfrak{u}|_{h,per}^2 - 2 |\mathfrak{u}|_{h,per} |\mathfrak{v}|_{h,per} + \dfrac{1}{\alpha} |\mathfrak{v}|_{h,per}^2 \geq 0.
+\alpha |\mathfrak{u}|_{h,\per}^2 - 2 |\mathfrak{u}|_{h,\per} |\mathfrak{v}|_{h,\per} + \dfrac{1}{\alpha} |\mathfrak{v}|_{h,\per}^2 \geq 0.
 \end{equation}
 Ainsi, en utilisant l'inégalité de Cauchy-Schwarz, il vient
 \begin{equation}
-\alpha |\mathfrak{u}|_{h,per}^2 + \dfrac{1}{\alpha} |\mathfrak{v}|_{h,per}^2 \geq 2 |\mathfrak{u}|_{h,per} |\mathfrak{v}|_{h,per} \geq 2|(\mathfrak{u}, \mathfrak{v})_{h,per}|.
+\alpha |\mathfrak{u}|_{h,\per}^2 + \dfrac{1}{\alpha} |\mathfrak{v}|_{h,\per}^2 \geq 2 |\mathfrak{u}|_{h,\per} |\mathfrak{v}|_{h,\per} \geq 2|(\mathfrak{u}, \mathfrak{v})_{h,\per}|.
 \end{equation}
 \end{proof}
 
@@ -470,7 +471,7 @@ On pose $\mathfrak{u}$ la fonction de grille solution de
 \end{equation}
 Alors l'erreur est donnée par
 \begin{equation}
-\| \mathfrak{u} - u^* \|_{h,per} \leq \tilde{C} \sqrt{L} T h^4 \| \partial^5_x u \|_{\infty,[0,T] \times [0,L]}
+\| \mathfrak{u} - u^* \|_{h,\per} \leq \tilde{C} \sqrt{L} T h^4 \| \partial^5_x u \|_{\infty,[0,T] \times [0,L]}
 \end{equation}
 où $C>0$ est une constante indépendante de $h$ et de $u$.
 \end{proposition}
@@ -484,37 +485,37 @@ On pose la fonction de grille d'erreur $\mathfrak{e} = u^* - \mathfrak{u}$ dépe
 \end{align*}
 On a vu que $\delta_{4,x}^H$ est un opérateur antisymétrique d'où
 \begin{equation}
-( \delta_{4,x}^H \mathfrak{e}, \mathfrak{e} )_{h,per} = 0.
+( \delta_{4,x}^H \mathfrak{e}, \mathfrak{e} )_{h,\per} = 0.
 \end{equation}
 De ce dernier résultat, on peut déduire :
 \begin{equation}
-( \dfrac{d \mathfrak{e}}{dt} , \mathfrak{e} )_{h,per} = c ( \mathfrak{\tau}, \mathfrak{e})_{h,per}
+( \dfrac{d \mathfrak{e}}{dt} , \mathfrak{e} )_{h,\per} = c ( \mathfrak{\tau}, \mathfrak{e})_{h,\per}
 \end{equation}
 Ainsi, on appliquant le lemme \ref{lem:ineg_1} et en utilisant les propriétés de la dérivation, on a
 \begin{align*}
-\dfrac{d}{dt} \|\mathfrak{e}\|_{h,per}^2 & = 2 c ( \mathfrak{\tau}, \mathfrak{e})_{h,per} \\
-   & \leq 2 c |( \mathfrak{\tau}, \mathfrak{e})_{h,per}| \\
-   & \leq c \left[ \alpha \|\mathfrak{\tau}\|_{h,per}^2 + \dfrac{1}{\alpha} \|\mathfrak{e}\|_{\infty}^2 \right] \\
-   & \leq c \alpha \|\mathfrak{\tau}\|^2_{h,per} + \dfrac{c}{\alpha} \|\mathfrak{e}\|^2_{h,per} 
+\dfrac{d}{dt} \|\mathfrak{e}\|_{h,\per}^2 & = 2 c ( \mathfrak{\tau}, \mathfrak{e})_{h,\per} \\
+   & \leq 2 c |( \mathfrak{\tau}, \mathfrak{e})_{h,\per}| \\
+   & \leq c \left[ \alpha \|\mathfrak{\tau}\|_{h,\per}^2 + \dfrac{1}{\alpha} \|\mathfrak{e}\|_{\infty}^2 \right] \\
+   & \leq c \alpha \|\mathfrak{\tau}\|^2_{h,\per} + \dfrac{c}{\alpha} \|\mathfrak{e}\|^2_{h,\per} 
 \end{align*}
 pour tout $\alpha > 0$.
 D'après le lemme de Gronwall, on a
 \begin{equation}
-\|\mathfrak{e}\|_{h,per}^2 \leq \alpha^2 \max_{t \in [0,T]} \|\mathfrak{\tau}\|_{h,per}^2   \left( \exp \left( \dfrac{ct}{\alpha} \right) -1  \right).
+\|\mathfrak{e}\|_{h,\per}^2 \leq \alpha^2 \max_{t \in [0,T]} \|\mathfrak{\tau}\|_{h,\per}^2   \left( \exp \left( \dfrac{ct}{\alpha} \right) -1  \right).
 \end{equation}
 On note alors que
 \begin{align*}
-\|\mathfrak{\tau}\|_{h,per}^2 = h \gsum_{j=0}^{N-1} |\mathfrak{\tau_j}|^2 & \leq h N \|\mathfrak{\tau}\|_{h,per}^2 \\
+\|\mathfrak{\tau}\|_{h,\per}^2 = h \gsum_{j=0}^{N-1} |\mathfrak{\tau_j}|^2 & \leq h N \|\mathfrak{\tau}\|_{h,\per}^2 \\
 	& \leq  L \|\mathfrak{\tau}\|_{\infty}^2 \\
 	& \leq L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty}^2 \text{ D'après le théorème \ref{th:consistence_herm2}.}
 \end{align*}
 De là, on peut déduire que
 \begin{equation}
-\|\mathfrak{e}\|_{h,per}^2 \leq \alpha^2 L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]}^2 \max_{t \in [0,T]} \left( \exp \left( \dfrac{ct}{\alpha} \right) -1  \right).
+\|\mathfrak{e}\|_{h,\per}^2 \leq \alpha^2 L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]}^2 \max_{t \in [0,T]} \left( \exp \left( \dfrac{ct}{\alpha} \right) -1  \right).
 \end{equation}
 On pose $\beta = \alpha/(ct) \in \mathbb{R}^+$, on a alors directement :
 \begin{align*}
-\|\mathfrak{e}\|_{h,per}^2 & \leq L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]}^2 c^2 t^2 \beta^2 \left( \exp \left( \dfrac{1}{\beta} \right) -1  \right) \\
+\|\mathfrak{e}\|_{h,\per}^2 & \leq L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]}^2 c^2 t^2 \beta^2 \left( \exp \left( \dfrac{1}{\beta} \right) -1  \right) \\
       & \leq L C^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]}^2 c^2 T^2 \beta^2 \left( \exp \left( \dfrac{1}{\beta} \right) -1  \right).
 \end{align*}
 Or la fonction $g$ définit par
@@ -527,7 +528,7 @@ est continue, positive et de plus :
 \end{equation}
 donc il existe $m > 0$ telle que pour tout $\beta > 0$, on a $g(\beta)>m$. On peut trouver graphiquement $m \approx 1.545$. De là, il découle que
 \begin{equation*}
-\|\mathfrak{e}\|_{h,per}^2 \leq L C^2 m c^2 T^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]}^2.
+\|\mathfrak{e}\|_{h,\per}^2 \leq L C^2 m c^2 T^2 h^8  \| \partial_x^{(5)} u \|_{\infty,[0,T] \times [0,L]}^2.
 \end{equation*}
 On peut conclure en prenant la racine carré de cette dernière équation.
 \end{proof}
@@ -557,7 +558,7 @@ est résolue en utilisant la méthode de Runge-Kutta d'ordre 4. L'algorithme de 
              \State  $K^{(2)} = - c \delta_{4,x}^H \left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(1)}\right)$,
              \State  $K^{(3)} = - c \delta_{4,x}^H \left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(2)}\right)$,
              \State  $K^{(4)} = - c \delta_{4,x}^H \left( \mathfrak{u}^n + \Delta t K^{(3)}\right)$,  
-             \State  $\mathfrak{u}^{n+1} = \mathcal{F}_{2F,x}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
+             \State  $\mathfrak{u}^{n+1} = \mathcal{F}_{2J,x}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
             \EndFor
     \end{algorithmic}
     \end{algorithm}
@@ -676,11 +677,11 @@ Cette condition de stabilité donne une bonne indication de la condition CFL lor
 \end{equation}
 où $S_{2F,x}$ est issue de l'opérateur de filtrage d'ordre $2F$ et donnée par \eqref{eq:pol_filtrage}.
 
-D'après la proposition \ref{prop:ampli_ftr}, on obtient directement le théorème suivant
+D'après la proposition \ref{th:filtre_dissipatif}, on obtient directement le théorème suivant
 \begin{theoreme}
-Quel que soit le filtre $\mathcal{F}_{2F,x}$ d'ordre $2F$, on a 
+Quel que soit le filtre $\mathcal{F}_{2J,x}$ d'ordre $2J$, on a 
 \begin{equation}
-\lambda_{2F} \leq \lambda_{\infty}.
+\lambda_{2J} \leq \lambda_{\infty}.
 \end{equation}
 \end{theoreme}
 
@@ -693,9 +694,9 @@ On a
 \end{align*}
 car pour tout $\theta \in [0, \pi]$, 
 \begin{equation}
-|S_{2F,x}(e^{i \theta})| \leq 1
+|S_{2J,x}(e^{i \theta})| \leq 1
 \end{equation}
-d'après la proposition \ref{prop:ampli_ftr}.
+d'après la proposition \ref{th:filtre_dissipatif}.
 \end{proof}
 
 Il est possible d'évaluer numériquement la valeur de $\lambda_{2F}$ grâce à un algorithme de Dichotomie. Les valeurs obtenues sont données dans la table \ref{tab:cfl_adv1d}. On constate que plus le filtre est d'ordre bas (il affecte alors beaucoup les données) plus la condition CFL $\lambda_{2F}$ est grande, ce qui autorise un pas de temps plus grand.
@@ -704,7 +705,7 @@ Il est possible d'évaluer numériquement la valeur de $\lambda_{2F}$ grâce à 
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
-\textbf{Ordre du filtre} $\mathcal{F}_{2F,x}$ : $2F$ & $\lambda_{2F}$ \\
+\textbf{Ordre du filtre} $\mathcal{F}_{2J,x}$ : $2J$ & $\lambda_{2F}$ \\
 \hline
 \hline
 Pas de filtrage & $2 \sqrt{2/3} \approx 1.6329$ \\
@@ -763,9 +764,9 @@ où $\mathfrak{u}_j^n$ est une approximation de $u(x_j, t^n)$.
 $(\lambda,\theta)\mapsto G(\lambda,\theta)$ est la fonction d'amplification du schéma numérique.
 Par exemple, en utilisant l'algorithme \ref{alg:RK4_transport1d}, on trouve
 \begin{equation}
-G(\lambda, \theta) = S_{2F}(e^{i \theta}) r(- \lambda Q^H_{4}(e^{i \theta}) )
+G(\lambda, \theta) = S_{2J}(e^{i \theta}) r(- \lambda Q^H_{4}(e^{i \theta}) )
 \end{equation}
-où $r(x) =  1 + x + \frac{1}{2}x^2 + \frac{1}{6}x^3 + \frac{1}{24}x^4$, $S$ est issu du filtrage $\mathcal{F}$ et donné par \eqref{eq:pol_filtrage}, $Q_4^H$ est associé au schéma hermitien $\delta_4^H$ et donné par l'équation \eqref{eq:pol_hermitien}.
+où $r(x) =  1 + x + \frac{1}{2}x^2 + \frac{1}{6}x^3 + \frac{1}{24}x^4$, $S_{2J}$ est issu du filtrage $\mathcal{F}_{x,2J}$ et donné par \eqref{eq:pol_filtrage}, $Q_4^H$ est associé au schéma hermitien $\delta_4^H$ et donné par l'équation \eqref{eq:pol_hermitien}.
 
 Par comparaison avec \eqref{eq:e(ilambdateta)}, on définit la  vitesse numérique de phase du schéma $c(\lambda,\theta) = c_R(\lambda,\theta) + i c_I(\lambda,\theta)$ ($c_R(\lambda,\theta),c_I(\lambda,\theta) \in \mathbb{R}$) par
 \begin{equation}
@@ -879,30 +880,30 @@ Le schéma utilisé ici dans l'algorithme \ref{alg:RK4_transport1d} est conserva
 \begin{proposition}
 Pour tout $n \in \mathbb{N}$, si $\mathfrak{u}^n$ est calculée par l'algorithme \ref{alg:RK4_transport1d} alors
 \begin{equation}
-(\mathfrak{u}^{n+1}, \mathfrak{1})_{h,per} = (\mathfrak{u}^n, \mathfrak{1})_{h,per}.
+(\mathfrak{u}^{n+1}, \mathfrak{1})_{h,\per} = (\mathfrak{u}^n, \mathfrak{1})_{h,\per}.
 \end{equation}
 où $\mathfrak{1}$ est la fonction de grille constante égale à 1.
 \end{proposition}
 
 \begin{proof}
-Soit $\mathfrak{b} \in l^2_{h,per}$ une fonction de grille quelconque, alors, en notant $b=\vec(\mathfrak{b})$, on a
+Soit $\mathfrak{b} \in l^2_{h,\per}$ une fonction de grille quelconque, alors, en notant $b=\vec(\mathfrak{b})$, on a
 \begin{align*}
-(\delta_{4,x}^H \mathfrak{b}, \mathfrak{1})_{h,per} & = \dfrac{1}{h} \left( Q_4^H(T) b \right)^T \cdot \mathbf{1} \\
+(\delta_{4,x}^H \mathfrak{b}, \mathfrak{1})_{h,\per} & = \dfrac{1}{h} \left( Q_4^H(T) b \right)^T \cdot \mathbf{1} \\
 	& = \dfrac{1}{h} b^T \cdot (\bar{Q}_4^H(T) \mathbf{1}) \\
 	& = \dfrac{1}{h} b^T \cdot \mathbf{0} \text{ par antisymétrie de }Q_4^H(T)\\
 	& = 0.
 \end{align*}
 De cette égalité, on peut déduire directement que
 \begin{equation}
-(K^{(i)}, \mathfrak{1})_{h,per} = 0
+(K^{(i)}, \mathfrak{1})_{h,\per} = 0
 \end{equation}
 pour tout $i \in \left\lbrace 1, 2, 3, 4 \right\rbrace$.
 
 De là, on déduit :
 \begin{align*}
-(\mathfrak{u}^{n+1},\mathfrak{1})_{h,per} & =  \left( S_{2F}(T) \left( U^n + \dfrac{\Delta t}{6}(K^{(1)}+2K^{(2)}+2K^{(3)}+K^{(4)})  \right) \right)^T \cdot \mathbf{1} \\
+(\mathfrak{u}^{n+1},\mathfrak{1})_{h,\per} & =  \left( S_{2F}(T) \left( U^n + \dfrac{\Delta t}{6}(K^{(1)}+2K^{(2)}+2K^{(3)}+K^{(4)})  \right) \right)^T \cdot \mathbf{1} \\
 	& = \left( U^n + \dfrac{\Delta t}{6}(K^{(1)}+2K^{(2)}+2K^{(3)}+K^{(4)})  \right)^T \cdot \mathbf{1} \text{ par symétrie de } S(T)\\
-	& = (\mathfrak{u}^n , \mathfrak{1})_{h,per}.
+	& = (\mathfrak{u}^n , \mathfrak{1})_{h,\per}.
 \end{align*}
 avec $U^n = \vec_1(\mathfrak{u}^n)$.
 \end{proof}
@@ -1119,14 +1120,14 @@ Comme pour l'équation de transport \eqref{eq:transport_1D}, on procède par la 
 \label{eq:ondes_2D_SD}
 \end{equation}
 où $H$, $g$ et $f$ sont des constantes positives.
-On cherche alors $\etafrak$, $\mathfrak{u}$ et $\mathfrak{v}$ des fonctions de $\mathbb{R}^+$ dans $L^2_{h,per}$.
+On cherche alors $\etafrak$, $\mathfrak{u}$ et $\mathfrak{v}$ des fonctions de $\mathbb{R}^+$ dans $L^2_{h,\per}$.
 
 \begin{proposition}
 $\etafrak$, $\mathfrak{u}$ et $\mathfrak{v}$ solutions de \eqref{eq:ondes_2D_SD} convergent vers $\eta$, $u$ et $v$ solutions de \eqref{eq:ondes_2D} sur $[0,T]$ au sens où il existe $\tilde{C}>0$ tel que
 \begin{equation}
 E(t) \leq g^2 H^2 T^2 \tilde{C} \max_{t \in [0,T]} \left( \dfrac{1}{H} \| \partial_x^{(5)} u \|^2_{\infty}, \dfrac{1}{H} \| \partial_y^{(5)} v \|^2_{\infty}, \dfrac{1}{g} \| \partial_x^{(5)} \eta \|^2_{\infty}, \dfrac{1}{g} \| \partial_y^{(5)} \eta \|^2_{\infty}  \right) h^8
 \end{equation}
-avec les termes d'erreur $\mathfrak{e}_{\eta} = \eta^* - \etafrak$, $\mathfrak{e}_{u} = u^* - \mathfrak{u}$ et $\mathfrak{e}_{v} = v^* - \mathfrak{v}$ ainsi que $E(t) = g \| \mathfrak{e}_{\eta} \|^2_{h,per} + H \| \mathfrak{e}_u \|^2_{h,per} + H \| \mathfrak{e}_v \|^2_{h,per}$.
+avec les termes d'erreur $\mathfrak{e}_{\eta} = \eta^* - \etafrak$, $\mathfrak{e}_{u} = u^* - \mathfrak{u}$ et $\mathfrak{e}_{v} = v^* - \mathfrak{v}$ ainsi que $E(t) = g \| \mathfrak{e}_{\eta} \|^2_{h,\per} + H \| \mathfrak{e}_u \|^2_{h,\per} + H \| \mathfrak{e}_v \|^2_{h,\per}$.
 \end{proposition}
 
 \begin{proof}
@@ -1145,40 +1146,40 @@ d_t \mathfrak{e}_v & = & - g \delta_{4,y}^H \mathfrak{e}_{\eta} - f \mathfrak{e}
 
 Dès lors, par produit scalaire avec $\mathfrak{e}_{\eta}$ de la première équation on trouve :
 \begin{equation}
-\dfrac{1}{2} \dfrac{d}{dt} \| \mathfrak{e}_{\eta} \|_{h,per}^2 = (d_t \mathfrak{e}_{\eta}, \mathfrak{e}_{\eta})_{h,per} = - H ( \delta_{4,x}^H \mathfrak{e}_{u} + \delta_{4,y}^H \mathfrak{e}_{v}, \mathfrak{e}_{\eta})_{h,per}  + H ( \tau_x u + \tau_y v, \mathfrak{e}_{\eta})_{h,per}
+\dfrac{1}{2} \dfrac{d}{dt} \| \mathfrak{e}_{\eta} \|_{h,\per}^2 = (d_t \mathfrak{e}_{\eta}, \mathfrak{e}_{\eta})_{h,\per} = - H ( \delta_{4,x}^H \mathfrak{e}_{u} + \delta_{4,y}^H \mathfrak{e}_{v}, \mathfrak{e}_{\eta})_{h,\per}  + H ( \tau_x u + \tau_y v, \mathfrak{e}_{\eta})_{h,\per}
 \label{eq:consist_ondes1}
 \end{equation}
 En effectuant les produits scalaires de la seconde et troisième équation par $\mathfrak{e}_u$ et $\mathfrak{e}_v$, on trouve :
 \begin{equation}
-(d_t \mathfrak{e}_u, \mathfrak{e}_u)_{h,per} = - g (\delta_{4,x}^H \mathfrak{e}_{\eta}, \mathfrak{e}_u)_{h,per} + f(\mathfrak{e}_v, \mathfrak{e}_u)_{h,per} - g(\tau_x \eta, \mathfrak{e}_u)_{h,per}
+(d_t \mathfrak{e}_u, \mathfrak{e}_u)_{h,\per} = - g (\delta_{4,x}^H \mathfrak{e}_{\eta}, \mathfrak{e}_u)_{h,\per} + f(\mathfrak{e}_v, \mathfrak{e}_u)_{h,\per} - g(\tau_x \eta, \mathfrak{e}_u)_{h,\per}
 \end{equation}
 ainsi que 
 \begin{equation}
-(d_t \mathfrak{e}_v, \mathfrak{e}_v)_{h,per} = - g (\delta_{4,y}^H \mathfrak{e}_{\eta}, \mathfrak{e}_v)_{h,per} - f(\mathfrak{e}_u, \mathfrak{e}_v)_{h,per} - g(\tau_y \eta, \mathfrak{e}_v)_{h,per}.
+(d_t \mathfrak{e}_v, \mathfrak{e}_v)_{h,\per} = - g (\delta_{4,y}^H \mathfrak{e}_{\eta}, \mathfrak{e}_v)_{h,\per} - f(\mathfrak{e}_u, \mathfrak{e}_v)_{h,\per} - g(\tau_y \eta, \mathfrak{e}_v)_{h,\per}.
 \end{equation}
 Alors, en sommant ces deux équations et en utilisant l’anti-symétrie de $\delta_{4,x}^H$ et $\delta_{4,y}^H$, on a
 \begin{align}
-\dfrac{1}{2} \dfrac{d}{dt} \left( \| \mathfrak{e}_{u} \|_{h,per}^2 + \| \mathfrak{e}_{v} \|_{h,per}^2 \right) & = (d_t \mathfrak{e}_u, \mathfrak{e}_u)_{h,per}) + (d_t \mathfrak{e}_v, \mathfrak{e}_v)_{h,per} \\
-& = g (\delta_{4,x}^H \mathfrak{e}_u + \delta_{4,y}^H \mathfrak{e}_v, \mathfrak{e}_{\eta})_{h,per} - g(\tau_x \eta, \mathfrak{e}_u)_{h,per} - g(\tau_y \eta, \mathfrak{e}_v)_{h,per}
+\dfrac{1}{2} \dfrac{d}{dt} \left( \| \mathfrak{e}_{u} \|_{h,\per}^2 + \| \mathfrak{e}_{v} \|_{h,\per}^2 \right) & = (d_t \mathfrak{e}_u, \mathfrak{e}_u)_{h,\per}) + (d_t \mathfrak{e}_v, \mathfrak{e}_v)_{h,\per} \\
+& = g (\delta_{4,x}^H \mathfrak{e}_u + \delta_{4,y}^H \mathfrak{e}_v, \mathfrak{e}_{\eta})_{h,\per} - g(\tau_x \eta, \mathfrak{e}_u)_{h,\per} - g(\tau_y \eta, \mathfrak{e}_v)_{h,\per}
 \label{eq:consist_ondes2}
 \end{align}
 En sommant $g \times $\eqref{eq:consist_ondes1} $+ H \times$\eqref{eq:consist_ondes2}, on trouve :
 \begin{equation}
-\dfrac{d}{dt} E(t) = 2 g H \left( (\tau_x u + \tau_y v, \mathfrak{e}_{\eta})_{h,per} - (\tau_x \eta, \mathfrak{e}_u )_{h,per} - (\tau_y \eta, \mathfrak{e}_v )_{h,per} \right).
+\dfrac{d}{dt} E(t) = 2 g H \left( (\tau_x u + \tau_y v, \mathfrak{e}_{\eta})_{h,\per} - (\tau_x \eta, \mathfrak{e}_u )_{h,\per} - (\tau_y \eta, \mathfrak{e}_v )_{h,\per} \right).
 \end{equation}
 Dès lors, en prenant la valeur absolue, on peut majorer le terme de droite :
 \begin{equation}
-\dfrac{d}{dt} E(t) \leq 2 g H \left( |(\tau_x u + \tau_y v, \mathfrak{e}_{\eta})_{h,per}| + |(\tau_x \eta, \mathfrak{e}_u )_{h,per}| + |(\tau_y \eta, \mathfrak{e}_v )_{h,per}|  \right)
+\dfrac{d}{dt} E(t) \leq 2 g H \left( |(\tau_x u + \tau_y v, \mathfrak{e}_{\eta})_{h,\per}| + |(\tau_x \eta, \mathfrak{e}_u )_{h,\per}| + |(\tau_y \eta, \mathfrak{e}_v )_{h,\per}|  \right)
 \end{equation}
 En utilisant le lemme \ref{lem:ineg_1}, on montre que
 \begin{equation}
-\dfrac{d}{dt} E(t) \leq 2 g H \left( \dfrac{\alpha}{H} \|\tau_x u + \tau_y v \|_{h,per}^2 + \dfrac{H}{\alpha} \| \mathfrak{e}_{\eta} \|_{h,per}^2 + \dfrac{\alpha}{g} \| \tau_x \eta \|_{h,per}^2  + \dfrac{\alpha}{g} \| \tau_y \eta \|_{h,per}^2 + \dfrac{g}{\alpha} \| \mathfrak{e}_u \|_{h,per}^2 + \dfrac{g}{\alpha} \| \mathfrak{e}_v \|_{h,per}^2   \right)
+\dfrac{d}{dt} E(t) \leq 2 g H \left( \dfrac{\alpha}{H} \|\tau_x u + \tau_y v \|_{h,\per}^2 + \dfrac{H}{\alpha} \| \mathfrak{e}_{\eta} \|_{h,\per}^2 + \dfrac{\alpha}{g} \| \tau_x \eta \|_{h,\per}^2  + \dfrac{\alpha}{g} \| \tau_y \eta \|_{h,\per}^2 + \dfrac{g}{\alpha} \| \mathfrak{e}_u \|_{h,\per}^2 + \dfrac{g}{\alpha} \| \mathfrak{e}_v \|_{h,\per}^2   \right)
 \end{equation}
 C'est à dire
 \begin{equation}
 \dfrac{d}{dt} E(t)\leq 2 g H \left( \alpha \Upsilon + \dfrac{1}{\alpha} E(t) \right)
 \end{equation}
-avec $\Upsilon = \dfrac{1}{H} \| \tau_x u + \tau_y v \|^2_{h,per} + \dfrac{1}{g} \left( \| \tau_x \eta \|^2_{h,per} + \| \tau_y \eta \|^2_{h,per} \right)$.
+avec $\Upsilon = \dfrac{1}{H} \| \tau_x u + \tau_y v \|^2_{h,\per} + \dfrac{1}{g} \left( \| \tau_x \eta \|^2_{h,\per} + \| \tau_y \eta \|^2_{h,\per} \right)$.
 D'après le lemme de Gronwall :
 \begin{equation}
 E(t) \leq \alpha^2 \Upsilon \left( \exp \left( \dfrac{2 g H}{\alpha} \right) -1 \right)
@@ -1215,11 +1216,11 @@ Si $\etafrak$, $\mathfrak{u}$ et $\mathfrak{v}$ sont solutions de \eqref{eq:onde
 \begin{itemize}
 \item \textbf{Conservation de la masse :}
 \begin{equation}
-\dfrac{d}{dt} (\etafrak, \mathfrak{1})_{h,per} = 0,
+\dfrac{d}{dt} (\etafrak, \mathfrak{1})_{h,\per} = 0,
 \end{equation}
 \item \textbf{Conservation de l'énergie :}
 \begin{equation}
-\dfrac{d}{dt} \left( \dfrac{1}{2} g \| \etafrak \|_{h,per}^2 + \dfrac{1}{2} H ( \| \mathfrak{u} \|_{h,per}^2 +  \| \mathfrak{v} \|_{h,per}^2) \right) = 0.
+\dfrac{d}{dt} \left( \dfrac{1}{2} g \| \etafrak \|_{h,\per}^2 + \dfrac{1}{2} H ( \| \mathfrak{u} \|_{h,\per}^2 +  \| \mathfrak{v} \|_{h,\per}^2) \right) = 0.
 \end{equation}
 \end{itemize}
 \end{proposition}
@@ -1229,9 +1230,9 @@ Si $\etafrak$, $\mathfrak{u}$ et $\mathfrak{v}$ sont solutions de \eqref{eq:onde
 \item \textbf{Conservation de la masse :}
 par consistance des opérateurs $\delta_{4,x}^H$ et $\delta_{4,y}^H$, on note que $\delta_{4,x}^H \mathfrak{1} = \mathfrak{0}$ et $\delta_{4,y}^H \mathfrak{1} = \mathfrak{0}$, où $\mathfrak{1}$ (resp. $\mathfrak{0}$) est la fonction de grille égale à $1$ (resp. $0$). De là, il découle :
 \begin{align*}
-\dfrac{d}{dt} (\etafrak, \mathfrak{1})_{h,per} & = ( d_t \etafrak, \mathfrak{1} )_{h,per} \\
-	& = - H (\delta_{4,x} \mathfrak{u}, \mathfrak{1})_{h,per} - H (\delta_{4,y} \mathfrak{v}, \mathfrak{1})_{h,per} \\
-	& = H (\mathfrak{u}, \delta_{4,x} \mathfrak{1})_{h,per} + H (\mathfrak{v}, \delta_{4,y} \mathfrak{1})_{h,per} \\
+\dfrac{d}{dt} (\etafrak, \mathfrak{1})_{h,\per} & = ( d_t \etafrak, \mathfrak{1} )_{h,\per} \\
+	& = - H (\delta_{4,x} \mathfrak{u}, \mathfrak{1})_{h,\per} - H (\delta_{4,y} \mathfrak{v}, \mathfrak{1})_{h,\per} \\
+	& = H (\mathfrak{u}, \delta_{4,x} \mathfrak{1})_{h,\per} + H (\mathfrak{v}, \delta_{4,y} \mathfrak{1})_{h,\per} \\
 	& = 0
 \end{align*}
 en utilisant l'anti-symétrie des opérateurs.
@@ -1239,20 +1240,20 @@ en utilisant l'anti-symétrie des opérateurs.
 \item \textbf{Conservation de l'énergie :}
 Il est facile de montrer que 
 \begin{equation}
-(d_t \etafrak, \etafrak)_{h,per} = \dfrac{1}{2} \dfrac{d}{dt} \| \etafrak \|^2_{h,per} = - H (\delta_{4,x} \mathfrak{u}, \etafrak)_{h,per} - H (\delta_{4,y} \mathfrak{v}, \etafrak)_{h,per}.
+(d_t \etafrak, \etafrak)_{h,\per} = \dfrac{1}{2} \dfrac{d}{dt} \| \etafrak \|^2_{h,\per} = - H (\delta_{4,x} \mathfrak{u}, \etafrak)_{h,\per} - H (\delta_{4,y} \mathfrak{v}, \etafrak)_{h,\per}.
 \end{equation}
 De même, on a :
 \begin{equation}
-\dfrac{1}{2} \dfrac{d}{dt} (\| \mathfrak{u} \|_{h,per}^2 + \| \mathfrak{v} \|_{h,per}^2) = g (\delta_{4,x}^H \mathfrak{u}+\delta_{4,y}^H \mathfrak{v}, \etafrak)_{h,per}.
+\dfrac{1}{2} \dfrac{d}{dt} (\| \mathfrak{u} \|_{h,\per}^2 + \| \mathfrak{v} \|_{h,\per}^2) = g (\delta_{4,x}^H \mathfrak{u}+\delta_{4,y}^H \mathfrak{v}, \etafrak)_{h,\per}.
 \end{equation}
 Alors par combinaison, on trouve bien le résultat souhaité :
 \begin{equation}
-\dfrac{d}{dt} \left( \dfrac{1}{2} g \| \etafrak \|_{h,per}^2 + \dfrac{1}{2} H ( \| \mathfrak{u} \|_{h,per}^2 +  \| \mathfrak{v} \|_{h,per}^2) \right) = 0.
+\dfrac{d}{dt} \left( \dfrac{1}{2} g \| \etafrak \|_{h,\per}^2 + \dfrac{1}{2} H ( \| \mathfrak{u} \|_{h,\per}^2 +  \| \mathfrak{v} \|_{h,\per}^2) \right) = 0.
 \end{equation}
 \end{itemize}
 \end{proof}
 
-A partir d'ici, on pose $F_h : (L_{h,per}^2)^3 \rightarrow (L_{h,per}^2)^3$ l'application linéaire définie par
+A partir d'ici, on pose $F_h : (L_{h,\per}^2)^3 \rightarrow (L_{h,\per}^2)^3$ l'application linéaire définie par
 \begin{equation}
 F_h : \begin{pmatrix}
 \etafrak \\ \mathfrak{u} \\ \mathfrak{v}
@@ -1283,9 +1284,9 @@ On note $\Delta t>0$ le pas de temps et $\etafrak^n$, $\mathfrak{u}^n$ et $\math
              \State  $\left(K^{(2)}_{\eta}, K^{(2)}_{u}, K^{(2)}_{v}\right) = F_h\left(\etafrak^n + \dfrac{\Delta t}{2}K^{(1)}_{\eta}, \mathfrak{u}^n + \dfrac{\Delta t}{2}K^{(1)}_{u}, \mathfrak{v}^n + \dfrac{\Delta t}{2}K^{(1)}_{v}\right)$,
              \State   $\left(K^{(3)}_{\eta}, K^{(3)}_{u}, K^{(3)}_{v}\right) = F_h\left(\etafrak^n + \dfrac{\Delta t}{2}K^{(2)}_{\eta}, \mathfrak{u}^n + \dfrac{\Delta t}{2}K^{(2)}_{u}, \mathfrak{v}^n + \dfrac{\Delta t}{2}K^{(2)}_{v}\right)$,
              \State   $\left(K^{(4)}_{\eta}, K^{(4)}_{u}, K^{(4)}_{v}\right) = F_h\left(\etafrak^n + \Delta t K^{(3)}_{\eta}, \mathfrak{u}^n + \Delta tK^{(3)}_{u}, \mathfrak{v}^n + \Delta t K^{(3)}_{v}\right)$,
-             \State  $\etafrak^{n+1} = \mathcal{F}_{2F}\left( \etafrak^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{\eta} + 2 K^{(2)}_{\eta} + 2 K^{(3)}_{\eta} + K^{(4)}_{\eta} \right) \right)$,
-             \State  $\mathfrak{u}^{n+1} = \mathcal{F}_{2F}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{u} + 2 K^{(2)}_{u} + 2 K^{(3)}_{u} + K^{(4)}_{u} \right) \right)$,
-             \State  $\mathfrak{v}^{n+1} = \mathcal{F}_{2F}\left( \mathfrak{v}^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{v} + 2 K^{(2)}_{v} + 2 K^{(3)}_{v} + K^{(4)}_{v} \right) \right)$.
+             \State  $\etafrak^{n+1} = \mathcal{F}_{2J}\left( \etafrak^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{\eta} + 2 K^{(2)}_{\eta} + 2 K^{(3)}_{\eta} + K^{(4)}_{\eta} \right) \right)$,
+             \State  $\mathfrak{u}^{n+1} = \mathcal{F}_{2J}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{u} + 2 K^{(2)}_{u} + 2 K^{(3)}_{u} + K^{(4)}_{u} \right) \right)$,
+             \State  $\mathfrak{v}^{n+1} = \mathcal{F}_{2J}\left( \mathfrak{v}^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{v} + 2 K^{(2)}_{v} + 2 K^{(3)}_{v} + K^{(4)}_{v} \right) \right)$.
             \EndFor
     \end{algorithmic}
     \end{algorithm}
@@ -1303,7 +1304,7 @@ $\lambda \in \Sp(F_h)$ si et seulement si $\lambda = 0$ ou $\lambda^2 \in \Sp \l
 \end{proposition}
 
 \begin{proof}
-Si $\lambda \in \Sp(F_h)$ alors il existe $\etafrak$, $\mathfrak{u}$ et $\mathfrak{v}$ non tous nuls dans $L^2_{h,per}$ tels que
+Si $\lambda \in \Sp(F_h)$ alors il existe $\etafrak$, $\mathfrak{u}$ et $\mathfrak{v}$ non tous nuls dans $L^2_{h,\per}$ tels que
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -1403,33 +1404,33 @@ De plus, le schéma conserve la quantité de matière.
 \begin{proposition}
 L'algorithme \ref{alg:RK4_ondes2d} (avec ou sans filtrage) conserva le quantité de matière. Pour tout $n \in \mathbb{N}$, on a 
 \begin{equation}
-(\etafrak^{n+1} , \mathfrak{1})_{h,per} = (\etafrak^{n} , \mathfrak{1})_{h,per}
+(\etafrak^{n+1} , \mathfrak{1})_{h,\per} = (\etafrak^{n} , \mathfrak{1})_{h,\per}
 \end{equation}
 où $\etafrak^n$ est issu de l'algorithme \ref{alg:RK4_ondes2d}.
 \end{proposition}
 
 \begin{proof}
-Pour tout $\mathfrak{b} \in L^2_{h,per}$, on a 
+Pour tout $\mathfrak{b} \in L^2_{h,\per}$, on a 
 \begin{equation}
-(\delta_{4,x}^H \mathfrak{b}, \mathfrak{1})_{h,per} = (\delta_{4,y}^H \mathfrak{b}, \mathfrak{1})_{h,per} = 0
+(\delta_{4,x}^H \mathfrak{b}, \mathfrak{1})_{h,\per} = (\delta_{4,y}^H \mathfrak{b}, \mathfrak{1})_{h,\per} = 0
 \end{equation}
 car les opérateurs $\delta_{4,x}^H$ et $\delta_{4,y}^H$ sont anti-symétriques. De là, il découle directement que pour tout $i \in {1,2,3,4}$, on a 
 \begin{equation}
-(K_{\eta}^{(i)}, \mathfrak{1})_{h,per} = 0.
+(K_{\eta}^{(i)}, \mathfrak{1})_{h,\per} = 0.
 \label{eq:conservation_preuve1}
 \end{equation}
 
 Ainsi, on a
 \begin{equation}
-(\etafrak^{n+1}, \mathfrak{1})_{h,per} = \left( \mathcal{F}_{2F}\left( \etafrak^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{\eta} + 2 K^{(2)}_{\eta} + 2 K^{(3)}_{\eta} + K^{(4)}_{\eta} \right) \right) , \mathfrak{1} \right)_{h,per}
+(\etafrak^{n+1}, \mathfrak{1})_{h,\per} = \left( \mathcal{F}_{2J}\left( \etafrak^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{\eta} + 2 K^{(2)}_{\eta} + 2 K^{(3)}_{\eta} + K^{(4)}_{\eta} \right) \right) , \mathfrak{1} \right)_{h,\per}
 \end{equation}
-en utilisant la symétrie de $\mathcal{F}_{2F}$ et $\mathcal{F}_{2F}(\mathfrak{1}) = \mathfrak{1}$, on a
+en utilisant la symétrie de $\mathcal{F}_{2F}$ et $\mathcal{F}_{2J}(\mathfrak{1}) = \mathfrak{1}$, on a
 \begin{equation}
-(\etafrak^{n+1}, \mathfrak{1})_{h,per} = \left( \etafrak^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{\eta} + 2 K^{(2)}_{\eta} + 2 K^{(3)}_{\eta} + K^{(4)}_{\eta} \right) , \mathfrak{1}\right)_{h,per}
+(\etafrak^{n+1}, \mathfrak{1})_{h,\per} = \left( \etafrak^n  + \dfrac{\Delta t}{6} \left( K^{(1)}_{\eta} + 2 K^{(2)}_{\eta} + 2 K^{(3)}_{\eta} + K^{(4)}_{\eta} \right) , \mathfrak{1}\right)_{h,\per}
 \end{equation}
 en utilisant \eqref{eq:conservation_preuve1}, on trouve
 \begin{equation}
-(\etafrak^{n+1} , \mathfrak{1})_{h,per} = (\etafrak^{n} , \mathfrak{1})_{h,per}.
+(\etafrak^{n+1} , \mathfrak{1})_{h,\per} = (\etafrak^{n} , \mathfrak{1})_{h,\per}.
 \end{equation}
 \end{proof}
 
@@ -1720,7 +1721,7 @@ Les chocs rendent les solution difficiles à représenter par des schémas aux d
              \State  $K^{(2)} = - \pi \delta_{4,x}^H \left(\left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(1)}\right)^2\right)$,
              \State  $K^{(3)} = - \pi \delta_{4,x}^H \left(\left( \mathfrak{u}^n + \dfrac{\Delta t}{2} K^{(2)}\right)^2\right)$,
              \State  $K^{(4)} = - \pi \delta_{4,x}^H \left(\left( \mathfrak{u}^n + \Delta t K^{(3)}\right)^2\right)$,  
-             \State  $\mathfrak{u}^{n+1} = \mathcal{F}_{2F,x}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
+             \State  $\mathfrak{u}^{n+1} = \mathcal{F}_{2J,x}\left( \mathfrak{u}^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
             \EndFor
     \end{algorithmic}
     \end{algorithm}
@@ -1731,7 +1732,7 @@ On peut directement démontrer la proposition suivante :
 \begin{proposition}
 Pour tout $n \in \mathbb{N}$, si $\mathfrak{u}^n$ est calculée par l'algorithme \ref{alg:RK4_burgers1d} alors
 \begin{equation}
-(\mathfrak{u}^{n+1}, \mathfrak{1})_{h,per} = (\mathfrak{u}^n, \mathfrak{1})_{h,per}.
+(\mathfrak{u}^{n+1}, \mathfrak{1})_{h,\per} = (\mathfrak{u}^n, \mathfrak{1})_{h,\per}.
 \end{equation}
 où $\mathfrak{1}$ est la fonction de grille constante égale à 1.
 \end{proposition}
@@ -1743,7 +1744,7 @@ Les résultats sont pour $u_0$ donné par \eqref{eq:burgers_expemple2} et pour l
 \includegraphics[height=5cm]{burgers_t1.eps}
 \includegraphics[height=5cm]{burgers_t2.eps}
 \end{center}
-\caption{Comparaison de la solution numériques obtenue par l'algorithme \ref{alg:RK4_burgers1d} à différents temps pour la résolution de l'équation \eqref{eq:Burgers_1d}. On choisit ici $N=100$ et $\Delta t = 10^{-3}$.}
+\caption{Comparaison de la solution numériques obtenue par l'algorithme \ref{alg:RK4_burgers1d} sans opérateur de filtrage (c'est à dire $\mathcal{F}_{2J,x} = \Id$)à différents temps pour la résolution de l'équation \eqref{eq:Burgers_1d}. On choisit ici $N=100$ et $\Delta t = 10^{-3}$.}
 \label{fig:comp_burgers}
 \end{figure}
 
