@@ -1,6 +1,6 @@
 clc; clear all; close all;
 
-lambda=1.6883;
+lambda=.0001;
 teta=linspace(.0001,pi,1000);
 time='rk4';
 c=4;
@@ -27,7 +27,7 @@ figure(2)
 plot(g)
 
 figure(3)
-plot(teta, dissip,teta,disper,'Linewidth',2)
+plot(teta, dissip,teta,disper,'--','Linewidth',2)
 legend('dissipation','dispersion','Location','southwest')
 xlabel('\theta')
 xticks([0 pi/4 pi/2 3*pi/4 pi])

@@ -1,0 +1,90 @@
+\chapter{Quadrature sur la Cubed-Sphere}
+\label{chap:quadrature}
+
+\section{Introduction}
+
+Les équations que nous allons résoudre sur la sphère sont des relations de conservation. De manière a étudié les propriétés de conservation du schéma utilisé, il est utile de connaître une méthode de quadrature adaptée. Dans \cite{Ahrens2009, Fornberg2014}, la méthode de quadrature est conçu pour être adaptée aux harmoniques sphériques. On pourra aussi citer quelques références classiques telles que \cite{Mclaren1963} ou les livres \cite{Atkinson2012, Hesse2010}. Les méthodes de quadratures considérées visent à approcher
+\begin{equation}
+I(f) = \gint_{\mathbb{S}_a^2} f(\mathbf{x}) d \sigma(\mathbf{x}).
+\label{eq:integrale_sphere}
+\end{equation}
+On note que lorsque $f = \mathbf{Y}_m^l$ est un harmonique sphérique, il s'agit d'un cas particulier de la formule \eqref{eq:HS_perp} avec $m'=l'=0$. Ainsi, on a 
+\begin{equation}
+I(\mathbf{Y}_m^l) = 0
+\end{equation}
+sauf si $m=l=0$.
+Pour approcher $I(f)$, on considère des méthodes de quadrature de la forme
+\begin{equation}
+Q(f) = \gsum_p \omega_p f(\mathbf{x}_p)
+\label{eq:quadrature_sphere}
+\end{equation}
+où $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ est une fonction définie sur la sphère. Les points $(\mathbf{x}_p)_p$ représentent un nombre finis de points de $\mathbb{S}_a^2$, les valeurs $(\omega_p)_p$ sont des pondérations permettant d'approcher \eqref{eq:integrale_sphere}.
+
+Compte tenu de la structure de la Cubed-Sphere, il est possible de construire des méthodes de quadrature par panel. On cherche formule de quadrature proche du produit scalaire $< \cdot, \cdot >_{\CS}$. Pour cela, on utilise des formules de quadrature de la forme
+\begin{equation}
+Q(f^*) = \gsum_{(k) = (I)}^{(VI)} Q^{(k)}(f^*)
+\end{equation}
+avec $Q^{(k)}(f^*)$ une formule de quadrature par panel de la forme
+\begin{equation}
+Q^{(k)}(f^*) = \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} f(\mathbf{x}_{i,j}^{(k)} \sqrt{\bar{\mathbf{G}}_{i,j}} \approx \gint_{(k)} f(\mathbf{x}) d \sigma(\mathbf{x})
+\end{equation}
+avec $\bar{\mathbf{G}}_{i,j} = \det(\mathbf{G}_{i,j})$.
+Ces formules de quadratures sont étudiées dans \cite{Portelenelle2018} et présentent de très bon résultats grâce aux symétries de la Cubed-Sphere. De plus, il est possible de les améliorer en perturbant les valeurs de $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$. Le lien avec le produit scalaire du chapitre \ref{chap:3} peut être fait directement en notant que
+\begin{equation}
+Q(f^*) = <f^*, \mathbf{1}>_{\CS},
+\end{equation}
+où $\mathbf{1}$ est la fonction de grille constante égale à $1$.
+Or, $\mathbf{1} = a \sqrt{4 \pi} \mathbf{Y}_0^{0,*}$, donc en utilisant le théorème \ref{th:pdtscal_HS}, on obtient le corollaire :
+\begin{corollaire}
+Toute règle de quadrature $Q$ vérifiant
+\begin{equation}
+\omega_{i,j} = \omega_{-i,j} = \omega_{i,-j} = \omega_{-i,-j}
+\end{equation}
+pour tout $-N/2 \leq i,j \leq N/2$ est telle que
+\begin{equation}
+Q \left( \mathbf{Y}_m^{l,*} \right) = 0,
+\end{equation}
+avec $l \in \mathbb{N}$ et $|m| \leq l$, si
+\begin{itemize}
+\item $m$ est impair ou
+\item $m$ pair et $l \not\equiv 0 [4]$.
+\end{itemize}
+\end{corollaire}
+
+Dans la suite de ce chapitre, nous étudions différents choix de $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$ permettant à $Q(f)$ d'approcher $I(f)$.
+
+
+
+
+
+
+
+
+
+
+
+\section{Quadrature de type trapèzes}
+
+
+
+
+
+
+
+
+
+
+\section{Quadrature de type Simpson}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Quadrature $Q_{\alpha}$}

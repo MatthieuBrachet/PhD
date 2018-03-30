@@ -2,63 +2,117 @@
 \chapter{Analyse numérique}
 \label{chap:2}
 
-\section{Discrétisation temporelle}
+\section{Introduction}
 
-La résolution numérique des équations considérées se fait par la méthode des lignes. Il s'agit de discrétiser dans un premier temps les opérateurs spatiaux pour aboutir à une équations semi-discrétisée. Il ne reste que la dimension temporelle à considérer : il s'agit de la résolution numérique d'une équation aux dérivées ordinaires (EDO). Nous considérons ici des EDO de la forme
+Dans ce chapitre, nous considérons le cadre générale de la procédure d'approximation utilisée à partir du chapitre \ref{chap:3}. On considère des équations aux dérivées partielles d'évolution de la forme
 \begin{equation}
-\dfrac{d q}{dt} = J_{\Delta} (q)
+\dfrac{\partial}{\partial t}q = J(q).
+\label{eq:edp_ref}
+\end{equation}
+Dans \eqref{eq:edp_ref}, $q$ représente la fonction inconnue et $q \mapsto J(q)$ représente un opérateur différentiel spatial. Les exemples considérés sont
+\begin{enumerate}
+\item L'équation de transport 1D :
+\begin{equation}
+\dfrac{\partial u}{\partial t} + c \dfrac{\partial u}{\partial x} = 0 \text{, avec } c \in \mathbb{R},
+\end{equation} 
+
+\item l'équation de transport 2D :
+\begin{equation}
+\dfrac{\partial u}{\partial t} + c_x \dfrac{\partial u}{\partial x} + c_y \dfrac{\partial u}{\partial y} = 0 \text{, avec } c_x, c_y \in \mathbb{R},
+\end{equation} 
+
+\item L'équation Shallow Water linéarisée avec force de Coriolis :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial \eta}{\partial t} + H \left( \dfrac{\partial u}{\partial x} + \dfrac{\partial v}{\partial y} \right) & = & 0 \\
+\dfrac{\partial u}{\partial t} + g \dfrac{\partial \eta}{\partial x} - f v & = & 0 \\
+\dfrac{\partial v}{\partial t} + g \dfrac{\partial \eta}{\partial y} + f u & = & 0 \\
+\end{array}
+\right. ,
+\end{equation}
+avec $H$, $g$ et $f$ dans $\mathbb{R}$.
+\item L'équation Shallow Water
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial h}{\partial t} + \left( \dfrac{\partial hu}{\partial x} + \dfrac{\partial hv}{\partial y} \right) & = & 0 \\
+\dfrac{\partial u}{\partial t} + u \dfrac{\partial u}{\partial x} + v\dfrac{\partial u}{\partial y} + g \dfrac{\partial h}{\partial x} - f v & = & 0 \\
+\dfrac{\partial v}{\partial t} + u \dfrac{\partial v}{\partial x} + v\dfrac{\partial v}{\partial y} + g \dfrac{\partial h}{\partial y} + f u & = & 0 \\
+\end{array}
+\right. ,
+\end{equation}
+avec
+$g$ et $f$ des réels.
+\end{enumerate}
+A chacune de ces équations on ajoute les conditions nécessaires utiles au caractères bien posé des problèmes.
+
+La propriété générale de ces équations est l'hyperbolicité qui garantit l'existence d'un régime de type ondes linéaires et ondes non-linéaires.
+
+L'approche envisagée est celle d'une approximation centré en espace de l'opérateur $J(q)$. On note $J_{\Delta}(q)$ cette approximation spatiale. La situation typique est celle de l'équation de transport 1D périodique dans laquelle on a
+\begin{equation}
+\dfrac{d u}{dt} = J (u)
 \label{eq:edo}
 \end{equation}
-avec la condition initiale $q(0)=q_0$. 
-Ce choix de méthode est essentiellement pratique. La discrétisation spatiale et la discrétisation temporelle sont séparées, cela facilite le développement de nouvelles méthodes de discrétisations qui peuvent aisément être changées dans le code.
-
-\subsection{Discrétisation de Runge-Kutta d'ordre 4}
-
-Le schéma de résolution temporelle de référence que nous considérons est le schéma de Runge-Kutta d'ordre 4 (RK4). Si nous connaissons l'état de $q$ au temps $t^n = n \Delta t$ (que nous noterons $q^n$) alors nous cherchons à déterminer de façon explicite une valeur approchée de $q$ au temps $t^{n+1} = (n+1) \Delta t$. C'est à dire que nous cherchons $Q$ tel que
+avec $J_{\Delta}(u) = - c \partial_x u$ avec $c \in \mathbb{R}$. $u(t,x)$ est approché par $\mathfrak{u}(t)$ fonction de grille périodique (Voir chapitre \ref{chap:1}) et $J$ est approché par $J_{\Delta}$ avec
 \begin{equation}
-q^{n+1} = Q(q^n)
+J_{\Delta}(\mathfrak{u}) = - c \delta_{4,x}^H \mathfrak{u}.
 \end{equation}
-Le schéma de Runge-Kutta d'ordre 4 est l'une des méthodes de Runge-Kutta les plus répandu, il s'écrit suivant l'algorithme \ref{alg:RK4}.
-
-\begin{center}
-\begin{minipage}[H]{12cm}
-  \begin{algorithm}[H]
-    \caption{: RK4}\label{alg:RK4}
-    \begin{algorithmic}[1]
-    \State $q^0 = q_0$ connu,
-    \For{$n=0,1, \ldots$}
-             \State  $K^{(1)} = J_{\Delta} \left( q^n \right)$,
-             \State  $K^{(2)} = J_{\Delta} \left( q^n + \dfrac{\Delta t}{2} K^{(1)}\right)$,
-             \State  $K^{(3)} = J_{\Delta} \left( q^n + \dfrac{\Delta t}{2} K^{(2)}\right)$,
-             \State  $K^{(4)} = J_{\Delta} \left( q^n + \Delta t K^{(3)}\right)$,  
-             \State  $q^{n+1} = q^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right)$.
-            \EndFor
-    \end{algorithmic}
-    \end{algorithm}
-\end{minipage}
-\end{center}
-
-On dit qu'une méthode numérique est consistante \cite{Demailly2016} si
+L'inconnue semi-discrète $t \mapsto \mathfrak{u}(t)$ est solution de 
 \begin{equation}
-q^n - q(n \Delta t) = e^n
+\dfrac{d \mathfrak{u}}{dt} = J_{\Delta}(\mathfrak{u}).
 \end{equation}
-et $e^n \rightarrow 0$ lorsque $\Delta t \rightarrow 0$.
+Dans ce qui suit, on s'occupe principalement de différents points d'analyse numérique (consistance, stabilité, convergence) dans différentes situations relatives aux équations précédentes. Bien que le contexte de cette thèse soit la géométrie sphérique, nous considérons ici le cadre plan et périodique.
 
-Il existe autres méthodes de Runge-Kutta explicites. On pensera par exemples à la méthode d'Euler Explicite ou le schéma de Heun. Il est classique de représenter une méthode de Runge-Kutta par son \textit{tableau de Butcher} en table \ref{tab:butcher}.
+
+
+
+
+
+
+
+
+
+\section{Schémas de Runge-Kutta explicite}
+
+\subsection{Le schéma de Runge-Kutta RK4}
+
+Le schéma de résolution temporelle de référence que nous considérons est le schéma de Runge-Kutta d'ordre 4 (RK4). L'état $q^n$ étant, l'état $q^{n+1}$ s'écrit en fonction de $q^n$, et non de $q^n$, $q^{n-1}$, $q^{n-2}$, ..., via une relation de la forme
+\begin{equation}
+q^{n+1} = Q(q^n).
+\label{eq:recurrence_rk}
+\end{equation}
+Le schéma de Runge-Kutta d'ordre 4 est le schéma de référece d'ordre 4 pour les problèmes non linéaires convectifs. 
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+K^{(1)} & = & J_{\Delta}(q^n) \\
+K^{(2)} & = & J_{\Delta}\left(q^n + \dfrac{\Delta t}{2} K^{(1)}\right) \\
+K^{(3)} & = & J_{\Delta}\left(q^n + \dfrac{\Delta t}{2} K^{(2)}\right) \\
+K^{(4)} & = & J_{\Delta}\left(q^n + \Delta t K^{(3)}\right)
+\end{array}
+\right.
+\label{eq:k_rk4}
+\end{equation}
+\begin{equation}
+q^{n+1} = q^n + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right)
+\label{eq:assemblage_rk4}
+\end{equation}
+Il est pratique de représenter une méthode de Runge-Kutta a l'aide d'un tableau de Butcher \cite{Butcher2016} de la forme \ref{tab:butcher}. $c \in \mathbb{R}^p$ désigne la position de l'approximation, $A \in \mathbb{M}_p(\mathbb{R})$ représente la dépendance entre l'étape donnée et les autres étapes, $b \in \mathbb{R}^p$ est issue de la règle de quadrature associée à la méthode de Runge-Kutta.
 
 \begin{table}[htbp]
 \begin{center}
 \begin{tabular}{c|c}
-$b$ & $R$ \\
+$c$ & $A$ \\
 \hline
-    & $c^T$
+    & $b^T$
 \end{tabular}
 \end{center}
-\caption{Tableau de Butcher d'une méthode de Runge-Kutta.}
+\caption{Tableau de Butcher d'une méthode de Runge-Kutta. $A \in \mathbb{M}_p(\mathbb{R})$, $b,c \in \mathbb{R}^p$.}
 \label{tab:butcher}
 \end{table}
-
-où $R$ est une matrice, $b$ et $c$ sont des vecteurs. Par exemple, le tableau de Butcher de la méthode de Runge Kutta d'ordre 4 de l'algorithme \ref{alg:RK4} est donné ;
+Pour la méthode de Runge-Kutta d'ordre 4 détaillée ici, le tableau de Butcher prend la forme \ref{tab:butcher_rk4}.
 \begin{table}[htbp]
 \begin{center}
 \begin{tabular}{c|cccc}
@@ -70,11 +124,12 @@ $1$   & $0$   & $0$  & $1$  &      \\
       & $1/6$ & $1/3$& $1/3$& $1/6$\\
 \end{tabular}
 \end{center}
-\caption{Tableau de Butcher de la méthode de Runge Kutta d'ordre 4 (algorithme \ref{alg:RK4}).}
+\caption{Tableau de Butcher de la méthode de Runge Kutta d'ordre 4.}
+\label{tab:butcher_rk4}
 \end{table}
-Les matrices associées au tableau de Butcher pour RK4 sont
+La matrice $A$ ainsi que les vecteurs $b$ et $c$ associés au tableau de Butcher pour RK4 sont
 \begin{equation}
-R= \begin{bmatrix}
+A= \begin{bmatrix}
 0 & 0 & 0 & 0 \\
 1/2& 0& 0 & 0 \\
 0 &1/2& 0 & 0 \\
@@ -82,45 +137,49 @@ R= \begin{bmatrix}
 \end{bmatrix}
 \hspace{1cm}
 b=\begin{bmatrix}
-0\\1/2\\1/2\\1
+1/6\\1/3\\1/3\\1/6
 \end{bmatrix}
 \hspace{1cm}
 c=\begin{bmatrix}
-1/6\\1/3\\1/3\\1/6
+0\\1/2\\1/2\\1
 \end{bmatrix}.
 \end{equation}
-Une méthode de Runge-Kutta est explicite si $R$ est triangulaire inférieure strictement.
 
-
-
-
-\subsection{Stabilité}
-
-La \textit{stabilité linéaire} d'un schéma en temps est une notion essentielle associée à un schéma. Cette notion recouvre de nombreux aspects dans la littérature.
-Un schéma d'intégration en temps permet de calculer $q^n$ une approximation de $q(n \Delta t)$ à une erreur $e^n$ près :
+Dans \eqref{eq:recurrence_rk}, en supposant que $q^n = q(n \Delta t)$ alors $q^{n+1}=Q(q^n)$ satisfait 
 \begin{equation}
-q^n = q(n \Delta t) + e^n.
-\label{eq:scheme_erreur}
+q^{n+1} - q((n+1) \Delta t) = \mathcal{O}(\Delta t^{q+1}).
 \end{equation}
+Dans ce cas, on dit que la méthode est d'ordre 4.
 
-La stabilité du schéma est essentielle. Nous distinguons deux principales notions de stabilité :
+\begin{proposition}
+La méthode de Runge-Kutta d'ordre 4 \eqref{eq:k_rk4} et \eqref{eq:assemblage_rk4} est d'ordre 4
+\end{proposition}
+En ce qui concerne la preuve de cette proposition, nous renvoyons à \cite{Demailly2016}.
+
+
+\subsection{Stabilité d'un schéma en temps}
+
+On considère une équation différentielle ordinaire de la forme
+\begin{equation}
+\dfrac{dq}{dt} = J_{\Delta}(q),
+\label{eq:eq_semi_disc}
+\end{equation}
+$q^n$ approchant $q(n \Delta t)$ donné par un schéma en temps de la forme \eqref{eq:recurrence_rk}. Nous considèrons les deux notions de stabilité suivantes :
 \begin{enumerate}
-\item La \textit{stabilité au sens de Von Neumann} établi une relation de convergence de $q^n$ vers $q(n \Delta t)$ pour tout $1 \leq n \leq N$ lorsque $\Delta t \rightarrow 0$ et $N \rightarrow + \infty$. 
-La stabilité de Von Neumann du schéma \eqref{eq:scheme_erreur} se traduit par
+\item La \textit{stabilité au sens de Von Neumann}. Soit $(q^n)_{0 \leq n \leq N}$, $N \Delta t = T < \infty$ un temps fini une approximation de la solution de\eqref{eq:eq_semi_disc} pour $0 \leq t \leq T$. Le schéma est stable au sens de Von Neumann si il existe $C(T)>0$ tel que
 \begin{equation}
-\exists C >0, \forall n \in \{ 0 , \cdots , N \}, \forall (N, \Delta t) \in \left\lbrace \mathbb{N} \times \mathbb{R}^+ \text{ tels que } N \Delta t = T \right\rbrace, \| q^n \| \leq C.
+\sup_{N>0, N \Delta t = T} \max_{0 \leq n \leq N} |q^n| < C(T).
 \end{equation}
-Cette propriété traduit le fait que l'erreur doit rester uniformément bordée lorsque l'on raffine la discrétisation. La stabilité au sens de Von Neumann ne permet pas d'assurer la convergence vers la solution de l'équation différentielle lorsque l'on raffine le maillage, il s'agit là de la consistance. Si un schéma est stable et consistant, alors il y a convergence de la solution numérique vers la solution exacte sur un intervalle borné lorsque l'on raffine, il s'agit du théorème de Lax.
 
-\item La \textit{Stabilité asymptotique} se caractérise par le compostement de la solution numérique $q^n$ sur un intervalle non borné à $\Delta t$ fixé. On distingues deux types de stabilités asymptotiques :
+\item On considère $q'=J(q)$ discrétisée par un schéma en temps, $q(t) \in \mathbb{C}^p$ pour tout $t$. Cette fois, $\Delta t$ est fixé et $n \rightarrow + \infty$. On reprend le schéma en temps indépendamment des propriétés de l'équation différentielle considérée. La \textit{Stabilité asymptotique} se caractérise par le comportement de la solution numérique $q^n$ sur un intervalle non borné à $\Delta t$ fixé. On distingues deux types de stabilités asymptotiques en supposant $q^n$ calculable pour tout $n$ :
 \begin{itemize}
-\item la suite $(q^n)_{n \in \mathbb{N}}$ est bornée,
-\item La suite $q^n \rightarrow 0$ lorsque $n \rightarrow + \infty$.
+\item la suite $(|q^n|)_{n \in \mathbb{N}}$ est bornée,
+\item La suite $|q^n| \rightarrow 0$ lorsque $n \rightarrow + \infty$.
 \end{itemize}
-la stabilité asymptotique est liée à l'équation différentielle résolue. En effet si la solution exacte de l'équation résolue tend vers $0$ alors la solution numérique doit tendre vers $0$ aussi. On note cependant que la stabilité asymptotique peut n'être vérifiée que sous une contrainte sur $\Delta t$.
+Noter que $|\cdot|$ est la norme usuelle sur $\mathbb{C}^p$.
 \end{enumerate} 
 
-Nous nous limitons à la notion de \textit{stabilité linéaire asymptotique}, appelée stabilité linéaire. Il s'agit de la stabilité asymptotique appliquée à l'équation de Dahlquist :
+Ces deux définitions de stabilité sont utilisées dans le contexte particulier de l'équation de Dahlquist qui joue un rôle essentiel :
 \begin{equation}
 \left\lbrace 
 \begin{array}{rcl}
@@ -130,92 +189,140 @@ q(0) & = & q_0.
 \right.
 \label{eq:dahlquist}
 \end{equation}
-avec $\lambda \in \mathbb{C}^- = \{ \lambda_1 + i \lambda_2 \text{ tels que } (\lambda_1, \lambda_2) \in \mathbb{R}^- \times \mathbb{R} \}$. La solution de cette équation est explicitement donnée par 
+avec $\lambda \in \mathbb{C}$ et $q_0$ non nul. La solution de cette équation est explicitement donnée par 
 \begin{equation}
 q(t) = e^{\lambda t} q_0
 \end{equation}
-On remarque immédiatement que $q$ est bornée (par $q_0$) si Re$(\lambda) \leq 0$ et $q(t) \rightarrow 0$ lorsque $t \rightarrow + \infty$ si Re$(\lambda) <0$.
+On remarque que
+\begin{equation}
+\lim_{+ \infty} q(t) = 0 \text{ si et seulement si } \Re(\lambda) < 0
+\end{equation}
+ainsi que
+\begin{equation}
+\lim_{+ \infty} |q(t)| = + \infty \text{ si et seulement si } \Re(\lambda)>0.
+\end{equation}
 
-\begin{proposition}
-Soit une méthode de Runge-Kutta appliquée à la résolution de l'équation \eqref{eq:dahlquist}. En utilisant les notations du tableau de Butcher \ref{tab:butcher}, on a 
+Nous considérons les méthodes de Runge-Kutta explicites donc $A$ est triangulaire inférieure stricte.
+Si l'on note $K = [K^{(1)}, K^{(2)}, ...]^T$, alors $K$ est solution de 
 \begin{equation}
-q^{n+1} = r(\lambda \Delta t) q^n,
+K = \lambda q^n +  \lambda \Delta t A K.
 \end{equation}
-avec $r$ donné par 
-\begin{equation}
-r(\theta) = 1 + \theta c^T \cdot \left( (id - \theta R)^{-1} \mathbf{1} \right).
-\end{equation}
-\end{proposition}
-
-\begin{proof}
-Si l'on note $K = [K_1, K_2, ...]^T$, alors $K$ est solution de 
-\begin{equation}
-K = \lambda q^n +  \lambda \Delta t R K
-\end{equation}
-donc, $K = (id - \lambda \Delta t R)^{-1} \mathbf{1}$.
+La matrice $A$ est triangulaire inférieure stricte donc $\I - \lambda \Delta t A$ est triangulaire avec des 1 sur la diagonale, donc $(\I - \lambda \Delta t A)$ est inversible.
+Ainsi, on a $K = (\I - \lambda \Delta t A)^{-1} \mathbf{1}$.
 De là, il découle que 
 \begin{equation}
-q^{n+1} = q^n + \theta c^T \cdot \left( (id - \theta R)^{-1} q^n \right).
+q^{n+1} = q^n + \lambda \Delta t b^T \cdot \left( (\I - \lambda \Delta t A)^{-1} q^n \right).
 \end{equation} 
-avec $\theta = \lambda \Delta t$. D'où le résultat.
-\end{proof}
-On note que si la méthode est explicite alors $R$ est nilpotente donc $r$ est polynomiale en $\theta$, 
-en particulier, pour la méthode de Runge-Kutta d'ordre 4, on a 
+Soit une méthode de Runge-Kutta appliquée à la résolution de l'équation \eqref{eq:dahlquist}. En utilisant les notations du tableau de Butcher \ref{tab:butcher}, on a 
 \begin{equation}
-r(z) = 1 + z + \dfrac{z^2}{2} + \dfrac{z^3}{6} + \dfrac{z^4}{24} 
+q^{n+1} = R(\lambda \Delta t) q^n,
+\end{equation}
+où $R$ est donné par
+\begin{equation}
+R(z) = 1 + z b^T \cdot \left( (\I - z A)^{-1} \mathbf{1} \right).
+\end{equation}
+\begin{definition}
+
+On appelle \textit{fonction de stabilité} d'une méthode de Runge-Kutta la fonction $R : z \in \mathbb{C} \mapsto R(z) \in \mathbb{C}$ donnée par 
+\begin{equation}
+R(z) = 1 + z b^T \cdot \left( (\I - z A)^{-1} \mathbf{1} \right).
+\end{equation}
+\end{definition}
+
+
+Pour la méthode de Runge-Kutta d'ordre 4, on a 
+\begin{equation}
+R(z) = 1 + z + \dfrac{z^2}{2} + \dfrac{z^3}{6} + \dfrac{z^4}{24} 
 \end{equation}
 alors le résultat de stabilité est le suivant :
 \begin{proposition}
 La méthode de Runge-Kutta d'ordre 4 (RK4) est asymptotiquement stable pour l'équation \eqref{eq:dahlquist} si et seulement si
 \begin{equation}
-\vert 1 + \theta + \dfrac{\theta^2}{2} + \dfrac{\theta^3}{6} + \dfrac{\theta^4}{24}  \vert \leq 1,
+\vert 1 + z + \dfrac{z^2}{2} + \dfrac{z^3}{6} + \dfrac{z^4}{24}  \vert \leq 1,
 \end{equation}
-avec $\theta = \lambda \Delta t$.
+avec $z = \lambda \Delta t$.
 \label{prop:stab_rk4}
 \end{proposition}
-On définit la zone de stabilité de RK4, notée $\mathcal{D}_{RK4}$, par
+La condition $|R(z)|^2 = 1$ définit implicitement une courbe décrivant la frontière d'un compact. Par le théorème des fonctions implicites, cette frontière est régulière et fermée. La zone de stabilité de RK4 est constituée de l'intérieur de cette courbe.
+On définit la zone de stabilité de RK4, notée $\mathcal{D}_{\RK4}$, par
 \begin{equation}
-\mathcal{D}_{RK4} = \left\lbrace \theta \in \mathbb{C} \text{ tels que } \vert 1 + \theta + \dfrac{\theta^2}{2} + \dfrac{\theta^3}{6} + \dfrac{\theta^4}{24}  \vert \leq 1 \right\rbrace
+\mathcal{D}_{\RK4} = \left\lbrace z \in \mathbb{C} \text{ tels que } \vert 1 + z + \dfrac{z^2}{2} + \dfrac{z^3}{6} + \dfrac{z^4}{24}  \vert \leq 1 \right\rbrace
 \end{equation} 
-Dans la figure \ref{fig:stab_area}, on présente les zones de stabilités de différentes méthodes de Runge-Kutta explicites.
+On représente $\mathcal{D}_{\RK4}$ sur la figure \ref{fig:stab_area}.
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[scale=0.2]{stabilityarea_color.jpeg}
+\includegraphics[height=8cm]{rk4area.png}
 \end{center}
-\caption{Zones de stabilités de différentes méthodes de Runge-Kutta explicites dans le plan complexe. La zone de stabilité de RK4 est délimitée par le trait noir. Les traits vert, bleu et rouge sont respectivement pour des méthodes de Runge-Kutta d'ordre 3, 2 et 1.}
+\caption{Zone de stabilité de la méthode de Runge-Kutta d'ordre 4 $\mathcal{D}_{\RK4}$.}
 \label{fig:stab_area}
 \end{figure}
-En particulier, comme détaillé dans \cite{Hundsdorfer2013}, on note que
+En particulier, comme détaillé dans \cite{Hundsdorfer2013}, on a
 \begin{equation}
 \mathcal{D}_{RK4} \cap i \mathbb{R} = i \left[-2 \sqrt{2},2 \sqrt{2}\right].
 \end{equation}
 
-\begin{proposition}
-On suppose que $\Delta t = T/(n+1)$ est choisit tel que $|r(\lambda \Delta t ) | \leq 1$ (RK4 est asymprotiquement stable), alors si $q^{n+1}$ est la solution approchée par RK4 de \eqref{eq:dahlquist} et $q(t)$ la solution exacte en $t \in [0,T]$, il existe $C>0$ tel que
+\begin{lemme}
+Soit $(e_n)_{n \in \mathbb{N}}$ une suite réelle. On suppose qu'il existe $a \in [0,1]$ et $b>0$ tels que
 \begin{equation}
-| e^{n+1} | = | q^{n+1} - q(t^{n+1}) | \leq C T \Delta t^4 \max_{0 \leq t \leq T} | q(t) |.
+e_{n+1} \leq a e_n + b 
 \end{equation}
+pour tout $n \in \mathbb{N}$, alors on a
+\begin{equation}
+e_n \leq a^n e_0 + nb.
+\end{equation}
+\label{lem:gronwall_discret}
+\end{lemme}
+
+\begin{proof}
+Montrons la propriété par récurrence. Initialement, on a directement
+\begin{equation}
+e_1 \leq e_0.
+\end{equation}
+Supposons qu'il existe $n \in \mathbb{N}$ tel que
+\begin{equation}
+e_n \leq a^n e_0 + nb.
+\end{equation}
+Alors, au rang $n+1$, on a
+\begin{align*}
+e_{n+1} & \leq a e_n + b \\
+	& \leq a \left( a^n e_0 + nb \right) + b \text{ par hypothèse de récurrence,}  \\
+	& \leq a^{n+1} e_0 + anb + b\\
+	& \leq a^{n+1} e_0 + (n+1)b \text{ car } 0 \leq a \leq 1.
+\end{align*}
+Donc d'après ce raisonnement par récurrence, on prouve le résultat attendu.
+\end{proof}
+
+\begin{proposition}
+Supposons $\Delta t = T/N$, $N \in \mathbb{N}$, est choisit tel que $|R(\lambda \Delta t ) | \leq 1$ (RK4 est asymprotiquement stable), alors si $q^{n+1}$ est la solution approchée par RK4 de \eqref{eq:dahlquist} et $q(t)$ la solution exacte en $t \in [0,T]$, il existe $C>0$ indépendant de $q$ et de $\Delta t$ tel que
+\begin{equation}
+e^{n} = | q^{n} - q(t^{n}) | \leq C T \Delta t^4 \max_{0 \leq t \leq T} | q(t) |,
+\end{equation}
+pour $0 \leq n \leq N$.
 \label{prop:consistance_rk4}
 \end{proposition}
 
 \begin{proof}
-Par construction des différents termes, on a
+Soit $n \leq N$, alors
 \begin{align*}
-e^{n+1} & = r(\lambda \Delta t) q^n - \exp \left( \lambda \Delta t \right) q(t^n) \\
-	& = r(\lambda \Delta t) \left( q^n - q(t^n) \right) + \left( r(\lambda \Delta t) - \exp \left( \lambda \Delta t  \right) \right) q(t^n) \\
-	& = r(\lambda \Delta t) e^n + \left( r(\lambda \Delta t) - \exp \left( \lambda \Delta t  \right) \right) q(t^n).
+e_{n+1} & = |q^{n+1} - q(t^{n+1})| \\
+	& = |R(\lambda \Delta t) q^n - e^{\lambda \Delta t}q(t^n)| \\
+	& = |R(\lambda \Delta t) q^n - R(\lambda \Delta t) q(t^n) + R(\lambda \Delta t) q(t^n)- e^{\lambda \Delta t}q(t^n)| \\
+	& \leq |R(\lambda \Delta t)| e_n + |R(\lambda \Delta t) - e^{\lambda \Delta t}| |q(t^n)|.
 \end{align*}
-D'où, en prenant la valeur absolue, 
+Or, d'après la formule de Taylor-Lagrange, il existe $\xi$ tel que
+\begin{equation}
+R(\lambda \Delta t) - e^{\lambda \Delta t} = \dfrac{\lambda^5 \Delta t^5}{720} e^{\xi}.
+\end{equation}
+Comme $\mathcal{D}_{\RK4}$ est un compact de $\mathbb{C}$, on a
 \begin{align*}
-|e^{n+1}| & \leq |r(\lambda \Delta t)| |e^n| + C \lambda^5 \Delta t^5 q(t^n) \\
-		& \leq  |r(\lambda \Delta t| \left[ |r(\lambda \Delta t)| |e^{n-1}| + C \lambda^5 \Delta t^5 |q(t^{n-1})| \right] + C \lambda^5 \Delta t^5 |q(t^n)| \\
-		& \leq |r(\lambda \Delta t)|^2 |e^{n-1}| + C \lambda^5 \Delta t^5 |r(\lambda \Delta t)| |q(t^{n-1})| + C \lambda^5 \Delta t^5 |q(t^n)| \\
-		& \leq |r(\lambda \Delta t)|^2 |e^{n-1}| + C \lambda^5 \Delta t^5  |q(t^{n-1})| + C \lambda^5 \Delta t^5 |q(t^n)| \text{ par hyposthèse de stabilité.}\\
-		& \leq \hspace{0.5cm} \vdots \\
-		& \leq |r(\lambda \Delta t)|^{n+1} | e^0 | + (n+1) C \lambda^5 \Delta t^5 \max_{0 \leq t \leq T} |q(t)| \\
-		& \leq + (n+1) C \lambda^5 \Delta t^5 \max_{0 \leq t \leq T} |q(t)| \text{ car } e^0 = 0 \\
-		& \leq C T \lambda^5 \Delta t^4 \max_{0 \leq t \leq T} |q(t)|.
+|R(\lambda \Delta t) - e^{\lambda \Delta t}| \leq \dfrac{|\lambda|^5 \Delta t^5}{720} \max_{z \in \mathcal{D}_{\RK4}} |e^z| = C \Delta t^5.
 \end{align*}
+De plus, par hypothèse $|R(\lambda \Delta t)| \leq 1$, donc d'après le lemme \ref{lem:gronwall_discret}, pour tout $n \leq N$, on a
+\begin{align*}
+e_n & \leq |R(\lambda \Delta t)|^n \underbrace{e_0}_{=0} + \underbrace{n \Delta t}_{\leq T} \Delta t^4 C \max_{0 \leq t \leq T} |q(t)| \\
+	& \leq CT \Delta t^4 \max_{0 \leq t \leq T} |q(t)|.
+\end{align*}
+Ce qui prouve la formule souhaitée.
 \end{proof}
 
 
@@ -223,7 +330,7 @@ D'où, en prenant la valeur absolue,
 
 \subsection{Schémas de Runge-Kutta pour les systèmes d'équations différentielles}
 
-La notion de stabilité linéaire appliquée à l'équation de Dahlquist \eqref{eq:dahlquist} est étendue au système d'équations différentielles
+La notion de stabilité appliquée à l'équation de Dahlquist \eqref{eq:dahlquist} se généralise aux systèmes d'équations linéaires
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -234,13 +341,10 @@ La notion de stabilité linéaire appliquée à l'équation de Dahlquist \eqref{
 \label{eq:dahlquist_mat}
 \end{equation}
 où $\mathbf{q} = \begin{bmatrix}
-q_1(t) & q_2(t) & \cdots & q_N(t)
+q_1(t) & q_2(t) & \cdots & q_j(t) & \cdots & q_N(t)
 \end{bmatrix}^T \in \mathbb{R}^N$.
-$q_i$ désigne une fonction de $\mathbb{R}^+$ dans $\mathbb{C}$, $J \in \mathbb{M}_N (\mathbb{C})$ désigne une matrice carré. On se restreint au cas où $J$ est une matrice diagonalisable telle que 
-\begin{equation}
-\text{Sp}(J) \subset \mathbb{C}^-.
-\end{equation}
-Cette dernière propriété permet d'assurer que la solution de \eqref{eq:dahlquist_mat} est bornée. Cette solution est donnée par 
+$q_j$ désigne une fonction de $\mathbb{R}^+$ dans $\mathbb{C}$, $J \in \mathbb{M}_N (\mathbb{C})$ désigne une matrice carré. On se restreint au cas où $J$ est une matrice diagonalisable.
+Cette dernière propriété donne
 \begin{equation}
 \mathbf{q}(t) = e^{Jt}\mathbf{q}_0 \text{ avec } t \in \mathbb{R}^+.
 \end{equation}
@@ -259,42 +363,52 @@ donc la solution de \eqref{eq:dahlquist_mat} vérifie l'égalité
 
 A présent,considérons que l'équation \eqref{eq:dahlquist_mat} est discrétisée via la méthode de Runge Kutta d'ordre 4 de l'algorithme \ref{alg:RK4}. On obtient alors 
 \begin{equation}
-\mathbf{q}^{n+1} = r(\Delta t J) \mathbf{q}^n
-\end{equation}
-où $r$ est donné par 
-\begin{equation}
-r(\theta) = 1 + \theta + \dfrac{\theta^2}{2} + \dfrac{\theta^3}{6} + \dfrac{\theta^4}{24}.
+\mathbf{q}^{n+1} = R(\Delta t J) \mathbf{q}^n.
 \end{equation}
 Comme $J$ est diagonalisable, on a même
 \begin{equation}
-\mathbf{q}^{n+1} = P^{-1}r(\Delta t \Lambda)P \mathbf{q}^n
+\mathbf{q}^{n+1} = P^{-1}R(\Delta t \Lambda)P \mathbf{q}^n
 \end{equation}
 De la, on déduit la relation liant $\mathbf{q}^n$ à la condition initiale $\mathbf{q}_0$ : 
 \begin{equation}
-\mathbf{q}^n = r(\Delta t J) \mathbf{q}_0 = P^{-1}r(\Delta t \Lambda)P \mathbf{q}_0.
+\mathbf{q}^n = R(\Delta t J) \mathbf{q}_0 = P^{-1}R(\Delta t \Lambda)P \mathbf{q}_0.
 \end{equation}
-Le schémas utilisé est dit linéairement stable si $\left( \| \mathbf{q}^n \| \right)_{n \in \mathbb{N}}$ est une suite bornée. Comme $J$ est diagonalisable, cela revient à dire que $| r(\Delta t \lambda) | \leq 1$ avec $\lambda \in $ Sp$(J)$.
+Le schémas utilisé est dit linéairement stable si $\left( \| \mathbf{q}^n \| \right)_{n \in \mathbb{N}}$ est une suite bornée. Comme $J$ est diagonalisable, cela revient à dire que $| R(\Delta t \lambda) | \leq 1$ avec $\lambda \in $ Sp$(J)$.
 
 \begin{proposition}
-Le schéma d'intégration est linéairement stable si
+Le schéma RK4 est stable sous la condition
 \begin{equation}
-\forall \lambda \in \text{Sp}(J), |r(\Delta t \lambda)| \leq 1.
+\forall \lambda \in \Sp(J) \text{, } |R(\lambda \Delta t)| \leq 1,
 \end{equation}
-Ce qui est équivalent à dire
+c'est à dire 
 \begin{equation}
-\text{Sp}(\Delta t J) \subset \mathcal{D}_{RK4}.
+\rho (R(\Delta t J)) \leq 1.
 \end{equation}
-Comme $r$ est un polynôme, on a même la stabilité linéaire si
+Cette condition est équivalente à
 \begin{equation}
-\rho(r(\Delta t J)) \leq 1
+\Sp (R(\Delta t J)) \subset \mathcal{D}_{\RK4}.
 \end{equation}
-où $\rho$ désigne le rayon spectrale.
 \label{prop:stab_rk4_mat}
 \end{proposition}
 
-
-
-
+L'algorithme de RK4 s'écrit :
+\begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: RK4}\label{alg:RK4}
+    \begin{algorithmic}[1]
+    \State $q^0 = q_0$ connu,
+    \For{$n=0,1, \ldots$}
+             \State  $K^{(1)} = J_{\Delta} \left( q^n \right)$,
+             \State  $K^{(2)} = J_{\Delta} \left( q^n + \dfrac{\Delta t}{2} K^{(1)}\right)$,
+             \State  $K^{(3)} = J_{\Delta} \left( q^n + \dfrac{\Delta t}{2} K^{(2)}\right)$,
+             \State  $K^{(4)} = J_{\Delta} \left( q^n + \Delta t K^{(3)}\right)$,  
+             \State  $q^{n+1} = q^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right)$.
+            \EndFor
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center}
 
 
 
@@ -705,7 +819,7 @@ Il est possible d'évaluer numériquement la valeur de $\lambda_{2F}$ grâce à 
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
-\textbf{Ordre du filtre} $\mathcal{F}_{2J,x}$ : $2J$ & $\lambda_{2F}$ \\
+\textbf{Ordre du filtre} $\mathcal{F}_{2J,x}$ : $2J$ & $\lambda_{2J}$ \\
 \hline
 \hline
 Pas de filtrage & $2 \sqrt{2/3} \approx 1.6329$ \\
@@ -1571,7 +1685,7 @@ L'équation \eqref{eq:Burgers_1d} admet une unique solution $u$ telle que
 \begin{itemize}
 \item $u \in \mathcal{C}^1(\mathbb{R}^+ \times [0, 2 \pi])$ si $u_0'(x) \geq 0$ pour tout $x \in [0,2 \pi]$,
 
-\item $u \in \mathcal{C}^1([0, -\frac{1}{\inf_{x \in [0,2\pi]} (2 \pi u_0'(x))} \times [0, 2 \pi])$, sinon.
+\item $u \in \mathcal{C}^1\left(\left[0, -\frac{1}{\inf_{x \in [0,2\pi]} (2 \pi u_0'(x))}\right] \times [0, 2 \pi]\right)$, sinon.
 \end{itemize}
 De plus, cette solution $u$ vérifie pour $x \in [0, 2 \pi]$
 \begin{equation}
@@ -1580,7 +1694,7 @@ u(t,2 \pi u_0(x)t + x)=u_0(x).
 \end{theoreme}
 
 \begin{proof}
-On souhaite étudier l'équation \eqref{eq:Burgers_1d} par la méthode des caractéristiques. Dans un premier temps, on suppose que $u \in \mathcal{C}^1$ solution de \eqref{eq:Burgers_1d} existe. Soit $X : \mathbf{R}^+ \mapsto \mathbb{R}$ une courbe telle que
+On souhaite étudier l'équation \eqref{eq:Burgers_1d} par la méthode des caractéristiques. Dans un premier temps, on suppose que $u \in \mathcal{C}^1$ solution de \eqref{eq:Burgers_1d} existe. Soit $X : \mathbb{R}^+ \mapsto \mathbb{R}$ une courbe telle que
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}

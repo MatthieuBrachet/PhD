@@ -2289,7 +2289,7 @@ d'où le résultat immédiat à l'aide de la formule \eqref{eq: gradient}.
 
 \section{Harmoniques Sphériques sur la Cubed-Sphere}
 
-En analyse sur la sphère, les harmoniques sphériques jouent un rôle particulièrement important \cite{Atkinson2012, Frye2012} en donnant une décomposition des fonctions de carré intégrable. On note $\mathbf{Y}^l_m$ les harmoniques sphériques sur la sphère avec $l \in \mathbb{N}$ et $|m| \leq l$. Les harmoniques sphériques de $\mathbf{S}_a^2$ s'expriment en fonction de $(\lambda, \theta)$ les coordonnées longitude-latitude par
+En analyse sur la sphère, les harmoniques sphériques jouent un rôle particulièrement important \cite{Atkinson2012, Frye2012} en donnant une décomposition des fonctions de carré intégrable. On note $\mathbf{Y}^l_m$ les harmoniques sphériques sur la sphère avec $l \in \mathbb{N}$ et $|m| \leq l$. Les harmoniques sphériques de $\mathbb{S}_a^2$ s'expriment en fonction de $(\lambda, \theta)$ les coordonnées longitude-latitude par
 \begin{equation}
 \mathbf{Y}_m^l(\mathbf{x}) = \mathbf{Y}_m^l(\lambda, \theta) = \dfrac{(-1)^m}{a} \sqrt{\dfrac{(2l+1)}{4 \pi} \dfrac{(l-|m|)!}{(l+|m|)!}} P^{|m|}_l (\sin (\theta)) \exp \left( i m \lambda \right),
 \label{eq:harmoniques_spheriques}
@@ -2367,7 +2367,7 @@ I(f) = \gint_{\mathbb{S}_a^2}f(\mathbf{x}) d \sigma(\mathbf{x})
 \end{equation}
 on obtient directement la relation
 \begin{equation}
-I(f) = \gsum_{(k)=(I)^{(VI)}} I^{(K)}(f).
+I(f) = \gsum_{(k)=(I)}^{(VI)} I^{(K)}(f).
 \end{equation}
 Par analogie avec l'intégrale, nous ne nous intéressons qu'à des produits scalaires de la forme
 \begin{equation}
@@ -2451,6 +2451,16 @@ alors le résultat suivant est vérifié
 <\mathbf{Y}_{m}^{l,*},\mathbf{Y}_{m'}^{l',*}>_{\CS} = 0 
 \end{equation}
 si $m+m'$ ou $l+l'$ est impair.
+En particulier
+\begin{equation}
+<\mathbf{Y}_{m}^{l,*},\mathbf{Y}_{0}^{0,*}>_{\CS} = 0 
+\end{equation}
+si 
+\begin{itemize}
+\item $m$ impair ou
+\item $m$ pair et $l \equiv 2 [4]$ ou $l$ impair.
+\end{itemize}
+\label{th:pdtscal_HS}
 \end{theoreme}
 
 \begin{proof}
@@ -2488,10 +2498,179 @@ Partant de ces relations entre les panels $(I)$ et $(II)$, on trouve
 \begin{equation}
 S = (1+(-1)^{l+l'})\left( \exp \left( -i(l+l') \dfrac{\pi}{2} \right) +1 \right)S_{(I)} + (1+(-1)^{l+l'+m+m'})S_{(V)}.
 \end{equation}
-On remarque immédiatement que si $m+m'$ et $l+l'$ sont impairs, alors $S=0$.
 Le problème est à présent de savoir si on peut avoir $S_{(I)}=0$ ou $S_{(V)} = 0$.
 
+on considère le panel $(I)$. On a
+\begin{align*}
+S_{(I)} & = \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} (\mathbf{Y}_m^{l,*})_{i,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{i,j}} \\
+	& = S_1 + S_2 + S_3 +S_4,
+\end{align*}
+avec $S_1$ donné par
+\begin{align*}
+S_1 = & \Delta \xi \Delta \eta \gsum_{i=-N/2}^{1} \gsum_{j=1}^{N/2} \omega_{i,j} (\mathbf{Y}_m^{l,*})_{i,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{i,j}} \\
+	& + \dfrac{\Delta \xi \Delta \eta}{2} \gsum_{i=-N/2}^{1} \omega_{i,0} (\mathbf{Y}_m^{l,*})_{i,0}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,0}^{(I)} \sqrt{\bar{\mathbf{G}}_{i,0}}\\
+		& + \dfrac{\Delta \xi \Delta \eta}{2} \gsum_{j=1}^{N/2} \omega_{0,j} (\mathbf{Y}_m^{l,*})_{0,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{0,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{0,j}}\\
+		& + \dfrac{\Delta \xi \Delta \eta}{4} (\mathbf{Y}_m^{l,*})_{0,0}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{0,0}^{(I)} \sqrt{\bar{\mathbf{G}}_{0,0}},
+\end{align*}
+$S_2$ donné par
+\begin{align*}
+S_2 = & \Delta \xi \Delta \eta \gsum_{i=-N/2}^{1} \gsum_{j=-N/2}^{1} \omega_{i,j} (\mathbf{Y}_m^{l,*})_{i,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{i,j}} \\
+	& + \dfrac{\Delta \xi \Delta \eta}{2} \gsum_{i=-N/2}^{1} \omega_{i,0} (\mathbf{Y}_m^{l,*})_{i,0}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,0}^{(I)} \sqrt{\bar{\mathbf{G}}_{i,0}}\\
+		& + \dfrac{\Delta \xi \Delta \eta}{2} \gsum_{j=-N/2}^{1} \omega_{0,j} (\mathbf{Y}_m^{l,*})_{0,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{0,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{0,j}}\\
+		& + \dfrac{\Delta \xi \Delta \eta}{4} (\mathbf{Y}_m^{l,*})_{0,0}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{0,0}^{(I)} \sqrt{\bar{\mathbf{G}}_{0,0}},
+\end{align*}
+$S_3$ donné par
+\begin{align*}
+S_3 = & \Delta \xi \Delta \eta \gsum_{i=1}^{N/2} \gsum_{j=-N/2}^{1} \omega_{i,j} (\mathbf{Y}_m^{l,*})_{i,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{i,j}} \\
+	& + \dfrac{\Delta \xi \Delta \eta}{2} \gsum_{i=1}^{N/2} \omega_{i,0} (\mathbf{Y}_m^{l,*})_{i,0}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,0}^{(I)} \sqrt{\bar{\mathbf{G}}_{i,0}}\\
+		& + \dfrac{\Delta \xi \Delta \eta}{2} \gsum_{j=-N/2}^{1} \omega_{0,j} (\mathbf{Y}_m^{l,*})_{0,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{0,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{0,j}}\\
+		& + \dfrac{\Delta \xi \Delta \eta}{4} (\mathbf{Y}_m^{l,*})_{0,0}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{0,0}^{(I)} \sqrt{\bar{\mathbf{G}}_{0,0}},
+\end{align*}
+$S_4$ donné par
+\begin{align*}
+S_4 = & \Delta \xi \Delta \eta \gsum_{i=1}^{N/2} \gsum_{j=1}^{N/2} \omega_{i,j} (\mathbf{Y}_m^{l,*})_{i,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{i,j}} \\
+	& + \dfrac{\Delta \xi \Delta \eta}{2} \gsum_{i=1}^{N/2} \omega_{i,0} (\mathbf{Y}_m^{l,*})_{i,0}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,0}^{(I)} \sqrt{\bar{\mathbf{G}}_{i,0}}\\
+		& + \dfrac{\Delta \xi \Delta \eta}{2} \gsum_{j=1}^{N/2} \omega_{0,j} (\mathbf{Y}_m^{l,*})_{0,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{0,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{0,j}}\\
+		& + \dfrac{\Delta \xi \Delta \eta}{4} (\mathbf{Y}_m^{l,*})_{0,0}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{0,0}^{(I)} \sqrt{\bar{\mathbf{G}}_{0,0}}.
+\end{align*}
+Une représentation des zones attribuées à $S_1$, $S_2$, $S_3$ et $S_4$ sur le panel $(I)$ est donnée en figure \ref{fig: zones panel I}.
 
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=2]
+\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot (-1,0)
+	-- plot (-1,1)
+	-- plot (0,1)
+	-- plot (0,0)
+	-- cycle;	
+\draw (-0.5,0.5) node{$S_1$} ;
 
+\filldraw[draw=black,fill=red!30!white,opacity=0.20]
+	plot (0,0)
+	-- plot (0,1)
+	-- plot (1,1)
+	-- plot (1,0)
+	-- cycle;	
+\draw (-0.5,-0.5) node{$S_2$} ;
+
+\filldraw[draw=black,fill=green!30!white,opacity=0.20]
+	plot (0,0)
+	-- plot (1,0)
+	-- plot (1,-1)
+	-- plot (0,-1)
+	-- cycle;	
+\draw (0.5,-0.5) node{$S_3$} ;
+
+\filldraw[draw=black,fill=Sepia!30!white,opacity=0.20]
+	plot (0,0)
+	-- plot (0,-1)
+	-- plot (-1,-1)
+	-- plot (-1,0)
+	-- cycle;	
+\draw (0.5,0.5) node{$S_4$} ;
+
+\draw (-1,-1) -- (1,-1) ;
+\draw (-1,1) -- (1,1) ;
+\draw (1,1) -- (1,-1) ;
+\draw (-1,1) -- (-1,-1) ;
+\draw [>=stealth, ->](-1.5,0) -- (1.5,0) ;
+\draw (2.1,0.25) node[below]{$(Oy)$} ;
+\draw [>=stealth, ->](0,-1.5) -- (0,1.5) ;
+\draw (0,2.1) node[below]{$(Oz)$} ;
+\end{tikzpicture}
+\end{center}
+\caption{Représentation schématique des zones $S_1$ à $S_4$ sur le panel $(I)$}
+\label{fig: zones panel I}
+\end{figure}
+
+Compte tenu des symétries des harmoniques sphériques ainsi que des symétries des poids $\omega_{i,j}$, on a
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+S_3 & = & \bar{S}_1 \\
+S_4 & = & \bar{S}_2 \\
+\bar{S}_1 & = & (-1)^{m+m'+l+l'} S_1
+\end{array}
+\right.
+\end{equation}
+donc il vient :
+\begin{align*}
+S_{(I)} & = S_1 + S_2 + S_3 + S_4 \\
+	& = S_1 + S_2 + \bar{S}_1 + \bar{S}_2 \\
+	& = (1+(-1)^{l+l'+m+m'})(S_1+S_2)
+\end{align*}
+
+Pour le panel $(V)$, on nomme $S_a$ et $S_b$ les quantités suivantes :
+\begin{align*}
+S_a = & \Delta \xi \Delta \eta \gsum_{i=-N/2}^{1} \gsum_{j=-N/2}^{N/2} \omega_{i,j} (\mathbf{Y}_m^{l,*})_{i,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{i,j}} \\
+		& + \dfrac{\Delta \xi \Delta \eta}{2} \gsum_{j=-N/2}^{N/2} \omega_{0,j} (\mathbf{Y}_m^{l,*})_{0,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{0,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{0,j}},
+\end{align*}
+$S_b$ est donné par la relation suivante 
+\begin{align*}
+S_b = & \Delta \xi \Delta \eta \gsum_{i=1}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} (\mathbf{Y}_m^{l,*})_{i,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{i,j}} \\
+		& + \dfrac{\Delta \xi \Delta \eta}{2} \gsum_{j=-N/2}^{N/2} \omega_{0,j} (\mathbf{Y}_m^{l,*})_{0,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{0,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{0,j}}.
+\end{align*}
+Les zones attribuées à $S_a$ et $S_b$ sont représentées schématiquement dans la figure \ref{fig: zones panel V}.
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=2]
+\filldraw[draw=black,fill=red!30!white,opacity=0.20]
+	plot (-1,-1)
+	-- plot (-1,1)
+	-- plot (0,1)
+	-- plot (0,-1)
+	-- cycle;	
+\filldraw[draw=black,fill=blue!30!white,opacity=0.20]
+	plot (0,1)
+	-- plot (1,1)
+	-- plot (1,-1)
+	-- plot (0,-1)
+	-- cycle;	
+
+\draw (-1,-1) -- (1,-1) ;
+\draw (-1,1) -- (1,1) ;
+\draw (1,1) -- (1,-1) ;
+\draw (-1,1) -- (-1,-1) ;
+
+\draw [>=stealth, ->](-1.5,0) -- (1.5,0) ;
+\draw (2.1,0.25) node[below]{$(Oy)$} ;
+
+\draw [>=stealth, ->](0,1.5) -- (0,-1.5) ;
+\draw (0,-1.9) node[below]{$(Ox)$} ;
+
+\draw (-0.5,0.2) node{$S_a$} ;
+\draw (0.5,-0.2) node{$S_b$} ;
+
+\end{tikzpicture}
+\end{center}
+\caption{Représentation schématique des zones $S_a$ et $S_b$ sur le panel V}
+\label{fig: zones panel V}
+\end{figure}
+On note que :
+\begin{align*}
+S_{(V)} & = S_a + S_b \\
+		& = S_a + (-1)^{l-l'}S_a \\
+		& = (1 + (-1)^{l+l'})S_a.
+\end{align*}
+
+Au bilan sur $S$ en considérant les égalités démontrées, on obtient :
+\begin{equation}
+S = (1+(-1)^{l+l'})\left( \exp \left( -i(l+l') \dfrac{\pi}{2} \right) +1 \right)(1 +(-1)^{l+l'+m+m'})(S_1+S_2) + (1+(-1)^{l+l'+m+m'})(1 + (-1)^{l+l'})S_a.
+\end{equation}
+Donc $S=0$ si $m+m'$ ou $l+l'$ est impair.
+
+Dans le cas où $m=0$ et $n=0$, on a
+\begin{equation}
+<\mathbf{Y}_m^{l,*},\mathbf{Y}_0^{0,*} >_{\CS} = 4 \left( 1- \exp \left(-\dfrac{i \pi l}{2} \right)\right)(S_1+S_2) + 4 S_a.
+\end{equation}
+Compte tenu de ce qui précède, on a immédiatement $<\mathbf{Y}_m^{l,*},\mathbf{Y}_0^{0,*} >_{\CS} = 0$ si $l$ est impair. Dans le cas où $l \equiv 2 [4]$, on a
+\begin{equation}
+<\mathbf{Y}_m^{l,*},\mathbf{Y}_0^{0,*} >_{\CS} = 4 S_a.
+\end{equation}
+De plus $S_a = 0$ d'après le second point du lemme \ref{lem:HS_sym}. Le résultat est alors prouvé. 
 \end{proof}
+
+Dans le cas où $m+m'$ et $l+l'$ sont pairs, le produit scalaire $<\mathbf{Y}_m^l, \mathbf{Y}_{m'}^{l'}>_{\CS}$ n'est a priori pas nul. Un choix judicieux des coefficients $(\omega_{i,j})_{-N/2 \leq i,j  \leq N/2}$ permet d'assurer que cette quantité reste faible lorsque $m \neq m'$ et $l \neq l'$. C'est l'objet du chapitre \ref{chap:quadrature}.
 
