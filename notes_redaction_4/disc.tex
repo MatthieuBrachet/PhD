@@ -256,9 +256,10 @@ On représente $\mathcal{D}_{\RK4}$ sur la figure \ref{fig:stab_area}.
 \caption{Zone de stabilité de la méthode de Runge-Kutta d'ordre 4 $\mathcal{D}_{\RK4}$.}
 \label{fig:stab_area}
 \end{figure}
+
 En particulier, comme détaillé dans \cite{Hundsdorfer2013}, on a
 \begin{equation}
-\mathcal{D}_{RK4} \cap i \mathbb{R} = i \left[-2 \sqrt{2},2 \sqrt{2}\right].
+\mathcal{D}_{\RK4} \cap i \mathbb{R} = i \left[-2 \sqrt{2},2 \sqrt{2}\right].
 \end{equation}
 
 \begin{lemme}
@@ -289,7 +290,10 @@ e_{n+1} & \leq a e_n + b \\
 	& \leq a^{n+1} e_0 + anb + b\\
 	& \leq a^{n+1} e_0 + (n+1)b \text{ car } 0 \leq a \leq 1.
 \end{align*}
-Donc d'après ce raisonnement par récurrence, on prouve le résultat attendu.
+D'après ce raisonnement par récurrence pour tout $n \in \mathbb{N}$,
+\begin{equation}
+e_n \leq a^n e_0 + nb.
+\end{equation}
 \end{proof}
 
 \begin{proposition}
@@ -1599,7 +1603,7 @@ lorsqu'il n'y a pas d'opérateur de filtrage. L'opérateur de filtrage permet à
 \begin{center}
 \begin{tabular}{|c||c|c|}
 \hline
-\textbf{Ordre du filtre} $\mathbf{\mathcal{F}}$  & \textbf{Instable pour} $\mathbf{\Delta t =}$ & \textbf{Stable pour} $\mathbf{\Delta t =}$ \\
+\textbf{Ordre du filtre : } $\mathbf{\mathcal{F}}$ : $\mathbf{2J}$  & \textbf{Instable pour} $\mathbf{\Delta t =}$ & \textbf{Stable pour} $\mathbf{\Delta t =}$ \\
 \hline
 \hline
 Pas de filtrage & $1.16(-3)$ & $\Delta t_{\infty} \approx 1.15(-3)$\\

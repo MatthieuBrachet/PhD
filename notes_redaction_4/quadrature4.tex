@@ -26,7 +26,7 @@ Q(f^*) = \gsum_{(k) = (I)}^{(VI)} Q^{(k)}(f^*)
 \end{equation}
 avec $Q^{(k)}(f^*)$ une formule de quadrature par panel de la forme
 \begin{equation}
-Q^{(k)}(f^*) = \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} f(\mathbf{x}_{i,j}^{(k)} \sqrt{\bar{\mathbf{G}}_{i,j}} \approx \gint_{(k)} f(\mathbf{x}) d \sigma(\mathbf{x})
+Q^{(k)}(f^*) = \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} f(\mathbf{x}_{i,j}^{(k)}) \sqrt{\bar{\mathbf{G}}_{i,j}} \approx \gint_{(k)} f(\mathbf{x}) d \sigma(\mathbf{x})
 \end{equation}
 avec $\bar{\mathbf{G}}_{i,j} = \det(\mathbf{G}_{i,j})$.
 Ces formules de quadratures sont étudiées dans \cite{Portelenelle2018} et présentent de très bon résultats grâce aux symétries de la Cubed-Sphere. De plus, il est possible de les améliorer en perturbant les valeurs de $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$. Le lien avec le produit scalaire du chapitre \ref{chap:3} peut être fait directement en notant que
@@ -49,6 +49,7 @@ avec $l \in \mathbb{N}$ et $|m| \leq l$, si
 \item $m$ est impair ou
 \item $m$ pair et $l \not\equiv 0 [4]$.
 \end{itemize}
+\label{cor:quadrature_exacte}
 \end{corollaire}
 
 Dans la suite de ce chapitre, nous étudions différents choix de $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$ permettant à $Q(f)$ d'approcher $I(f)$.
@@ -63,7 +64,147 @@ Dans la suite de ce chapitre, nous étudions différents choix de $(\omega_{i,j}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 \section{Quadrature de type trapèzes}
+
+Soient $\tf : (\xi, \eta) \in \mathbb{R}^2 \mapsto f(\xi, \eta) \in \mathbb{C}$ une fonction régulière et $(a,b) \in \mathbb{R}^2$ deux réels tels que $a<b$. Alors il existe un polynôme $P(\xi, \eta) \in \mathbb{C}[\xi, \eta]$ tel que 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+P(a,a) & = & \tf(a,a) \\
+P(a,b) & = & \tf(a,b) \\
+P(b,a) & = & \tf(b,a) \\
+P(b,b) & = & \tf(b,b).
+\end{array}
+\right.
+\end{equation}
+De plus, ce polynôme vérifie pour tous $(\xi, \eta) \in \mathbb{R}^2$ :
+\begin{equation}
+P(\xi, \eta) = \dfrac{\tf(b,b)}{(a-b)^2}(\xi-a)(\eta-a) - \dfrac{\tf(a,b)}{(a-b)^2}(\xi-a)(\eta-b) -\dfrac{\tf(b,a)}{(a-b)^2}(\xi-b)(\eta-a)+ \dfrac{\tf(a,a)}{(a-b)^2}(\xi-b)(\eta-b).
+\end{equation}
+L'idée de la méthode des trapèzes est d'approcher l'intégrale de $\tf$ à l'aide de l'intégrale de $P$, c'est à dire
+\begin{equation}
+\gint_{[a,b]^2} \tf(\xi, \eta) d\xi d\eta = (b-a)^2 \dfrac{\tf(a,a) + \tf(a,b) + \tf(b,a) + \tf(b,b)}{4}.
+\label{eq:tpzapprox}
+\end{equation}
+La méthode des trapèzes composites consiste à juxtaposer un ensemble de carrés pour calculer une intégrale. Plus le nombre de carrés est grand, plus l'intégrale approchée sera précise. On remarque que
+\begin{equation}
+\gint_{[-\pi/4,\pi/4]^2} \tf(\xi, \eta) d\xi d\eta = \gsum_{i=-N/2}^{N/2-1} \gsum_{j=-N/2}^{N/2-1} \gint_{\xi_i}^{\xi_{i+1}} \gint_{\eta_i}^{\eta_{i+1}} \tf(\xi, \eta) d\xi d\eta,
+\end{equation}
+avec $\xi_i = \dfrac{\pi}{4} + i \Delta \xi$ et $\eta_j = \dfrac{\pi}{4} + j \Delta \eta$. $\Delta \xi$ et $\Delta \eta$ représente le pas en espace :
+\begin{equation}
+\Delta \xi = \Delta \eta = \dfrac{\pi}{2N}.
+\end{equation}
+Ainsi, on souhaite approcher l'intégrale
+\begin{equation}
+\gint_{[-\pi/4,\pi/4]^2} \tf(\xi, \eta) d\xi d\eta
+\end{equation}
+en considérant la formule \eqref{eq:tpzapprox} sur chaque carré $\left[ \xi_i, \xi_{i+1} \right] \times \left[ \eta_i, \eta_{i+1} \right]$. La formule de quadrature prend alors la forme suivante :
+\begin{align*}
+\gint_{[-\pi/4,\pi/4]^2} \tf(\xi, \eta) d\xi d\eta & \approx \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2-1} \gsum_{j=-N/2}^{N/2-1} \dfrac{\tf(\xi_{i}, \eta_{j}) + \tf(\xi_{i+1}, \eta_{j}) + \tf(\xi_{i}, \eta_{j+1}) + \tf(\xi_{i+1}, \eta_{j+1}) }{4} \\
+	& = \Delta \xi \Delta \eta \gsum_{i = -N/2+1}^{N/2-1} \gsum_{j = -N/2+1}^{N/2-1} \tf(\xi_i, \eta_j) + ... \\
+	& \hspace{5mm} ... + \dfrac{\Delta \xi \Delta \eta}{2} \left[ \gsum_{i=-N/2+1}^{N/2-1} \left( \tf(\xi_i, \eta_{N/2} + \tf(\xi_i, \eta_{-N/2} \right) \right] + ...\\
+	& \hspace{5mm} ... + \dfrac{\Delta \xi \Delta \eta}{2} \left[ \gsum_{j=-N/2+1}^{N/2-1} \left( \tf(\xi_{N/2}, \eta_{j} + \tf(\xi_{-N/2}, \eta_{j} \right) \right]+ ... \\
+	& \hspace{5mm} ... + \dfrac{\Delta \xi \Delta \eta}{4} \left( \tf(\xi_{N/2}, \eta_{N/2}) + \tf(\xi_{-N/2}, \eta_{N/2}) + \tf(\xi_{N/2}, \eta_{-N/2})+ \tf(\xi_{-N/2}, \eta_{-N/2}) \right)\\
+	& = \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} \tf(\xi_i, \eta_j).
+\end{align*}
+Les coefficients $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$ sont donnés par
+\begin{itemize}
+\item $\omega_{-\frac{N}{2},-\frac{N}{2}}=\omega_{\frac{N}{2},-\frac{N}{2}}=\omega_{-\frac{N}{2},\frac{N}{2}}=\omega_{\frac{N}{2},\frac{N}{2}}=\frac{1}{4}$,
+\item $\omega_{i,\frac{N}{2}}=\omega_{i,-\frac{N}{2}}=\frac{1}{2}$ pour $-\frac{N}{2}+1 \leq i \leq \frac{N}{2}-1$,
+\item $\omega_{\frac{N}{2},j}=\omega_{-\frac{N}{2},j}=\frac{1}{2}$ pour $-\frac{N}{2}+1 \leq j \leq \frac{N}{2}-1$,
+\item $\omega_{i,j}=1$ dans tous les autres cas.
+\end{itemize}
+
+Si $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ est une fonction régulière, on peut appliquer la méthode des trapèzes composites à la
+\begin{equation}
+\tf(\xi,\eta) = f(\xi,\eta) \sqrt{\det(\mathbf{G}(\xi,\eta))} \text{ avec } -\pi/4 \leq \xi,\eta \leq \pi/4.
+\end{equation}
+On obtient alors la formule de quadrature $Q_{\tpz}$ définie par
+\begin{equation}
+Q_{\tpz}(f^*) = \gsum_{(k) = (I)}^{(VI)}Q_{\tpz}^{(k)}(f^*)
+\end{equation}
+pour tout $(k) = (I), ..., (VI)$, on a
+\begin{equation}
+Q_{\tpz}^{(k)}(f^*) = \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} f(\xi_i^{(k)},\eta_j^{(k)}) \sqrt{\bar{\mathbf{G}}_{i,j}},
+\end{equation}
+où $\bar{\mathbf{G}}_{i,j}=\det(\mathbf{G}(\xi_i,\eta_j))$ pour tout $-N/2 \leq i,j \leq N/2$.
+
+\begin{theoreme}
+La formule $Q_{\tpz}$ est consistante à l'ordre 2. De plus, pour toute fonction $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ régulière, on a
+\begin{align*}
+\gint_{(k)} f(\mathbf{x})d\sigma(\mathbf{x}) & = Q_{\tpz}^{(k)}(f^*) + ... \\
+& ... + \dfrac{\Delta \xi^3}{12} \left( \gsum_{i=-N/2+1}^{N/2-1} \left( \partial_{\eta}\tf_{i, N/2} - \partial_{\eta}\tf_{i, -N/2} \right) + \gsum_{j=-N/2+1}^{N/2-1} \left( \partial_{\eta}\tf_{N/2,j} - \partial_{\eta}\tf_{-N/2,j} \right) \right) - ...  \\
+	&  ... - \dfrac{\Delta \xi^3}{24} \left( \partial_{\eta}\tf_{-N/2,N/2} - \partial_{\eta}\tf_{-N/2,-N/2} + \partial_{\eta}\tf_{N/2,N/2}  - \partial_{\eta}\tf_{N/2,-N/2} \right) - ...  \\
+& ... - \dfrac{\Delta \xi^3}{24} \left( \partial_{\xi}\tf_{N/2,N/2} + \partial_{\xi}\tf_{N/2,-N/2} - \partial_{\xi}\tf_{-N/2,N/2}  - \partial_{\xi}\tf_{-N/2,-N/2} \right)+...\\
+& ... + \mathcal{O} \left( \Delta \xi^4 \right).
+\end{align*}
+en notant que $\Delta \xi = \Delta \eta$ ainsi que $\partial _{\xi} f_{i,j} = \partial_{\xi}f\xi_i, \eta_j)$ et $\partial _{\eta} f_{i,j} = \partial_{\eta}f\xi_i, \eta_j)$ pour tous $-N/2 \leq i,j \leq N/2$.
+De plus, on a posé 
+\begin{equation}
+\tf(\xi,\eta) = f(\xi,\eta) \sqrt{\det(\mathbf{G}(\xi,\eta))} \text{ avec } -\pi/4 \leq \xi,\eta \leq \pi/4.
+\end{equation}
+\label{th:quadrature_tpz}
+\end{theoreme}
+
+\begin{proof}
+La fonction $\tf$ est régulière sur $[-\pi/4, \pi/4]^2$ comme produit de fonctions régulières.
+La formule d'Euler MacLaurin \cite{Demailly2016, Hardy2000, Monegato1998} permet de donner une estimation de l'intégrale sur $[a,b] \subset \mathbb{R}$ :
+\begin{equation}
+\dfrac{1}{b-a} \gint_a^b \tf(x) dx = \dfrac{\tf(a) + \tf(b)}{2} - - \gsum_{j=1}^n (b-a)^{2j-1} \dfrac{b_{2j}}{(2j)!} \left( \tf^{(2j-1)}(b) - \tf^{(2j-1)}(a)  \right) + \mathcal{O}\left( (b-a)^{2n+2}  \right) 
+\end{equation}
+avec $(b_{2j})$ les nombres de Bernoulli \cite{Conway2012}. En particulier on note que $b_2 = 1/6$, donc
+\begin{equation}
+\dfrac{1}{b-a} \gint_a^b \tf(x) dx = \dfrac{\tf(a) + \tf(b)}{2} - \dfrac{(b-a)^2}{6 \cdot 2!} \left( \tf'(a) - \tf'(b) \right) - \dfrac{(b-a)^3}{30 \cdot 4!} \left( \tf^{(3)}(a) - \tf^{(3)}(b) \right) + \mathcal{O}\left( (b-a)^4 \right). 
+\end{equation}
+Ainsi, la formule suivante est vérifiée :
+\begin{align*}
+\gint_{-\pi/4}^{\pi/4} \tf(\xi, \eta) d\xi & = \gsum_{i=-N/2}^{N/2-1} \gint_{\xi_i}^{\xi_{i+1}} \tf(\xi, \eta) d\xi \\
+	& = \dfrac{\Delta \xi}{2} \tf(\xi_{-N/2}, \eta) + \Delta \xi \gsum_{-N/2+1}^{N/2-1} \tf(\xi_i, \eta) + \dfrac{\Delta \xi}{2} \tf(\xi_{N/2}, \eta) - ... \\
+	& \hspace{1cm}... - \dfrac{\Delta \xi^3}{24} \left( \gsum_{i=-N/2+1}^{N/2-1} \left( \partial_{\eta}\tf_{i, N/2} - \partial_{\eta}\tf_{i, -N/2} \right) + \gsum_{j=-N/2+1}^{N/2-1} \left( \partial_{\eta}\tf_{N/2,j} - \partial_{\eta}\tf_{-N/2,j} \right) \right) - ...  \\
+	& \hspace{1cm} ... - \dfrac{\Delta \xi^2}{12} \left(\partial_{\xi} \tf(\xi_{N/2},\eta)- \partial_{\xi} \tf(\xi_{-N/2},\eta)  \right) + ...\\
+	& \hspace{1cm} ... - \dfrac{\Delta \xi^3}{720} \left(\partial_{\xi}^{(3)} \tf(\xi_{N/2},\eta)- \partial_{\xi}^{(3)}\tf(\xi_{-N/2},\eta)  \right) + \mathcal{O} \left( \Delta \xi^4 \right).
+\end{align*}
+On intègre cette dernière relation par rapport à $\eta \in [- \pi/4, \pi/4]$ et en utilisant à nouveau la formule d'Euler-MacLaurin, on trouve
+\begin{align*}
+\gint_{(k)} f(\mathbf{x})d\sigma(\mathbf{x}) & = Q_{\tpz}^{(k)}(f^*) + ... \\
+& ... + \dfrac{\Delta \xi^3}{12} \left( \gsum_{i=-N/2+1}^{N/2-1} \left( \partial_{\eta}\tf_{i, N/2} - \partial_{\eta}\tf_{i, -N/2} \right) + \gsum_{j=-N/2+1}^{N/2-1} \left( \partial_{\eta}\tf_{N/2,j} - \partial_{\eta}\tf_{-N/2,j} \right) \right) - ...  \\
+	&  ... - \dfrac{\Delta \xi^3}{24} \left( \partial_{\eta}\tf_{-N/2,N/2} - \partial_{\eta}\tf_{-N/2,-N/2} + \partial_{\eta}\tf_{N/2,N/2}  - \partial_{\eta}\tf_{N/2,-N/2} \right) - ...  \\
+& ... - \dfrac{\Delta \xi^3}{24} \left( \partial_{\xi}\tf_{N/2,N/2} + \partial_{\xi}\tf_{N/2,-N/2} - \partial_{\xi}\tf_{-N/2,N/2}  - \partial_{\xi}\tf_{-N/2,-N/2} \right)+...\\
+& ... + \mathcal{O} \left( \Delta \xi^4 \right).
+\end{align*}
+\end{proof}
+
+Le résultat suivant est immédiat :
+\begin{corollaire}
+Soit $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ une fonction régulière, alors
+\begin{equation}
+\gint_{\mathbb{S}_a^2} f(\mathbf{x}) d\sigma(\mathbf{x}) - Q_{\tpz}(f^*) = \mathcal{O} \left( \Delta \xi^2 \right),
+\end{equation}
+ainsi que pour $(k) = (I), ..., (VI)$
+\begin{equation}
+\gint_{(k)} f(\mathbf{x}) d\sigma(\mathbf{x}) - Q_{\tpz}^{(k)}(f^*) = \mathcal{O} \left( \Delta \xi^2 \right).
+\end{equation}
+\end{corollaire}
+
+\begin{remarque}
+On note que si $-N/2 \leq i,j \leq N/2$ alors on a 
+\begin{equation}
+\omega_{i,j} = \omega_{-i,j} = \omega_{i,-j} = \omega_{-i,-j} > 0
+\end{equation}
+donc le corollaire \ref{cor:quadrature_exacte} est vérifié pour la formule de quadrature $Q_{\tpz}$.
+\end{remarque}
+
 
 
 
@@ -76,6 +217,97 @@ Dans la suite de ce chapitre, nous étudions différents choix de $(\omega_{i,j}
 
 \section{Quadrature de type Simpson}
 
+Dans cette partie, on considère $N$ pair.
+Les formules de quadratures de type Simpson sont basées sur une approximation polynomiale de $\tf$ en trois points. L'approximation de Simpson s'exprime sous la forme :
+\begin{equation}
+\gint_a^b \tf(\xi, \eta) d\xi \approx \dfrac{b-a}{6} \left( \tf(a,\eta) + 4  \tf \left( \dfrac{a+b}{2},\eta \right) + \tf(b,\eta) \right) 
+\end{equation}
+Il s'agit d'une approximation plus précise que la méthode des trapèzes, en effet :
+
+\begin{proposition}
+Si $g : x \in [a,b] \mapsto g(x) \in \mathbb{C}$ alors
+\begin{equation}
+\gint_a^b g(x) - \dfrac{b-a}{6} \left( g(a) + 4 g\left( \dfrac{a+b}{2} \right) + g(b) \right) = \mathcal{O}((b-a)^5).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Par développement de Taylor, on a
+\begin{equation}g(b) = g\left(\dfrac{a+b}{2}\right) + \dfrac{b-a}{2} g'\left(\dfrac{a+b}{2}\right) + \dfrac{1}{2} \left( \dfrac{b-a}{2} \right)^2 g^{(2)}\left(\dfrac{a+b}{2}\right)  + \dfrac{1}{6} \left( \dfrac{b-a}{2} \right)^3 g^{(3)}\left(\dfrac{a+b}{2}\right) + \mathcal{O}((b-a)^4).
+\end{equation}
+De la même manière, on a
+\begin{equation}g(a) = g\left(\dfrac{a+b}{2}\right) - \dfrac{b-a}{2} g'\left(\dfrac{a+b}{2}\right) + \dfrac{1}{2} \left( \dfrac{b-a}{2} \right)^2 g^{(2)}\left(\dfrac{a+b}{2}\right)  - \dfrac{1}{6} \left( \dfrac{b-a}{2} \right)^3 g^{(3)}\left(\dfrac{a+b}{2}\right) + \mathcal{O}((b-a)^4)
+\end{equation}
+Ainsi, par combinaison, on trouve
+\begin{equation}
+\dfrac{b-a}{6} \left( g(a) + 4 g\left( \dfrac{a+b}{2} \right) + g(b) \right) = (b-a)g\left( \dfrac{a+b}{2} \right) + \dfrac{b-a}{6} \left( \dfrac{b-a}{2} \right)^2 g^{(2)}\left( \dfrac{a+b}{2} \right) + \mathcal{O}((b-a)^5).
+\end{equation}
+
+D'autres part, pour $x$ dans un voisinage $]a,b[$ :
+\begin{multline}
+g(x) = g\left( \dfrac{a+b}{2} \right) + g'\left( \dfrac{a+b}{2} \right) \left( x - \dfrac{a+b}{2} \right)  + \dfrac{1}{2} g^{(2)}\left( \dfrac{a+b}{2} \right) \left( x - \dfrac{a+b}{2} \right)^2 + ...\\
+...+ \dfrac{1}{6} g^{(3)}\left( \dfrac{a+b}{2} \right) \left( x - \dfrac{a+b}{2} \right)^3 + \mathcal{O}((b-a)^4),
+\end{multline}
+on intègre cette relation sur $[a,b]$ et on obtient 
+\begin{equation}
+\gint_a^b g(x) dx = (b-a)g\left( \dfrac{a+b}{2} \right) +
+ \dfrac{b-a}{6} \left( \dfrac{b-a}{2} \right)^2 g^{(2)}\left( \dfrac{a+b}{2} \right) + \mathcal{O}((b-a)^5).
+\end{equation}
+Par comparaison, on obtient :
+\begin{equation}
+\gint_a^b g(x) - \dfrac{b-a}{6} \left( g(a) + 4 g\left( \dfrac{a+b}{2} \right) + g(b) \right) = \mathcal{O}((b-a)^5).
+\end{equation}
+\end{proof}
+
+Ainsi, la formule de Simpson composite s'écrit :
+\begin{equation}
+\gint_{- \pi/4}^{\pi/4} \tf(\xi, \eta) d\xi = \gsum_{i=-N/2, \text{pair}}^{N/2} \gint_{\xi_{i-1}}^{\xi_{i+1}} \tf(\xi, \eta) d\xi.
+\end{equation}
+En considérant l'approximation de Simpson
+\begin{equation}
+\gint_{-\pi/4}^{\pi/4} \tf(\xi, \eta) d\xi = \dfrac{\Delta \xi}{3} \left[ \tf(\xi_{-N/2}, \eta) + 2 \gsum_{i=-N/4-1}^{N/4} \tf(\xi_{2i}, \eta)  + 4 \gsum_{i=-N/4}^{N/4} \tf(\xi_{2i-1}, \eta) + \tf(\xi_{N/2}, \eta) \right] + \mathcal{O}\left( \Delta \xi^4\right).
+\end{equation}
+On intègre cette équation par rapport à $\eta$ et on obtient :
+\begin{equation}
+\gint_{-\frac{\pi}{4}}^{\frac{\pi}{4}} \gint_{-\frac{\pi}{4}}^{\frac{\pi}{4}} \tf(\xi, \eta) d\xi  d\eta= \Delta\xi \Delta \eta \gsum_{i=-N/2}^{N/2}\gsum_{j=-N/2}^{N/2} \omega_{i,j} \tf(\xi_i, \eta_j) + \mathcal{O}\left( \Delta \xi^4\right)
+\label{eq:simpson 2d}
+\end{equation}
+où les coefficients $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$ sont donnés par
+\begin{itemize}
+\item $\omega_{\frac{N}{2},\frac{N}{2}}=\omega_{\frac{N}{2},-\frac{N}{2}}=\omega_{-\frac{N}{2},\frac{N}{2}}=\omega_{-\frac{N}{2},-\frac{N}{2}}=1/9$,
+\item $\omega_{\frac{N}{2},i}=\omega_{-\frac{N}{2},i}=\omega_{i,\frac{N}{2}}=\omega_{i,-\frac{N}{2}}=4/9$ si $i$ est pair,
+\item $\omega_{\frac{N}{2},i}=\omega_{-\frac{N}{2},i}=\omega_{i,\frac{N}{2}}=\omega_{i,-\frac{N}{2}}=2/9$ si $i$ est impair,
+\item $\omega_{i,j}=16/9$ si $i$ et $j$ sont pairs,
+\item $\omega_{i,j}=4/9$ si $i$ et $j$ sont impairs,
+\item $\omega_{i,j}=8/9$ dans les autres cas.
+\end{itemize}
+
+Une méthode de quadrature par panel dérive de cette formule en posant 
+\begin{equation}
+\tf(\xi, \eta) = f(\xi, \eta) \sqrt{\det(\mathbf{G}(\xi, \eta)}
+\end{equation}
+on trouve la formule de quadrature de type Simpson,
+pour tout $(k) = (I), ..., (VI)$, on a
+\begin{equation}
+Q_{\sps}^{(k)}(f^*) = \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} f(\xi_i^{(k)},\eta_j^{(k)}) \sqrt{\bar{\mathbf{G}}_{i,j}},
+\end{equation}
+où $\bar{\mathbf{G}}_{i,j}=\det(\mathbf{G}(\xi_i,\eta_j))$ pour tout $-N/2 \leq i,j \leq N/2$. On note aussi la formule de quadrature
+\begin{equation}
+Q_{\sps}(f^*) = \gsum_{(k)=(I)}^{(VI)}Q_{\sps}^{(k)}(f^*).
+\end{equation}
+La formule $Q_{\sps}$ est consistante au sens suivant :
+
+
+\begin{theoreme}
+Soit $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ une fonction régulière, alors
+\begin{equation}
+\gint_{\mathbb{S}_a^2} f(\mathbf{x}) d\sigma(\mathbf{x}) - Q_{\sps}(f^*) = \mathcal{O} \left( \Delta \xi^4 \right),
+\end{equation}
+ainsi que pour $(k) = (I), ..., (VI)$
+\begin{equation}
+\gint_{(k)} f(\mathbf{x}) d\sigma(\mathbf{x}) - Q_{\sps}^{(k)}(f^*) = \mathcal{O} \left( \Delta \xi^4 \right).
+\end{equation}
+\end{theoreme}
 
 
 
@@ -87,4 +319,250 @@ Dans la suite de ce chapitre, nous étudions différents choix de $(\omega_{i,j}
 
 
 
-\section{Quadrature $Q_{\alpha}$}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Quadrature de type $Q_{\alpha}$}
+
+La formule de quadrature $Q_{\tpz}$ est précise à l'ordre 2. De plus, elle ne dépend pas de la parité de $N$ le paramètre de la Cubed-Sphere. Dans cette partie, nous considérons $Q_{\alpha}$ une formule de quadrature basée sur une perturbation de $Q_{\tpz}$. :
+\begin{equation}
+Q_{\alpha}(f^*)= \gsum_{(k)=(I)}^{(VI)} Q^{(k)}_{\alpha}(f^*)
+\end{equation}
+$Q^{(k)}_{\alpha}$ est la règle de quadrature par panel donnée par
+\begin{equation}
+Q_{\alpha}^{(K)}(h)=\gsum_{i = -\frac{N}{2}}^{\frac{N}{2}}\gsum_{j = -\frac{N}{2}}^{\frac{N}{2}} \Delta \xi \Delta \eta \omega_{i,j} h(\xi_i, \eta_j) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi_i, \eta_j)}
+\label{eq:alpha par panel}
+\end{equation}
+où les coefficients $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$ vérifient :
+\begin{itemize}
+\item $\omega_{-\frac{N}{2},-\frac{N}{2}}=\omega_{\frac{N}{2},-\frac{N}{2}}=\omega_{-\frac{N}{2},\frac{N}{2}}=\omega_{\frac{N}{2},\frac{N}{2}}=\alpha$,
+\item $\omega_{i,\frac{N}{2}}=\omega_{i,-\frac{N}{2}}=\frac{1}{2}$ pour $-\frac{N}{2}+1 \leq i \leq \frac{N}{2}-1$,
+\item $\omega_{\frac{N}{2},j}=\omega_{-\frac{N}{2},j}=\frac{1}{2}$ pour $-\frac{N}{2}+1 \leq j \leq \frac{N}{2}-1$,
+\item $\omega_{i,j}=1$ dans tous les autres cas.
+\end{itemize}
+En particulier, on remarque que
+\begin{equation}
+Q_{1/4} = Q_{\tpz}.
+\end{equation}
+
+La formule ainsi perturbée permet de retrouver des résultats de précision semblables à ceux que $Q_{\tpz}$, en effet
+\begin{proposition}
+Soit $f: \mathbf{x} \in \mathbb{S}_a^2 \rightarrow f(\mathbf{x}) \in \mathbb{C}$ une fonction régulière alors :
+\begin{equation}
+I^{(k)}(f) - Q^{(k)}_{\alpha}(f^*) = \mathcal{O} \left( \Delta \xi^2 \right)
+\end{equation}
+pour tout $(k) \in \lbrace (I), ..., (VI) \rbrace$.
+\label{prop:consistance alpha panel}
+\end{proposition}
+
+\begin{proof}
+La fonction $f$ est régulière, donc on a
+\begin{align*}
+I^{(k)}(f) - Q^{(k)}_{\alpha}(f^*) & = I^{(k)}(f) - Q^{(k)}_{\tpz}(f^*) + Q^{(k)}_{\tpz}(f^*) - Q^{(k)}_{\alpha}(f^*)\\
+	& =  Q^{(k)}_{\tpz}(f^*) - Q^{(k)}_{\alpha}(f^*) + \mathcal{O}(\Delta \xi^2) \\
+	& = 3\Delta \xi \Delta \eta \left( \dfrac{1}{4} - \alpha \right) \gsum_{(\xi, \eta) \in C} f(\xi, \eta) \sqrt{\det(\mathbf{G}(\xi, \eta))}  + \mathcal{O}(\Delta \xi^2)
+\end{align*}
+où $C$ désigne l'ensemble des coins de la Cubed-Sphere.
+
+De plus $(\xi, \eta) \in [-\pi/4, \pi/4]^2 \mapsto f(\xi, \eta) \sqrt{\det(\mathbf{G}(\xi, \eta))}$ est continue sur un compact donc bornée. Ainsi
+\begin{equation}
+I^{(k)}(f) - Q^{(k)}_{\alpha}(f^*) = \mathcal{O}(\Delta \xi^2).
+\end{equation}
+\end{proof}
+De la proposition \ref{prop:consistance alpha panel}, il découle immédiatement le corollaire suivant
+\begin{corollaire}
+Soit $f: \mathbf{x} \in \mathbb{S}_a^2 \rightarrow f(\mathbf{x}) \in \mathbb{C}$ une fonction régulière alors :
+\begin{equation}
+I(f) - Q_{\alpha}(f^*) = \mathcal{O} \left( \Delta \xi^2 \right).
+\end{equation}
+\end{corollaire}
+
+\begin{proposition}
+La méthode $Q_{\alpha}$ est exactement d'ordre 2.
+\end{proposition}
+
+\begin{proof}
+On pose
+\begin{equation}
+\bar{\mathbf{G}}(\mathbf{x}) = \det (\mathbf{G}(\mathbf{x})).
+\end{equation}
+On choisit $f$ tel que pour tout $\mathbf{x} \in \mathbb{S}_a^2$, on ait $f(\mathbf{x})=\dfrac{1}{\sqrt{\overline{\mathbf{G}}(\mathbf{x})}}$. Alors on sait que l’égalité suivante est exactement vérifiée pour tout $N$ paramètre de maillage de la Sphère.
+\begin{equation}
+Q_{\tpz}(f^*)-I(f)=0
+\end{equation}
+De plus pour tout $(\xi,\eta) \in C=\{(\pi/4,\pi/4),(-\pi/4,\pi/4),(\pi/4,-\pi/4),(-\pi/4,-\pi/4) \}$, on a :
+\begin{equation}
+f(\xi,\eta)\sqrt{\overline{\mathbf{G}}(\xi,\eta}=1
+\end{equation}
+d'où :
+\begin{align*}
+Q_{\alpha}(f^*)-Q_{\tpz}(f) & = 3 \Delta \xi \Delta \eta \left( \alpha - \dfrac{1}{4} \right)\gsum_{(\xi,\eta)\in C} f(\xi,\eta)\sqrt{\overline{\mathbf{G}}(\xi,\eta} \\
+                         & = 24 \Delta \xi \Delta \eta \left( \alpha - \dfrac{1}{4} \right),
+\end{align*}
+donc :
+\begin{align*}
+Q_{\alpha}(f^*) - I(f) & = Q_{\alpha}(f^*) - Q_{\tpz}(f^*) + Q_{\tpz}(f^*) - I(f) \\
+                    & = 24 \Delta \xi \Delta \eta \left( \alpha - \dfrac{1}{4} \right)
+\end{align*}
+La méthode de quadrature $Q_{\alpha}$ ne peut donc pas être d'un ordre supérieur à 2. 
+\end{proof}
+
+
+
+\begin{proposition}
+Le coefficient $\alpha=1/3$ optimise
+\begin{equation}
+|Q_{\alpha}^{(K)}(1) - I^{(K)}(1) |
+\end{equation}
+au sens où
+\begin{equation}
+|Q_{1/3}^{(k)}(\mathbf{1}) - I^{(k)}(\mathbf{1}) | = \mathcal{O}\left( \Delta \xi^4 \right)
+\end{equation}
+pour tout $(k) \in \lbrace (I), (II), (III), (IV), (V), (VI) \rbrace$.
+\end{proposition}
+
+\begin{proof}
+On pose $f = \sqrt{\det(\mathbf{G})}$, alors par comparaison avec la méthode des trapèzes, on a 
+\begin{align*}
+Q_{\alpha}^{(k)}(\mathbf{1}) - I^{(k)}(\mathbf{1}) & = Q_{\alpha}(\mathbf{1}) - Q_{\tpz}(\mathbf{1}) + Q_{\tpz}(\mathbf{1}) - I^{(k)}(\mathbf{1})\\
+	& = \Delta \xi^2 \left( \alpha - \dfrac{1}{4} \right) \left( f_{N/2,N/2} + f_{-N/2,N/2}+ f_{N/2,-N/2}+ f_{-N/2,-N/2} \right) + ...\\
+	& \hspace{.6cm} ... + \dfrac{\Delta \xi^3}{12} \left( \gsum_{i=-N/2+1}^{N/2-1} \left( \partial_{\eta}\tf_{i, N/2} - \partial_{\eta}\tf_{i, -N/2} \right) + \gsum_{j=-N/2+1}^{N/2-1} \left( \partial_{\eta}\tf_{N/2,j} - \partial_{\eta}\tf_{-N/2,j} \right) \right) - ...  \\
+	&  \hspace{.6cm}... - \dfrac{\Delta \xi^3}{24} \left( \partial_{\eta}\tf_{-N/2,N/2} - \partial_{\eta}\tf_{-N/2,-N/2} + \partial_{\eta}\tf_{N/2,N/2}  - \partial_{\eta}\tf_{N/2,-N/2} \right) - ...  \\
+& \hspace{.6cm}... - \dfrac{\Delta \xi^3}{24} \left( \partial_{\xi}\tf_{N/2,N/2} + \partial_{\xi}\tf_{N/2,-N/2} - \partial_{\xi}\tf_{-N/2,N/2}  - \partial_{\xi}\tf_{-N/2,-N/2} \right)+...\\
+& \hspace{.6cm}... + \mathcal{O} \left( \Delta \xi^4. \right).
+\end{align*}
+On note en particulier que 
+\begin{equation}
+f_{N/2,N/2} = f_{-N/2,N/2} = f_{N/2,-N/2} = f_{-N/2,-N/2} = \sqrt{\bar{\mathbf{G}}(\pi/4,\pi/4))} = \dfrac{4a^2}{3 \sqrt{3}} 
+\end{equation}
+en posant $\bar{\mathbf{G}} = \det (\mathbf{G})$.
+
+de plus, en dérivant $\sqrt{\bar{\mathbf{G}}} = a^2 \dfrac{(1+X^2)(1+Y^2)}{(1+X^2+Y^2)^{3/2}}$ avec $X=\tan (\xi)$ et $Y=\tan (\eta)$ on obtient les relations suivantes :
+\begin{equation}
+\partial_{\xi} f = X \left(\dfrac{3Y^2}{1+X^2+Y^2}-1\right) \sqrt{\bar{\mathbf{G}}}
+\end{equation}
+\begin{equation}
+\partial_{\eta} f = Y \left(\dfrac{3X^2}{1+X^2+Y^2}-1\right) \sqrt{\bar{\mathbf{G}}}
+\end{equation}
+ainsi :
+\begin{itemize}
+\item $\partial_{\xi} f_{N/2,j} = -\partial_{\xi} f_{-N/2,j} = 4 \dfrac{Y^4-1}{(Y^2+2)^{5/2}} a^2$,
+\item $\partial_{\eta} f_{i,N/2} = -\partial_{\eta} f_{i,-N/2} = 4 \dfrac{X^4-1}{(X^2+2)^{5/2}} a^2$.
+\end{itemize}
+d'où le terme d'ordre 2 est
+\begin{equation}
+\Delta \xi^2 a^2 \left( \alpha - \dfrac{1}{4} \right) \dfrac{16}{3 \sqrt{3}} + \dfrac{4}{3}S
+\label{eq:optimalite alpha 2}
+\end{equation}
+avec $S=\Delta \xi \gsum_{i=-N/2+1}^{N/2-1} g(i \Delta \xi)$ avec $g$ la fonction $g:x \mapsto f(x)=\dfrac{\tan(x)^4 -1}{(\tan(x)^2+2)^{5/2}}$.
+
+Comme $g\left(-\frac{\pi}{4} \right)=g\left(\frac{\pi}{4} \right)=0$ et par propriété de la méthode des trapèzes, on note que :
+
+\begin{equation}
+S = \dfrac{g\left(-\frac{\pi}{4} \right)+g\left(\frac{\pi}{4} \right)}{2} + \gint_{-\pi/4}^{\pi/4} g(x)dx + \mathcal{O}\left( \Delta \xi^2 \right) = -\dfrac{1}{3\sqrt{3}} + \mathcal{O}\left( \Delta \xi^2 \right)
+\end{equation}
+donc pour que le terme d'ordre 2 soit nul, il faut avoir (en remplaçant dans  \eqref{eq:optimalite alpha 2}) :
+
+\begin{equation}
+\left(\alpha - \dfrac{1}{4} \right) \dfrac{16}{3 \sqrt{3}} - \dfrac{4}{9 \sqrt{3}} = 0
+\end{equation}
+c'est a dire avoir $\alpha = 1/3$.
+
+En ce qui concerne le terme d'ordre 3 :
+\begin{equation}
+- \dfrac{\Delta \xi^3}{24} \left[ \partial_{\eta} f_{-\frac{N}{2},\frac{N}{2}} - \partial_{\eta} f_{-\frac{N}{2},-\frac{N}{2}} + \partial_{\eta} f_{\frac{N}{2},\frac{N}{2}} -\partial_{\eta} f_{\frac{N}{2},-\frac{N}{2}}  \right] -\dfrac{\Delta \xi^3}{24} \left[ \partial_{\xi} f_{\frac{N}{2},\frac{N}{2}} + \partial_{\xi} f_{\frac{N}{2},-\frac{N}{2}} - \partial_{\xi} f_{-\frac{N}{2},\frac{N}{2}} -\partial_{\xi} f_{-\frac{N}{2},-\frac{N}{2}}  \right]
+\label{eq:opimalite alpha 3}
+\end{equation}
+on note que :
+\begin{equation}
+\partial_{\eta} f_{\frac{N}{2},\frac{N}{2}} = \partial_{\eta} f_{-\frac{N}{2},\frac{N}{2}} = \partial_{\eta} f_{\frac{N}{2},-\frac{N}{2}} = \partial_{\eta} f_{-\frac{N}{2},-\frac{N}{2}} = 0.
+\end{equation}
+
+De la même manière, en $\xi$ :
+\begin{equation}
+\partial_{\xi} f_{\frac{N}{2},\frac{N}{2}} = \partial_{\xi} f_{-\frac{N}{2},\frac{N}{2}} = \partial_{\xi} f_{\frac{N}{2},-\frac{N}{2}} = \partial_{\xi} f_{-\frac{N}{2},-\frac{N}{2}} = 0 
+\end{equation}
+
+d'où le résultat :
+\begin{equation}
+|Q_{1/3}^{(K)}(\mathbf{1}) - I^{(k)}(\mathbf{1}) | = \mathcal{O}\left( \Delta \xi^4 \right)
+\end{equation}
+\end{proof}
+
+Ce résultat d'optimalité s'écrit aussi sur la sphère complète $\mathbb{S}_a^2$ :
+\begin{equation}
+|Q_{1/3}(1) - I(1) | = \mathcal{O}\left( \Delta \xi^4 \right)
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Résultats numériques pour les formules de quadratures}
+
+Pour tester numériquement les performances des différents opérateurs de quadrature, on s’intéresse à un ensemble de fonction sur la sphère dont l'intégrale est connue \cite{Beetjes2015, Fornberg2014}. Ces fonctions sont données pour $(x,y,z) \in \mathbb{S}_a^2$ par
+\begin{itemize}
+\item si : $f_0(x,y,z)=1$ alors :
+\begin{equation}
+\gint_{\mathbb{S}_a^2} f_0(\mathbf{x}) d\sigma (\mathbf{x})=4 \pi a^2
+\end{equation}
+\item Si $f_1(x,y,z)=1+x+y^2+y\cdot x^2+x^4+y^5+x^2 \cdot y^2 \cdot z^2$ alors :
+\begin{equation}
+\gint_{\mathbb{S}_a^2} f_1(\mathbf{x}) d\sigma (\mathbf{x})=\dfrac{216 \pi}{35} a^2
+\end{equation}
+\item Si 
+\begin{equation}
+\begin{array}{rcl}
+f_2(x,y,z) & = & \dfrac{3}{4} \exp \left[ - \dfrac{(9x-2)^2}{4} - \dfrac{(9y-2)^2}{4} - \dfrac{(9z-2)^2}{4} \right] + ...\\
+& & ... + \dfrac{3}{4} \exp \left[ - \dfrac{(9x+1)^2}{49} - \dfrac{9y+1}{10} - \dfrac{9z+1}{10} \right] + ...\\
+& & ... + \dfrac{1}{2} \exp \left[ - \dfrac{(9x-7)^2}{4} - \dfrac{(9y-3)^3}{4} - \dfrac{(9z-5)^2}{4} \right] + ...\\
+& &... + \dfrac{1}{5} \exp \left[ - (9x-4)^2 - (9y-7)^2 - (9z-5)^2 \right]
+\end{array}
+\end{equation}
+alors :
+\begin{equation}
+\gint_{\mathbb{S}_a^2} f_2(\mathbf{x}) d\sigma (\mathbf{x})=a^2 \cdot 6.6961822200736179523...
+\end{equation}
+\item Si $f_3(x,y,z)=\frac{1+\tanh(-9x-9y+9z)}{9}$ alors :
+\begin{equation}
+\gint_{\mathbb{S}_a^2} f_3(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{9} a^2
+\end{equation}
+\item Si $f_4(x,y,z)=\frac{1+sign(-9x-9y+9z)}{9}$ alors :
+\begin{equation}
+\gint_{\mathbb{S}_a^2} f_4(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{9} a^2
+\end{equation}
+\item Si $f_5(x,y,z)=\frac{1-sign(\pi x + y)}{\alpha}$ alors :
+\begin{equation}
+\gint_{\mathbb{S}_a^2} f_5(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{\alpha} a^2
+\end{equation}
+\end{itemize}
+
+

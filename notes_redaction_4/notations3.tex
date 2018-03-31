@@ -565,7 +565,7 @@ La proposition suivante est alors vérifiée :
 \begin{proposition}
 Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ et $u^*$ la fonction de grille associée. Si $u \in \mathcal{C}^5(\Omega)$ alors 
 \begin{equation}
-\sigma_x u^*_j - \delta_x u^*_j = \mathcal{O}(h^4).
+\sigma_x \partial_x u^*_j - \delta_x u^*_j = \mathcal{O}(h^4).
 \end{equation}
 \label{prop:eq_deltax2_sigmax}
 \end{proposition}
@@ -593,13 +593,13 @@ avec $\omega \in ]x_{j-1}, x_{j+1}[$. On intègre cette dernière équation d'o�
 Alors, par comparaison, on trouve
 \begin{align*}
 |\mathfrak{e}_j| & = |\dfrac{h^5}{72} \left( \partial_x^{(4)}f(\xi) + \partial_x^{(4)}f(\eta) \right)  - \dfrac{h^5}{60}\partial_x^{(4)} f(\omega)|  \\
-	& = \dfrac{2 h^5}{45} \max_{x} |\partial_x^{(4)} f(x)|.
+	& \leq \dfrac{2 h^5}{45} \max_{x} |\partial_x^{(4)} f(x)|.
 \end{align*}
 Pour conclure, on applique la formule précédente avec $f = \partial_x u$. On note que 
 \begin{equation}
 \gint_{x_{i-1}}^{x_{i+1}}f(x) dx = u(x_{i+1}) - u(x_{i-1}),
 \end{equation}
-de là, on obtiens
+de là, on obtient
 \begin{equation}
 |\sigma \left( \partial_x u^* \right)_j - \delta_x u^*_j | = \dfrac{h^5}{45}\max_{x} |\partial_x^{(4)} f(x)|
 \end{equation}
@@ -1850,13 +1850,13 @@ f(0) & = \beta(0) - \left( 1-\dfrac{1}{2^J}(1 - \cos (0))^J \right) \\
 	& = \gsum_{p=0}^J a_p - 1 \\
 	& = 0.
 \end{align*}
-Pour traiter le cas $1 \leq n \leq J-1$, nous utilisons la formule de Fàa Di Bruno \cite{Comtet2012}, ainsi
+Pour traiter le cas $1 \leq n \leq 2J$, nous utilisons la formule de Fàa Di Bruno \cite{Comtet2012}, ainsi
 \begin{equation}
-\left( Q \circ \cos \right)^{(n)}(\theta) = \gsum_{k=0}^n P^{(k)}(\cos(\theta)) B_{n,k}(-\sin \theta, - \cos \theta, \sin \theta, \cos \theta, ...).
+\left( Q \circ \cos \right)^{(2n)}(\theta) = \gsum_{k=0}^{2n} P^{(k)}(\cos(\theta)) B_{2n,k}(-\sin \theta, - \cos \theta, \sin \theta, \cos \theta, ...).
 \end{equation}
 En particulier pour $\theta = 0$
 \begin{equation}
-\left( Q \circ \cos \right)^{(n)}(0) = \gsum_{k=0}^n Q^{(k)}(1) B_{n,k}(0, -1, 0, 1, 0, -1, ...).
+\left( Q \circ \cos \right)^{(2n)}(0) = \gsum_{k=0}^{2n} Q^{(k)}(1) B_{2n,k}(0, -1, 0, 1, 0, -1, ...).
 \end{equation}
 et la dérivée $k-$ième de $Q$ est donnée par
 \begin{equation}
@@ -1866,15 +1866,33 @@ Donc $Q^{(k)}(1)=0$ et $\left( Q \circ \cos \right)^{(n)}(0) =0$. De là, il vie
 \begin{align*}
 f^{(n)}(0) & = \beta^{(n)}(0) - \left( Q \circ \cos \right)^{(n)}(0) \\
 	& = \gsum_{p=1}^J a_p p^{2n} - 0 \\
-	& = 0 \text{ pour } 1 \leq n \leq J-1.
+	& = 0 \text{ pour } 1 \leq n \leq J-1,
 \end{align*}
+donc en particulier
+\begin{equation}
+f^{(2n)}(0)=0.
+\end{equation}
 De plus,
 \begin{align*}
 f(\pi) & = \beta(\pi) - \left( 1-\dfrac{1}{2^J}(1 - \cos (\pi))^J \right) \\
 	& = \gsum_{p=1}^J a_p(-1)^p \\
 	& = 0,
 \end{align*}
-donc $f(\theta) = 0$ pour tout $\theta$ et
+Comme $f \in E_J$, il existe $(f_p)_{0 \leq p \leq J}$ tels que
+\begin{equation}
+f(\theta) = \gsum_{p=0}^J f_p \cos (p \theta).
+\end{equation}
+Comme $f^{(2n)}(0)=0$ pour tout $n$ et $f(\pi)=0$, alors les coefficients $(f_p)_{0 \leq p \leq J}$ sont solution de 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\gsum_{p=0}^J f_p & = & 0 \\
+\gsum_{p=0}^J f_p (-1)^p & = & 0 \\
+\gsum_{p=0}^J f_p p^{2k} & = & 0 \text{ pour } 1 \leq k \leq J-1.
+\end{array}
+\right.
+\end{equation}
+On a déjà vu que ce système est inversible donc pour tout $0 \leq p \leq J$, $f_p = 0$ et $f(\theta) = 0$ pour tout $\theta$. Ainsi 
 \begin{equation}
 \beta(\theta) = Q(\cos\theta).
 \end{equation}
@@ -1948,9 +1966,9 @@ Comme la fonction $\theta \mapsto \beta(\theta)$ est strictement décroissante e
 \end{equation}
 
 
-La fonction $J \mapsto \theta_{0.95}(J)$ est strictement croissante donc lorsque $J$ croît, $\theta_{0.95}$ croît et les fonctions sont moins affectées par le filtre $\mathcal{F}_{2J,x}$. De plus, 
+La fonction $J \mapsto \theta_{0.95}(J)$ est strictement croissante donc lorsque $J$ croît, $\theta_{0.95}(J)$ croît et les fonctions sont moins affectées par le filtre $\mathcal{F}_{2J,x}$. De plus, 
 \begin{equation}
-\lim_{F \rightarrow +\infty} \theta_{0.95} = \pi.
+\lim_{J \rightarrow +\infty} \theta_{0.95}(J) = \pi.
 \end{equation}
 Cependant, il faut noter que plus $J$ augmente, plus les fonctions manipulées sont supposées régulières donc ce qui précède n'est vrai que pour des fonctions de grilles très régulières.
 
@@ -2390,7 +2408,7 @@ Par définition de $\text{vec}_2$, on a
 \text{vec} (\delta_{2J,x} \mathfrak{u}) & = \gsum_{i,j=0}^J (e_j \otimes e_i) \delta_{2J,x} \mathfrak{u}_{i,j} \\
 	& = \gsum_{i,j=0}^{N-1} \gsum_{p=1}^J (e_j \otimes e_i) \dfrac{a_p}{2ph} (\mathfrak{u}_{i+p,j} - \mathfrak{u}_{i-p,j}) \\
 	& = \gsum_{p=1}^J \dfrac{a_p}{2Jh} \left( \gsum_{i,j=0}^{N-1} (e_j \otimes e_i) \mathfrak{u}_{i+p,j} - (e_j \otimes e_i) \mathfrak{u}_{i-p,j} \right) \\
-	& = \gsum_{p=1}^J \dfrac{a_p}{2ph} \gsum_{i,j=0}^{N-1} e_j \otimes (e_i \mathfrak{u}_{i+p,j} - e_i \otimes \mathfrak{u}_{i-p,j})\\
+	& = \gsum_{p=1}^J \dfrac{a_p}{2ph} \gsum_{i,j=0}^{N-1} e_j \otimes (e_i \mathfrak{u}_{i+p,j} - e_i\mathfrak{u}_{i-p,j})\\
 	& = \gsum_{p=1}^J \dfrac{a_p}{2ph} \left( \I_N \otimes \left( T^p - T^{-p}  \right) \right) \vec (\mathfrak{u}) \\
 	& = (\I_N \otimes D_{2J}) \vec (\mathfrak{u})
 \end{align*}
