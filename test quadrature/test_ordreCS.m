@@ -12,7 +12,7 @@ opt_ftr='redonnet10';
 scheme='compact4';
 corner = 1;
 
-test=2;
+test=6;
 NN=2.^[3:7]-1;
 
 for ii=1:length(NN)
@@ -21,12 +21,12 @@ for ii=1:length(NN)
     disp('mod74 : ok')
     
     hh(ii)=dxi;
-    [fun_I    ,int] = fun_quad2(x_fI  ,y_fI  ,z_fI   ,test);
-    [fun_II   ,int] = fun_quad2(x_fII ,y_fII ,z_fII  ,test);
-    [fun_III  ,int] = fun_quad2(x_fIII,y_fIII,z_fIII ,test);
-    [fun_IV   ,int] = fun_quad2(x_fIV ,y_fIV ,z_fIV  ,test);
-    [fun_V    ,int] = fun_quad2(x_fV  ,y_fV  ,z_fV   ,test);
-    [fun_VI   ,int] = fun_quad2(x_fVI ,y_fVI ,z_fVI  ,test);
+    [fun_I    ,int] = fun_quad(x_fI  ,y_fI  ,z_fI   ,test);
+    [fun_II   ,int] = fun_quad(x_fII ,y_fII ,z_fII  ,test);
+    [fun_III  ,int] = fun_quad(x_fIII,y_fIII,z_fIII ,test);
+    [fun_IV   ,int] = fun_quad(x_fIV ,y_fIV ,z_fIV  ,test);
+    [fun_V    ,int] = fun_quad(x_fV  ,y_fV  ,z_fV   ,test);
+    [fun_VI   ,int] = fun_quad(x_fVI ,y_fVI ,z_fVI  ,test);
 
     str='int'
     [nrmI,nrmII,nrmIII,nrmIV,nrmV,nrmVI,nrmg1]=nrm101(fun_I,fun_II,fun_III,fun_IV,fun_V,fun_VI,n,nn,str);

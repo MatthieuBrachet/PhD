@@ -179,7 +179,7 @@ On note que trois normes infinies ont été définies :
 Quitte à opérer une translation sur $x$, on peut supposer $a=0$ et $b=L$. Le pas du maillage est $h = \frac{L}{N}$.
 Soit, pour tout $k$ vérifiant $-N/2+1 \leq k \leq N/2$, la fonction $u^k : x \mapsto u^k(x) \in \mathbb{C}$ périodique de période $L$ définie par 
 \begin{equation}
-u^k(x) = \dfrac{1}{\sqrt{L}} \exp \left( \dfrac{2 i \pi x}{L} \right).
+u^k(x) = \dfrac{1}{\sqrt{L}} \exp \left( \dfrac{2 i \pi k x}{L} \right).
 \end{equation}
 Les fonctions $(u^k)_{-N/2 +1 \leq k \leq N/2}$ forment une famille libre et orthonormée de $N+1$ fonctions. C'est à dire
 \begin{equation}
@@ -191,7 +191,7 @@ On définit les \textit{fonctions de base} $\mathfrak{u}^k$ de $l^2_{h,\per}$ pa
 \end{equation}
 donc 
 \begin{equation}
-\mathfrak{u}^k_j = \sqrt{h}  u^k(x_j) = \dfrac{1}{\sqrt{N}} \exp \left( \dfrac{2 i \pi j h}{L} \right) = \dfrac{1}{\sqrt{N}} \exp \left( \dfrac{2 i \pi j k}{N} \right) \text{ avec } 0 \leq j \leq N-1.
+\mathfrak{u}^k_j = \sqrt{h}  u^k(x_j) = \dfrac{1}{\sqrt{N}} \exp \left( \dfrac{2 i \pi j k h}{L} \right) = \dfrac{1}{\sqrt{N}} \exp \left( \dfrac{2 i \pi j k}{N} \right) \text{ avec } 0 \leq j \leq N-1.
 \label{eq:base_fourier_disc}
 \end{equation}
 
@@ -946,6 +946,7 @@ D_2 = \dfrac{1}{2h}
   & (0) &   & -1 & 0 & 1 \\ 
 1 &   &   &   & -1 & 0
 \end{bmatrix} 
+\label{eq:matrice_D2}
 \end{equation}
 
 \item \textbf{Exemple 2 :} A l'ordre $2J=4$,  le schéma centré d'ordre 4 $\delta_{4,x}$ est associée à la matrice
@@ -1122,6 +1123,7 @@ On suppose que $\beta$ et $(a_p)_{1 \leq p \leq J}$ sont solutions de \eqref{eq:
 \begin{equation}
 \delta_{2J+2,x}^H = \sigma_x^{-1} \circ \delta_{x}.
 \end{equation}
+\label{def:herder}
 \end{definition}
 
 \begin{theoreme}
@@ -1198,7 +1200,23 @@ Notons la fraction rationnele $Q_{2J+2}^H \in \mathbb{R}(X)$ telle que
 Q_{2J+2}^H(X) = \dfrac{Q_{2J}(X)}{R(X)} = \dfrac{\gsum_{p=1}^J \dfrac{a_p}{2p} (X^p - X^{N-p})}{(1-2\beta) + \beta ( X + X^{N-1})}.
 \label{eq:pol_hermitien}
 \end{equation}
-Alors on a 
+\begin{itemize}
+\item \textbf{Exemple 1 :} $Q_4^H(X)$ est donné par
+\begin{equation}
+Q_4^H(X) = \dfrac{X-X^{N-1}}{\dfrac{4}{3} + \dfrac{1}{3}(X+X^{N-1})},
+\label{eq:polhermi4}
+\end{equation}
+\item \textbf{Exemple 2 :} $Q_6^H(X)$ est donné par
+\begin{equation}
+Q_6^H(X) = \dfrac{\dfrac{5}{12}(X-X^{N-1}) + \dfrac{1}{24}(X^2-X^{N-2})}{\dfrac{1}{2} + \dfrac{1}{4}(X+X^{N-1})},
+\end{equation}
+\item \textbf{Exemple 3 :} $Q_8^H(X)$ est donné par
+\begin{equation}
+Q_8^H(X) = \dfrac{\dfrac{25}{56}(X-X^{N-1}) + \dfrac{4}{140}(X^2-X^{N-2}) - \dfrac{1}{840}(X^3-X^{N-3})}{\dfrac{4}{7} + \dfrac{3}{14}(X+X^{N-1})}.
+\end{equation}
+\end{itemize}
+
+La fraction rationnelle $Q_{2J+2}^H$ permet d'exprimer $\delta_{2J+2,x}^H$ en fonction de $\tau$
 \begin{equation}
 \delta_{2J+2,x}^H = \dfrac{1}{h} Q_{2J+2}^H(\tau).
 \end{equation}
@@ -1329,6 +1347,7 @@ Les matrices $D_{2J}$ et $P_{\sigma}$ s'expriment en fonction de $T$ d'où la pr
 
 \begin{proposition}
 La matrice $P^{-1}_{\sigma}D_{2J}$ est antisymétrique.
+\label{prop:derhermi_antisym}
 \end{proposition}
 
 \begin{proof}
@@ -1591,7 +1610,7 @@ D'après cette formule et le théorème des valeurs intermédiaires, on a
 \end{align*}
 avec $\alpha_p \in ]x_j - ph, x_j + ph[$. Alors en multipliant cette relation par $a_p$ et en sommant sur $p$, on obtient :
 \begin{align*}
-\gsum_{p=1}^J \dfrac{\tau_p \mathfrak{u}_j + \tau_{-p} \mathfrak{u}_j}{2} & = \gsum_{p=1}^J \gsum_{k=0}^{2J-1} a_p \dfrac{(ph)^k + (-ph)^k}{2k!} \partial_x^{(k)}u(x_j) + \gsum_{p=1}^J a_p \dfrac{(ph)^{2J}}{(2J)!} \partial_x^{(2J)}u(\alpha_p) \\
+\gsum_{p=1}^J a_p \dfrac{\tau_p \mathfrak{u}_j + \tau_{-p} \mathfrak{u}_j}{2} & = \gsum_{p=1}^J \gsum_{k=0}^{2J-1} a_p \dfrac{(ph)^k + (-ph)^k}{2k!} \partial_x^{(k)}u(x_j) + \gsum_{p=1}^J a_p \dfrac{(ph)^{2J}}{(2J)!} \partial_x^{(2J)}u(\alpha_p) \\
 & = \gsum_{k=0}^{2J-1} \dfrac{h^k}{2 (k!)} \left( \gsum_{p=0}^J (p^k + (-p)^k) \right) \partial_x^{(k)} u(x) + \gsum_{p=0}^J a_p \dfrac{(ph)^{2J}}{(2J)!} \partial_x^{(2J)}u(\alpha_p) \\
 & = \underbrace{ \left( \gsum_{p=0}^J a_p \right)}_{=1}u(x_j) + 
 \gsum_{k=1}^{2J-1} \dfrac{h^k}{2(k!)} \underbrace{\left( \gsum_{p=0}^J (p^k + (-p)^k)  \right)}_{=0 \text{ si } k \text{ impair.}} \partial_x^{(k)}u(x_j) + \dfrac{h^{2J}}{(2J)!} \gsum_{p=0}^Ja_p p^{2J} \partial_x^{(2J)}u(\alpha_p)  \\

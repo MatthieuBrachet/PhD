@@ -13,7 +13,7 @@ opt_ftr='redonnet10';
 scheme='compact4';
 corner = 1;
 
-test=2;
+test=0;
 NN=2.^[3:8]-1;
 
 for ii=1:length(NN)
@@ -52,15 +52,46 @@ for ii=1:length(NN)
     end
 end
 
-[a11,b1]=polyfit(log(hh),log(eint),1);
-[a12,b1]=polyfit(log(hh),log(erect),1);
-[a13,b1]=polyfit(log(hh),log(esimpson),1);
-[a14,b1]=polyfit(log(hh),log(etest),1);
+
+[a11,b11]=polyfit(log10(hh),log10(eint),1);
+[a12,b12]=polyfit(log10(hh),log10(erect),1);
+[a13,b13]=polyfit(log10(hh),log10(esimpson),1);
+[a14,b14]=polyfit(log10(hh),log10(etest),1);
+
+
+
 
 figure(1)
-loglog(hh,erect,'-',hh,etest,'-',hh,eint,'-',hh,esimpson,'-','LineWidth',2.0);
-legend(['Trapezoidal rules       : ' num2str(a12(1))],['Q_{\alpha} rules with \alpha=' num2str(corner) '     : ' num2str(a14(1))],['Q_{\alpha} rules with \alpha=1/3  : ' num2str(a11(1))],['Simpson rules            : ' num2str(a13(1))],'Location','SouthEast')
+hold on
+hl1=plot(log10(hh),log10(eint),'kx','LineWidth',2.0);
+set(hl1,'MarkerSize',10);
+set(hl1,'LineWidth',2.0);
+hlf1=plot(log10(hh),a11(1)*log10(hh)+a11(2),'b-','LineWidth',2.0);
+
+hl2=plot(log10(hh),log10(erect),'kx','LineWidth',2.0);
+set(hl2,'MarkerSize',10);
+set(hl2,'LineWidth',2.0);
+hlf2=plot(log10(hh),a12(1)*log10(hh)+a12(2),'r-.','LineWidth',2.0);
+
+hl3=plot(log10(hh),log10(esimpson),'kx','LineWidth',2.0);
+set(hl3,'MarkerSize',10);
+set(hl2,'LineWidth',2.0);
+hlf3=plot(log10(hh),a13(1)*log10(hh)+a13(2),'m--','LineWidth',2.0);
+
+hl4=plot(log10(hh),log10(etest),'kx','LineWidth',2.0);
+set(hl4,'MarkerSize',10);
+set(hl4,'LineWidth',2.0);
+hlf4=plot(log10(hh),a14(1)*log10(hh)+a14(2),'g:','LineWidth',2.0);
+hold off
+
+txt1=['Q_{\alpha} avec \alpha=1/3  - pente : ' num2str(a11(1))];
+txt2=['Trapèzes           - pente  : ' num2str(a12(1))];
+txt3=['Simpson            - pente  : ' num2str(a13(1))];
+txt4=['Q_{\alpha} avec \alpha=' num2str(corner) '     - pente  : ' num2str(a14(1))];
+
+
+legend([hlf4,hlf2,hlf1,hlf3],{txt4,txt2,txt1,txt3},'Location','SouthEast')
 grid on
-xlabel('\Delta \xi')
-ylabel('Error on quadrature')
-axis([hh(end)*.95 hh(1)*1.05 10^-11 10^0])
+xlabel('Log_{10}(\Delta)')
+ylabel('Log_{10}(Erreur)')
+axis([-2.5 -.5 -11 -1])

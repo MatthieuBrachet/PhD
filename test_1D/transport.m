@@ -2,11 +2,11 @@ clc; clear all; close all; format shorte
 
 c=1/5;
 
-n=1000;
+n=100;
 h=1./n;
 x=[h:h:1]';
 
-cfl=1.5;
+cfl=1.6883;
 ddt=cfl*h/c;
 tmax=10;
 
@@ -18,7 +18,7 @@ p(end,1)=1/6; p(1,end)=1/6;
 p=sparse(p);
 
 
-opt_ftr='redonnet2';
+opt_ftr='redonnet10';
 if strcmp(opt_ftr,'redonnet10')==1
     ftr0=772/1024;
     ftr1=420/1024;
@@ -126,8 +126,8 @@ end
 time=[1:length(e1)]*ddt;
 
 figure(2)
-semilogy(time, 1e-5*time,time,e2,time,ei,'Linewidth',2)
-legend('temps','norme 2','norme \infty','Location','SouthEast')
+semilogy(time, 1.4*10^-4*time,time,e2,time,ei,'Linewidth',2)
+legend('1.4 \times 10^{-4} \times temps','norme 2','norme \infty','Location','SouthEast')
 xlabel('Temps')
 ylabel('Erreur')
 title(['\lambda = ', num2str(cfl)])
