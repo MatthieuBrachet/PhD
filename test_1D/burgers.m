@@ -79,7 +79,7 @@ end
 u=sin(x);
 int=sum(u)*h;
 
-e=[];cons=[];
+e=[];cons=[];time=[]; maxi=[];
 t=0;
 while t<tmax
      clc; t=t+ddt
@@ -107,7 +107,9 @@ while t<tmax
     fu=u+ddt/6*(k1+2*k2+2*k3+k4);
     u=ftr*fu;
     
+    maxi=[maxi max(u)];
     cons=[cons sum(u)*h-int];
+    time=[time t];
     
 %     pause(0.00001)
 %     clf
@@ -119,8 +121,21 @@ end
 % figure(2)
 % plot(cons)
 
+tstar=1/(2*pi);
+a=sqrt(3/(2*exp(-2)*pi*pi)).*exp(-2*pi*(t-tstar));
+ue=a.*x.*(x<pi)+a.*(x-2*pi).*(x>=pi);
+
 figure(3)
 plot(x,u,'Linewidth',2)
 grid on
-%axis([0 1 -1 1])
+xticks([0 pi/2 pi 3*pi/2 2*pi])
+xticklabels({'0','\pi/2','\pi','3\pi/2','2\pi'})
 title(['Filtre d''ordre 6'])
+axis([0 2*pi -.4 .4])
+
+% a0=sqrt(2/3)*pi-1;
+% figure(4)
+% plot(time, maxi, time, 1./(a0+2*pi*(time-1/(2*pi))))
+
+
+

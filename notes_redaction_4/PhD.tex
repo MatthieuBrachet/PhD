@@ -20,13 +20,13 @@
 \usepackage{algpseudocode}
 \alglanguage{pseudocode}
 
-\newtheorem{definition}{D\'efinition}
-\newtheorem{exemple}{Exemple}
-\newtheorem{remarque}{Remarque}
-\newtheorem{proposition}{Proposition}
-\newtheorem{theoreme}[proposition]{Théorème}
-\newtheorem{lemme}[proposition]{Lemme}
-\newtheorem{corollaire}[proposition]{Corollaire}
+\newtheorem{definition}{D\'efinition}[chapter]
+\newtheorem{exemple}{Exemple}[chapter]
+\newtheorem{remarque}{Remarque}[chapter]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theoreme}{Théorème}[chapter]
+\newtheorem{lemme}{Lemme}[chapter]
+\newtheorem{corollaire}{Corollaire}[chapter]
 
 \def\gint{\displaystyle\int}
 \def\gsum{\displaystyle\sum\limits}
@@ -79,7 +79,7 @@
 \input{notations3.tex}
 \input{disc.tex}
 
-%\input{CS.tex}
+\input{CS.tex}
 %\input{opsph.tex}
 
 %\input{scaleq4.tex} 

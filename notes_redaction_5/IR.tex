@@ -1,0 +1,130 @@
+% IR.tex
+
+L'objectif de cette partie est de présenter les invariants de Riemann comme outil pour l'étude des équations aux dérivées partielles hyperboliques.
+
+\subsection{Cas 1D}
+
+On considère une équation aux dérivées partielles de la forme suivante :
+
+\begin{equation}
+\dfrac{\partial u}{\partial t} + A \cdot \dfrac{\partial}{\partial x} F(u) = 0
+\label{eq:edp hyperbolique 1d}
+\end{equation}
+
+où $u$ est une fonction de $\mathbb{R}$ dans $\mathbb{R}^p$ et $F$ de $\mathbb{R}^p$ dans $\mathbb{R}^n$ ($n$ entier naturel). On note $u_0$ la solution à $t=0$.
+
+L'équation \eqref{eq:edp hyperbolique 1d} étant hyperbolique, $A  \cdot J F$, est diagonalisable, où $J F$ est la jacobienne de $F$.
+
+Il existe $P \in \mathcal{M}_n$ inversible et $D \in \mathcal{M}_ n$ diagonale tels que :
+
+\begin{equation}
+A \cdot JF = P^{-1} D P
+\end{equation}
+
+ainsi, en mutipliant \eqref{eq:edp hyperbolique 1d} à gauche par $P$ et en notant $w = P u$, on obtient :
+
+\begin{equation}
+\dfrac{\partial w}{\partial t} + D \dfrac{\partial w}{\partial x} = 0
+\label{eq:transport invariant de riemann}
+\end{equation}
+
+\begin{remarque}
+\begin{itemize}
+\item $w$ est appelé invariant de Riemann associé à l'équation \eqref{eq:edp hyperbolique 1d},
+\item $D$ est, a priori, fonction de $u$,
+\item lorsque \eqref{eq:edp hyperbolique 1d} est une équation linéaire, on peut considèrer $F(u) = u$, $D$ est indépendant de $u$ donc \eqref{eq:transport invariant de riemann} est une equation de transport que l'on sait résoudre :
+\begin{equation}
+w_j(x) = w_0 ( x - D_{j,j} t) = P u_0 ( x - D_{j,j} t )
+\end{equation} 
+et on peut déduire la solution de \eqref{eq:edp hyperbolique 1d}.
+\end{itemize}
+\end{remarque}
+
+\subsection{Cas de l'équation Shallow Water}
+
+On considère l'équation :
+
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\partial_t \mathbf{u} + \left( \mathbf{u} \cdot \nabla \right) \mathbf{u} + g \nabla h + f \mathbf{k} \wedge \mathbf{u} & = & \mathbf{0}\\
+\partial_t h^{\star} + \nabla \cdot \left( h^{\star} \mathbf{u} \right) & = & 0 \\ 
+\end{array}
+\right.
+\label{eq:SWEC.annexe}
+\end{equation}
+
+avec $h^{\star} = h - h_s$, $h_s$ représente les reliefs sur le domaine de calcul.
+
+Pour déterminer les invariants de Riemann, on met l'équation \eqref{eq:SWEC.annexe} sous la forme :
+
+\begin{equation}
+\dfrac{\partial}{\partial t} X + A_{\xi}(X) \dfrac{\partial}{\partial \xi} F_{\xi}(X) + A_{\eta}(X) \dfrac{\partial}{\partial \eta} F_{\eta}(X) + G(X) = 0
+\end{equation}
+
+$(\xi, \eta)$ est un système de coordonnées 2D, $X=(u_{\xi}, u_{\eta}, h)^T$. On note que $\mathbf{u} = u_{\xi} \mathbf{g}^{\xi}+u_{\eta} \mathbf{g}^{\eta}$. 
+
+Ainsi, on peut montrer que $F_{\xi}(X) = F_{\eta}(X) = X$ et les matrices $A_{\xi}$ et $A_{\eta}$ sont données par :
+
+\begin{equation}
+A_{\xi} = \begin{pmatrix}
+\mathbf{u} \cdot \mathbf{g}^{\xi} & 0 & g \\
+0 & \mathbf{u} \cdot \mathbf{g}^{\xi} & 0 \\
+h \mathbf{g}^{\xi} \cdot \mathbf{g}^{\xi} & h \mathbf{g}^{\xi} \cdot \mathbf{g}^{\eta} & \mathbf{u} \cdot \mathbf{g}^{\xi} 
+\end{pmatrix}
+\hspace{1cm}
+A_{\eta} = \begin{pmatrix}
+\mathbf{u} \cdot \mathbf{g}^{\eta} & 0 & 0 \\
+0 & \mathbf{u} \cdot \mathbf{g}^{\eta}  & g \\
+h \mathbf{g}^{\eta} \cdot \mathbf{g}^{\xi}  & h \mathbf{g}^{\eta} \cdot \mathbf{g}^{\eta}  & \mathbf{u} \cdot \mathbf{g}^{\eta} 
+\end{pmatrix}
+\end{equation}
+
+\begin{remarque}
+\begin{itemize}
+\item Ce résultat est cohérent avec celui d'une base orthonormale, puisque l'on aurait $\mathbf{g}^{\xi} \cdot \mathbf{g}^{\eta} = 0$ et $\mathbf{g}^{\eta} \cdot \mathbf{g}^{\eta} = \mathbf{g}^{\xi} \cdot \mathbf{g}^{\xi} = 0$,
+\item Il n'est pas utile de calculer explicitement $G(X)$ pour le calcul des invariants de Riemann.
+\end{itemize}
+
+\end{remarque}
+
+Les valeurs propres de $A_{\xi}$ constituent l'ensemble $\left\lbrace \mathbf{u} \cdot \mathbf{g}^{\xi}, \mathbf{u} \cdot \mathbf{g}^{\xi} + \sqrt{\mathbf{g}^{\xi} \cdot \mathbf{g}^{\xi} h g} , \mathbf{u} \cdot \mathbf{g}^{\xi} - \sqrt{\mathbf{g}^{\xi} \cdot \mathbf{g}^{\xi} h g}\right\rbrace$. Les vecteurs propres associés sont :
+
+\begin{equation*}
+V_{\xi,1} = \begin{pmatrix}
+- \mathbf{g}^{\xi} \cdot \mathbf{g}^{\eta} \\
+\mathbf{g}^{\xi} \cdot \mathbf{g}^{\xi} \\
+0
+\end{pmatrix}\text{, }
+V_{\xi,2} = \begin{pmatrix}
+g \\
+0 \\
+\sqrt{\mathbf{g}^{\xi} \cdot \mathbf{g}^{\xi} h g}
+\end{pmatrix}\text{ et }
+V_{\xi,3} = \begin{pmatrix}
+g \\
+0 \\
+- \sqrt{\mathbf{g}^{\xi} \cdot \mathbf{g}^{\xi} h g}
+\end{pmatrix}.
+\end{equation*}
+
+De même, pour $A_{\eta}$, on a les valeurs propres $\left\lbrace \mathbf{u} \cdot \mathbf{g}^{\eta}, \mathbf{u} \cdot \mathbf{g}^{\eta} + \sqrt{\mathbf{g}^{\eta} \cdot \mathbf{g}^{\eta} h g} , \mathbf{u} \cdot \mathbf{g}^{\eta} - \sqrt{\mathbf{g}^{\eta} \cdot \mathbf{g}^{\eta} h g}\right\rbrace$ et les vecteurs propres associés sont :
+
+\begin{equation*}
+V_{\eta,1} = \begin{pmatrix}
+\mathbf{g}^{\eta} \cdot \mathbf{g}^{\eta} \\
+- \mathbf{g}^{\eta} \cdot \mathbf{g}^{\xi} \\
+0
+\end{pmatrix}\text{, }
+V_{\eta,2} = \begin{pmatrix}
+0 \\
+\sqrt{\mathbf{g}^{\eta} \cdot \mathbf{g}^{\eta} h g}\\
+g
+\end{pmatrix}\text{ et }
+V_{\eta,3} = \begin{pmatrix}
+0 \\
+-\sqrt{\mathbf{g}^{\eta} \cdot \mathbf{g}^{\eta} h g}\\
+g
+\end{pmatrix}.
+\end{equation*}
+

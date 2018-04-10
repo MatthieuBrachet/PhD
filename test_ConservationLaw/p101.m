@@ -25,19 +25,19 @@ global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
 global opt_ftr test scheme nrm detec
 
 comment='.';
-test=2;
+test=0;
 video = 'no';
-sauvegarde =1;
+sauvegarde =0;
 filtre='symetric';
 opt_ftr='redonnet10';
 scheme='compact4';
 snapshot='no';
 nrm='int';
 
-n=511 ; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+n=31 ; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
 ndaymax=6;
 mod101
-ddt=2.56/pi*dxi;
+ddt=.96/pi*dxi;
 disp('mod101 : ok')
 
 %% ************************************************************************
@@ -335,7 +335,7 @@ end
 
 figure(3)
 plot(time,err1,'-k',time,err2,'--k',time,erri,'.k')
-legend('norm 1','norm 2','norm \infty')
+legend('norme 1','norme 2','norme \infty')
 grid on
 if sauvegarde == 1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_err.png'])
@@ -343,11 +343,13 @@ if sauvegarde == 1
 end
 
 [ lambdae, hte ] = equateur(ht_fI, ht_fII, ht_fIII, ht_fIV,ht_fV, ht_fVI);
-[x,y] = burgers( 127, ddt, Tmax );
+[x,y] = burgers( 4*(n+1)-1, ddt, t );
 figure(4)
 plot(lambdae,hte,'-o',x,y,'Linewidth',2)
-title('Equator')
-grid on
+xticks([0 pi/2 pi 3*pi/2 2*pi])
+xticklabels({'0','\pi/2','\pi','3\pi/2','2\pi'})
+axis([0 2*pi -.4 .4])
+grid minor
 legend('Coupe équatoriale','Burgers 1D')
 if sauvegarde == 1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_equateur.png'])
@@ -355,8 +357,10 @@ if sauvegarde == 1
 end
 
 figure(5)
-plot(time,err_int,'k-')
-title('Mass conservation')
+plot(time,err_int,'b-','Linewidth',2)
+grid minor
+xlabel('Temps')
+ylabel('Erreur de conservation')
 if sauvegarde == 1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservation.png'])
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservation']);

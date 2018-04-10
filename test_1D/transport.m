@@ -6,7 +6,7 @@ n=100;
 h=1./n;
 x=[h:h:1]';
 
-cfl=1.6883;
+cfl=1.5;
 ddt=cfl*h/c;
 tmax=10;
 
@@ -18,7 +18,7 @@ p(end,1)=1/6; p(1,end)=1/6;
 p=sparse(p);
 
 
-opt_ftr='redonnet10';
+opt_ftr='redonnet6';
 if strcmp(opt_ftr,'redonnet10')==1
     ftr0=772/1024;
     ftr1=420/1024;

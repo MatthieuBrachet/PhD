@@ -25,7 +25,7 @@ time1=cputime;
 %                                                    stationnary vortex)
 %    coef = 2, test de Nair, Jablonowski (moving vortices on the sphere)
 %    coef = 3, test de Nair, Lauritzen (slotted cylinder) ( = Zaleska)
-coef = 1;
+coef = 2;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
 film = 0;
@@ -48,10 +48,10 @@ sauvegarde = 1;
 % choix du schéma aux différences finies
 scheme='compact4'; % compact ou explicite
 %% *** Benchmarks data ****************************************************
- n=34;
+ n=79;
  nn=n+2;
- cfl=.5;
- ndaymax=12;
+ cfl=.7;
+ ndaymax=24;
  err=2;
  mm=0;
  MM=1000;
@@ -352,12 +352,14 @@ while ite<itemax & erinfty(end)<10
         nrm101(funfI,funfII,funfIII,funfIV,funfV,funfVI,n,nn,str);
     cons_mass(ite)=mass./mass_ref;
 
-     if snapshot == 1 && mod(ite,floor(tmax/(6*ddt))) == 0
-        clf
-        hFig = figure(floor(xdays(ite))+1);
+     if snapshot == 1 && mod(ite,floor(tmax/(12*ddt))) == 0
+        close all
+        mkdir(['./results-' date ])
+        %clf
+        hFig = figure(1000+floor(xdays(ite))+1);
         set(gcf,'PaperPositionMode','auto')
         set(hFig, 'Position', [50 50 1100 500])
-        plot_cs100(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
+        plot_cs102(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI)
         colorbar
         print('-dpng', ['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef) '_nday_' num2str(floor(time/(24*3600))) '.png'])
     end
@@ -437,20 +439,20 @@ if sauvegarde == 1
     % save(['./results-' date '/ref_' num2str(ref) '_erreurdata_test_' num2str(coef) '.mat'])
 end
 
-if snapshot == 1
-    vmin=min(min([funfI,funfII,funfIII,funfIV,funfV,funfVI]));
-    vmax=max(max([funfI,funfII,funfIII,funfIV,funfV,funfVI]));
-    
-    figure(11)
-    hFig = figure(11);
-    set(gcf,'PaperPositionMode','auto')
-    set(hFig, 'Position', [50 50 1000 500])
-    if sauvegarde == 1
-        plot_cs101(n,nn,funfI-1,funfII-1,funfIII-1,funfIV-1,funfV-1,funfVI-1,linspace(vmin-1,vmax-1,25))
-        print('-dpng', ['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef) '_nday_' num2str(ndaymax) '.png'])
-        savefig(['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef)]);
-    end
-end
+% if snapshot == 1
+%     vmin=min(min([funfI,funfII,funfIII,funfIV,funfV,funfVI]));
+%     vmax=max(max([funfI,funfII,funfIII,funfIV,funfV,funfVI]));
+%     
+%     figure(11)
+%     hFig = figure(11);
+%     set(gcf,'PaperPositionMode','auto')
+%     set(hFig, 'Position', [50 50 1000 500])
+%     if sauvegarde == 1
+%         plot_cs102(n,nn,funfI-1,funfII-1,funfIII-1,funfIV-1,funfV-1,funfVI-1)
+%         print('-dpng', ['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef) '_nday_' num2str(ndaymax) '.png'])
+%         savefig(['./results-' date '/ref_' num2str(ref) '_snapshot_test_' num2str(coef)]);
+%     end
+% end
 
 figure(1);
 plot_cs11(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe);
@@ -483,8 +485,8 @@ figure(4);
 plot(xdays,er1,'k-');hold on;grid;
 plot(xdays,er2,'k--');hold on;
 plot(xdays,erinfty,'k.-');hold off
-title('relative error - RK4')
-legend('norm 1','norm 2','norm infinity','Location','NorthWest')
+%title('relative error - RK4')
+legend('norme 1','norme 2','norme \infty','Location','NorthWest')
 if save_graph==1
     print('-dpng', ['./results-' date '/ref_' num2str(ref) '_normerreur_test_' num2str(coef) '.png'])
     savefig(['./results-' date '/ref_' num2str(ref) '_normerreur_test_' num2str(coef)]);

@@ -1,0 +1,223 @@
+\documentclass[11pt]{thesul}
+
+\usepackage{graphicx}
+\usepackage[french]{minitoc}
+\frenchbsetup{StandardLists=true}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[counterclockwise]{rotating}
+\usepackage{multirow}
+\usepackage[usenames, dvipsnames]{xcolor}
+\usepackage{tikz}
+\usepackage[left=2cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{amsthm}
+\usepackage{siunitx}
+%\usepackage[ruled]{algorithm}
+\usepackage[Algorithme]{algorithm}
+\usepackage{algpseudocode}
+\alglanguage{pseudocode}
+
+\newtheorem{definition}{D\'efinition}[chapter]
+\newtheorem{exemple}{Exemple}[chapter]
+\newtheorem{remarque}{Remarque}[chapter]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theoreme}{Théorème}[chapter]
+\newtheorem{lemme}{Lemme}[chapter]
+\newtheorem{corollaire}{Corollaire}[chapter]
+
+\def\gint{\displaystyle\int}
+\def\gsum{\displaystyle\sum\limits}
+\def\gprod{\displaystyle\prod\limits}
+\def\longarc{\text{longarc}}
+\def\rang{\text{rang}}
+\def\REF{\textbf{REF}}
+\def\CFL{\text{CFL}}
+\def\CS{\text{CS}}
+\def\VDM{\text{VDM}}
+\def\Id{\text{Id}}
+\def\I{\text{I}}
+\def\vort{\text{vort}}
+\def\rot{\text{rot}}
+\def\Sp{\text{Sp}}
+\def\Re{\text{Re}}
+\def\RK4{\text{RK4}}
+\def\dec{\text{déc}}
+\def\per{\text{pér}}
+\def\vec{\text{vec}}
+\def\Vect{\text{Vect}}
+\def\arg{\text{arg}}
+\def\sech{\text{sech}}
+\def\tanh{\text{tanh}}
+\def\etafrak{\mathbf{\eta}}
+\def\dxi{\tilde{\delta}^H_{\xi}}
+\def\deta{\tilde{\delta}^H_{\eta}}
+\def\fxi{\tilde{\mathcal{F}}_{\xi}}
+\def\feta{\tilde{\mathcal{F}}_{\eta}}
+\def\tf{\tilde{f}}
+\def\tpz{\text{tpz}}
+\def\sps{\text{sps}}
+\def\col{\text{col}}
+
+\graphicspath{{./Images/}}
+
+\newcommand\upun[1]{\uppercase{\underline{\underline{#1}}}}
+\FormatHeadingsWith\upun
+
+\newcommand\itheadings[1]{\textit{#1}}
+\FormatHeadingsWith{\itheadings}
+
+\setlength{\HeadRuleWidth}{0.4pt}
+
+\NoChapterNumberInRef
+\NoChapterPrefix
+
+\makeglossary
+\makeindex
+
+\begin{document}
+
+
+      \OddHead={{\leftmark\rightmark}{\hfil\slshape\rightmark}}
+      \EvenHead={{\leftmark}{{\slshape\leftmark}\hfil}}
+      \OddFoot={\hfil\thepage}
+      \EvenFoot={\thepage\hfil}
+      \pagestyle{ThesisHeadingsII}
+
+\FrameChaptersInToc  
+\ResetChaptersAtParts 
+\dominitoc
+
+\ThesisTitle{Schémas compacts hermitiens sur la Sphère - Applications en climatologie et océanographie numérique}
+\ThesisDate{3 Juillet 2018}
+\ThesisAuthor{Matthieu Brachet}
+\ThesisUL
+
+\def\blanc{\hspace*{1cm}}
+
+\President    = {Le président}
+\Rapporteurs  = {Eric Blayo\\
+                 Thomas Dubos}
+\Examinateurs = {Didier Clamond\\
+				 Jean-Pierre Croisille\\
+				 Michael Ghil\\
+				 Véronique Martin\\
+                 Dong Ye}
+
+\MakeThesisTitlePage
+
+\begin{ThesisAcknowledgments}
+Je remercie le jury, le labo, mon directeur de thèse et tout et tout...
+\end{ThesisAcknowledgments}
+
+\begin{ThesisDedication}
+Je dédie cette thèse\\
+à ma machine.\\
+Oui, à Pandore,\\
+qui fut la première de toutes.
+\end{ThesisDedication}
+
+\WritePartLabelInToc
+\WriteChapterLabelInToc
+
+\tableofcontents
+
+%% ************ A COMPLETER PLUS TARD L'INTRO GENERALE
+\SpecialSection{Introduction générale}
+%% ************ A COMPLETER PLUS TARD L'INTRO GENERALE
+
+%\FrameThisInToc
+\DontNumberThisInToc
+%\part{Rapport de Thèse}
+%\NoChapterHead
+
+\DontWriteThisInToc   
+\listoffigures
+
+\WriteThisInToc
+\FrameThisInToc
+\NumberThisInToc
+\part*{Rapport de Thèse}
+\mainmatter
+
+%\NumberThisInToc
+\input{notations3.tex}
+\input{disc.tex}
+\input{CS.tex}
+\input{opsph.tex}
+\input{scaleq4.tex} 
+%\input{LSWEC.tex}
+%\input{testSWE.tex}
+
+%\PutLineInToc
+%\PutNewPageInToc
+
+%\DontFrameThisInToc
+
+\Annexes
+
+\Annex{Annexe}
+\section{Coordonnées Longitude-Latitude}
+\input{lonlat.tex}
+\section{Invariants de Riemann}
+\input{IR.tex}
+
+%-------------------------------------------------------------------
+%                       La bibliographie
+%-------------------------------------------------------------------
+
+\bibliographystyle{plain}
+\bibliography{PhDbiblio}
+
+%-------------------------------------------------------------------
+%                          Les résumés
+%-------------------------------------------------------------------
+% (si le résumé apparaît sur une colonne étroite, avec la
+% bibliographie à gauche, c'est sans doute parce que vous avez
+% oublié de générer les fichiers d'index et de glossaire...)
+
+\NumberAbstractPages
+\begin{ThesisAbstract}
+  \begin{FrenchAbstract}
+    Le résumé.
+    \KeyWords{chat, chien, puces.}
+  \end{FrenchAbstract}
+  \begin{EnglishAbstract}
+    % résumé du DEC SRC Research Report #12
+    % Date: June 23, 1986
+    % 
+    %     "Fractional Cascading."
+    %     Bernard Chazelle and Leonidas J. Guibas.
+    %     58 pages.
+    In computational geometry many search problems and range queries
+    can be solved by performing an iterative search for the same key
+    in separate ordered lists.  In Part I of this report we show that,
+    if these ordered lists can be put in a one-to-one correspondence
+    with the nodes of a graph of degree  d  so that the iterative
+    search always proceeds along edges of that graph, then we can
+    do much better than the obvious sequence of binary searches. Without
+    expanding the storage by more than a constant factor, we can build
+    a data-structure, called a fractional cascading structure,
+    in which all original searches after the first can be carried
+    out at only  log d  extra cost per search.  Several results related
+    to the dynamization of this structure are also presented. Part
+    II gives  numerous applications of this technique to geometric
+    problems.  
+
+    Examples include intersecting a polygonal path with
+    a line, slanted range search, orthogonal range search, computing
+    locus functions, and others. Some results on the optimality of
+    fractional cascading, and certain extensions of the technique
+    for retrieving additional information are also included.
+    \KeyWords{cat, dog, flees.}
+  \end{EnglishAbstract}
+\end{ThesisAbstract}
+
+
+\end{document}
+
+
+

@@ -1,0 +1,1063 @@
+% equation scalaire
+
+\chapter{Equations d'advections}
+\label{chap:advection}
+
+\section{Equations d'advection linéaire sur la sphère}
+
+Dans cette partie, on s'intéresse à l'équation d'advection \eqref{eq:advection_sphere} :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial h}{\partial t} + \mathbf{c}(t,\mathbf{x}) \cdot \nabla_T h & = & 0 \\
+h(0,\mathbf{x}) & = & h_0(\mathbf{x})
+\end{array}
+\right. \text{ pour tout } \mathbf{x} \in \mathbb{S}_a^2 \text{ et } t \geq 0,
+\label{eq:advection_sphere}
+\end{equation}
+sur la sphère de rayon $a$, $\mathbb{S}_a^2$, avec $a$ le rayon terrestre est $a = 6 371 220 \si{m}$.
+La fonction $\mathbf{c} : (t,\mathbf{x}) \in \mathbb{R}^+ \times \mathbb{S}_a^2 \mapsto \mathbf{c}(t,\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ désigne un champ de vecteurs tangents à la sphère $\mathbb{S}_a^2$.
+
+\subsection{Résolution numérique}
+
+L'équation \eqref{eq:advection_sphere} est résolue par la méthode des lignes en utilisant l'opérateur gradient discret $\nabla_{T,\Delta}$. On pose $J_{\Delta}$ l'application agissant sur une fonction de grille donnée par
+\begin{equation}
+J_{\Delta}(t, h) = - \mathbf{c}(t,\cdot) \cdot \nabla_{T,\Delta} h.
+\end{equation}
+La résolution en temps se fait par un algorithme de type $RK4$ couplé à un opérateur de filtrage $\mathcal{F}$. L'algorithme obtenu est le suivant :
+
+\begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: Equation d'advection sphérique \eqref{eq:advection_sphere} }\label{alg:RK4_transportSa}
+    \begin{algorithmic}[1]
+    \State $h^0 = h_0^*$ connu,
+    \For{$n=0,1, \ldots$}
+             \State  $K^{(1)} = J_{\Delta}(t^n, h^n)$,
+             \State  $K^{(2)} = J_{\Delta}\left(t^n + \frac{\Delta t}{2}, h^n + \frac{\Delta t}{2} K^{(1)} \right)$,
+             \State  $K^{(3)} = J_{\Delta}\left(t^n + \frac{\Delta t}{2}, h^n + \frac{\Delta t}{2} K^{(2)} \right)$,
+             \State  $K^{(4)} = J_{\Delta}\left(t^n + \Delta t h^n + \Delta t K^{(3)} \right)$,  
+             \State  $h^{n+1} = \mathcal{F}\left( h^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
+            \EndFor
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center}
+
+$h^n$ désigne une approximation de $h^*(t^n)$ solution au temps $t^n = n \Delta t$ de \eqref{eq:advection_sphere}.
+Dans les tests effectués ici, une solution de l'équation \eqref{eq:advection_sphere} est disponible, nous mesurons l'erreur relative au temps $t^n$ avec
+\begin{equation}
+e_s^n = \dfrac{\| h^n - h_*(t^n) \|_s}{\| h_*(t^n) \|_s}
+\end{equation}
+où $s \in \left\lbrace 1, 2, \infty \right\rbrace$ et $\| \cdot \|_s$ désigne la norme $1$, $2$ ou $\infty$ calculée par
+\begin{equation}
+\| q^* \|_s = \left( Q(|q^*|^s ) \right)^{1/s} \text{ avec } s=1,2
+\end{equation}
+et $Q$ est un opérateur de quadrature numérique étudié dans \cite{Portelenelle2018}. Pour la norme infinie, on note
+\begin{equation}
+\| q^* \|_{\infty} = \max_{-N/2 \leq i,j \leq N/2} \max_{(k) = (I) ... (VI)} |q(\mathbf{x}_{i,j}^{(k)})|.
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Test de rotation solide}
+
+Le premier test que nous considérons est le premier test de \cite{Williamson1992}. Il s'agit d'une rotation sans déformation de la condition initiale au cours du temps autour d'un axe incliné.
+
+On considère $(\lambda, \theta)$ les coordonnées longitude-latitudes associées à un pôle Nord donné par $\mathbf{N}$ et $(\lambda', \theta')$ les coordonnées longitude-latitudes associées à un pôle Nord déplacé en $\mathbf{P}$ de coordonnées $(\lambda_P, \theta_P)$. La proposition suivante énonce le lien entre $(\lambda, \theta)$ et $(\lambda', \theta')$ :
+
+\begin{proposition}
+Les formules suivantes permettent de passer de $(\lambda, \theta)$ à $(\lambda', \theta')$ :
+\begin{equation}
+\label{from classic to prime}
+\left\lbrace 
+\begin{array}{rcl}
+\theta' & = & \arcsin \left[ \sin( \theta) \sin(\theta_P) + \cos( \theta ) \cos( \theta_P) \cos( \lambda - \lambda_P ) \right] \\
+\lambda' & = & \arctan \left[ \dfrac{\cos ( \theta) \sin( \lambda - \lambda_P)}{\cos( \theta) \cos( \lambda - \lambda_P) \sin( \theta_P) - \sin( \theta) \cos( \theta_P)} \right]
+\end{array}
+\right.
+\end{equation}
+inversement formules suivantes permettent de passer de $(\lambda', \theta')$ à $(\lambda, \theta)$ :
+\begin{equation}
+\label{from prime to classic}
+\left\lbrace 
+\begin{array}{rcl}
+\theta & = & \arcsin \left[ \sin( \theta') \sin(\theta_P) - \cos( \theta' ) \cos( \theta_P) \cos( \lambda' ) \right] \\
+\lambda & = & \lambda_P + \arctan \left[ \dfrac{\cos ( \theta') \sin( \lambda ')}{\sin( \theta') \cos( \theta_P) + \cos ( \theta') \cos( \lambda') \sin ( \theta_P)} \right]
+\end{array}
+\right.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Un point $\mathbf{x} \in \mathbb{S}_a^2$ a pour coordonnées $(\lambda, \theta)$ en longitude-latitude associée au pôle Nord et $(\lambda', \theta')$ en coordinnées latitude-longitude associée avec un pôle déplacé en $P$. Le lien entre ces coordonnées se fait par rotation successives.
+En considérant les rotations liées au changement de pôle Nord, on a
+\begin{align}
+\begin{bmatrix}
+\cos \theta' \cos \lambda' \\ \cos \theta' \sin \lambda' \\ \sin \theta'
+\end{bmatrix} & = 
+\begin{bmatrix}
+\cos (\theta_P - \pi/2) & 0 & \sin (\theta_p - \pi/2) \\
+0 & 1 & 0 \\
+- \sin (\theta_P - \pi/2 ) & 0 & \cos (\theta_P - \pi/2)
+\end{bmatrix}
+\begin{bmatrix}
+\cos \lambda_P & \sin \lambda_P & 0 \\
+- \sin \lambda_P & \cos \lambda_P & 0 \\
+0 & 0 & 1 
+\end{bmatrix}
+\begin{bmatrix}
+\cos \theta \cos \lambda \\ \cos \theta \sin \lambda \\ \sin \theta
+\end{bmatrix} \\
+& = \begin{bmatrix}
+\sin \theta_P \cos \lambda_P & \sin \theta_P \sin \lambda_P & - \cos \theta_P \\
+- \sin \lambda_P & \cos \lambda_P & 0 \\
+\cos \theta_P \cos \lambda_P & \cos \theta_P \sin \lambda_P & \sin \theta_P
+\end{bmatrix}
+\begin{bmatrix}
+\cos \theta \cos \lambda \\ \cos \theta \sin \lambda \\ \sin \theta
+\end{bmatrix}.
+\label{eq:chgmt_coord_proof1}
+\end{align}
+La seconde ligne de \eqref{eq:chgmt_coord_proof1} donne
+\begin{align*}
+\cos \theta' \in \lambda'  & = - \sin \lambda_P \cos \theta \cos \lambda + \cos \lambda_P \cos \theta \sin \lambda \\
+	& = \cos \theta ( \cos \lambda_P \sin \lambda - \sin \lambda_P \cos \lambda) \\
+	& = \cos \theta \sin (\lambda - \lambda_P)
+\end{align*}
+ce qui nous donne l'équation :
+\begin{equation}
+\cos \theta' \sin \lambda' = \cos \theta \sin (\lambda - \lambda_P).
+\label{eq:chgmt_coord_proof2}
+\end{equation}
+De la même manière, la seconde ligne de \eqref{eq:chgmt_coord_proof1} permet d'obtenir
+\begin{equation}
+\sin \theta' = \cos \theta_P \cos \theta \cos (\lambda - \lambda_P) + \sin \theta_P \sin \theta .
+\label{eq:chgmt_coord_proof3}
+\end{equation}
+D'après la première ligne de \eqref{eq:chgmt_coord_proof1} :
+\begin{align*}
+\cos \theta' \cos \lambda' & = \sin \theta_P \cos \lambda_P \cos \theta \cos \lambda + \sin \theta_P \sin \lambda_P \cos \theta \sin \lambda - \cos \theta_P \sin \theta \\
+	& = \sin \theta_P \cos \theta \cos ( \lambda - \lambda_P) - \cos \theta_P \sin \theta \\
+	& = \sin \theta_P \dfrac{\sin \theta' - \sin \theta_P \sin \theta}{\cos \theta_P} - \cos \theta_P \sin \theta \text{ d'après \eqref{eq:chgmt_coord_proof3} } \\
+	& = \dfrac{\sin \theta_P \sin \theta' - \sin \theta}{\cos \theta_P}
+\end{align*}
+D'où une troisième équation
+\begin{equation}
+\sin \theta = \sin \theta_P \sin \theta' - \cos \theta' \cos \lambda' \cos \theta_P .
+\label{eq:chgmt_coord_proof4}
+\end{equation}
+Les équations démontrées sont les suivantes :
+\begin{equation}
+\label{eq:coord_rot}
+\left\lbrace 
+\begin{array}{rcl}
+\sin ( \theta ) & = & \sin( \theta_P) \sin( \theta') - cos( \theta_P) cos( \theta') cos( \lambda' ) \\
+\sin( \theta' ) & = & \sin( \theta) \sin(\theta_P) + cos( \theta ) cos( \theta_P) cos( \lambda - \lambda_P ) \\
+cos( \theta ) \sin( \lambda - \lambda_P) & = & cos( \theta' ) \sin( \lambda' )
+\end{array}
+\right.
+\end{equation}.
+En utilisant (\ref{eq:coord_rot}.b), la formule suivante est immédiate :
+\begin{equation}
+\theta' = \arcsin \left[ \sin( \theta) \sin(\theta_P) + cos( \theta ) cos( \theta_P) cos( \lambda - \lambda_P ) \right] .
+\end{equation}
+De plus, (\ref{eq:coord_rot}.a) et (\ref{eq:coord_rot}.c) donnent :
+\begin{equation}
+\left\lbrace 
+\begin{array}{rcl}
+\cos( \theta ) \sin( \lambda - \lambda_P) & = & \cos( \theta' ) \sin( \lambda' ) \\
+\cos( \theta ) \cos( \lambda - \lambda_P) & = & \frac{\sin( \theta' ) \sin ( \theta_P ) - \sin( \theta )}{\cos( \theta_P)}
+\end{array}
+\right. .
+\end{equation}.
+Or :
+\begin{equation*}
+\begin{array}{rcl}
+\cos( \theta ) \cos( \lambda - \lambda_P) & = & \dfrac{\sin( \theta' ) \sin ( \theta_P ) - \sin( \theta )}{\cos( \theta_P)} \\
+ & = & \dfrac{\sin( \theta) (\sin^2 ( \theta_P) -1 )}{\cos( \theta_P)} + \cos( \theta ) \cos( \lambda- \lambda_P) \sin( \theta_P)\\
+ & = & \cos ( \theta) \cos( \lambda - \lambda_P) \sin( \theta_P ) - \sin( \theta) \cos ( \theta_P )
+\end{array} .
+\end{equation*}
+Dès lors, en remarquant que :
+\begin{equation}
+\tan ( \lambda' ) =  \dfrac{\cos( \theta' ) \sin(  \lambda' ) }{\cos( \theta' ) \cos(  \lambda' )}
+\end{equation}
+on a le changement de coordonnées dans un premier sens :
+\begin{equation}
+\left\lbrace 
+\begin{array}{rcl}
+\theta' & = & \arcsin \left[ \sin( \theta) \sin(\theta_P) + \cos( \theta ) \cos( \theta_P) \cos( \lambda - \lambda_P ) \right] \\
+\lambda' & = & \arctan \left[ \dfrac{\cos ( \theta) \sin( \lambda - \lambda_P)}{\cos( \theta) \cos( \lambda - \lambda_P) \sin( \theta_P) - \sin( \theta) \cos( \theta_P)} \right]
+\end{array}
+\right.
+\end{equation}
+Inversement et par une démonstration similaire, on a :
+\begin{equation}
+\left\lbrace 
+\begin{array}{rcl}
+\theta & = & \arcsin \left[ \sin( \theta') \sin(\theta_P) - \cos( \theta' ) \cos( \theta_P) \cos( \lambda' ) \right] \\
+\lambda & = & \lambda_P + \arctan \left[ \dfrac{\cos ( \theta') \sin( \lambda ')}{\sin( \theta') \cos( \theta_P) + \cos ( \theta') \cos( \lambda') \sin ( \theta_P)} \right]
+\end{array}
+\right. .
+\end{equation}
+\end{proof}
+
+\begin{proposition}
+La solution de l'équation d'advection sur la sphère \eqref{eq:advection_sphere} avec
+\begin{equation}
+\mathbf{c}(\mathbf{x}) = \mathbf{c}(\lambda,\theta) = u_0 \cos \theta \mathbf{e}_{\lambda}
+\end{equation}
+est donnée pour $t \geq 0$ par
+\begin{equation}
+h(\mathbf{x}, t ) = h(\lambda, \theta, t ) = h_0(\lambda- \omega_s t , \theta)
+\end{equation}
+avec $a \omega_s = u_0$ et $\mathbf{x}$ un point de la sphère $\mathbb{S}_a^2$ de coordonnées longitude-latitude $(\lambda, \theta)$.
+Cette dernière solution s'écrit aussi
+\begin{equation}
+h(\mathbf{x},t) = h_0(R_{-t} \mathbf{x})
+\end{equation}
+où $R_{-t}$ est la matrice de rotation
+\begin{equation}
+R_{-t} = \begin{pmatrix}
+\cos (- \omega_s t) & - \sin (- \omega_s t) & 0 \\
+\sin (- \omega_s t) & \cos (- \omega_s t)   & 0 \\
+0 & 0 & 1
+\end{pmatrix} .
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+On souhaite résoudre cette équation par la méthode des caractéristiques. Soit $X : t \in \mathbb{R}^+ \mapsto X(t)=(\lambda(t), \theta(t)) \in \mathbb{S}_a^2$ solution de 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{dX}{dt} & = & \mathbf{c}(X(t)) \\
+X(0) & = & \mathbf{x}_0 = (\lambda_0, \theta_0)
+\end{array}
+\right.
+\label{eq:cauchy_sphere1}
+\end{equation}
+D'après le théorème de Cauchy-Lipschitz, il existe une telle courbe $X$ solution maximale.
+
+Si $h$ est solution de \eqref{eq:advection_sphere}, $h$ est constante le long de $X$, en effet
+\begin{align*}
+\dfrac{dh}{dt}(X(t),t) & = \dfrac{\partial h}{\partial t} (X(t),t) + \dfrac{d X}{dt}(t) \cdot \nabla_T h(X(t),t) \\
+& = \dfrac{\partial h}{\partial t} (X(t),t) + \mathbf{c}(X(t)) \cdot \nabla_T h(X(t),t) \\
+& = 0.
+\end{align*}
+En exprimant $X$ en coordonnée latitude-longitude, on obtient la formule
+\begin{equation}
+\dfrac{dX}{dt} = a \cos \theta \dfrac{d \lambda}{dt} \mathbf{e}_{\lambda} + a \dfrac{d \theta}{d t} \mathbf{e}_{\theta}
+\end{equation}
+ainsi, en identifiant les termes dans le problème de Cauchy, on a
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{d \lambda}{d t} & = & \omega_s \\
+\dfrac{d \theta}{d t}  & = & 0
+\end{array}
+\right.
+\end{equation}
+d'où on a directement
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\lambda(t) & = & \omega_s t + \lambda_0 \\
+\theta(t)  & = & \theta_0
+\end{array}
+\right. .
+\end{equation}
+$h$ est constante le long de sa caractéristique, donc
+\begin{equation}
+h(\lambda, \theta, t) = h_0(\lambda_0 , \theta_0 ) = h_0(\lambda - \omega_s t, \theta ). 
+\end{equation}
+\end{proof}
+
+Si $(\lambda_P, \theta_P) = (\pi, \pi / 2 - \alpha)$, alors la matrice de rotation pour passer d'un système de coordonnées à l'autre est
+\begin{equation}
+P_{\alpha} = \begin{bmatrix}
+- \cos \alpha & 0 & - \sin \alpha \\
+0 & -1 & 0 \\
+- \sin \alpha & 0 & \cos \alpha
+\end{bmatrix} .
+\end{equation}
+on a alors le théorème suivant
+
+\begin{theoreme}
+La solution de l'équation \eqref{eq:advection_sphere} avec
+\begin{equation}
+\mathbf{c}_s(\mathbf{x}) = \mathbf{c}(\mathbf{x}) = \mathbf{c}(\lambda, \theta) = u_0 \left( \cos \theta \cos \alpha + \sin \theta \cos \lambda \sin \alpha \right) \mathbf{e}_{\lambda} - u_0 \sin \lambda \sin \alpha \mathbf{e}_{\theta}
+\label{eq:rot_solide_1}
+\end{equation}
+est donnée pour $t \geq 0$ par
+\begin{equation}
+h(\mathbf{x}, t ) = h_0(P_{\alpha}^{-1}R_{-t}P_{\alpha} \mathbf{x})
+\end{equation}
+où $R_{-t}$ est la matrice de rotation
+\begin{equation}
+R_{-t} = \begin{bmatrix}
+\cos (- \omega_s t) & - \sin (- \omega_s t) & 0 \\
+\sin (- \omega_s t) & \cos (- \omega_s t)   & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+\end{equation}
+et $\mathbf{x}$ est un point de la sphère $\mathbb{S}_a^2$.
+\end{theoreme}
+
+\begin{proof}
+La rotation $P_{\alpha}$ est inversible donc $\mathbf{x} \mapsto P_{\alpha} \mathbf{x}$ réalise une bijection de $\mathbb{S}_a^2$ dans $\mathbb{S}_a^2$.
+
+Soit $g : (\mathbf{x},t) \in \mathbb{S}_a^2 \times \mathbb{R}^+ \mapsto g(\mathbf{x},t)$ la solution de 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial g}{\partial t} + \mathbf{c}_g \cdot \nabla_T g & = & 0\\
+g(\mathbf{x},0) & = & h_0(P_{\alpha}^{-1}\mathbf{x})
+\end{array}
+\right.
+\label{eq:sol_g_proof}
+\end{equation}
+alors d'après la proposition précédente, en tout point de la sphère, on a
+\begin{equation}
+g(\mathbf{x},t) = h_0(R_{-t} P_{\alpha}^{-1}\mathbf{x}).
+\end{equation}
+
+Si on pose $h(\mathbf{x},t) = g(P_{\alpha} \mathbf{x} ,t)$, alors $h$ est solution de \eqref{eq:advection_sphere} avec \eqref{eq:rot_solide_1}, en effet
+\begin{align*}
+\dfrac{\partial h}{\partial t} (\mathbf{x},t) + \mathbf{c}(\mathbf{x}) \cdot \nabla_T h(\mathbf{x},t) & = \dfrac{\partial g}{\partial t} (P_{\alpha}\mathbf{x},t) + P_{\alpha} \mathbf{c}(\mathbf{x}) \cdot \nabla_T g (P_{\alpha}\mathbf{x},t) \\
+	& = \dfrac{\partial g}{\partial t} (P_{\alpha}\mathbf{x},t) + P\mathbf{c}_g(\mathbf{x}) \cdot \nabla_T g (P_{\alpha}\mathbf{x},t) \\
+	& = \dfrac{\partial g}{\partial t} (P_{\alpha}\mathbf{x},t) + u_0 \cos \theta \mathbf{e}_{\lambda} \cdot \nabla_T g (P_{\alpha}\mathbf{x},t) \\
+	& = 0
+\end{align*}
+car $g$ est solution du problème \eqref{eq:sol_g_proof}.
+De plus, on a bien $h(\mathbf{x},0) = g(P_{\alpha} \mathbf{x} ,0) = h_0(\mathbf{x})$, donc en tout point $\mathbf{x} \in \mathbb{S}_a^2$, on a
+\begin{align*}
+h(\mathbf{x},t) & = g(P_{\alpha} \mathbf{x}, t) \\
+	& = g_0(R_{-t} P_{\alpha} \mathbf{x} ) \\
+	& = h_0(P_{\alpha}^{-1}R_{-t}P_{\alpha} \mathbf{x}).
+\end{align*}
+Et le théorème est bien démontré.
+\end{proof}
+
+Le premier test évoqué dans \cite{Williamson1992} consite à comparer la solution numérique obtenue pour la résolution de \eqref{eq:advection_sphere} avec le champ de vitesse $\mathbf{c}$ donné par \eqref{eq:rot_solide_1} et la donnée initiale donnée par le Bump suivant :
+\begin{equation}
+h_0(\lambda, \theta) = \left\lbrace
+\begin{array}{ccl}
+(h_0/2) (1 + \cos (\pi r/R) ) & \text{ si } & r<R \\
+0 & \text{ si } & r \geq R
+\end{array}
+\right.
+\label{eq:initial_solid_body}
+\end{equation}
+avec $h_0 = 1000 \si{m}$, $R=a/3$ et $r$ est la distance 
+\begin{equation}
+r = a \arccos \left( \sin \theta_C \sin \theta + \cos \theta_C \cos \theta \cos (\lambda - \lambda_C) \right),
+\end{equation}
+$(\lambda_C, \theta_C) = (3 \pi / 2 , 0)$ est la position initiale du Bump. Il s'agit d'une condition initiale de classe $\mathcal{C}^1$. Des tests existent avec des solutions initiales moins régulières, en particulier \cite{Nair2010}, mais nous ne nous concentrons pas sur ce type de problèmes ici.
+
+Les tables \ref{tab:rate1_bump} et \ref{tab:rate2_bump} donnent l'erreur obtenue sur 12 jours avec différentes tailles de maillages avec $\alpha=0$ et $\alpha = \pi/4$. La convergence se fait à un ordre compris entre $1.5$ et $2.5$. La convergence d'ordre $3$ au moins était attendue en supposant la solution suffisamment régulière ce qui n'est pas le cas ici puisque la solution est de classe $\mathcal{C}^1$.
+
+Dans la figure \ref{fig:erreur_bump}, on observe la localisation spatiale de l'erreur $h^*(t^n) - h^n$ après une rotation complète de la solution initiale, au temps $t=12$ jours ainsi que l'erreur relative au cours du temps pour $N=40$. L'erreur est principalement localisée au bord du Bump, c'est à dire la où la fonction est la moins régulière.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c|}
+\hline
+\textbf{N}  & $\mathbf{e_1}$ & $\mathbf{e_2}$ & $\mathbf{e_{\infty}}$\\
+\hline
+\hline
+$40$  & $4.3043 (-2)$ & $2.4784 (-2)$ & $2.0921 (-2)$ \\
+$50$  & $2.4403 (-2)$ & $1.4917 (-2)$ & $1.3748 (-2)$ \\
+$60$  & $1.5367 (-2)$ & $9.9131 (-3)$ & $1.0476 (-3)$ \\
+$80$  & $7.5508 (-3)$ & $5.3960 (-3)$ & $6.2646 (-3)$ \\
+$100$  & $4.3709 (-3)$ & $3.3958 (-3)$ & $4.4360 (-3)$ \\
+$150$  & $1.6538 (-3)$ & $1.4917 (-3)$ & $2.2885 (-3)$ \\
+\hline 
+\hline
+\textbf{Ordre estimé}& $2.47$ & $2.12$ & $1.67$\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Erreur et taux de convergence pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = 0$ et $u_0 \Delta t / \Delta \xi = 0.7$.}
+\label{tab:rate1_bump}
+\end{table} 
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c|}
+\hline
+\textbf{N}  & $\mathbf{e_1}$ & $\mathbf{e_2}$ & $\mathbf{e_{\infty}}$\\
+\hline
+\hline
+$40$  & $3.7638 (-2)$ & $2.0633 (-2)$ & $1.4639 (-2)$ \\
+$50$  & $2.1323 (-2)$ & $1.2496 (-2)$ & $1.0056 (-2)$ \\
+$60$  & $1.3546 (-2)$ & $8.4518 (-3)$ & $7.3167 (-3)$ \\
+$80$  & $6.6905 (-3)$ & $4.6505 (-3)$ & $4.6060 (-3)$ \\
+$100$  & $3.9119 (-3)$ & $2.9448 (-3)$ & $3.1809 (-3)$ \\
+$150$  & $1.4922 (-3)$ & $1.3019 (-3)$ & $1.6341 (-3)$ \\
+\hline 
+\hline
+\textbf{Ordre estimé}& $2.44$ & $2.08$ & $1.66$\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Erreur et taux de convergence pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = \pi / 4$ et $u_0 \Delta t / \Delta \xi = 0.7$.}
+\label{tab:rate2_bump}
+\end{table} 
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{rate_bump_0.png}
+\includegraphics[height=5cm]{rate_bump_pi4.png}
+\end{center}
+\caption{Taux de convergence pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = 0$ (gauche) et $\alpha = \pi / 4$ (droite) et $u_0 \Delta t / \Delta \xi = 0.7$.}
+\label{fig:rate_bump}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{ref_7371377001_normerreur_test_0.png}
+\includegraphics[height=5cm]{ref_7371377001_erreur_test_0.png}
+\end{center}
+\caption{Erreur relative pour l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = \pi/4$ (gauche) et localisation spatiale de l'erreur au temps $t=12$ jours (droite) avec $u_0 \Delta t / \Delta \xi = 0.7$ et $N=40$.}
+\label{fig:erreur_bump}
+\end{figure}
+
+Les valeurs obtenues par le schémas sont comparables à celles obtenues par \cite{Ullrich2010, Ullrich2011} à l'aide d'un schéma volumes finis d'ordre 4. La comparaison est donnée dans la table \ref{tab:comp_ullrich_bump}. On constate que les valeurs des erreurs sont tout a fait comparables.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|cc||cc||cc||cc|}
+\hline 
+ & & $\mathbf{e}_1$ &   & $\mathbf{e}_2$ &   & $\mathbf{e}_{\infty}$ &   \\ 
+\hline 
+$\CFL$ & $\alpha$ & \cite{Ullrich2010} & Algo. \ref{alg:RK4_transportSa} & \cite{Ullrich2010} & Algo. \ref{alg:RK4_transportSa} & \cite{Ullrich2010} & Algo. \ref{alg:RK4_transportSa} \\ 
+\hline 
+1.0 & $\alpha = 0$ & $4.4262(-2)$ & $5.4173(-2)$ & $2.6982(-2)$ & $3.2511(-2)$ & $2.3012(-2)$ & $2.6469(-2)$ \\ 
+
+  & $\alpha = \pi / 4$ & $4.2173(-2)$ & $5.1187(-2)$ & $2.3674(-2)$ & $2.9114(-2)$ & $1.8696(-2)$ & $2.2722(-2)$ \\ 
+\hline 
+0.5 & $\alpha = 0$ & $3.8326(-2)$ & $4.0429(-2)$ & $2.3194(-2)$ & $2.2452(-2)$ & $1.9969(-2)$ & $1.8989(-2)$ \\ 
+
+  & $\alpha = \pi/4$ & $3.5096(-2)$ & $3.4451(-2)$ & $1.9601(-2)$ & $1.8444(-2)$ & $1.4171(-2)$ & $1.4138(-2)$ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+\caption{Erreur relative pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = \pi / 4$ et $\CFL = u_0 \Delta t / \Delta \xi$. Les résultats obtenus sont semblables à ceux obtenus par volumes finis d'ordre 4 dans \cite{Ullrich2010}.}
+\label{tab:comp_ullrich_bump}
+\end{table} 
+
+Pour analyser l'effet dissipatif de l'opérateur de filtrage, on compare la valeur du maximum du de $h_0$ pour différents opérateurs de filtrages. Les résultats sont donnés dans la table \ref{tab:max_bump} et dans la figure \ref{fig:max_bump}. On constate qu'un filtre d'ordre 2 est particulièrement dissipatif et ne permet pas de conserver correctement la hauteur de $h$. Le filtre d'ordre 10 donne très rapidement de bons résultats. On note dans la figure \ref{fig:parasite_bump} que sans filtrage, des oscillations parasites apparaissent et perturbent le calcul.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||ccc|}
+\hline 
+$\mathbf{N}$ & $20$ & $40$ & $80$ \\ 
+\hline 
+\hline 
+Maxi. théorique & $1000$ & $1000$ & $1000$ \\ 
+Filtre d'ordre $10$ & $968.87$ & $990.68$ & $997.45$ \\ 
+Filtre d'ordre $8$ & $915.22$ & $995.34$ & $996.77$ \\ 
+Filtre d'ordre $6$ & $767.00$ & $996.30$ & $996.86$ \\  
+Filtre d'ordre $4$ & $436.37$ & $795.56$ & $969.92$ \\ 
+Filtre d'ordre $2$ & $47.52$ & $91.45$ & $170.70$ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+\caption{Maximum de $h$ pour l'équation \eqref{eq:advection_sphere} avec $\alpha = \pi / 4$ et $u_0 \Delta t / \Delta \xi = 0.7$.}
+\label{tab:max_bump}
+\end{table} 
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{N20BUMP.png}
+\includegraphics[height=5cm]{N40BUMP.png}
+\includegraphics[height=5cm]{N80BUMP.png}
+\end{center}
+\caption{Coupe à l'équateur du test 1 de \cite{Williamson1992} pour l'équation \eqref{eq:advection_sphere} avec $\alpha = \pi / 4$ et $u_0 \Delta t / \Delta \xi = 0.7$. Les tailles de maillage sont $N=20$ (haut, gauche), $N=40$ (haut, droite) et $N=80$ (bas). Plus l'ordre du filtre est bas, plus la solution est dissipée.}
+\label{fig:max_bump}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{ref_7371377627_solapprochee_test_0.png}
+\includegraphics[height=5cm]{ref_7371377627_erreur_test_0.png}
+\end{center}
+\caption{Calcul de la solution au temps $t=12$ jours sans opérateur de filtrage avec $N=40$ et $u_0 \Delta t/ \Delta \xi = 0.7$. Solution obtenue (gauche), erreur $h^n - h^*(t^n)$ (droite). Sans filtrage, des oscillations parasites perturbent le calcul.}
+\label{fig:parasite_bump}
+\end{figure}
+
+\subsection{Propagation de vortex}
+
+Dorénavant, nous n'utiliserons que le filtrage d'ordre 10 lors de la résolution. Le test précédent est un test de déplacement sans déformation de la solution initiale. Dans \cite{Nair2002}, le test est construit pour que la condition initiale soit déformée au fil du temps.
+On considère $(\lambda_C, \theta_C) \in \mathbb{S}_a^2$ un point de la sphère. Le test consiste à positionner deux vortex diamétralement opposés dont l'un est situé en $(\lambda_C, \theta_C)$. Les deux vortex s'enroulent autour de leurs centres respectifs au fil du temps, rendant la représentation de la solution de plus en plus difficile à représenter sur un maillage fixé.
+
+L'objectif est de résoudre l'équation \eqref{eq:advection_sphere} avec le champ $\mathbf{c}$ donné par l'équation :
+\begin{equation}
+\mathbf{c}_r(t,\mathbf{x}) = \mathbf{c}(t, \mathbf{x}) = u_r \mathbf{e}_{\lambda} + v_r \mathbf{e}_{\theta}
+\label{eq:rotation_vortex}
+\end{equation}
+où $u_r, v_r : (\mathbf{x}) \in \mathbb{S}_a^2 \mapsto u_r(\mathbf{x}), v_r(\mathbf{x}) \in \mathbb{R}$ sont des fonctions définies par
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+u_r(\lambda, \theta) & = & a \omega_r(\theta') \left[ \sin \theta_C \cos \theta - \cos \theta_C \cos (\lambda - \lambda_C) \sin \theta \right] \\
+v_r(\lambda, \theta) & = & a \omega_r (\theta') \left[\cos \theta_C \sin (\lambda - \lambda_C)  \right]
+\end{array}
+\right.
+\end{equation}
+où $(\lambda', \theta')$ sont les coordonnées longitude-latitude associées à la sphère dont le pôle Nord est placé en $(\lambda_C, \theta_C)$. On peut calculer ces valeurs grâce aux équations \eqref{from classic to prime}.
+La vitesse de rotation du vortex est définie par $a \omega_r(\theta')$ avec la fonction $\omega_r$ définie par
+\begin{equation}
+\omega_r(\theta') = \left\lbrace
+\begin{array}{cl}
+V/a\rho & \text{ si } \rho \neq 0 \\
+0 & \text{ sinon.}
+\end{array}
+\right.
+\end{equation}
+où $\rho = \rho_0 \cos (\theta')$ est une pseudo-distance au centre du vortex et $V=u_0 \dfrac{3 \sqrt{3}}{2} \sech^2 (\rho) \tanh (\rho)$, $\dfrac{3 \sqrt{3}}{2}$ est une constante de normalisation. On choisi $u_0 = 2 \pi a / (12 \text{jours})$ et $\rho_0 = 3$.
+
+La solution exacte de ce test est donnée par
+\begin{equation}
+h(t, \lambda, \theta) = 1 - \tanh \left[ \dfrac{\rho}{\gamma} \sin (\lambda' - \omega_r (\theta') t) \right].
+\label{eq:NM_solexacte}
+\end{equation}
+$\gamma$ est une constante influençant le gradient de la solution. Comme dans l'article d'origine \cite{Nair2002}, on choisi $\gamma = 5$.
+
+Dans la table \ref{tab:rate1_NM} et la figure \ref{fig:rate1_NM}il , on donne la courbe de convergence pour ce test avec $(\lambda_C, \theta_C)=(\pi /4 , \pi /4)$. Les centres des vortex sont alors placés proches des coins de la Cubed-Sphere. La convergence se fait à un ordre supérieur ou égale à $5$.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c|}
+\hline
+\textbf{N}  & $\mathbf{e_1}$ & $\mathbf{e_2}$ & $\mathbf{e_{\infty}}$\\
+\hline
+\hline
+$40$  & $1.2170 (-3)$ & $5.2773 (-3)$ & $3.8615 (-2)$ \\
+$50$  & $4.4810 (-4)$ & $2.1100 (-3)$ & $1.6306 (-2)$ \\
+$60$  & $1.6313 (-4)$ & $8.2236 (-4)$ & $6.5687 (-3)$ \\
+$80$  & $2.8658 (-5)$ & $1.4710 (-4)$ & $1.4042 (-3)$ \\
+$100$  & $8.7526 (-6)$ & $4.1919 (-5)$ & $4.1512 (-4)$ \\
+$150$  & $1.1105 (-6)$ & $5.7646 (-6)$ & $6.2903 (-5)$ \\
+\hline 
+\hline
+\textbf{Ordre estimé}& $5.40$ & $5.30$ & $4.98$\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Erreur et taux de convergence pour le test du vortex stationnaire sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$, $u_0 \Delta t / \Delta \xi = 0.7$. Le vortex est localisé en $(\lambda_C, \theta_C)=(\pi /4 , \pi /4)$. La convergence se fait à un ordre proche supérieur ou égale à $5$.}
+\label{tab:rate1_NM}
+\end{table} 
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{rate_NM1.png}
+\end{center}
+\caption{Erreur et taux de convergence pour le test du vortex stationnaire sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$, $u_0 \Delta t / \Delta \xi = 0.7$. Le vortex est localisé en $(\lambda_C, \theta_C)=(\pi /4 , \pi /4)$. L'ordre de convergence est d'environ $5$ pour la norme infinie et supérieur pour les autres.}
+\label{fig:rate1_NM}
+\end{figure} 
+
+Sur une grille grossière ($N=36$ correspondant à l'équateur à $\Delta \lambda = 2.5$deg.), on compare l'erreur au cours du temps pour deux pas de temps. Les résultats sont donnés dans la figure \ref{fig:cfl_NM}. Lorsque $u_0 \Delta t / \Delta \xi = 0.5$, il faut 288 itérations pour arriver au temps finale. Lorsque $u_0 \Delta t / \Delta \xi = 0.05$, il en faut 2880. Les erreurs obtenues sont tout a fait comparables à celles obtenues par la méthode de Galerkin Discontinu \cite{Nair2008}. Avec 288 itérations, les erreurs spatiales et temporelles sont observées en même temps et l'erreur est sensiblement meilleur que dans le cas de 2880 itérations.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{ref_7367656360_normerreur_test_1.png}
+\includegraphics[height=5cm]{ref_7367656531_normerreur_test_1.png}
+\end{center}
+\caption{Solution au temps $t=12$ jours pour le vortex \cite{Nair2002} avec $(\lambda_C, \theta_C) = (\pi/4, \pi/4)$. Les paramètres numériques sont $N=40$, le filtrage utilisé est d'ordre $10$. Le pas de temps est issu de $u_0 \Delta t / \Delta \xi = 0.5$ (gauche), et $u_0 \Delta t / \Delta \xi = 0.05$ (droite).}
+\label{fig:cfl_NM}
+\end{figure}
+
+Dans la figure \ref{fig:space_NM}, on représente la solution $h^n$ au temps $t=12$ jours ainsi que l'erreur spatiale $h^n-h^*(t^n)$ sur un maillage de paramètre $N=40$. L'erreur est localisée au centre du vortex. Ce résultat était attendu, le vortex deviens de plus en plus fin lorsque $t$ grandi et la solution deviens sous résolue. 
+
+En effet, dans la figure \ref{fig:coupe_NM}, on représente, au temps $t=12$ jours, une coupe le long de l'équateur de la solution. On observe qu'avec $N=25$, la solution est sous représentée en comparaison à $N=50$.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{ref_7371383883_solapprochee_test_1.png}
+\includegraphics[height=5cm]{ref_7371383883_erreur_test_1.png}
+\end{center}
+\caption{Solution au temps $t=12$ jours pour le vortex \cite{Nair2002} avec $(\lambda_C, \theta_C) = (\pi/4, \pi/4)$. Les paramètres numériques sont $N=40$ et $u_0 \Delta t / \Delta \xi = 0.7$, le filtrage utilisé est d'ordre $10$. La solution $h^n$ (gauche), erreur spatiale $h^n - h^*(t^n)$ (droite).}
+\label{fig:space_NM}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{coupe_NM.png}
+\end{center}
+\caption{Coupe le long de l'équateur de la solution au temps $t=12$ jours pour le vortex \cite{Nair2002} avec $(\lambda_C, \theta_C) = (3 \pi / 4,0)$. Le pas de temps est issu de $u_0 \Delta t / \Delta \xi = 0.7$. La solution sur grille grossière est moins bien représentée que celle sur grille fine.}
+\label{fig:coupe_NM}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+Une variante de ce test \cite{Nair2008} consiste à combiner la vitesse de rotation solide $\mathbf{c}_s$ \eqref{eq:rot_solide_1} avec la vitesse de rotation du vortex $\mathbf{c}_r$ \eqref{eq:rotation_vortex}.
+On considère l'équation d'advection \eqref{eq:advection_sphere} muni du champ de vitesse
+\begin{equation}
+\mathbf{c}(t,\mathbf{x}) = u \mathbf{e}_{\lambda} + v \mathbf{e}_{\theta}
+\end{equation}
+où les fonctions $u$ et $v$ sont données par
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+u(t,\lambda, \theta) & = & u_0 \left( \cos \theta \cos \alpha + \sin \theta \cos \lambda \sin \alpha \right) + a \omega_r \left( \sin \theta_C(t) \cos \theta - \cos \theta_C(t) \cos (\lambda - \lambda_C(t)) \sin \theta \right) \\
+v(t,\lambda, \theta) & = & - u_0 \sin \lambda \sin \alpha + a \omega_r \left( \cos \theta_C(t) \sin (\lambda - \lambda_C(t)) \right)
+\end{array}
+\right. .
+\label{eq:vitesse_NJ}
+\end{equation}
+$(\lambda_C(t), \theta_C(t)) \in \mathbb{S}_a^2$ correspond à la position du vortex au fil du temps, cette dernière est donnée dans la base "tournée" d'un angle $\alpha$ par
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\lambda_C'(t) & = & \lambda_0' + \omega_s t \\
+\theta_C'(t) & = & \theta_0'
+\end{array}
+\right.
+\end{equation}
+avec $(\lambda_0', \theta_0')$ la position initiale du vortex dans la base associée à $(\lambda_P, \theta_P)=(\pi, \pi/2-\alpha)$. Dans la base naturelle, on a $(\lambda_0,\theta_0)=(3 \pi / 2, 0)$. $\omega_s = u_0/a$ est la vitesse de rotation solide du vortex. 
+
+La solution exacte est alors donnée par \eqref{eq:NM_solexacte} en déplaçant la position du vortex au fil du temps $t$.
+La solution exacte est calculée en utilisant le procédé suivant :
+\begin{enumerate}
+\item Calculer $(\lambda', \theta')$ les coordonnées dans la sphère orientée sur le pôle de coordonnées $(\lambda_P, \theta_P) = (\pi, \pi/2 - \alpha)$. Pour cela, on utilise la formule \eqref{from classic to prime},
+
+\item Déplacer $(\lambda', \theta')$ sur la position du vortex grâce à
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\lambda'_s & = & \lambda' + \omega_s t \\
+\theta_s' & = & \theta'.
+\end{array}
+\right.
+\label{eq:vortexcenter}
+\end{equation}
+
+\item Calcul de $(\lambda_s, \theta_s)$ en revenant à la sphère d'origine en utilisant \eqref{from prime to classic} avec $(\lambda_P, \theta_P) = (\pi, \pi/2 - \alpha)$.
+
+\item Calcul de $(\lambda_s'', \theta_s'')$ en utilisant $(\lambda_s, \theta_s)$ que l'on transforme en $(\lambda_s'', \theta_s'')$ grâce à la formule \eqref{from classic to prime} et $(\lambda_P, \theta_P) = (\lambda_C, \theta_C)$ donné par la formule \eqref{eq:vortexcenter}.
+
+\item Calculer la solution exacte $h(t,\lambda, \theta)$ par
+\begin{equation}
+h(t,\lambda, \theta) = 1 - \tanh \left[ \dfrac{\rho}{\gamma} \sin (\lambda_s'' - \omega_r(\theta_s'')t) \right],
+\label{eq:NJ_solexacte}
+\end{equation}
+avec $\omega_r$ donné par
+\begin{equation}
+\omega_r = \left\lbrace
+\begin{array}{cl}
+V/(a \rho) & \text{ si } \rho \neq 0 \\
+0 & \text{ sinon,}
+\end{array}
+\right.
+\end{equation}
+et $\rho = \rho_0 \cos (\theta_s'')$ ainsi que $V = u_0 \dfrac{3\sqrt{3}}{2} \sech^2(\rho) \tanh(\rho)$.
+\end{enumerate}
+La solution exacte représente un vortex s'enroulant sur lui même. Les détails sont de plus en plus fins et à grille fixée, elle devient difficile à représenter. De plus, le centre des vortex se déplace sur un grand cercle de la sphère. En fonction de la valeur de $\alpha$, les vortex passent plus ou moins loin des coins de la Cubed-Sphere.
+
+Dans la figure \ref{fig:NJ_difftps}, on représente la solution aux temps $t=3$, $t=6$, $t=9$ et $t=12$ jours lorsque $\alpha = \pi/4$. On y observe le déplacement des vortex le long d'un grand cercle longeant les panels $(V)$ et $(VI)$.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{ref_7371598704_snapshot_test_2_nday_3.png}
+\includegraphics[height=5.2cm]{ref_7371598715_snapshot_test_2_nday_6.png}
+\includegraphics[height=5cm]{ref_7371598724_snapshot_test_2_nday_9.png}
+\includegraphics[height=5cm]{ref_7371598877_snapshot_test_2_nday_12.png}
+\end{center}
+\caption{Solution \eqref{eq:NJ_solexacte} de l'équation de transport \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} avec une grille de paramètre $N=40$. On représente la solutions aux temps $t=3$, $t=6$, $t=9$ et $t=12$ jours.}
+\label{fig:NJ_difftps} 
+\end{figure}
+
+Sur la table \ref{tab:rate1_NJ} et la figure \ref{fig:rate1_NJ}, on représente le taux de convergence en utilisant différentes tailles de grilles et en conservant $u_0 \Delta t / \Delta \xi = 0.7$. On choisit $\alpha = \pi/4$ de manière à ce que les vortex longent les bords des panels comme c'est visible en figure \ref{fig:NJ_difftps}. Un tel choix vise à mettre en difficulté la méthode de résolution. Les résultats permettent d'observer un ordre de convergence proche de $4$ pour la norme 1 et la norme 2. L'ordre de convergence est proche de $3.5$ pour la norme infinie. 
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c|}
+\hline
+\textbf{N}  & $\mathbf{e_1}$ & $\mathbf{e_2}$ & $\mathbf{e_{\infty}}$\\
+\hline
+\hline
+$40$  & $2.9241 (-3)$ & $1.0646 (-2)$ & $5.7267 (-2)$ \\
+$50$  & $1.3634 (-3)$ & $5.3187 (-3)$ & $3.3187 (-2)$ \\
+$60$  & $6.6453 (-4)$ & $2.7522 (-3)$ & $1.8792 (-2)$ \\
+$80$  & $2.0635 (-4)$ & $8.8170 (-4)$ & $6.3350 (-3)$ \\
+$100$ & $8.2353 (-5)$ & $3.5454 (-4)$ & $2.7479 (-3)$ \\
+$150$ & $1.6044 (-5)$ & $7.0918 (-5)$ & $5.9455 (-4)$ \\
+\hline 
+\hline
+\textbf{Ordre estimé}& $3.98$ & $3.84$ & $3.52$\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Erreur et taux de convergence pour l'équation \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} en norme $1$, $2$ et $\infty$, $u_0 \Delta t / \Delta \xi = 0.7$. On choisit $\alpha = \pi/4$.}
+\label{tab:rate1_NJ}
+\end{table} 
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{rate_NJ1.png}
+\end{center}
+\caption{Erreur et taux de convergence pour l'équation \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} en norme $1$, $2$ et $\infty$, $u_0 \Delta t / \Delta \xi = 0.7$. On choisit $\alpha = \pi/4$.}
+\label{fig:rate1_NJ}
+\end{figure} 
+
+Comme pour le test de vortex stationnaire, le tourbillon est de plus en plus difficile à représenter lorsque $t$ grandit. Dans la figure \ref{fig:NJ24jours}, on représente l'historique de l'erreur relative jusqu'à $t=24$ jours. Le temps standard pour ce test est $t=12$ jours, mais on observe le comportement du schéma sur un temps plus long. Les résultats sont obtenus avec $u_0 \Delta t / \Delta \xi = 0.7$, l'obtention de résultats pour 24 jours sont obtenus après 457 itérations. Pour la grille de taille $40 \times 40 \times 6$, l'erreur finale est de $15.95\%$ en norme infinie, $3.67\%$ pour la norme 2 et $1.36\%$ en norme 1. Pour la grille de taille $80 \times 80 \times 6$, on effectue 914 itérations pour arriver au temps $t=24$ jours. L'erreur finale est de $9.63\%$ en norme infinie, $1.69\%$ pour la norme 2 et $0.45\%$ en norme 1.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{ref_7371598961_normerreur_test_2.png}
+\includegraphics[height=5cm]{ref_7371598976_normerreur_test_2.png}
+\end{center}
+\caption{Historique de l'erreur pour l'équation \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} en norme $1$, $2$ et $\infty$, $u_0 \Delta t / \Delta \xi = 0.7$. On choisit $\alpha = \pi/4$. Le temps final est $t=24$ jours. A gauche, la grille est $40 \times 40  \times 6$, 457 itérations, à droite, la grille est $80 \times 80  \times 6$, l'algorithme effectue 914 itérations.}
+\label{fig:NJ24jours}
+\end{figure} 
+
+Les erreurs au temps $t=12$ jours sont comparables à celles obtenues par la méthode de Galerkin discontinue \cite{Nair2008}. Nous comparons aussi notre schéma à des schémas de type volumes finis d'ordre élevé \cite{Katta2015}. Nous comparons les résultats au temps $t=12$ jours. Les schémas volumes finis sont nommés WENO5 et KL4. Nous utilisons toujours $\alpha = \pi/4$. Sur la grille $80 \times 80 \times 6$ et après 750 itérations, le schéma WENO5 donne les erreurs relatives suivantes : $e_1 = 0.0021$, $e_2 = 0.0043$ et $e_{\infty} = 0.0191$. Le schéma KL4 obtient, dans le même contexte, les erreurs $e_1 = 0.0021$, $e_2 = 0.0043$ et $e_{\infty} = 0.0194$. Avec le schéma utilisé dans cette thèse, on obtient $e_1 = 1.67(-4)$, $e_2=7.23(-4)$ et $e_{\infty} = 5.75(-3)$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Equations de conservation non linéaire}
+
+L'équation d'advection \eqref{eq:advection_sphere} est un problème linéaire. Dans l'article \cite{BenArtzi2009}, on s'intéresse à des tests sur l'équation non linéaire
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial h}{\partial t} + \nabla_T \cdot F(h) & = & 0 \\
+h(0,\mathbf{x}) & = & h_0(\mathbf{x})
+\end{array}
+\right. \text{ avec } \mathbf{x} \in \mathbb{S}^a \text{ et } t \geq 0,
+\label{eq:advection_sphere_NL}
+\end{equation}
+$\mathbb{S}^2$ désigne la sphère de rayon 1. L'application $F : h \mapsto F(h) \in \mathbb{T}\mathbb{S}^2$ transforme une fonction de la sphère en un champ de vecteurs tangent à la sphère.
+
+En particulier, on note que \eqref{eq:advection_sphere_NL} est une loi de conservation, donc la relation suivante est vérifiée :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}^2} h(t,\mathbf{x}) d \sigma(\mathbf{x}) = 0.
+\end{equation}
+
+On a vu dans le lemme \ref{lem:n_vect_w} que si $\mathbf{w} : \mathbf{x} \in \mathbb{S}^2 \mapsto \mathbf{w} \in \mathbb{R}^3$ est un champ de vecteur de $\mathbb{R}^3$ et si $\mathbf{n}$ est la normale extérieure à la sphère, alors $\mathbf{F} = \mathbf{n} \wedge \mathbf{w}$ est un champ de vecteurs tangent à la sphère. On considère des champs de vecteurs de cette forme avec 
+\begin{equation}
+\mathbf{w} = f_1 \mathbf{i} + f_2 \mathbf{j}+ f_3 \mathbf{k} = \begin{bmatrix}
+f_1 \\ f_2 \\ f_3
+\end{bmatrix},
+\end{equation}
+où $f_p : \mathbf{x} \in \mathbb{S}^2 \mapsto f_p(\mathbf{x}) \in \mathbb{R}$ est une fonction définie sur la sphère pour tout $1 \leq p \leq 3$.
+
+
+Dans ce qui suit, on s'intéresse à deux tests pour cette équation introduits dans \cite{BenArtzi2009}. Le premier permet d'analyser l'efficacité d'un schéma numérique lors de l'apparition d'un choc. Le second test permet d'étudier la conservation d'une solution stationnaire.
+
+
+
+
+
+
+
+
+
+
+\subsection{Résolution numérique}
+
+Pour résoudre l'équation \eqref{eq:advection_sphere_NL}, on considère l'application $J_{\Delta}$ définie pour toute fonction de grille $h$ sur la sphère par
+\begin{equation}
+J_{\Delta}(h) = - \nabla_{\Delta, T} F(h).
+\end{equation}
+Nous couplons cette opérateur d'approximation spaciale à un algorithme de résolution en temps. L'algorithme permettant la résolution de \eqref{eq:advection_sphere_NL} est le suivant :
+
+\begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: Equation d'advection sphérique non linéaire \eqref{eq:advection_sphere_NL} }\label{alg:RK4_transportSa_NL}
+    \begin{algorithmic}[1]
+    \State $h^0 = h_0^*$ connu,
+    \For{$n=0,1, \ldots$}
+             \State  $K^{(1)} = J_{\Delta}(t^n, h^n)$,
+             \State  $K^{(2)} = J_{\Delta}\left(t^n + \frac{\Delta t}{2}, h^n + \frac{\Delta t}{2} K^{(1)} \right)$,
+             \State  $K^{(3)} = J_{\Delta}\left(t^n + \frac{\Delta t}{2}, h^n + \frac{\Delta t}{2} K^{(2)} \right)$,
+             \State  $K^{(4)} = J_{\Delta}\left(t^n + \Delta t h^n + \Delta t K^{(3)} \right)$,  
+             \State  $h^{n+1} = \mathcal{F}\left( h^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
+            \EndFor
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center}
+
+L'opérateur $\mathcal{F}$ est de la forme \eqref{eq:operateur_filtrage} où $\fxi$ et $\feta$ utilisent l'opérateur de filtrage en dimension 1 d'ordre 10 : $\mathcal{F}_{10,x}$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Test équatorial périodique}
+
+Pour ce test, inspiré du premier test de \cite{BenArtzi2009}, on considère que les fonctions $f_1$ et $f_2$ sont nulles :
+\begin{equation}
+f_1 = f_2 \equiv 0.
+\end{equation}
+Le champ de vecteur $F$ est alors donné pour toute fonction $h$ par
+\begin{equation}
+F(h) = \begin{bmatrix}
+x \\ y \\z
+\end{bmatrix}
+\wedge
+\begin{bmatrix}
+f_1(h) \\ f_2(h) \\ f_3(h)
+\end{bmatrix} = \begin{bmatrix}
+y f_3 (h) \\ -x f_3(h) \\ 0
+\end{bmatrix} = -f_3(h) \cos (\theta) \mathbf{e}_{\lambda}.
+\end{equation}
+On a alors en coordonnées longitude-latitude
+\begin{equation}
+\nabla_T \cdot F(h) = - \dfrac{\partial}{\partial \lambda} f_3(h)
+\end{equation}
+en tout point de la sphère $\mathbb{S}^2$.
+L'équation \eqref{eq:advection_sphere_NL} s'écrit alors en coordonnées longitudes-latitudes :
+\begin{equation}
+\dfrac{\partial h}{\partial t} - \dfrac{\partial}{\partial \lambda}f_3(h) = 0 \text{ en tout } \mathbf{x} \in \mathbb{S}^2 \text{et avec } t \geq 0.
+\end{equation}
+De ces remarques, il découle la proposition suivante :
+\begin{proposition}
+Soit $\tilde{h}$ la solution du problème 1D périodique 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial \tilde{h}}{\partial t} - \dfrac{\partial}{\partial \lambda}f_3(\tilde{h}) = 0 \\
+\tilde{h}(0,\lambda) = \tilde{h}_0(\lambda) 
+\end{array}
+\right. \text{ pour } \lambda \in [0, 2 \pi[ \text{ et } t >\dfrac{\partial}{\partial \lambda}f_3(h) = 0,
+\label{eq:conservation_sph_burgers}
+\end{equation}
+et soit $\hat{h} : \theta \in [- \pi/2, \pi/2] \mapsto \hat{h}(\theta) \in \mathbb{R}$ tel que
+\begin{equation}
+h_0(\mathbf{x}) = \tilde{h}_0(\lambda) \hat{h}(\theta).
+\end{equation}
+Alors la solution du problème \eqref{eq:advection_sphere_NL} est donnée par
+\begin{equation}
+h(t,\mathbf{x}) = h(t,\lambda, \theta) = \tilde{h}(t,\lambda) \hat{h}(\theta),
+\end{equation}
+pour $t>0$, $\mathbf{x} \in \mathbb{S}^2$ un point de la sphère de coordonnées longitude-latitude $(\lambda, \theta)$.
+\end{proposition}
+
+On pose alors $f_3(h) = - \pi h^2$. L'équation \eqref{eq:conservation_sph_burgers} est identique à l'équation \eqref{eq:Burgers_1d}. On compare une coupe le long de l'équateur de la solution calculée par l'algorithme \ref{alg:RK4_transportSa_NL} avec la solution calculée par l'algorithme \ref{alg:RK4_burgers1d} lorsque
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\tilde{h}_0(\lambda) & = & \sin \lambda, \\
+\hat{h}_0(\theta) & = & \mathbf{1}_{[-\pi/12, \pi/12]}(\theta).
+\end{array}
+\right.
+\end{equation}
+On rappelle que dans ce contexte, la solution de \eqref{eq:conservation_sph_burgers} est de classe $C^1$ pour $t \leq 1/(2 \pi)$. Sur la figure \ref{fig:BenArtzi_equatorial1}, on représente la solution aux temps $t=1/(2 \pi)$ et $t=10/(2\pi)$ pour un paramètre de grille $N=32$ pour la Cubed-Sphere ($128$ points de discrétisation sur l'équateur) et $128$ points de discrétisation pour le problème 1D. Le pas de temps est $\Delta t=0.005$. Les résultats des deux algorithmes sont très semblables et sont bons même au delà du temps $1/(2 \pi)$ au delà duquel la solution est moins régulière. De plus, le filtre d'ordre 10 est suffisant pour que les oscillations ne dégradent pas trop le résultat.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{BenArtzi_equatorial1.png}
+\includegraphics[height=5cm]{BenArtzi_equatorial2.png}
+\end{center}
+\caption{Coupe équatoriale de la solution de \eqref{eq:advection_sphere_NL} et la solution de \eqref{eq:conservation_sph_burgers} pour le test périodique. On compare la solution au temps $t=1/(2\pi)$ (gauche) et $t=10/(2\pi)$ (droite). La grille Cubed-Sphere est telle que $N=32$ ($128$ points de discrétisation sur l'équateur). Le problème en dimension 1 est résolu avec $256$ points de discrétisation. Le pas de temps est $\Delta t = 0.005$.}
+\label{fig:BenArtzi_equatorial1}
+\end{figure} 
+
+Sur la figure \ref{fig:BenArtzi_equatorial3}, on représente l'historique de l'erreur de conservation au cours du temps :
+\begin{equation}
+|Q(h^n) - Q(h^*(t^n)|.
+\end{equation}
+L'erreur de conservation est proche de $6 (-5)$ lorsque $N=32$ et proche de $1.5 (-5)$ lorsque $N=64$. L'erreur est cependant nettement plus importante au temps d'apparition du choc $t=1/(2\pi) \approx 0.1592$. 
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{BenArtzi_equatorial3.png}
+\includegraphics[height=5cm]{BenArtzi_equatorial4.png}
+\end{center}
+\caption{Historique de l'erreur de conservation pour le test équatorial périodique \eqref{eq:advection_sphere_NL}. La grille Cubed-Sphere est telle que $N=32$ (gauche) et $N=64$ (droite). Le pas de temps est $\Delta t = 0.005$, la simulation est faite en 318 itération pour le temps final $t=10/(2\pi)$.}
+\label{fig:BenArtzi_equatorial3}
+\end{figure} 
+
+Ce test permet d'analyser le comportement du schéma numérique de l'algorithme \ref{alg:RK4_transportSa_NL} en présence d'un choc. Les résultats sont satisfaisants. Les oscillations qui apparaissent au delà du temps d'apparition du choc de dégradent pas trop le calcul. Le filtrage d'ordre 10 symétrique est suffisant pour assurer un bon déroulement de la simulation. De plus, l'erreur sur la conservation de la masse reste faible au cours du temps.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Test stationnaire}
+
+Dans cette section, on construit une solution stationnaire de \eqref{eq:advection_sphere_NL}. Si la condition initiale $h_0$ est telle que
+\begin{equation}
+\nabla_T F(h_0) = 0,
+\end{equation}
+alors $h_0$ est une solution stationnaire de \eqref{eq:advection_sphere_NL}.
+
+On considère les fonctions $f_1$, $f_2$ et $f_3$ égales. C'est à dire pour tout fonction $h$ définie sur la sphère $\mathbb{S}^2$ :
+\begin{equation}
+f_1(h) = f_2(h) = f_3(h) = f(h).
+\end{equation}
+Alors, on a $F$ donné par
+\begin{equation}
+F(h) = \mathbf{n} \wedge \left( f(h) (\mathbf{i}+\mathbf{j}+\mathbf{k}) \right).
+\end{equation}
+On peut alors calculer $\nabla_T F(h)$ en fonction de $h$ et $f$. On obtient :
+\begin{equation}
+\nabla_T F(h) = f'(h) \left( (y-z)\dfrac{\partial h}{\partial x} + (z-x)\dfrac{\partial h}{\partial y} + (x-y)\dfrac{\partial h}{\partial z} \right).
+\end{equation}
+On déduit directement que indépendamment du choix de $f$, si $h_0(x,y,z) = \alpha (x+y+z)$, alors on a
+\begin{equation}
+\nabla_T F(h_0) = 0,
+\end{equation}
+et $h_0$ est une solution stationnaire.
+
+Dans \cite{BenArtzi2009}, le troisième test consiste à choisir
+\begin{equation}
+f_1(h) = f_2(h) = f_3(h) = \dfrac{h^2}{2},
+\end{equation}
+et la condition initiale 
+\begin{equation}
+h_0(,x,y,z) = \dfrac{x+y+z}{\sqrt{3}}
+\end{equation}
+Cette condition initiale est une solution stationnaire. On compare la solution calculée par l'algorithme \ref{alg:RK4_transportSa_NL} avec la solution initiale jusqu'au temps $t=6$. On mesure l'erreur relative pour chaque itération. Les résultats de convergence sont donnés dans la table \ref{tab:benartzi_test3} et en figure \ref{fig:benartzi_test3}. L'ordre de convergence est proche de 4 en norme 1, 2 et infinie. La conservation de la masse est vérifiée à un ordre supérieure à 5.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c||c|}
+\hline 
+$\mathbf{N}$ & $\mathbf{e}_1$ & $\mathbf{e}_2$ & $\mathbf{e}_{\infty}$ & \textbf{Conservation} \\ 
+\hline 
+\hline 
+$\mathbf{16}$ & $2.1446(-5)$ & $1.5759(-5)$ & $1.4251(-5)$ & $3.6380(-7)$ \\ 
+$\mathbf{32}$ & $2.2000(-6)$ & $1.1752(-6)$ & $1.0776(-6)$ & $8.3644(-9)$ \\ 
+$\mathbf{64}$ & $1.4092(-7)$ & $7.9823(-8)$ & $7.7308(-8)$ & $9.6391(-11)$ \\ 
+$\mathbf{128}$ & $8.7856(-9)$ & $5.0291(-9)$ & $4.5510(-9)$ & $8.4850(-12)$ \\ 
+\hline 
+\textbf{Ordre estimé} & $3.94$ & $3.87$ & $3.86$ & $5.18$ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+\caption{Table de convergence pour le test stationnaire de l'équation \eqref{eq:advection_sphere_NL}. Le pas de temps est donné par $\Delta t = 0.96 \Delta \xi / \pi$. Le temps final est $t=6$. On mesure aussi l'erreur sur la conservation de la masse.}
+\label{tab:benartzi_test3}
+\end{table}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{rateBA_test3.png}
+\end{center}
+\caption{Erreur et taux de convergence pour le test stationnaire de l'équation \eqref{eq:advection_sphere_NL}. Le pas de temps est donné par $\Delta t = 0.96 \Delta \xi / \pi$. Le temps final est $t=6$.}
+\label{fig:benartzi_test3}
+\end{figure}
+
+Sur la figure \ref{fig:benartzi_test3_hist}, on représente l'historique de l'erreur lorsque $N=31$ et $\Delta t = 0.96 \Delta \xi / \pi = 0.015$. On observe sur ces figures que l'erreur sur la fonction $h$ est proche de $3 \times 10^{-6}$. L'erreur sur la conservation de la masse est proche de $10^{-8}$. Les résultats sont très satisfaisants sur pour la conservation d'une solution stationnaire sur une équation non-linéaire. Sur la figure \ref{fig:benartzi_test3_sol}, on représente la localisation spatiale de l'erreur ainsi que la solution calcule au temps $t=6$.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{erreur_test3.png}
+\includegraphics[height=5cm]{cons_test3.png}
+\end{center}
+\caption{Erreur et taux de convergence pour le test stationnaire de l'équation \eqref{eq:advection_sphere_NL}. Le pas de temps est donné par $\Delta t = 0.96 \Delta \xi / \pi$. Le temps final est $t=6$.}
+\label{fig:benartzi_test3_hist}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=4.2cm]{solexacte_BA3.png}
+\includegraphics[height=4.2cm]{erreur_BA3.png}
+\end{center}
+\caption{Solution exacte et erreur pour le test stationnaire sur l'équation \eqref{eq:advection_sphere_NL}. Le paramètre de la Cubed-Sphere est $N=32$. Le pas de temps est donné par $\Delta t = 0.96 \Delta \xi / \pi = 0.015$. On représente les fonctions au temps $t=6$.}
+\label{fig:benartzi_test3_sol}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
