@@ -23,13 +23,13 @@ global opt_ftr test scheme detec
 global hp gp u0 radius omega
 global teta0 teta1
 
-test=0;
+test=1;
 video = 'no';
-sauvegarde = 1;
+sauvegarde = 0;
 opt_ftr='redonnet10';
 type_ftr='symetric';
 scheme='compact4';
-n=63;
+n=31;
 mod101
 
 teta0=-pi/3;
@@ -41,8 +41,8 @@ c=max(cgrav,ccor);
 
 cfl=0.9;
 ddt=radius*dxi*cfl/c;
-ndaymax=50;
-Tmax=ndaymax*3600*24;
+ndaymax=5;
+Tmax=1.5*3600;%ndaymax*3600*24;
 itermax=100000;
 
 %% *** initialisation des données
@@ -374,10 +374,10 @@ while t<Tmax && iter<itermax
     str='cor_int';
     [aaa,aaa,aaa,aaa,aaa,aaa,int]=...
     nrm101(ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn,str);
-    err_int(iter)=int./intref;
+    err_int(iter)=int./intref-1;
     
     [ E ] = energy(vt_fI,vt_fII,vt_fIII,vt_fIV,vt_fV,vt_fVI,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,n,nn);
-    err_energy(iter)=E./Eref;
+    err_energy(iter)=E./Eref-1;
     
     maxi(iter)=max(max([ht_fI; ht_fII; ht_fIII; ht_fIV; ht_fV; ht_fVI]));
     mini(iter)=min(min([ht_fI; ht_fII; ht_fIII; ht_fIV; ht_fV; ht_fVI]));
@@ -466,10 +466,10 @@ title(['exat solution at time = ', num2str(time(end))])
 colorbar
 
 figure(3)
-semilogy(time, erri, time, err2, time, err1)
-xlabel('time')
-ylabel('relative error')
-legend('infty norm','norm 2','norm 1')
+semilogy(time, erri,'k.', time, err2,'k--', time, err1,'k-')
+xlabel('Temps')
+ylabel('Erreur relative')
+legend('norme infinie','norme 2','norme 1')
 grid on
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' date '/ref_' num2str(ref) '_erreur.png'])
@@ -477,10 +477,9 @@ if sauvegarde==1
 end 
 
 figure(4)
-plot(time,err_int-1,time,err_energy-1)
-legend('mass','energy')
-xlabel('time')
-title('error on conservation')
+plot(time,err_int,time,err_energy,'Linewidth',2)
+legend('masse','energie')
+xlabel('Temps')
 grid on
 if sauvegarde==1
     mkdir(['./RK4_results-' date ]);
@@ -524,12 +523,13 @@ plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
 title('relative error at final time')
 colorbar
 
-figure(8)
-plot(time, maxi, time, mini)
-title('extremums')
-legend('maxi','mini')
-ylabel('time')
-
 fig_placier
 
-max(max(max(abs([vt_fI-v_fI, vt_fII-v_fII,vt_fIII-v_fIII,vt_fIV-v_fIV,vt_fV-v_fV,vt_fVI-v_fVI]))))
+format shorte
+err1(end)
+err2(end)
+erri(end)
+M=max(max(max(abs([v_fI, v_fII,v_fIII,v_fIV,v_fV,v_fVI]))));
+max(max(max(abs([vt_fI-v_fI, vt_fII-v_fII,vt_fIII-v_fIII,vt_fIV-v_fIV,vt_fV-v_fV,vt_fVI-v_fVI]))))./M
+err_int(end)
+err_energy(end)

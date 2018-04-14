@@ -457,7 +457,7 @@ $\CFL$ & $\alpha$ & \cite{Ullrich2010} & Algo. \ref{alg:RK4_transportSa} & \cite
 \hline 
 \end{tabular} 
 \end{center}
-\caption{Erreur relative pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = \pi / 4$ et $\CFL = u_0 \Delta t / \Delta \xi$. Les résultats obtenus sont semblables à ceux obtenus par volumes finis d'ordre 4 dans \cite{Ullrich2010}.}
+\caption{Erreur relative pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = \pi / 4$ et $\CFL = u_0 \Delta t / \Delta \xi$. Les résultats obtenus sont semblables à ceux obtenus par volumes finis d'ordre 4 dans \cite{Ullrich2010}. Le paramètre de grille est $N=40$.}
 \label{tab:comp_ullrich_bump}
 \end{table} 
 
@@ -713,7 +713,7 @@ $150$ & $1.6044 (-5)$ & $7.0918 (-5)$ & $5.9455 (-4)$ \\
 \hline
 \end{tabular}
 \end{center}
-\caption{Erreur et taux de convergence pour l'équation \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} en norme $1$, $2$ et $\infty$, $u_0 \Delta t / \Delta \xi = 0.7$. On choisit $\alpha = \pi/4$.}
+\caption{Erreur et taux de convergence pour l'équation \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} en norme $1$, $2$ et $\infty$, $u_0 \Delta t / \Delta \xi = 0.7$. On choisit $\alpha = \pi/4$ et le temps final $t=12$ jours.}
 \label{tab:rate1_NJ}
 \end{table} 
 
@@ -721,7 +721,7 @@ $150$ & $1.6044 (-5)$ & $7.0918 (-5)$ & $5.9455 (-4)$ \\
 \begin{center}
 \includegraphics[height=5cm]{rate_NJ1.png}
 \end{center}
-\caption{Erreur et taux de convergence pour l'équation \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} en norme $1$, $2$ et $\infty$, $u_0 \Delta t / \Delta \xi = 0.7$. On choisit $\alpha = \pi/4$.}
+\caption{Erreur et taux de convergence pour l'équation \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} en norme $1$, $2$ et $\infty$, $u_0 \Delta t / \Delta \xi = 0.7$. On choisit $\alpha = \pi/4$ et le temps final $t=12$ jours.}
 \label{fig:rate1_NJ}
 \end{figure} 
 
@@ -829,6 +829,8 @@ Nous couplons cette opérateur d'approximation spaciale à un algorithme de rés
 \end{center}
 
 L'opérateur $\mathcal{F}$ est de la forme \eqref{eq:operateur_filtrage} où $\fxi$ et $\feta$ utilisent l'opérateur de filtrage en dimension 1 d'ordre 10 : $\mathcal{F}_{10,x}$.
+
+
 
 
 
@@ -980,7 +982,7 @@ On peut alors calculer $\nabla_T F(h)$ en fonction de $h$ et $f$. On obtient :
 \begin{equation}
 \nabla_T F(h) = f'(h) \left( (y-z)\dfrac{\partial h}{\partial x} + (z-x)\dfrac{\partial h}{\partial y} + (x-y)\dfrac{\partial h}{\partial z} \right).
 \end{equation}
-On déduit directement que indépendamment du choix de $f$, si $h_0(x,y,z) = \alpha (x+y+z)$, alors on a
+On déduit directement que indépendamment du choix de $f$, si $h_0(x,y,z) = \alpha (x+y+z)$, avec $\alpha \in \mathbb{R}$, alors on a
 \begin{equation}
 \nabla_T F(h_0) = 0,
 \end{equation}
@@ -1031,7 +1033,7 @@ Sur la figure \ref{fig:benartzi_test3_hist}, on représente l'historique de l'er
 \includegraphics[height=5cm]{erreur_test3.png}
 \includegraphics[height=5cm]{cons_test3.png}
 \end{center}
-\caption{Erreur et taux de convergence pour le test stationnaire de l'équation \eqref{eq:advection_sphere_NL}. Le pas de temps est donné par $\Delta t = 0.96 \Delta \xi / \pi$. Le temps final est $t=6$.}
+\caption{Erreur en norme et erreur de conservation pour le test stationnaire de l'équation \eqref{eq:advection_sphere_NL}. Le pas de temps est donné par $\Delta t = 0.96 \Delta \xi / \pi$. Le temps final est $t=6$. Le paramètre de la Cubed-Sphere est $N=32$.}
 \label{fig:benartzi_test3_hist}
 \end{figure}
 

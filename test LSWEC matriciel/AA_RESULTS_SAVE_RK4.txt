@@ -169,3 +169,60 @@ coriolis parameter     : 7.292e-05
 ***********************************
   
   
+date : 13-Apr-2018
+ref. : 7371637769
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+ordre du filtre   : redonnet10
+schema            : compact4
+type du filtre    : symetric
+---------- physical data ----------
+gravity g              : 9.8062
+equilibrium SWE hp     : 10000
+caracteristiv velocity : 31.3148
+coriolis parameter     : 7.292e-05
+***********************************
+  
+  
+date : 13-Apr-2018
+ref. : 7371638629
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+ordre du filtre   : redonnet10
+schema            : compact4
+type du filtre    : symetric
+---------- physical data ----------
+gravity g              : 9.8062
+equilibrium SWE hp     : 10000
+caracteristiv velocity : 31.3148
+coriolis parameter     : 7.292e-05
+***********************************
+  
+  
+date : 14-Apr-2018
+ref. : 7371644406
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 605.8509
+cfl               : 0.9
+ordre du filtre   : redonnet10
+schema            : compact4
+type du filtre    : symetric
+---------- physical data ----------
+gravity g              : 9.8062
+equilibrium SWE hp     : 10000
+caracteristiv velocity : 31.3148
+coriolis parameter     : 7.292e-05
+***********************************
+  
+  

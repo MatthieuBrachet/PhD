@@ -39,7 +39,7 @@ scheme='compact4';
 snapshot='yes';
 nrm='int';
 
-n=127; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
 ndaymax=5;
 cfl=0.9;
 mod101

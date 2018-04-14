@@ -1,6 +1,12 @@
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {A.1}Coordonn\IeC {\'e}es Longitude-Latitude}{\reset@font\mtcSfont 167}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {A.1.1}Syst\IeC {\`e}me de coordonn\IeC {\'e}es}{\reset@font\mtcSSfont 167}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {A.1.2}Op\IeC {\'e}rateurs classiques sur la sph\IeC {\`e}re}{\reset@font\mtcSSfont 168}}
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {A.2}Invariants de Riemann}{\reset@font\mtcSfont 169}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {A.2.1}Cas 1D}{\reset@font\mtcSSfont 169}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {A.2.2}Cas de l'\IeC {\'e}quation Shallow Water}{\reset@font\mtcSSfont 169}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {6.1}Equation Shallow Water lin\IeC {\'e}aris\IeC {\'e}e}{\reset@font\mtcSfont 167}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.1.1}Propri\IeC {\'e}t\IeC {\'e}s de l'\IeC {\'e}quation Shallow Water lin\IeC {\'e}aris\IeC {\'e}e}{\reset@font\mtcSSfont 167}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.1.2}R\IeC {\'e}solution num\IeC {\'e}rique}{\reset@font\mtcSSfont 169}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.1.3}Solution stationnaire zonale}{\reset@font\mtcSSfont 170}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.1.4}Solution \IeC {\`a} d\IeC {\'e}croissance exponentielle}{\reset@font\mtcSSfont 172}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {6.2}Equation Shallow Water}{\reset@font\mtcSfont 173}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.1}Propri\IeC {\'e}t\IeC {\'e}s de l'\IeC {\'e}quation Shallow Water}{\reset@font\mtcSSfont 173}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.2}R\IeC {\'e}solution num\IeC {\'e}rique}{\reset@font\mtcSSfont 177}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.3}Solution stationnaire zonale}{\reset@font\mtcSSfont 177}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.4}Cas de la montagne isol\IeC {\'e}e}{\reset@font\mtcSSfont 182}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.5}Flux barotropic instable}{\reset@font\mtcSSfont 185}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.6}Ondes de Rossby-Haurwitz}{\reset@font\mtcSSfont 186}}

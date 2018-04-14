@@ -37,7 +37,6 @@ if test == 0
         int=int+fxx.*h;
     end
 
-
     %% hauteur 4
     ht=h0-int/gp;
 

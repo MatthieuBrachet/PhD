@@ -61,20 +61,18 @@
 \def\tpz{\text{tpz}}
 \def\sps{\text{sps}}
 \def\col{\text{col}}
+\def\grav{\text{grav}}
+\def\cor{\text{cor}}
 
 \graphicspath{{./Images/}}
 
 \newcommand\upun[1]{\uppercase{\underline{\underline{#1}}}}
 \FormatHeadingsWith\upun
-
 \newcommand\itheadings[1]{\textit{#1}}
 \FormatHeadingsWith{\itheadings}
-
 \setlength{\HeadRuleWidth}{0.4pt}
-
 \NoChapterNumberInRef
 \NoChapterPrefix
-
 \makeglossary
 \makeindex
 
@@ -149,8 +147,7 @@ qui fut la première de toutes.
 \input{CS.tex}
 \input{opsph.tex}
 \input{scaleq4.tex} 
-%\input{LSWEC.tex}
-%\input{testSWE.tex}
+\input{swe5.tex}
 
 %\PutLineInToc
 %\PutNewPageInToc
@@ -159,9 +156,10 @@ qui fut la première de toutes.
 
 \Annexes
 
-\Annex{Annexe}
+\Annex{Première annexe}
 \section{Coordonnées Longitude-Latitude}
 \input{lonlat.tex}
+\Annex{Deuxième annexe}
 \section{Invariants de Riemann}
 \input{IR.tex}
 
@@ -182,8 +180,12 @@ qui fut la première de toutes.
 \NumberAbstractPages
 \begin{ThesisAbstract}
   \begin{FrenchAbstract}
-    Le résumé.
-    \KeyWords{chat, chien, puces.}
+    Dans cette thèse, je présente un schéma d'approximation d’équation aux dérivées partielles d’évolution sur la Sphère. Le schéma est basé sur un schéma compact d'ordre 4 sur la grille Cubed-Sphere. Ce travail se décompose en trois parties.
+    Premièrement, j'étudie un ensemble de schémas aux différences finies en géométrie plane. Ces schémas permettent d'approcher la dérivée première ainsi que de définir des opérateurs de filtrages. Ils sont utilisés pour la résolution d'équation 1D et 2D telles l'équation d'advection, l'équation des ondes ou l'équation de Burgers. La discrétisation en espace utilise le schéma compact d'ordre 4, la résolution en temps se fait à l'aide d'un schéma RK4 couplé à un opérateur de filtrage. La consistance, la stabilité et les propriétés de conservations sont étudiées. En particulier, il conserve la masse et l'importance de l'opérateur de filtrage est mise en évidence.
+    Dans  un second temps, on introduit la grille Cubed-Sphere. Les propriétés géométriques de ce maillage sont mises en évidence. L'introduction d'un produit scalaire adapté permet de vérifier les propriétés d'orthogonalité d'un grand nombre d'harmoniques sphériques. De plus, ce produit scalaire permet d'introduire un bon choix de méthode de quadrature sur la sphère. Nous présentons aussi une méthode générale de construction d'opérateurs différentiels et de filtrage. Nous démontrons que ces opérateurs sont consistants à un bon ordre et donnent de bons résultats numériques.
+    La troisième partie de cette thèse concerne la résolution d'équation sphèriques classiques. Nous couplons l'algorithme RK4 ainsi que les opérateurs étudiés pour résoudre un ensemble d'équations aux dérivées partielles classiques telles que l'équation d'advection ou l'équation Shallow Water sphérique. L'algorithme développé permet de résoudre les test classiques issus de la littérature et de mettre en évidence des propriétés de précision et de conservation du schéma numérique.
+    La résolution d'équations sur la sphère est d'un intérêt particulier pour des applications en climatologie et en océanographie numérique. Les propriétés de la grille Cubed-Sphere sont particulièrement intéressantes et sont d'un intérêt croissant pour résoudre ce type de problèmes.
+    \KeyWords{Cubed-Sphere, schémas compact, discrétisation en temps, équation Shallow Water.}
   \end{FrenchAbstract}
   \begin{EnglishAbstract}
     % résumé du DEC SRC Research Report #12
@@ -192,27 +194,12 @@ qui fut la première de toutes.
     %     "Fractional Cascading."
     %     Bernard Chazelle and Leonidas J. Guibas.
     %     58 pages.
-    In computational geometry many search problems and range queries
-    can be solved by performing an iterative search for the same key
-    in separate ordered lists.  In Part I of this report we show that,
-    if these ordered lists can be put in a one-to-one correspondence
-    with the nodes of a graph of degree  d  so that the iterative
-    search always proceeds along edges of that graph, then we can
-    do much better than the obvious sequence of binary searches. Without
-    expanding the storage by more than a constant factor, we can build
-    a data-structure, called a fractional cascading structure,
-    in which all original searches after the first can be carried
-    out at only  log d  extra cost per search.  Several results related
-    to the dynamization of this structure are also presented. Part
-    II gives  numerous applications of this technique to geometric
-    problems.  
-
-    Examples include intersecting a polygonal path with
-    a line, slanted range search, orthogonal range search, computing
-    locus functions, and others. Some results on the optimality of
-    fractional cascading, and certain extensions of the technique
-    for retrieving additional information are also included.
-    \KeyWords{cat, dog, flees.}
+    In this thesis, I present an approximation scheme for evolution partial differential equation on the sphere. Le scheme is based on a fourth order compact scheme on a Cubed-Sphere grid. This work is divised in three parts.
+	First, I study a set of finite difference scheme in planar geometry. This scheme permits to approach the first derivative and to define filtering operators. It’s used to solve equation in 1D and 2D such that advection equation, waves equation of Burgers equation. The discretisation in space is using compact scheme of order 4, the time discretisation is made with RK4 scheme couple with filtering operator. Consistance, stability and conservation properties are studied. In particular, the scheme is preserve mass and the importance of filtering operator is inlight.
+	In a second time, we introduce the Cubed-Sphere grid. Geometrical properties of this mesh are inlight. Introduction of an adapted scalar product permits to check orthogonalities properties for an hight number of spherical harmonics. In more, this scalar produc permit to introduce a good choice for spherical quadrature. We present a general method to construct differential operators and filtering operators. We proove this operator are consistant with a good order of accuracy and give good numerical results.
+	The third part of this thesis is concerning the resolution of classical spherical equations. We couple the TK4 algorith with operator studied to solve a large set of partial differential problems such that advection equation or Shallow Water equation. The algorithm permits to solve classical tests from litterature and to inlight properties of accuracy and conservation of this numerical scheme.
+	The resolution of spherical equation on the sphere is of particular interrest for applications in  numerical climatology or oceanography. Cubed-Sphere properties are particularly important and growing interest this last years for this kind of problems.
+    \KeyWords{Cubed-Sphere, compact scheme, time discretisation, Shallow Water equation.}
   \end{EnglishAbstract}
 \end{ThesisAbstract}
 
