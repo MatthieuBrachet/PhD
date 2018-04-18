@@ -935,6 +935,7 @@ i, j = \pm \dfrac{N}{2}.
 
 
 \section{Coordonnées Gnomoniques}
+\label{sec:gnomonique}
 
 On considère un cube inscrit dans la Sphère $\mathbb{S}_a^2$. Le demi côté de ce cube mesure $R=\frac{\sqrt{3}}{3}a$. Chaque face du cube est donnée par :
 \begin{itemize}
@@ -1742,13 +1743,13 @@ La seconde égalité se montre de la même manière.
 
 \section{Calcul intrinsèque sur la Cubed-Sphere}
 
-On a vu que les coordonnées gnomoniques $(X,Y)$ ainsi que les coordonnées $(\xi,\eta)$ forment des systèmes de coordonnées admissibles sur chaque panel.  Pour tout point $\mathbf{x}_{i,j}^{(K)} \in \mathbb{S}_a^2$ du panel $K$ de la Cubed-Sphere, il existe deux cercles $C_i^{(1)}$ et $C_j^{(2)}$ tels que :
+On a vu dans la section \ref{sec:gnomonique} que les coordonnées gnomoniques $(X,Y)$ ainsi que les coordonnées $(\xi,\eta)$ forment des systèmes de coordonnées admissibles sur chaque panel.  Pour tout point $\mathbf{x}_{i,j}^{(K)} \in \mathbb{S}_a^2$ du panel $K$ de la Cubed-Sphere, il existe deux cercles $C_i^{(1)}$ et $C_j^{(2)}$ tels que :
 
 \begin{equation}
-\mathbf{x}_{i,j}^{(K)} \in C_i^{(1)} \cap C_j^{(2)}
+\mathbf{x}_{i,j}^{(K)} \in C_i^{(1)} \cap C_j^{(2)}.
 \end{equation}
 
-L'angle $\alpha$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\mathbf{x}_{0,j}^{(K)}$ dans la direction Est pour le panel I. $\beta$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\mathbf{x}_{i,0}^{(K)}$ dans la direction Nord pour le panel I (Voir figure \ref{fig: alpha beta}). Des angles géodésiques $\alpha$ et $\beta$ peuvent être construits sur chaque panel, l'orientation de ces angles est donnée en figure \ref{fig:patron cs}. Ainsi, chaque panel est construit à partir de portions de grands cercles.
+L'angle $\alpha$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(k)}$ et $\mathbf{x}_{0,j}^{(k)}$ dans le long de $C^{(2)}_j$. L'angle $\beta$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(k)}$ et $\mathbf{x}_{i,0}^{(k)}$ mesuré le long de $C^{(1)}_i$ (Voir figure \ref{fig: alpha beta}). Des angles géodésiques $\alpha$ et $\beta$ peuvent être construits sur chaque panel, l'orientation de ces angles est donnée en figure \ref{fig:patron cs}. Ainsi, chaque panel est construit à partir de sections de grands cercles.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1798,9 +1799,9 @@ L'angle $\alpha$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\ma
 	\draw  (.27,0.38) node {$\bullet$} ;
 	\draw  (.27,0.38) node[above right] {$\mathbf{x}_{i,j}^{(K)}$} ;
 	\draw  (0,0.4) node {$\bullet$} ;
-	\draw  (0,0.4) node[above left] {$\mathbf{x}_{0,j}^{(K)}$} ;
+	\draw  (0,0.4) node[above left] {$\mathbf{x}_{0,j}^{(k)}$} ;
 	\draw  (0.3,0) node {$\bullet$} ;
-	\draw  (.3,0) node[below] {$\mathbf{x}_{i,0}^{(K)}$} ;
+	\draw  (.3,0) node[below] {$\mathbf{x}_{i,0}^{(k)}$} ;
 	
 	\draw [>=stealth, ->,samples=100,domain=90:75,color=blue] plot({1.05*cos(\x)},{0.45*sin(\x)});
 	\draw  (.15,.65) node[color=blue, below] {$\alpha$} ;
@@ -1813,7 +1814,7 @@ L'angle $\alpha$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\ma
    
 \end{tikzpicture}
 \end{center}
-\caption{Angles géodésiques $\alpha$ et $\beta$.}
+\caption{Angles géodésiques $\alpha$ et $\beta$ pour le point $x_{i,j}^{(k)}$.}
 \label{fig: alpha beta}
 \end{figure}
 
@@ -1875,8 +1876,7 @@ L'angle $\alpha$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(K)}$ et $\ma
 \end{center}
 \end{figure}
 
-Si $\mathbf{x}_{i,j}^{(I)}$ un point du panel I de coordonnées $(x,y,z)$ dans $\mathbb{R}^3$. Alors les relations suivantes sont vérifiées :
-
+Soit $\mathbf{x}_{i,j}^{(I)}$ un point du panel I de coordonnées $(x,y,z)$ dans $\mathbb{R}^3$. Alors les relations suivantes sont vérifiées :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcccc}
@@ -1887,7 +1887,6 @@ z & = & a \cos \alpha \sin \eta & = & a \sin \beta \\
 \right.
 \label{eq: panel I xyz xi eta alpha beta}
 \end{equation}
-
 Des relations similaires existent sur tous les panels (Voir tableau \ref{tab: x y z fct de xi eta alfa beta}).
 
 \begin{table}[htbp]
@@ -1931,18 +1930,18 @@ $VI$ & $y=a \sin \alpha = a \cos \beta \sin \xi$ \\
 \end{tabular}
 %}
 \end{center}
-\caption{$(x,y,z)$ fonction de $(\alpha, \eta)$ et de $(\xi, \beta)$  sur chaque panel.}
+\caption{Coordonnées cartésiennes $(x,y,z)$ en fonction des angles $(\alpha, \eta)$ et de $(\xi, \beta)$  sur chaque panel.}
 \label{tab: x y z fct de xi eta alfa beta}
 \end{table}
 
 Pour chaque panel, on peut déduire de \eqref{eq: panel I xyz xi eta alpha beta} les expressions de $\alpha$ et $\beta$ en fonction de $\xi$ et $\eta$. 
 
 \begin{theoreme}
-$(\alpha, \eta)$ et $(\xi, \beta)$ sont des systèmes de coordonnées admissibles par panel.
+Les systèmes $(\alpha, \eta)$ et $(\xi, \beta)$ sont des systèmes de coordonnées admissibles sur chaque panel.
 \end{theoreme} 
 
 \begin{proof}
-D'après le tableau \ref{tab: x y z fct de xi eta alfa beta}, on a sur le panel $(I)$ :
+On a sur le panel $(I)$ (d'après l'équation \eqref{eq: panel I xyz xi eta alpha beta} et le tableau \ref{tab: x y z fct de xi eta alfa beta}) :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -1951,50 +1950,52 @@ y & = & a \sin \alpha \\
 z & = & a \cos \alpha \sin \eta
 \end{array}
 \right.
+\label{eq:alfaeta_to_xyz}
 \end{equation}
 Donc en particulier, $x \neq 0$ sur le panel $(I)$ donc
+\begin{eqsys}
+\tan \eta = \frac{z}{x} \\
+\sin \alpha = \frac{y}{a}
+\label{eq:xyz_to_alfaeta}
+\end{eqsys}
+et par construction de la Cubed-Sphere, $\eta \in [- \pi/4, \pi/4]$ et $\alpha \in I \subset[- \pi/4, \pi/4]$. L'application
 \begin{equation}
-\left\lbrace
-\begin{array}{rcl}
-\tan \eta & = & \dfrac{z}{x} \\
-\sin \alpha & = & \dfrac{y}{a}
-\end{array}
-\right.
+\varphi : (\alpha, \eta) \in \left[ - \dfrac{\pi}{4}, \dfrac{\pi}{4} \right]^2 \mapsto (x,y,z) \in \mathbb{R}^3
 \end{equation}
-et par construction de la Cubed-Sphere, $\eta \in [- \pi/4, \pi/4]$ et $\alpha \in I \subset[- \pi/4, \pi/4]$. Les applications $\sin$ et $\tan$ sont bijectives sur $[- \pi/4, \pi/4]$ donc l'application $(x,y,z) \mapsto (\alpha, \eta)$ est une bijection. Comme $(x,y,z)$ est un système de coordonnées admissible sur le panel $(I)$ alors $(\alpha, \eta)$ en est un aussi. De plus, on a le même type de relations sur les autres panels.
+donnée par \eqref{eq:alfaeta_to_xyz} est injective. La réciproque $\varphi^{-1} : (x,y,z) \in \Im(\varphi) \mapsto (\alpha, \eta) \in \left[ - \dfrac{\pi}{4}, \dfrac{\pi}{4} \right]^2$ est, d'après \eqref{eq:xyz_to_alfaeta}, donnée par $\alpha = \arcsin (y/a)$ et $\eta = \arctan(z/x)$ car $\sin$ et $\tan$ sont des bijections sur $\left[ - \dfrac{\pi}{4}, \dfrac{\pi}{4} \right]$. Comme $(x,y,z)$ est un système de coordonnées admissible sur le panel $(I)$ alors $(\alpha, \eta)$ en est un aussi. De plus, on a le même type de relations sur les autres panels.
 
 La démonstration est la même pour montrer que $(\xi, \beta)$ est un système de coordonnées admissible par panel.
 \end{proof}
 
 
 \begin{proposition}
-$\alpha$ et $\beta$ s'expriment en fonction de $\xi$ et $\eta$ :
-
-\begin{equation}
-\left\lbrace
-\begin{array}{rcl}
-\alpha(\xi, \eta) & = & \arctan \left[ \dfrac{\tan \xi}{\sqrt{1+\tan^2 \eta}} \right] \\
-\beta(\xi,\eta) & = & \arctan \left[ \dfrac{\tan \eta}{\sqrt{1+\tan^2 \xi}} \right] 
-\end{array}
-\right.
+Les angles $\alpha$ et $\beta$ s'expriment en fonction des angles $\xi$ et $\eta$ par
+\begin{eqsys}
+\alpha(\xi, \eta) = \arctan \left[ \dfrac{\tan \xi}{\sqrt{1+\tan^2 \eta}} \right] \\
+\beta(\xi,\eta) = \arctan \left[ \dfrac{\tan \eta}{\sqrt{1+\tan^2 \xi}} \right] 
 \label{eq: alpha et beta fct de xi et eta}
-\end{equation}
+\end{eqsys}
+\label{prop:alfa_beta_xi_eta}
 \end{proposition}
 
 \begin{proof}
 Sur le panel I, $\alpha$ est une fonction construite sur un grand cercle, donc $\alpha$ sur le cercle constitué des points avec $\eta=\bar{\eta}$ constant. De même, $\beta$ varie avec $\xi= \bar{\xi}$ constant. 
 
-On a :
+D'après l'équation \eqref{eq:alfaeta_to_xyz}, on a
 \begin{equation}
-x^2 + y^2 = a^2 \cos^2 \beta
+x^2 + y^2 = a^2 \cos^2 \beta,
+\end{equation}
+ainsi que
+\begin{equation}
+z^2 = a^2 \sin^2 \beta,
 \end{equation}
 d'où on déduit facilement :
 \begin{equation}
-\tan^2 \beta = \dfrac{z^2}{x^2+y^2} = \dfrac{Y^2}{1+X^2}
+\tan^2 \beta = \dfrac{z^2}{x^2+y^2} = \dfrac{Y^2}{1+X^2}.
 \end{equation}
 L'expression de $\beta$ suivante se déduit
 \begin{equation}
-\beta(\xi, \eta) = \arctan \left[ \dfrac{\tan \eta}{\sqrt{1+\tan^2 \xi}} \right]
+\beta(\xi, \eta) = \arctan \left[ \dfrac{\tan \eta}{\sqrt{1+\tan^2 \xi}} \right].
 \end{equation}
 De la même manière on obtient :
 \begin{equation}
@@ -2005,12 +2006,19 @@ De plus, ces équations se retrouvent sur chaque panel.
 
 
 \begin{theoreme}
-$(\alpha, \beta)$ est un système de coordonnées admissible par panel.
+Les angles $(\alpha, \beta)$ forment un système de coordonnées admissible par panel.
 \end{theoreme}
+
+
+
+
+
+%% ***** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER *****
+
 
 \begin{proof}
 
-$\alpha$ et $\beta$ s'expriment en fonction de $X$ et $Y$ par :
+D'après la proposition \ref{prop:alfa_beta_xi_eta}, les angles $\alpha$ et $\beta$ s'expriment en fonction de $X$ et $Y$ par :
 
 \begin{equation}
 \left\lbrace
@@ -2042,6 +2050,7 @@ donc $F$ est une bijection, $(X,Y)$ est un système de coordonnées admissible p
 
 \end{proof}
 
+%% ***** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER *****
 
 
 
@@ -2063,24 +2072,20 @@ donc $F$ est une bijection, $(X,Y)$ est un système de coordonnées admissible p
 
 
 
-
-Chacune des portions de grands cercles peut être complétée en un grand cercle. Le grand cercle $C_i^{(1)}$ correspond à une isocline $\xi$ constante et le grand cercle $C_j^{(2)}$ à une isocline $\eta$ constante. Considérons l'isocline $\eta$ constante sur le panel I. Sur ce panel, l'angle $\alpha$ est tel que :
-
+Chacune des sections de grand cercle peut être complétée en un grand cercle. Le grand cercle $C_i^{(1)}$ correspond à une isocline $\xi$ constante et le grand cercle $C_j^{(2)}$ à une isocline $\eta$ constante. Considérons l'isocline $\eta$ constante sur le panel I. Sur ce panel, l'angle $\alpha$ est tel que :
 \begin{equation}
 - \alpha_0 (\eta) \leq \alpha \leq \alpha_0(\eta) \text{ avec } \alpha_0( \eta) = \arctan \left( \dfrac{\sqrt{2}}{2} \tan \eta \right).
 \end{equation}
+Le grand cercle $C_j^{(2)}$ traverse sur les panels $(II)$, $(III)$ et $(IV)$ dans cet ordre. On peut prolonger $\alpha$ comme étant l'angle curviligne le long du grand cercle complet. Sur le panel $(II)$, le grand cercle $C_j^{(2)}$ coupe d'autres grands cercles (ceux permettant de construire le panel $(II)$) en $\mathbf{M}_k$ ($-N/2 \leq k \leq N/2$) de coordonnées $(\xi^E_k = k \Delta \xi, \eta^E_k)$. Il coupe aussi le panel $(III)$ mais correspond au points de maillage par symétrie, soit le grand cercle du panel $(III)$ correspondant à l'isocline $\eta^B_k = \frac{\pi}{2} - \eta$. Enfin, le grand cercle $C_j^{(2)}$ traverse le panel $(IV)$ aux points de coordonnées $(\xi^W_k = k \Delta \xi, \eta^W_k)$. 
 
+De la même manière, le grand cercle $C_i^{(1)}$ traverse les panels $(V)$, $(III)$ et $(VI)$ dans cet ordre et est paramétré par l'angle $\beta$.
 
-Cependant le grand cercle $C_j^{(2)}$ passe aussi sur les panels II, III et IV dans cet ordre. On peut prolonger $\alpha$ comme étant l'angle curviligne le long du grand cercle complet. Sur le panel II, le grand cercle $C_j^{(2)}$ coupe d'autres grands cercles (ceux permettant de construire le panel II) en $\mathbf{M}_k$ ($-N/2 \leq k \leq N/2$) de coordonnées $(\xi^E_k = k \Delta \xi, \eta^E_k)$. Il coupe aussi le panel III mais correspond au points de maillage par symétrie, soit le grand cercle du panel III correspondant à l'isocline $\eta^B_k = \frac{\pi}{2} - \eta$. Enfin, le grand cercle $C_j^{(2)}$ intersecte le panel IV aux points de coordonnées $(\xi^W_k = k \Delta \xi, \eta^W_k)$. 
-
-De la même manière, le grand cercle $C_i^{(1)}$ passe par les panels V, III et VI dans cet ordre et est paramétré par un angle $\beta$.
-
-Les autres panels II, III, IV, V, VI sont traités de la même manière. Compte tenu des symétries de la Cubed-Sphere, 6 familles de grands cercles sont suffisantes. On définis les ensembles de grands cercles suivants :
+Les autres panels $(II)$, $(III)$, $(IV)$, $(V)$, $(VI)$ sont traités de la même manière. Compte tenu des symétries de la Cubed-Sphere, six familles de grands cercles sont à considérer. On définit les familles de grands cercles suivants :
 
 \begin{itemize}
-\item $(I_{\alpha})$ et $(I_{\beta})$ sont les grands cercles passant par le panel I. Ils sont définis comme les isolignes en $\eta$ et en $\xi$ (du panel I) respectivement,
-\item $(II_{\alpha})$ et $(II_{\beta})$ sont les grands cercles passant par le panel II. Ils sont définis comme les isolignes en $\eta$ et en $\xi$ (du panel II) respectivement,
-\item $(V_{\alpha})$ et $(V_{\beta})$ sont les grands cercles passant par le panel V. Ils sont définis comme les isolignes en $\eta$ et en $\xi$ (du panel V) respectivement.
+\item $(I_{\alpha})$ et $(I_{\beta})$ sont les grands cercles passant par le panel $(I)$. Ils sont définis comme les isoclignes en $\eta$ et en $\xi$ (du panel $(I)$) respectivement,
+\item $(II_{\alpha})$ et $(II_{\beta})$ sont les grands cercles passant par le panel $(II)$. Ils sont définis comme les isoclignes en $\eta$ et en $\xi$ (du panel $(II)$) respectivement,
+\item $(V_{\alpha})$ et $(V_{\beta})$ sont les grands cercles passant par le panel $(V)$. Ils sont définis comme les isoclignes en $\eta$ et en $\xi$ (du panel $(V)$) respectivement.
 \end{itemize}
 
 \begin{figure}
@@ -2092,67 +2097,55 @@ Les autres panels II, III, IV, V, VI sont traités de la même manière. Compte 
 \end{figure}
 
 
-La structure de la Cubed-Sphere issus de grands cercles est la base du procédé de calcul de dérivées hermitiennes que nous utilisons dans ce travail. Le calcul du gradient suis la procédure suivante :
-
+La structure de la Cubed-Sphere décrite par des grands cercles est à la base du procédé de calcul des dérivées hermitiennes que nous utilisons dans ce travail. Le calcul du gradient suit la procédure suivante :
 \begin{enumerate}
 \item Construction de données le long de grands cercles complets,
 \item Calcul des dérivées hermitiennes,
 \item Assemblage pour obtenir le gradient.
 \end{enumerate}
 
+Pour calculer $\dfrac{\partial h}{\partial \alpha}_{|C_1}$ et $\dfrac{\partial h}{\partial \beta}_{|C_2}$ aux points de maillage, il est utile de connaître les coordonnées des points d'intersections de grands cercles entre les panels.
 
-
-
-Pour calculer $\dfrac{\partial h}{\partial \alpha}_{|C_1}$ et $\dfrac{\partial h}{\partial \beta}_{|C_2}$ aux points de maillage, il sera utile de connaître les coordonnées des points d'intersections de grands cercles entre les panels.
-
-Soit $h_{i,j}^k$ donné avec $-N/2 \leq i,j \leq N/2$ et $k = I, II, III, IV, V, VI$. Considérons le grand cercle $C_1 \in (I_{\alpha})$. Il correspond à l'isocline $\eta = \eta_0^F = j_0 \Delta \eta$. Les valeurs $h_{i,j_0}^F$ sont localisée sur un grand cercle avec $-N/2 \leq i \leq N/2$. En continuant sur le cercle $C_1$, on traverse le panel II sur lequel il faudra interpoler les données pour compléter les valeurs le long de $C_1$. Le cercle $C_1$ coupe chaque isocline $\xi = \xi^E_{i_0} = i_0 \Delta \xi$ au point de coordonnées $(\xi_{i_0}^E, \beta_{i_0,j_0})$ dans le système de coordonnées $(\xi^E, \beta)$ du panel II. Un point $(x,y,z)\in \mathbb{R}^3$ d'un cercle de $(II_{\beta})$ est donné par :
-
+Soit $h_{i,j}^{(k)}$ donné avec $-N/2 \leq i,j \leq N/2$ et $(k) = (I), (II), (III), (IV), (V), (VI)$. Considérons le grand cercle $C_1 \in (I_{\alpha})$. Il correspond à l'isocline $\eta = \eta_0^F = j_0 \Delta \eta$. Les valeurs $h_{i,j_0}^F$ sont localisée sur un grand cercle avec $-N/2 \leq i \leq N/2$. Le cercle $C_1$ traverse le panel $(II)$ sur lequel il faut interpoler les données pour compléter les valeurs le long de $C_1$ sur le panel $(II)$. Le cercle $C_1$ coupe chaque isocline $\xi = \xi^E_{i_0} = i_0 \Delta \xi$ au point de coordonnées $(\xi_{i_0}^E, \beta_{i_0,j_0})$ dans le système de coordonnées $(\xi^E, \beta)$ du panel $(II)$. Un point $(x,y,z)\in \mathbb{R}^3$ d'un cercle de la famille $(II_{\beta})$ satisfait les relations :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
 x & = & - a \cos \beta \sin \xi^E \\
 y & = & a \cos \beta \cos \xi^E \\
-z & = & a \sin \beta
+z & = & a \sin \beta.
 \end{array}
 \right.
 \end{equation}
-
-Le point $\mathbf{x}(x,y,z)$ est se situe à l'intersection de $C_1$ (isocline $\eta^F_{j_0}$ du panel I) avec le grand cercle correspondant à l'isocline $\xi = \xi^E_{i_0} = i_0 \Delta \xi$ si $x$, $y$ et $z$ sont solutions du système suivant :
+Le point $\mathbf{x}(x,y,z)$ se situe à l'intersection de $C_1$ (isocline $\eta^F_{j_0}$ du panel $(I)$) avec le grand cercle correspondant à l'isocline $\xi = \xi^E_{i_0} = i_0 \Delta \xi$. A condition que $x$, $y$ et $z$ soient solutions du système suivant :
 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcccl}
 x & = & a \cos \alpha_{i_0, j_0} \cos \eta^F_{j_0} & = & a \cos \beta_{i_0, j_0} \cos \xi^E_{i_0} \\
 y & = & a \sin \alpha_{i_0, j_0} & = & a \cos \beta_{i_0, j_0} \cos \xi^E_{i_0} \\
-z & = & a \cos \alpha_{i_0, j_0} \sin \eta^F_{j_0}  & = & a \sin \beta_{i_0, j_0}
+z & = & a \cos \alpha_{i_0, j_0} \sin \eta^F_{j_0}  & = & a \sin \beta_{i_0, j_0}.
 \end{array}
 \right.
 \end{equation}
-
-de là, il découle :
-
+De là, il découle :
 \begin{equation}
 \dfrac{z}{x} = \tan \eta^F_{j_0} = - \dfrac{\sin \beta_{i_0, j_0}}{\cos \beta_{i_0, j_0} \sin \xi^E_{i_0}}
 \end{equation}
-
 donc :
-
 \begin{equation}
 \beta_{i_0, j_0} = \arctan \left[ - \tan \eta^F_{j_0} \sin \xi^E_{i_0} \right]
 \label{eq:coord_cross}
 \end{equation}
-
-Ainsi, le point du panel II de coordonnées $(\xi, \beta)$, représentant l'intersection de l'isocline $\eta^F_{j_0}$ du panel I avec l'isocline $\xi_{i_0}^E$ du panel II, est donné par $(\xi^E_{i_0}, \beta_{i_0, j_0})$. En général, il ne s'agit pas d'un point de la Cubed-Sphere. Nous utiliserons une méthode de spline cubique pour obtenir des valeurs $u_{i_0,j}^{II}$ le long de $C$.
-En continuant ce procédé, nous obtenons des valeurs tout du long du cercle $C$.
-
+Ainsi, le point du panel $(II)$ de coordonnées $(\xi, \beta)$, représentant l'intersection de l'isocline $\eta^F_{j_0}$ du panel $(I)$ avec l'isocline $\xi_{i_0}^E$ du panel $(II)$, est donné par $(\xi^E_{i_0}, \beta_{i_0, j_0})$. En général, il ne s'agit pas d'un point de la Cubed-Sphere. Nous utiliserons une méthode de spline cubique pour obtenir des valeurs $u_{i_0,j}^{II}$ interpolées sur la totalité de $C$.
+En continuant ce procédé, nous obtenons des valeurs sur le cercle $C$.
 
 
 
 
 
 
-On peut calculer les dérivées partielles $\dfrac{\partial h}{\partial \alpha}_{|C_1}$ et $\dfrac{\partial h}{\partial \beta}_{|C_2}$ en fonction des paramètres $\xi$ et $\eta$. Par composition, les relations suivantes sont vérifiées :
 
+On calcule à présent les dérivées partielles $\dfrac{\partial h}{\partial \alpha}_{|C_1}$ et $\dfrac{\partial h}{\partial \beta}_{|C_2}$ en fonction des paramètres $\xi$ et $\eta$. Par composition, les relations suivantes sont vérifiées :
 \begin{equation}
 \begin{array}{rcl}
 \dfrac{\partial h}{\partial \alpha}_{|C_1} & = &  \dfrac{1}{\frac{\partial \alpha}{\partial \xi}} \dfrac{\partial h}{\partial \xi}_{|C_1} \\
@@ -2167,7 +2160,7 @@ car $\eta \mapsto \alpha$ est constant le long de $C_2$ et $\xi \mapsto \beta$ e
 
 
 
-On peut calculer les vecteurs $\mathbf{g}_{\alpha}$, $\mathbf{g}_{\beta}$, $\mathbf{g}^{\alpha}$ et $\mathbf{g}^{\beta}$. Par commodité, on écrira ces vecteurs en fonction de $\mathbf{g}_{\xi}$, $\mathbf{g}_{\eta}$, $\mathbf{g}^{\xi}$ et $\mathbf{g}^{\eta}$ :
+On peut calculer les vecteurs $\mathbf{g}_{\alpha}$, $\mathbf{g}_{\beta}$, $\mathbf{g}^{\alpha}$ et $\mathbf{g}^{\beta}$. On exprime ces vecteurs en fonction de $\mathbf{g}_{\xi}$, $\mathbf{g}_{\eta}$, $\mathbf{g}^{\xi}$ et $\mathbf{g}^{\eta}$ :
 
 \begin{proposition}
 Les expressions suivantes sont vérifiées :
@@ -2183,35 +2176,28 @@ Les expressions suivantes sont vérifiées :
 \begin{proof}
 \begin{itemize}
 \item Par définition et composition, le long de $C_1$, on a :
-
+\begin{align*}
+\mathbf{g}_{\xi} & = \dfrac{d \mathbf{x}}{d \xi}_{|\eta}\\
+	& = \dfrac{\partial \alpha}{\partial \xi}_{|\eta} \dfrac{\partial \mathbf{x}}{\partial \alpha}_{|\eta} + \dfrac{\partial \beta}{\partial \xi}_{|\eta} \dfrac{\partial \mathbf{x}}{\partial \beta}_{|\eta}\\
+	& = \dfrac{\partial \alpha}{\partial \xi}_{|\eta} \dfrac{\partial \mathbf{x}}{\partial \alpha}_{|\eta}.
+\end{align*}
+De cette dernière relation, il découle la première égalité :
 \begin{equation}
-\mathbf{g}_{\xi} = \dfrac{d \mathbf{x}}{d \xi} = \dfrac{\partial \alpha}{\partial \xi} \dfrac{d \mathbf{x}}{d \alpha} + \dfrac{\partial \beta}{\partial \xi} \dfrac{\partial \mathbf{x}}{\partial \xi}= \dfrac{\partial \alpha}{\partial \xi} \mathbf{e}_{\alpha}.
+\mathbf{e}_{\alpha} = \dfrac{1}{\frac{\partial \alpha}{\partial \xi}_{|\eta}} \mathbf{g}_{\xi}.
 \end{equation}
-
-d'où le premier résultat :
-
-\begin{equation}
-\mathbf{e}_{\alpha} = \dfrac{1}{\frac{\partial \alpha}{\partial \xi}} \mathbf{g}_{\xi}
-\end{equation}
-
 De la même manière :
-
 \begin{equation}
-\mathbf{e}_{\beta} = \dfrac{1}{\frac{\partial \beta}{\partial \eta}} \mathbf{g}_{\eta}
+\mathbf{e}_{\beta} = \dfrac{1}{\frac{\partial \beta}{\partial \eta}_{|\xi}} \mathbf{g}_{\eta}.
 \end{equation}
 
-\item On pose $\mathbf{u} = \dfrac{\partial \alpha}{\partial \xi} \mathbf{g}^{\xi}$ et $\mathbf{v} = \dfrac{\partial \beta}{\partial \eta} \mathbf{g}^{\eta}$. Alors le long de $C_1$:
-
+\item On pose $\mathbf{u} = \dfrac{\partial \alpha}{\partial \xi}_{|\eta} \mathbf{g}^{\xi}$ et $\mathbf{v} = \dfrac{\partial \beta}{\partial \eta}_{|\xi} \mathbf{g}^{\eta}$. Donc le long de $C_1$, on a:
 \begin{equation}
-\mathbf{e}_{\alpha} \cdot \mathbf{u} = \dfrac{\frac{\partial \alpha}{\partial \xi}}{\frac{\partial \alpha}{\partial \xi}} \mathbf{g}_{\xi} \cdot \mathbf{g}^{\xi} = 1.
+\mathbf{e}_{\alpha} \cdot \mathbf{u} = \dfrac{\frac{\partial \alpha}{\partial \xi}_{|\eta}}{\frac{\partial \alpha}{\partial \xi}_{|\eta}} \mathbf{g}_{\xi} \cdot \mathbf{g}^{\xi} = 1.
 \end{equation}
-
 De plus :
-
 \begin{equation}
-\mathbf{e}_{\beta} \cdot \mathbf{u} = \dfrac{\frac{\partial \alpha}{\partial \xi}}{\frac{\partial \beta}{\partial \eta}} \mathbf{g}_{\eta} \cdot \mathbf{g}^{\xi} = 0
+\mathbf{e}_{\beta} \cdot \mathbf{u} = \dfrac{\frac{\partial \alpha}{\partial \xi}_{|\eta}}{\frac{\partial \beta}{\partial \eta}_{|\xi}} \mathbf{g}_{\eta} \cdot \mathbf{g}^{\xi} = 0
 \end{equation}
-
 Donc $\mathbf{e}^{\alpha} = \mathbf{u}$. De la même manière, on montre que $\mathbf{e}^{\beta} = \mathbf{v}$ le long de $C_2$.
 \end{itemize}
 \end{proof}
@@ -2220,28 +2206,24 @@ Donc $\mathbf{e}^{\alpha} = \mathbf{u}$. De la même manière, on montre que $\m
 
 
 \begin{theoreme}
-Si $h : \mathbb{S}_a^2 \rightarrow \mathbb{R}$ est une fonction régulière, alors :
+Soit $h : \mathbb{S}_a^2 \rightarrow \mathbb{R}$ une fonction régulière. Alors :
 \begin{equation}
-\nabla_T h = \dfrac{\partial h}{\partial \xi}_{|\eta = \bar{\eta}} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta}_{|\xi = \bar{\xi}} \mathbf{g}^{\eta}
+\nabla_T h = \dfrac{\partial h}{\partial \xi}_{|\eta = \bar{\eta}} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta}_{|\xi = \bar{\xi}} \mathbf{g}^{\eta}.
 \end{equation}
 \label{th:gradient_xieta}
 \end{theoreme}
 
 
 \begin{proof}
-Les égalités suivantes est vérifiées grâce à la proposition \ref{prop: g_alpha g_beta fct de g_xi g_eta} et aux équations \eqref{eq: derivee partiel link} :
-
+Les égalités suivantes sont vérifiées grâce à la proposition \ref{prop: g_alpha g_beta fct de g_xi g_eta} et aux équations \eqref{eq: derivee partiel link} :
 \begin{equation}
 \dfrac{\partial h}{\partial \alpha}_{|C_1} \mathbf{e}^{\alpha} = \dfrac{1}{\alpha'(\xi)} \dfrac{\partial h}{\partial \xi}_{|\eta = \bar{\eta}} \alpha'(\xi) \mathbf{g}^{\xi} = \dfrac{\partial h}{\partial \xi}_{|\eta = \bar{\eta}} \mathbf{g}^{\xi}
 \end{equation}
-
-De même :
-
+De même on a:
 \begin{equation}
 \dfrac{\partial h}{\partial \beta}_{|C_2} \mathbf{e}^{\beta} =  \dfrac{\partial h}{\partial \eta}_{|\xi = \bar{\xi}} \mathbf{g}^{\eta}
 \end{equation}
-
-d'où le résultat immédiat à l'aide de la formule \eqref{eq: gradient}.
+d'où le résultat à l'aide de la formule \eqref{eq: gradient}.
 \end{proof}
 
 
