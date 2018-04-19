@@ -1424,6 +1424,7 @@ où $\mathbf{n}$ est le vecteur unitaire normale extérieure à la sphère $\mat
 \begin{equation}
 \mathbf{n}= \dfrac{\mathbf{x}}{a}
 \end{equation}
+\label{def:christoffel}
 \end{definition}
 
 \begin{proposition}
@@ -2258,12 +2259,12 @@ d'où le résultat à l'aide de la formule \eqref{eq: gradient}.
 
 \section{Harmoniques Sphériques sur la Cubed-Sphere}
 
-En analyse sur la sphère, les harmoniques sphériques jouent un rôle particulièrement important \cite{Atkinson2012, Frye2012} en donnant une décomposition des fonctions de carré intégrable. On note $\mathbf{Y}^l_m$ les harmoniques sphériques sur la sphère avec $l \in \mathbb{N}$ et $|m| \leq l$. Les harmoniques sphériques de $\mathbb{S}_a^2$ s'expriment en fonction de $(\lambda, \theta)$ les coordonnées longitude-latitude par
+Pour résoudre des problèmes sur la sphère, les harmoniques sphériques jouent un rôle particulièrement important \cite{Atkinson2012, Frye2012}. On les utilise pour décomposer des fonctions de carré intégrable. On note $\mathbf{Y}^l_m$ les harmoniques sphériques avec $l \in \mathbb{N}$ et $|m| \leq l$. Les harmoniques sphériques sur $\mathbb{S}_a^2$ s'expriment en fonction de $(\lambda, \theta)$, les coordonnées longitude-latitude, par
 \begin{equation}
 \mathbf{Y}_m^l(\mathbf{x}) = \mathbf{Y}_m^l(\lambda, \theta) = \dfrac{(-1)^m}{a} \sqrt{\dfrac{(2l+1)}{4 \pi} \dfrac{(l-|m|)!}{(l+|m|)!}} P^{|m|}_l (\sin (\theta)) \exp \left( i m \lambda \right),
 \label{eq:harmoniques_spheriques}
 \end{equation}
-où $P^m_l$ désignent les polynômes de Legendre \cite{Lagrange1939} qui s'expriment grâce à la formule
+où $P^m_l$ désignent les polynômes de Legendre associés \cite{Atkinson2012, Lagrange1939}. Ils s'expriment grâce à la formule
 \begin{equation}
 P^m_m(x) = \dfrac{1}{2^l l!}(1-x^2)^{m/2} \dfrac{d^l}{dx^l} \left( (x^2-1)^l \right).
 \end{equation}
@@ -2272,113 +2273,126 @@ En particulier, on a
 \mathbf{Y}_0^0(\mathbf{x}) = \dfrac{1}{a \sqrt{4 \pi}}.
 \end{equation}
 
-Tout fonction $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ de carré intégrable s'écrit comme combinaison linéaire des harmoniques sphériques. C'est à dire qu'il existe une famille $(f_{m,l})_{l \in \mathbb{N}, |m| \leq l}$ d'éléments de $\mathbb{C}$ tels que
+Toute fonction $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ de carré intégrable s'écrit comme combinaison linéaire des harmoniques sphériques. Autrement dit, il existe une famille $(f_{m,l})_{l \in \mathbb{N}, |m| \leq l} \in \mathbb{C}$ tels que
 \begin{equation}
 f = \gsum_{l \in \mathbb{N}} \gsum_{m= -l}^l f_{m,n} \mathbf{Y}^l_m.
 \end{equation}
-Les fonctions $\mathbf{Y}^l_m$ forment une famille orthonormée, c'est à dire
+Les fonctions $\mathbf{Y}^l_m$ forment une famille orthonormée de $L^2(\mathbb{S}^2_a)$, c'est à dire
 \begin{equation}
 \gint_{\mathbb{S}_a^2} \mathbf{Y}^l_m(\mathbf{x}) \bar{\mathbf{Y}}^{l'}_{m'}(\mathbf{x}) d \sigma (\mathbf{x}) = \delta_{m, m'}\delta_{l, l'}
 \label{eq:HS_perp}
 \end{equation}
-où $\delta_{p,q}$ désigne le symbole de Kronecker de $p$ et $q$. Les démonstrations de ces résultats sont présentes dans \cite{Atkinson2012}.
+où $\delta_{p,q}$ désigne le symbole de Kronecker de $p$ et $q$  \cite{Atkinson2012}.
 
-Dans cette partie, on s'intéresse à la version numérique sur la Cubed-Sphere de ces résultats. Pour cela nous définissons un produit scalaire pondéré sur le maillage et analysons la version numérique de l'équation \eqref{eq:HS_perp}. La conception et l'étude d'un produit scalaire sur la Cubed-Sphere est liée à la conception d'une méthode de quadrature. Une étude déjà a été réalisée dans \cite{Portelenelle2018} dans le cadre de méthodes permettant d'approcher l'intérale.
+Dans cette partie, on s'intéresse à la version discrète sur la Cubed-Sphere de ces résultats. Pour cela nous définissons un produit scalaire pondéré sur le maillage et analysons la version discrète de l'équation \eqref{eq:HS_perp}. La conception et l'étude d'un produit scalaire sur la Cubed-Sphere sont liées à la conception d'une méthode de quadrature. Une étude a déjà été réalisée dans \cite{Portelenelle2018} dans le cadre de méthodes permettant d'approcher l'intégrale.
 
-\subsection{Produit scalaire sur la Cubed-Sphere}
 
-Sur un panel $(k) = (I), \cdots , (VI)$ donné, on note $I^{(k)}(f)$ l'intégrale d'une fonction $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ supposée intégrable :
+
+
+
+
+
+
+
+
+
+\subsection{Produit scalaire discret sur la Cubed-Sphere}
+
+Sur un panel $(k) = (I), \cdots , (VI)$ donné, on note $I^{(k)}(f)$ l'intégrale d'une fonction $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ (supposée intégrable) :
 \begin{equation}
 I^{(k)}(f) = \gint_{(k)}f(\mathbf{x}) d\sigma(\mathbf{x}).
 \end{equation}
 
 \begin{proposition}
-Si  $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ est une fonction intégrable sur la sphère alors pour tout panel $(k)=(I), \cdots, (VI)$, nous avons la relation
+Soit  $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ une fonction intégrable sur la sphère $\mathbb{S}_a^2$. Alors pour tout panel $(k)=(I), \cdots, (VI)$, nous avons
 \begin{equation}
 I^{(k)} = \gint_{[-\pi/4, \pi/4]^2} f(\xi, \eta) \sqrt{\det (\mathbf{G})} d\xi d\eta.
 \end{equation}
-où $(\xi, \eta)$ sont les coordonnées d'un point du panel définies précédemment.
+où $(\xi, \eta)$ sont les coordonnées d'un point du panel définies dans la section \ref{sec:gnomonique}.
 \end{proposition}
 
 \begin{proof}
-On définit $\psi_{(k)}$ l'application permettant de passer des coordonnées $(\xi, \eta)$ associées au panel $(k)$ aux coordonnées cartésiennes . Une telle application existe et est bijective car $(\xi, \eta)$ est un système de coordonnées admissibles sur le panel $(k)$. On a
+On définit $\psi_{(k)}$ l'application permettant de passer des coordonnées $(\xi, \eta)$ associées au panel $(k)$ aux coordonnées cartésiennes . L'application $\psi_{(k)}$ est bien définie car $(\xi, \eta)$ est un système de coordonnées admissibles sur le panel $(k)$. On a
 \begin{equation}
 \psi_{(k)} : (\xi, \eta) \in \left[ - \dfrac{\pi}{4}, \dfrac{\pi}{4} \right] \mapsto \mathbf{x}(\xi, \eta) \in (K).
 \end{equation}
-Par exemple, on a déjà que sur le panel $(I)$,
+Par exemple, sur le panel $(I)$ on a :
 \begin{equation}
-\psi_{(I)} : (\xi, \eta) \in \left[ - \dfrac{\pi}{4}, \dfrac{\pi}{4} \right] \mapsto \mathbf{x}(\xi, \eta) = (x,y,z) \in (I) \subset \mathbb{R}^3
+\psi_{(I)} : (\xi, \eta) \in \left[ - \dfrac{\pi}{4}, \dfrac{\pi}{4} \right] \mapsto \mathbf{x}(\xi, \eta) = (x,y,z) \in (I) \subset \mathbb{R}^3,
 \end{equation}
-avec $(x,y,z)$ donnés par
+Or les relations suivantes sont vérifiées :
+\begin{eqsys}
+X= \tan \xi = \dfrac{y}{x} \\
+Y= \tan \eta = \dfrac{z}{x} \\
+a^2 = x^2+y^2+z^2.
+\end{eqsys}
+Donc $\mathbf{x}(x,y,z)$ est donné par
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
-x & = & \dfrac{1}{\sqrt{1 + \tan^2 (\xi) + \tan^2 (\eta)}} \\
-y & = & \dfrac{\tan (\xi)}{\sqrt{1 + \tan^2 (\xi) + \tan^2 (\eta)}} \\
-z & = & \dfrac{\tan ( \eta )}{\sqrt{1 + \tan^2 (\xi) + \tan^2 (\eta)}}.
+x & = & \dfrac{a}{\sqrt{1 + \tan^2 (\xi) + \tan^2 (\eta)}} \\
+y & = & \dfrac{a \tan (\xi)}{\sqrt{1 + \tan^2 (\xi) + \tan^2 (\eta)}} \\
+z & = & \dfrac{a \tan ( \eta )}{\sqrt{1 + \tan^2 (\xi) + \tan^2 (\eta)}}.
 \end{array}
 \right.
 \end{equation}
-Des relations similaires peuvent être trouvées sur tous les panels. L'intégrale sur un panel est exprimée par
+Des relations similaires peuvent être déduites sur tous les panels. 
 \begin{align*}
-\gint_{(k)} f(\mathbf{x}) d \sigma(\mathbf{x}) & = \gint_{[-\pi/4, \pi/4]^2} f(\psi_{(k)}(\xi, \eta)) |\det J_{\psi_{(k)}}(\xi, \eta)| d\xi d\eta \\
+\gint_{(k)} f(\mathbf{x}) d \sigma(\mathbf{x}) & = \gint_{[-\pi/4, \pi/4]^2} f_k(\psi_{(k)}(\xi, \eta)) |\det J_{\psi_{(k)}}(\xi, \eta)| d\xi d\eta \\
 	&  = \gint_{[-\pi/4, \pi/4]^2} f(\psi_{(k)}(\xi, \eta)) \sqrt{\det (\mathbf{G})} d\xi d\eta \\
 \end{align*}
-avec $J_{\psi_{(k)}}$ la matrice Jacobienne de $\psi_{(k)}$. Par abus de notations, nous noterons
+avec $J_{\psi_{(k)}}$ la matrice Jacobienne de $\psi_{(k)}$. En notant $f_k = f \circ \psi_{(k)}$, on a
 \begin{equation}
-I^{(k)} = \gint_{[-\pi/4, \pi/4]^2} f(\xi, \eta) \sqrt{\det (\mathbf{G})} d\xi d\eta.
+I^{(k)} = \gint_{[-\pi/4, \pi/4]^2} f_k(\xi, \eta) \sqrt{\det (\mathbf{G})} d\xi d\eta.
 \end{equation}
 \end{proof}
 
-Les panels $(I), \cdots, (VI)$ couvrent la totalité de la Cubed-Sphere et sont disjoints donc si on note
+Les panels $(I), \cdots, (VI)$ couvrent la totalité de la Cubed-Sphere et sont disjoints. Donc en notant
 \begin{equation}
 I(f) = \gint_{\mathbb{S}_a^2}f(\mathbf{x}) d \sigma(\mathbf{x})
 \end{equation}
-on obtient directement la relation
+on obtient la relation
 \begin{equation}
-I(f) = \gsum_{(k)=(I)}^{(VI)} I^{(K)}(f).
+I(f) = \gsum_{(k)=(I)}^{(VI)} I^{(k)}(f).
 \end{equation}
-Par analogie avec l'intégrale, nous ne nous intéressons qu'à des produits scalaires de la forme
+Par analogie avec l'intégrale, nous nous intéressons à des produits scalaires de la forme
 \begin{equation}
 <u, v>_{\CS} = \gsum_{(k)=(I)}^{(VI)} \left( \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} u_{i,j}^{(k)} \bar{v}_{i,j}^{(k)} \sqrt{\bar{\mathbf{G}}_{i,j}} \right)
 \end{equation}
-où $u$ et $v$ sont des fonctions de grilles sur la Cubed-Sphere. De plus, nous notons $\bar{\mathbf{G}}_{i,j} = \det (\mathbf{G}(\xi_i, \eta_j))$. Pour tous $-N/2 \leq i,j \leq N/2$, on a $\omega_{i,j}>0$ donné.
+où $u$ et $v$ sont des fonctions de grille sur la Cubed-Sphere. De plus, nous notons $\bar{\mathbf{G}}_{i,j} = \det (\mathbf{G}(\xi_i, \eta_j))$. Pour tout $-N/2 \leq i,j \leq N/2$, on note $\omega_{i,j}>0$ un poids donné.
 
 \begin{proposition}
-$<\cdot, \cdot>_{\CS}$ définit un produit scalaire hermitien sur l'espace des fonctions de grilles sur la Cubed-Sphere.
+$<\cdot, \cdot>_{\CS}$ définit un produit scalaire hermitien sur l'espace des fonctions de grille sur la Cubed-Sphere.
 \end{proposition}
 
-\begin{proof}
-Montrons que $<\cdot, \cdot>_{\CS}$ définit une forme sesquilinéaire hermitienne définie positive.
-\begin{itemize}
-\item Commençons par montrer que $<\cdot, \cdot>_{\CS}$ est une forme hermitienne.
-Soient $u$ et $v$ deux fonctions de grilles sur la Cubed-Sphère, alors
-\begin{align*}
-\overline{<u,v>_{\CS}} & = \overline{\gsum_{(k)=(I)}^{(VI)} \left( \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} u_{i,j}^{(k)} \bar{v}_{i,j}^{(k)} \sqrt{\bar{\mathbf{G}}_{i,j}} \right)} \\
-	& = \gsum_{(k)=(I)}^{(VI)} \left( \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \bar{\omega}_{i,j} \bar{u}_{i,j}^{(k)} \bar{\bar{v}}_{i,j}^{(k)} \sqrt{\bar{\mathbf{G}}_{i,j}} \right) \\
-	& = \gsum_{(k)=(I)}^{(VI)} \left( \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} \bar{u}_{i,j}^{(k)} v_{i,j}^{(k)} \sqrt{\bar{\mathbf{G}}_{i,j}} \right) \\
-	& = <v,u>_{\CS}.
-\end{align*}
-Ainsi pour tout $u$ et $v$ fonctions de grilles sur la Cubed-Sphere, on a
-\begin{equation}
-\overline{<u,v>_{\CS}} = <v,u>_{\CS},
-\end{equation}
-la forme $<\cdot, \cdot>_{\CS}$ est hermitienne.
-
-\item La linéarité de $<\cdot, \cdot>_{\CS}$ par rapport à la première variable est immédiatement issue de la linéarité de la somme. Comme $<\cdot, \cdot>_{\CS}$ est hermitienne, on en déduit que $<\cdot, \cdot>_{\CS}$ est semi-linéaire par rapport à la seconde variable. Donc le produit $<\cdot, \cdot>_{\CS}$ est une forme sesquilinéaire.
-
-\item Montrons que $<\cdot, \cdot>_{\CS}$ est définie positive. Soit $u$ une fonction de grille, alors
-\begin{align*}
-<u,u>_{\CS} & = \gsum_{(k)=(I)}^{(VI)} \left( \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} u_{i,j}^{(k)} \bar{u}_{i,j}^{(k)} \sqrt{\bar{\mathbf{G}}_{i,j}} \right) \\
-	& = \gsum_{(k)=(I)}^{(VI)} \left( \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} |u_{i,j}^{(k)}|^2 \sqrt{\bar{\mathbf{G}}_{i,j}} \right) \\
-	& \geq 0
-\end{align*}
-car il s'agit d'une somme de réels positifs (on rappelle que pour tout $-N/2 \leq i,j \leq N/2$ et $(k)=(I) , \cdots, (VI)$, on a $\omega_{i,j}>0$ et $\sqrt{\bar{\mathbf{G}}_{i,j}}>0$).
-
-De plus, comme il s'agit d'une somme de réels positifs, le résultat n'est nul que si chaque terme de la somme est nul. C'est à dire pour tout $-N/2 \leq i,j \leq N/2$ et $(k)=(I) , \cdots, (VI)$, on a $u_{i,j}^{(k)}=0$, donc $u=0$.
-\end{itemize}
-Ainsi, $<\cdot, \cdot>_{\CS}$ est une forme sesquilinéaire hermitienne définie positive. C'est un produit scalaire hermitien.
-\end{proof}
+%\begin{proof}
+%Montrons que $<\cdot, \cdot>_{\CS}$ définit une forme sesquilinéaire hermitienne définie positive.
+%\begin{itemize}
+%\item Commençons par montrer que $<\cdot, \cdot>_{\CS}$ est une forme hermitienne.
+%Soient $u$ et $v$ deux fonctions de grille sur la Cubed-Sphere, on a
+%\begin{equation}
+%\overline{<u,v>_{\CS}} = <v,u>_{\CS}.
+%\end{equation}
+%Ainsi pour tout $u$ et $v$ fonctions de grille sur la Cubed-Sphere, on a
+%\begin{equation}
+%\overline{<u,v>_{\CS}} = <v,u>_{\CS},
+%\end{equation}
+%la forme $<\cdot, \cdot>_{\CS}$ est hermitienne.
+%
+%\item La linéarité de $<\cdot, \cdot>_{\CS}$ par rapport à la première variable est immédiatement issue de la linéarité de la somme. Comme $<\cdot, \cdot>_{\CS}$ est hermitienne, on en déduit que $<\cdot, \cdot>_{\CS}$ est semi-linéaire par rapport à la seconde variable. Donc le produit $<\cdot, \cdot>_{\CS}$ est une forme sesquilinéaire.
+%
+%\item Montrons que $<\cdot, \cdot>_{\CS}$ est définie positive. Soit $u$ une fonction de grille, alors
+%\begin{align*}
+%<u,u>_{\CS} & = \gsum_{(k)=(I)}^{(VI)} \left( \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} u_{i,j}^{(k)} \bar{u}_{i,j}^{(k)} \sqrt{\bar{\mathbf{G}}_{i,j}} \right) \\
+%	& = \gsum_{(k)=(I)}^{(VI)} \left( \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} |u_{i,j}^{(k)}|^2 \sqrt{\bar{\mathbf{G}}_{i,j}} \right) \\
+%	& \geq 0
+%\end{align*}
+%car il s'agit d'une somme de réels positifs (on rappelle que pour tout $-N/2 \leq i,j \leq N/2$ et $(k)=(I) , \cdots, (VI)$, on a $\omega_{i,j}>0$ et $\sqrt{\bar{\mathbf{G}}_{i,j}}>0$).
+%
+%De plus, comme il s'agit d'une somme de réels positifs, le résultat n'est nul que si chaque terme de la somme est nul. C'est à dire pour tout $-N/2 \leq i,j \leq N/2$ et $(k)=(I) , \cdots, (VI)$, on a $u_{i,j}^{(k)}=0$, donc $u=0$.
+%\end{itemize}
+%Ainsi, $<\cdot, \cdot>_{\CS}$ est une forme sesquilinéaire hermitienne définie positive. C'est un produit scalaire hermitien.
+%\end{proof}
 
 
 
@@ -2393,47 +2407,48 @@ Ainsi, $<\cdot, \cdot>_{\CS}$ est une forme sesquilinéaire hermitienne définie
 
 
 
-\subsection{Orthogonalité d'harmoniques sphériques}
+\subsection{Harmoniques sphériques sur la Cubed-Sphere}
 
-Pour les produits scalaires de la forme $<\cdot, \cdot>_{\CS}$, on analyse l'orthogonalité des harmoniques sphériques restreintes au maillages. Pour cela, on commence par observer les propriétés de symétrie des harmoniques sphériques suivantes :
+Pour les produits scalaires de la forme $<\cdot, \cdot>_{\CS}$, on analyse l'orthogonalité des harmoniques sphériques restreintes au maillages. Pour cela, on commence par observer les propriétés de symétrie suivantes :
 
 \begin{lemme}
-Soit $l \in \mathbb{N}$ et $m$ tel que $|m| \leq l$, alors si $\mathbf{Y}_m^l$ est une harmonique sphérique et si $(\lambda, \theta)$ représente les coordonnées longitude-latitude, on a les relations de symétries suivantes :
+Soit $l \in \mathbb{N}$ et $m$ tel que $|m| \leq l$. Alors à tout harmonique sphérique $\mathbf{Y}_m^l$, si $(\lambda, \theta) \in ]0,2 \pi] \times [-\pi/2, \pi/2]$ représente les coordonnées longitude-latitude, on a les relations de symétrie suivantes :
 \begin{itemize}
 \item $\mathbf{Y}^l_m (\lambda, \theta) = (-1)^{m+l} \mathbf{Y}^l_m (\lambda, -\theta)$,
-\item $\mathbf{Y}^l_m (\lambda, \theta) = (-1)^p \mathbf{Y}^l_m \left(\lambda + p \dfrac{\pi}{m}, \theta \right)$,
+\item $\mathbf{Y}^l_m (\lambda + \alpha, \theta) = e^{i m \alpha} \mathbf{Y}^l_m \left(\lambda, \theta \right)$,
 \item $\mathbf{Y}^l_m (\lambda, \theta) = \bar{\mathbf{Y}}^l_m (-\lambda, \theta)$.
 \end{itemize}
 \label{lem:HS_sym}
 \end{lemme}
 
-En tenant compte de ces symétries sur les harmoniques sphériques, il suffit d'ajouter des symétries semblables aux pondérations $\omega_{i,j}$ dans la définition du produit scalaire $<\cdot, \cdot>_{\CS}$ pour que des compansations apparaissent entre les panels de la Cubed-Sphere. Le résultat suivant est alors vérifié :
+En tenant compte de ces symétries sur les harmoniques sphériques, il suffit d'ajouter des symétries semblables aux poids $\omega_{i,j}$ dans la définition du produit scalaire $<\cdot, \cdot>_{\CS}$ pour que des compensations apparaissent entre les panels de la Cubed-Sphere. On a le résultat suivant :
 
 \begin{theoreme}
-Soient deux harmoniques sphériques restreintes au maillage Cubed-Sphere $\mathbf{Y}_m^{l,*}$ et $\mathbf{Y}_{m'}^{l',*}$ avec $l, l' \in \mathbb{N}$, $|m| \leq l$ et $|m'| \leq l'$. Si pour tout $-N/2 \leq i,j \leq N/2$, on a
+Soient $\mathbf{Y}_m^{l}$ et $\mathbf{Y}_{m'}^{l'}$ deux harmoniques sphériques avec $l, l' \in \mathbb{N}$, $|m| \leq l$ et $|m'| \leq l'$. On suppose que pour tout $-N/2 \leq i,j \leq N/2$, les poids $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$ satisfont
 \begin{equation}
 \omega_{i,j} = \omega_{-i,j} = \omega_{-i,-j} = \omega_{i,-j}>0
 \label{eq:sym_omega}
 \end{equation}
-alors le résultat suivant est vérifié
+alors les fonctions de grilles restreintes à la Cubed-Sphere $\mathbf{Y}_m^{l,*}$ et $\mathbf{Y}_{m'}^{l',*}$ satisfont
 \begin{equation}
 <\mathbf{Y}_{m}^{l,*},\mathbf{Y}_{m'}^{l',*}>_{\CS} = 0 
 \end{equation}
 si $m+m'$ ou $l+l'$ est impair.
-En particulier
+En particulier on a
 \begin{equation}
 <\mathbf{Y}_{m}^{l,*},\mathbf{Y}_{0}^{0,*}>_{\CS} = 0 
 \end{equation}
-si 
+lorsque
 \begin{itemize}
-\item $m$ impair ou
-\item $m$ pair et $l \equiv 2 [4]$ ou $l$ impair.
+\item $m$ impair ou bien
+\item $l$ impair ou bien
+\item $l$ pair et $m \equiv 2 [4]$.
 \end{itemize}
 \label{th:pdtscal_HS}
 \end{theoreme}
 
 \begin{proof}
-Soit $(k) = (I) , \cdots, (VI)$. Dans cette démonstration, nous adoptions la notation
+Soit $(k) = (I) , \cdots, (VI)$. Nous adoptons la notation
 \begin{equation}
 S_{(k)} = \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} (\mathbf{Y}_m^{l,*})_{i,j}^{(k)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,j}^{(k)} \sqrt{\bar{\mathbf{G}}_{i,j}}.
 \end{equation}
@@ -2441,35 +2456,37 @@ Donc la relation suivante est vérifiée :
 \begin{equation}
 S = <\mathbf{Y}_{m}^{l,*},\mathbf{Y}_{m'}^{l',*}>_{\CS} = \gsum_{(k)=(I)}^{(VI)} S_{(k)}.
 \end{equation}
-D'après les relations de symétries sur $\omega_{i,j}$ \eqref{eq:sym_omega} et sur les harmoniques sphériques évoquées dans le lemme \ref{lem:HS_sym}, on a
+D'après les relations de symétrie sur $\omega_{i,j}$ \eqref{eq:sym_omega} et sur les harmoniques sphériques (lemme \ref{lem:HS_sym}), on a
 \begin{align*}
 S_{(I)} & = \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} (\mathbf{Y}_m^{l,*})_{i,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{i,j}} \\
 	& = (-1)^{l+l'} \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} (\mathbf{Y}_m^{l,*})_{i,j}^{(III)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,j}^{(III)} \sqrt{\bar{\mathbf{G}}_{i,j}} \\
 	& = (-1)^{l+l'}S_{(III)}.
 \end{align*}
-De la même manière, on montre que
+De la même manière, on a
 \begin{equation}
 S_{(II)} = (-1)^{l+l'}S_{(IV)}.
+\label{proof:symII_IV}
 \end{equation}
-les panels $(V)$ et $(VI)$ sont symétriques par rapport à l'équateur donc en utilisant le premier point du lemme \ref{lem:HS_sym}, on a
+Les panels $(V)$ et $(VI)$ étant symétriques par rapport à l'équateur, en utilisant le premier point du lemme \ref{lem:HS_sym}, on a
 \begin{equation}
 S_{(V)} = (-1)^{m+m'+l+l'} S_{(VI)}.
+\label{proof:symV_VI}
 \end{equation}
-En combinant ces égalités entre les panels, on montre que
+En combinant \eqref{proof:symII_IV} et \eqref{proof:symV_VI}, on montre que
 \begin{equation}
 S=(1+(-1)^{l+l'})(S_{(I)} + S_{(II)}) + (1+(-1)^{l+l'+m+m'})S_{(V)}.
 \end{equation}
-Les points du panel $(I)$ se retrouvent par rotation d'un angle de $\pi/2$ à partir du panel $(II)$, pour les harmoniques sphériques, on a alors
+Les points du panel $(I)$ se déduisent par rotation d'angle $\pi/2$ à partir de ceux du panel $(II)$. De plus, d'après le lemme \ref{lem:HS_sym}, on a
 \begin{equation}
-\mathbf{Y}^{l}_m(\lambda + \pi/2, \theta) = \exp \left( - i l \dfrac{\pi}{2}  \right) \mathbf{Y}^{l}_m(\lambda, \theta).
+\mathbf{Y}^{l}_m(\lambda + \pi/2, \theta) = \exp \left( - i m \dfrac{\pi}{2}  \right) \mathbf{Y}^{l}_m(\lambda, \theta).
 \end{equation}
 Partant de ces relations entre les panels $(I)$ et $(II)$, on trouve
 \begin{equation}
-S = (1+(-1)^{l+l'})\left( \exp \left( -i(l+l') \dfrac{\pi}{2} \right) +1 \right)S_{(I)} + (1+(-1)^{l+l'+m+m'})S_{(V)}.
+S = (1+(-1)^{l+l'})\left( \exp \left( -i(m+m') \dfrac{\pi}{2} \right) +1 \right)S_{(I)} + (1+(-1)^{l+l'+m+m'})S_{(V)}.
 \end{equation}
 Le problème est à présent de savoir si on peut avoir $S_{(I)}=0$ ou $S_{(V)} = 0$.
 
-on considère le panel $(I)$. On a
+Considérons d'abord le panel $(I)$. On a
 \begin{align*}
 S_{(I)} & = \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} (\mathbf{Y}_m^{l,*})_{i,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{i,j}} \\
 	& = S_1 + S_2 + S_3 +S_4,
@@ -2624,17 +2641,18 @@ S_{(V)} & = S_a + S_b \\
 		& = (1 + (-1)^{l+l'})S_a.
 \end{align*}
 
-Au bilan sur $S$ en considérant les égalités démontrées, on obtient :
-\begin{equation}
-S = (1+(-1)^{l+l'})\left( \exp \left( -i(l+l') \dfrac{\pi}{2} \right) +1 \right)(1 +(-1)^{l+l'+m+m'})(S_1+S_2) + (1+(-1)^{l+l'+m+m'})(1 + (-1)^{l+l'})S_a.
-\end{equation}
-Donc $S=0$ si $m+m'$ ou $l+l'$ est impair.
+En faisant le bilan et en considérant les égalités démontrées, on obtient :
+\begin{multline}
+S = (1+(-1)^{l+l'})\left( \exp \left( -i(m+m') \dfrac{\pi}{2} \right) +1 \right)(1 +(-1)^{l+l'+m+m'})(S_1+S_2) + ...  \\
+... + (1+(-1)^{l+l'+m+m'})(1 + (-1)^{l+l'})S_a.
+\end{multline}
+Donc $S=0$ si $m+m'$ est impair ou si $l+l'$ est impair.
 
-Dans le cas où $m=0$ et $n=0$, on a
+Dans le cas où $m=0$ et $l=0$, on a
 \begin{equation}
-<\mathbf{Y}_m^{l,*},\mathbf{Y}_0^{0,*} >_{\CS} = 4 \left( 1- \exp \left(-\dfrac{i \pi l}{2} \right)\right)(S_1+S_2) + 4 S_a.
+<\mathbf{Y}_m^{l,*},\mathbf{Y}_0^{0,*} >_{\CS} = (1+(-1)^l)\left( 1 + \exp \left( -im \dfrac{\pi}{2} \right) \right) (1 + (-1)^{l+m}) (S_1+S_2) + (1+(-1)^{l+m})(1+(-1)^l)S_a.
 \end{equation}
-Compte tenu de ce qui précède, on a immédiatement $<\mathbf{Y}_m^{l,*},\mathbf{Y}_0^{0,*} >_{\CS} = 0$ si $l$ est impair. Dans le cas où $l \equiv 2 [4]$, on a
+On a déjà vu que $<\mathbf{Y}_m^{l,*},\mathbf{Y}_0^{0,*} >_{\CS} = 0$ si $l$ est impair ou $m$ impair. Dans le cas où $l \equiv 2 [4]$, on a
 \begin{equation}
 <\mathbf{Y}_m^{l,*},\mathbf{Y}_0^{0,*} >_{\CS} = 4 S_a.
 \end{equation}
@@ -2684,7 +2702,7 @@ Dans le cas où $m+m'$ et $l+l'$ sont pairs, le produit scalaire $<\mathbf{Y}_m^
 
 \subsection{Quadrature sur la sphère}
 
-Les équations que nous allons résoudre sur la sphère sont des relations de conservation. De manière a étudié les propriétés de conservation du schéma utilisé, il est utile de connaître une méthode de quadrature adaptée. Dans \cite{Ahrens2009, Fornberg2014}, la méthode de quadrature est conçu pour être adaptée aux harmoniques sphériques. On pourra aussi citer quelques références classiques telles que \cite{Mclaren1963} ou les livres \cite{Atkinson2012, Hesse2010}. Les méthodes de quadratures considérées visent à approcher
+Les équations que nous allons résoudre sur la sphère sont des relations de conservation. De manière a étudier les propriétés de conservation du schéma utilisé, il est utile de connaître une méthode de quadrature adaptée. Dans \cite{Ahrens2009, Fornberg2014}, la méthode de quadrature est conçu pour être adaptée aux harmoniques sphériques, voir aussi \cite{Mclaren1963} ou les livres \cite{Atkinson2012, Hesse2010}. Les méthodes de quadratures considérées visent à approcher l'intégrale
 \begin{equation}
 I(f) = \gint_{\mathbb{S}_a^2} f(\mathbf{x}) d \sigma(\mathbf{x}).
 \label{eq:integrale_sphere}
@@ -2699,9 +2717,9 @@ Pour approcher $I(f)$, on considère des méthodes de quadrature de la forme
 Q(f) = \gsum_p \omega_p f(\mathbf{x}_p)
 \label{eq:quadrature_sphere}
 \end{equation}
-où $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ est une fonction définie sur la sphère. Les points $(\mathbf{x}_p)_p$ représentent un nombre finis de points de $\mathbb{S}_a^2$, les valeurs $(\omega_p)_p$ sont des pondérations permettant d'approcher \eqref{eq:integrale_sphere}.
+où $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ est une fonction définie sur la sphère. Les points $(\mathbf{x}_p)_p$ représentent un nombre fini de points de $\mathbb{S}_a^2$, les valeurs $(\omega_p)_p$ sont des poids permettant d'approcher \eqref{eq:integrale_sphere}.
 
-Compte tenu de la structure de la Cubed-Sphere, il est possible de construire des méthodes de quadrature par panel. On cherche formule de quadrature proche du produit scalaire $< \cdot, \cdot >_{\CS}$. Pour cela, on utilise des formules de quadrature de la forme
+Compte tenu de la structure de la Cubed-Sphere, il est possible de construire des méthodes de quadrature par panel. On cherche des formules de quadrature proches du produit scalaire $< \cdot, \cdot >_{\CS}$. On utilise donc des formules de quadrature de la forme
 \begin{equation}
 Q(f^*) = \gsum_{(k) = (I)}^{(VI)} Q^{(k)}(f^*)
 \end{equation}
@@ -2710,30 +2728,32 @@ avec $Q^{(k)}(f^*)$ une formule de quadrature par panel de la forme
 Q^{(k)}(f^*) = \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} f(\mathbf{x}_{i,j}^{(k)}) \sqrt{\bar{\mathbf{G}}_{i,j}} \approx \gint_{(k)} f(\mathbf{x}) d \sigma(\mathbf{x})
 \end{equation}
 avec $\bar{\mathbf{G}}_{i,j} = \det(\mathbf{G}_{i,j})$.
-Ces formules de quadratures sont étudiées dans \cite{Portelenelle2018} et présentent de très bon résultats grâce aux symétries de la Cubed-Sphere. De plus, il est possible de les améliorer en perturbant les valeurs de $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$. Le lien avec le produit scalaire du chapitre \ref{chap:3} peut être fait directement en notant que
+Ces formules de quadratures sont étudiées dans \cite{Portelenelle2018} et donnent de très bon résultats grâce aux symétries de la Cubed-Sphere. De plus, il est possible de les améliorer en perturbant les valeurs de $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$. Le lien avec le produit scalaire du chapitre \ref{chap:3} peut être fait directement en notant que
 \begin{equation}
 Q(f^*) = <f^*, \mathbf{1}>_{\CS},
 \end{equation}
 où $\mathbf{1}$ est la fonction de grille constante égale à $1$.
 Or, $\mathbf{1} = a \sqrt{4 \pi} \mathbf{Y}_0^{0,*}$, donc en utilisant le théorème \ref{th:pdtscal_HS}, on obtient le corollaire :
 \begin{corollaire}
-Toute règle de quadrature $Q$ vérifiant
+Toute formule de quadrature $Q$ vérifiant
 \begin{equation}
 \omega_{i,j} = \omega_{-i,j} = \omega_{i,-j} = \omega_{-i,-j}
 \end{equation}
-pour tout $-N/2 \leq i,j \leq N/2$ est telle que
+pour tout $-N/2 \leq i,j \leq N/2$ satisfait la relation 
 \begin{equation}
 Q \left( \mathbf{Y}_m^{l,*} \right) = 0,
 \end{equation}
+est exactement obtenue,
 avec $l \in \mathbb{N}$ et $|m| \leq l$, si
 \begin{itemize}
 \item $m$ est impair ou
 \item $m$ pair et $l \not\equiv 0 [4]$.
 \end{itemize}
+pour tout $N$ paramètre de la Cubed-Sphere.
 \label{cor:quadrature_exacte}
 \end{corollaire}
 
-Dans la suite de ce chapitre, nous étudions différents choix de $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$ permettant à $Q(f)$ d'approcher $I(f)$.
+Dans la suite de ce chapitre, nous étudions différents choix de $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$ donnant des formules de quadratures \eqref{eq:quadrature_sphere} sur la sphère $\mathbb{S}_a^2$.
 
 
 
@@ -2756,9 +2776,9 @@ Dans la suite de ce chapitre, nous étudions différents choix de $(\omega_{i,j}
 
 
 
-\subsection{Quadrature de type trapèzes}
+\subsection{Formules de quadrature de type trapèze}
 
-Soient $\tf : (\xi, \eta) \in \mathbb{R}^2 \mapsto f(\xi, \eta) \in \mathbb{C}$ une fonction régulière et $(a,b) \in \mathbb{R}^2$ deux réels tels que $a<b$. Alors il existe un polynôme $P(\xi, \eta) \in \mathbb{C}[\xi, \eta]$ tel que 
+Soient $\tf : (\xi, \eta) \in \mathbb{R}^2 \mapsto \tf(\xi, \eta) \in \mathbb{C}$ une fonction régulière et $(a,b) \in \mathbb{R}^2$ deux réels tels que $a<b$. Alors il existe un unique polynôme $P(\xi, \eta) \in \mathbb{C}[\xi, \eta]$ de degré 1 en $\xi$ et 1 en $\eta$ tel que 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -2769,24 +2789,24 @@ P(b,b) & = & \tf(b,b).
 \end{array}
 \right.
 \end{equation}
-De plus, ce polynôme vérifie pour tous $(\xi, \eta) \in \mathbb{R}^2$ :
+Ce polynôme vérifie pour tous $(\xi, \eta) \in \mathbb{R}^2$ :
 \begin{equation}
 P(\xi, \eta) = \dfrac{\tf(b,b)}{(a-b)^2}(\xi-a)(\eta-a) - \dfrac{\tf(a,b)}{(a-b)^2}(\xi-a)(\eta-b) -\dfrac{\tf(b,a)}{(a-b)^2}(\xi-b)(\eta-a)+ \dfrac{\tf(a,a)}{(a-b)^2}(\xi-b)(\eta-b).
 \end{equation}
 L'idée de la méthode des trapèzes est d'approcher l'intégrale de $\tf$ à l'aide de l'intégrale de $P$, c'est à dire
 \begin{equation}
-\gint_{[a,b]^2} \tf(\xi, \eta) d\xi d\eta = (b-a)^2 \dfrac{\tf(a,a) + \tf(a,b) + \tf(b,a) + \tf(b,b)}{4}.
+\gint_{[a,b]^2} \tf(\xi, \eta) d\xi d\eta \approx (b-a)^2 \dfrac{\tf(a,a) + \tf(a,b) + \tf(b,a) + \tf(b,b)}{4}.
 \label{eq:tpzapprox}
 \end{equation}
-La méthode des trapèzes composites consiste à juxtaposer un ensemble de carrés pour calculer une intégrale. Plus le nombre de carrés est grand, plus l'intégrale approchée sera précise. On remarque que
+La méthode des trapèzes composite consiste à juxtaposer un ensemble de carrés pour calculer une intégrale. Plus le nombre de carrés est grand, plus l'intégrale approchée sera précise. On remarque que
 \begin{equation}
 \gint_{[-\pi/4,\pi/4]^2} \tf(\xi, \eta) d\xi d\eta = \gsum_{i=-N/2}^{N/2-1} \gsum_{j=-N/2}^{N/2-1} \gint_{\xi_i}^{\xi_{i+1}} \gint_{\eta_i}^{\eta_{i+1}} \tf(\xi, \eta) d\xi d\eta,
 \end{equation}
-avec $\xi_i = \dfrac{\pi}{4} + i \Delta \xi$ et $\eta_j = \dfrac{\pi}{4} + j \Delta \eta$. $\Delta \xi$ et $\Delta \eta$ représente le pas en espace :
+avec $\xi_i = \dfrac{\pi}{4} + i \Delta \xi$ et $\eta_j = \dfrac{\pi}{4} + j \Delta \eta$. Les pas d'espace $\Delta \xi$ et $\Delta \eta$ sont
 \begin{equation}
 \Delta \xi = \Delta \eta = \dfrac{\pi}{2N}.
 \end{equation}
-Ainsi, on souhaite approcher l'intégrale
+On souhaite approcher l'intégrale
 \begin{equation}
 \gint_{[-\pi/4,\pi/4]^2} \tf(\xi, \eta) d\xi d\eta
 \end{equation}
@@ -2807,7 +2827,7 @@ Les coefficients $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$ sont donnés par
 \item $\omega_{i,j}=1$ dans tous les autres cas.
 \end{itemize}
 
-Si $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ est une fonction régulière, on peut appliquer la méthode des trapèzes composites à la
+Soit $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ une fonction régulièr. On peut appliquer la méthode des trapèzes composites à la fonction $\tf$ définie par
 \begin{equation}
 \tf(\xi,\eta) = f(\xi,\eta) \sqrt{\det(\mathbf{G}(\xi,\eta))} \text{ avec } -\pi/4 \leq \xi,\eta \leq \pi/4.
 \end{equation}
@@ -2856,7 +2876,7 @@ Ainsi, la formule suivante est vérifiée :
 	& \hspace{1cm} ... - \dfrac{\Delta \xi^2}{12} \left(\partial_{\xi} \tf(\xi_{N/2},\eta)- \partial_{\xi} \tf(\xi_{-N/2},\eta)  \right) + ...\\
 	& \hspace{1cm} ... - \dfrac{\Delta \xi^3}{720} \left(\partial_{\xi}^{(3)} \tf(\xi_{N/2},\eta)- \partial_{\xi}^{(3)}\tf(\xi_{-N/2},\eta)  \right) + \mathcal{O} \left( \Delta \xi^4 \right).
 \end{align*}
-On intègre cette dernière relation par rapport à $\eta \in [- \pi/4, \pi/4]$ et en utilisant à nouveau la formule d'Euler-MacLaurin, on trouve
+On intègre cette dernière relation par rapport à $\eta \in [- \pi/4, \pi/4]$ et en utilisant à nouveau la formule d'Euler-MacLaurin, on obtient
 \begin{align*}
 \gint_{(k)} f(\mathbf{x})d\sigma(\mathbf{x}) & = Q_{\tpz}^{(k)}(f^*) + ... \\
 & ... + \dfrac{\Delta \xi^3}{12} \left( \gsum_{i=-N/2+1}^{N/2-1} \left( \partial_{\eta}\tf_{i, N/2} - \partial_{\eta}\tf_{i, -N/2} \right) + \gsum_{j=-N/2+1}^{N/2-1} \left( \partial_{\eta}\tf_{N/2,j} - \partial_{\eta}\tf_{-N/2,j} \right) \right) - ...  \\
@@ -2864,19 +2884,13 @@ On intègre cette dernière relation par rapport à $\eta \in [- \pi/4, \pi/4]$ 
 & ... - \dfrac{\Delta \xi^3}{24} \left( \partial_{\xi}\tf_{N/2,N/2} + \partial_{\xi}\tf_{N/2,-N/2} - \partial_{\xi}\tf_{-N/2,N/2}  - \partial_{\xi}\tf_{-N/2,-N/2} \right)+...\\
 & ... + \mathcal{O} \left( \Delta \xi^4 \right).
 \end{align*}
+Cette dernière relation permet d'obtenir
+\begin{equation}
+Q_{\tpz}(f^*) - \gint_{(k)} f(\mathbf{x})d\sigma(\mathbf{x}) = \mathcal{O}(\Delta \xi^2).
+\end{equation}
+Alors par somme sur $(k)$, on montre que la formule $Q_{\tpz}$ est consistante avec l'intégrale à l'ordre 2.
 \end{proof}
 
-Le résultat suivant est immédiat :
-\begin{corollaire}
-Soit $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ une fonction régulière, alors
-\begin{equation}
-\gint_{\mathbb{S}_a^2} f(\mathbf{x}) d\sigma(\mathbf{x}) - Q_{\tpz}(f^*) = \mathcal{O} \left( \Delta \xi^2 \right),
-\end{equation}
-ainsi que pour $(k) = (I), ..., (VI)$
-\begin{equation}
-\gint_{(k)} f(\mathbf{x}) d\sigma(\mathbf{x}) - Q_{\tpz}^{(k)}(f^*) = \mathcal{O} \left( \Delta \xi^2 \right).
-\end{equation}
-\end{corollaire}
 
 \begin{remarque}
 On note que si $-N/2 \leq i,j \leq N/2$ alors on a 
@@ -2896,59 +2910,44 @@ donc le corollaire \ref{cor:quadrature_exacte} est vérifié pour la formule de 
 
 
 
-\subsection{Quadrature de type Simpson}
 
-Dans cette partie, on considère $N$ pair.
-Les formules de quadratures de type Simpson sont basées sur une approximation polynomiale de $\tf$ en trois points. L'approximation de Simpson s'exprime sous la forme :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Formule de quadrature de type Simpson}
+
+Dans cette section, on considère $N$ pair.
+La formule de quadrature de Simpson est basée sur une approximation polynomiale de $\tf$ en trois points. L'approximation de Simpson s'exprime sous la forme :
 \begin{equation}
 \gint_a^b \tf(\xi, \eta) d\xi \approx \dfrac{b-a}{6} \left( \tf(a,\eta) + 4  \tf \left( \dfrac{a+b}{2},\eta \right) + \tf(b,\eta) \right) 
 \end{equation}
-Il s'agit d'une approximation plus précise que la méthode des trapèzes, en effet :
-
-\begin{proposition}
-Si $g : x \in [a,b] \mapsto g(x) \in \mathbb{C}$ alors
+Il s'agit d'une approximation plus précise que la méthode des trapèzes. En effet si $g : x \in [a,b] \mapsto g(x) \in \mathbb{C}$ alors
 \begin{equation}
 \gint_a^b g(x) - \dfrac{b-a}{6} \left( g(a) + 4 g\left( \dfrac{a+b}{2} \right) + g(b) \right) = \mathcal{O}((b-a)^5).
 \end{equation}
-\end{proposition}
+Il s'agit d'une méthode classique d'approximation d'intégrale \cite{Hammerlin1991}.
 
-\begin{proof}
-Par développement de Taylor, on a
-\begin{equation}g(b) = g\left(\dfrac{a+b}{2}\right) + \dfrac{b-a}{2} g'\left(\dfrac{a+b}{2}\right) + \dfrac{1}{2} \left( \dfrac{b-a}{2} \right)^2 g^{(2)}\left(\dfrac{a+b}{2}\right)  + \dfrac{1}{6} \left( \dfrac{b-a}{2} \right)^3 g^{(3)}\left(\dfrac{a+b}{2}\right) + \mathcal{O}((b-a)^4).
-\end{equation}
-De la même manière, on a
-\begin{equation}g(a) = g\left(\dfrac{a+b}{2}\right) - \dfrac{b-a}{2} g'\left(\dfrac{a+b}{2}\right) + \dfrac{1}{2} \left( \dfrac{b-a}{2} \right)^2 g^{(2)}\left(\dfrac{a+b}{2}\right)  - \dfrac{1}{6} \left( \dfrac{b-a}{2} \right)^3 g^{(3)}\left(\dfrac{a+b}{2}\right) + \mathcal{O}((b-a)^4)
-\end{equation}
-Ainsi, par combinaison, on trouve
-\begin{equation}
-\dfrac{b-a}{6} \left( g(a) + 4 g\left( \dfrac{a+b}{2} \right) + g(b) \right) = (b-a)g\left( \dfrac{a+b}{2} \right) + \dfrac{b-a}{6} \left( \dfrac{b-a}{2} \right)^2 g^{(2)}\left( \dfrac{a+b}{2} \right) + \mathcal{O}((b-a)^5).
-\end{equation}
-
-D'autres part, pour $x$ dans un voisinage $]a,b[$ :
-\begin{multline}
-g(x) = g\left( \dfrac{a+b}{2} \right) + g'\left( \dfrac{a+b}{2} \right) \left( x - \dfrac{a+b}{2} \right)  + \dfrac{1}{2} g^{(2)}\left( \dfrac{a+b}{2} \right) \left( x - \dfrac{a+b}{2} \right)^2 + ...\\
-...+ \dfrac{1}{6} g^{(3)}\left( \dfrac{a+b}{2} \right) \left( x - \dfrac{a+b}{2} \right)^3 + \mathcal{O}((b-a)^4),
-\end{multline}
-on intègre cette relation sur $[a,b]$ et on obtient 
-\begin{equation}
-\gint_a^b g(x) dx = (b-a)g\left( \dfrac{a+b}{2} \right) +
- \dfrac{b-a}{6} \left( \dfrac{b-a}{2} \right)^2 g^{(2)}\left( \dfrac{a+b}{2} \right) + \mathcal{O}((b-a)^5).
-\end{equation}
-Par comparaison, on obtient :
-\begin{equation}
-\gint_a^b g(x) - \dfrac{b-a}{6} \left( g(a) + 4 g\left( \dfrac{a+b}{2} \right) + g(b) \right) = \mathcal{O}((b-a)^5).
-\end{equation}
-\end{proof}
-
-Ainsi, la formule de Simpson composite s'écrit :
+Ainsi, la formule de Simpson composite s'obtient en juxtaposant des intervalles de la forme $\left[ \xi_{i-1}, \xi_{i+1} \right]$ pour calculer l'intégrale sur $\left[ - , \dfrac{\pi}{4} \right]$ :
 \begin{equation}
 \gint_{- \pi/4}^{\pi/4} \tf(\xi, \eta) d\xi = \gsum_{i=-N/2, \text{pair}}^{N/2} \gint_{\xi_{i-1}}^{\xi_{i+1}} \tf(\xi, \eta) d\xi.
 \end{equation}
-En considérant l'approximation de Simpson
+En considérant l'approximation de Simpson sur chaque intervalle $\left[ \xi_{i-1}, \xi_{i+1} \right]$, on obtient
 \begin{equation}
 \gint_{-\pi/4}^{\pi/4} \tf(\xi, \eta) d\xi = \dfrac{\Delta \xi}{3} \left[ \tf(\xi_{-N/2}, \eta) + 2 \gsum_{i=-N/4-1}^{N/4} \tf(\xi_{2i}, \eta)  + 4 \gsum_{i=-N/4}^{N/4} \tf(\xi_{2i-1}, \eta) + \tf(\xi_{N/2}, \eta) \right] + \mathcal{O}\left( \Delta \xi^4\right).
 \end{equation}
-On intègre cette équation par rapport à $\eta$ et on obtient :
+On intègre cette équation par rapport à $\eta$ et on utilise la même approximation dans la direction $\eta$ :
 \begin{equation}
 \gint_{-\frac{\pi}{4}}^{\frac{\pi}{4}} \gint_{-\frac{\pi}{4}}^{\frac{\pi}{4}} \tf(\xi, \eta) d\xi  d\eta= \Delta\xi \Delta \eta \gsum_{i=-N/2}^{N/2}\gsum_{j=-N/2}^{N/2} \omega_{i,j} \tf(\xi_i, \eta_j) + \mathcal{O}\left( \Delta \xi^4\right)
 \label{eq:simpson 2d}
@@ -2963,7 +2962,7 @@ où les coefficients $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$ sont donnés par
 \item $\omega_{i,j}=8/9$ dans les autres cas.
 \end{itemize}
 
-Une méthode de quadrature par panel dérive de cette formule en posant 
+On déduit la formule de quadrature sur la sphère. Soit $\tf$ la fonction défini par
 \begin{equation}
 \tf(\xi, \eta) = f(\xi, \eta) \sqrt{\det(\mathbf{G}(\xi, \eta)}
 \end{equation}
@@ -2976,7 +2975,7 @@ où $\bar{\mathbf{G}}_{i,j}=\det(\mathbf{G}(\xi_i,\eta_j))$ pour tout $-N/2 \leq
 \begin{equation}
 Q_{\sps}(f^*) = \gsum_{(k)=(I)}^{(VI)}Q_{\sps}^{(k)}(f^*).
 \end{equation}
-La formule $Q_{\sps}$ est consistante au sens suivant :
+La formule $Q_{\sps}$ est consistante à l'ordre 4 au sens du théorème suivant :
 
 
 \begin{theoreme}
@@ -3012,27 +3011,32 @@ ainsi que pour $(k) = (I), ..., (VI)$
 
 
 
-\subsection{Quadrature de type $Q_{\alpha}$}
+\subsection{Formule de quadrature de type $Q_{\alpha}$}
 
-La formule de quadrature $Q_{\tpz}$ est précise à l'ordre 2. De plus, elle ne dépend pas de la parité de $N$ le paramètre de la Cubed-Sphere. Dans cette partie, nous considérons $Q_{\alpha}$ une formule de quadrature basée sur une perturbation de $Q_{\tpz}$. :
+La formule de quadrature $Q_{\tpz}$ est précise à l'ordre 2. De plus, elle ne dépend pas de la parité de $N$ le paramètre de la Cubed-Sphere. Dans cette partie, nous considérons la formule de quadrature $Q_{\alpha}$ basée sur une perturbation de $Q_{\tpz}$.
+\begin{definition}
+On définit $Q_{\alpha}$ la formule de quadrature agissant sur les fonctions de grilles sur la sphère par
 \begin{equation}
 Q_{\alpha}(f^*)= \gsum_{(k)=(I)}^{(VI)} Q^{(k)}_{\alpha}(f^*)
 \end{equation}
-$Q^{(k)}_{\alpha}$ est la règle de quadrature par panel donnée par
+où $Q^{(k)}_{\alpha}$ est la règle de quadrature par panel donnée par
 \begin{equation}
-Q_{\alpha}^{(K)}(h)=\gsum_{i = -\frac{N}{2}}^{\frac{N}{2}}\gsum_{j = -\frac{N}{2}}^{\frac{N}{2}} \Delta \xi \Delta \eta \omega_{i,j} h(\xi_i, \eta_j) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi_i, \eta_j)}
+Q_{\alpha}^{(K)}(h)=\gsum_{i = -\frac{N}{2}}^{\frac{N}{2}}\gsum_{j = -\frac{N}{2}}^{\frac{N}{2}} \Delta \xi \Delta \eta \omega_{i,j} h(\xi_i, \eta_j) \sqrt{\mathbf{\bar{G}}^{(K)}(\xi_i, \eta_j)}.
 \label{eq:alpha par panel}
 \end{equation}
-où les coefficients $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$ vérifient :
+Les coefficients $(\omega_{i,j})_{-N/2 \leq i,j \leq N/2}$ vérifient :
 \begin{itemize}
 \item $\omega_{-\frac{N}{2},-\frac{N}{2}}=\omega_{\frac{N}{2},-\frac{N}{2}}=\omega_{-\frac{N}{2},\frac{N}{2}}=\omega_{\frac{N}{2},\frac{N}{2}}=\alpha$,
 \item $\omega_{i,\frac{N}{2}}=\omega_{i,-\frac{N}{2}}=\frac{1}{2}$ pour $-\frac{N}{2}+1 \leq i \leq \frac{N}{2}-1$,
 \item $\omega_{\frac{N}{2},j}=\omega_{-\frac{N}{2},j}=\frac{1}{2}$ pour $-\frac{N}{2}+1 \leq j \leq \frac{N}{2}-1$,
 \item $\omega_{i,j}=1$ dans tous les autres cas.
 \end{itemize}
-En particulier, on remarque que
+\end{definition} 
+
+Le paramètre $\alpha$ est un paramètre qui permettra d'optimiser cette formule de quadrature.
+En particulier, on a
 \begin{equation}
-Q_{1/4} = Q_{\tpz}.
+Q_{\tpz} = Q_{1/4}.
 \end{equation}
 
 La formule ainsi perturbée permet de retrouver des résultats de précision semblables à ceux que $Q_{\tpz}$, en effet
@@ -3042,6 +3046,10 @@ Soit $f: \mathbf{x} \in \mathbb{S}_a^2 \rightarrow f(\mathbf{x}) \in \mathbb{C}$
 I^{(k)}(f) - Q^{(k)}_{\alpha}(f^*) = \mathcal{O} \left( \Delta \xi^2 \right)
 \end{equation}
 pour tout $(k) \in \lbrace (I), ..., (VI) \rbrace$.
+De plus, on a
+\begin{equation}
+I(f) - Q_{\alpha}(f^*) = \mathcal{O}(\Delta \xi^2).
+\end{equation}
 \label{prop:consistance alpha panel}
 \end{proposition}
 
@@ -3058,20 +3066,15 @@ De plus $(\xi, \eta) \in [-\pi/4, \pi/4]^2 \mapsto f(\xi, \eta) \sqrt{\det(\math
 \begin{equation}
 I^{(k)}(f) - Q^{(k)}_{\alpha}(f^*) = \mathcal{O}(\Delta \xi^2).
 \end{equation}
+En sommant cette formule sur chaque panel, on montre la consistance de $Q_{\alpha}$ avec l'intégrale sur la sphère $\mathbb{S}_a^2$.
 \end{proof}
-De la proposition \ref{prop:consistance alpha panel}, il découle immédiatement le corollaire suivant
-\begin{corollaire}
-Soit $f: \mathbf{x} \in \mathbb{S}_a^2 \rightarrow f(\mathbf{x}) \in \mathbb{C}$ une fonction régulière alors :
-\begin{equation}
-I(f) - Q_{\alpha}(f^*) = \mathcal{O} \left( \Delta \xi^2 \right).
-\end{equation}
-\end{corollaire}
 
 \begin{proposition}
-La méthode $Q_{\alpha}$ est exactement d'ordre 2.
+La méthode $Q_{\alpha}$ est d'ordre 2.
 \end{proposition}
 
 \begin{proof}
+La preuve de ce résultat consiste à montrer que la formule $Q_{\alpha}$ est d'ordre 2 mais pas d'ordre supérieur.
 On pose
 \begin{equation}
 \bar{\mathbf{G}}(\mathbf{x}) = \det (\mathbf{G}(\mathbf{x})).
@@ -3100,15 +3103,15 @@ La méthode de quadrature $Q_{\alpha}$ ne peut donc pas être d'un ordre supéri
 
 
 \begin{proposition}
-Le coefficient $\alpha=1/3$ optimise
+Soit $(k) = (I), \cdots , (VI)$ un panel fixé.
+Le coefficient $\alpha=1/3$ optimise la quantité
 \begin{equation}
 |Q_{\alpha}^{(K)}(1) - I^{(K)}(1) |
 \end{equation}
 au sens où
 \begin{equation}
-|Q_{1/3}^{(k)}(\mathbf{1}) - I^{(k)}(\mathbf{1}) | = \mathcal{O}\left( \Delta \xi^4 \right)
+|Q_{1/3}^{(k)}(\mathbf{1}) - I^{(k)}(\mathbf{1}) | = \mathcal{O}\left( \Delta \xi^4 \right).
 \end{equation}
-pour tout $(k) \in \lbrace (I), (II), (III), (IV), (V), (VI) \rbrace$.
 \end{proposition}
 
 \begin{proof}
@@ -3127,14 +3130,14 @@ f_{N/2,N/2} = f_{-N/2,N/2} = f_{N/2,-N/2} = f_{-N/2,-N/2} = \sqrt{\bar{\mathbf{G
 \end{equation}
 en posant $\bar{\mathbf{G}} = \det (\mathbf{G})$.
 
-de plus, en dérivant $\sqrt{\bar{\mathbf{G}}} = a^2 \dfrac{(1+X^2)(1+Y^2)}{(1+X^2+Y^2)^{3/2}}$ avec $X=\tan (\xi)$ et $Y=\tan (\eta)$ on obtient les relations suivantes :
+De plus, en dérivant $\sqrt{\bar{\mathbf{G}}} = a^2 \dfrac{(1+X^2)(1+Y^2)}{(1+X^2+Y^2)^{3/2}}$ avec $X=\tan (\xi)$ et $Y=\tan (\eta)$ on obtient les relations suivantes :
 \begin{equation}
 \partial_{\xi} f = X \left(\dfrac{3Y^2}{1+X^2+Y^2}-1\right) \sqrt{\bar{\mathbf{G}}}
 \end{equation}
 \begin{equation}
-\partial_{\eta} f = Y \left(\dfrac{3X^2}{1+X^2+Y^2}-1\right) \sqrt{\bar{\mathbf{G}}}
+\partial_{\eta} f = Y \left(\dfrac{3X^2}{1+X^2+Y^2}-1\right) \sqrt{\bar{\mathbf{G}}}.
 \end{equation}
-ainsi :
+Ainsi :
 \begin{itemize}
 \item $\partial_{\xi} f_{N/2,j} = -\partial_{\xi} f_{-N/2,j} = 4 \dfrac{Y^4-1}{(Y^2+2)^{5/2}} a^2$,
 \item $\partial_{\eta} f_{i,N/2} = -\partial_{\eta} f_{i,-N/2} = 4 \dfrac{X^4-1}{(X^2+2)^{5/2}} a^2$.
@@ -3147,43 +3150,41 @@ d'où le terme d'ordre 2 est
 avec $S=\Delta \xi \gsum_{i=-N/2+1}^{N/2-1} g(i \Delta \xi)$ avec $g$ la fonction $g:x \mapsto f(x)=\dfrac{\tan(x)^4 -1}{(\tan(x)^2+2)^{5/2}}$.
 
 Comme $g\left(-\frac{\pi}{4} \right)=g\left(\frac{\pi}{4} \right)=0$ et par propriété de la méthode des trapèzes, on note que :
-
 \begin{equation}
-S = \dfrac{g\left(-\frac{\pi}{4} \right)+g\left(\frac{\pi}{4} \right)}{2} + \gint_{-\pi/4}^{\pi/4} g(x)dx + \mathcal{O}\left( \Delta \xi^2 \right) = -\dfrac{1}{3\sqrt{3}} + \mathcal{O}\left( \Delta \xi^2 \right)
+S = \dfrac{g\left(-\frac{\pi}{4} \right)+g\left(\frac{\pi}{4} \right)}{2} + \gint_{-\pi/4}^{\pi/4} g(x)dx + \mathcal{O}\left( \Delta \xi^2 \right) = -\dfrac{1}{3\sqrt{3}} + \mathcal{O}\left( \Delta \xi^2 \right).
 \end{equation}
-donc pour que le terme d'ordre 2 soit nul, il faut avoir (en remplaçant dans  \eqref{eq:optimalite alpha 2}) :
-
+Donc le terme d'ordre 2 s’annule à condition que :
 \begin{equation}
-\left(\alpha - \dfrac{1}{4} \right) \dfrac{16}{3 \sqrt{3}} - \dfrac{4}{9 \sqrt{3}} = 0
+\left(\alpha - \dfrac{1}{4} \right) \dfrac{16}{3 \sqrt{3}} - \dfrac{4}{9 \sqrt{3}} = 0.
 \end{equation}
-c'est a dire avoir $\alpha = 1/3$.
+Cette condition est vérifiée pour $\alpha = 1/3$.
 
-En ce qui concerne le terme d'ordre 3 :
-\begin{equation}
-- \dfrac{\Delta \xi^3}{24} \left[ \partial_{\eta} f_{-\frac{N}{2},\frac{N}{2}} - \partial_{\eta} f_{-\frac{N}{2},-\frac{N}{2}} + \partial_{\eta} f_{\frac{N}{2},\frac{N}{2}} -\partial_{\eta} f_{\frac{N}{2},-\frac{N}{2}}  \right] -\dfrac{\Delta \xi^3}{24} \left[ \partial_{\xi} f_{\frac{N}{2},\frac{N}{2}} + \partial_{\xi} f_{\frac{N}{2},-\frac{N}{2}} - \partial_{\xi} f_{-\frac{N}{2},\frac{N}{2}} -\partial_{\xi} f_{-\frac{N}{2},-\frac{N}{2}}  \right]
+Le terme d'ordre 3 s'écrit
+\begin{multline}
+- \dfrac{\Delta \xi^3}{24} \left[ \partial_{\eta} f_{-\frac{N}{2},\frac{N}{2}} - \partial_{\eta} f_{-\frac{N}{2},-\frac{N}{2}} + \partial_{\eta} f_{\frac{N}{2},\frac{N}{2}} -\partial_{\eta} f_{\frac{N}{2},-\frac{N}{2}}  \right] \\
+-\dfrac{\Delta \xi^3}{24} \left[ \partial_{\xi} f_{\frac{N}{2},\frac{N}{2}} + \partial_{\xi} f_{\frac{N}{2},-\frac{N}{2}} - \partial_{\xi} f_{-\frac{N}{2},\frac{N}{2}} -\partial_{\xi} f_{-\frac{N}{2},-\frac{N}{2}}  \right]
 \label{eq:opimalite alpha 3}
-\end{equation}
+\end{multline}
 on note que :
 \begin{equation}
 \partial_{\eta} f_{\frac{N}{2},\frac{N}{2}} = \partial_{\eta} f_{-\frac{N}{2},\frac{N}{2}} = \partial_{\eta} f_{\frac{N}{2},-\frac{N}{2}} = \partial_{\eta} f_{-\frac{N}{2},-\frac{N}{2}} = 0.
 \end{equation}
-
 De la même manière, en $\xi$ :
 \begin{equation}
 \partial_{\xi} f_{\frac{N}{2},\frac{N}{2}} = \partial_{\xi} f_{-\frac{N}{2},\frac{N}{2}} = \partial_{\xi} f_{\frac{N}{2},-\frac{N}{2}} = \partial_{\xi} f_{-\frac{N}{2},-\frac{N}{2}} = 0 
 \end{equation}
-
 d'où le résultat :
 \begin{equation}
-|Q_{1/3}^{(K)}(\mathbf{1}) - I^{(k)}(\mathbf{1}) | = \mathcal{O}\left( \Delta \xi^4 \right)
+|Q_{1/3}^{(k)}(\mathbf{1}) - I^{(k)}(\mathbf{1}) | = \mathcal{O}\left( \Delta \xi^4 \right)
 \end{equation}
 \end{proof}
 
-Ce résultat d'optimalité s'écrit aussi sur la sphère complète $\mathbb{S}_a^2$ :
+\begin{remarque}
+Ce résultat d'optimalité s'écrit également sur la sphère $\mathbb{S}_a^2$ :
 \begin{equation}
-|Q_{1/3}(1) - I(1) | = \mathcal{O}\left( \Delta \xi^4 \right)
+|Q_{1/3}(1) - I(1) | = \mathcal{O}\left( \Delta \xi^4 \right).
 \end{equation}
-
+\end{remarque}
 
 
 
@@ -3209,17 +3210,17 @@ Ce résultat d'optimalité s'écrit aussi sur la sphère complète $\mathbb{S}_a
 
 \subsection{Résultats numériques pour les formules de quadratures}
 
-Pour tester numériquement les performances des différents opérateurs de quadrature, on s’intéresse à un ensemble de fonction sur la sphère dont l'intégrale est connue \cite{Fornberg2014}. Ces fonctions sont données pour $(x,y,z) \in \mathbb{S}_a^2$ par
+Pour tester numériquement les performances des formules de quadrature introduites dans les sections précédentes, on s’intéresse à un ensemble de fonction sur la sphère dont l'intégrale est connue. Ces fonctions sont utilisées pour tester la précision des formules de quadrature sphériques \cite{Fornberg2014}. Elles sont données pour $(x,y,z) \in \mathbb{S}_a^2$ par
 \begin{itemize}
-\item si : $f_0(x,y,z)=1$ alors :
+\item $f_0(x,y,z)=1$ :
 \begin{equation}
-\gint_{\mathbb{S}_a^2} f_0(\mathbf{x}) d\sigma (\mathbf{x})=4 \pi a^2
+\gint_{\mathbb{S}_a^2} f_0(\mathbf{x}) d\sigma (\mathbf{x})=4 \pi a^2,
 \end{equation}
-\item Si $f_1(x,y,z)=1+x+y^2+y\cdot x^2+x^4+y^5+x^2 \cdot y^2 \cdot z^2$ alors :
+\item $f_1(x,y,z)=1+x+y^2+y\cdot x^2+x^4+y^5+x^2 \cdot y^2 \cdot z^2$
 \begin{equation}
-\gint_{\mathbb{S}_a^2} f_1(\mathbf{x}) d\sigma (\mathbf{x})=\dfrac{216 \pi}{35} a^2
+\gint_{\mathbb{S}_a^2} f_1(\mathbf{x}) d\sigma (\mathbf{x})=\dfrac{216 \pi}{35} a^2,
 \end{equation}
-\item Si 
+\item la fonction $f_2$ vérifie 
 \begin{equation}
 \begin{array}{rcl}
 f_2(x,y,z) & = & \dfrac{3}{4} \exp \left[ - \dfrac{(9x-2)^2}{4} - \dfrac{(9y-2)^2}{4} - \dfrac{(9z-2)^2}{4} \right] + ...\\
@@ -3228,35 +3229,35 @@ f_2(x,y,z) & = & \dfrac{3}{4} \exp \left[ - \dfrac{(9x-2)^2}{4} - \dfrac{(9y-2)^
 & &... + \dfrac{1}{5} \exp \left[ - (9x-4)^2 - (9y-7)^2 - (9z-5)^2 \right]
 \end{array}
 \end{equation}
-alors :
+et s'intègre :
 \begin{equation}
 \gint_{\mathbb{S}_a^2} f_2(\mathbf{x}) d\sigma (\mathbf{x})=a^2 \cdot 6.6961822200736179523...
 \end{equation}
-\item Si $f_3(x,y,z)=\frac{1+\tanh(-9x-9y+9z)}{9}$ alors :
+\item $f_3(x,y,z)=\frac{1+\tanh(-9x-9y+9z)}{9}$
 \begin{equation}
-\gint_{\mathbb{S}_a^2} f_3(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{9} a^2
+\gint_{\mathbb{S}_a^2} f_3(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{9} a^2,
 \end{equation}
-\item Si $f_4(x,y,z)=\frac{1+sign(-9x-9y+9z)}{9}$ alors :
+\item $f_4(x,y,z)=\frac{1+\sign(-9x-9y+9z)}{9}$
 \begin{equation}
-\gint_{\mathbb{S}_a^2} f_4(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{9} a^2
+\gint_{\mathbb{S}_a^2} f_4(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{9} a^2,
 \end{equation}
-\item Si $f_5(x,y,z)=\frac{1-sign(\pi x + y)}{\alpha}$ alors :
+\item $f_5(x,y,z)=\frac{1-sign(\pi x + y)}{\alpha}$
 \begin{equation}
-\gint_{\mathbb{S}_a^2} f_5(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{\alpha} a^2
+\gint_{\mathbb{S}_a^2} f_5(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{\alpha} a^2.
 \end{equation}
 \end{itemize}
 
-On note en particulier que $f_1$ est polynomiale donc régulière et elle ne fait intervenir qu'un nombre fini d'harmoniques sphériques. Les fonctions $f_2$ et $f_3$ font intervenir un plus grand nombre d'harmoniques sphériques et sont régulières.
-Les fonctions $f_4$ et $f_5$ ne sont pas régulières sur la sphère car elles sont discontinues. 
+On note en particulier que la fonction $f_1$ est polynomiale donc régulière et elle ne fait intervenir qu'un nombre fini d'harmoniques sphériques dans sa décomposition. Les fonctions $f_2$ et $f_3$ font intervenir un plus grand nombre d'harmoniques sphériques et sont régulières.
+Les fonctions $f_4$ et $f_5$ sont discontinues. 
 
-Pour chacune de ces fonctions, on mesure l'erreur relative
+Pour chacune de ces fonctions, on mesure l'erreur relative donnée par
 \begin{equation}
 e_r(f) = \dfrac{|I(f) - Q(f^*)|}{|I(f^*)|}
 \end{equation}
 où $I(f)$ représente l'intégrale exacte sur la sphère $\mathbb{S}_a^2$, $Q(f^*)$ est la valeur approchée obtenue par une méthode de quadrature.
 Nous retenons l'erreur maximale obtenue après $1000$ rotation aléatoires de $f$.
 
-Cette erreur est mesurée pour différentes grilles avec $N=8$, $N=16$, $N=32$, $N=64$, $N=128$ et $N=256$. On peut ainsi mesurer l'ordre de convergence. Les résultats sont donnés dans la figure \ref{fig:rate_quad}.
+Cette erreur est mesurée pour différentes grilles Cubed-Sphere de paramètre $N=8$, $N=16$, $N=32$, $N=64$, $N=128$ et $N=256$. On peut ainsi mesurer l'ordre de convergence. Les résultats sont donnés dans la figure \ref{fig:rate_quad}.
 
 
 \begin{figure}[htbp]
@@ -3268,11 +3269,11 @@ Cette erreur est mesurée pour différentes grilles avec $N=8$, $N=16$, $N=32$, 
 \includegraphics[width=8cm]{quadf4.png}
 \includegraphics[width=8cm]{quadf5.png}\\
 \end{center}
-\caption{Taux de convergence pour différentes méthodes de quadratures pour les fonctions tests $(f_p)_{0 \leq p \leq 5}$. Nous retenons l'erreur maximale après $1000$ rotation aléatoires pour chaque grille $N=8$, $N=16$, $N=32$, $N=64$, $N=128$ et $N=256$. De haut en bas et de gauche à droite, les fonctions sont $f_0$, $f_1$, $f_2$, $f_3$, $f_4$ et $f_5$. Le taux de convergence est proche de $4$ pour $Q_{\sps}$ et $Q_{1/3}$, il est proche de $2$ pour $Q_{\tpz}$ et $Q_1$.}
+\caption{Taux de convergence pour différentes méthodes de quadratures pour les fonctions tests $(f_p)_{0 \leq p \leq 5}$. Nous retenons l'erreur maximale après $1000$ rotations aléatoires pour chaque grille Cubed-Sphere de paramètre $N=8$, $N=16$, $N=32$, $N=64$, $N=128$ et $N=256$. De haut en bas et de gauche à droite, les fonctions sont $f_0$, $f_1$, $f_2$, $f_3$, $f_4$ et $f_5$. Le taux de convergence est proche de $4$ pour $Q_{\sps}$ et $Q_{1/3}$, il est proche de $2$ pour $Q_{\tpz}$ et $Q_1$.}
 \label{fig:rate_quad}
 \end{figure}
 
-Les taux de convergence observées sont ceux attendus. Pour $Q_{\tpz}$ et $Q_{\alpha}$ avec $\alpha=1$, le taux de convergence est proche de $2$. Pour la formule de quadrature $Q_{\sps}$, l'ordre de convergence est proche de $4$. La formule de quadrature $Q_{\alpha}$ avec $\alpha = 1/3$ présente de meilleurs résultats que ceux attendus. On observe que la méthode est d'ordre $4$ sur tous les tests effectués.
+Les taux de convergence observées sont ceux attendus. Pour $Q_{\tpz}$ et $Q_{\alpha}$ avec $\alpha=1$, le taux de convergence est proche de $2$. Pour la formule de quadrature $Q_{\sps}$, l'ordre de convergence est proche de $4$. La formule de quadrature $Q_{\alpha}$ avec $\alpha = 1/3$ présente de meilleurs résultats que ceux attendus. On observe que la méthode est d'ordre $4$ pour tous les tests effectués.
 
 
 
