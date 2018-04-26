@@ -19,7 +19,7 @@ Soit $C$ un grand cercle et $\mathbf{x}_0 \in C$ un point fixé. On choisit l'un
 \begin{equation}
 \longarc(\mathbf{x}_0  \mathbf{x}) = a \alpha
 \end{equation}
-où $\alpha \in [ 0, 2 \pi[$ désigne la l'angle $\widehat{\mathbf{x}_0  \mathbf{x}}$ dans le sens choisit (Fig. \ref{fig: grand cercle}). L'angle $\alpha$ est \textit{l'angle géodésique} entre $\mathbf{x}_0$ et $\mathbf{x}$.
+où $\alpha \in [ 0, 2 \pi[$ désigne l'angle $\widehat{\mathbf{x}_0  \mathbf{x}}$ dans le sens choisit (Fig. \ref{fig: grand cercle}). L'angle $\alpha$ est \textit{l'angle géodésique} entre $\mathbf{x}_0$ et $\mathbf{x}$.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -53,7 +53,7 @@ où $\alpha \in [ 0, 2 \pi[$ désigne la l'angle $\widehat{\mathbf{x}_0  \mathbf
     \draw [>=stealth, <-,color=red,domain=145:180] plot({4+.4*cos(\x)},{.4*sin(\x)});
     \draw (3.5,.2) node[color=red] {$\alpha$};
     \draw [>=stealth, <-,color=blue,domain=145:180] plot({4+1.1*cos(\x)},{1.1*sin(\x)});
-    \draw (2.8,.3) node[left, color=blue] {$\alpha a$};
+    \draw (2.8,.3) node[left, color=blue] {$a \alpha$};
     \draw [>=stealth, <->] (3,-.1) -- (4,-.1);
     \draw (3.5,-.1) node[below] {$a$}; 
     \draw (4.8,-.8) node {$C$};
@@ -64,7 +64,7 @@ où $\alpha \in [ 0, 2 \pi[$ désigne la l'angle $\widehat{\mathbf{x}_0  \mathbf
 \end{figure}
 
 Soit $\overline{\mathbf{x}} \in \mathbb{S}_a^2$ fixé. Soient $C_1$ et $C_2$ deux grands cercles distincts arbitraires tels que $\overline{\mathbf{x}} \in C_1 \cap C_2$.
-Soit $\alpha$ et $\beta$ les abscisses curvilignes le long de $C_1$ et $C_2$, définies à partir de $\mathbf{x}_{1,0} \in C_1$ et $\mathbf{x}_{2,0} \in C_2$ arbitrairement choisis. On définit les vecteurs $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ (Fig. \ref{fig: e_alpha et e_beta}) par
+Soient $\alpha$ et $\beta$ les abscisses curvilignes le long de $C_1$ et $C_2$, définies à partir de $\mathbf{x}_{1,0} \in C_1$ et $\mathbf{x}_{2,0} \in C_2$ arbitrairement choisis. On définit les vecteurs $\mathbf{e}_{\alpha}(\overline{\mathbf{x}})$ et $\mathbf{e}_{\beta}(\overline{\mathbf{x}})$ (Fig. \ref{fig: e_alpha et e_beta}) par
 
 \begin{equation}
 \mathbf{e}_{\alpha}(\overline{\mathbf{x}}) := \dfrac{d \mathbf{x}}{d \alpha}(\overline{\mathbf{x}}) \text{ et } \mathbf{e}_{\beta}(\overline{\mathbf{x}}) := \dfrac{d \mathbf{x}}{d \beta}(\overline{\mathbf{x}})
@@ -121,17 +121,15 @@ Soit $\overline{\mathbf{x}} \in \mathbb{S}_a^2$, alors :
 
 
 \begin{proof}
-Soit $\mathbf{x}$ est un point quelconque de $\mathbb{S}_a^2$. On a $\| \mathbf{x} \|^2 = \mathbf{x} \cdot \mathbf{x} = a^2$ est constant.
-Alors en dérivant par rapport à $\alpha$, on a :
+Soit $\mathbf{x}$ est un point quelconque de $\mathbb{S}_a^2$. On a $\| \mathbf{x} \|^2 = \mathbf{x} \cdot \mathbf{x} = a^2$ constant. Alors en dérivant par rapport à $\alpha$, on a :
  
 \begin{equation*}
 \begin{array}{rcl}
 0 & = & \dfrac{d}{d \alpha} ( a^2 )\\
   & = & \dfrac{d}{d \alpha} ( \mathbf{x} \cdot \mathbf{x} )\\
-  & = & 2 \mathbf{x} \cdot \dfrac{d \mathbf{x}}{d \alpha}\\
+  & = & 2 \mathbf{x} \cdot \dfrac{d \mathbf{x}}{d \alpha}.
 \end{array}
 \end{equation*}
-
 En particulier, en $\overline{\mathbf{x}}$, on a :
 \begin{equation}
 \overline{\mathbf{x}} \cdot \mathbf{e}_{\alpha}(\overline{\mathbf{x}}) = 0
@@ -168,7 +166,7 @@ Il suffit de remarquer que
 \end{bmatrix}^T \cdot 
 \begin{bmatrix}
 \mathbf{e}^{\alpha}(\overline{\mathbf{x}}) , \mathbf{e}^{\beta}(\overline{\mathbf{x}})
-\end{bmatrix} = Id
+\end{bmatrix} = \Id.
 \end{equation}
 Alors 
 \begin{equation}
@@ -375,13 +373,13 @@ Un grand cercle est l'intersection de la sphère $\mathbb{S}_a^2$ avec un plan c
 \end{center}
 \end{figure}
 
-La construction de la Cubed-Sphere fait intervenir six zones recouvrant la sphère $\mathbb{S}_a^2$ appelés \textit{panels}. Chaque panel est délimité par quatre grands cercles (Fig. \ref{fig: panel I to VI}).
+La construction de la Cubed-Sphere fait intervenir six zones recouvrant la sphère $\mathbb{S}_a^2$ appelées \textit{panels}. Chaque panel est délimité par quatre grands cercles (Fig. \ref{fig: panel I to VI}).
 
 \begin{definition}
 \begin{itemize}
-\item  \textbf{Panels I et III : }Les panels I et III sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{II}^1$ et $C_{II}^2$. Le panel III est le symétrique du panel I par la symétrie ponctuelle de centre $\mathbf{O}$.Le panel I ne contient que des points $(x,y,z)$ tels que $x>0$, le panel III ne contient que des points tels que $x<0$.
-\item \textbf{Panels II et IV : }Les panels II et IV sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{I}^1$ et $C_{I}^2$. Le panel IV est le symétrique du panel II par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel II ne contient que des points $(x,y,z)$ tels que $y>0$, le panel IV ne contient que des points tels que $y<0$.
-\item \textbf{Panels V et VI : }Les panels V et VI sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_I^1$, $C_I^2$, $C_{II}^1$ et $C_{II}^2$. Le panel VI est le symétrique du panel V par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel V ne contient que des points $(x,y,z)$ tels que $z>0$, le panel VI ne contient que des points tels que $z<0$.
+\item  \textbf{Panels $\mathbf{(I)}$ et $\mathbf{(III)}$ : }Les panels $(I)$ et $(III)$ sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{II}^1$ et $C_{II}^2$. Le panel $(III)$ est le symétrique du panel $(I)$ par la symétrie ponctuelle de centre $\mathbf{O}$.Le panel $(I)$ ne contient que des points $(x,y,z)$ tels que $x>0$, le panel $(III)$ ne contient que des points tels que $x<0$.
+\item \textbf{Panels $\mathbf{(II)}$ et $\mathbf{(IV)}$ : }Les panels $(II)$ et $(IV)$ sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_V^1$, $C_V^2$, $C_{I}^1$ et $C_{I}^2$. Le panel $(IV)$ est le symétrique du panel $(II)$ par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel $(II)$ ne contient que des points $(x,y,z)$ tels que $y>0$, le panel $(IV)$ ne contient que des points tels que $y<0$.
+\item \textbf{Panels $\mathbf{(V)}$ et $\mathbf{(VI)}$ : }Les panels $(V)$ et $(VI)$ sont définis par les points de $\mathbb{S}_a^2$ délimités par les grands cercles $C_I^1$, $C_I^2$, $C_{II}^1$ et $C_{II}^2$. Le panel $(VI)$ est le symétrique du panel $(V)$ par la symétrie ponctuelle de centre $\mathbf{O}$. Le panel $(V)$ ne contient que des points $(x,y,z)$ tels que $z>0$, le panel $(VI)$ ne contient que des points tels que $z<0$.
 \end{itemize}
 \end{definition}
 
@@ -429,7 +427,7 @@ La construction de la Cubed-Sphere fait intervenir six zones recouvrant la sphè
 	\draw  (0,0) node {$\bullet$} ;
 	\draw  (0,0) node[below] {$\mathbf{F}$} ;
 	
-	\draw  (0,-1.7) node {Panel I} ;
+	\draw  (0,-1.7) node {Panel $(I)$} ;
 
 	\draw (0,0) circle (1cm);
     \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
@@ -472,7 +470,7 @@ La construction de la Cubed-Sphere fait intervenir six zones recouvrant la sphè
 	\draw  (4,0) node {$\bullet$} ;
 	\draw  (4.1,0.1) node {$\mathbf{E}$} ;
 	
-	\draw  (4,-1.7) node {Panel II} ;
+	\draw  (4,-1.7) node {Panel $(II)$} ;
 
 	\draw (4,0) circle (1cm);
     \shade[ball color=blue!10!white,opacity=0.20] (4,0) circle (1cm);
@@ -517,7 +515,7 @@ La construction de la Cubed-Sphere fait intervenir six zones recouvrant la sphè
 	\draw  (0,-4) node {$\bullet$} ;
 	\draw  (0.1,-4.1) node {$\mathbf{B}$} ;
 	
-	\draw  (0,-4-1.7) node {Panel III} ;
+	\draw  (0,-4-1.7) node {Panel $(III)$} ;
 
 	\draw (0,-4) circle (1cm);
     \shade[ball color=blue!10!white,opacity=0.20] (0,-4) circle (1cm);
@@ -560,7 +558,7 @@ La construction de la Cubed-Sphere fait intervenir six zones recouvrant la sphè
 	\draw  (4,-4) node {$\bullet$} ;
 	\draw  (4.1,-4.1) node {$\mathbf{W}$} ;
 	
-	\draw  (4,-4-1.7) node {Panel IV} ;
+	\draw  (4,-4-1.7) node {Panel $(IV)$} ;
 
 	\draw (4,-4) circle (1cm);
     \shade[ball color=blue!10!white,opacity=0.20] (4,-4) circle (1cm);
@@ -603,7 +601,7 @@ La construction de la Cubed-Sphere fait intervenir six zones recouvrant la sphè
 	\draw  (0,0-8) node {$\bullet$} ;
 	\draw  (0.1,0.1-8) node {$\mathbf{N}$} ;
 	
-	\draw  (0,-1.7-8) node {Panel V} ;
+	\draw  (0,-1.7-8) node {Panel $(V)$} ;
 
 	\draw (0,0-8) circle (1cm);
     \shade[ball color=blue!10!white,opacity=0.20] (0,0-8) circle (1cm);
@@ -645,29 +643,28 @@ La construction de la Cubed-Sphere fait intervenir six zones recouvrant la sphè
 	\draw  (4,0-8) node {$\bullet$} ;
 	\draw  (4+0.1,0.1-8) node {$\mathbf{S}$} ;
 	
-	\draw  (4,-1.7-8) node {Panel VI} ;
+	\draw  (4,-1.7-8) node {Panel $(VI)$} ;
 
 	\draw (4,0-8) circle (1cm);
     \shade[ball color=blue!10!white,opacity=0.20] (4,0-8) circle (1cm);
 \end{tikzpicture}
 \end{center}
-\caption{Délimitations des panels (I) à (VI) à l'aide des grands cercles}
+\caption{Délimitations des panels $(I)$ à $(VI)$ à l'aide des grands cercles}
 \label{fig: panel I to VI}
 \end{figure}
 
 La grille Cubed-Sphere est constituée de l'intersection d'un ensemble de grands cercles sur chaque panel. On commence par introduire le système de coordonnées $(\xi,\eta)$ associés aux cercles centraux de chaque panel. Les paramètres $\xi$ et  $\eta$ sont définis comme suit :
 
 \begin{definition}
-
-les lignes de coordonnées $\xi = 0$ et $\eta = 0$ sont les grands cercles équatoriaux, notés respectivement $C_0^{(1)}$ et $C_0^{(2)}$ (en pointillés gras sur la Figure sur \ref{fig: panel I xi eta} et sur \ref{fig: panel I}).  Les deux cercles passent par les points centraux de chaque panel. 
+Les lignes de coordonnées $\xi = 0$ et $\eta = 0$ sont les grands cercles équatoriaux, notés respectivement $C_0^{(1)}$ et $C_0^{(2)}$ (en pointillés gras sur la Figure sur \ref{fig: panel I xi eta} et sur \ref{fig: panel I}).  Les deux cercles passent par les points centraux de chaque panel. 
 
 \begin{enumerate}
 \item $C_0^{(1)}$ est le grand cercle passant par les points $\mathbf{N}$, $\mathbf{F}$ et $\mathbf{S}$.
 
 \item $C_0^{(2)}$ est le grand cercle passant par les points $\mathbf{E}$, $\mathbf{F}$ et $\mathbf{W}$.
 \end{enumerate} 
-$C_0^{(1)}$ et $C_0^{(2)}$ se coupent orthogonalement en $\mathbf{F}$ et $\mathbf{B}$.
-$\xi$ est l'angle géodésique mesuré sur $C_0^{(2)}$ et $\eta$ l'angle géodésique mesuré sur $C_0^{(1)}$. $\xi = 0$ correspond à l'équateur ordinaire et $\eta=0$ correspond à "l'équateur verticale".
+Les cercles $C_0^{(1)}$ et $C_0^{(2)}$ se coupent orthogonalement en $\mathbf{F}$ et $\mathbf{B}$.
+$\xi$ est l'angle géodésique mesuré sur $C_0^{(2)}$ et $\eta$ l'angle géodésique mesuré sur $C_0^{(1)}$. La valeur $\xi = 0$ correspond à l'équateur ordinaire et $\eta=0$ correspond à "l'équateur verticale".
 \end{definition}
 
 Sur chaque panel, tout $\mathbf{x}$ du panel est localisé par les angles géodésiques $\xi$ et $\eta$  (voir Fig. \ref{fig: panel I xi eta}).
@@ -697,7 +694,7 @@ Dans ce qui suit, nous supposerons $N$ pair. $\Delta \xi$ et $\Delta \eta$ repr�
 
 
 
-Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudinale de $2 \pi$, on peut donc insérer les 4 panels notés $I$, $II$, $III$ et $IV$. De même, le long de $C_0^{(1)}$, sont présents les panels $I$, $V$, $III$ et $VI$.
+Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudinale de $2 \pi$, on peut donc insérer les 4 panels notés $(I)$, $(II)$, $(III)$ et $(IV)$. De même, le long de $C_0^{(1)}$, sont présents les panels $(I)$, $(V)$, $(III)$ et $(VI)$.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -811,7 +808,7 @@ Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudina
 
 On note $C^{(1)}_i$ le grand cercle obtenu par rotation de $C^{(1)}_0$ d'un angle géodésique $i \Delta \xi$ autour de l'axe $(Oz)$ et $C^{(2)}_j$ le cercle obtenu par rotation de $C^{(2)}_0$ d'angle $j \Delta \eta$ autour de $(Oy)$.
 
-Le maillage associé au panel I est constitué des points d'intersections des $N+1$ cercles $( C_i^{(1)} )_{-N/2 \leq i \leq N/2}$ et des $N+1$ cercles $(C_j^{(2)})_{-N/2 \leq j \leq N/2}$ (Voir figure \ref{fig: panel I}) sur le panel I. Le même procédé est reproduit sur chaque panel, il y a donc $(N+1)^2$ points d'intersections sur un panel.
+Le maillage associé au panel $(I)$ est constitué des points d'intersections des $N+1$ cercles $( C_i^{(1)} )_{-N/2 \leq i \leq N/2}$ et des $N+1$ cercles $(C_j^{(2)})_{-N/2 \leq j \leq N/2}$ (Voir figure \ref{fig: panel I}) sur le panel $(I)$. Le même procédé est reproduit sur chaque panel, il y a donc $(N+1)^2$ points d'intersections sur un panel.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -862,14 +859,14 @@ Le maillage associé au panel I est constitué des points d'intersections des $N
 
 \end{tikzpicture}
 \end{center}
-\caption{Le panel I est constitué des points d'intersections d'un ensemble de grands cercles.}
+\caption{Le panel $(I)$ est constitué des points d'intersections d'un ensemble de grands cercles.}
 \label{fig: panel I}
 \end{figure}  
 
 En reproduisant le procédé pour chaque panel, on constitue la Cubed-Sphere associée à la base $(\mathbf{i},\mathbf{j},\mathbf{k})$ et de paramètre $N$.
 
 \begin{definition}
-La Cubed-Sphere est une grille de la sphère $\mathbb{S}_a^2$. La sphère est couverte par 6 panels identiques notés panel I (Front), II (East), III (Bottom), IV (West), V (North) et VI (South). Chaque panel est doté d'un système de coordonnées :
+La Cubed-Sphere est une grille de la sphère $\mathbb{S}_a^2$. La sphère est couverte par 6 panels identiques notés panel $(I)$ (Front), $(II)$ (East), $(III)$ (Bottom), $(IV)$ (West), $(V)$ (North) et $(VI)$ (South). Chaque panel est doté d'un système de coordonnées :
 \begin{equation}
 \left( \xi^{(k)}, \eta^{(k)} \right) \text{, } -\dfrac{\pi}{4} \leq \xi^{(k)}, \eta^{(k)} \leq \dfrac{\pi}{4} \text{, } I \leq k \leq VI
 \end{equation}
@@ -894,7 +891,7 @@ $$
 $$
 \end{proof}
 
-Les points $\mathbf{x}_{i,j}^{(k)}$ de chaque panel se rangent en 3 catégories :
+Les points $\mathbf{x}_{i,j}^{(k)}$ de chaque panel se répartissent en trois catégories :
 \begin{itemize}
 \item Les points intérieurs si :
 \begin{equation}
@@ -905,7 +902,7 @@ Ils sont au nombre de $(N-1)^2$ par panel.
 \begin{equation}
 \left[ j=\pm \dfrac{N}{2} \text{ et } - \dfrac{N}{2}+1 \leq i \leq \dfrac{N}{2}-1 \right] \text{ ou } \left[ i=\pm \dfrac{N}{2} \text{ et } - \dfrac{N}{2}+1 \leq j \leq \dfrac{N}{2}-1 \right]
 \end{equation}
-\item Les $4$ points de coin si :
+\item Les $4$ points de coins si :
 \begin{equation}
 i, j = \pm \dfrac{N}{2}.
 \end{equation}
@@ -982,8 +979,8 @@ On considère un cube inscrit dans la Sphère $\mathbb{S}_a^2$. Le demi côté d
 \end{equation}
 \end{itemize}
 
-$\mathbf{F}$ est la projection gnomonique de $F'$ sur la sphère $\mathbb{S}_a^2$, $\mathbf{E}$ celle de $E'$, e.t.c.
-Si l'on considère par exemple le panel I, un point $\mathbf{x}'=(x',y',z')$ de la face centré sur $F'$ est projeté en $\mathbf{x} = (x,y,z)$ un point du panel I (Voir figure \ref{fig: projection gnomonique}). Chaque panel est la projection de l'une des face du cube.
+Le point $\mathbf{F}$ est la projection gnomonique du point $F'$ sur la sphère $\mathbb{S}_a^2$, $\mathbf{E}$ celle de $E'$, e.t.c.
+Si l'on considère par exemple le panel $(I)$, un point $\mathbf{x}'=(x',y',z')$ de la face centré sur $F'$ est projeté en $\mathbf{x} = (x,y,z)$ un point du panel $(I)$ (Voir figure \ref{fig: projection gnomonique}). Chaque panel est la projection de l'une des face du cube.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1091,7 +1088,7 @@ z & = & xY. &&
 \right.
 \end{equation}
 
-Le signe de $x$ est prescrit car $\mathbf{x}$ est un point du panel I qui ne contient que des points d'abscisse positive.
+Le signe de $x$ est prescrit car $\mathbf{x}$ est un point du panel $(I)$ qui ne contient que des points d'abscisse positive.
 De plus, la fonction tangente $\tan$ est une bijection de $\left[ -\dfrac{\pi}{4}, \dfrac{\pi}{4} \right]$ dans $\left[-1,1\right]$, donc
 
 \begin{theoreme}
@@ -1155,20 +1152,17 @@ On en déduit la base sur le panel I $\left( \mathbf{g}_{\xi}, \mathbf{g}_{\eta}
 
 Des calculs similaires peuvent être effectuées sur les autres panels. Les résultats sont donnés dans la table \ref{tab: base g_xi g_eta}.
 
-$(\mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ est la base duale de $(\mathbf{g}_{\xi}, \mathbf{g}_{\eta})$. Cette base doit vérifier les relations suivantes :
-
+Le couple de vecteur $(\mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ est la base duale de $(\mathbf{g}_{\xi}, \mathbf{g}_{\eta})$. Cette base doit vérifier les relations suivantes :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcccl}
 \mathbf{g}^{\xi} \cdot \mathbf{g}_{\xi} & = & 1 & = & \mathbf{g}^{\eta} \cdot \mathbf{g}_{\eta} \\
-\mathbf{g}^{\xi} \cdot \mathbf{g}_{\eta} & = & 0 & = & \mathbf{g}^{\eta} \cdot \mathbf{g}_{\xi} \\
+\mathbf{g}^{\xi} \cdot \mathbf{g}_{\eta} & = & 0 & = & \mathbf{g}^{\eta} \cdot \mathbf{g}_{\xi}. \\
 \end{array}
 \right.
 \label{eq: normalisation g_xi g_eta}
 \end{equation}
-
-$\mathbf{g}^{\xi}$ et $\mathbf{g}^{\eta}$ sont des vecteurs de $\mathbb{T}_{\mathbf{x}}\mathbb{S}_a^2$. Il existe $A$, $B$, $C$ et $D$ tels que :
-
+Les vecteurs $\mathbf{g}^{\xi}$ et $\mathbf{g}^{\eta}$ sont des vecteurs de $\mathbb{T}_{\mathbf{x}}\mathbb{S}_a^2$. Il existe $A$, $B$, $C$ et $D$ tels que :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -1178,9 +1172,7 @@ $\mathbf{g}^{\xi}$ et $\mathbf{g}^{\eta}$ sont des vecteurs de $\mathbb{T}_{\mat
 \right.
 \label{eq: A B C D}
 \end{equation}
-
 En effectuant des produit scalaires de \eqref{eq: A B C D} par $\mathbf{g}_{\xi}$ et $\mathbf{g}_{\eta}$, on obtient :
-
 \begin{equation}
 \begin{bmatrix}
 A & B \\ C &  D
@@ -1192,7 +1184,7 @@ A & B \\ C &  D
 \end{bmatrix}
 = \begin{bmatrix}
 1 & 0 \\ 0 &  1
-\end{bmatrix}
+\end{bmatrix}.
 \end{equation}
 On en déduit :
 \begin{equation}
@@ -1203,7 +1195,7 @@ A & B \\ C &  D
 \begin{bmatrix}
 \mathbf{g}_{\xi} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot \mathbf{g}_{\eta} \\
 \mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot \mathbf{g}_{\eta}
-\end{bmatrix}^{-1}
+\end{bmatrix}^{-1}.
 \end{equation}
 
 
@@ -1213,7 +1205,7 @@ La matrice $\mathbf{G}$ est la métrique associée à $(\mathbf{g}_{\xi}, \mathb
 \mathbf{G} = \begin{bmatrix}
 \mathbf{g}_{\xi} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot \mathbf{g}_{\eta} \\
 \mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot \mathbf{g}_{\eta}
-\end{bmatrix}
+\end{bmatrix} .
 \end{equation}
 \end{definition}
 
@@ -1222,7 +1214,7 @@ La métrique $\mathbf{G}$ est invariante par changement de panel.
 \end{proposition}
 
 \begin{proof}
-Soit $\mathbf{x}$ est un point d'un panel $K$ de la Cubed-Sphère de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ est un point d'un autre panel $K'$ de la Cubed-Sphère ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer tout point du panel $K$ en un point du panel $K'$ de mêmes coordonnées gnomoniques. De là, il découle :
+Soit $\mathbf{x}$ est un point d'un panel $(k)$ de la Cubed-Sphère de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ est un point d'un autre panel $(k')$ de la Cubed-Sphère ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer tout point du panel $(k)$ en un point du panel $(k')$ de mêmes coordonnées gnomoniques. De là, il découle :
 \begin{equation}
 \mathbf{x}' = R_f \mathbf{x}
 \end{equation}
@@ -1253,12 +1245,11 @@ R_f \mathbf{g}_{\eta} \cdot R_f \mathbf{g}_{\xi} & R_f \mathbf{g}_{\eta} \cdot R
 \mathbf{g}_{\xi} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\xi} \cdot \mathbf{g}_{\eta} \\
 \mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi} & \mathbf{g}_{\eta} \cdot \mathbf{g}_{\eta}
 \end{bmatrix}\\[10pt]
-& = & \mathbf{G}
+& = & \mathbf{G}.
 \end{array}
 \end{equation*}
 Donc la métrique $\mathbf{G}$ est invariante par changement de panel.
 \end{proof}
-
 L'expression de la métrique $\mathbf{G}$ en fonction de $(X,Y)$ est
 \begin{equation}
 \mathbf{G} = \begin{bmatrix}
@@ -1268,7 +1259,6 @@ G_{1,1} & G_{1,2} \\ G_{2,1} & G_{2,2}
 1+X^2 & -XY \\ -XY & 1+Y^2
 \end{bmatrix} .
 \end{equation}
-
 De même, on a
 \begin{equation}
 \mathbf{G}^{-1} = \begin{bmatrix}
@@ -1278,9 +1268,7 @@ G^{1,1} & G^{1,2} \\ G^{2,1} & G^{2,2}
 \end{bmatrix}
 \label{eq: metrique inverse}
 \end{equation}
-
-La base duale $(\mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ sur le panel I est donnée par :
-
+La base duale $(\mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ sur le panel $(I)$ est donnée par :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -1289,9 +1277,7 @@ La base duale $(\mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ sur le panel I est donnée
 \end{array}
 \right.
 \end{equation}
-
 d'où :
-
 \begin{equation}
 \mathbf{g}^{\xi} = \dfrac{1}{x(1+X^2)}\begin{bmatrix}
 -X \\ 1 \\ 0
@@ -1312,7 +1298,7 @@ d'où :
 
 \hline
 \hline
-\multirow{2}{*}[-.5cm]{$I$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{y}{x} \text{, } Y=\dfrac{z}{x}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
+\multirow{2}{*}[-.5cm]{$(I)$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{y}{x} \text{, } Y=\dfrac{z}{x}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
 -y \\ x(1+Y^2) \\ -yY
 \end{bmatrix} \text{,} \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{bmatrix}
 -z \\ -zX \\ x(1+X^2)
@@ -1326,7 +1312,7 @@ d'où :
 \end{bmatrix}$ \\[16pt]
 \hline
 \hline
-\multirow{2}{*}[-.5cm]{$II$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{x}{y} \text{, } Y=\dfrac{z}{y}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
+\multirow{2}{*}[-.5cm]{$(II)$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{x}{y} \text{, } Y=\dfrac{z}{y}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
 -y(1+Y^2) \\ x \\ xY
 \end{bmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{bmatrix}
 zX \\ -z \\ y(1+X^2)
@@ -1340,7 +1326,7 @@ zX \\ -z \\ y(1+X^2)
 \end{bmatrix}$ \\[16pt]
 \hline
 \hline
-\multirow{2}{*}[-.5cm]{$III$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{y}{x} \text{, } Y=-\dfrac{z}{x}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
+\multirow{2}{*}[-.5cm]{$(III)$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{y}{x} \text{, } Y=-\dfrac{z}{x}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
 -y \\ x(1+Y^2) \\ yY
 \end{bmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{bmatrix}
 -z \\ -zX \\ x(1+X^2)
@@ -1354,7 +1340,7 @@ zX \\ -z \\ y(1+X^2)
 \end{bmatrix}$ \\[16pt]
 \hline
 \hline
-\multirow{2}{*}[-.5cm]{$IV$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{x}{y} \text{, } Y=-\dfrac{z}{y}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
+\multirow{2}{*}[-.5cm]{$(IV)$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{x}{y} \text{, } Y=-\dfrac{z}{y}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
 -y(1+Y^2) \\ x \\ -xY
 \end{bmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{bmatrix}
 -zX \\ z \\ -y(1+X^2)
@@ -1368,7 +1354,7 @@ zX \\ -z \\ y(1+X^2)
 \end{bmatrix}$ \\[16pt]
 \hline
 \hline
-\multirow{2}{*}[-.5cm]{$V$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{y}{z} \text{, } Y=\dfrac{x}{z}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
+\multirow{2}{*}[-.5cm]{$(V)$} & \multirow{2}{*}[-.5cm]{$X=\dfrac{y}{z} \text{, } Y=\dfrac{x}{z}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
 -yY \\ z(1+Y^2) \\ -y
 \end{bmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{bmatrix}
 -z(1+X^2) \\ xX \\ x
@@ -1382,7 +1368,7 @@ zX \\ -z \\ y(1+X^2)
 \end{bmatrix}$ \\[16pt]
 \hline
 \hline
-\multirow{2}{*}[-.5cm]{$VI$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{y}{z} \text{, } Y=-\dfrac{x}{z}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
+\multirow{2}{*}[-.5cm]{$(VI)$} & \multirow{2}{*}[-.5cm]{$X=-\dfrac{y}{z} \text{, } Y=-\dfrac{x}{z}$} & $\mathbf{g}_{\xi} = \dfrac{1+X^2}{\delta^2} \begin{bmatrix}
 -yY \\ -z(1+Y^2) \\ y
 \end{bmatrix} \text{, } \mathbf{g}_{\eta} = \dfrac{1+Y^2}{\delta^2} \begin{bmatrix}
 -z(1+X^2) \\ -xX \\ x
@@ -1422,7 +1408,7 @@ Les symboles de Christoffel $\Gamma_{\kappa,\nu}^{\tau}$ (avec $\kappa$, $\nu$ e
 \end{equation}
 où $\mathbf{n}$ est le vecteur unitaire normale extérieure à la sphère $\mathbb{S}_a^2$:
 \begin{equation}
-\mathbf{n}= \dfrac{\mathbf{x}}{a}
+\mathbf{n}= \dfrac{\mathbf{x}}{a}.
 \end{equation}
 \label{def:christoffel}
 \end{definition}
@@ -1449,7 +1435,7 @@ Les relations suivantes sont vérifiées :
 
 \Gamma_{\xi,\xi}^{r} & = & \left[ \dfrac{\partial \mathbf{g}_{\xi}}{\partial \xi} \right] \cdot \mathbf{n} & = & - \dfrac{1}{a}|\mathbf{g}_{\xi}|^2\\
 
-\Gamma_{\xi,\eta}^r & = & \left[ \dfrac{\partial \mathbf{g}_{\eta}}{\partial \xi} \right] \cdot \mathbf{n} & = & - \dfrac{1}{a} \mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi} \\
+\Gamma_{\xi,\eta}^r & = & \left[ \dfrac{\partial \mathbf{g}_{\eta}}{\partial \xi} \right] \cdot \mathbf{n} & = & - \dfrac{1}{a} \mathbf{g}_{\eta} \cdot \mathbf{g}_{\xi}. \\
 
 \end{array}
 \right.
@@ -1525,7 +1511,7 @@ Les symboles de Christoffel sont invariants par changement de panel.
 \end{proposition}
 
 \begin{proof}
-Soit $\mathbf{x}$ est un point d'un panel $k$ de la Cubed-Sphere de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ est un point d'un autre panel $k'$ de la Cubed-Sphere ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer tout point du panel $k$ en un point du panel $k'$ de mêmes coordonnées gnomoniques :
+Soit $\mathbf{x}$ est un point d'un panel $(k)$ de la Cubed-Sphere de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ est un point d'un autre panel $(k')$ de la Cubed-Sphere ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer tout point du panel $(k)$ en un point du panel $(k')$ de mêmes coordonnées gnomoniques :
 \begin{equation}
 \mathbf{x}' = R_f \mathbf{x}
 \end{equation}
@@ -1556,7 +1542,7 @@ Les égalités suivantes sont vérifiées :
 
 \dfrac{\partial \mathbf{g}^{\eta}}{\partial \eta} & = & - \Gamma_{\xi, \eta}^{\eta} \mathbf{g}^{\xi} - \Gamma_{\eta, \eta}^{\eta} \mathbf{g}^{\eta}- \dfrac{1}{a} \mathbf{n}\\
 
-\dfrac{\partial \mathbf{g}^{\eta}}{\partial \xi} & = & - \Gamma_{\xi, \xi}^{\eta} \mathbf{g}^{\xi} - \Gamma_{\xi, \eta}^{\eta} \mathbf{g}^{\eta}\\
+\dfrac{\partial \mathbf{g}^{\eta}}{\partial \xi} & = & - \Gamma_{\xi, \xi}^{\eta} \mathbf{g}^{\xi} - \Gamma_{\xi, \eta}^{\eta} \mathbf{g}^{\eta}.\\
 \end{array}
 \right.
 \end{equation}
@@ -1573,7 +1559,7 @@ Par produit scalaire, on a
 \end{equation}
 De la même manière, on a 
 \begin{equation}
-\dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} \cdot \mathbf{g}_{\eta} = A_{\eta} = - \gamma_{\xi, \eta}^{\xi},
+\dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi} \cdot \mathbf{g}_{\eta} = A_{\eta} = - \Gamma_{\xi, \eta}^{\xi},
 \end{equation}
 ainsi que
 \begin{equation}
@@ -1592,7 +1578,6 @@ De plus
 \begin{equation}
 B_r = \dfrac{\partial \mathbf{g}^{\xi}}{\partial \eta} \cdot \mathbf{n} = - \dfrac{1}{a} \mathbf{g}^{\xi} \cdot \mathbf{g}_{\eta} = 0.
 \end{equation}
-
 Les résultats pour $\dfrac{\partial \mathbf{g}^{\eta}}{\partial \eta}$ et $\dfrac{\partial \mathbf{g}^{\eta}}{\partial \xi}$ se démontrent de la même manière.
 \end{proof}
 
@@ -1635,7 +1620,7 @@ Les égalités suivantes sont vérifiées :
 \begin{array}{rcl}
 \Gamma_{\eta,\xi}^{\eta} + \Gamma_{\xi,\xi}^{\xi} & = & \dfrac{1}{\sqrt{\det (\mathbf{G})}} \dfrac{\partial}{\partial \xi} \left( \sqrt{\det (\mathbf{G})} \right)\\
 
-\Gamma_{\xi,\eta}^{\xi} + \Gamma_{\eta,\eta}^{\eta} & = & \dfrac{1}{\sqrt{\det (\mathbf{G})}} \dfrac{\partial}{\partial \eta} \left( \sqrt{\det (\mathbf{G})} \right)
+\Gamma_{\xi,\eta}^{\xi} + \Gamma_{\eta,\eta}^{\eta} & = & \dfrac{1}{\sqrt{\det (\mathbf{G})}} \dfrac{\partial}{\partial \eta} \left( \sqrt{\det (\mathbf{G})} \right).
 \end{array}
 \right.
 \end{equation}
@@ -1647,11 +1632,11 @@ Soient $i,j, k  \in \left\lbrace \xi, \eta \right\rbrace$, donc en dérivant $g_
 \begin{align*}
 \partial_k (g_{i,j}) & = (\partial_k \mathbf{g}_i ) \cdot \mathbf{g}_j + (\partial_k \mathbf{g}_j ) \cdot \mathbf{g}_i\\
 	& = \left( \Gamma_{k,i}^{\xi} \mathbf{g}_{\xi} + \Gamma_{k,i}^{\eta} \mathbf{g}_{\eta} + \Gamma_{k,i}^{r} \textbf{n} \right) \cdot \mathbf{g}_j + \left( \Gamma_{k,j}^{\xi} \mathbf{g}_{\xi} + \Gamma_{k,j}^{\eta} \mathbf{g}_{\eta} + \Gamma_{k,j}^{r} \textbf{n} \right) \cdot \mathbf{g}_i \\
-	& = \Gamma_{k,i}^{\xi} g_{\xi,j} + \Gamma_{k,i}^{\eta} g_{\eta,j} + \Gamma_{k,j}^{\xi} g_{\xi,i} + \Gamma_{k,j}^{\eta} g_{\eta,i} 
+	& = \Gamma_{k,i}^{\xi} g_{\xi,j} + \Gamma_{k,i}^{\eta} g_{\eta,j} + \Gamma_{k,j}^{\xi} g_{\xi,i} + \Gamma_{k,j}^{\eta} g_{\eta,i} .
 \end{align*}
 De la même manière, on a 
 \begin{equation}
-\partial_i (g_{j,k}) = \Gamma_{i,j}^{\xi} g_{\xi,k} + \Gamma_{i,j}^{\eta} g_{\eta,k} + \Gamma_{i,k}^{\xi} g_{\xi,j} + \Gamma_{i,k}^{\eta} g_{\eta,j}
+\partial_i (g_{j,k}) = \Gamma_{i,j}^{\xi} g_{\xi,k} + \Gamma_{i,j}^{\eta} g_{\eta,k} + \Gamma_{i,k}^{\xi} g_{\xi,j} + \Gamma_{i,k}^{\eta} g_{\eta,j},
 \end{equation}
 ainsi que
 \begin{equation}
@@ -1666,9 +1651,9 @@ Ainsi en considérant les cas $j=\xi$ et $j=\eta$, on trouve le système :
 \left\lbrace
 \begin{array}{rcl}
 \frac{1}{2} \left( \partial_k (g_{i,\xi}) + \partial_i (g_{\xi,k}) - \partial_{\xi} (g_{k,i}) \right) & = & \Gamma_{k,i}^{\xi} g_{\xi,\xi} + \Gamma_{k,i}^{\eta} g_{\eta,\xi} \\
-\frac{1}{2} \left( \partial_k (g_{i,\eta}) + \partial_i (g_{\eta,k}) - \partial_{\eta} (g_{k,i}) \right) & = & \Gamma_{k,i}^{\xi} g_{\xi,\eta} + \Gamma_{k,i}^{\eta} g_{\eta,\eta} \\
+\frac{1}{2} \left( \partial_k (g_{i,\eta}) + \partial_i (g_{\eta,k}) - \partial_{\eta} (g_{k,i}) \right) & = & \Gamma_{k,i}^{\xi} g_{\xi,\eta} + \Gamma_{k,i}^{\eta} g_{\eta,\eta}. \\
 \end{array}
-\right. .
+\right.
 \end{equation}
 En remarquant que
 \begin{equation}
@@ -1744,10 +1729,9 @@ La seconde égalité se montre de la même manière.
 
 \section{Calcul intrinsèque sur la Cubed-Sphere}
 
-On a vu dans la section \ref{sec:gnomonique} que les coordonnées gnomoniques $(X,Y)$ ainsi que les coordonnées $(\xi,\eta)$ forment des systèmes de coordonnées admissibles sur chaque panel.  Pour tout point $\mathbf{x}_{i,j}^{(K)} \in \mathbb{S}_a^2$ du panel $K$ de la Cubed-Sphere, il existe deux cercles $C_i^{(1)}$ et $C_j^{(2)}$ tels que :
-
+On a vu dans la section \ref{sec:gnomonique} que les coordonnées gnomoniques $(X,Y)$ ainsi que les coordonnées $(\xi,\eta)$ forment des systèmes de coordonnées admissibles sur chaque panel.  Pour tout point $\mathbf{x}_{i,j}^{(k)} \in \mathbb{S}_a^2$ du panel $(k)$ de la Cubed-Sphere, il existe deux cercles $C_i^{(1)}$ et $C_j^{(2)}$ tels que :
 \begin{equation}
-\mathbf{x}_{i,j}^{(K)} \in C_i^{(1)} \cap C_j^{(2)}.
+\mathbf{x}_{i,j}^{(k)} \in C_i^{(1)} \cap C_j^{(2)}.
 \end{equation}
 
 L'angle $\alpha$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(k)}$ et $\mathbf{x}_{0,j}^{(k)}$ dans le long de $C^{(2)}_j$. L'angle $\beta$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(k)}$ et $\mathbf{x}_{i,0}^{(k)}$ mesuré le long de $C^{(1)}_i$ (Voir figure \ref{fig: alpha beta}). Des angles géodésiques $\alpha$ et $\beta$ peuvent être construits sur chaque panel, l'orientation de ces angles est donnée en figure \ref{fig:patron cs}. Ainsi, chaque panel est construit à partir de sections de grands cercles.
@@ -1798,7 +1782,7 @@ L'angle $\alpha$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(k)}$ et $\ma
 	\draw  (-1,0) node {$\bullet$} ;
 	
 	\draw  (.27,0.38) node {$\bullet$} ;
-	\draw  (.27,0.38) node[above right] {$\mathbf{x}_{i,j}^{(K)}$} ;
+	\draw  (.27,0.38) node[above right] {$\mathbf{x}_{i,j}^{(k)}$} ;
 	\draw  (0,0.4) node {$\bullet$} ;
 	\draw  (0,0.4) node[above left] {$\mathbf{x}_{0,j}^{(k)}$} ;
 	\draw  (0.3,0) node {$\bullet$} ;
@@ -1877,13 +1861,13 @@ L'angle $\alpha$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(k)}$ et $\ma
 \end{center}
 \end{figure}
 
-Soit $\mathbf{x}_{i,j}^{(I)}$ un point du panel I de coordonnées $(x,y,z)$ dans $\mathbb{R}^3$. Alors les relations suivantes sont vérifiées :
+Soit $\mathbf{x}_{i,j}^{(I)}$ un point du panel $(I)$ de coordonnées $(x,y,z)$ dans $\mathbb{R}^3$. Alors les relations suivantes sont vérifiées :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcccc}
 x & = & a \cos \alpha \cos \eta & = & a \cos \beta \cos \xi \\
 y & = & a \sin \alpha & = & a \cos \beta \sin \xi \\
-z & = & a \cos \alpha \sin \eta & = & a \sin \beta \\
+z & = & a \cos \alpha \sin \eta & = & a \sin \beta. \\
 \end{array}
 \right.
 \label{eq: panel I xyz xi eta alpha beta}
@@ -1900,32 +1884,32 @@ Des relations similaires existent sur tous les panels (Voir tableau \ref{tab: x 
 \hline
 \hline
     & $x=a \cos \alpha \cos \eta  =  a \cos \beta \cos \xi$ \\ 
-$I$ & $y=a \sin \alpha  =  a \cos \beta \sin \xi$ \\
+$(I)$ & $y=a \sin \alpha  =  a \cos \beta \sin \xi$ \\
     & $z=a \cos \alpha \sin \eta  =  a \sin \beta$ \\
 \hline
 \hline
       & $x=- a \sin \alpha  = - a \cos \beta \sin \xi$ \\ 
-$II$  & $y=a \cos \alpha \cos \eta  =  a \cos \beta \cos \xi$ \\
+$(II)$  & $y=a \cos \alpha \cos \eta  =  a \cos \beta \cos \xi$ \\
       & $z=a \cos \alpha \sin \eta  =  a \sin \beta$ \\
 \hline
 \hline
       & $x=- a \cos \alpha \cos \eta = a \cos \beta \cos \xi$ \\ 
-$III$ & $y=- a \sin \alpha = - a \cos \beta \sin \xi$ \\
+$(III)$ & $y=- a \sin \alpha = - a \cos \beta \sin \xi$ \\
       & $z=a \cos \alpha \sin \eta = a \sin \beta$ \\
 \hline
 \hline
       & $x=a \sin \alpha = a \cos \beta \sin \xi$ \\ 
-$IV$  & $y=- a \cos \alpha \cos \eta = - a \cos \beta \cos \xi$ \\
+$(IV)$  & $y=- a \cos \alpha \cos \eta = - a \cos \beta \cos \xi$ \\
       & $z=a \cos \alpha \sin \eta = a \sin \beta$ \\
 \hline
 \hline
     & $x=-a \cos \alpha \sin \eta = - a \sin \beta$ \\ 
-$V$ & $y=a \sin \alpha = a \cos \beta \sin \xi$ \\
+$(V)$ & $y=a \sin \alpha = a \cos \beta \sin \xi$ \\
     & $z=a \cos \alpha \cos \eta = a \cos \beta \cos \xi$ \\
 \hline
 \hline
      & $x=a \cos \alpha \sin \eta = a \sin \beta$ \\ 
-$VI$ & $y=a \sin \alpha = a \cos \beta \sin \xi$ \\
+$(VI)$ & $y=a \sin \alpha = a \cos \beta \sin \xi$ \\
      & $z=- a \cos \alpha \cos \eta = - a \cos \beta \cos \xi$ \\
 \hline
 \end{tabular}
@@ -1934,7 +1918,6 @@ $VI$ & $y=a \sin \alpha = a \cos \beta \sin \xi$ \\
 \caption{Coordonnées cartésiennes $(x,y,z)$ en fonction des angles $(\alpha, \eta)$ et de $(\xi, \beta)$  sur chaque panel.}
 \label{tab: x y z fct de xi eta alfa beta}
 \end{table}
-
 Pour chaque panel, on peut déduire de \eqref{eq: panel I xyz xi eta alpha beta} les expressions de $\alpha$ et $\beta$ en fonction de $\xi$ et $\eta$. 
 
 \begin{theoreme}
@@ -1953,7 +1936,7 @@ z & = & a \cos \alpha \sin \eta
 \right.
 \label{eq:alfaeta_to_xyz}
 \end{equation}
-Donc en particulier, $x \neq 0$ sur le panel $(I)$ donc
+Or $x \neq 0$ sur le panel $(I)$ donc
 \begin{eqsys}
 \tan \eta = \frac{z}{x} \\
 \sin \alpha = \frac{y}{a}
@@ -1973,15 +1956,13 @@ La démonstration est la même pour montrer que $(\xi, \beta)$ est un système d
 Les angles $\alpha$ et $\beta$ s'expriment en fonction des angles $\xi$ et $\eta$ par
 \begin{eqsys}
 \alpha(\xi, \eta) = \arctan \left[ \dfrac{\tan \xi}{\sqrt{1+\tan^2 \eta}} \right] \\
-\beta(\xi,\eta) = \arctan \left[ \dfrac{\tan \eta}{\sqrt{1+\tan^2 \xi}} \right] 
+\beta(\xi,\eta) = \arctan \left[ \dfrac{\tan \eta}{\sqrt{1+\tan^2 \xi}} \right] .
 \label{eq: alpha et beta fct de xi et eta}
 \end{eqsys}
 \label{prop:alfa_beta_xi_eta}
 \end{proposition}
 
 \begin{proof}
-Sur le panel I, $\alpha$ est une fonction construite sur un grand cercle, donc $\alpha$ sur le cercle constitué des points avec $\eta=\bar{\eta}$ constant. De même, $\beta$ varie avec $\xi= \bar{\xi}$ constant. 
-
 D'après l'équation \eqref{eq:alfaeta_to_xyz}, on a
 \begin{equation}
 x^2 + y^2 = a^2 \cos^2 \beta,
@@ -2019,36 +2000,6 @@ Les angles $(\alpha, \beta)$ forment un système de coordonnées admissible par 
 
 \begin{proof}
 
-D'après la proposition \ref{prop:alfa_beta_xi_eta}, les angles $\alpha$ et $\beta$ s'expriment en fonction de $X$ et $Y$ par :
-
-\begin{equation}
-\left\lbrace
-\begin{array}{rcl}
-\alpha & = & \arctan \left[ \dfrac{X}{\sqrt{1+ Y^2}} \right] \\
-\beta & = & \arctan \left[ \dfrac{Y}{\sqrt{1+X^2}} \right] 
-\end{array}
-\right.
-\label{eq: alpha et beta fct de X et Y}
-\end{equation}
-
-On pose $F : (X,Y) \mapsto (\alpha,  \beta)$, montrons que $F$ est bijective. La jacobienne de $F$ en $(X,Y)$, notée $J_{(X,Y)}F$, est :
-
-\begin{equation}
-J_{(X,Y)}F = \dfrac{1}{\delta^2} 
-\begin{bmatrix}
-\sqrt{1+Y^2} & - \dfrac{XY}{\sqrt{1+Y^2}} \\
-- \dfrac{XY}{\sqrt{1+X^2}} & \sqrt{1+X^2}
-\end{bmatrix}
-\end{equation}
-
-avec $\delta = \sqrt{1+X^2+Y^2}$. $F$ est bijective si $det \left( J_{(X,Y)}F \right) \neq 0$ pour tous $X,Y \in [-1,1]^2$.
-
-\begin{equation}
-det \left( J_{(X,Y)}F \right) = \dfrac{1}{\delta^2 \sqrt{(1+X^2)(1+Y^2)}} \neq 0
-\end{equation}
-
-donc $F$ est une bijection, $(X,Y)$ est un système de coordonnées admissible par panel donc $(\alpha, \beta)$ aussi.
-
 \end{proof}
 
 %% ***** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER *****
@@ -2073,7 +2024,7 @@ donc $F$ est une bijection, $(X,Y)$ est un système de coordonnées admissible p
 
 
 
-Chacune des sections de grand cercle peut être complétée en un grand cercle. Le grand cercle $C_i^{(1)}$ correspond à une isocline $\xi$ constante et le grand cercle $C_j^{(2)}$ à une isocline $\eta$ constante. Considérons l'isocline $\eta$ constante sur le panel I. Sur ce panel, l'angle $\alpha$ est tel que :
+Chacune des sections de grand cercle peut être complétée en un grand cercle. Le grand cercle $C_i^{(1)}$ correspond à une isocline $\xi$ constante et le grand cercle $C_j^{(2)}$ à une isocline $\eta$ constante. Considérons l'isocline $\eta$ constante sur le panel $(I)$. Sur ce panel, l'angle $\alpha$ est tel que :
 \begin{equation}
 - \alpha_0 (\eta) \leq \alpha \leq \alpha_0(\eta) \text{ avec } \alpha_0( \eta) = \arctan \left( \dfrac{\sqrt{2}}{2} \tan \eta \right).
 \end{equation}
@@ -2149,8 +2100,8 @@ En continuant ce procédé, nous obtenons des valeurs sur le cercle $C$.
 On calcule à présent les dérivées partielles $\dfrac{\partial h}{\partial \alpha}_{|C_1}$ et $\dfrac{\partial h}{\partial \beta}_{|C_2}$ en fonction des paramètres $\xi$ et $\eta$. Par composition, les relations suivantes sont vérifiées :
 \begin{equation}
 \begin{array}{rcl}
-\dfrac{\partial h}{\partial \alpha}_{|C_1} & = &  \dfrac{1}{\frac{\partial \alpha}{\partial \xi}} \dfrac{\partial h}{\partial \xi}_{|C_1} \\
-\dfrac{\partial h}{\partial \beta}_{|C_2} & = &  \dfrac{1}{\frac{\partial \beta}{\partial \eta}} \dfrac{\partial h}{\partial \eta}_{|C_2} \\
+\dfrac{\partial h}{\partial \alpha}_{|C_1} & = &  \dfrac{1}{\frac{\partial \alpha}{\partial \xi}_{|C_1}} \dfrac{\partial h}{\partial \xi}_{|C_1} \\
+\dfrac{\partial h}{\partial \beta}_{|C_2} & = &  \dfrac{1}{\frac{\partial \beta}{\partial \eta}_{|C_2}} \dfrac{\partial h}{\partial \eta}_{|C_2} \\
 \end{array}
 \label{eq: derivee partiel link}
 \end{equation}
@@ -2166,10 +2117,10 @@ On peut calculer les vecteurs $\mathbf{g}_{\alpha}$, $\mathbf{g}_{\beta}$, $\mat
 \begin{proposition}
 Les expressions suivantes sont vérifiées :
 \begin{itemize}
-\item $\mathbf{e}_{\alpha} = \dfrac{1}{\frac{\partial \alpha}{\partial \xi}} \mathbf{g}_{\xi}$ le long de $C_1$,
-\item $\mathbf{e}_{\beta} = \dfrac{1}{\frac{\partial \beta}{\partial \eta}} \mathbf{g}_{\eta}$ le long de $C_2$,
-\item $\mathbf{e}^{\alpha} = \dfrac{\partial \alpha}{\partial \xi} \mathbf{g}^{\xi}$ le long de $C_1$,
-\item $\mathbf{e}^{\beta} = \dfrac{\partial \beta}{\partial \eta} \mathbf{g}^{\eta}$ le long de $C_2$.
+\item $\mathbf{e}_{\alpha} = \dfrac{1}{\frac{\partial \alpha}{\partial \xi}_{|C_1}} \mathbf{g}_{\xi}$ le long de $C_1$,
+\item $\mathbf{e}_{\beta} = \dfrac{1}{\frac{\partial \beta}{\partial \eta}_{|C_2}} \mathbf{g}_{\eta}$ le long de $C_2$,
+\item $\mathbf{e}^{\alpha} = \dfrac{\partial \alpha}{\partial \xi}_{|C_1} \mathbf{g}^{\xi}$ le long de $C_1$,
+\item $\mathbf{e}^{\beta} = \dfrac{\partial \beta}{\partial \eta}_{|C_2} \mathbf{g}^{\eta}$ le long de $C_2$.
 \end{itemize}
 \label{prop: g_alpha g_beta fct de g_xi g_eta}
 \end{proposition}
@@ -2739,11 +2690,10 @@ Toute formule de quadrature $Q$ vérifiant
 \begin{equation}
 \omega_{i,j} = \omega_{-i,j} = \omega_{i,-j} = \omega_{-i,-j}
 \end{equation}
-pour tout $-N/2 \leq i,j \leq N/2$ satisfait la relation 
+pour tout $-N/2 \leq i,j \leq N/2$ satisfait exactement la relation 
 \begin{equation}
 Q \left( \mathbf{Y}_m^{l,*} \right) = 0,
 \end{equation}
-est exactement obtenue,
 avec $l \in \mathbb{N}$ et $|m| \leq l$, si
 \begin{itemize}
 \item $m$ est impair ou
@@ -2789,7 +2739,7 @@ P(b,b) & = & \tf(b,b).
 \end{array}
 \right.
 \end{equation}
-Ce polynôme vérifie pour tous $(\xi, \eta) \in \mathbb{R}^2$ :
+Ce polynôme vérifie, pour tous $(\xi, \eta) \in \mathbb{R}^2$,
 \begin{equation}
 P(\xi, \eta) = \dfrac{\tf(b,b)}{(a-b)^2}(\xi-a)(\eta-a) - \dfrac{\tf(a,b)}{(a-b)^2}(\xi-a)(\eta-b) -\dfrac{\tf(b,a)}{(a-b)^2}(\xi-b)(\eta-a)+ \dfrac{\tf(a,a)}{(a-b)^2}(\xi-b)(\eta-b).
 \end{equation}
@@ -2837,7 +2787,7 @@ Q_{\tpz}(f^*) = \gsum_{(k) = (I)}^{(VI)}Q_{\tpz}^{(k)}(f^*)
 \end{equation}
 pour tout $(k) = (I), ..., (VI)$, on a
 \begin{equation}
-Q_{\tpz}^{(k)}(f^*) = \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} f(\xi_i^{(k)},\eta_j^{(k)}) \sqrt{\bar{\mathbf{G}}_{i,j}},
+Q_{\tpz}^{(k)}(f^*) = \Delta \xi \Delta \eta \gsum_{i=-N/2}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} f(\xi_i^{(k)},\eta_j^{(k)}) \sqrt{\bar{\mathbf{G}}_{i,j}},
 \end{equation}
 où $\bar{\mathbf{G}}_{i,j}=\det(\mathbf{G}(\xi_i,\eta_j))$ pour tout $-N/2 \leq i,j \leq N/2$.
 
@@ -2850,8 +2800,7 @@ La formule $Q_{\tpz}$ est consistante à l'ordre 2. De plus, pour toute fonction
 & ... - \dfrac{\Delta \xi^3}{24} \left( \partial_{\xi}\tf_{N/2,N/2} + \partial_{\xi}\tf_{N/2,-N/2} - \partial_{\xi}\tf_{-N/2,N/2}  - \partial_{\xi}\tf_{-N/2,-N/2} \right)+...\\
 & ... + \mathcal{O} \left( \Delta \xi^4 \right).
 \end{align*}
-en notant que $\Delta \xi = \Delta \eta$ ainsi que $\partial _{\xi} f_{i,j} = \partial_{\xi}f\xi_i, \eta_j)$ et $\partial _{\eta} f_{i,j} = \partial_{\eta}f\xi_i, \eta_j)$ pour tous $-N/2 \leq i,j \leq N/2$.
-De plus, on a posé 
+en notant que $\Delta \xi = \Delta \eta$ ainsi que $\partial _{\xi} f_{i,j} = \partial_{\xi}f(\xi_i, \eta_j)$ et $\partial _{\eta} f_{i,j} = \partial_{\eta}f(\xi_i, \eta_j)$ pour tous $-N/2 \leq i,j \leq N/2$, et
 \begin{equation}
 \tf(\xi,\eta) = f(\xi,\eta) \sqrt{\det(\mathbf{G}(\xi,\eta))} \text{ avec } -\pi/4 \leq \xi,\eta \leq \pi/4.
 \end{equation}
@@ -3106,7 +3055,7 @@ La méthode de quadrature $Q_{\alpha}$ ne peut donc pas être d'un ordre supéri
 Soit $(k) = (I), \cdots , (VI)$ un panel fixé.
 Le coefficient $\alpha=1/3$ optimise la quantité
 \begin{equation}
-|Q_{\alpha}^{(K)}(1) - I^{(K)}(1) |
+|Q_{\alpha}^{(k)}(\mathbf{1}) - I^{(k)}(\mathbf{1}) |
 \end{equation}
 au sens où
 \begin{equation}
@@ -3147,9 +3096,9 @@ d'où le terme d'ordre 2 est
 \Delta \xi^2 a^2 \left( \alpha - \dfrac{1}{4} \right) \dfrac{16}{3 \sqrt{3}} + \dfrac{4}{3}S
 \label{eq:optimalite alpha 2}
 \end{equation}
-avec $S=\Delta \xi \gsum_{i=-N/2+1}^{N/2-1} g(i \Delta \xi)$ avec $g$ la fonction $g:x \mapsto f(x)=\dfrac{\tan(x)^4 -1}{(\tan(x)^2+2)^{5/2}}$.
+avec $S=\Delta \xi \gsum_{i=-N/2+1}^{N/2-1} g(i \Delta \xi)$ avec $g$ la fonction $g:x \mapsto g(x)=\dfrac{\tan(x)^4 -1}{(\tan(x)^2+2)^{5/2}}$.
 
-Comme $g\left(-\frac{\pi}{4} \right)=g\left(\frac{\pi}{4} \right)=0$ et par propriété de la méthode des trapèzes, on note que :
+Comme $g\left(-\frac{\pi}{4} \right)=g\left(\frac{\pi}{4} \right)=0$ et par propriété de la formule des trapèzes, on note que :
 \begin{equation}
 S = \dfrac{g\left(-\frac{\pi}{4} \right)+g\left(\frac{\pi}{4} \right)}{2} + \gint_{-\pi/4}^{\pi/4} g(x)dx + \mathcal{O}\left( \Delta \xi^2 \right) = -\dfrac{1}{3\sqrt{3}} + \mathcal{O}\left( \Delta \xi^2 \right).
 \end{equation}
@@ -3182,7 +3131,7 @@ d'où le résultat :
 \begin{remarque}
 Ce résultat d'optimalité s'écrit également sur la sphère $\mathbb{S}_a^2$ :
 \begin{equation}
-|Q_{1/3}(1) - I(1) | = \mathcal{O}\left( \Delta \xi^4 \right).
+|Q_{1/3}(\mathbf{1}) - I(\mathbf{1}) | = \mathcal{O}\left( \Delta \xi^4 \right).
 \end{equation}
 \end{remarque}
 
@@ -3210,13 +3159,13 @@ Ce résultat d'optimalité s'écrit également sur la sphère $\mathbb{S}_a^2$ :
 
 \subsection{Résultats numériques pour les formules de quadratures}
 
-Pour tester numériquement les performances des formules de quadrature introduites dans les sections précédentes, on s’intéresse à un ensemble de fonction sur la sphère dont l'intégrale est connue. Ces fonctions sont utilisées pour tester la précision des formules de quadrature sphériques \cite{Fornberg2014}. Elles sont données pour $(x,y,z) \in \mathbb{S}_a^2$ par
+Pour tester numériquement les performances des formules de quadrature introduites dans les sections précédentes, on s’intéresse à un ensemble de fonctions sur la sphère dont l'intégrale est connue. Ces fonctions sont utilisées pour tester la précision des formules de quadrature sphériques \cite{Fornberg2014}. Elles sont données pour $(x,y,z) \in \mathbb{S}_a^2$ par
 \begin{itemize}
-\item $f_0(x,y,z)=1$ :
+\item $f_0(x,y,z)=1$,
 \begin{equation}
 \gint_{\mathbb{S}_a^2} f_0(\mathbf{x}) d\sigma (\mathbf{x})=4 \pi a^2,
 \end{equation}
-\item $f_1(x,y,z)=1+x+y^2+y\cdot x^2+x^4+y^5+x^2 \cdot y^2 \cdot z^2$
+\item $f_1(x,y,z)=1+x+y^2+y\cdot x^2+x^4+y^5+x^2 \cdot y^2 \cdot z^2$,
 \begin{equation}
 \gint_{\mathbb{S}_a^2} f_1(\mathbf{x}) d\sigma (\mathbf{x})=\dfrac{216 \pi}{35} a^2,
 \end{equation}
@@ -3233,18 +3182,19 @@ et s'intègre :
 \begin{equation}
 \gint_{\mathbb{S}_a^2} f_2(\mathbf{x}) d\sigma (\mathbf{x})=a^2 \cdot 6.6961822200736179523...
 \end{equation}
-\item $f_3(x,y,z)=\frac{1+\tanh(-9x-9y+9z)}{9}$
+\item $f_3(x,y,z)=\frac{1+\tanh(-9x-9y+9z)}{9}$,
 \begin{equation}
 \gint_{\mathbb{S}_a^2} f_3(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{9} a^2,
 \end{equation}
-\item $f_4(x,y,z)=\frac{1+\sign(-9x-9y+9z)}{9}$
+\item $f_4(x,y,z)=\frac{1+\sign(-9x-9y+9z)}{9}$,
 \begin{equation}
 \gint_{\mathbb{S}_a^2} f_4(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{9} a^2,
 \end{equation}
-\item $f_5(x,y,z)=\frac{1-sign(\pi x + y)}{\alpha}$
+\item $f_5(x,y,z)=\frac{1-\sign(\pi x + y)}{\nu}$,
 \begin{equation}
-\gint_{\mathbb{S}_a^2} f_5(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{\alpha} a^2.
+\gint_{\mathbb{S}_a^2} f_5(\mathbf{x}) d\sigma (\mathbf{x})=\frac{4\pi}{\nu} a^2.
 \end{equation}
+Dans les tests effectués, on choisit $\nu = 7$.
 \end{itemize}
 
 On note en particulier que la fonction $f_1$ est polynomiale donc régulière et elle ne fait intervenir qu'un nombre fini d'harmoniques sphériques dans sa décomposition. Les fonctions $f_2$ et $f_3$ font intervenir un plus grand nombre d'harmoniques sphériques et sont régulières.
@@ -3255,7 +3205,7 @@ Pour chacune de ces fonctions, on mesure l'erreur relative donnée par
 e_r(f) = \dfrac{|I(f) - Q(f^*)|}{|I(f^*)|}
 \end{equation}
 où $I(f)$ représente l'intégrale exacte sur la sphère $\mathbb{S}_a^2$, $Q(f^*)$ est la valeur approchée obtenue par une méthode de quadrature.
-Nous retenons l'erreur maximale obtenue après $1000$ rotation aléatoires de $f$.
+Nous retenons l'erreur maximale obtenue après $1000$ rotations aléatoires de $f$.
 
 Cette erreur est mesurée pour différentes grilles Cubed-Sphere de paramètre $N=8$, $N=16$, $N=32$, $N=64$, $N=128$ et $N=256$. On peut ainsi mesurer l'ordre de convergence. Les résultats sont donnés dans la figure \ref{fig:rate_quad}.
 
@@ -3275,7 +3225,14 @@ Cette erreur est mesurée pour différentes grilles Cubed-Sphere de paramètre $
 
 Les taux de convergence observées sont ceux attendus. Pour $Q_{\tpz}$ et $Q_{\alpha}$ avec $\alpha=1$, le taux de convergence est proche de $2$. Pour la formule de quadrature $Q_{\sps}$, l'ordre de convergence est proche de $4$. La formule de quadrature $Q_{\alpha}$ avec $\alpha = 1/3$ présente de meilleurs résultats que ceux attendus. On observe que la méthode est d'ordre $4$ pour tous les tests effectués.
 
+Nous avons étudié ici différents type de formules de quadrature. Toutes les formules étudiées définissent un produit scalaire possédant de bonnes propriétés d'orthogonalité des harmoniques sphériques.
 
+La formule $Q_{\tpz}$ est basée sur la formule des trapèzes composites, cette formule est consistance avec l'intégrale à l'ordre 2. La formule $Q_{\sps}$ est conçue à partir de la méthode de Simpson, elle est consistante à l'ordre 4 lorsque $N$ est pair. Cette propriété de précision est fausse lorsque $N$ est impair.
+Les formules de quadrature $Q_{\alpha}$ sont des perturbations de la formule $Q_{\tpz}$. Le paramètre $\alpha>0$ permet de pondérer les coins de la Cubed-Sphere. Quel que soit le choix de $\alpha$, la formule $Q_{\alpha}$ est consistante avec l'intégrale au moins à l'ordre 2. Lorsque $\alpha = 1/3$, on prouve que la méthode est plus précise pour intégrer les fonctions constantes.
+
+Lors des tests numériques, nous avons pu vérifier les ordres de convergence théoriques. De plus, la formule $Q_{1/3}$ semble particulièrement efficace puisqu'une convergence à l'ordre 4 est observée que $N$ soit pair ou non.
+
+Dans la suite de ce travail, nous retenons la formule de quadrature $Q_{\alpha}$ avec $\alpha = 1/3$ pour étudier les propriétés de conservation des schémas numériques utilisés.
 
 
 

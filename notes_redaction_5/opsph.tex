@@ -9,9 +9,9 @@
 
 \subsubsection{Opérateur Gradient}
 
-Soit $\mathbf{x}_{i,j}^k$ un point de la Cubed-Sphere avec $- N/2 \leq i,j \leq N/2$ et $k = (I) \cdots (VI)$. Il existe deux grands cercles $C_i^{(1)}$ et $C_j^{(2)}$ tels que $\mathbf{x}_{i,j}^k \in C_i^{(1)} \cap C^{(2)}_j$. Les angles $\alpha$ et $\beta$ paramètrent respectivement $C_i^{(1)}$ et $C_j^{(2)}$.
+Soit $\mathbf{x}_{i,j}^{(k)}$ un point de la Cubed-Sphere avec $- N/2 \leq i,j \leq N/2$ et $(k) = (I) \cdots (VI)$. Il existe deux grands cercles $C_i^{(1)}$ et $C_j^{(2)}$ tels que $\mathbf{x}_{i,j}^{(k)} \in C_i^{(1)} \cap C^{(2)}_j$. Les angles $\alpha$ et $\beta$ paramètrent respectivement $C_i^{(1)}$ et $C_j^{(2)}$.
 
-Le gradient en $\mathbf{x}_{i,j}^k$ de la fonction régulière $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ s'exprime par 
+Le gradient en $\mathbf{x}_{i,j}^{(k)}$ de la fonction régulière $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ s'exprime par 
 \begin{equation}
 \nabla_T h = \dfrac{\partial h}{\partial \alpha}_{|C^{(2)}_j} \mathbf{g}^{\alpha} + \dfrac{\partial h}{\partial \beta}_{|C^{(1)}_i} \mathbf{g}^{\beta}.
 \end{equation}
@@ -24,7 +24,7 @@ Donc si on sait calculer des approximations des dérivées partielles $\partial_
 
 \subsubsection{Opérateurs divergence et rotationnel}
 
-Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur tangent à la sphère. On définit la \textit{divergence} et le \textit{rotationnel} de $\mathbf{v}$, notés $\nabla_T \cdot \mathbf{v}$ et $\nabla_T \wedge \mathbf{v}$ sont donnés par
+Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur tangent à la sphère. On définit la \textit{divergence} et le \textit{rotationnel} de $\mathbf{v}$, notés $\nabla_T \cdot \mathbf{v}$ et $\nabla_T \wedge \mathbf{v}$ par
 
 \begin{definition}
 Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ un champ de vecteur régulier sur la sphère. Alors la divergence de $\mathbf{v}$ en $\mathbf{x} \in C_i^{(1)} \cap C_j^{(2)}$ est donnée par
@@ -116,7 +116,7 @@ $C^{(1)}_i$ est une isoligne en $\xi = \xi_i$ et $C^{(2)}_j$ est une isoligne en
 Pour calculer une valeur approchée de $\partial_{\xi} f (\mathbf{x}_{i,j}^{(I)})$, on souhaite connaître des données de $f$ en un ensemble de points le long du cercle $C^{(2)}_j$. On note $\mathbf{m}_p$ avec $0 \leq p \leq 4N-1$ les points de $C^{(2)}_j$ construits de la manière suivante :
 \begin{itemize}
 \item si $0 \leq p \leq N$ alors $\mathbf{m}_p = \mathbf{x}^{(I)}_{p-N/2,j}$, il s'agit des points du cercle $C^{(2)}_j$ associés au panel $(I)$ sur le maillage. Ils sont représentés par des ronds bleus sur les figures \ref{fig:patron_cs} et \ref{fig: panel II_interp},
-\item si $N+1 \leq p \leq 2N-1$ alors les points ne font pas partie du maillages. Il s'agit des points d'intersections de $C^{(2)}_j$ avec les isolignes $\xi = \xi_i^{(II)}$ du panel $(II)$. C'est à dire l'intersection de $C^{(2)}_j$ avec les cercles de $(II_{\beta})$. Ces points sont représentés par des carrés bleus dans les figures \ref{fig:patron_cs} et \ref{fig: panel II_interp}. Les coordonnées sont calculées dans \eqref{eq:coord_cross}.
+\item si $N+1 \leq p \leq 2N-1$ alors les points ne font pas partie du maillages. Il s'agit des points d'intersections de $C^{(2)}_j$ avec les isolignes $\xi = \xi_i^{(II)}$ du panel $(II)$. C'est à dire l'intersection de $C^{(2)}_j$ avec les cercles de $(II_{\beta})$. Ces points sont représentés par des carrés bleus dans les figures \ref{fig:patron_cs} et \ref{fig: panel II_interp}. Les coordonnées sont calculées dans \eqref{eq:coord_cross},
 \item si $2N \leq p \leq 3N$ alors $\mathbf{m}_p = \mathbf{x}^{(III)}_{p-3N/2}$. Il s'agit des points de la Cubed-Sphere du panel $(III)$ représentés par des ronds bleus sur la figure \ref{fig:patron_cs},
 \item si $3N+1 \leq p \leq 4N-1$ alors les points $\mathbf{m}_p$ sont les points d'intersection de $C^{(2)}_j$ avec les cercles de $(IV_{\beta})$. Il ne s'agit pas de points de la grille. Ces points sont représentés par des carrés bleus dans la figure \ref{fig:patron_cs}.
 \end{itemize}
@@ -357,7 +357,7 @@ On souhaite évaluer une valeur $f_p$ approchant $f(\mathbf{m}_p)$ avec $N+1 \le
 \mathbf{m}_p \in C^{(2)}_j \cap C
 \end{equation} 
 où $C^{(2)}_j$ est une isoligne pour $\eta = \eta_j$ constant pour le panel $(I)$ et $C$ est une isoligne $\xi$ constant pour le panel $(II)$ (si $N+1 \leq p \leq 2N-1$) ou pour le panel $(IV)$ si $3N+4 \leq p \leq 4N-1$ (lignes en gras sur les figures \ref{fig:patron_cs}.et \ref{fig: panel II_interp}).
-La méthode consiste à utiliser les points de la Cubed-Sphere présents sur le cercle $C$ pour construire une fonction d'interpolation de type Spline Cubique puis d'évaluer cette fonction au point du maillage $\mathbf{m}_p$. Si on note $P_C$ la fonction d'interpolation en question, on a alors $f_p = P_C (\mathbf{m}_p)$. L'interpolation s'effectuant sur un grand cercle, il s'agit d'une fonction d'interpolation en dimension 1. De plus, cette fonction étant issue des splines cubiques, on a :
+La méthode consiste à utiliser les points de la Cubed-Sphere présents sur le cercle $C$ pour construire une fonction d'interpolation de type Spline Cubique puis d'évaluer cette fonction au point du maillage $\mathbf{m}_p$. Si on note $P_C$ la fonction d'interpolation en question, on a alors $f_p = P_C (\mathbf{m}_p)$. L'interpolation s'effectuant sur un grand cercle, il s'agit d'une fonction d'interpolation en dimension 1. On utilise l'interpolation par splines cubiques. On a alors :
 \begin{equation}
 f_p = P_C(\mathbf{m}_p) = f(\mathbf{m}_p) + \mathcal{O}(\Delta \eta^4).
 \end{equation}
@@ -531,7 +531,7 @@ La fonction $P_C$ ne dépend pas du point $\mathbf{m}_p$ mais uniquement des don
 
 Le procédé est symétrique pour reconstruire les données sur un grand cercle $C_i^{(1)}$ ou le grand cercle d'un autre panel.
 Une fois les données $(f_p)_{0 \leq p \leq 4N-1}$ construites, on peut calculer l'approximation de la dérivée grâce à $\partial_{\xi} f_p \approx \delta_{\Delta \xi}^H f_p$
-que l'on restreint aux points du maillage par 
+que l'on restreint aux points du maillage. Pour tout $-N/2 \leq i,j \leq N/2$, on a 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -685,12 +685,12 @@ De plus, on note que par construction
 \begin{equation}
 \nabla_{T,\Delta} h_{i,j}^{(k)} \in \mathbb{T}_{\mathbf{x}_{i,j}^{(k)}} \mathbb{S}_a^2.
 \end{equation}
-Une valeur du gradient est associée à chaque point de chaque panel, lorsque le point appartient à plusieurs panels, on adopte la moyenne des différentes valeurs de gradient. Si le point est à l'intersection d'exactement deux panels, il s'agit d'une demi-somme. Si le point est un coin de la Cubed-Sphere, il s'agit d'un tiers de somme $1/3$.
+Une valeur du gradient est associée à chaque point de chaque panel, lorsque le point appartient à plusieurs panels, on adopte la moyenne des différentes valeurs de gradient. Si le point est à l'intersection d'exactement deux panels, il s'agit d'une demi-somme. Si le point est un coin de la Cubed-Sphere, il s'agit d'un tiers de somme.
 
 \subsection{Tests numériques}
 
-Il faut le tester numériquement l'algorithme de gradient présenté ici pour évaluer son comportement. On se donne une fonction $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ tel que le gradient $\nabla_T h$ est connue. Nous comparons le gradient approché et le gradient exacte.
-Si $h$ est une fonction sphérique, on sait que $h$ se décompose comme une somme d'harmoniques sphériques. De plus, les harmoniques sphériques sont des restrictions de polynômes sur la Sphère $\mathbb{S}_a^2$. Un test pertinent est donc de choisir $h$ de type monomiale :
+Nous testons numériquement l'algorithme de gradient présenté ici pour évaluer son comportement. On se donne une fonction $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x})$ tel que le gradient $\nabla_T h$ est connu. Nous comparons le gradient approché et le gradient exacte.
+Si $h$ est une fonction sphérique de carré intégrable, alors $h$ se décompose comme une somme d'harmoniques sphériques. De plus, les harmoniques sphériques sont des restrictions de polynômes sur la Sphère $\mathbb{S}_a^2$. Un test pertinent est donc de choisir $h$ de type monomiale :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -715,11 +715,12 @@ Si $\mathbf{u}$ est une fonction vectorielle définie sur la Cubed-Sphere, alors
 \end{equation}
 On définit la norme $\mathcal{N}$ par
 \begin{equation}
+\label{eq:normN}
 \mathcal{N}(\mathbf{u}) = \max_{-N/2 \leq i,j \leq N/2} \max_{(k) = (I) \ldots (VI)} \max (|u_{i,j}^{(k)}|, |v_{i,j}^{(k)}|, |w_{i,j}^{(k)}|).
 \end{equation}
 On mesure l'erreur faite sur le calcul du gradient approché par
 \begin{equation}
-e_{\Delta} = \dfrac{\mathcal{N}\left(\nabla_{T,\Delta}h - \left( \nabla_{T}h \right)^* \right)}{\mathcal{N}\left(\left( \nabla_{T}h \right)^* \right)}.
+e_{\Delta} = \dfrac{\mathcal{N}\left(\nabla_{T,\Delta}(h^*) - \left( \nabla_{T}h \right)^* \right)}{\mathcal{N}\left(\left( \nabla_{T}h \right)^* \right)}.
 \end{equation}
 Sur la figure \ref{fig:rate_grad}, on trace le logarithme décimal de l'erreur en fonction du logarithme décimal de $\frac{\pi a}{2 N} = a \Delta \xi = a \Delta \eta$. La pente de cette courbe donne l'ordre de convergence de la méthode sur le test effectué. On observe que les points sont parfaitement alignés. De plus les niveaux d'erreurs observés sont très bons, même sur les grilles les plus grossières avec $N=32$ et $N=64$.
 
@@ -757,7 +758,6 @@ $511$  & $2.7115(-10)$ & $4.5361(-10)$ \\
 \label{tab:rate_grad}
 \end{table}
 
-Le gradient approché $\nabla_{t,\Delta}$ est donne de bons résultats sur les fonctions testées. Les niveaux d'erreur sont faibles même sur des maillages grossiers. De plus, l'ordre de convergence mesuré sur les tests numériques est 4, ce qui est supérieur à l'ordre de convergence démontré.
 
 
 
@@ -780,7 +780,7 @@ Une variante pour le calcul du gradient approché est d'utiliser un schéma aux 
 L'opérateur centré hermitien $\delta_{8,x}^H$ \eqref{eq:comp8} est un opérateur d'approximation de la dérivée première d'ordre $8$.
 On remplace $\delta_{4, \xi}^H$ et $\delta_{4, \eta}^H$ dans les algorithmes \ref{alg:deltaxi} et \ref{alg:deltaeta} de calcul de dérivées sur les grands cercles par $\delta_{8, \xi}^H$ et $\delta_{8, \eta}^H$, le reste étant inchangé. Le nouveau gradient approché vérifie toujours la proposition \ref{prop:accuracy_gradient}, le facteur limitant la montée en ordre étant, comme précédemment, la fonction d'interpolation de type spline.
 
-Sur la figure \ref{fig:rate_grad2}, nous présentons les courbes de convergence comparant le schéma utilisant $\delta^H_{4,x}$ et $\delta^H_{8,x}$. On constate que le premier schéma est meilleur en ordre que le schéma utilisant $\delta^H_{8,x}$. En revanche, l'erreur pour des valeurs de N $N$ plus faibles est nettement plus faible pour le schéma utilisant $\delta^H_{8,x}$ comme on le voit sur le tableau \ref{tab:rate_grad2}.
+Sur la figure \ref{fig:rate_grad2}, nous présentons les courbes de convergence comparant le schéma utilisant $\delta^H_{4,x}$ et $\delta^H_{8,x}$. On constate que le premier schéma est meilleur en ordre que le schéma utilisant $\delta^H_{8,x}$. En revanche, l'erreur pour des petites valeurs de $N$ est plus faible pour le schéma utilisant $\delta^H_{8,x}$ comme on le voit sur la table \ref{tab:rate_grad2}.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -845,7 +845,7 @@ L'erreur est concentrée là où l'interpolation est la plus mauvaise. Sur les g
 
 \subsubsection{Gradient sans interpolation}
 
-Nous avons vu que la méthode de calcul du gradient approché repose sur le calcul de dérivées hermitiennes périodiques le long de grands cercles. L'utilisation de splines cubiques empêche de passer à un ordre supérieur à 3 en changeant l'ordre de la dérivée Hermitienne. Il est légitime de se demander si un schéma décentré à proximité du bord ne donne pas des résultats comparables de manière à n'utiliser que les points intérieurs du panel $(k)$ pour calculer le gradient en $\mathbf{x}_{i,j}^{(k)}$ avec $(k) = (I), \ldots ,(VI)$ et $-N/2 \leq i,j \leq N/2$. Un tel schéma est naturellement beaucoup plus simple que la méthode utilisant les splines cubiques présentée précedemment.
+Nous avons vu que la méthode de calcul du gradient approché repose sur le calcul de dérivées hermitiennes périodiques le long de grands cercles. L'utilisation de splines cubiques empêche de passer à un ordre supérieur à 3 en changeant l'ordre de la dérivée Hermitienne. Il est légitime de se demander si un schéma décentré au bord des panels ne donne pas des résultats comparables de manière à n'utiliser que les points intérieurs du panel $(k)$ pour calculer le gradient en $\mathbf{x}_{i,j}^{(k)}$ avec $(k) = (I), \ldots ,(VI)$ et $-N/2 \leq i,j \leq N/2$. Un tel schéma est naturellement beaucoup plus simple que la méthode utilisant les splines cubiques présentée précédemment.
 
 Soit $(\mathfrak{u}_p)_{-N/2 \leq p \leq N/2}$ une fonction de grille. On définit l'opérateur explicite $\delta_{\dec,x}$ par
 \begin{equation}
@@ -867,7 +867,7 @@ ainsi que l'opérateur $\sigma_{\dec,x}$ par
 \end{array}
 \right.
 \end{equation}
-L'opérateur décentré au bord est construit de manière a être d'ordre 4 en conservant la structure tridiagonale de la partie implicite $\sigma_{\dec,x}$. Grâce à cette structure, le système a résoudre peut être résolu en utilisant l'algorithme de Thomas.
+L'opérateur décentré au bord est construit de manière a être d'ordre 4 en conservant la structure tridiagonale de la partie implicite $\sigma_{\dec,x}$. Grâce à cette structure, le système a résoudre peut être résolu en utilisant l'algorithme de Thomas \cite{Conte2017, Quarteroni2010}.
 
 L'opérateur hermitien $\delta^H_{\dec,x} = \sigma_{\dec,x}^{-1} \circ \delta_{\dec,x}$ est un opérateur d'approximation de la dérivée première d'ordre 4. Son décentrement au bord des panels permet d'obtenir une nouvelle procédure de calcul des dérivées $h_{\xi,i,j}$ et $h_{\eta,i,j}$ donnée par 
 \begin{equation}
@@ -919,7 +919,7 @@ $511$  & $2.7115(-10)$ & $9.4135 (-9)$ & $4.5361(-10)$ & $1.6554 (-8)$ \\
 \label{tab:rate_grad3}
 \end{table}
 
-Le gradient décentré au bord des panels $\nabla_{T,\dec}$ possèdes des propriétés de convergence semblables à celles du gradient $\nabla_{T,\Delta}$. Cependant, les niveaux d'erreurs sont plus élevés. Le gradient utilisant les splines cubiques est plus précis sur un maillage fixé. Dans la suite de ce travail, nous retenons le gradient $\nabla_{T,Delta}$ pour la résolution des équations aux dérivées partielles.
+Le gradient décentré au bord des panels $\nabla_{T,\dec}$ possèdes des propriétés de convergence semblables à celles du gradient $\nabla_{T,\Delta}$. Cependant, les niveaux d'erreurs sont plus élevés. Le gradient utilisant les splines cubiques est plus précis sur un maillage fixé. Dans la suite de ce travail, nous retenons le gradient $\nabla_{T,\Delta}$ pour la résolution des équations aux dérivées partielles.
 
 
 
@@ -970,7 +970,7 @@ On définit l'opérateur \textit{divergence discrète} par
 avec $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \ldots , (VI)$.
 \label{def:divergence_disc}
 \end{definition}
-Pour le gradient, si un point $\mathbf{x}_{i,j}^{(k)}$ appartient à plusieurs panels, on y calcule plusieurs divergences approchées. Si le point est à l'intersection de deux panels, on conserve demi somme des valeurs associées à chaque panel. Si le point est un coin de la Cubed-Sphere, on conserve la moyenne des trois valeurs.
+Si un point $\mathbf{x}_{i,j}^{(k)}$ appartient à plusieurs panels, on y calcule plusieurs divergences approchées. Si le point est à l'intersection de deux panels, on conserve demi somme des valeurs associées à chaque panel. Si le point est un coin de la Cubed-Sphere, on conserve la moyenne des trois valeurs.
 L'opérateur divergence discret de $(\mathbf{v}_{i,j}^{(k)})$ est une approximation du gradient en $\mathbf{x}_{i,j}^{(k)}$. En effet
 
 \begin{proposition}
@@ -988,7 +988,7 @@ L'opérateur divergence étant linéaire, on utilise le théorème \ref{th:consi
 
 \subsection{Tests numériques}
 
-Pour construire un test permettant d'évaluer les performances du gradient approché $\nabla_{T, \Delta} \cdot$, on utilise les propriétés suivantes.
+Pour construire un test permettant d'évaluer les performances de la divergence approchée $\nabla_{T, \Delta} \cdot$, on utilise les propriétés suivantes.
 
 \begin{lemme}
 \label{lem:n_vect_w}
@@ -1148,14 +1148,15 @@ En combinant ces deux égalités, on trouve
 \dfrac{\partial}{\partial \eta} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\eta} \right)_{\xi = \xi_i}
 \right].
 \end{equation}
+Ce qui conclut la preuve.
 \end{proof}
 
 Si l'on utilise la forme de la divergence \eqref{eq:divergence_v2} au lieu \eqref{eq:divergence_v1}, il n'y a que deux dérivées hermitiennes à calculer au lieu de six. 
-On se concentre sur le panel $(I)$ pour détailler la procédure. Pour calculer le terme
+On se concentre sur le panel $(I)$ pour détailler la procédure permettant de calculer le terme
 \begin{equation}
-\dfrac{\partial}{\partial \xi} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\xi} \right)_{\eta = \eta_j}
+\dfrac{\partial}{\partial \xi} \left( \sqrt{\bar{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\xi} \right)_{\eta = \eta_j}.
 \end{equation}
-on utilise encore une fois la structure en grands cercles. La fonction
+On utilise encore une fois la structure en grands cercles. La fonction
 \begin{equation}
 \xi \mapsto \sqrt{\bar{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\xi}
 \end{equation}
@@ -1169,7 +1170,7 @@ est bien définie sur le panel $(I)$ et peut s'étendre facilement aux panels $(
 \label{eq:expression_div_v2}
 \end{equation}
 avec $X=\frac{y}{x}$ et $Y = \frac{z}{|x|}$.
-Cependant, sur les panels $(II)$ et $(IV)$, l’abscisse $x$ s’annule (par exemple en $(0,\pm a,0)$), ce qui interdit d'utiliser les expressions \eqref{eq:expression_div_v2}.
+Cependant, sur les panels $(II)$ et $(IV)$, l’abscisse $x$ s’annule (en $(0,\pm a,0)$), ce qui interdit d'utiliser l'expression \eqref{eq:expression_div_v2}.
 On remplace les fonctions $x \mapsto 1/x$ et $x \mapsto 1/|x|$ par des prolongements de classe $\mathcal{C}^2$ au voisinage de $0$ :
 \begin{equation}
 \psi_1 (x) = \left\lbrace
@@ -1203,7 +1204,7 @@ où $s$ est un paramètre de seuillage permettant de peu affecter la fonction in
 \label{eq:expression2_div_v2}
 \end{equation}
 avec $\tilde{X}=y \psi_1(x)$ et $\tilde{Y} = z \psi_2(x)$.
-En remplaçant $\mathbf{g}^{\xi}$, $\mathbf{g}^{\eta}$ et $\sqrt{\bar{\mathbf{G}}}$ par $\tilde{\mathbf{g}}^{\xi}$, $\tilde{\mathbf{g}}^{\eta}$ et $\sqrt{\tilde{\mathbf{G}}}$ données par \eqref{eq:expression2_div_v2}, on définit la divergence approchée en $\mathbf{x}_{i,j}^{(k)}$ par
+En remplaçant $\mathbf{g}^{\xi}$, $\mathbf{g}^{\eta}$ et $\sqrt{\bar{\mathbf{G}}}$ par $\tilde{\mathbf{g}}^{\xi}$, $\tilde{\mathbf{g}}^{\eta}$ et $\sqrt{\tilde{\mathbf{G}}}$ données par \eqref{eq:expression2_div_v2}, on définit l'opérateur de divergence approchée en $\mathbf{x}_{i,j}^{(k)}$
 \begin{equation}
 \nabla_{T,\Delta,2} \cdot \mathbf{F} = \dfrac{1}{\sqrt{\tilde{\mathbf{G}}}} \left[ \dxi \left( \sqrt{\tilde{\mathbf{G}}} \mathbf{F} \cdot \tilde{\mathbf{g}}^{\xi} \right) + 
 \deta \left( \sqrt{\tilde{\mathbf{G}}} \mathbf{F} \cdot \tilde{\mathbf{g}}^{\eta} \right)
@@ -1260,7 +1261,7 @@ $512$& $1.0140(-10)$ & $1.2102(-10)$ & $3.7487(-10)$  & $1.0804 (-17)$\\
 \label{tab:rate2_div_v2}
 \end{table} 
 
-Les résultats numériques obtenus sur la divergence approchée $\nabla_{T,\Delta} \cdot$ (définition \ref{def:divergence_disc}) et ceux obtenus sur $\nabla_{T,\Delta,2} \cdot$ \eqref{eq:div_v2} sont particulièrement proches l'un de l'autre. Le calcul de la divergence $\nabla_{T,\Delta} \cdot$ nécessite l'évaluation de 6 dérivées hermitiennes alors que l'évaluation de $\nabla_{T,\Delta} \cdot$ n'en nécessité que deux. Nous ne disposont pas de résultat théorique pour garantir la consistance de $\nabla_{T,\Delta,2} \cdot$ avec la divergence.
+Les résultats numériques obtenus sur la divergence approchée $\nabla_{T,\Delta} \cdot$ (définition \ref{def:divergence_disc}) et ceux obtenus sur $\nabla_{T,\Delta,2} \cdot$ \eqref{eq:div_v2} sont particulièrement proches l'un de l'autre. Le calcul de la divergence $\nabla_{T,\Delta} \cdot$ nécessite l'évaluation de 6 dérivées hermitiennes alors que l'évaluation de $\nabla_{T,\Delta} \cdot$ n'en nécessité que deux. Nous ne disposons pas de résultat théorique pour garantir la consistance de $\nabla_{T,\Delta,2} \cdot$ avec la divergence.
 
 Les erreurs sont semblables pour chacune des divergences approchées et les ordres de convergences sont les mêmes. Cependant, nous disposons d'un résultat de consistance pour l'opérateur $\nabla_{T,\Delta} \cdot$. Dans la suite de ce travail, nous retiendrons l'opérateur divergence approchée $\nabla_{T,\Delta} \cdot$ pour la résolution des équations aux dérivées partiels.
 
@@ -1312,7 +1313,7 @@ Soit $\mathbf{v} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{v}(\mathbf{x}) 
 où $^*$ désigne l'opérateur de restriction à la Cubed-Sphere et $\Delta = \Delta \xi = \Delta \eta$.
 \end{proposition}
 
-Si un point $\mathbf{x}_{i,j}^{(k)}$ appartient à plusieurs panels (c'est à dire $i$ ou $j$ vaut $\pm N/2$) alors plusieurs rotationnels approchés sont calculés en ce point. Si $\mathbf{x}_{i,j}^{(k)}$ est à l'intersection de deux panels, deux valeurs du rotationnel sont obtenus, nous retenons la moyenne de ces deux valeurs. Si $\mathbf{x}_{i,j}^{(k)}$ est à l'intersection de trois panels, nous conservons la moyenne des trois valeurs.
+Si un point $\mathbf{x}_{i,j}^{(k)}$ appartient à plusieurs panels (c'est à dire $i$ ou $j$ vaut $\pm N/2$) alors plusieurs rotationnels approchés sont calculés en ce point. Si $\mathbf{x}_{i,j}^{(k)}$ est à l'intersection de deux panels, deux valeurs du rotationnel sont obtenues, nous retenons la moyenne de ces deux valeurs. Si $\mathbf{x}_{i,j}^{(k)}$ est à l'intersection de trois panels, nous conservons la moyenne des trois valeurs.
 
 \subsection{Tests numériques}
 
@@ -1417,7 +1418,7 @@ De plus, si $\mathbf{F} = F_x \mathbf{i} + F_y \mathbf{j} + F_z  \mathbf{k}$, al
 \partial_y F_z - \partial_z F_y \\
 \partial_z F_x - \partial_x F_z \\
 \partial_x F_y - \partial_y F_x
-\end{bmatrix} 
+\end{bmatrix} .
 \end{equation}
 
 On choisit, pour le second test numérique, le champ de vecteur tangent à la sphère suivant :
@@ -1509,7 +1510,7 @@ En sommant ces deux égalités et en utilisant
 \end{equation}
 on obtient
 \begin{equation}
-\nabla_T \wedge \nabla_T h = \dfrac{1}{a} \mathbf{n} \wedge \left( \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\eta} \right) \dfrac{1}{a} \mathbf{n} \wedge \nabla_T h.
+\nabla_T \wedge \nabla_T h = \dfrac{1}{a} \mathbf{n} \wedge \left( \dfrac{\partial h}{\partial \xi} \mathbf{g}^{\xi} + \dfrac{\partial h}{\partial \eta} \mathbf{g}^{\eta} \right) = \dfrac{1}{a} \mathbf{n} \wedge \nabla_T h.
 \end{equation}
 La seconde formule est obtenue en effectuant le produit scalaire par $\mathbf{n}$.
 \end{proof}
@@ -1648,7 +1649,7 @@ et dans la direction $\eta$ :
 \feta(h^*)_{i,j}^{(k)} = h(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}\left( \Delta^{\min(4,2J)} \right)
 \label{eq:consistance_feta}
 \end{equation}
-Pour tout $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \cdots , (VI)$. $2J$ est l'ordre choisi pour l'opérateur de filtrage 1D et $\Delta = \Delta \xi = \Delta \eta$.
+Pour tout $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \cdots , (VI)$. L'ordre choisi pour l'opérateur de filtrage 1D est $2J$ et $\Delta = \Delta \xi = \Delta \eta$ désigne le pas du maillage le long de l'équateur.
 \label{prop:consistance_ftrdir}
 \end{proposition}
 
@@ -1670,7 +1671,7 @@ sur chaque grand cercle. De plus, on a, après filtrage
 donc
 \begin{align*}
 \mathcal{F}_{2J,\xi}(h_p) & = h(\mathbf{m}_p) + \mathcal{O}(\Delta \xi^{2J}) + \mathcal{O}(\Delta \eta^4) \\
-	& = h(\mathbf{m}_p) + \mathcal{O}\left( \Delta^{\min(4,2J)} \right)
+	& = h(\mathbf{m}_p) + \mathcal{O}\left( \Delta^{\min(4,2J)} \right).
 \end{align*}
 En particulier, si $\mathbf{m}_p$ est un point du panel $(I)$ ou $(III)$, on obtient
 \begin{equation}
@@ -1678,20 +1679,20 @@ En particulier, si $\mathbf{m}_p$ est un point du panel $(I)$ ou $(III)$, on obt
 \end{equation}
 \end{proof}
 
-On souhaite filtrer dans les directions $\xi$ et $\eta$ sur chaque panel. Si $h$ est une fonction sur la Cubed-Sphere, on calcul $\fxi(h^*)$ le filtrage de $h^*$ dans la direction $\xi$. Enfin on calcule la version filtrée en $\eta$ : $\feta( \fxi(h^*))$, l'idée est de composer les filtres $\fxi$ et $\feta$. Par composition, en tout point de la Cubed-Sphere, on a 
+On souhaite filtrer dans les directions $\xi$ et $\eta$ sur chaque panel. Si $h$ est une fonction sur la Cubed-Sphere, on calcule $\fxi(h^*)$ le filtrage de $h^*$ dans la direction $\xi$. Enfin on calcule la version filtrée en $\eta$ : $\feta( \fxi(h^*))$, on compose les filtres $\fxi$ et $\feta$. Par composition, en tout point de la Cubed-Sphere, on a 
 
 \begin{proposition}
 Pour toute fonction $h : \mathbf{x} \in \mathbb{S}_a^2 \mapsto h(\mathbf{x}) \in \mathbb{R}$ régulière, on a 
 \begin{equation}
-\feta(\fxi(h^*)_{i,j}^{(k)}) = h(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}\left( \Delta^{\min(4,2J)} \right)
+\feta(\fxi(h^*)_{i,j}^{(k)}) = h(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}\left( \Delta^{\min(4,2J)} \right),
 \label{eq:consistance_ftretaxi_comp}
 \end{equation}
 ainsi que
 \begin{equation}
-\fxi(\feta(h^*)_{i,j}^{(k)}) = h(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}\left( \Delta^{\min(4,2J)} \right)
+\fxi(\feta(h^*)_{i,j}^{(k)}) = h(\mathbf{x}_{i,j}^{(k)}) + \mathcal{O}\left( \Delta^{\min(4,2J)} \right),
 \label{eq:consistance_ftrxieta_comp}
 \end{equation}
-Pour tout $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \cdots , (VI)$, $\Delta = \Delta \xi = \Delta \eta$.
+pour tout $-N/2 \leq i,j \leq N/2$ et $(k) = (I), \cdots , (VI)$, $\Delta = \Delta \xi = \Delta \eta$.
 \label{prop:consistance_ftrxieta_comp}
 \end{proposition}
 
@@ -1711,11 +1712,11 @@ Noter que les opérateurs $\fxi$ et $\feta$ ne commutent pas. En effet si
 h(x,y,z) = \exp \left( \dfrac{x}{a} \right) + \exp \left( \dfrac{y}{a} \right) + \exp \left( \dfrac{z}{a} \right)
 \label{eq:commutation_map}
 \end{equation}
-pour tout $(x,y,z) \in \mathbb{S}_a^2$. On représente sur la figure \ref{fig:commutation_map}, la quantité
+pour tout $(x,y,z) \in \mathbb{S}_a^2$. On représente sur la figure \ref{fig:commutation_map}, la fonction de grille
 \begin{equation}
 \fxi (\feta(h^*))-\feta (\fxi(h^*)).
 \end{equation}
-On observe qu'elle est non nulle numériquement.
+On observe numériquement qu'elle est non nulle.
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[height=6cm]{ftr_commutation.png}
@@ -1822,7 +1823,7 @@ $512$& $1.7228(-16)$  & $8.5616(-16)$  & $5.4099(-14)$  \\
 \label{fig:rate_ftr10}
 \end{figure}
 
-Dans la figure \ref{fig:err_diff_ftr}, on trace la fonction \eqref{eq:fct_test2} ainsi que la fonction
+Dans la figure \ref{fig:err_diff_ftr}, on trace la fonction \eqref{eq:fct_test2} ainsi que la fonction de grille
 \begin{equation}
 \dfrac{|\mathcal{F}(h^*) - h^*|}{\| h^* \|_{\infty}}
 \label{eq:ftr_err}
@@ -1884,9 +1885,9 @@ ordre 10	& \eqref{eq:fct_test2} & $6.1250(-11)$  & $2.0702(-10)$  & $3.3071(-9)$
 \label{tab:diff_ftr}
 \end{table} 
 
-La table \ref{tab:diff_ftr} permet de confirmer que plus l'ordre du filtre est élevé, moins la fonction est affectée par l'opérateur de filtrage. La fonction \eqref{eq:fct_test3} est fortement affectée par l'opérateur de filtrage, en effet la fonction oscille beaucoup et contient donc beaucoup de hautes fréquences.
+La table \ref{tab:diff_ftr} permet de confirmer que plus l'ordre du filtre est élevé, moins la fonction est affectée par l'opérateur de filtrage. La fonction \eqref{eq:fct_test3} est fortement affectée par l'opérateur de filtrage, en effet la fonction oscille beaucoup et contient beaucoup de hautes fréquences.
 
-En utilisant les mêmes grilles que sur la table \ref{tab:rate_ftr10} et sur la figure \ref{fig:rate_ftr10}, on évalue l'ordre de convergence. Les résultats donnés pour la fonction \eqref{eq:fct_test1} dans la table \ref{tab:rate_fct1}, pour la fonction \eqref{eq:fct_test2} dans la table \ref{tab:rate_fct2} et pour la fonction \eqref{eq:fct_test3} sur la table \ref{tab:rate_fct3}.
+En utilisant les mêmes grilles que sur la table \ref{tab:rate_ftr10} et sur la figure \ref{fig:rate_ftr10}, on évalue l'ordre de convergence. Les résultats sont donnés pour la fonction \eqref{eq:fct_test1} sur la table \ref{tab:rate_fct1}, pour la fonction \eqref{eq:fct_test2} sur la table \ref{tab:rate_fct2} et pour la fonction \eqref{eq:fct_test3} sur la table \ref{tab:rate_fct3}.
 
 \begin{table}[htbp]
 \begin{center}

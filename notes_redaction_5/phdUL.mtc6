@@ -5,8 +5,8 @@
 {\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.1.4}Solution \IeC {\`a} d\IeC {\'e}croissance exponentielle}{\reset@font\mtcSSfont 172}}
 {\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {6.2}Equation Shallow Water}{\reset@font\mtcSfont 173}}
 {\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.1}Propri\IeC {\'e}t\IeC {\'e}s de l'\IeC {\'e}quation Shallow Water}{\reset@font\mtcSSfont 173}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.2}R\IeC {\'e}solution num\IeC {\'e}rique}{\reset@font\mtcSSfont 177}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.3}Solution stationnaire zonale}{\reset@font\mtcSSfont 177}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.4}Cas de la montagne isol\IeC {\'e}e}{\reset@font\mtcSSfont 182}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.5}Flux barotropic instable}{\reset@font\mtcSSfont 185}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.6}Ondes de Rossby-Haurwitz}{\reset@font\mtcSSfont 186}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.2}R\IeC {\'e}solution num\IeC {\'e}rique de l'\IeC {\'e}quation Shallow Water}{\reset@font\mtcSSfont 177}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.3}Solution stationnaire zonale}{\reset@font\mtcSSfont 178}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.4}Cas test de la montagne isol\IeC {\'e}e}{\reset@font\mtcSSfont 183}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.5}Cas test barotropique avec instabilit\IeC {\'e}}{\reset@font\mtcSSfont 183}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.6}Cas test de type ondes de Rossby-Haurwitz}{\reset@font\mtcSSfont 188}}

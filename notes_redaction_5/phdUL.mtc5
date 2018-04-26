@@ -1,8 +1,10 @@
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {5.1}Equations d'advection lin\IeC {\'e}aire sur la sph\IeC {\`e}re}{\reset@font\mtcSfont 147}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {5.1.1}R\IeC {\'e}solution num\IeC {\'e}rique}{\reset@font\mtcSSfont 147}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {5.1.2}Test de rotation solide}{\reset@font\mtcSSfont 148}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {5.1.3}Propagation de vortex}{\reset@font\mtcSSfont 154}}
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {5.2}Equations de conservation non lin\IeC {\'e}aire}{\reset@font\mtcSfont 158}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {5.2.1}R\IeC {\'e}solution num\IeC {\'e}rique}{\reset@font\mtcSSfont 161}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {5.2.2}Test \IeC {\'e}quatorial p\IeC {\'e}riodique}{\reset@font\mtcSSfont 161}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {5.2.3}Test stationnaire}{\reset@font\mtcSSfont 164}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {5.1}Equations d'advection lin\IeC {\'e}aire sur la sph\IeC {\`e}re}{\reset@font\mtcSfont 145}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {5.1.1}R\IeC {\'e}solution num\IeC {\'e}rique}{\reset@font\mtcSSfont 145}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {5.1.2}Test de rotation solide}{\reset@font\mtcSSfont 146}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {5.1.3}Propagation d'un vortex}{\reset@font\mtcSSfont 153}}
+{\reset@font\mtcSSSfont\mtc@string\contentsline{subsubsection}{\noexpand \leavevmode Vortex statique}{\reset@font\mtcSSSfont 153}}
+{\reset@font\mtcSSSfont\mtc@string\contentsline{subsubsection}{\noexpand \leavevmode Vortex avec rotation solide}{\reset@font\mtcSSSfont 155}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {5.2}Equations de conservation non lin\IeC {\'e}aire}{\reset@font\mtcSfont 160}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {5.2.1}R\IeC {\'e}solution num\IeC {\'e}rique}{\reset@font\mtcSSfont 160}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {5.2.2}Solution \IeC {\'e}quatoriale p\IeC {\'e}riodique}{\reset@font\mtcSSfont 161}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {5.2.3}Solution stationnaire}{\reset@font\mtcSSfont 163}}

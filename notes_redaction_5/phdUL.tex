@@ -27,7 +27,7 @@
 \newtheorem{definition}{D\'efinition}[chapter]
 \newtheorem{exemple}{Exemple}[chapter]
 \newtheorem{remarque}{Remarque}[chapter]
-\newtheorem{proposition}{Proposition}[section]
+\newtheorem{proposition}{Proposition}[chapter]
 \newtheorem{theoreme}{Théorème}[chapter]
 \newtheorem{lemme}{Lemme}[chapter]
 \newtheorem{corollaire}{Corollaire}[chapter]
@@ -69,6 +69,12 @@
 \def\Im{\text{Im}}
 \def\sign{\text{sign}}
 
+\def\bh{\mathfrak{h}}
+\def\bv{\mathfrak{v}}
+\def\bu{\mathfrak{u}}
+\def\bq{\mathfrak{q}}
+\def\bbeta{\mathbf{\eta}}
+
 \graphicspath{{./Images/}}
 
 \newcommand\upun[1]{\uppercase{\underline{\underline{#1}}}}
@@ -102,26 +108,26 @@
 \def\blanc{\hspace*{1cm}}
 
 \President    = {Le président}
-\Rapporteurs  = {Eric Blayo\\
-                 Thomas Dubos}
-\Examinateurs = {Didier Clamond\\
-				 Jean-Pierre Croisille\\
-				 Michael Ghil\\
-				 Véronique Martin\\
-                 Dong Ye}
+\Rapporteurs  = {Eric Blayo & Professeur à l'Université de Grenoble\\
+                 Thomas Dubos & Professeur à L’École Polytechnique}
+\Examinateurs = {Didier Clamond & Professeur à l'Université de Nice\\
+				 Jean-Pierre Croisille & Professeur à l'Université de Lorraine\\
+				 Michael Ghil & Professeur à l'ENS-CERES \\
+				 Véronique Martin & Maitre de conférence à l'Université de Picardie\\
+                 Dong Ye & Professeur à l'Université de Lorraine}
 
 \MakeThesisTitlePage
 
-\begin{ThesisAcknowledgments}
-Je remercie le jury, le labo, mon directeur de thèse et tout et tout...
-\end{ThesisAcknowledgments}
+%\begin{ThesisAcknowledgments}
+%Je remercie le jury, le labo, mon directeur de thèse et tout et tout...
+%\end{ThesisAcknowledgments}
 
-\begin{ThesisDedication}
-Je dédie cette thèse\\
-à ma machine.\\
-Oui, à Pandore,\\
-qui fut la première de toutes.
-\end{ThesisDedication}
+%\begin{ThesisDedication}
+%Je dédie cette thèse\\
+%à ma machine.\\
+%Oui, à Pandore,\\
+%qui fut la première de toutes.
+%\end{ThesisDedication}
 
 \WritePartLabelInToc
 \WriteChapterLabelInToc
@@ -130,6 +136,7 @@ qui fut la première de toutes.
 
 %% ************ A COMPLETER PLUS TARD L'INTRO GENERALE
 \SpecialSection{Introduction générale}
+\input{intro.tex}
 %% ************ A COMPLETER PLUS TARD L'INTRO GENERALE
 
 %\FrameThisInToc
@@ -159,14 +166,17 @@ qui fut la première de toutes.
 
 %\DontFrameThisInToc
 
+\SpecialSection{Conclusion générale}
+\input{conclu.tex}
+
 \Annexes
 
 \Annex{Première annexe}
 \section{Coordonnées Longitude-Latitude}
 \input{lonlat.tex}
-\Annex{Deuxième annexe}
-\section{Invariants de Riemann}
-\input{IR.tex}
+%\Annex{Deuxième annexe}
+%\section{Invariants de Riemann}
+%\input{IR.tex}
 
 %-------------------------------------------------------------------
 %                       La bibliographie

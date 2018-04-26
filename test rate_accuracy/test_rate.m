@@ -1,4 +1,4 @@
-                                                               clc; clear all; close all;
+clc; clear all; close all;
 
 radius=6371220;
 N=[32 64 128];

@@ -2,7 +2,7 @@
 
 \subsection{Système de coordonnées}
 
-Un point $M$ de la sphère $ \mathbb{S}_a^2 = \{ (x,y,z) \in \mathbb{R}^3 \text{ s.t. } x^2 + y^2 + z^2 = a^2\}$ peut être repéré par ses coordonnées longitude-latitude $(\lambda, \theta ) \in ]0, 2\pi ] \times ]- \pi/2, \pi/2 [$. $\lambda$ est la longitude du point donnée par l'angle équatorial et $\lambda$ est l'angle latitudinal (Voir figure \ref{fig:lonlat_sphere}).
+Un point $\mathbf{x}$ de la sphère $ \mathbb{S}_a^2 = \{ (x,y,z) \in \mathbb{R}^3 \text{ s.t. } x^2 + y^2 + z^2 = a^2\}$ est repéré par ses coordonnées longitude-latitude $(\lambda, \theta ) \in ]0, 2\pi ] \times ]- \pi/2, \pi/2 [$. La donnée $\lambda$ est la longitude du point donnée par l'angle équatorial et $\lambda$ est l'angle latitudinal (Voir figure \ref{fig:lonlat_sphere}). Il peut aussi être repéré par ses coordonnées cartésiennes $(x,y,z) \in \mathbb{R}^3$.
 
 \begin{figure}
 \begin{center}
@@ -40,53 +40,53 @@ Un point $M$ de la sphère $ \mathbb{S}_a^2 = \{ (x,y,z) \in \mathbb{R}^3 \text{
 \end{figure}
 
 
-Ainsi $(x,y,z)$ vérifient la relation suivante :
+Les coordonnées cartésiennes $(x,y,z)$ et longitude-latitude $(\lambda, \theta)$ sont liées par :
 \begin{equation}
 \left\lbrace 
 \begin{array}{rcl}
 x & = & a \cos \theta \cos \lambda \\
 y & = & a \cos \theta \sin \lambda \\
-z & = & a \sin \theta,
+z & = & a \sin \theta.
 \end{array}
 \right.
 \end{equation}
-dès lors on peut construire une base associée sur la sphère : la base covariante $( \mathbf{g}_{\lambda}, \mathbf{g}_{\theta})$ est donnée en $M = (x,y,z) \in \mathbb{S}_a^2$ par :
+On construit la base associée sur la sphère. La base covariante $( \mathbf{g}_{\lambda}, \mathbf{g}_{\theta})$ est donnée en $\mathbf{x} (x,y,z) \in \mathbb{S}_a^2$ par :
 \begin{equation}
-\mathbf{g}_{\lambda} = \dfrac{\partial M}{\partial \lambda} = \begin{pmatrix}
+\mathbf{g}_{\lambda} = \dfrac{\partial \mathbf{x}}{\partial \lambda} = \begin{bmatrix}
 - a \cos \theta \sin \lambda \\ 
 a \cos \theta \cos \lambda \\ 
 0
-\end{pmatrix} 
+\end{bmatrix} 
 \end{equation}
 ainsi que 
 \begin{equation}\label{coord_latlon}
-\mathbf{g}_{\theta} = \dfrac{\partial M}{\partial \theta} = \begin{pmatrix}
+\mathbf{g}_{\theta} = \dfrac{\partial \mathbf{x}}{\partial \theta} = \begin{bmatrix}
 - a \sin \theta \cos \lambda \\ 
 - a \sin \theta \sin \lambda \ \\ 
 a \cos \theta.
-\end{pmatrix} 
+\end{bmatrix} 
 \end{equation}
 
 \begin{remarque}
 \label{base_lonlat}
-On peut normaliser cette base en $\mathbf{e}_{\lambda} = \dfrac{1}{\| \mathbf{g}_{\lambda} \|} \mathbf{g}_{\lambda}$ et $\mathbf{e}_{\theta} = \dfrac{1}{\| \mathbf{g}_{\theta} \|} \mathbf{g}_{\theta}$. Si $\mathbf{F} \in \mathbb{T}\mathbb{S}_R$ alors il existe $F_{\lambda}$ et $F_{\theta}$ tels que $\mathbf{F} = F_{\lambda} \mathbf{e}_{\lambda} + F_{\theta} \mathbf{e}_{\theta}$.
+On normalise cette base en $\mathbf{e}_{\lambda} = \dfrac{1}{\| \mathbf{g}_{\lambda} \|} \mathbf{g}_{\lambda}$ et $\mathbf{e}_{\theta} = \dfrac{1}{\| \mathbf{g}_{\theta} \|} \mathbf{g}_{\theta}$. Si $\mathbf{F} \in \mathbb{T}\mathbb{S}_a$ alors il existe $F_{\lambda}$ et $F_{\theta}$ tels que $\mathbf{F} = F_{\lambda} \mathbf{e}_{\lambda} + F_{\theta} \mathbf{e}_{\theta}$.
 \end{remarque}
 
 Ainsi $\mathbf{G}$ le tenseur métrique est :
 \begin{equation}
 \mathbf{G} = 
-\begin{pmatrix}
+\begin{bmatrix}
 \mathbf{g}_{\lambda} \cdot \mathbf{g}_{\lambda} & \mathbf{g}_{\lambda} \cdot \mathbf{g}_{\theta} \\
 \mathbf{g}_{\theta} \cdot \mathbf{g}_{\lambda} & \mathbf{g}_{\theta} \cdot \mathbf{g}_{\theta}
-\end{pmatrix}
+\end{bmatrix}
  =
-\begin{pmatrix}
+\begin{bmatrix}
 a^2 \cos \theta & 0 \\
 0 & a^2
-\end{pmatrix}
+\end{bmatrix}
 \end{equation}
 
-On pose alors $\overline{\mathbf{G}} = det (\mathbf{G}) = a^4 \cos^2 \theta$. La base contravariante $( \mathbf{g}^{\lambda}, \mathbf{g}^{\theta} ) $ est telle que :
+On pose alors $\overline{\mathbf{G}} = det (\mathbf{G}) = a^4 \cos^2 \theta$. La base contravariante $( \mathbf{g}^{\lambda}, \mathbf{g}^{\theta} )$ est telle que :
 
 \begin{equation}
 \left\lbrace 
@@ -98,40 +98,34 @@ On pose alors $\overline{\mathbf{G}} = det (\mathbf{G}) = a^4 \cos^2 \theta$. La
 \end{equation}
 avec $\mathbf{G}^{i,j} = \left( \mathbf{G}^{-1} \right)_{i,j}$.
 De là, il découle :
-\begin{equation}
-\begin{array}{rcl}
-\mathbf{g}^{\lambda} & = & \dfrac{1}{a \cos \theta}  \mathbf{e}_{\lambda} \\
-\mathbf{g}^{\theta} & = & \dfrac{1}{a} \mathbf{e}_{\theta}.
-\end{array}
-\end{equation}
+\begin{eqsys}
+\mathbf{g}^{\lambda} = \dfrac{1}{a \cos \theta}  \mathbf{e}_{\lambda} \\
+\mathbf{g}^{\theta} = \dfrac{1}{a} \mathbf{e}_{\theta}.
+\end{eqsys}
 A partir de ces vecteurs élémentaires, on peut obtenir des formules pour calculer les opérateurs différentiels classique sur la sphère ainsi que l'intégrale sur la surface d'une sphère.
 
 \subsection{Opérateurs classiques sur la sphère}
 
-Soit $u$ une fonction de $\mathbb{S}_a^2$ dans $\mathbb{R}$ dérivable pour $\lambda$ et $\theta$. On peut calculer le gradient de $u$ par :
+Soit une fonction $u: \mathbf{x} \in \mathbb{S}_a^2 \mapsto u(\mathbf{x})$ régulière. On peut calculer le gradient de $u$ par :
 \begin{equation}
 \nabla_T u = \dfrac{\partial u}{\partial \lambda} \mathbf{g}^{\lambda} + \dfrac{\partial u}{\partial \theta} \mathbf{g}^{\theta}
 \end{equation}
 ce qui se traduit en :
 \begin{equation}\label{gradient_lonlat}
-\nabla_T u = \dfrac{1}{a \cos \theta}\dfrac{\partial u}{\partial \lambda} \mathbf{e}_{\lambda} + \dfrac{1}{R} \dfrac{\partial u}{\partial \theta} \mathbf{e}_{\theta}.
+\nabla_T u = \dfrac{1}{a \cos \theta}\dfrac{\partial u}{\partial \lambda} \mathbf{e}_{\lambda} + \dfrac{1}{a} \dfrac{\partial u}{\partial \theta} \mathbf{e}_{\theta}.
 \end{equation}
-Soit un champ de vecteurs sur la sphère $\mathbf{F} = F_{\lambda} \mathbf{e}_{\lambda} + F_{\theta} \mathbf{e}_{\theta}$ dérivable pour chacune de ses variables sur chacune de ses composantes. Alors 
-\begin{equation}
-\left\lbrace 
-\begin{array}{rcl}
-\mathbf{F} \cdot \mathbf{g^{\lambda}} & = & \dfrac{1}{a \cos \theta} F_{\lambda} \\
-\mathbf{F} \cdot \mathbf{g^{\theta}} & = & \dfrac{1}{a} F_{\theta}.
-\end{array}
-\right.
-\end{equation}
+Soit un champ de vecteurs sur la sphère $\mathbf{F} = F_{\lambda} \mathbf{e}_{\lambda} + F_{\theta} \mathbf{e}_{\theta}$ régulier. Alors 
+\begin{eqsys}
+\mathbf{F} \cdot \mathbf{g^{\lambda}} = \dfrac{1}{a \cos \theta} F_{\lambda} \\
+\mathbf{F} \cdot \mathbf{g^{\theta}} = \dfrac{1}{a} F_{\theta}.
+\end{eqsys}
 La divergence de $\mathbf{F}$ est donnée par :
 \begin{equation}
 \nabla_T \cdot \mathbf{F} = \dfrac{1}{\sqrt{\overline{\mathbf{G}}}} \left( \dfrac{\partial}{\partial \lambda} \left( \sqrt{\overline{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\lambda}  \right) +  \dfrac{\partial}{\partial \theta} \left( \sqrt{\overline{\mathbf{G}}} \mathbf{F} \cdot \mathbf{g}^{\theta}  \right)  \right)
 \end{equation}
 d'où :
 \begin{equation}\label{divergence_lonlat}
-\nabla_T \cdot \mathbf{F} = \dfrac{1}{a \cos \theta} \dfrac{\partial}{\partial \lambda}  F_{\lambda} + \dfrac{1}{a \cos \theta} \dfrac{\partial}{\partial \theta} \left( \cos \theta F_{\theta} \right)
+\nabla_T \cdot \mathbf{F} = \dfrac{1}{a \cos \theta} \dfrac{\partial}{\partial \lambda}  F_{\lambda} + \dfrac{1}{a \cos \theta} \dfrac{\partial}{\partial \theta} \left( \cos \theta F_{\theta} \right).
 \end{equation}
 Le rotationnel de $\mathbf{F}$ se calcule grâce aux produit vectoriel. Il est donné par :
 \begin{equation}
@@ -139,7 +133,7 @@ Le rotationnel de $\mathbf{F}$ se calcule grâce aux produit vectoriel. Il est d
 \end{equation}
 Après calculs, on obtient :
 \begin{equation}\label{rotationnel_lonlat}
-\nabla_T \wedge \mathbf{F} = \left[ F_{\lambda} \dfrac{\tan \theta}{R} + \dfrac{1}{R \cos \theta} \dfrac{\partial F_{\theta}}{\partial \lambda} - \dfrac{1}{R} \dfrac{\partial F_{\lambda}}{\partial \theta} \right] \mathbf{e}_R - \dfrac{F_{\theta}}{R} \mathbf{e}_{\lambda},
+\nabla_T \wedge \mathbf{F} = \left[ F_{\lambda} \dfrac{\tan \theta}{a} + \dfrac{1}{a \cos \theta} \dfrac{\partial F_{\theta}}{\partial \lambda} - \dfrac{1}{a} \dfrac{\partial F_{\lambda}}{\partial \theta} \right] \mathbf{e}_R - \dfrac{F_{\theta}}{a} \mathbf{e}_{\lambda},
 \end{equation}
 avec $\mathbf{e}_{R} = \left( \cos \theta \cos \lambda, \cos \theta \sin \lambda, \sin \theta \right)^T$. Le Laplacien est une composition des deux opérateurs précédents : $\Delta_T u = \nabla_T \cdot \nabla_T u$ :
 \begin{equation}\label{laplacien_lonlat}
@@ -147,5 +141,5 @@ avec $\mathbf{e}_{R} = \left( \cos \theta \cos \lambda, \cos \theta \sin \lambda
 \end{equation}
 En plus des opérateurs différentiels courants, en utilisant le changement de variable $\mathbf{x} \mapsto (\lambda, \theta)$ issu de \eqref{coord_latlon}, on peut donner une formule d'intégration :
 \begin{equation}\label{integrale_lonlat}
-\gint_{\mathbb{S}_a^2} u(\mathbf{x})d\sigma(\mathbf{x})= \gint_{\lambda=0}^{2 \pi} \gint_{\theta = - \pi/2}^{\pi/2} u(\lambda, \theta) \underbrace{R^2 \cos \theta}_{\sqrt{\overline{\mathbf{G}}}} d \theta d \lambda.
+\gint_{\mathbb{S}_a^2} u(\mathbf{x})d\sigma(\mathbf{x})= \gint_{\lambda=0}^{2 \pi} \gint_{\theta = - \pi/2}^{\pi/2} u(\lambda, \theta) \underbrace{a^2 \cos \theta}_{\sqrt{\overline{\mathbf{G}}}} d \theta d \lambda.
 \end{equation}

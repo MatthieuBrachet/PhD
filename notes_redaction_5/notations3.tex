@@ -16,7 +16,7 @@ Pour $u$ et $v$ à valeurs réelles, on a
 \end{equation}
 La norme sur $L^2(\Omega)$ est donnée par :
 \begin{equation}
-\| u \|_{L^2(\Omega)} = \sqrt{(u,u)}
+\| u \|_{L^2(\Omega)} = \sqrt{(u,u)}.
 \end{equation}
 Pour $u \in \mathcal
 C(\bar{\Omega}) \cap L^{\infty}(\Omega)$, on note
@@ -140,7 +140,7 @@ u^*_j = u^*(x_j) \text{ pour } 0 \leq j \leq N-1.
 \end{equation}
 \end{enumerate}
 
-Nous distinguons $l^2_h$, l'espace des fonctions de grilles d'une part, et d'autres part l'esace vectoriel $\mathbb{R}^{N+1}$ même si ces deux espaces sont isomorphes.
+Nous distinguons $l^2_h$, l'espace des fonctions de grilles d'une part, et d'autres part l'espace vectoriel $\mathbb{R}^{N+1}$ même si ces deux espaces sont isomorphes.
 
 Cette distinction permet de faire une claire différence entre :
 \begin{itemize}
@@ -253,7 +253,7 @@ On sait que
 \begin{equation}
 |\mathfrak{v}|_{h,\per}^2 = \gsum_{j=0}^{N-1} \mathfrak{v}_j \bar{\mathfrak{v}}_j.
 \end{equation}
-Or on sait que
+Or par décomposition, on a
 \begin{equation}
 \begin{array}{rcl}
 \mathfrak{v}_j & = & \gsum_{k = -N/2+1}^{N/2} \hat{v}_k \mathfrak{u}_j^k \\
@@ -272,7 +272,7 @@ Or on sait que $(\mathfrak{u}^k, \mathfrak{u}^{k'})_{h,\per} = \delta_{k,k'}$ do
 	& = \gsum_{k=-N/2+1}^{N/2} \hat{\mathfrak{v}}_k \bar{\hat{\mathfrak{v}}}_k \\
 	& = \gsum_{k=-N/2+1}^{N/2} |\hat{\mathfrak{v}}_k|^2.
 \end{align*}
-D'où le résultat.
+Ce qui conclut la démonstration.
 \end{proof}
 
 
@@ -444,6 +444,7 @@ C'est à dire
 \end{equation}
 Les propriétés spectrales de $T$ se déduisent de celles de $\tau$ :
 \begin{corollaire}
+\label{cor:eigen_P(T)}
 \begin{itemize}
 \item Les valeurs propres de $T$ sont les valeurs $(\omega^k)_{-N/2+1 \leq k \leq N/2}$. 
 L'espace vectoriel associé est $\Vect ( U^k )$ avec
@@ -455,7 +456,6 @@ $\mathfrak{u}^k$ et $\omega$ sont donnés par la proposition \ref{prop:eigenvalu
 
 \item Si $P \in \mathbb{R}[X]$ alors les valeurs propres de $P(T)$ sont $P(\omega^k)$ avec $-N/2 + 1 \leq k \leq N/2$ et l'espace propre associé est \eqref{eq:eigenvectorT}.
 \end{itemize}
-\label{prop:eigen_P(T)}
 \end{corollaire}
 
 Les vecteurs $(U^k)_{-N/2+1 \leq k \leq N/2}$ forment une base orthonormée de $\mathbb{R}^N$ pour le produit scalaire usuel.
@@ -540,11 +540,11 @@ Alors par différence, on obtiens :
 \begin{equation}
 \delta_x u^*_j = \partial_x u(x_j) + \dfrac{h^2}{12} \left[ \partial_x^{(3)} u(\xi) + \partial_x^{(3)} u (\eta) \right]  \text{ avec } \xi, \eta \in ]x_{j-1}, x_{j+1}[.
 \end{equation}
-Comme $u$ est de classe $\mathcal{C}^{3}$, $\partial_x^{(3)}u$ est continue. Donc il existe $\alpha \in ](\xi, \eta)[ \subset ]x_{j-1}, x_{j+1}[$ tel que
+Comme $u$ est de classe $\mathcal{C}^{3}$, $\partial_x^{(3)}u$ est continue. Donc il existe $\alpha \in ]\xi, \eta[ \subset ]x_{j-1}, x_{j+1}[$ tel que
 \begin{equation}
 2 \partial_x^{(3)}u(\alpha) = \partial_x^{(3)} u(\xi) + \partial_x^{(3)} u (\eta)
 \end{equation}
-d'où on obtiens 
+d'où on obtient 
 \begin{equation}
 \delta_x u^*_j - \partial_x u(x_j) = \dfrac{h^2}{6} \partial_x^{(3)}u(\alpha) \text{ avec } \alpha \in ]x_{j-1}, x_{j+1}[.
 \end{equation}
@@ -553,7 +553,7 @@ Il résulte de la proposition \ref{prop:eq_deltax2} que \eqref{eq:deltax2} est c
 
 
 
-\item \textbf{Exemple 2 :} Une manière d'augmenter la consistance de l'exemple 1 est de modifier l'opérateur $R_h$ \cite{Collatz2012}. Pour cela introduis $\sigma_x$ l'opérateur de Simpson
+\item \textbf{Exemple 2 :} Une manière d'augmenter la consistance de l'exemple 1 est de modifier l'opérateur $R_h$ \cite{Collatz2012}. Pour cela on introduit $\sigma_x$ l'opérateur de Simpson
 \begin{equation}
 \sigma_x = \dfrac{1}{6} \tau + \dfrac{4}{6} \Id + \dfrac{1}{6} \tau^{-1}.
 \end{equation}
@@ -565,7 +565,7 @@ La proposition suivante est alors vérifiée :
 \begin{proposition}
 Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ et $u^*$ la fonction de grille associée. Si $u \in \mathcal{C}^5(\Omega)$ alors 
 \begin{equation}
-\sigma_x \partial_x u^*_j - \delta_x u^*_j = \mathcal{O}(h^4).
+\| \sigma_x \partial_x u^*_j - \delta_x u^*_j \|_{\infty} \leq \dfrac{h^4}{45} \| \partial_x^{(5)} u \|_{\infty}.
 \end{equation}
 \label{prop:eq_deltax2_sigmax}
 \end{proposition}
@@ -601,7 +601,7 @@ Pour conclure, on applique la formule précédente avec $f = \partial_x u$. On n
 \end{equation}
 de là, on obtient
 \begin{equation}
-|\sigma \left( \partial_x u^* \right)_j - \delta_x u^*_j | = \dfrac{h^5}{45}\max_{x} |\partial_x^{(4)} f(x)|
+|\sigma \left( \partial_x u^* \right)_j - \delta_x u^*_j | \leq \dfrac{h^5}{45}\max_{x} |\partial_x^{(4)} f(x)|
 \end{equation}
 et on peut conclure directement.
 \end{proof}
@@ -626,12 +626,12 @@ est consistante à l'ordre $2J$ avec
 \gsum_{p=1}^J a_p & = & 1 & \\
 \gsum_{p=1}^J p^{2k} a_p & = & 0 \text{ pour tous } 1 \leq k \leq J-1.
 \end{array}
-\right. .
+\right.
 \label{eq:syst_opexplicite_P}
 \end{equation}
 L'erreur de troncature est de la forme :
 \begin{equation}
-\left(\partial_x u \right)_j^* - \delta_{2J,x} u^*_j = h^{2J} \left(  \sum_{p=1}^J a_p p^{2J} \right) \dfrac{2J}{2(2J+1)!} \partial^{(2J+1)}_x u(\alpha_p)
+\left(\partial_x u \right)_j^* - \delta_{2J,x} u^*_j = h^{2J}  \dfrac{2J}{2(2J+1)!}   \left(  \sum_{p=1}^J a_p p^{2J} \partial^{(2J+1)}_x u(\alpha_p) \right)
 \end{equation} 
 avec $\alpha_p \in ]x_{j-p}, x_{j+p}[$ et $u \in \mathcal{C}^{2J+1}$.
 \label{th:consistance_delta_x_explicite}
@@ -648,11 +648,11 @@ u(x_j + ph) & = & u(x_j) + p h \partial_x u(x_j) + \cdots + \dfrac{(ph)^k}{k!}\p
 u(x_j - ph) & = & u(x_j) - p h \partial_x u(x_j) + \cdots + \dfrac{(-ph)^k}{k!}\partial_x^{(k)}u(x_j) + \cdots +\dfrac{(-ph)^{2J+1}}{(2J+1)!} \partial_x^{(2J+1)}u(\eta_j)
 \end{array}
 \end{equation}
-avec $\xi_j \in ]x_j, x_j+ph[$ et $\eta_j \in ]x_j-ph, x_j[$. En combinant ces deux égalités, on obtiens
+avec $\xi_j \in ]x_j, x_j+ph[$ et $\eta_j \in ]x_j-ph, x_j[$. En combinant ces deux égalités, on obtient
 \begin{equation}
 \dfrac{\tau_p u^*_j - \tau_{-p} u^*_j}{2ph} = \partial_x u(x_j) + \cdots + \dfrac{(ph)^{k-1}(1 - (-1)^k)}{2 \cdot k!} \partial_x^{(k)}(x_j) + \cdots +\dfrac{(ph)^{2J}}{2(2J+1)!} \left( \partial^{(2J+1)}_x u(\xi_j) + \partial_x^{(2J+1)}u(\eta_j) \right)
 \end{equation}
-Donc la combinaison linéaire de ces termes pondérée par les coefficients $(a_p)_{1 \leq p \leq J}$ est consistante avec la dérivée première si et seulement si :
+Donc la combinaison linéaire de ces termes pondérée par les coefficients $(a_p)_{1 \leq p \leq J}$ est consistante avec la dérivée première à l'ordre $2J$ si et seulement si :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcll}
@@ -678,6 +678,7 @@ pour conclure, on utilise le théorème des valeurs intermédiaires. Comme $u \i
 \begin{equation}
 \partial_x^{(2J+1)}(\xi_j) + \partial_x^{(2J+1)}u(\eta_j) = 2 \partial_x^{(2J+1)}u(\alpha_p).
 \end{equation}
+Ce qui conclut la preuve.
 \end{proof}
 
 \begin{corollaire}
@@ -697,11 +698,11 @@ avec
 \beta^p_j = \left\lbrace
 \begin{array}{ccl}
 j^2 & \text{ si } & j<p \\
-(j+1)^2 & \text{ si } & j \geq p
+(j+1)^2 & \text{ si } & j \geq p.
 \end{array}
 \right.
 \end{equation}
-de plus, les coefficients sont de signes alternés, c'est à dire $a_p a_{p+1} \leq 0$ pour tout $p$.
+Enfin, les coefficients sont de signes alternés, c'est à dire $a_p a_{p+1} \leq 0$ pour tout $p$.
 \end{proposition}
 
 \begin{proof}
@@ -729,7 +730,9 @@ Ce système admet une solution si $\det (A) \neq 0$. Or on reconnaît un déterm
 	& = \gprod_{1\leq i < j \leq J} (j^2 - i^2)\\
 	& > 0 \text{ car } j^2 > i^2 \text{ lorsque } j>i.
 \end{align*}
-Le système \eqref{eq:syst_opexplicite_P} admet donc toujours une unique solution. Calculons cette solution. D'après la formule de Cramer, on a 
+Le système \eqref{eq:syst_opexplicite_P} admet donc une unique solution. Calculons cette solution.
+
+D'après la formule de Cramer, on a 
 \begin{equation}
 a_p = \dfrac{\det (A_p)}{\det (A)}
 \end{equation}
@@ -782,18 +785,19 @@ a_p = (-1)^{p-1} \dfrac{\gprod_{1 \leq i <j \leq J-1}(\beta_j^p - \beta_i^p)}{\g
 \end{equation}
 ainsi que l'alternance des signes car
 \begin{equation}
-\dfrac{\gprod_{1 \leq i <j \leq J-1}(\beta_j^p - \beta_i^p)}{\gprod_{1 \leq i <j \leq J}(j^2 - i^2)} > 0.
+\dfrac{\gprod_{1 \leq i <j \leq J-1}(\beta_j^p - \beta_i^p)}{\gprod_{1 \leq i <j \leq J}(j^2 - i^2)} > 0,
 \end{equation}
+donc $a_p a_{p+1} < 0$. Ce qui conclut la preuve.
 \end{proof}
 A présent, dans cette section, nous supposons que les coefficients $(a_p)_{1 \leq p \leq J}$ sont issus de la résolution du système \eqref{eq:syst_opexplicite_P}. On a déjà vu que $\tau^{-1} = \tau_{-1} = \tau^{N-1}$, donc à partir des coefficients $(a_p)_{1 \leq p \leq J}$ on construit le polynôme $Q_{2J}$ tel que
 \begin{align*}
 \delta_{2J,x} & = \gsum_{p=1}^J a_p \dfrac{\tau_p - \tau_{-p}}{2ph}\\
 	& = \gsum_{p=1}^J \dfrac{a_p}{2ph} \left( \tau^p - \tau^{N-p} \right)\\
-	& = \dfrac{1}{h} Q_{2J}(\tau)
+	& = \dfrac{1}{h} Q_{2J}(\tau),
 \end{align*}
 où le polynôme $Q_{2J}$ de $\mathbb{R}_{N-1}[X]$ est donné par
 \begin{equation}
-Q_{2J}(X) = \gsum_{p=1}^J \dfrac{a_p}{2p} \left( X^p - X^{N-p} \right)
+Q_{2J}(X) = \gsum_{p=1}^J \dfrac{a_p}{2p} \left( X^p - X^{N-p} \right).
 \end{equation}
 
 \textbf{Exemples :}
@@ -806,7 +810,7 @@ on donne quelques exemples d'opérateurs d'approximation de la dérivée premiè
 \end{equation}
 est un opérateur d'approximation de la dérivée première à l'ordre 2 ($J=1$) avec 
 \begin{equation}
-Q_2(X) = \dfrac{1}{2}(X-X^{N-1}),
+Q_2(X) = \dfrac{1}{2}(X-X^{N-1}).
 \end{equation}
 \item Si $u \in \mathcal{C}^5 (\Omega)$ alors l'opérateur :
 \begin{equation}
@@ -815,7 +819,7 @@ Q_2(X) = \dfrac{1}{2}(X-X^{N-1}),
 \end{equation}
 est un opérateur d'approximation de la dérivée première à l'ordre 4 ($J=2$), avec
 \begin{equation}
-Q_4(X) = \dfrac{2}{3} (X-X^{N-1}) - \dfrac{1}{12} (X^2-X^{N-2})
+Q_4(X) = \dfrac{2}{3} (X-X^{N-1}) - \dfrac{1}{12} (X^2-X^{N-2}).
 \end{equation}
 \item Si $u \in \mathcal{C}^7 (\Omega)$ alors l'opérateur :
 \begin{equation}
@@ -824,7 +828,7 @@ Q_4(X) = \dfrac{2}{3} (X-X^{N-1}) - \dfrac{1}{12} (X^2-X^{N-2})
 \end{equation}
 est un opérateur d'approximation de la dérivée première à l'ordre 6 ($J=3$), avec
 \begin{equation}
-Q_6(X) = \dfrac{3}{4} (X-X^{N-1}) - \dfrac{3}{20} (X^2-X^{N-2}) + \dfrac{1}{60} (X^3-X^{N-3})
+Q_6(X) = \dfrac{3}{4} (X-X^{N-1}) - \dfrac{3}{20} (X^2-X^{N-2}) + \dfrac{1}{60} (X^3-X^{N-3}).
 \end{equation}
 \item Si $u \in \mathcal{C}^9 (\Omega)$ alors l'opérateur :
 \begin{equation}
@@ -860,9 +864,9 @@ Pour $-N/2+1 \leq k \leq N/2$, on a
 avec $h=L/N$.
 De plus, si on pose $\theta= 2 k \pi / N$ alors 
 \begin{equation}
--i Q_{2J} \left( \exp ( i \theta ) \right) = \sin \theta \gsum_{p=1}^J \dfrac{a_p}{p} U_p (\cos \theta)\in \mathbb{R}
+-i Q_{2J} \left( \exp ( i \theta ) \right) = \sin \theta \gsum_{p=1}^J \dfrac{a_p}{p} U_p (\cos \theta)\in \mathbb{R},
 \end{equation}
-$U_p$ désignent les polynômes de Tchebychev de seconde espèce. De plus 
+où $U_p$ est un polynôme de Tchebychev de seconde espèce. De plus 
 \begin{equation}
 Q_{2J} \left( \exp ( i 0 ) \right) = Q_{2J} \left( \exp ( i \pi ) \right) = 0.
 \end{equation}
@@ -914,7 +918,7 @@ La fonction
 \begin{equation}
 \theta \in \mathbb{R} \mapsto - i Q_{2J}(\exp(i \theta)) \in \mathbb{R}
 \end{equation}
-est $2 \pi -$périodique et impaire. De plus, en tenant compte de la proposition \ref{prop:freq_pol_classique1} on compare $\theta \mapsto \theta$  et $\theta \mapsto - i Q_{2J}(\exp(i \theta))$ sur l'intervalle $[0,\pi]$. On représente quelques exemples de ces fonctions pour différents valeurs de $2J$ dans la figure \ref{fig:freq_classic}. On constate que plus l'ordre $2J$ est élevé mieux $- i Q_{2J}(\exp(i \theta))$ approche $\theta$ pour $\theta$ proche de $0$. De plus, les courbes coïncident en $\theta = 0$.
+est $2 \pi -$périodique et impaire. De plus, en tenant compte de la proposition \ref{prop:freq_pol_classique1} on compare $\theta \mapsto \theta$  et $\theta \mapsto - i Q_{2J}(\exp(i \theta))$ sur l'intervalle $[0,\pi]$. On représente quelques exemples de ces fonctions pour différentes valeurs de $2J$ sur la figure \ref{fig:freq_classic}. On constate que plus l'ordre $2J$ est élevé, mieux $- i Q_{2J}(\exp(i \theta))$ approche $\theta$ pour $\theta$ proche de $0$. De plus, les courbes coïncident en $\theta = 0$.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1018,7 +1022,6 @@ d'où le résultat.
 
 
 
-
 \subsection{Opérateurs Hermitiens périodiques 1D}
 
 Dans ce travail, nous n'utilisons pas de schémas de la forme \eqref{eq:explicite_dx}. Les schémas hermitiens \cite{Lele1991} donnent de meilleurs résultats en ce qui concerne l'analyse fréquentielle. Ils sont couramment utilisés sur la résolution d'équations hyperboliques \cite{Chu1998} et permettent de bons résultats pour la capture des chocs \cite{Jiang2001}. De bons résultats ont aussi été donnés pour l'approximation de la dérivée seconde \cite{Abbas2011, Keller1971} ou en mécanique des fluides \cite{BenArtzi2005, BenArtzi2013}. Dans ce travail, nous ne considérons que les schémas à 3 points implicites pour lesquels nous souhaitons optimiser l'ordre de convergence. D'autres travaux vise à minimiser d'autres formes d'erreurs \cite{Kim1996, Kim2007}. Nous définissons l'opérateur $\sigma_{x}$ par :
@@ -1077,27 +1080,21 @@ avec $\xi \in ]x_j, x_j+ph[$ et $\eta \in ]x_j-ph, x_j[$. En combinant ces deux 
 D'autres part, on a 
 \begin{multline}
 (1-2\beta) \partial_x u^*_j + \beta \left( \tau_1 \partial_xu^*_{j} + \tau_{-1} \partial_xu^*_{j} \right) = \\
- \partial_x u^*_j +  \gsum_{k=1}^{2J+1} \beta \dfrac{h^{k}}{k!} \left( 1 + (-1)^k \right) \partial_x^{(k+1)}u(x_j)+ \beta \dfrac{h^{2J+2}}{(2J+2)!} \left(\partial_x^{(2J+3)}u(\varrho) + \partial_x^{(2J+3)}u(\sigma) \right) 
+ \partial_x u^*_j +  \gsum_{k=1}^{2J+1} \beta \dfrac{h^{k}}{k!} \left( 1 + (-1)^k \right) \partial_x^{(k+1)}u(x_j)+ \beta \dfrac{h^{2J+2}}{(2J+2)!} \left(\partial_x^{(2J+3)}u(\varrho_p) + \partial_x^{(2J+3)}u(\sigma_p) \right) 
 \label{eq:preuve_herm2}
 \end{multline}
-avec $\varrho \in ]x_j, x_j + h[$ et $\sigma \in ]x_j, x_j - h[$. 
+avec $\varrho_p \in ]x_j, x_j + ph[$ et $\sigma_p \in ]x_j - _h , x_j[$. 
 
 On remarque directement que \eqref{eq:preuve_herm2} et $\gsum_{p=0}^J a_p  \eqref{eq:preuve_herm1}$ coïncident pour les puissances de $h$ impaires. 
 Pour les autres valeurs, l'égalité est vrai si les coefficients $(a_p)_{1 \leq p \leq J}$ et $\beta$ sont solutions de \eqref{eq:hermitian_system}. L'erreur de troncature prend directement la forme 
 \begin{multline}
 (\delta_{x} u^*)_j - (\sigma_{x} \partial_x u^*)_j = \\
-h^{2J+2} \left( \gsum_{p=1}^J a_p  \dfrac{p^{2J+2}}{2(2J+3)!} \left( \partial_x^{(2J+3)}u(\xi) + \partial_x^{(2J+3)}u(\eta) \right) - \dfrac{\beta}{(2J+2)!} \left(\partial_x^{(2J+3)}u(\varrho) + \partial_x^{(2J+3)}(\sigma) \right) \right)
+h^{2J+2} \left( \gsum_{p=1}^J a_p  \dfrac{p^{2J+2}}{2(2J+3)!} \left( \partial_x^{(2J+3)}u(\xi_p) + \partial_x^{(2J+3)}u(\eta_p) \right) - \dfrac{\beta}{(2J+2)!} \left(\partial_x^{(2J+3)}u(\varrho_p) + \partial_x^{(2J+3)}(\sigma_p) \right) \right).
 \end{multline}
 On conclut en utilisant le théorème des valeurs intermédiaires.
 \end{proof}
 
-\begin{proposition}
-Le système \eqref{eq:hermitian_system} admet une unique solution.
-\end{proposition}
-
-\begin{proof}
-TBA.
-\end{proof}
+Dans cette section, nous supposons que le système \eqref{eq:hermitian_system} admet une solution. Ce sera le cas pour tous les exemples considérés.
 
 \begin{proposition}
 Les valeurs propres de $\sigma_x$ sont
@@ -1162,7 +1159,11 @@ Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ périodique alors
 \right.
 \label{eq:comp4}
 \end{equation}
-et $\delta^H_{4,x} = \sigma_x^{-1} \circ \delta_{x}$ défini un opérateur d'approximation de la dérivée première à l'ordre 4,
+et $\delta^H_{4,x} = \sigma_x^{-1} \circ \delta_{x}$ définit un opérateur d'approximation de la dérivée première à l'ordre 4. En particulier, comme $\| \sigma_x^{-1} \|_{\infty} \leq 3$, on montre à partir de la proposition \ref{prop:eq_deltax2_sigmax} que :
+\begin{equation}
+\| (\partial_x u )^* - \delta_{4,x}^H (u^*) \|_{\infty} \leq \dfrac{h^4}{15} \| \partial_x^{(4)} i \|_{\infty}.
+\label{eq:constante_err_derherm4}
+\end{equation}
 
 \item Si $u \in \mathcal{C}^{7}(\Omega)$ alors 
 \begin{equation}
@@ -1174,7 +1175,7 @@ et $\delta^H_{4,x} = \sigma_x^{-1} \circ \delta_{x}$ défini un opérateur d'app
 \right.
 \label{eq:comp6}
 \end{equation}
-et $\delta^H_{x} = \sigma_{x}^{-1} \circ \delta_{4,x}$ défini un opérateur d'approximation de la dérivée première à l'ordre 6,
+et $\delta^H_{x} = \sigma_{x}^{-1} \circ \delta_{4,x}$ définit un opérateur d'approximation de la dérivée première à l'ordre 6,
 
 
 \item Si $u \in \mathcal{C}^{9}(\Omega)$ alors 
@@ -1187,7 +1188,7 @@ et $\delta^H_{x} = \sigma_{x}^{-1} \circ \delta_{4,x}$ défini un opérateur d'a
 \right.
 \label{eq:comp8}
 \end{equation}
-et $\delta^H_{8,x} = \sigma_{x}^{-1} \circ \delta_{x}$ défini un opérateur d'approximation de la dérivée première à l'ordre 8.
+et $\delta^H_{8,x} = \sigma_{x}^{-1} \circ \delta_{x}$ définit un opérateur d'approximation de la dérivée première à l'ordre 8.
 \end{itemize}
 
 
@@ -1232,7 +1233,7 @@ où $-N/2+1 \leq k \leq N/2$. L'espace propre associé à $\dfrac{1}{h} Q_{2J+2}
 \end{proposition}
 
 \begin{proposition}
-Pour $-N/2+1  \leq k \leq N/2$, on a $h=L/N$ et 
+Si les coefficient $(a_p)_{1 \leq p \leq J}$ et $\beta$ sont solutions du système \eqref{eq:hermitian_system}. Alors pour $-N/2+1  \leq k \leq N/2$ et $h=L/N$ on a
 \begin{equation}
 \dfrac{2 i \pi k}{N} - Q_{2J+2}^H \left( \exp \left( \dfrac{2 i \pi k}{N} \right) \right) = \mathcal{O}(h^{2J+3}).
 \end{equation}
@@ -1240,7 +1241,7 @@ De plus, en posant $\theta = 2 k \pi / N$, on a
 \begin{equation}
 - i Q_{2J+2}^H(\exp (i \theta) ) = \dfrac{\sin(\theta)}{1 +2 \beta (\cos (\theta) -1)} \gsum_{p=1}^J \dfrac{a_p}{p} U_p (\cos \theta ) 
 \end{equation}
-où $U_p$ désigne les polynômes de Tchebychev de seconde espèce.
+où $(U_p)_{1 \leq p \leq J}$ désigne des polynômes de Tchebychev de seconde espèce.
 \label{prop:hermitien_polynome}
 \end{proposition}
 
@@ -1255,7 +1256,7 @@ donc en inversant l'opérateur $\sigma_x$, on a
 \end{equation}
 D'autres part, on rappelle que la fonction $u^k$ et la fonction de grille $\mathfrak{u}^k$ sont liées par
 \begin{equation}
-u^k = \sqrt{h} \mathfrak{u}^k.
+u^k = \sqrt{h} \mathfrak{u}^k,
 \end{equation}
 donc on a directement 
 \begin{align*}
@@ -1277,12 +1278,12 @@ Q_{2J} \left( \exp ( i \theta ) \right) & = \gsum_{p=1}^J a_p \dfrac{\exp ( i p 
 où $U_p$ désigne un polynôme de Tchebychev de seconde espèce.
 De plus, on a $\sin (0 ) = \sin (\pi) = 0$, donc 
 \begin{equation}
-Q_{2J} \left( \exp ( i 0 ) \right) = Q_{2J} \left( \exp ( i \pi ) \right) = 0.
+Q_{2J} \left( \exp ( i 0 ) \right) = Q_{2J} \left( \exp ( i \pi ) \right) = 0,
 \end{equation}
-La proposition est prouvée.
+ce qui conclut la proposition.
 \end{proof}
 
-Par $2 \pi$-périodicité et imparité de $\theta \in \mathbb{R} \mapsto - i Q_{2J+2}^H(e^{i \theta})$, et d'après la proposition \ref{prop:hermitien_polynome}, on souhaite comparer $\theta \in \mathbb{R} \mapsto - i Q_{2J+2}^H(e^{i \theta})$ et $\theta \in \mathbb{R} \mapsto \theta$. Quelques exemples, pour les valeurs de $2J+2 = 4$, $6$ et $8$, sont tracés dans la figure \ref{fig:freq_herm}. On compare ces fonctions avec celles obtenues pour les schémas $\delta_{2J,x}$ aux ordre 2, 4, 6 et 8. On constate que les schémas hermitiens $\delta_{2J+2,x}^H$ représentent mieux $\theta$ que les schémas $\delta_{2J,x}$. De plus, plus l'ordre du schéma est élevé, mieux la fonction $\theta \in \mathbb{R} \mapsto \theta$ est représentée.
+Par $2 \pi$-périodicité et imparité de $\theta \in \mathbb{R} \mapsto - i Q_{2J+2}^H(e^{i \theta})$, et d'après la proposition \ref{prop:hermitien_polynome}, on souhaite comparer $\theta \in \mathbb{R} \mapsto - i Q_{2J+2}^H(e^{i \theta})$ et $\theta \in \mathbb{R} \mapsto \theta$. Quelques exemples, pour les valeurs de $2J+2 = 4$, $6$ et $8$, sont tracés dans la figure \ref{fig:freq_herm}. On compare ces fonctions avec celles obtenues pour les schémas $\delta_{2J,x}$ aux ordre 2, 4, 6 et 8. On constate que les schémas hermitiens $\delta_{2J+2,x}^H$ représentent mieux $\theta$ que les schémas $\delta_{2J,x}$. La représentation spectrale de la dérivée est meilleure en utilisant le schéma $\delta_{2J+2,x}^H$ que le schéma $\delta_{2J,x}$. De plus, plus l'ordre du schéma est élevé, mieux la fonction $\theta \in \mathbb{R} \mapsto \theta$ est approchée.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1309,8 +1310,7 @@ La relation suivante est immédiate
 \begin{equation}
 \vec (\sigma_x \mathfrak{u}) = P_{\sigma} \cdot \vec (\mathfrak{u}).
 \end{equation}
-
-Les valeurs propres de $P_{\sigma}$ sont connues et données par la proposition \ref{prop:eigen_P(T)}.
+Les valeurs propres de $P_{\sigma}$ sont connues et données par le corollaire \ref{cor:eigen_P(T)}.
 \begin{proposition}
 Les valeurs propres de $P_{\sigma}$ sont 
 \begin{equation}
@@ -1327,6 +1327,7 @@ D_{2J} = \dfrac{1}{h} Q_{2J}(T) \in \mathbb{M}_{N}(\mathbb{R})
 donc 
 \begin{equation}
 \vec (\delta_{x} \mathfrak{u}) = D_{2J} \cdot \vec (\mathfrak{u}).
+\label{eq:systhermitien}
 \end{equation}
 Le calcul de $\delta^H_{2J+2,x} \mathfrak{u}$ se fait par la résolution du système
 \begin{equation}
@@ -1358,7 +1359,7 @@ Par calcul immédiat, on a :
 car $D_{2J}$ est antisymétrique et $P_{\sigma}$ est symétrique (donc $P^{-1}_{\sigma}$ aussi). 
 \end{proof}
 
-Le calcul de $\delta_{2J+2,x}^H \mathfrak{u}$ se fait par résolution d'un système linéaire. Ce système peut être résolu grâce à la formule de Shermann-Morisson-Woodbury couplé à un solveur tridiagonal comme l'algorithme de Thomas ou un solveur de type transformée de Fourier rapide.
+Le calcul de $\delta_{2J+2,x}^H \mathfrak{u}$ se fait par résolution d'un système linéaire. Ce système peut être résolu grâce à la formule de Shermann-Morisson-Woodbury couplé à un solveur tridiagonal comme l'algorithme de Thomas ou grâce à un solveur basé sur la transformée de Fourier rapide.
 
 \begin{proposition}
 \textbf{(Formule de Shermann-Morisson-Woodbury)} Soient $A, B \in \mathbb{M}_N \left(\mathbb{R} \right)$ deux matrices inversibles telles que 
@@ -1466,7 +1467,7 @@ Il découle l'algorithme le calcul de $\vec (\delta_{2J+2,x}^H \mathfrak{u}) = P
 \end{minipage}
 \end{center}
 
-
+L'utilisation de l'algorithme \ref{alg:SH} pour la résolution du système \eqref{eq:systhermitien} permet de se ramener à la résolution d'un système tridiagonal. La résolution se fait en utilisant l'algorithme de Thomas \cite{Conte2017,Quarteroni2010}. Le coût global de l'algorithme de résolution est alors $\mathcal{O}(N)$. On aurait aussi pu utiliser un solveur rapide de type transformée de Fourier rapide \cite{VanLoan1992}. Mais le coût en calcul d'un tel algorithme est de l'ordre de $\mathcal{O}(N \log (N))$, ce qui est plus élevé.
 
 
 
@@ -1492,7 +1493,6 @@ Il découle l'algorithme le calcul de $\vec (\delta_{2J+2,x}^H \mathfrak{u}) = P
 
 \subsection{Opérateur de filtrage}
 
-
 Pour améliorer les propriétés de stabilité d'un schéma centré en espace, il est connu que l'utilisation d'un opérateur de type "filtrage", à chaque pas de temps, est bénéfique. Un opérateur de type filtrage est un opérateur de la forme
 \begin{equation}
 \mathcal{F}_{2J,x} = \gsum_{p=0}^J a_p \dfrac{\tau^p + \tau^{-p}}{2}
@@ -1502,9 +1502,9 @@ pour $\mathfrak{u} \in l^2_{h,\per}$ fonction de grille périodique, on a
 \begin{equation}
 \mathcal{F}_{2J,x} (\mathfrak{u} )_j = \gsum_{p=0}^J a_p \dfrac{\mathfrak{u}_{j+p} + \mathfrak{u}_{j-p}}{2} \text{ avec } 0  \leq j \leq N-1.
 \end{equation}
-Soit $S_{2J} \in \mathbb{R}_{N-1}[X]$ défini par 
+Soit $S_{2J} \in \mathbb{R}_{N-1}[X]$ définit par 
 \begin{equation}
-S_{2J}(X) = \gsum_{p=0}^J a_p \dfrac{X^p + X^{N-p}}{2}
+S_{2J}(X) = \gsum_{p=0}^J a_p \dfrac{X^p + X^{N-p}}{2},
 \label{eq:pol_filtrage}
 \end{equation}
 on a $\mathcal{F}_{2J,x}(\mathfrak{u})_j = S_{2J}(\tau)(\mathfrak{u})_j$ pour tout $0 \leq j \leq N-1$.
@@ -1516,24 +1516,24 @@ D'autres part, il joue le rôle d'une dissipation numérique. Cette contrainte s
 \end{equation}
 est inclus dans le noyaux de $\mathcal{F}_{2J,x}$ : $\mathcal{F}_{2J,x}(\mathfrak{u}^{N/2}) = \mathfrak{0}$. On note que l'on a alors
 \begin{equation}
-\ker (\mathcal{F}_{2J,x} ) \subset \ker (\delta_{2J,x} ) \text{ et } \ker (\mathcal{F}_{2J,x} ) \subset \ker (\delta_{2J,x}^H )
+\ker (\mathcal{F}_{2J,x} ) \subset \ker (\delta_{2J,x} ) \text{ et } \ker (\mathcal{F}_{2J,x} ) \subset \ker (\delta_{2J,x}^H ).
 \end{equation}
-En pratique, cela correspond au mode oscillant à la fréquence du maillage. A chaque itération en temps, on souhaite projeter la solution sur l'orthogonal du mode oscillant 
+En pratique, cela correspond au mode oscillant à la fréquence du maillage. A chaque itération en temps, on souhaite supprimer ce mode en projetant la solution sur l'orthogonal du mode oscillant :
 \begin{equation}
 \Vect (\mathfrak{u}^{N/2})^{\perp}.
 \end{equation}
-De plus, un opérateur de filrage doit laisser $\mathfrak{u}^0$ inchangé, c'est à dire
+De plus, un opérateur de filtrage doit laisser $\mathfrak{u}^0$ inchangé, c'est à dire
 \begin{equation}
 \mathcal{F}_{2J,x}(\mathfrak{u}^{0}) = \mathfrak{u}^{0}.
 \end{equation}
-Comme $\mathfrak{u}^0_j = 0$ pour $0 \leq j \leq N-1$, cette condition correspond à avoir
+Comme $\mathfrak{u}^0_j = 1$ pour $0 \leq j \leq N-1$, cette condition correspond à avoir
 \begin{equation}
 \mathcal{F}_{2J,x}(\mathfrak{u}^{0}) = \gsum_{p=0}^J a_p = 1.
 \end{equation}
-Nous nous concentrons sur les filtres maximisant leur ordre de précision \cite{Redonnet2001} et perturbant les données le moins possible. D'autres filtres visent à minimiser la perturbation \cite{Bogey2004}. Dans ce cadre, nous définissons l'opérateur de filtrage par 
+Nous nous concentrons sur les filtres maximisant l'ordre de précision \cite{Redonnet2001} et perturbant les données le moins possible. D'autres filtres visent à minimiser la perturbation \cite{Bogey2004}. Dans ce cadre, nous définissons l'opérateur de filtrage par 
 
 \begin{definition}
-L'opérateur $\mathcal{F}_{2J,x}$ est appelé filtre centré s'il s'agit d'un opérateur aux différences finies de la forme \eqref{eq:ftr} si les coefficients $(a_p)_{1 \leq p \leq J}$ vérifient :
+L'opérateur $\mathcal{F}_{2J,x}$ est appelé filtre centré s'il s'agit d'un opérateur aux différences finies de la forme \eqref{eq:ftr} et si les coefficients $(a_p)_{1 \leq p \leq J}$ vérifient :
 \begin{itemize}
 \item Consistance du filtrage :
 \begin{equation}
@@ -1803,13 +1803,8 @@ où $-N/2+1 \leq k \leq N/2$. L'espace propre associé à $S_{2J} (\omega^k)$ es
 \end{proposition}
 
 \begin{theoreme}
-Soit $\beta : \theta \in [0, \pi] \mapsto \beta(\theta) = S_{2J}(e^{i \theta})$ le \textit{symbole} de l'opérateur de filtrage $\mathcal{F}_{2J,x}$, alors
+Soit $\beta : \theta \in [0, \pi] \mapsto \beta(\theta) = \gsum_{p=0}^J a_p \cos (p \theta)$ le \textit{symbole} de l'opérateur de filtrage $\mathcal{F}_{2J,x}$, alors
 \begin{itemize}
-\item la relation suivante est vérifiée :
-\begin{equation}
-\beta(\theta) = \gsum_{p=0}^J a_p \cos (p \theta)
-\end{equation}
-pour tout $\theta \in [0, \pi]$,
 \item il existe un unique polynome $P \in \mathbb{R}_{J}(X)$ tel que
 \begin{equation}
 \beta(\theta) = P(\cos (\theta)),
@@ -1828,17 +1823,6 @@ P(X) = 1 - \dfrac{1}{2^J}(1-X)^J,
 
 \begin{proof}
 \begin{itemize}
-\item D'après la formule d'Euler, on a 
-\begin{equation}
-\cos (p \theta) = \dfrac{e^{ip \theta} + e^{-ip \theta}}{2}.
-\end{equation}
-En tenant compte de la forme de $S_{2J}$ donnée par \eqref{eq:pol_filtrage}, on obtient
-\begin{align*}
-\beta(\theta) & = S_{2J}(e^{i \theta}) \\
-	& = \gsum_{p=0}^J a_p \dfrac{e^{ip \theta} + e^{-ip \theta}}{2} \\
-	& = \gsum_{p=0}^J a_p \cos (p \theta).
-\end{align*}
-
 \item Les polynômes de Tchebytchev, notés $T_p$ , de première espèce sont définis par
 \begin{equation}
 T_p(\cos (\theta)) = \cos (p \theta).
@@ -1901,7 +1885,7 @@ Comme $f \in E_J$, il existe $(f_p)_{0 \leq p \leq J}$ tels que
 \begin{equation}
 f(\theta) = \gsum_{p=0}^J f_p \cos (p \theta).
 \end{equation}
-Comme $f^{(2n)}(0)=0$ pour tout $n$ et $f(\pi)=0$, alors les coefficients $(f_p)_{0 \leq p \leq J}$ sont solution de 
+De plus, $f^{(2k)}(0)=0$ pour tout $k$ et $f(\pi)=0$, alors les coefficients $(f_p)_{0 \leq p \leq J}$ sont solutions de 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -1937,7 +1921,7 @@ De plus, $\cos(\theta) \in [-1,1]$ pour $\theta \in [0, \pi]$, donc $\beta(\thet
 On a vu dans la proposition \ref{prop:eigen_filtre} que les valeurs propres de $\mathcal{F}_{2J,x}$ sont de la forme
 \begin{align*}
 S_{2J}(\omega^k) & = S_{2J}\left(\exp \left( \dfrac{2 i \pi k}{N} \right) \right) \\
-	& = \beta \left(\dfrac{2 \pi k}{N} \right) \\
+	& = \beta \left(\dfrac{2 \pi k}{N} \right) \text{ d'après la formule d'Euler,}\\
 	& \in [0,1] \text{ d'après le théorème } \ref{th:filtre_dissipatif},
 \end{align*}
 avec $-N/2+1 \leq k \leq N/2$. On en déduit que l'opérateur de filtrage $\mathcal{F}_{2J,x}$ est bien dissipatif.
@@ -1992,7 +1976,7 @@ La fonction $J \mapsto \theta_{0.95}(J)$ est strictement croissante donc lorsque
 Cependant, il faut noter que plus $J$ augmente, plus les fonctions manipulées sont supposées régulières donc ce qui précède n'est vrai que pour des fonctions de grilles très régulières.
 
 \begin{remarque}
-Le filtre $\mathcal{F}_{2J,x}$ est linéaire et agit sur les composantes des fonctions de grilles. Il existe $M_{2F} \in \mathbb{M}_N \left( \mathbb{R} \right)$ la matrice associée au filtrage des données en dimension 1 telle que
+Le filtre $\mathcal{F}_{2J,x}$ est linéaire et agit sur les composantes des fonctions de grilles. Il existe $M_{2J} \in \mathbb{M}_N \left( \mathbb{R} \right)$ la matrice associée au filtrage des données en dimension 1 telle que
 \begin{equation}
 \mathcal{F}_{2J,x} \cdot \vec(\mathfrak{u}) = M_{2J} \vec(\mathfrak{u})
 \end{equation}
@@ -2250,10 +2234,10 @@ Soit $u : x \in \Omega \mapsto u(x) \in \mathbb{R}$ est une fonction de $\mathca
 \begin{equation}
 \begin{array}{rcl}
 \|(\partial_x u)^* - \delta_{2P+2,x}^H u^*\|_{\infty} & \leq & C_x h^{2J+2} \| \partial_x^{(2J+3)}u \|_{\infty}\\
-|(\partial_y u)^* - \delta_{2P+2,y}^H u^*|_{\infty} &\leq & C_y h^{2J+2} \| \partial_y^{(2J+3)}u \|_{\infty}
+\|(\partial_y u)^* - \delta_{2P+2,y}^H u^*\|_{\infty} &\leq & C_y h^{2J+2} \| \partial_y^{(2J+3)}u \|_{\infty}
 \end{array}
 \end{equation}
-Où $C_x$, $C_y$ sont des réels positifs indépendants de $h$ et de $u$.
+où $C_x$, $C_y$ sont des réels positifs indépendants de $h$ et de $u$.
 \end{theoreme}
 
 \begin{proof}
@@ -2426,14 +2410,14 @@ Par définition de $\text{vec}_2$, on a
 \begin{align*}
 \text{vec} (\delta_{2J,x} \mathfrak{u}) & = \gsum_{i,j=0}^J (e_j \otimes e_i) \delta_{2J,x} \mathfrak{u}_{i,j} \\
 	& = \gsum_{i,j=0}^{N-1} \gsum_{p=1}^J (e_j \otimes e_i) \dfrac{a_p}{2ph} (\mathfrak{u}_{i+p,j} - \mathfrak{u}_{i-p,j}) \\
-	& = \gsum_{p=1}^J \dfrac{a_p}{2Jh} \left( \gsum_{i,j=0}^{N-1} (e_j \otimes e_i) \mathfrak{u}_{i+p,j} - (e_j \otimes e_i) \mathfrak{u}_{i-p,j} \right) \\
+	& = \gsum_{p=1}^J \dfrac{a_p}{2ph} \left( \gsum_{i,j=0}^{N-1} (e_j \otimes e_i) \mathfrak{u}_{i+p,j} - (e_j \otimes e_i) \mathfrak{u}_{i-p,j} \right) \\
 	& = \gsum_{p=1}^J \dfrac{a_p}{2ph} \gsum_{i,j=0}^{N-1} e_j \otimes (e_i \mathfrak{u}_{i+p,j} - e_i\mathfrak{u}_{i-p,j})\\
 	& = \gsum_{p=1}^J \dfrac{a_p}{2ph} \left( \I_N \otimes \left( T^p - T^{-p}  \right) \right) \vec (\mathfrak{u}) \\
 	& = (\I_N \otimes D_{2J}) \vec (\mathfrak{u})
 \end{align*}
 les autres égalités se montrent de la même manière.
 \end{proof}
-On déduit également $\vec(\delta_{2J+2,x}^H \mathfrak{u})$ et de $\vec(\delta_{2J+2,y}^H \mathfrak{u})$.
+On déduit également $\vec(\delta_{2J+2,x}^H \mathfrak{u})$ et $\vec(\delta_{2J+2,y}^H \mathfrak{u})$.
 On considère à présent les matrices associées à $\delta^H_{2J+2,x} \mathfrak{u}$ et $\delta^H_{2J+2,y} \mathfrak{u}$.
 \begin{theoreme}
 Soit $\mathfrak{u}$ une fonction de grille. Alors, si on pose 

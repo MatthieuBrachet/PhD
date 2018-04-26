@@ -1,0 +1,66 @@
+%% introduction générale
+
+La conception d'un schéma pour la résolution des équations Shallow Water sur la sphère est un problème important en climatologie et en océanographie numérique. De nombreux travaux traitent de ce sujet. On cite en particulier la thèse \cite{Ullrich2011} ainsi que les travaux \cite{Nair2010, Qaddouri2012}.
+Pour cette résolution, il est nécessaire de disposer d'un maillage adapté sur la Sphère. Le maillage longitude-latitude est un maillage naturel mais il présente des problèmes de singularités aux pôles. Le maillage Yin-Yang est une alternative \cite{Kageyama2004, Li2008}, tout comme le maillage icosahedral \cite{Stuhne1999}. 
+En 1972, la grille Cubed-Sphere est introduite \cite{Sadourny1972} comme la projection du maillage de la surface d'un cube sur la Sphère. Un tel maillage permet une bonne résolution des équations sur la sphère \cite{Ronchi1996} et bénéficie d'un intérêt particulier ces dernières années. On note particulier l'usage de cette grille pour des méthodes de Galerkin \cite{Nair2010}, de volumes finis \cite{Ullrich2011, Chen2008} ou d'éléments minétiques \cite{Lauritzen2010}.
+
+Dans les articles \cite{Croisille2015,Croisille2013}, Jean-Pierre Croisille introduit un schéma aux différences finis pour le calcul du gradient et de la divergence sur la sphère. L'algorithme de calcul est basé sur un schéma hermitien d'ordre 4 ainsi que des splines cubiques. Dans cette thèse, nous continuons ces travaux.
+
+Nous étudions une famille de schémas aux différences finis centrés, en particulier leurs propriétés de précision. Dans un cadre plan périodique, nous analysons le schéma de résolution d'équation d'évolution qui sera utilisé sur la sphère. Le schéma utilisé est centré. Il permet de résoudre des équations hyperboliques mais des ondes parasites peuvent apparaître. C'est pour cette raison qu'il est nécessaire d'introduire un opérateur de filtrage. Nous étudions la stabilité suite à l'introduction de ce filtre sur les équations d'advection, des ondes et l'équation de Burgers en dimension 1 et 2.
+
+Nous introduisons le maillage Cubed-Sphere qui sera utilisé dans la suite. La Cubed-Sphere présente de très bonnes propriétés pour la représentation des harmoniques sphériques. De plus, les symétries du maillage permettent d'introduire un bon produit scalaire ainsi que des formules de quadrature précise. Nous avons construit la Cubed-Sphere en nous basant sur la structure en grands cercles de chaque région. Dans un tel cadre, nous pouvons utiliser les schémas aux différences finies périodiques pour calculer des approximations des opérateurs gradient $\nabla_T h$, divergence $\nabla_T \cdot \mathbf{u}$ et vorticité $\mathbf{n} \cdot (\nabla_T \wedge \mathbf{u})$. De plus, nous étudions un opérateur de filtrage. La consistance de ces opérateurs est démontrée et observée numériquement.
+
+Les opérateurs discret introduits couplés à un algorithme RK4 et à une étape de filtrage permettent de résoudre un ensemble d'équations sur la Sphère. En particulier, le schéma a été évalué sur des tests de l'équations d'advections tel que la rotation solide \cite{Williamson1992}, ou des problèmes de tourbillons \cite{Nair2002,Nair2008}. Ces équations sont linéaires, nous testons aussi le schéma sur des équations non linéaires \cite{BenArtzi2009}.
+Les performances du schéma sont analysées sur des systèmes d'équation. Après quelques tests sur l'équation Shallow Water linéarisée, nous évaluons les propriétés de précision, ainsi que de conservation de l'équation Shallow Water sur la Sphère avec force de Coriolis \cite{Williamson1992,Galewsky2004}.
+
+
+
+\vspace{0.7cm}
+\textbf{Plan de la thèse :}
+\textbf{Chapitre 1 : Schémas aux différences.}
+
+Dans ce chapitre, nous étudions un ensemble de schémas aux différences finis en dimension 1 et en dimension 2. Les schémas aux différences finis étudiés sont centrés. Les opérateurs de la forme $\delta_{2J,x}$ et $\delta_{2J+2,x}^H$ permettent d'approcher la dérivée première $\partial_x$. L'opérateur $\mathcal{F}_{2J,x}$ est un opérateur de filtrage à l'ordre $2J$. La précision de ces opérateurs est étudiée ainsi que propriétés spectrales de ces derniers. L'ensemble de ces opérateurs est lié à l'opérateur de translation $\tau$, ce qui en simplifie considérablement l'étude.
+
+
+
+
+
+\vspace{0.7cm}
+\textbf{Chapitre 2 : Analyse numérique.}
+
+Les schémas aux différences finis introduits au chapitre 1 couplés à un algorithme de résolution en temps RK4 et à un opérateur de filtrage permettent de résoudre des équations aux dérivées partielles d'évolution. Les équations considérées sont l'équation de transport, l'équation Shallow Water linéarisée et l'équation de Burgers. Nous étudions les propriétés de précision, de stabilité et de conservation du schémas. L'opérateur de filtrage introduit permet effectivement d'atténuer les phénomènes d'ondes parasites sans affecter la précision du schéma. De plus, il permet d'augmenter la stabilité du schéma.
+
+
+
+
+
+\vspace{0.7cm}
+\textbf{Chapitre 3 : Grille Cubed-Sphere.}
+
+La grille Cubed-Sphere est utilisée pour la résolution des EDP d'évolution sur la Sphère. L'objectif de ce chapitre est de construire le maillage utilisé à partir d'ensembles de grands cercles. Cette construction permet au maillage de disposer de nombreuses symétries. Grâce à ces symétries, on peut introduire un produit scalaire qui satisfait l'orthogonalité d'un grand nombre d'harmoniques sphériques pour un produit scalaire adapté. Un tel produit scalaire est basé sur une formule de quadrature sur la sphère. Nous étudions plusieurs formules de quadratures basées sur les formules de trapèzes et de Simpson. La consistance de ces formules et l'ordre de précision sont démontrés. 
+
+
+
+
+\vspace{0.7cm}
+\textbf{Chapitre 4 : Approximation des opérateurs différentiels sur la Cubed-Sphere.}
+
+La structure en grands cercles de la Cubed-Sphere permet d'utiliser les opérateurs aux différences finis périodiques $\delta_{2J,x}$ et $\delta_{2J+2,x}^H$ pour calculer des valeurs approchées des opérateurs différentiels$\nabla_T h$, $\nabla_T \cdot \mathbf{u}$ et $\mathbf{n} \cdot (\nabla_T \wedge \mathbf{u})$ aux points du maillage. Les opérateurs introduits sont consistants au moins d'ordre 3. Lors des essais numériques effectués, un ordre 4 est observé. Nous introduisons aussi un opérateur de filtrage $\mathcal{F}$ sphérique consistant avec l'identité. Des tests numériques sont faits pour analyser l'opérateur de filtrage et permettent d'illustrer la précision de ce dernier.
+
+
+
+
+
+\vspace{0.7cm}
+\textbf{Chapitre 5 : Equations d'advection sphériques.}
+
+Dans ce chapitre, nous introduisons une version sphérique du schéma de discrétisation utilisé dans le chapitre 2. Ce dernier est évalué sur des tests classiques. D'une part, nous observons son comportement sur l'équation d'advection linéaire sur des tests de déplacement sans déformation ainsi que sur des tests de développement d'un tourbillon. Une solution analytique permet de mesurer l'erreur au cours du temps. Le taux de convergence mesuré est bon. Le schéma est aussi testé sur des problèmes non-linéaire. Le premier, de type "Burgers" permet d'analyser le comportement du schéma en présence d'un choc sur la sphère. Le schéma est complètement centré, des oscillations parasites apparaissent mais perturbent raisonnablement le calcul. Nous testons aussi le schéma sur une solution stationnaire. L'erreur est mesurée tout comme la conservation de la masse totale. Le taux de convergence est très bon.
+
+
+
+
+\vspace{0.7cm}
+\textbf{Chapitre 6 : Equations Shallow Water sphériques.}
+
+Ce chapitre concerne la résolution de deux systèmes d'équations aux dérivées partielles :  l'équation Shallow Water linéarisée et l'équation Shallow Water. Nous effectuons deux tests numériques sur l'équation Shallow Water linéarisé. Le premier est stationnaire zonale. Il permet d'accéder aux propriétés de précision et de conservation du schéma. La solution étant stationnaire, nous utilisons le second test avec mesurer l'erreur en temps. L'algorithme de résolution donne aussi de très bons résultats pour l'équation Shallow Water sur l'ensemble des tests classiques de la littérature \cite{Williamson1992, Galewsky2004}.
+
