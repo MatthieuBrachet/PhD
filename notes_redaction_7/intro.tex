@@ -1,0 +1,73 @@
+%% introduction générale
+La simulation numérique de la dynamique des fluides atmosphériques et océanographique présente un enjeux fondamental pour la compréhension du climat. L'urgence écologique, sociale et politique de la question du réchauffement climatique a fait évoluer récement le statut de ce problème. L'un des problèmes concerne la résolution numérique des équations Shallow Water.
+
+La conception d'un schéma pour la résolution des équations Shallow Water sur la sphère est un problème important en climatologie et en océanographie numérique. Des travaux récents sont \cite{Nair2010, Qaddouri2012, Ullrich2011}. Une façon de réaliser cette résolution est d'utiliser une méthode sur grille. Il est nécessaire de disposer d'un maillage adapté sur la Sphère. Le maillage longitude-latitude est un maillage naturel mais il présente des problèmes de singularités aux pôles. Le maillage Yin-Yang est une alternative \cite{Kageyama2004, Li2008}, tout comme le maillage icosahedral \cite{Stuhne1999}. 
+Dans \cite{Croisille2015, Croisille2013}, une schéma a été introduit en utilisant la grille Cubed-Sphere. Cette dernière a été construite dans \cite{Sadourny1972} en 1972 par Robert Sadourny. Il s'agit de la projection d'un maillage, à surface d'un cube, sur la sphère. Un tel maillage permet une bonne résolution des équations sur la sphère \cite{Ronchi1996} et bénéficie d'un intérêt particulier ces dernières années. On note l'usage de cette grille pour des méthodes de Galerkin \cite{Nair2010}, de volumes finis \cite{Ullrich2011, Chen2008} ou d'éléments mimétiques \cite{Lauritzen2010}.
+
+Dans les articles \cite{Croisille2015,Croisille2013}, Jean-Pierre Croisille introduit un schéma aux différences finis pour le calcul du gradient et de la divergence sur la sphère. Le schéma en question est basé sur une approximation hermitienne le long de grands cercles. Dans cette thèse, nous étudions différents aspects de cette approche. En particulier, nous nous sommes attachés à l'étude de la grille Cubed-Sphere. La Cubed-Sphere présente de très bonnes propriétés. En particulier, les symétries de ce maillage permettent une bonne représentation des fonctions de grilles. De plus, la structure en grands cercles permet d'utiliser des schémas hermitiens pour calculer les opérateurs classiques avec une précision élevée. Nous étudions le schéma aux différences finies centré en question. Le schéma est appliqué à la résolution de différentes équations aux dérivées partielles sur la sphère. Nous effectuons de nombreux tests de la littérature et analysons les résultats obtenus.
+
+
+
+
+%\newpage
+\vspace{1.3cm}
+\textbf{Plan de la thèse :}
+
+\textbf{Chapitre 1 : Schémas aux différences.}
+
+L'objectif de ce chapitre est d'introduire notations et les schémas aux différences finies 1D et 2D qui seront utilisés sur la sphère. Nous détaillons des schémas d'approximations de la dérivées première à l'aide de méthodes de différences finies classiques ou hermitiennes. Nous introduisons aussi les opérateurs de filtrage. Les propriétés spectrales de ces outils sont étudiées.
+
+
+
+
+
+
+
+\vspace{0.7cm}
+\textbf{Chapitre 2 : Analyse numérique.}
+
+La discrétisation d'équations aux dérivées partielles d'évolution est introduite et étudiée. En particulier, nous analysons les propriétés de précision, stabilité et conservations pour l'équation d'advection en dimension 1 et l'équations Shallow Water linéarisée en dimension 2. Des tests sont aussi effectués sur l'équaton de Burgers. L'intérêt de l'opérateur de filtrage est analysé sur ces problèmes d'évolution.
+
+
+
+
+
+
+
+\vspace{0.7cm}
+\textbf{Chapitre 3 : Grille Cubed-Sphere.}
+
+Nous introduisons le maillage Cubed-Sphere. Ce dernier est construit à partir de grands cercles. Un produit scalaire est analysé sur les fonctions de grilles. Il permet d'obtenir l'orthogonalité d'un grand nombre d'harmoniques sphériques sur la grille. Des formules de quadrature issues de ce produit scalaire sont analysées.
+
+
+
+
+
+
+\vspace{0.7cm}
+\textbf{Chapitre 4 : Approximation des opérateurs différentiels sur la Cubed-Sphere.}
+
+On utilise la structure en grands cercles du maillage pour construire des opérateurs gradient, divergence et vorticité discrets sur la Cubed-Sphere. Nous analysons la consistance de ces opérateurs et effectuons des expériences numériques. L'opérateur de filtrage en dimension 1 est utilisé pour construire un filtrage sur la Cubed-Sphere.
+
+
+
+
+
+
+
+\vspace{0.7cm}
+\textbf{Chapitre 5 : Equations d'advection sphériques.}
+
+Des expériences numériques sont effectuées sur l'équation d'advection sphérique linéaire et non-linéaire. La précision du schéma est analysée ainsi que l'influence du filtrage sur des tests de déplacement de la condition initiale ou sur la formation des tourbillons pour l'équation d'advection linéaire. Sur l'équation d'advection non linéaire, nous observons le comportement du schéma en présence d'un choc et sur la conservation d'une solution stationnaire.  
+
+
+
+
+
+
+
+\vspace{0.7cm}
+\textbf{Chapitre 6 : Equations Shallow Water sphériques.}
+
+Nous évaluons les performances du schéma sur le système d'équations Shallow Water et son linéarisé. Des tests sont faits sur des solutions stationnaires et des problèmes évoluant dans le temps. Les tests sont issus de la littérature classiques. Nous analysons le comportement de la solution calculée par l'algorithme ainsi que les propriétés de conservation.
+

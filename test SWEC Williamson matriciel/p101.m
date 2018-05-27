@@ -39,7 +39,7 @@ scheme='compact4';
 snapshot='yes';
 nrm='int';
 
-n=31; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
+n=31;
 ndaymax=5;
 cfl=0.9;
 mod101
@@ -410,25 +410,25 @@ while t<Tmax && iter<itermax
         set(hFig, 'Position', [50 50 1000 500])
         if test == 4
             plot_cs102(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI);
-            title(['vorticity at time : ', num2str(time(end))])
+            title(['Temps : ', num2str(time(end))])
             colorbar
         elseif test == 1
             mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             v=[mm 5050:50:5950 MM];
             plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
-            title(['solution at time : ', num2str(time(end))])
+            title(['Temps : ', num2str(time(end))])
             colorbar
         elseif test == 5
             mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             v=[mm 8100:100:10500 MM];
             plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
-            title(['solution at time : ', num2str(time(end))])
+            title(['Temps : ', num2str(time(end))])
             %colorbar
         elseif test == -2
             plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,h_fVI);
-            title(['exact solution at time = ', num2str(time(end))]);
+            title(['Temps = ', num2str(time(end))]);
             colorbar
             view([1 -1 1])
         elseif test == 7
@@ -436,12 +436,12 @@ while t<Tmax && iter<itermax
             MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             v=[mm 6500:100:9000 MM];
             plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
-            title(['solution at time : ', num2str(time(end))])
+            title(['Temps : ', num2str(time(end))])
             colorbar
             
         else
             plot_cs100(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
-            title(['solution at time : ', num2str(time(end))])
+            title(['Temps : ', num2str(time(end))])
             colorbar
         end
             print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_intermediaire' num2str(floor(100*time(end))) '.png'])
@@ -525,7 +525,7 @@ end
 %% *** PLOT ***************************************************************
 figure(1)
 plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
-title(['calculated solution at time = ', num2str(time(end))])
+title(['Solution calculée au temps : ', num2str(time(end))])
 if sauvegarde==1
     mkdir(['./RK4_results-' jour '/' num2str(ref) ])
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_courbe.png'])
@@ -542,7 +542,7 @@ hFig = figure(2);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
 plot_cs101(n,nn,err_fI./hmax, err_fII./hmax, err_fIII./hmax, err_fIV./hmax, err_fV./hmax, err_fVI./hmax,ev);
-title(['Relative error at time = ', num2str(time(end))])
+title(['Erreur relative au temps : ', num2str(time(end))])
 if sauvegarde == 1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_err.png'])
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_err']);
@@ -552,7 +552,7 @@ hFig = figure(201);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
 plot_cs102(n,nn,err_fI./hmax, err_fII./hmax, err_fIII./hmax, err_fIV./hmax, err_fV./hmax, err_fVI./hmax);
-title(['Relative error at time = ', num2str(time(end))])
+title(['Erreur relative au temps : ', num2str(time(end))])
 colorbar
 if sauvegarde == 1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_err_color.png'])
@@ -566,7 +566,7 @@ hFig = figure(3);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
 plot_cs102(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
-title(['vorticity at time : ', num2str(time(end))])
+title(['Vorticité au temps : ', num2str(time(end))])
 colorbar
 if sauvegarde == 1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot.png'])
@@ -578,7 +578,7 @@ if strcmp(snapshot,'yes')==1
     figure(4)
     plot_cs11(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI)
     view([.8 -1 1.1])
-    title(['vorticity at time : ', num2str(time(end))])
+    title(['Vorticité au temps : ', num2str(time(end))])
     colorbar
     
     pas=.2*10^-7;
@@ -590,14 +590,14 @@ if strcmp(snapshot,'yes')==1
     set(gcf,'PaperPositionMode','auto')
     set(hFig, 'Position', [50 50 1000 500])
     plot_cs101(n,nn,vort_fI,vort_fII,vort_fIII,vort_fIV,vort_fV,vort_fVI,v);
-    title(['vorticity at time : ', num2str(time(end))])
+    title(['Vorticité au temps : ', num2str(time(end))])
 end
 
 figure(6)
 semilogy(time, erri,'k.',time, err2,'k--', time, err1,'k-.')
-xlabel('time')
-ylabel('relative error')
-legend('infty norm','norm 2','norm 1')
+xlabel('Temps')
+ylabel('Erreur relative')
+legend('norme \infty','norme 2','norme 1')
 grid on
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_erreur.png'])
@@ -606,8 +606,8 @@ end 
 
 figure(701)
 plot(time,err_int-1,'k-')
-xlabel('time')
-title('error on relative mass')
+xlabel('Temps')
+title('Erreur sur la conservation de la masse')
 grid on
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_mass.png'])
@@ -616,8 +616,8 @@ end 
 
 figure(702)
 plot(time,err_energy-1,'k-')
-xlabel('time')
-title('error on relative energy')
+xlabel('Temps')
+title('Erreur sur la conservation de l''énergie')
 grid on
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_energy.png'])
@@ -626,8 +626,8 @@ end 
 
 figure(703)
 plot(time,err_enstrophy-1,'k-')%,'Linewidth',2)
-xlabel('time')
-title('error on relative potential enstrophy')
+xlabel('Temps')
+title('Enstrophie potentielle')
 grid on
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_enstrophy.png'])
@@ -636,9 +636,9 @@ end 
 
 figure(704)
 plot(time,err_int-1,'k-',time,err_energy-1,'k.')
-xlabel('time')
-title('error on relative conservation')
-legend('mass','energy','Location','SouthWest')
+xlabel('Temps')
+title('Erreurs de conservations')
+legend('masse','energie','Location','SouthWest')
 grid on
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_massenergy.png'])
@@ -647,9 +647,9 @@ end 
 
 figure(8)
 plot(time,err_int-1,'k-',time,err_energy-1,'k-.',time,err_enstrophy-1,'k.')
-legend('mass','energy','potential enstrophy','Location','SouthWest')
-xlabel('time')
-title('relative quantity')
+legend('masse','energie','entrophie potentielle','Location','SouthWest')
+xlabel('Temps')
+title('Erreurs de conservations')
 grid on
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationA.png'])
@@ -658,10 +658,9 @@ end 
 
 figure(9)
 plot(time,Mdivu,'k-',time,Mvortu,'k-.')
-title('conservation of divergence and vorticity')
-legend('divergence','vorticity')
-xlabel('time (days)')
-ylabel('conservation quantity')
+title('Erreurs de conservations')
+legend('divergence','vorticité')
+xlabel('Temps')
 grid on
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_conservationB.png'])
@@ -672,7 +671,7 @@ hFig = figure(10);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
 plot_cs102(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
-title(['Solution at time = ', num2str(time(end))])
+title(['Solution au temps ', num2str(time(end))])
 colorbar
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_solution.png'])
@@ -684,7 +683,7 @@ hFig = figure(11);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
 plot_cs101(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,1150:200:2950);
-title(['calculated solution at time = ', num2str(time(end))])
+title(['Solution calculée au temps ', num2str(time(end))])
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_solution.png'])
     savefig(['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_snapshot_solution']);
@@ -697,7 +696,7 @@ hFig = figure(12);
 set(gcf,'PaperPositionMode','auto')
 set(hFig, 'Position', [50 50 1000 500])
 plot_cs104(n,nn,div_fI, div_fII, div_fIII, div_fIV, div_fV, div_fVI)
-title(['divergence at time : ', num2str(time(end))])
+title(['Divergence au temps : ', num2str(time(end))])
 colorbar
 if sauvegarde==1
     print('-dpng', ['./RK4_results-' jour '/' num2str(ref) '/ref_' num2str(ref) '_divergence.png'])

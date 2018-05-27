@@ -457,7 +457,7 @@ end
 figure(1);
 plot_cs11(n,nn,funfIe,funfIIe,funfIIIe,funfIVe,funfVe,funfVIe);
 view(vvv)
-title('exact solution')
+title('Solution exacte')
 if save_graph==1
     print('-dpng', ['./results-' date '/ref_' num2str(ref) '_solexacte_test_' num2str(coef) '.png'])
     savefig(['./results-' date '/ref_' num2str(ref) '_solexacte_test_' num2str(coef)]);
@@ -465,7 +465,7 @@ end
 
 figure(2);
 plot_cs11(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI);
-title('approximate solution - RK4')
+title('Solution approchée')
 view(vvv)
 if save_graph==1
     print('-dpng', ['./results-' date '/ref_' num2str(ref) '_solapprochee_test_' num2str(coef) '.png'])
@@ -474,7 +474,7 @@ end
 
 figure(3);
 plot_cs11(n,nn,err_fI,err_fII,err_fIII,err_fIV,err_fV,err_fVI);colorbar;
-title('error - RK4')
+title('Erreur')
 view(vvv)
 if save_graph==1
     print('-dpng', ['./results-' date '/ref_' num2str(ref) '_erreur_test_' num2str(coef) '.png'])
@@ -494,7 +494,7 @@ end
 
 figure(5)
 plot(xdays,cons_mass-1)
-title('mass conservation')
+title('Conservation de la masse')
 if save_graph==1
     print('-dpng', ['./results-' date '/ref_' num2str(ref) '_conservation_test_' num2str(coef) '.png'])
     savefig(['./results-' date '/ref_' num2str(ref) '_conservation_test_' num2str(coef)]);
@@ -538,7 +538,7 @@ if coupe == 1
     figure(10)
     plot(x,f,'o',xe,fe,'-')
     grid on;
-    legend('approximate soluton','exact solution')
+    legend('Solution approchée','Solution exacte')
     xlabel('path N')
     if save_graph==1
         print('-dpng', ['./results-' date '/ref_' num2str(ref) '_coupefaceI_equateur_test_' num2str(coef) '.png'])

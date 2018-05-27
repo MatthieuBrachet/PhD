@@ -1,0 +1,85 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\author{Brachet Matthieu}
+\title{Résumé - Abstract}
+\begin{document}
+
+\section{Résumé vulgarisé}
+
+Dans les années récentes, l'enjeu de la simulation de la dynamique atmosphérique et/ou océanographique a pris une importance accrue avec la question du réchauffement climatique.
+Le modèle mathématique complet à simuler s'obtient en couplant les équations de la mécanique des fluides avec les équations de la thermodynamique sur une sphère en rotation.
+
+Au 19ième siècle, le mathématicien Adhémar Barré de Saint-Venant a formulé un système d'équations aux dérivées partielles décrivant les mouvements d'un fluide soumis à la gravité et de faible épaisseur. Ces équations sont dérivées des équations de Navier-Stokes. Cette simplification permet de transformer un problème 3D en un problème 2D. Écrites dans le contexte de la sphère en rotation, ces équations décrivent la réponse d'une couche mince de fluide soumise aux seules forces de gravité et de Coriolis. Elles permettent de rendre compte de nombreux phénomènes (ondes de Kelvin, ondes de Rossby, ondes de Poincaré). Bien que représentant un problème simplifié, ces équations sont complexes et leur résolution nécessite des méthodes numériques adaptées.
+
+L'objectif de cette thèse est d'étudier une méthode numérique de type différences finies pour résoudre ces équations, aussi appelées équations Shallow Water. Pour cela, on cherche une valeur approchée de la solution sur une grille de calcul.
+
+La grille de calcul utilisée est la Cubed-Sphere. Il s'agit d'un maillage construit sur la surface d'un cube que l'on projette sur une sphère. Ce maillage a été introduit en 1972 par Robert Sadourny. La sphère est découpée en six panels identiques. Sur chaque panel, la grille utilise des portions de grands cercles. Contrairement au maillage longitude-latitude, ce maillage ne possède pas de singularités aux pôles.
+
+Le code de calcul développé est de type différences finies. Les inconnues sont localisées aux nœuds de la Cubed-Sphere. La méthode est d'ordre 4 en espace. Autrement dit, lorsque les nœuds sont deux fois plus proches, l'erreur commise est seize fois plus petite. La résolution en temps se fait par un algorithme explicite de Runge-Kutta d'ordre 4 également.
+
+Les expériences numériques effectuées avec notre schéma utilisent un ensemble de tests issus de la littérature. Pour certains de ces tests, une solution analytique est connue. On compare la valeur de cette solution exacte avec celle obtenue par l'algorithme de résolution. Les erreurs sont très faibles et permettent de confirmer la précision attendue. Pour d'autres tests, il n'y a pas de solution exacte connue. Dans ce cas, on compare la solution numérique avec celles obtenues par d'autres méthodes. De plus, on vérifie la conservation de la masse et de l'énergie par notre schéma numérique.
+
+Le contexte qui est le notre est celui de la simulation sur des temps particulièrement longs. C'est pourquoi nous effectuons des tests visant à prédire des solutions dans un futur lointain. Les comportements observés jusqu'ici sont satisfaisants. Il serait tout de même intéressant d'utiliser un algorithme de résolution en temps implicite. C'est l'une des perspectives de ce travail.
+
+A plus long terme, l'objectif est de simuler un modèle en dimension 3 qu'il faudra coupler à des équations de la thermodynamique (modèle GCM).
+
+
+\section{Popular abstract}
+
+In recent years, the challenge to simulate the atmospheric and/or oceanic 
+fluid dynamics has become crucial with the climate change problems. 
+The full
+mathematical model to simulate consists in the coupling of 
+fluid dynamics with  thermodynamics
+on a rotating sphere.
+In the 19-th century, Adhémar Barré de Saint-Venant
+first formulated the equations describing the dynamic
+of a fluid subject to gravity and bottom topography. This equation
+can de considered as a bidimensional simplification of the 3D 
+Navier-Stokes system. When expressed in the context of the rotating sphere,
+this equation describes the reaction of a fluid thin layer subject to
+the gravitational and Coriolis forces. It permits to describe many wave phenomena (Kelvin
+waves, Rossby waves, Poincaré waves). Although representing a simplified
+problem, this equation is difficult to solve and its numerical resolution requires suitable
+numerical schemes.
+
+The goal of this thesis is to study a particular finite difference scheme
+to solve this equations, (also called  Shallow Water equation). 
+The computational grid is here the Cubed-Sphere. This grid is build upon a
+cube and is projected on the sphere to discretize. This kind of grid was introduced by Robert
+Sadourny in 1972. Six identical panels cover the sphere. On each panel, the
+grid uses sections of great circles. Unlike the longitude-latitude grid, this grid does not
+have any singularities at the poles.
+The scheme is fourth order in
+space. Theis means that When nodes are two times closer, 
+the expected error is 16 times smaller.
+The time stepping is also fourth order.
+Numerical experiments performed with our scheme on a set of well known test cases test
+cases from the literature. For some of them, an analytical solution is avaible. We
+confirm the expectated accuracy.
+
+For numerical tests without analytical solution, we compare the numerical solution
+with the one  obtained by other methods. In addition, we check the conservation of
+mass and energy obtained by our scheme.
+Our context is the one of simulations over particularly long time. This is  why
+we perform tests to predict solution in a distant future. The behaviors observed
+are satisfactory. It would be interesting to use implicit time algorithm. It is one
+of the perspectives of this work.
+In the longer term, the goal is to simulate a model in dimension 3 coupled with the 
+ equations of thermodynamic (GCM model).
+
+	
+	
+	
+	
+
+
+
+
+\end{document}

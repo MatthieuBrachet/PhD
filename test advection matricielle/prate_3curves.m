@@ -81,7 +81,7 @@ set(xa,'FontSize',12);
 ha=gca;
 ya=get(gca,'Ylabel');
 set(ha,'Ygrid','on');
-set(ya,'String','Log_{10}(error)');
+set(ya,'String','Log_{10}(erreur)');
 set (ya,'FontName','Calibri');
 set(ya,'FontSize',12);
 

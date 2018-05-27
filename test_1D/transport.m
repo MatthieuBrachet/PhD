@@ -117,11 +117,11 @@ while t+ddt<tmax
     cons=[cons sum(u)*h-int];
 
     
-%     pause(0.001)
-%     clf
-%     figure(1)
-%     plot(x,u,'Linewidth',2)
-%     axis([0 1 -1.2 1.2])
+    pause(0.001)
+    clf
+    figure(1)
+    plot(x,u,'Linewidth',2)
+    axis([0 1 -1.2 1.2])
 end
 time=[1:length(e1)]*ddt;
 

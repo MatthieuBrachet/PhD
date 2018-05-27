@@ -1,0 +1,34 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\author{Brachet Matthieu}
+\begin{document}
+
+\section{Résumé scientifique}
+
+Dans les années récentes, l'enjeu de la simulation de la dynamique atmosphérique et/ou océanographique a prit une importance accrue avec la question du réchauffement climatique.
+Le modèle mathématique complet à simuler s'obtient en couplant les équations de la mécanique des fluides avec les équations de la thermodynamique sur une sphère en rotation.
+
+Au 19-ième siècle, le mathématicien Adhémar Barré de Saint-Venant a formulé un système d'équations aux dérivées partielles décrivant les mouvements d'un fluide soumis à la gravité et de faible épaisseur. Ces équations sont dérivées des équations de Navier-Stokes. Cette simplification permet de transformer un problème 3D en un problème 2D. Écrites dans le contexte de la sphère en rotation, ces équations décrivent la réponse d'une couche mince de fluide soumise aux seules forces de gravité et de Coriolis. Elles permettent de décrire de nombreux phénomènes (ondes de Kelvin, ondes de Rossby, ondes de Poincaré). Bien que représentant un problème simplifié, ces équations sont complexes et leur résolution nécessite des méthodes numériques adaptées.
+
+L'objectif de cette thèse est d'étudier une méthode numérique de type différences finies pour résoudre ces équations, aussi appelées équations Shallow Water, en utilisant la grille Cubed-Sphere.
+
+Ce travail est découpé en trois principales parties. Dans la première, on introduit les notations et les schémas utiles à la résolution d'équations aux dérivées partielles sur la Cubed-Sphere. On étudie les schémas aux différences finies dans le contexte périodique. Ils permettent d'approcher la dérivée première à différents ordres. Le schémas qui sera utilisé sur la sphère est un schéma hermitien d'ordre 4. Nous introduisons aussi les schémas de filtrages. Ces derniers sont consistant avec l'identité à un ordre élevé et permettent de supprimer les modes oscillants. Ces schémas permettent des approximations espace. La discrétisation en temps est faite par un algorithme de Runge-Kutta d'ordre 4 explicite couplée à l'opérateur de filtrage. Nous étudions l'algorithme pour la résolution de l'équation de transport et de l'équation des ondes. La précision est démontrée et la stabilité est étudiée. L'opérateur de filtrage permet d'atténuer les oscillations parasites qui peuvent apparaître lors de la résolution d'équations hyperboliques par un schéma centré.
+
+La seconde partie est dédiée au maillage sur la sphère ainsi qu'à la construction des opérateurs approchés. Le maillage utilisé est la Cubed-Sphere. Ce maillage a été introduit en 1972 par Robert Sadourny. Il s'agit du maillage des faces d'un cube projeté sur la sphère. Chaque face du maillage du cube, sur la sphère, est appelé panel. Il y a de nombreuses symétries entre les panels, ce qui permet de construire un produit scalaire vérifiant l'orthogonalité d'un grand nombre d'harmoniques sphériques restreintes au maillage. De plus, on construit des formules de quadratures précises sur ce maillage. Les points sur un panels sont des portions de grands cercles. En complétant les données sur les grands cercles à l'aide de spline cubique, on construit des opérateurs approchés de la divergence, du gradient et de la vorticité. Ces opérateurs utilisent les schémas aux différences finis périodiques. Nous démontrons la consistance des opérateurs discret à l'ordre 3. Lors d'expériences numériques, un ordre 4 est observé sur les tests effectués.
+
+La troisième partie concerne la résolution numérique d'équations aux dérivées partielles sur la sphère. Les expériences numériques concernent l'équation d'advection, l'équation Shallow Water linéarisée et l'équation Shallow Water. La résolution se fait par la méthode des lignes en couplant les opérateurs différentiels discret avec un schéma de Runge-Kutta d'ordre 4 muni d'un opérateur de filtrage. Les tests sont issus de la littératures classiques. Sur certains, une solution analytique est disponible. On compare la solution exacte et la solution donnée par l'algorithme. Les erreurs sont très faibles et permettent de confirmer la précision attendue. Lorsqu'il n'y a pas de solution analytique connue, nous comparons nos résultats numériques avec ceux obtenus par des schémas de Galerkin et de volumes finis d'ordre élevé. De plus, on vérifie la conservation de la masse et de l'énergie. 
+
+Dans le contexte qui est le notre, les simulations en temps long jouent un rôle important. C'est pourquoi effectuons des tests visant à prédire des solutions dans un futur lointain. Les résultats obtenus sont ceux attendus. De plus, les propriétés de conservations restent bonnes. Il serait tout de même intéressant d'utiliser un algorithme de résolution en temps implicite pour effectuer ce type de simulations. C'est l'une des perspectives de ce travail.
+
+A plus long terme, l'objectif est de simuler un modèle en 3D. Il faudra coupler un tel modèle avec les équations de la thermodynamique (modèle GCM).
+
+
+
+
+\end{document}

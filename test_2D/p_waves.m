@@ -7,7 +7,7 @@ global FTR
 
 opt_ftr='redonnet100';
 
-n=64;
+n=32;
 mod100
 gg=6*n^2*gp*hp+coriolis^2;
 ddt=2*sqrt(2)/sqrt(gg);
@@ -63,19 +63,19 @@ while t<tmax
     cons=[cons sum(h)/(n^2)];
     ener=[ener energy(h,u,v)];
     
-%     %% plot
-%     hplot=reshape(h,n,n);
-%     xplot=reshape(X,n,n);
-%     yplot=reshape(Y,n,n);
-%     
-%     pause(1e-10)
-%     clf
-%     figure(1)
-%     surf(xplot,yplot,hplot)
-%     shading interp;
-%     axis([0 1 0 1 -1/3 1])
-%     alpha 0.7
-%     colormap winter
+    %% plot
+    hplot=reshape(h,n,n);
+    xplot=reshape(X,n,n);
+    yplot=reshape(Y,n,n);
+    
+    pause(1e-10)
+    clf
+    figure(1)
+    surf(xplot,yplot,hplot)
+    shading interp;
+    axis([0 1 0 1 -1/3 1])
+    alpha 0.7
+    colormap winter
 
     clc; [t ener(end)/energyref-1]
 end

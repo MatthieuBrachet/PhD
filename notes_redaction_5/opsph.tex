@@ -829,7 +829,7 @@ où $\nabla_{T,app} h_{i,j}^{(k)}$ désigne le gradient approché calculé en ut
 \caption{Erreur relative pour le calcul du gradient $\nabla_{T,app} h_{i,j}^{(k)}$ avec $N=63$ et $h(x,y,z)=x y^2 z^3$. }
 \label{fig:err_grad}
 \end{figure}
-L'erreur est concentrée là où l'interpolation est la plus mauvaise. Sur les grands cercles associées aux isolignes $\xi = \pm \frac{\pi}{4}$ ou $\eta = \pm \frac{\pi}{4}$ ou $\xi = 0$ ou $\eta = 0$, il n'y a pas d'interpolation car ces grands cercles passent exactement à des points de grilles sur tous les panels. Il s'agit des grands cercles passant sur les bords des panels ainsi que les grands cercles équatoriaux. L'erreur introduite par l'interpolation est particulièrement visible loin de ces cercles, elle reste cependant limitée.
+L'erreur est plus importante là où l'interpolation est la plus mauvaise. Sur les grands cercles associés aux isolignes $\xi = \pm \frac{\pi}{4}$ ou $\eta = \pm \frac{\pi}{4}$ ou $\xi = 0$ ou $\eta = 0$, il n'y a pas d'interpolation car ces grands cercles passent exactement à des points de grilles sur tous les panels. Il s'agit des grands cercles passant sur les bords des panels ainsi que les grands cercles équatoriaux. L'erreur introduite par l'interpolation est particulièrement visible loin de ces cercles, elle reste cependant limitée.
 
 
 
@@ -867,7 +867,7 @@ ainsi que l'opérateur $\sigma_{\dec,x}$ par
 \end{array}
 \right.
 \end{equation}
-L'opérateur décentré au bord est construit de manière a être d'ordre 4 en conservant la structure tridiagonale de la partie implicite $\sigma_{\dec,x}$. Grâce à cette structure, le système a résoudre peut être résolu en utilisant l'algorithme de Thomas \cite{Conte2017, Quarteroni2010}.
+L'opérateur décentré au bord est construit de manière à être d'ordre 4 en conservant la structure tridiagonale de la partie implicite $\sigma_{\dec,x}$. Grâce à cette structure, le système a résoudre peut être résolu en utilisant l'algorithme de Thomas \cite{Conte2017, Quarteroni2010}.
 
 L'opérateur hermitien $\delta^H_{\dec,x} = \sigma_{\dec,x}^{-1} \circ \delta_{\dec,x}$ est un opérateur d'approximation de la dérivée première d'ordre 4. Son décentrement au bord des panels permet d'obtenir une nouvelle procédure de calcul des dérivées $h_{\xi,i,j}$ et $h_{\eta,i,j}$ donnée par 
 \begin{equation}

@@ -3,17 +3,17 @@ clc; clear all; close all;
 radius=1;
 N=[16 32 64 128];
 dx=2*pi*radius./(4*N);
-% e1=[3.1446e-5 2.2000e-6 1.4092e-7 8.7856e-9];
-% e2=[1.5759e-5 1.1752e-6 7.9823e-8 5.0291e-9];
-% e3=[1.4251e-5 1.0776e-6 7.7308e-8 4.5510e-9];
+e1=[3.1446e-5 2.2000e-6 1.4092e-7 8.7856e-9];
+e2=[1.5759e-5 1.1752e-6 7.9823e-8 5.0291e-9];
+e3=[1.4251e-5 1.0776e-6 7.7308e-8 4.5510e-9];
 
 % e1=[6.9356e-6 4.4315e-7 2.8338e-8 1.7687e-9];
 % e2=[4.3733e-6 2.9918e-7 1.9272e-8 1.2084e-9];
 % e3=[6.2809e-6 4.3611e-7 2.7803e-8 1.7354e-9];
 
-e1=[1.3615 0.2034 2.8087e-2 4.0114e-3];
-e2=[0.2499 5.0362e-2 1.0272e-2 2.1867e-3];
-e3=[.0570 1.6202e-2 4.8284e-3 1.4308e-3];
+% e1=[1.3615 0.2034 2.8087e-2 4.0114e-3];
+% e2=[0.2499 5.0362e-2 1.0272e-2 2.1867e-3];
+% e3=[.0570 1.6202e-2 4.8284e-3 1.4308e-3];
 
 ldx=log10(dx);
 le1=log10(e1);
@@ -79,12 +79,12 @@ set(xa,'FontSize',12);
 ha=gca;
 ya=get(gca,'Ylabel');
 set(ha,'Ygrid','on');
-set(ya,'String','Log_{10}(error)');
+set(ya,'String','Log_{10}(erreur)');
 set (ya,'FontName','Calibri');
 set(ya,'FontSize',12);
 
 %% legend
-legend([hlf1,hlf2,hlf3],{['norm 1 - slope = ' num2str(a1(1))],['norm 2 - slope = ' num2str(a2(1))],['norm \infty - slope = ' num2str(a3(1))]},'Location','SouthEast')
+legend([hlf1,hlf2,hlf3],{['norme 1 - pente = ' num2str(a1(1))],['norme 2 - pente = ' num2str(a2(1))],['norme \infty - pente = ' num2str(a3(1))]},'Location','SouthEast')
 
 ht=text('Position',[-1.95,-7.5,0],'String','N=128');
 set(ht,'FontSize',12);

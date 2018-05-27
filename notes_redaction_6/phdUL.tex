@@ -1,0 +1,226 @@
+\documentclass[11pt]{thesul}
+
+\usepackage{graphicx}
+\usepackage[french]{minitoc}
+\frenchbsetup{StandardLists=true}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[counterclockwise]{rotating}
+\usepackage{multirow}
+\usepackage[usenames, dvipsnames]{xcolor}
+\usepackage{tikz}
+\usepackage[left=2cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{amsthm}
+\usepackage{siunitx}
+%\usepackage[ruled]{algorithm}
+\usepackage[Algorithme]{algorithm}
+\usepackage{algpseudocode}
+\alglanguage{pseudocode}
+\usepackage{mathtools}
+
+\newenvironment{eqsys}{\begin{equation}\begin{dcases}}{\end{dcases}\end{equation}}
+
+\newtheorem{definition}{D\'efinition}[chapter]
+\newtheorem{exemple}{Exemple}[chapter]
+\newtheorem{remarque}{Remarque}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{theoreme}{Théorème}[chapter]
+\newtheorem{lemme}{Lemme}[chapter]
+\newtheorem{corollaire}{Corollaire}[chapter]
+
+\def\gint{\displaystyle\int}
+\def\gsum{\displaystyle\sum\limits}
+\def\gprod{\displaystyle\prod\limits}
+\def\longarc{\text{longarc}}
+\def\rang{\text{rang}}
+\def\REF{\textbf{REF}}
+\def\CFL{\text{CFL}}
+\def\CS{\text{CS}}
+\def\VDM{\text{VDM}}
+\def\Id{\text{Id}}
+\def\I{\text{I}}
+\def\vort{\text{vort}}
+\def\rot{\text{rot}}
+\def\Sp{\text{Sp}}
+\def\Re{\text{Re}}
+\def\RK4{\text{RK4}}
+\def\dec{\text{déc}}
+\def\per{\text{pér}}
+\def\vec{\text{vec}}
+\def\Vect{\text{Vect}}
+\def\arg{\text{arg}}
+\def\sech{\text{sech}}
+\def\tanh{\text{tanh}}
+\def\etafrak{\mathbf{\eta}}
+\def\dxi{\tilde{\delta}^H_{\xi}}
+\def\deta{\tilde{\delta}^H_{\eta}}
+\def\fxi{\tilde{\mathcal{F}}_{\xi}}
+\def\feta{\tilde{\mathcal{F}}_{\eta}}
+\def\tf{\tilde{f}}
+\def\tpz{\text{tpz}}
+\def\sps{\text{sps}}
+\def\col{\text{col}}
+\def\grav{\text{grav}}
+\def\cor{\text{cor}}
+\def\Im{\text{Im}}
+\def\sign{\text{sign}}
+\def\app{\text{app}}
+
+\def\bh{\mathfrak{h}}
+\def\bv{\mathfrak{v}}
+\def\bu{\mathfrak{u}}
+\def\bq{\mathfrak{q}}
+\def\bbeta{\mathbf{\eta}}
+
+\graphicspath{{./Images/}}
+
+\newcommand\upun[1]{\uppercase{\underline{\underline{#1}}}}
+\FormatHeadingsWith\upun
+\newcommand\itheadings[1]{\textit{#1}}
+\FormatHeadingsWith{\itheadings}
+\setlength{\HeadRuleWidth}{0.4pt}
+\NoChapterNumberInRef
+\NoChapterPrefix
+\makeglossary
+\makeindex
+
+\begin{document}
+
+
+      \OddHead={{\leftmark\rightmark}{\hfil\slshape\rightmark}}
+      \EvenHead={{\leftmark}{{\slshape\leftmark}\hfil}}
+      \OddFoot={\hfil\thepage}
+      \EvenFoot={\thepage\hfil}
+      \pagestyle{ThesisHeadingsII}
+
+\FrameChaptersInToc  
+\ResetChaptersAtParts 
+\dominitoc
+
+\ThesisTitle{Schémas compacts hermitiens sur la Sphère - Applications en climatologie et océanographie numérique}
+\ThesisDate{3 Juillet 2018}
+\ThesisAuthor{Matthieu Brachet}
+\ThesisUL
+
+\def\blanc{\hspace*{1cm}}
+
+\President    = {Le président}
+\Rapporteurs  = {Eric Blayo & Professeur à l'Université de Grenoble\\
+                 Thomas Dubos & Professeur à L’École Polytechnique}
+\Examinateurs = {Didier Clamond & Professeur à l'Université de Nice\\
+				 Jean-Pierre Croisille & Professeur à l'Université de Lorraine\\
+				 Michael Ghil & Professeur à l'ENS-CERES \\
+				 Véronique Martin & Maitre de conférence à l'Université de Picardie\\
+                 Dong Ye & Professeur à l'Université de Lorraine}
+
+\MakeThesisTitlePage
+
+%\begin{ThesisAcknowledgments}
+%Je remercie le jury, le labo, mon directeur de thèse et tout et tout...
+%\end{ThesisAcknowledgments}
+
+%\begin{ThesisDedication}
+%Je dédie cette thèse\\
+%à ma machine.\\
+%Oui, à Pandore,\\
+%qui fut la première de toutes.
+%\end{ThesisDedication}
+
+\WritePartLabelInToc
+\WriteChapterLabelInToc
+
+\tableofcontents
+
+%% ************ A COMPLETER PLUS TARD L'INTRO GENERALE
+\SpecialSection{Introduction générale}
+\input{intro.tex}
+%% ************ A COMPLETER PLUS TARD L'INTRO GENERALE
+
+%\FrameThisInToc
+\DontNumberThisInToc
+%\part{Rapport de Thèse}
+%\NoChapterHead
+
+\DontWriteThisInToc   
+\listoffigures
+
+\WriteThisInToc
+\FrameThisInToc
+\NumberThisInToc
+\part*{Rapport de Thèse}
+\mainmatter
+
+%\NumberThisInToc
+\input{notations3.tex}
+\input{disc.tex}
+\input{CS.tex}
+\input{opsph.tex}
+\input{scaleq4.tex} 
+\input{swe5.tex}
+
+%\PutLineInToc
+%\PutNewPageInToc
+
+%\DontFrameThisInToc
+
+\SpecialSection{Conclusion générale}
+\input{conclu.tex}
+
+\Annexes
+
+\Annex{Première annexe}
+\section{Coordonnées Longitude-Latitude}
+\input{lonlat.tex}
+%\Annex{Deuxième annexe}
+%\section{Invariants de Riemann}
+%\input{IR.tex}
+
+%-------------------------------------------------------------------
+%                       La bibliographie
+%-------------------------------------------------------------------
+
+\bibliographystyle{plain}
+\bibliography{PhDbiblio}
+
+%-------------------------------------------------------------------
+%                          Les résumés
+%-------------------------------------------------------------------
+% (si le résumé apparaît sur une colonne étroite, avec la
+% bibliographie à gauche, c'est sans doute parce que vous avez
+% oublié de générer les fichiers d'index et de glossaire...)
+
+\NumberAbstractPages
+\begin{ThesisAbstract}
+  \begin{FrenchAbstract}
+    Dans cette thèse, je présente un schéma d'approximation d’équation aux dérivées partielles d’évolution sur la Sphère. Le schéma est basé sur un schéma compact d'ordre 4 sur la grille Cubed-Sphere. Ce travail se décompose en trois parties.
+    Premièrement, j'étudie un ensemble de schémas aux différences finies en géométrie plane. Ces schémas permettent d'approcher la dérivée première ainsi que de définir des opérateurs de filtrages. Ils sont utilisés pour la résolution d'équation 1D et 2D telles l'équation d'advection, l'équation des ondes ou l'équation de Burgers. La discrétisation en espace utilise le schéma compact d'ordre 4, la résolution en temps se fait à l'aide d'un schéma RK4 couplé à un opérateur de filtrage. La consistance, la stabilité et les propriétés de conservations sont étudiées. En particulier, il conserve la masse et l'importance de l'opérateur de filtrage est mise en évidence.
+    Dans  un second temps, on introduit la grille Cubed-Sphere. Les propriétés géométriques de ce maillage sont mises en évidence. L'introduction d'un produit scalaire adapté permet de vérifier les propriétés d'orthogonalité d'un grand nombre d'harmoniques sphériques. De plus, ce produit scalaire permet d'introduire un bon choix de méthode de quadrature sur la sphère. Nous présentons aussi une méthode générale de construction d'opérateurs différentiels et de filtrage. Nous démontrons que ces opérateurs sont consistants à un bon ordre et donnent de bons résultats numériques.
+    La troisième partie de cette thèse concerne la résolution d'équation sphèriques classiques. Nous couplons l'algorithme RK4 ainsi que les opérateurs étudiés pour résoudre un ensemble d'équations aux dérivées partielles classiques telles que l'équation d'advection ou l'équation Shallow Water sphérique. L'algorithme développé permet de résoudre les test classiques issus de la littérature et de mettre en évidence des propriétés de précision et de conservation du schéma numérique.
+    La résolution d'équations sur la sphère est d'un intérêt particulier pour des applications en climatologie et en océanographie numérique. Les propriétés de la grille Cubed-Sphere sont particulièrement intéressantes et sont d'un intérêt croissant pour résoudre ce type de problèmes.
+    \KeyWords{Cubed-Sphere, schémas compact, discrétisation en temps, équation Shallow Water.}
+  \end{FrenchAbstract}
+  \begin{EnglishAbstract}
+    % résumé du DEC SRC Research Report #12
+    % Date: June 23, 1986
+    % 
+    %     "Fractional Cascading."
+    %     Bernard Chazelle and Leonidas J. Guibas.
+    %     58 pages.
+    In this thesis, I present an approximation scheme for evolution partial differential equation on the sphere. Le scheme is based on a fourth order compact scheme on a Cubed-Sphere grid. This work is divised in three parts.
+	First, I study a set of finite difference scheme in planar geometry. This scheme permits to approach the first derivative and to define filtering operators. It’s used to solve equation in 1D and 2D such that advection equation, waves equation of Burgers equation. The discretisation in space is using compact scheme of order 4, the time discretisation is made with RK4 scheme couple with filtering operator. Consistance, stability and conservation properties are studied. In particular, the scheme is preserve mass and the importance of filtering operator is inlight.
+	In a second time, we introduce the Cubed-Sphere grid. Geometrical properties of this mesh are inlight. Introduction of an adapted scalar product permits to check orthogonalities properties for an hight number of spherical harmonics. In more, this scalar produc permit to introduce a good choice for spherical quadrature. We present a general method to construct differential operators and filtering operators. We proove this operator are consistant with a good order of accuracy and give good numerical results.
+	The third part of this thesis is concerning the resolution of classical spherical equations. We couple the TK4 algorith with operator studied to solve a large set of partial differential problems such that advection equation or Shallow Water equation. The algorithm permits to solve classical tests from litterature and to inlight properties of accuracy and conservation of this numerical scheme.
+	The resolution of spherical equation on the sphere is of particular interrest for applications in  numerical climatology or oceanography. Cubed-Sphere properties are particularly important and growing interest this last years for this kind of problems.
+    \KeyWords{Cubed-Sphere, compact scheme, time discretisation, Shallow Water equation.}
+  \end{EnglishAbstract}
+\end{ThesisAbstract}
+
+
+\end{document}
+
+
+

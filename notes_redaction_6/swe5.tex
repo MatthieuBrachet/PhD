@@ -1,0 +1,1176 @@
+\chapter{Equations Shallow Water sphériques}
+
+\section{Equation Shallow Water linéarisée}
+
+\subsection{Propriétés de l'équation Shallow Water linéarisée}
+
+En l'absence de reliefs, l'équation Shallow Water s'écrit
+\begin{equation}
+\label{eq:SWE_without relief}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial \mathbf{u}}{\partial t} + \left( \mathbf{u} \cdot \nabla_T \right) \mathbf{u} + f \mathbf{n} \wedge \mathbf{u} + g \nabla_T h & = & \mathbf{0} \\
+\dfrac{\partial h}{\partial t} + \nabla_T \cdot \left( h \mathbf{u} \right) & = & 0,
+\end{array}
+\right.
+\end{equation}
+où $f$ désigne la force de Coriolis.
+
+Pour linéariser le système d'équation \eqref{eq:SWE_without relief} autour de la solution stationnaire $(H, \overline{\mathbf{u}}) = (H,\mathbf{0})$, nous considérons les solutions de la forme :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+h & = & H + \tilde{\eta} \\
+\mathbf{u} & = & \tilde{\mathbf{u}} \\
+\end{array}
+\right.
+\end{equation}
+où $(\tilde{\eta}, \tilde{\mathbf{u}})$ représente une petite perturbation de l'état stationnaire  $(H, \overline{\mathbf{u}}) = (H,\mathbf{0})$.
+En incorporant les solutions de cette forme à l'équation \eqref{eq:SWE_without relief}, on trouve :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial \tilde{\mathbf{u}}}{\partial t} + \left( \tilde{\mathbf{u}} \cdot \nabla_T \right) \tilde{\mathbf{u}} + f \mathbf{n} \wedge \tilde{\mathbf{u}} + g \nabla_T \tilde{\eta} & = & \mathbf{0} \\
+\dfrac{\partial \tilde{\eta}}{\partial t} + \nabla_T \cdot \left( \tilde{\eta} \tilde{\mathbf{u}} \right) + H \nabla_T \tilde{\mathbf{u}} & = & 0.
+\end{array}
+\right.
+\end{equation}
+En négligeant les termes d'ordres 2 : $(\tilde{\mathbf{u}} \cdot \nabla_T ) \tilde{\mathbf{u}}$ et $\nabla_T (\tilde{\eta} \tilde{\mathbf{u}})$, on obtient l'équation Shallow Water linéarisée :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial \mathbf{u}}{\partial t} + f \mathbf{n} \wedge \mathbf{u} + g \nabla_T \eta & = & \mathbf{0} \\
+\dfrac{\partial \eta}{\partial t} +  H \nabla_T \cdot \mathbf{u} & = & 0.
+\end{array}
+\right.
+\label{eq:lswec}
+\end{equation}
+Cette équation est munie d'une condition initiale.
+Pour simplifier les notations, nous notons $\mathbf{u}$ au lieu de $\tilde{\mathbf{u}}$ et $\eta$ au lieu de $\tilde{\eta}$.
+
+L'équation Shallow Water linéarisée \eqref{eq:lswec} est une équation de conservation. La masse et l'énergie sont conservées au cours du temps.
+
+\begin{proposition}
+Si $(\mathbf{u}, \eta)$ est solution de \eqref{eq:lswec} alors
+\begin{itemize}
+\item \textit{Conservation de la masse : } la masse totale est conservée au cours du temps :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \eta(t,\mathbf{x})d\sigma(\mathbf{x}) = 0.
+\end{equation}
+
+\item \textit{Conservation de l'énergie : }
+l'énergie est conservée au cours du temps :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbf{S}_a^2 }g  \eta^2(t,\mathbf{x}) + H | \mathbf{u}(t,\mathbf{x}) |^2 d \sigma (\mathbf{x}) = 0.
+\end{equation}
+\label{prop:lswe_cons}
+\end{itemize}
+\end{proposition}
+
+
+\begin{proof}
+\textit{Conservation de la masse} :
+nous intégrons sur $\mathbb{S}_a^2$ la seconde équation de \eqref{eq:lswec} alors:
+\begin{align*}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \eta(t,\mathbf{x})d\sigma(\mathbf{x}) & = \gint_{\mathbb{S}_a^2} \dfrac{\partial \eta}{\partial t}(t,\mathbf{x})d\sigma(\mathbf{x})\\
+	& = - H \gint_{\mathbb{S}_a^2} \nabla_T \cdot \mathbf{u}(t,\mathbf{x}) d \sigma(\mathbf{x}) \\
+	& = 0.
+\end{align*}
+
+\textit{Conservation de l'énergie}  :
+en ce qui concerne la conservation de l'énergie, nous procédons par étapes.
+\begin{itemize}
+\item Premièrement, notons que $\mathbf{u}$ est orthogonal à $\mathbf{n} \wedge \mathbf{u}$ alors :
+\begin{align*}
+\gint_{\mathbb{S}_a^2} \dfrac{\partial \mathbf{u}}{\partial t} \cdot \mathbf{u} & = \dfrac{1}{2} \dfrac{\partial}{\partial t} \gint_{\mathbb{S}_a^2} \mathbf{u}^2 \\
+	& = -g \gint_{\mathbb{S}_a^2} \nabla_T \eta \cdot \mathbf{u},
+\end{align*}
+en d'autres termes :
+\begin{equation}
+\dfrac{1}{2} \dfrac{\partial}{\partial t} \| u \|_{L^2(\mathbb{S}_a^2)}^2 = -g \gint_{\mathbb{S}_a^2} \nabla_T \eta \cdot \mathbf{u}.
+\label{energy_eq1}
+\end{equation}
+\item De la même manière, en multipliant par $\eta$, on a
+\begin{equation}
+\dfrac{\partial \eta}{\partial t} \cdot \eta = -H \eta \nabla_T \cdot \mathbf{u}.
+\end{equation}
+En intégrant sur la sphère $\mathbb{S}_a^2$, on a
+\begin{equation}
+\dfrac{1}{2} \dfrac{\partial}{\partial t} \| \eta \|^2_{L^2(\mathbb{S}_a^2)} = -H \gint_{\mathbb{S}_a^2} \eta \nabla \cdot \mathbf{u}
+\label{energy_eq2}
+\end{equation}
+\item De plus pour tout champ de vecteurs $\mathbf{A} \in \mathbb{T}\mathbb{S}_a^2$ et pour toute fonction $B$, on a
+\begin{equation}
+\nabla_T \cdot \left( \mathbf{A} B \right) = \left( \mathbf{A} \cdot \nabla_T \right) B + \left( B \nabla_T \cdot \mathbf{A} \right)
+\label{energy_eq3}
+\end{equation}
+On obtient alors
+\begin{align*}
+\dfrac{\partial}{\partial t} \gint_{\mathbb{S}^2_a} \left( g  \eta^2 + H | u |^2 \right) & = -2 gH \gint_{\mathbb{S}_a^2} \eta \nabla_T \cdot \mathbf{u} + \mathbf{u} \cdot \nabla_T \eta d \sigma(\mathbf{x}) \\
+	& = -2 g H\gint_{\mathbb{S}_a^2} \nabla_T \cdot (\eta \mathbf{u}) d \sigma(\mathbf{x}) \\
+	& = 0.
+\end{align*}
+Et l'énergie est bien conservée.
+\end{itemize}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Résolution numérique}
+
+Dans cette section, nous nous intéressons à la résolution numérique de l'équation \eqref{eq:lswec} à l'aide d'un schéma analogue à celui de l'algorithme \ref{alg:RK4_transportSa_NL}. Les tests que nous effectuons sont de deux types. Il s'agit d'un test stationnaire et d'un test avec second membre. Ainsi, l'équation manipulée est de la forme
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial \mathbf{u}}{\partial t} + f \mathbf{n} \wedge \mathbf{u} + g \nabla_T \eta & = & S_{\mathbf{u}} \\
+\dfrac{\partial \eta}{\partial t} +  H \nabla_T \mathbf{u} & = & S_{\eta},
+\end{array}
+\right.
+\label{eq:lswecf}
+\end{equation}
+où $S_{\mathbf{u}} : (t,\mathbf{x}) \in \mathbb{R}^+ \times \mathbb{S}_a^2 \mapsto S_{\mathbf{u}}(t,\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ et $S_{\eta} : (t,\mathbf{x}) \in \mathbb{R}^+ \times \mathbb{S}_a^2 \mapsto S_{\eta}(t,\mathbf{x}) \in \mathbb{R}$ sont des fonctions données.
+
+Pour résoudre \eqref{eq:lswecf} en utilisant la méthode des lignes, nous définissons la fonction $J_{\Delta}$ agissant sur un couple de fonction de grilles $\bq=(\bu,\bbeta)$ par 
+\begin{equation}
+J_{\Delta}(t,\bq) = J_{\Delta}(t,\bu,\bbeta) = \left( - f^* \mathbf{n}^* \wedge \bu^* - g \nabla_{T,\Delta} \bbeta + S^*_{\mathbf{u}} , - H \nabla_{T,\Delta} \bu + S^*_{\eta} \right).
+\end{equation}
+La résolution en temps est faite en utilisant l'algorithme de Runge-Kutta d'ordre 4 couplé à un opérateur de filtrage $\mathcal{F}$. L'algorithme \ref{alg:RK4_lswecf} est l'algorithme de résolution numérique. Pour tout $n \in \mathbb{N}$, il permet de calculer $\bq^n = (\bu^n , \bbeta^n)$ où $\bu^n$ est une approximation de $\mathbf{u}(t^n,\cdot)^*$ et $\bbeta^n$ est une approximation de $\eta(t^n,\cdot)^*$.
+
+\begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: Systèmes d'équations \eqref{eq:lswecf} }\label{alg:RK4_lswecf}
+    \begin{algorithmic}[1]
+    \State $\bq^0 = (\mathbf{u}_0^* , \eta_0^*)$ connu,
+    \For{$n=0,1, \ldots$}
+             \State  $K^{(1)} = J_{\Delta}(t^n, \bq^n)$,
+             \State  $K^{(2)} = J_{\Delta}\left(t^n + \frac{\Delta t}{2}, \bq^n + \frac{\Delta t}{2} K^{(1)} \right)$,
+             \State  $K^{(3)} = J_{\Delta}\left(t^n + \frac{\Delta t}{2}, \bq^n + \frac{\Delta t}{2} K^{(2)} \right)$,
+             \State  $K^{(4)} = J_{\Delta}\left(t^n + \Delta t,  \bq^n + \Delta t K^{(3)} \right)$,  
+             \State  $\bq^{n+1} = \mathcal{F}\left( \bq^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
+            \EndFor
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center} 
+
+L'opérateur de filtrage $\mathcal{F}$ agit sur chaque composante de $\bq^n$, il est défini par la relation \eqref{eq:operateur_filtrage}. Dans les tests effectués, une solution analytique est disponible, nous mesurons l'erreur relative sur $\bbeta$ en normes $\| \cdot \|_1$, $\| \cdot \|_2$ et $\| \cdot \|_{\infty}$ en calculant au temps $t^n$
+\begin{equation}
+e_{l}^n = \dfrac{\| \bbeta^n - \eta(t^n, \cdot)^* \|_{l}}{\| \eta(t^n, \cdot)^* \|_{l}}, \text{ avec } l \in \left\lbrace 1, 2, \infty \right\rbrace.
+\end{equation}
+L'erreur sur $\mathbf{u}$  est calculée au temps $t^n$ par
+\begin{equation}
+e_{\mathbf{u}}^n = \dfrac{\mathcal{N}(\bu^n - \mathbf{u}(t^n , \cdot)^*)}{\mathcal{N}(\mathbf{u}(t^n , \cdot)^*)}.
+\end{equation}
+La norme $\mathcal{N}$ est donnée par l'équation \eqref{eq:normN}. Lorsque $S_{\eta}$ et $S_{\mathbf{u}}$ sont des fonctions nulles, le système d'équation \eqref{eq:lswecf} conserve la masse et l'énergie au sens de la proposition \ref{prop:lswe_cons}. On vérifie la conservation de ces quantités en mesurant 
+\begin{equation}
+\dfrac{Q(\bu^n, \bbeta^n)-Q(\mathbf{u}(t^n, \cdot)^*, \eta(t^n, \cdot)^*)}{Q(\mathbf{u}(t^n,\cdot)^*, \eta(t^n, \cdot)^*)}
+\end{equation}
+où $Q$ représente la masse ou l'énergie numérique.
+
+De plus, pour les tests qui suivent, nous choisissons les données physiques suivantes:
+\begin{itemize}
+\item le rayon terrestre : $a = 6371220 $ mètres,
+\item la constante de gravité : $g = 9.80616 \si{m \cdot s^{-2}}$,
+\item la hauteur de référence : $H=10^5$ mètres,
+\item la force de Coriolis : $f = 2 \Omega \sin \theta$ avec $\Omega = 7.292 \times 10^{-5} \si{s^{-1}}$ la vitesse angulaire de rotation de la Terre.
+\end{itemize}
+De plus, les tests numériques sont effectués en considérant une condition sur les pas de discrétisation de la forme suivante 
+\begin{equation}
+\CFL = \dfrac{c \Delta t}{a \Delta \xi} = C^{\text{ste}},
+\end{equation}
+$c$ représente une vitesse caractéristique du système d'équation \eqref{eq:lswecf}. On choisit
+\begin{equation}
+c = \max \left( c_{\grav}, c_{\cor} \right)
+\end{equation}
+avec $c_{\grav} = \sqrt{gH}$ et $c_{\cor} = a \Omega$. La constante $c_{\grav}$ est la vitesse caractéristique des ondes de gravité, $c_{\cor}$ caractérise la vitesse de Coriolis et correspond à la vitesse de rotation le long de l'équateur.
+
+
+
+
+
+
+
+
+
+
+\subsection{Solution stationnaire zonale}
+
+Le premier test que nous considérons concerne la conservation d'une solution stationnaire zonale pour l'équation \eqref{eq:lswecf} sans forçage. C'est à dire que l'on a $S_{\eta}$ et $S_{\mathbf{u}}$ des fonctions nulles. Donc le système d'équations considérées est \eqref{eq:lswec}. La masse et l'énergie sont conservées.
+
+\begin{definition}
+On dit que $\eta$ et $\mathbf{u}$ sont des \textit{solution zonales} de \eqref{eq:lswecf} si $(\mathbf{u},\eta)$ est solution de \eqref{eq:lswecf} et si en coordonnées longitude-latitude $(\lambda, \theta)$, on a
+\begin{itemize}
+\item $\eta$ est indépendant de la latitude $\lambda$,
+\item $\mathbf{u}(t,\mathbf{x}) = u(t,\theta) \mathbf{e}_{\lambda}$ avec $u$ une fonction définie sur la sphère indépendante de $\lambda$.
+\end{itemize}
+\end{definition}
+Les solutions stationnaires zonales de \eqref{eq:lswec} sont décrites dans la proposition suivante :
+\begin{proposition}
+\label{prop:statzonale_lswe}
+Les solution stationnaires zonales $(\mathbf{u}, \eta)$ du système d'équations \eqref{eq:lswec} sont données par
+\begin{eqsys}
+\eta(\mathbf{x}) = \eta_{\text{eq}} - \dfrac{a}{g} \gint_{0}^{\theta} f(s) u(s) ds \\
+\mathbf{u}(\mathbf{x}) = u(\theta) \mathbf{e}_{\lambda}.
+\end{eqsys}
+\end{proposition}
+
+\begin{proof}
+Le couple $(\mathbf{u}, \eta)$ est un couple de solutions stationnaires zonales de \eqref{eq:lswec}, donc il existe $u : \theta \in [- \pi/2, \pi/2] \mapsto u(\theta) \in \mathbb{R}$ tel que
+\begin{equation}
+\mathbf{u}(\mathbf{x}) = u(\theta) \mathbf{e}_{\lambda}
+\end{equation}
+et $\eta$ est indépendant du temps, donc
+\begin{align*}
+\dfrac{\partial \eta}{\partial t} + H \nabla_T \cdot \mathbf{u} & = H \nabla_T \cdot \mathbf{u} \\
+	& = \dfrac{H}{a \cos \theta} \dfrac{\partial u}{\partial \lambda} \\
+	& = 0.
+\end{align*}
+De plus, $\mathbf{u}$ est indépendant de $t$. En considérant la première équation de \eqref{eq:lswec}, on a
+\begin{equation}
+f \mathbf{n} \wedge \mathbf{u} + g \nabla_T \eta = 0.
+\label{proof:eq:zonale_lswe}
+\end{equation}
+Dans la base $(\mathbf{e}_{\lambda}, \mathbf{e}_{\theta})$, l'équation \eqref{proof:eq:zonale_lswe} s'écrit
+\begin{equation}
+f u \mathbf{e}_{\theta} + \dfrac{g}{a} \left( \dfrac{1}{\cos \theta} \dfrac{\partial \eta}{\partial \lambda} \mathbf{e}_{\lambda} + \dfrac{\partial \eta}{\partial \theta} \mathbf{e}_{\theta} \right) = 0.
+\end{equation}
+Or, $\eta$ est indépendant de $\lambda$ (car zonale), donc
+\begin{equation}
+f u + \dfrac{g}{a} \dfrac{\partial \eta}{\partial \theta} = 0.
+\end{equation}
+Le paramètre $f$ ne dépend que de $\theta$ donc par intégration de cette équation on obtient
+\begin{equation}
+\eta(\mathbf{x}) = \eta_{\text{eq}} - \dfrac{a}{g} \gint_{0}^{\theta} f(s) u(s) ds,
+\end{equation}
+et la proposition est démontrée.
+\end{proof}
+
+Dans la suite, nous considérons une solution stationnaire zonale donnée par la proposition \ref{prop:statzonale_lswe} avec $u : \theta \in ]-\pi/2,\pi/2[ \mapsto u(\theta) \in \mathbb{R}$ donné par
+\begin{equation}
+u(\theta) = u_0 \psi(\theta) \mathbf{e}_{\lambda},
+\end{equation}
+où $\psi$ désigne la fonction, de classe $\mathcal{C}^{\infty}$ et à support compact, définie pour $\theta \in [-\pi/2, \pi/2]$ par
+\begin{equation}
+\psi(\theta) = \left\lbrace
+\begin{array}{ll}
+0 & \text{ si } \theta \leq \theta_0 \\
+\dfrac{1}{e_n} \exp \left[ \dfrac{1}{(\theta-\theta_0)(\theta- \theta_1)} \right] & \text{ si } \theta_0 \leq \theta \leq \theta_1 \\
+0 & \text{ si } \theta \geq \theta_1.
+\end{array}
+\right.
+\label{eq:psi_supcompact}
+\end{equation}
+La constante $e_n$ est une constante de normalisation donnée par $e_n = \exp \left( \dfrac{-4}{(\theta_0 - \theta_1)^2} \right)$. Elle permet d'assurer que $\max_{- \pi/2 \leq \theta \leq \pi/2} \psi(\theta) = 1$.
+
+L'intégrale, présente dans la condition initiale, est calculée par la méthode des trapèzes composites en utilisant un grand nombre de points d'interpolation (ici 1000). Ce choix permet de rapidement obtenir une erreur très faible de sorte que les erreurs numériques ne soient pas issues du calcul de la solution initiale.
+
+Sur la figure \ref{fig:lswec_hist}, on représente l'historique de l'erreur relative en normes $\| \cdot \|_1$, $\| \cdot \|_2$ et $\| \cdot \|_{\infty}$ pour $\eta$ au cours du temps ainsi que l'historique de l'erreur de conservation lorsque $N=32$ sur $20$ jours avec une condition $\CFL = 0.9$. On constate que même sur un temps long, le comportement de l'erreur ainsi que celui de la conservation de la masse et de l'énergie est bon.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{erreur_lswe1.png}
+\includegraphics[height=5cm]{cons_lswe1.png}
+\end{center}
+\caption{Erreur pour la solution stationnaire zonale de \eqref{eq:lswec}. On mesure l'erreur en norme et erreur de conservation pour le test stationnaire de l'équation \eqref{eq:lswec}. Le pas de temps est issu de $\CFL=0.9$. Le temps final est $t=20$ jours. Le paramètre de la Cubed-Sphere est $N=32$.}
+\label{fig:lswec_hist}
+\end{figure}
+
+L'analyse de convergence est fait sur la table \ref{tab:rate_lswe1} et la figure \ref{fig:rate_lswe1} pour des simulations sur $t=5$ jours et $\CFL=0.9$. Le taux de convergence est supérieur à 3 pour toutes les normes. De plus, la conservation de la masse et de l'énergie est vérifiée à un ordre proche de 7, ce qui est excellent.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c|c||c|c|}
+\hline 
+$\mathbf{N}$ & $\mathbf{e}_1$ & $\mathbf{e}_2$ & $\mathbf{e}_{\infty}$ & $\mathbf{e}_{\mathbf{u}}$ & \textbf{Masse} & \textbf{Énergie} \\ 
+\hline 
+\hline 
+$\mathbf{32}$ & $3.4013(-4)$ & $5.0150(-4)$ & $1.8541(-3)$ & $1.0220(-2)$ & $1.2153(-5)$ & $1.9082(-5)$ \\ 
+
+$\mathbf{64}$ & $1.8727(-5)$ & $3.9000(-5)$ & $1.9349(-4)$ & $1.9720(-3)$ & $1.5016(-7)$ & $1.1257(-6)$ \\ 
+
+$\mathbf{128}$& $1.0394(-6)$ & $1.8943(-6)$ & $1.2232(-5)$ & $2.4415(-4)$ & $5.8722(-10)$ & $7.6073(-9)$ \\ 
+
+$\mathbf{256}$& $5.1235(-7)$ & $4.7288(-7)$ & $7.3839(-7)$ & $1.3996(-5)$ & $8.5125(-12)$ & $1.8352(-11)$ \\ 
+
+\hline
+\textbf{Ordre :} & $3.23$ & $3.45$ & $3.78$ & $3.16$ & $6.93$ & $6.72$ \\ 
+\hline
+\end{tabular} 
+\end{center}
+\caption{Table de convergence pour le test stationnaire de l'équation \eqref{eq:lswec}. Le pas de temps est donné par $\CFL=0.9$. Le temps final est $t=5$ jours. On mesure également l'erreur sur la conservation de la masse et de l'énergie.}
+\label{tab:rate_lswe1}
+\end{table}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{rate_lswe1.png}
+\end{center}
+\caption{Convergence pour le test stationnaire de l'équation \eqref{eq:lswec} en fonction de $\Delta = a \Delta \xi$. Le pas de temps est donné par $\CFL=0.9$. Le temps final est $t=5$ jours.}
+\label{fig:rate_lswe1}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Solution à décroissance exponentielle}
+
+Le test précédent mesure le comportement d'une solution stationnaire. Nous étudions à présent le comportement d'une solution dépendant du temps de manière à mesurer les effets de la discrétisation en temps. Nous considérons des solutions à décroissance exponentielle :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\eta(t,\mathbf{x}) & = & \psi(\theta) \exp \left( - \sigma t \right)\\
+\mathbf{u}(t,\mathbf{x}) & = & \dfrac{\sqrt{gH}}{10} \psi(\theta) \exp \left( - \sigma t \right) \mathbf{e}_{\lambda},
+\end{array}
+\right.
+\label{eq:lswe_solexp}
+\end{equation}
+la fonction $\psi$ est donnée par \eqref{eq:psi_supcompact}, $\sigma>0$ est le paramètre de décroissance. L'équation résolue est \eqref{eq:lswecf}, dans cette dernière $S_{\mathbf{u}}$ et $S_{\eta}$ sont données et calculées pour que \eqref{eq:lswe_solexp} représente le couple de solutions de \eqref{eq:lswecf}.
+
+Pour les simulations numériques, les paramètres choisis sont $\theta_0 = - \pi /3$, $\theta_1 = \pi /3$ et $\sigma = 10^{-5}$. On étudie le taux de convergence de la solution jusqu'à $t=1.5$ heures avec une condition sur les pas de discrétisation $\CFL=0.9$ et différents paramètres de grilles. 
+On se limite à un temps court car la décroissance exponentielle vers 0 de la solution rend le calcul d'erreurs délicat sur des temps plus longs. Au bout de 1.5 heure, la solution a diminué d'environ $5\%$.
+Les résultats sont donnés dans la figure \ref{fig:rate_lswe2} et la table \ref{tab:rate_lswe2}. Le taux de convergence est supérieur à 4.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c|c|}
+\hline 
+$\mathbf{N}$ & $\mathbf{e}_1$ & $\mathbf{e}_2$ & $\mathbf{e}_{\infty}$ & $\mathbf{e}_{\mathbf{u}}$\\ 
+\hline 
+\hline 
+$\mathbf{32}$ & $2.2494(-2)$ & $4.3922(-2)$ & $2.0509(-1)$ & $2.6585(-3)$\\ 
+
+$\mathbf{64}$ & $1.0764(-3)$ & $2.4775(-3)$ & $1.7295(-2)$ & $4.1696(-4)$\\ 
+
+$\mathbf{128}$ & $4.7943(-5)$ & $8.7464(-5)$ & $6.2330(-4)$ & $2.8324(-5)$\\
+
+\hline
+\textbf{Ordre :} & $4.44$ & $4.49$ & $4.18$ & $3.28$ \\ 
+\hline
+\end{tabular} 
+\end{center}
+\caption{Table de convergence pour le test à décroissance exponentielle de l'équation \eqref{eq:lswecf}. Le pas de temps est donné par $\CFL=0.9$. Le temps final est $t=1.5$ heures.}
+\label{tab:rate_lswe2}
+\end{table}
+
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{rate_lswe2.png}
+\end{center}
+\caption{Convergence pour le test à décroissance exponentielle de l'équation \eqref{eq:lswecf} en fonction de $\Delta = a \Delta \xi$. Le pas de temps est donné par $\CFL=0.9$. Le temps final est $t=1.5$ heures.}
+\label{fig:rate_lswe2}
+\end{figure}
+
+Nous ne mesurons pas l'erreur sur la conservation de la masse ou de l'énergie car ces dernières ne sont pas conservées lorsque $S_{\mathbf{u}}$ et $S_{\eta}$ ne sont pas nulles.
+
+Les tests effectués nous permettent de mesurer la précision et l'ordre de convergence en combinant les opérateurs divergence, gradient pour la discrétisation spatiale ainsi que la discrétisation RK4 couplée à l'opérateur de filtrage. Les ordres de convergence restent proches de 4 pour l'erreur sur $\bbeta$. L'ordre de convergence est supérieur à 3 pour l'erreur sur $\bu$. La convergence des erreurs de conservation sur la masse et l'énergie est excellente.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Equation Shallow Water}
+
+\subsection{Propriétés de l'équation Shallow Water}
+
+L'équation Shallow Water est déduite de l'équation de Navier-Stokes en dimension 3 en tenant compte d'une faible profondeur de fluide et de la faible viscosité. Si l'on note $h_s$ la fonction décrivant les reliefs sur la sphère, le système d'équations s'écrit
+\begin{equation}
+\label{eq:SWEC_new}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial \mathbf{u}}{\partial t} + \left( \mathbf{u} \cdot \nabla_T \right) \mathbf{u} + f \mathbf{n} \wedge \mathbf{u} + g \nabla h & = & \mathbf{0} \\
+\dfrac{\partial h^{\star}}{\partial t} + \nabla_T \cdot \left( h^{\star} \mathbf{u} \right) & = & 0
+\end{array}
+\right.
+\end{equation}
+avec $h^{\star} = h - h_s$. Dans la suite, nous supposons que les reliefs ne se déforment pas avec les mouvements du fluide. Ainsi $h_s$ est indépendant du temps $t$.
+Afin d'éviter de discrétiser le terme $\left( \mathbf{u} \cdot \nabla \right) \mathbf{u}$, nous utilisons l'égalité suivante 
+\begin{equation}
+\left( \mathbf{u} \cdot \nabla_T \right) \mathbf{u} = \nabla_T \left( \dfrac{1}{2} |\mathbf{u}|^2 \right) + \zeta \mathbf{n} \wedge \mathbf{u}
+\end{equation}
+où $\zeta = \mathbf{n} \cdot \left( \nabla \wedge \mathbf{u} \right)$ la vorticité relative. On note la présence de $\nabla_T \wedge \mathbf{u}$ le rotationnel de $\mathbf{u}$ dont nous avons vu un opérateur de discrétisation dans la définition \ref{def:rotationnel_disc}.
+
+L'équation \eqref{eq:SWEC_new} s'écrit :
+\begin{equation}
+\label{eq:SWEC_vectform}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{\partial \mathbf{u}}{\partial t} + \nabla_T \left( g h + \dfrac{1}{2} |\mathbf{u}|^2  \right) + \left( \zeta + f \right) \mathbf{n} \wedge \mathbf{u} & = & \mathbf{0} \\
+\dfrac{\partial h^{\star}}{\partial t} + \nabla_T \cdot \left( h^{\star} \mathbf{u} \right) & = & 0,
+\end{array}
+\right.
+\end{equation}
+où $f$ est la fonction paramétrant la force de Coriolis. Sauf mention contraire, cette fonction est donnée par
+\begin{equation}
+f(\theta) = 2 \Omega \sin \theta.
+\end{equation}
+Dans les équation, les constantes physiques sont données par
+\begin{itemize}
+\item la constante de gravité : $g=9.80616 m \cdot \si{s^{-2}}$,
+\item la vitesse angulaire de rotation de la sphère : $\Omega=7.292 \times 10^{-5} \si{s^{-1}}$,
+\item le rayon terrestre : $a=6.37122 \times 10^6 \si{m}$.
+\end{itemize}
+
+Le système d'équations \eqref{eq:SWEC_vectform} est une loi de conservation. Les propriétés de conservations suivantes sont vérifiées
+
+\begin{proposition}
+\label{prop:swe_cons}
+Si $(\mathbf{u},h)$ est solution de \eqref{eq:SWEC_vectform} alors les relations de conservations suivantes sont vérifiées :
+\begin{itemize}
+\item Conservation de la masse totale :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} h^{\star}(t,\mathbf{x}) d \sigma(\mathbf{x}) = 0,
+\label{eq:mass}
+\end{equation}
+ 
+\item Conservation de l'énergie :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \dfrac{1}{2} h^{\star}(t,\mathbf{x}) \mathbf{u}(t,\mathbf{x}).^2 + \dfrac{1}{2} g \left( h^2(t,\mathbf{x}) - h_s^2 \right)d \sigma(\mathbf{x}) = 0,
+\label{eq:energy}
+\end{equation}
+
+\item Conservation de l'enstrophie potentielle :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \dfrac{\left( \zeta(t,\mathbf{x}) + f \right)^2}{h^{\star}(t,\mathbf{x})} d \sigma(\mathbf{x}) = 0,
+\label{eq:enstrophie}
+\end{equation}
+
+\item Conservation de la vorticité :
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \zeta(t,\mathbf{x}) d \sigma(\mathbf{x}) = 0,
+\label{eq:vorticity}
+\end{equation}
+
+\item Conservation de la divergence
+\begin{equation}
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \nabla_T \cdot \mathbf{u}(t,\mathbf{x}) d \sigma(\mathbf{x}) = 0,
+\label{eq:divergence}
+\end{equation}
+\end{itemize}
+
+avec $\zeta = \left( \nabla_T \wedge \mathbf{u}(t,\mathbf{x}) d \sigma(\mathbf{x}) \right) \cdot \mathbf{n}$.
+\end{proposition}
+
+\begin{remarque}
+Pour prouver qu'une quantité $\delta$ est conservée, il suffit de montrer qu'il existe $\mathbf{F} : \mathbf{x} \in \mathbb{S}_a^2 \mapsto \mathbf{F}(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ tel que :
+\begin{equation}
+\dfrac{\partial \delta}{\partial t} = \nabla_T \cdot \mathbf{F}
+\end{equation}
+puis d'intégrer.
+\label{rmq:int diverg nulle}
+\end{remarque}
+
+\begin{proof}
+La conservation de la masse est obtenue en intégrant la seconde équation de \eqref{eq:SWEC_vectform}.
+La conservation de la divergence est immédiate car
+\begin{equation}
+\gint_{\mathbb{S}_a^2} \nabla_T \cdot \mathbf{u}(t,\mathbf{x}) d \sigma(\mathbf{x}) = 0.
+\end{equation}
+On pose $q = \dfrac{\zeta + f}{h^{\star}}$, alors en appliquant $\mathbf{n} \cdot ( \nabla_T \wedge \cdot )$ à l'équation Shallow Water \eqref{eq:SWEC_vectform}, on obtient
+\begin{equation}
+\dfrac{\partial \zeta}{\partial t}+\nabla_T \wedge \left( q h^{\star} \mathbf{n} \wedge \mathbf{u} \right) \cdot\mathbf{n} + \underbrace{\nabla_T \wedge \nabla_T \left( gh + \dfrac{1}{2}\mathbf{u}^2 \right) \cdot \mathbf{n}}_{=0} = 0 .
+\end{equation}
+Or, l'égalité suivante est vérifiée :
+\begin{equation}
+\nabla_T \wedge (q h^{\star} \mathbf{n} \wedge \mathbf{u}) = - (\nabla_T \wedge \mathbf{u}) \cdot (q h^{\star} \mathbf{n}),
+\end{equation}
+d'où
+\begin{equation}
+\dfrac{ \partial \zeta}{\partial t} + \nabla \cdot \left( q h^{\star} \mathbf{u} \right) = 0.
+\end{equation}
+En intégrant cette dernière équation sur $\mathbb{S}_a^2$, on trouve la conservation de la vorticité.
+
+La fonction $f$ est indépendante du temps, donc :
+\begin{align*}
+\dfrac{\partial}{\partial t} \left( qh^{\star} \right) & = \dfrac{\partial}{\partial t} ( \zeta + f) \\
+& = \dfrac{\partial \zeta}{\partial t}
+\end{align*}
+est vérifiée. Donc :
+\begin{equation}
+\dfrac{\partial}{\partial t} \left( qh^{\star} \right) + \nabla_T \cdot \left( q h^{\star} \mathbf{u} \right) = 0
+\end{equation}
+ce qui prouve la conservation de l'enstrophie potentielle.
+
+L'énergie est la somme de l'énergie cinétique $E_c$ donnée par
+\begin{equation}
+E_c = \dfrac{1}{2} h^{\star} \mathbf{u}^2,
+\end{equation}
+et de l'énergie potentielle $E_p$ donnée par
+\begin{equation}
+E_p = \dfrac{1}{2} g (h^2 - h_s^2).
+\end{equation}
+En dérivant $E_c$ et $E_p$ par rapport au temps et comme $(\mathbf{u},h)$ est solution de \eqref{eq:SWEC_vectform}, on obtient
+\begin{equation}
+\begin{array}{rcl}
+\dfrac{\partial}{\partial t} E_c & = & -\dfrac{1}{2} \mathbf{u}^2 \nabla_T \cdot \left( h^{\star} \mathbf{u} \right) - h^{\star} \mathbf{u} \cdot \nabla_T \left( \dfrac{1}{2} \mathbf{u}^2 + gh \right) \\
+\dfrac{\partial}{\partial t} E_p & = & - gh \nabla_T \cdot \left( h^{\star} \mathbf{u} \right) - g h_s \dfrac{\partial h_s}{\partial t}.
+\end{array}
+\end{equation}
+Puisque $h_s$ est indépendant du temps, on a
+\begin{equation}
+\dfrac{\partial}{\partial t} \left( E_c + E_p \right) = - \nabla_T \cdot \left( \dfrac{1}{2} \mathbf{u}^2 + gh \right).
+\end{equation}
+En intégrant cette équation sur la sphère $\mathbb{S}_a^2$, on démontre l'équation de conservation de l'énergie.
+\end{proof}
+
+On considère à présent $(\lambda',\theta')$ les coordonnées longitudes latitude de $\mathbf{x} \in \mathbb{S}_a^2$ associées au pôle $\mathbf{P}$ de coordonnées $(\pi, \pi/2-\alpha)$. Il est possible de passer de $(\lambda, \theta)$ à $(\lambda',\theta')$ en utilisant les équations \eqref{from classic to prime} et inversement en utilisant les équations \eqref{from prime to classic}. Si la sphère tourne autour de l'axe $(\mathbf{O}\mathbf{P})$, alors la fonction $f$ est donnée par
+\begin{equation}
+f(\mathbf{x}) = f(\theta') = 2 \Omega \sin \theta'.
+\end{equation}
+Dans ce cadre, les solutions stationnaires zonales de \eqref{eq:SWEC_vectform} font l'objet de la proposition suivante :
+\begin{proposition}
+\label{prop:swe_zonalestat}
+Les solutions stationnaires zonales dans le système de coordonnées longitude-latitude $(\lambda', \theta')$ du système d'équations \eqref{eq:SWEC_vectform} sont données par :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\mathbf{u}(\theta') & = & u(\theta') \mathbf{e}_{\lambda'} \\
+h(\theta') & = & h_0 - \dfrac{a}{g} \gint^{\theta'} u(s) \left( u(s) \dfrac{\tan(s)}{a} + f(s)  \right)ds,
+\end{array}
+\right.
+\end{equation}
+avec $f(\theta') = 2 \Omega \sin \theta'$.
+\end{proposition}
+
+\begin{proof}
+Soit $(\mathbf{u}, h)$ solutions stationnaires zonales de \eqref{eq:SWEC_vectform}. Alors $\mathbf{u}$ et $h$ sont indépendants de $\lambda'$ et du temps $t$. Il existe $u : \theta' \in [-\pi/2, \pi/2] \mapsto u(\theta') \in \mathbb{R}$ tel que
+\begin{equation}
+\mathbf{u}(\theta') = u(\theta')\mathbf{e}_{\lambda'}.
+\end{equation}
+Ce champ de vecteurs $\mathbf{u}$ est à divergence nulle par construction, et $h$ est indépendant de $t$, donc
+\begin{equation}
+\dfrac{\partial h^{\star}}{\partial t} + \nabla_T \cdot (h^{\star} \mathbf{u}) = 0.
+\end{equation}
+En exprimant la seconde équation de \eqref{eq:SWEC_vectform} dans le système de coordonnées $(\lambda',\theta')$, on a
+\begin{equation}
+\zeta + f = u(\theta') \dfrac{\tan \theta'}{a} - \dfrac{1}{a} u'(\theta') + f.
+\end{equation}
+Ainsi :
+\begin{equation}
+\left( \zeta + f \right) \mathbf{k} \wedge \mathbf{u} = \left( u^2 (\theta') \dfrac{\tan \theta'}{a} - \dfrac{1}{a} u(\theta') u'(\theta') + f(\theta') u(\theta') \right) \mathbf{e}_{\theta'}
+\end{equation}
+De même, on obtient :
+\begin{equation}
+\nabla_T \left( gh + \dfrac{1}{2} |\mathbf{u}|^2 \right) = \dfrac{g}{a \cos \theta'} \dfrac{\partial h}{\partial \lambda'} \mathbf{e}_{\lambda'} + \left[ \dfrac{g}{a} \dfrac{\partial h}{\partial \theta'} + \dfrac{1}{a} u'(\theta') u(\theta') \right] \mathbf{e}_{\theta'}
+\end{equation}
+Puisque la solution recherchée est stationnaire, $h$ et $\mathbf{u}$ sont indépendants de $t$, d'où :
+\begin{equation}
+\left( \zeta + f \right) \mathbf{n} \wedge \mathbf{u} + \nabla \left( gh + \dfrac{1}{2} |\mathbf{u}|^2 \right) = 0.
+\end{equation}
+En traitant cette équation composante par composante, on déduit des informations sur $h$.
+\begin{itemize}
+\item \textbf{Composante en} $\mathbf{e}_{\lambda'}$ : 
+\begin{equation}
+\dfrac{g}{a \cos \theta'} \dfrac{\partial h}{\partial \lambda'} = 0
+\end{equation}
+donc $h$ est indépendant de $\lambda'$. Ce qui était attendu ($h$ est zonale).
+
+\item \textbf{Composante en} $\mathbf{e}_{\theta'}$ :
+\begin{equation}
+u^2 (\theta') \dfrac{\tan \theta'}{a}  + f(\theta') u(\theta') + \dfrac{g}{a} h'(\theta') = 0,
+\end{equation}
+d'où l'on déduit :
+\begin{equation}
+h'(\theta') = - u(\theta') \dfrac{a}{g} \left( u(\theta') \dfrac{\tan \theta'}{a} + f(\theta') \right).
+\end{equation}
+En intégrant cette dernière relation, on obtient :
+\begin{equation}
+h(\theta') = h_0 - \dfrac{a}{g} \gint^{\theta'} u(s) \left( u(s) \dfrac{\tan (s)}{a} + f(s) \right) ds.
+\end{equation}
+\end{itemize}
+La proposition est prouvée.
+\end{proof}
+
+Les solutions stationnaires zonales servent de base à de nombreux tests. En particulier, le second test de \cite{Williamson1992} est un cas particulier de cette proposition. Dans le test 5 du même article, il s'agit d'une perturbation de ce cas par un relief.
+Le test de J. Galewsky et al. \cite{Galewsky2004} est une perturbation d'une solution zonale stationnaire instable obtenue en perturbant $h$ initialement.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Résolution numérique de l'équation Shallow Water}
+
+L'équation \eqref{eq:SWEC_vectform} est résolue numériquement en utilisant la méthode des lignes. Chaque opérateur différentiel est approché à l'aide des schémas hermitiens. La discrétisation temporelle se fait à l'aide de la méthode de Runge-Kutta d'ordre 4 couplée à un filtre $\mathcal{F}$ défini par \eqref{eq:operateur_filtrage}. L'opérateur de filtrage utilisé est basé sur le filtre 1D d'ordre 10.
+On définit $J_{\Delta}$ la fonction agissant sur les fonctions de grille de la Cubed-Sphere $\bq = (\bu,\bh)$ par
+\begin{equation}
+J_{\Delta}(t,\bq) = \begin{pmatrix}
+- \nabla_{T,\Delta} \left( g\bh + \dfrac{1}{2} |\bu|^2 \right) - (\zeta_{\Delta} + f^*) \mathbf{n}^* \wedge \bu \\
+- \nabla_{T,\Delta} (\bh^{\star} \bu)
+\end{pmatrix}
+\end{equation}
+avec $\zeta_{\Delta} = \mathbf{n}^* \cdot (\nabla_{T,\Delta} \wedge \bu) = \vort_{\Delta}(\bu)$. L'algorithme de résolution est analogue à l'algorithme \ref{alg:RK4_lswecf}, il est donné par l'algorithme \ref{alg:RK4_swe}.
+
+\begin{center}
+\begin{minipage}[H]{12cm}
+  \begin{algorithm}[H]
+    \caption{: Systèmes d'équations \eqref{eq:SWEC_vectform} }\label{alg:RK4_swe}
+    \begin{algorithmic}[1]
+    \State $\bq^0 = (\bu(0,\cdot)^* , \bbeta(0,\cdot)^*)$ connu,
+    \For{$n=0,1, \ldots$}
+             \State  $K^{(1)} = J_{\Delta}(t^n, \bq^n)$,
+             \State  $K^{(2)} = J_{\Delta}\left(t^n + \frac{\Delta t}{2}, \bq^n + \frac{\Delta t}{2} K^{(1)} \right)$,
+             \State  $K^{(3)} = J_{\Delta}\left(t^n + \frac{\Delta t}{2}, \bq^n + \frac{\Delta t}{2} K^{(2)} \right)$,
+             \State  $K^{(4)} = J_{\Delta}\left(t^n + \Delta t \bq^n + \Delta t K^{(3)} \right)$,  
+             \State  $\bq^{n+1} = \mathcal{F}\left( \bq^n  + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right) \right)$.
+            \EndFor
+    \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+\end{center} 
+
+Lorsqu'une solution analytique est disponible, nous mesurons l'erreur
+\begin{equation}
+e_l = \dfrac{\| \bh^n - h(t^n,\cdot)^* \|_l}{\| h(t^n,\cdot)^* \|_l} \text{, avec } l \in \left\lbrace 1, 2, \infty \right\rbrace.
+\end{equation}
+De plus, nous avons vu dans la proposition \ref{prop:swe_cons} que la solution du système \eqref{eq:SWEC_vectform} vérifie des propriétés de conservation. Pour la conservation de la masse, de l'énergie et de l'entrophie potentielle, nous mesurons l'erreur de conservation relative :
+\begin{equation}
+\dfrac{Q(\bu(t^n,\cdot)^*, h(t^n,\cdot)^*) - Q(\bu^n, \bh^n)}{Q(\bu(t^n,\cdot)^*, h(t^n,\cdot)^*)},
+\end{equation}
+où $Q$ désigne l'intégrale numérique à conserver.
+La divergence et la vorticité sont nulles dans le cadre continu, nous ne mesurons donc pas l'erreur de conservation relative de ces quantités mais l'erreur de conservation moyenne :
+\begin{equation}
+\dfrac{Q(\bu(t^n,\cdot)^*, h(t^n,\cdot)^*) - Q(\bu^n, \bh^n)}{4 \pi a^2},
+\end{equation}
+où $Q$ désigne une formule de quadrature sphérique appliquée à la divergence ou à la vorticité.
+
+Dans les simulations numériques effectuées, le pas de temps $\Delta t$ est proportionnel au pas d'espace $\Delta \xi$ par la la relation
+\begin{equation}
+\CFL = \dfrac{c \Delta t}{a \Delta \xi} = C^{\text{ste}}
+\end{equation}
+avec $c = \max (c_{\grav}, c_{\cor}, u_0)$, $c_{\grav} = \sqrt{gh_0}$ et $c_{\cor} = a \Omega$. Les constantes $h_0$ et $u_0$ sont données par la condition initiale.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Solution stationnaire zonale}
+
+Dans le second test de \cite{Williamson1992}, on considère une solution stationnaire zonale. D'après la proposition \ref{prop:swe_zonalestat}, $\mathbf{u}$ est de la forme
+\begin{equation}
+\mathbf{u}(t,\mathbf{x}) = u(\theta')\mathbf{e}_{\lambda'}.
+\end{equation}
+On choisit $u(\theta') = u_0 \cos \theta'$ ce qui donne
+\begin{equation}
+\mathbf{u}(t,\lambda, \theta) = u_0 \left( \cos \theta \cos \alpha + \cos \lambda \sin \theta \sin \alpha \right) \mathbf{e}_{\lambda} - u_0 \sin \lambda \sin \alpha \mathbf{e}_{\theta}.
+\label{eq: williamson 2 initial velocity}
+\end{equation} 
+Le paramètre de Coriolis $f$ est une fonction donnée par
+\begin{equation}
+f(\theta') = 2 \Omega \sin \theta'.
+\end{equation}
+En utilisant \eqref{from prime to classic}, on obtient
+\begin{align*}
+f(\theta') & = f (\lambda, \theta)\\
+	& = 2 \Omega \sin \theta' \\
+	& = 2 \Omega \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right).
+\end{align*}
+La fonction $h$ est zonale stationnaire associée à ce choix de $\mathbf{u}$. Elle est donnée par
+\begin{equation}
+h(\lambda', \theta') = h_0 - \dfrac{a}{g} \gint^{\theta'} u_0 \cos s \left( u_0 \dfrac{\tan s}{a} + 2 \Omega \sin s \right) d s.
+\end{equation}
+Après intégration, on obtient :
+\begin{align*}
+h(\lambda, \theta) & = h_0 - \dfrac{a}{g} \left( \Omega u_0 + \dfrac{u_0^2}{2} \right) \sin^2 \theta' \\
+                   & = h_0 - \dfrac{a}{g} \left( \Omega u_0 + \dfrac{u_0^2}{2} \right) \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right)^2.
+\end{align*}
+La fonction $h$ est donnée par :
+\begin{equation}
+h(\lambda, \theta)= h_0 - \dfrac{a}{g} \left( \Omega u_0 + \dfrac{u_0^2}{2} \right) \left( - \cos \lambda \cos \theta \sin \alpha + \sin \theta \cos \alpha \right)^2.
+\label{eq: williamson 2 initial height}
+\end{equation}
+
+On utilise $h$ et $\mathbf{u}$ comme données initiales avec différentes valeurs de $\alpha$ pour observer l'influence de ce paramètre. D'après la proposition \ref{prop:swe_zonalestat}, cette condition initiale est stationnaire.
+
+Les constantes $h_0$, $u_0$ ainsi que les reliefs sur la sphère sont donnés par 
+\begin{itemize}
+\item $g h_0= 2.94 \times 10^4 m^2 \cdot \si{s^{-2}}$,
+\item $u_0= 2 \pi a / (12 \text{ jours})$,
+\item $h_s \equiv 0$ (absence de reliefs sur la sphère).
+\end{itemize}
+
+Sur les figures \ref{fig: williamson 2 space alpha=0} et \ref{fig: williamson 2 space alpha=pi/4} nous représentons la solution calculée au temps $t=5$ avec une grille Cubed-Sphere de paramètre $N=32$ pour $\alpha= 0$ et $\alpha= \pi/4$. Les calculs sont effectués sous la condition sur le pas de temps $\CFL=0.9$. Nous représentons aussi la localisation spatiale de l'erreur à l'aide de la fonction de grille :
+\begin{equation}
+\dfrac{\bh^n - h(t^n, \cdot)^*}{\| h(t^n, \cdot)^* \|_{\infty}}.
+\end{equation}
+Cette représentation permet de remarquer la faible influence des bords et des coins de la Cubed-Sphere. De plus, l'amplitude de l'erreur relative est très faible, proche de $2.5 \times 10^{-6}$ pour les deux valeurs de l'angle $\alpha$ considérés.
+ 
+Sur les Figures \ref{fig: williamson 2 conservation alpha=0} et \ref{fig: williamson 2 conservation alpha=pi/4}, on présente les résultats de conservation de la masse, de l'énergie, de l'enstrophie potentielle ainsi que la conservation de la divergence et de la vorticité.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7369088145_snapshot_intermediaire598.png}\\
+\includegraphics[scale=0.5]{ref_7369088145_snapshot_err_color.png}
+\end{center}
+\caption{Test stationnaire zonale (test numéro 2 de \cite{Williamson1992}) avec $\alpha=0$, le paramètre de la Cubed-Sphere est $N=32$. Le pas de temps est issu de $\CFL=0.9$. On représente $h$ à $t=6$ jours et l'erreur relative sur $h$. L'erreur n'est pas localisée aux coins de la Cubed-Sphere. De plus les niveaux d'erreur sont très bons.}
+\label{fig: williamson 2 space alpha=0}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7369088145_conservationA.png}
+\includegraphics[scale=0.5]{ref_7369088145_conservationB.png}
+\end{center}
+\caption{Test stationnaire zonale (test numéro 2 de \cite{Williamson1992}) avec $\alpha=0$, le paramètre de la Cubed-Sphère est $N=32$. Le pas de temps est donné par $\CFL=0.9$. On représente l'historique de l'erreurs relative sur la conservation de la masse, l'énergie et l'enstrophie (gauche), erreur sur la conservation de la divergence et de la vorticité (droite). Les ordres de grandeurs de ces erreurs sont excellents. La conservation de la vorticité est exacte ce qui est lié aux symétrie de la solution sur la sphère.}
+\label{fig: williamson 2 conservation alpha=0}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7369088270_snapshot_intermediaire598.png}\\
+\includegraphics[scale=0.5]{ref_7369088270_snapshot_err_color.png}
+\end{center}
+\caption{Test stationnaire zonale (test numéro 2 de \cite{Williamson1992}) avec $\alpha=\pi/4$, le paramètre de la Cubed-Sphere est $N=32$. Le pas de temps est issu de $\CFL=0.9$. On représente $h$ à $t=6$ jours et l'erreur relative sur $h$. L'erreur n'est pas localisée aux coins de la Cubed-Sphere. De plus les niveaux d'erreur sont très bons et les symétries de la solutions sont retrouvées.}
+\label{fig: williamson 2 space alpha=pi/4}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7369088270_conservationA.png}
+\includegraphics[scale=0.5]{ref_7369088270_conservationB.png}
+\end{center}
+\caption{Test stationnaire zonale (test numéro 2 de \cite{Williamson1992}) avec $\alpha=\pi/4$, le paramètre de la Cubed-Sphère est $N=32$. Le pas de temps est donné par $\CFL=0.9$. On représente l'historique de l'erreurs relative sur la conservation de la masse, l'énergie et l'enstrophie (gauche), erreur sur la conservation de la divergence et de la vorticité (droite). Les ordres de grandeurs de ces erreurs sont excellents. Comme pour $\alpha = 0$, la vorticité est parfaitement conservée grâce aux symétries de la solution et du maillage.}
+\label{fig: williamson 2 conservation alpha=pi/4}
+\end{figure}
+
+L'historique de l'erreur au cours du temps est donnée Figure \ref{fig: williamson 2 erreur}. Pour les normes $\| \cdot \|_1$, $\| \cdot \|_2$ et $\| \cdot \|_{\infty}$, ces erreurs restent très faibles et se comportent correctement.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7369088145_erreur.png}
+\includegraphics[scale=0.5]{ref_7369088270_erreur.png}
+\end{center}
+\caption{Test stationnaire zonale (second test de \cite{Williamson1992}) avec le paramètre de la Cubed-Sphere $N=32$ ainsi que $CFL=0.9$. On représente l'historique de l'erreur relative au cours du temps $\alpha = 0$ (gauche) et $\alpha = \pi/4$ (droite). Les niveaux d'erreurs sont très faibles.}
+\label{fig: williamson 2 erreur}
+\end{figure}
+
+Dans les table \ref{tab:rate_swe1} et \ref{tab:rate_swe2}, on représente l'erreur pour différentes grilles lorsque $\alpha = 0$ et $\alpha = \pi/4$. Les valeurs sont obtenues avec $\CFL = 0.9$. Les valeurs obtenues sur une grille donnée sont comparables à celles obtenues par la méthode des volumes finis dans \cite{Chen2008} et meilleures que celles obtenues par la méthode de Galerkin d'ordre élevé dans \cite{Kuang2016}. Dans les deux cas de figure, la convergence se fait à l'ordre 4. Dans \cite{Ullrich2011}, la convergence obtenue par une méthode de volumes finis est plus rapide que l'ordre 4. 
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c|}
+\hline 
+$\mathbf{N}$ & $\mathbf{e}_1$ & $\mathbf{e}_2$ & $\mathbf{e}_{\infty}$\\ 
+\hline 
+\hline 
+$\mathbf{32}$ & $1.1422(-6)$ & $1.3885(-6)$ & $2.4469(-6)$\\ 
+
+$\mathbf{64}$ & $7.1216(-8)$ & $8.6513(-8)$ & $1.5229(-7)$\\ 
+
+$\mathbf{128}$ & $4.4469(-9)$ & $5.4018(-9)$ & $9.5186(-9)$\\
+
+\hline
+\textbf{Ordre estimé :} & $4.00$ & $4.00$ & $4.00$\\ 
+\hline
+\end{tabular} 
+\end{center}
+\caption{Table de convergence pour le stationnaire zonale de l'équation \eqref{eq:SWEC_vectform}. Le pas de temps est donné par $\CFL=0.9$. On donne $\alpha = 0$. Le temps final est $t=5$ jours. Le taux de convergence est proche de 4 et est excellent. De plus, les niveaux d'erreurs sont très faibles.}
+\label{tab:rate_swe1}
+\end{table}
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|c||c|c|c|}
+\hline 
+$\mathbf{N}$ & $\mathbf{e}_1$ & $\mathbf{e}_2$ & $\mathbf{e}_{\infty}$ \\ 
+\hline 
+\hline 
+$\mathbf{32}$ & $7.5712(-7)$ & $1.0446(-6)$ & $2.7809(-6)$\\ 
+
+$\mathbf{64}$ & $4.7213(-8)$ & $6.5124(-8)$ & $1.7387(-7)$\\ 
+
+$\mathbf{128}$ & $2.9487(-9)$ & $4.0672(-9)$ & $1.0858(-8)$\\
+
+\hline
+\textbf{Ordre estimé :} & $4.00$ & $4.00$ & $4.00$\\ 
+\hline
+\end{tabular} 
+\end{center}
+\caption{Table de convergence pour le stationnaire zonale de l'équation \eqref{eq:SWEC_vectform}. Le pas de temps est donné par la contrainte $\CFL=0.9$. On donne $\alpha = \pi/4$. Le temps final est $t=5$ jours. Les taux d'erreurs sont proches de 4. L'erreur est très faible.}
+\label{tab:rate_swe2}
+\end{table}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{rate_W2_0.png}
+\includegraphics[height=5cm]{rate_W2_pi4.png}
+\end{center}
+\caption{Convergence pour le stationnaire zonale de l'équation \eqref{eq:SWEC_vectform} en fonction de $\Delta = a \Delta \xi$. Le pas de temps est donné par la contrainte $\CFL=0.9$. On donne $\alpha = \pi/4$. Le temps final est $t=5$ jours.}
+\label{fig:rate_swe12}
+\end{figure}
+
+En norme infinie, $e_{\infty}$, les valeurs obtenues au temps $t=5$, sont proche de $2.75 \times 10^{-6}$ et sont comparables à $5.86 \times 10^{-6}$ sur une grille $32 \times 32 \times 6$ obtenue en utilisant un schéma volumes finis d'ordre 4 \cite{Chen2008}. En extrapolant les données, le schéma volume finis utilisé dans \cite{Ullrich2011} donne une erreur en norme infinie proche de $1.47 \times 10^{-6}$ en utilisant le flux numérique de type AUSM+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Cas test de la montagne isolée}
+
+Le test 5 de \cite{Williamson1992} est une perturbation du précédent.
+On considère les données initiales \eqref{eq: williamson 2 initial velocity} et \eqref{eq: williamson 2 initial height} avec $\alpha = 0$. Il s'agit d'une solution stationnaire zonale lorsque $h_s \equiv 0$. On rappelle cette solution stationnaire :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\mathbf{u}(\lambda, \theta) & = & u_0 \cos \theta \mathbf{e}_{\lambda} \\
+h(\lambda, \theta) & = & h_0 - \dfrac{a y_0}{g} \left( \Omega  + \dfrac{u_0}{2} \right) \sin^2 \theta .
+\end{array}
+\right.
+\end{equation}
+
+La force de Coriolis est donnée par le paramètre $f(\theta) = 2 \Omega \sin \theta$. Les données $h_0$ et $u_0$ sont
+\begin{itemize}
+\item $h_0 = 5960 \si{m}$,
+\item $u_0 = 20 \si{m} \cdot \si{s^{-1}}$.
+\end{itemize}
+Cette condition initiale est perturbée à l'aide d'un "relief".
+On considère la présence d'une montagne conique de hauteur $h_{s_0} = 2000$ mètres donnée par :
+\begin{equation}
+h_s = h_{s_0} \left( 1 - \dfrac{r}{R} \right)
+\end{equation}
+où $R= \pi / 9$, $r^2 = min \left[ R^2, \left( \lambda - \lambda_c \right)^2 + \left( \theta - \theta_c \right)^2 \right]$. Le point $(\lambda_c, \theta_c)= (3 \pi / 2, \pi / 6)$ correspondant à la position du sommet de la montagne.
+Il s'agit d'une perturbation importante, puisque la montagne représente environ $33 \%$ de l'épaisseur du fluide.
+
+Pour ce test, aucune solution analytique n'est disponible, nous comparons la solution obtenue aux temps $t=5$ jours, $10$ jours et $15$ jours avec les résultats de la littérature \cite{Ullrich2011, Kuang2016}. Pour un paramètre de Cubed-Sphere $N=32$, on obtient les résultats des figures \ref{fig: williamson 5 space height}. Les résultats sont visuellement très similaires à ceux obtenus par des méthodes de volumes finis \cite{Katta2015, Chen2008} d'ordre élevé ainsi que ceux obtenus par des méthodes de Galerkin Discontinu \cite{Nair2005}. On note en particulier l'absence d'oscillations parasites qui pourraient résulter de la forme conique de la montagne.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7368974583_snapshot_intermediaire499.png}\\
+\includegraphics[scale=0.5]{ref_7368974583_snapshot_intermediaire999.png}\\
+\includegraphics[scale=0.5]{ref_7368974583_snapshot_intermediaire1499.png}
+\end{center}
+\caption{Cas de la montagne isolée \cite{Williamson1992}, le paramètre de la Cubed-Sphere est $N=32$. On choisit $CFL=0.9$.  On représente $\bh$ aux temps $t=5$, $10$ et $15$ jours.}
+\label{fig: williamson 5 space height}
+\end{figure}
+
+Les propriétés de conservation sont analysées sur la figure \ref{fig: williamson 5 conservation}. Les résultats sont très bons. Au jour 15, l'erreur sur l'enstrophie potentielle est proche de $-0.9 \times 10^{-4}$, valeur comparable à celle de $-1.0 \times 10^{-4}$ obtenu lorsque le paramètre de la Cubed-Sphere est $N=40$ avec un schéma volumes finis d'ordre 4 dans \cite{Ullrich2010}. L'enstrophie potentielle est difficile à conserver, le schéma volumes finis utilisé dans \cite{Chen2008} possède un historique de l'erreur de conservation similaire lorsque $N=32$. Au temps $t=15$ jour, l'erreur finale obtenue par \cite{Chen2008} sur la conservation de l'enstrophie potentielle est de l'ordre de $-1.1 \times 10^{-4}$.
+
+On représente sur la figure \ref{fig: williamson 5 conservation} l'erreur de conservation de la divergence et de la vorticité. Les erreurs sont très faibles, de l'ordre de $2 \times 10^{-11}$ pour la divergence et $3 \times 10^{-11}$ pour la vorticité. La valeur pour la divergence est meilleur que celle obtenue en utilisant des schémas compacts sur une grille longitude-latitude $128 \times 64$ dans \cite{Nihei2003}. En effet, avec ce schéma, l'erreur sur la conservation de la divergence est $-1.1 \times 10^{-9}$, l'erreur de conservation pour la vorticité est en revanche meilleure et proche de $2.2 \times 10^{-17}$. 
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7368974583_conservationA.png}
+\includegraphics[scale=0.5]{ref_7368974583_conservationB.png}
+\end{center}
+\caption{Cas test de la montagne isolée \cite{Williamson1992} sur une grille $32 \times 32 \times 6$ avec $\CFL=0.9$. Erreurs relatives sur la conservation de la masse, de l'énergie et de l'enstrophie potentielle (gauche), erreur sur la conservation de la divergence et de la vorticité (droite). Les erreurs de conservation sont très faibles. L'enstrophie potentielle est la plus difficile à conserver mais l'erreur reste à un niveau acceptable.}
+\label{fig: williamson 5 conservation}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7368974583_snapshot.png}
+\end{center}
+\caption{Cas test de la Montagne isolée \cite{Williamson1992} sur une grille $32 \times 32 \times 6$ avec $\CFL=0.9$. On représente la vorticité à 15 jours.}
+\label{fig: williamson 5 vorticité}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Cas test barotropique avec instabilité}
+
+Introduit dans \cite{Galewsky2004}, ce test est similaire aux tests 2 (Stationnaire zonale) et 5 (Montagne isolée) de \cite{Williamson1992}. La condition initiale est donnée par l'état stationnaire de la proposition \ref{prop:swe_zonalestat} avec $\alpha=0$ que l'on perturbe.
+
+Soit $u$ la fonction définie par :
+\begin{equation}
+u(\theta) = u_{0} \psi(\theta),
+\end{equation}
+où $\psi$ est la fonction à support compact définie par l'équation \eqref{eq:psi_supcompact}. Le champ de vitesse considéré est donné par $\mathbf{u} = u \mathbf{e}_{\lambda}$.
+
+La donnée initiale pour $h$ est donnée par :
+\begin{equation}
+h(\theta) = h_0 - \dfrac{a}{g} \gint^{\theta}_{-\pi/2} u(s) \left( u(s) \dfrac{\tan (s)}{a} + f(s) \right) ds
+\end{equation}
+Les valeurs des constantes sont les suivantes :
+\begin{itemize}
+\item $u_{0}=80 \si{m} \cdot  \si{s^{-1}}$,
+\item $\theta_0 = \pi/7$,
+\item $\theta_1 = \pi/2 - \theta_0$,
+\item $h_0$ est choisi de telle manière que $h$ ait pour moyenne $10000 \si{m}$, soit approximativement $h_0 \approx 9841.8139 \si{m}$.
+\end{itemize}
+
+Cette condition initiale est une solution stationnaire d'après la proposition \ref{prop:swe_zonalestat}. Cependant, cette solution stationnaire est instable et les erreurs numériques suffisent à la perturber. Le test repose sur cette instabilité. On ajoute à la condition initiale $h$ une perturbation locale $h'$ de la forme :
+\begin{equation}
+h'(\lambda, \theta) = \hat{h} \cos ( \theta ) \exp \left[ - \left( \dfrac{\lambda_2 - \lambda}{\alpha} \right)^2 - \left( \dfrac{\theta_2 - \theta}{\beta} \right)^2 \right].
+\end{equation}
+Les constantes de la perturbation sont données par :
+\begin{itemize}
+\item $\hat{h} = 120 \si{m}$, ce qui représente une perturbation de $1.2 \%$ de la condition initiale, la perturbation est donc faible,
+\item La perturbation est localisée en $(\lambda_2, \theta_2) = (0, \pi/4)$,
+\item $\alpha = 1/3$,
+\item $\beta = 1/15$.
+\end{itemize}
+
+Ce test consiste à observer la vorticité au fil du temps, en particulier au bout de $2$ jours, $4$ jours et $6$ jours. La perturbation commence à être visible au bout d'environ 3 jours. Au bout de 6 jours, on compare la forme de la vorticité numérique avec celle donnée dans la littérature \cite{Galewsky2004, Chen2008}. Ce test est particulièrement difficile pour la Cubed-Sphere. En effet, la perturbation est concentrée sur le bord du Panel $(V)$. De plus elle est localisée à l'intersection des panels $(I)$ et $(V)$ (Voir figure \ref{fig: initiale et perturbation Galewsky}).
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.3]{ref_7369146426_solution.png}
+\includegraphics[scale=0.3]{ref_7369146468_solution.png}
+\end{center}
+\caption{Flux barotropique avec instabilité. On représente la condition initiale $h+h'$ (gauche) et perturbation initiale $h'$ (droite) pour le Flux barotropique, \cite{Galewsky2004}. La perturbation est localisée à l'intersection de différents panels.}
+\label{fig: initiale et perturbation Galewsky}
+\end{figure}
+
+La vorticité au bout de 2, 4 et 6 jours est donnée en figure \ref{fig: galewsky 246}. On constate que les résultats sont bons et comparables à ceux de la littérature \cite{Chen2008, Galewsky2004, Nair2005}. 
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7369437806_snapshot_intermediaire199.png}
+\includegraphics[scale=0.5]{ref_7369437806_snapshot_intermediaire399.png}
+\includegraphics[scale=0.5]{ref_7369437806_snapshot_intermediaire599.png}
+\end{center}
+\caption{Cas test du flux barotropique \cite{Galewsky2004}. Au bout de 2, 4 et 6 jours, on représente la vorticité. Le paramètre de la Cubed-Sphere est $N=128$, le pas de temps est calculé en conservant $\CFL=0.9$. La perturbation apparait visuellement sur la vorticité au temps $t=3$ jours. Au temps $t=6$ jours, on observe le bon nombre de tourbillons ainsi que leur localisation.}
+\label{fig: galewsky 246}
+\end{figure}
+
+La figure \ref{fig: galewsky compact/explicite} est faite en utilisant le schéma compact à 3 points d'ordre 4 $\delta_{x,4}^H$ et celui d'ordre 4 non compact $\delta_{x,4}$ dans le calcul des opérateurs. On constate une différence sur la forme de la vorticité, en particulier dans la région de la Chine et du Japon sur la carte (intersection des panels $(II)$, $(III)$ et $(V)$). L'utilisation du schéma compact permet une meilleur représentation des hautes fréquences. Ce phénomène est visible ici où les tourbillons sont mieux représentés sur un maillage fixé $86 \times 86 \times 6$.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.3]{ref_7369105556_snapshot.png}
+\includegraphics[scale=0.3]{ref_7369107124_snapshot.png}
+\end{center}
+\caption{Cas test barotropique instable \cite{Galewsky2004} à 6 jours sur une grille $86 \times 86 \times 6$ avec $\CFL=0.9$. A gauche, utilisation d'un schéma compact d'ordre 4 $\delta_{4,x}^H$. A droite utilisation d'un schéma explicite d'ordre 4 $\delta_{4,x}$. Les deux solutions ne sont pas identiques, en particulier au niveau du Japon et de la Chine. Le schémas compact $\delta_{4,x}^H$ permet une convergence plus rapide que $\delta_{4,x}^H$.}
+\label{fig: galewsky compact/explicite}
+\end{figure}
+
+Sur la figure \ref{fig: galewsky conservation}, on représente les erreurs sur la conservation sur la Cubed-Sphere $96 \times 96 \times 6$. Les propriétés de conservation sont bonnes.  Comme cela avait déjà été observé pour la montagne isolée, l'enstrophie potentielle est difficile à conserver. On observe une perte importante de l'enstrophie potentielle lorsque la perturbation commence à être visible sur la vorticité, à partir du jour 4.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{ref_7368306511_massenergy.png}
+\includegraphics[height=5cm]{ref_7368306511_enstrophy.png}\\
+\includegraphics[height=5cm]{ref_7368306511_conservationB.png}
+\end{center}
+\caption{Cas test barotropique instable, le paramètre de la Cubed-Sphere est $N=128$, $\CFL=0.9$. Historique des erreurs relatives sur la conservation de la masse, de l'énergie et de l'enstrophie potentielle, erreur sur la conservation de la divergence et de la vorticité. Les niveaux d'erreurs sont très bon mais l'erreur croît autour du jour 4, lorsque l'instabilité devient visible.}
+\label{fig: galewsky conservation}
+\end{figure}
+
+La convergence du schéma est visible en raffinant le maillage. C'est ce que nous représentons sur la figure \ref{fig: galewsky convergence}. La solution est clairement mal représentée sur la grille $32 \times 32 \times 6$, alors que nous de distinguons pas de différences entre les grilles $96 \times 96\times 6$ et $128 \times 128\times 6$.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.4]{ref_7369436433_snapshot.png}
+\includegraphics[scale=0.4]{ref_7369445869_snapshot.png}\\
+\includegraphics[scale=0.4]{ref_7369444341_snapshot.png}
+\includegraphics[scale=0.4]{ref_7369437806_snapshot.png}
+\end{center}
+\caption{Cas test barotropique avec différentes grilles $N \times N \times 6$. On représente la vorticité avec $N=32$ (haut gauche), $N=64$ (haut droite), $N=96$ (bas gauche) et $N=128$ (bas droite). La valeur de la condition $\CFL$ est $0.9$. Les solutions lorsque $N=96$ et $N=128$ sont pratiquement identiques ce qui confirme la convergence du schéma.}
+\label{fig: galewsky convergence}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Cas test de type ondes de Rossby-Haurwitz}
+
+Les ondes de Rossby-Haurwitz sont des solutions analytiques de l'équation de la vorticité barotropique \cite{Haurwitz1940, Pedlosky2013}. Il s'agit du test 6 de \cite{Williamson1992}. Cependant, ce ne sont pas des solutions analytiques pour le système d'équations Shallow Water. On s'attend à observer un déplacement des ondes d'Ouest en Est.
+
+Le champ de vitesse $\mathbf{u}$ au temps $t=0$ est donné par :
+\begin{equation}
+\mathbf{u} = u \mathbf{e}_{\lambda} + v \mathbf{e}_{\theta},
+\end{equation}
+avec $u$ et $v$ données par
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+u & = & a \omega \cos \theta + a K \cos^{R-1} \theta \left( R \sin^2 \theta - \cos^2 \theta \right) \cos R \lambda\\
+v & = & - a K R \cos^{R-1} \theta \sin \theta \sin R \lambda.
+\end{array}
+\right.
+\end{equation}
+La fonction $h$ est initialement donnée par :
+\begin{equation}
+gh = gh_0 + a^2 A(\theta) + a^2 B(\theta) \cos R \lambda + a^2 C(\theta) \cos 2 R \lambda,
+\end{equation}
+avec
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+A(\theta) & = & \dfrac{\omega}{2} \left( 2 \Omega + \omega \right) \cos^2 \theta + \dfrac{1}{4} K^2 \cos^{2R} \theta 
+\left[ (R+1) \cos^2 \theta+ (2R^2 -R -2) - 2R^2 \cos^{-2} \theta \right]\\
+B(\theta) & = & \dfrac{2 (\Omega +\omega) K }{(R+1)(R+2)} \cos^R \theta 
+\left[ (R^2 + 2R +2) - (R+1)^2 \cos^2 \theta  \right] \\
+C(\theta) & = & \dfrac{1}{4} K^2 \cos^{2R} \theta \left[ (R+1) \cos^2 \theta - (R+2) \right].
+\end{array}
+\right.
+\end{equation}
+Les constantes sont :
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\omega & = & 7.848 \times 10^{-6} \si{s^{-1}},\\
+K & = & 7.848 \times 10^{-6} \si{s^{-1}},\\
+h_0 & = & 8 \times 10^3 \si{m},\\
+R & = & 4.
+\end{array}
+\right.
+\end{equation} 
+
+Il est connu  que cette condition initiale est instable \cite{Thuburn2000}. Le comportement de "déplacement vers l'ouest" attendu est difficilement vérifié sur un temps long et les symétries de la condition initiale peuvent être perdues. C'est pour ces raisons qu'il est intéressant d'observer le comportement en temps long des simulations.
+
+Sur la figure \ref{fig: rossby 714}, nous présentons la solution obtenue après résolution numérique aux temps $t=7$ jours et $t=14$ jours. Les résultats sont similaires avec ceux obtenus par éléments finies ou volumes finis \cite{Chen2008, Galewsky2004}. Les erreurs relatives de conservation pour la masse, l'énergie et l'enstrophie potentielle, ainsi que les erreurs de conservation pour la divergence et la vorticité sont données en figure \ref{fig: rossby conservation}.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{ref_7369145763_snapshot_intermediaire699.png}
+\includegraphics[scale=0.5]{ref_7369145763_snapshot_intermediaire1399.png}
+\end{center}
+\caption{Cas test de Rossby-Haurwitz à 7 et 14 jours. Le paramètre de la Cubed-Sphere est $N=80$. Le pas de temps est donné par $\CFL=0.9$. On représente $\bh$ à différents temps. Les résultats obtenus sont identiques à ceux obtenus dans la littérature \cite{Chen2008, Ullrich2011}}
+\label{fig: rossby 714}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=5cm]{ref_7369145763_massenergy.png}
+\includegraphics[height=5cm]{ref_7369145763_enstrophy.png}
+\includegraphics[height=5cm]{ref_7369145763_conservationB.png}
+\end{center}
+\caption{Cas test des ondes de Rossby-Haurwitz, le paramètre de la Cubed-Sphere est $N=80$, le pas de temps est donné par $\CFL=0.9$. On représente les historiques des relatives sur la conservation de la masse, de l'énergie et de l'enstrophie potentielle (haut). Historique des erreurs sur la conservation de la divergence et de la vorticité (bas). La conservation de la masse et de l'énergie sont excellents, l'enstrophie potentielle est moins bien conservée mais l'erreur est semblables à l'erreur obtenue par la méthode de Galerkin ou par les volumes finis. La divergence et la vorticité sont très biens conservées grâce aux symétries de la solution.}
+\label{fig: rossby conservation}
+\end{figure}
+
+Sur la figure \ref{fig: rossby 4550}, nous représentons le temps de transition entre la solution attendue pour le cas des ondes de Rossby-Haurwitz et l'instabilité. Comme cela a été également observé dans \cite{Ullrich2011, Ullrich2010}, le temps de transition est lié aux paramètres numériques, en particulier à la dissipation numérique.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.3]{ref_7369234281_snapshot_intermediaire4498.png}
+\includegraphics[scale=0.3]{ref_7369234281_snapshot_intermediaire4997.png}
+\end{center}
+\caption{Cas test des ondes de Rossby-Haurwitz à 45 et 50 jours sur une Cubed-Sphere de paramètre $N=80$ avec $\CFL=0.9$. Au bout de 50 jours, la solution calculée $\bh^n$ a perdu une grande partie des symétries qui étaient présentes au temps $t=45$.}
+\label{fig: rossby 4550}
+\end{figure}

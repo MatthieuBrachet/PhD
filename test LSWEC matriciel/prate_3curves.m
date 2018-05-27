@@ -8,11 +8,13 @@ e1=[3.4013e-4 1.8727e-5 1.0394e-6 5.1235e-7];
 e2=[5.0150e-4 3.9000e-5 1.8943e-6 4.7288e-7];
 e3=[1.8541e-3 1.9349e-4 1.2732e-5 7.3839e-7];
 
-% e1=[1.0220e-2 1.9720e-3 2.4415e-4 1.3996e-5];
-% e2=[1.2153e-5 1.5016e-7 5.8722e-10 8.5125e-12];
-% e3=[1.9082e-5 1.1257e-6 7.6073e-9 1.8352e-11];
+e1=[1.0220e-2 1.9720e-3 2.4415e-4 1.3996e-5];
+e2=[1.2153e-5 1.5016e-7 5.8722e-10 8.5125e-12];
+e3=[1.9082e-5 1.1257e-6 7.6073e-9 1.8352e-11];
 
-
+% e1=[2.2494e-2 1.0764e-3 4.7943e-5];
+% e2=[4.3922e-2 2.4775e-3 8.7464e-5];
+% e3=[2.0509e-1 1.7295e-2 6.2330e-4];
 
 ldx=log10(dx);
 le1=log10(e1);
@@ -84,7 +86,7 @@ set(xa,'FontSize',12);
 ha=gca;
 ya=get(gca,'Ylabel');
 set(ha,'Ygrid','on');
-set(ya,'String','Log_{10}(error)');
+set(ya,'String','Log_{10}(erreur)');
 set (ya,'FontName','Calibri');
 set(ya,'FontSize',12);
 
@@ -92,11 +94,11 @@ set(ya,'FontSize',12);
 legend([hlf1,hlf2,hlf3],{['norme 1 - pente = ' num2str(a1(1))],['norme 2 - pente = ' num2str(a2(1))],['norme \infty - pente = ' num2str(a3(1))]},'Location','NorthWest')
 
 %% texte
-ht=text('Position',[4.6, -6.8,0],'String','N=128');
+% ht=text('Position',[4.6, -6.8,0],'String','N=256');
+% set(ht,'FontSize',12);
+ht=text('Position',[4.85, -3.5,0],'String','N=128');
 set(ht,'FontSize',12);
-ht=text('Position',[4.85, -6.5,0],'String','N=128');
+ht=text('Position',[5.15,-3.5,0],'String','N=64');
 set(ht,'FontSize',12);
-ht=text('Position',[5.15,-5.2,0],'String','N=64');
-set(ht,'FontSize',12);
-ht=text('Position',[5.45,-4.3,0],'String','N=32');
+ht=text('Position',[5.45,-2.2,0],'String','N=32');
 set(ht,'FontSize',12);

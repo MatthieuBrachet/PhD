@@ -1972,9 +1972,10 @@ ainsi que
 z^2 = a^2 \sin^2 \beta,
 \end{equation}
 d'où on déduit facilement :
-\begin{equation}
-\tan^2 \beta = \dfrac{z^2}{x^2+y^2} = \dfrac{Y^2}{1+X^2}.
-\end{equation}
+\begin{align*}
+\tan^2 \beta & = \dfrac{z^2}{x^2+y^2} \\
+	& = \dfrac{Y^2}{1+X^2}.
+\end{align*}
 L'expression de $\beta$ suivante se déduit
 \begin{equation}
 \beta(\xi, \eta) = \arctan \left[ \dfrac{\tan \eta}{\sqrt{1+\tan^2 \xi}} \right].
@@ -1991,18 +1992,69 @@ De plus, ces équations se retrouvent sur chaque panel.
 Les angles $(\alpha, \beta)$ forment un système de coordonnées admissible par panel.
 \end{theoreme}
 
-
-
-
-
-%% ***** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER *****
-
-
 \begin{proof}
+On définit l'application $\varphi$ permettant de passer des coordonnées gnomoniques $(X,Y) = (\tan \xi, \tan \eta)$ à $(\alpha,\beta)$. Cette application est donnée par
+\begin{equation}
+\varphi : \left\lbrace
+\begin{array}{rcl}
+[-1,1]^2 & \rightarrow & \Im (\varphi) \\
+(X,Y) & \mapsto & (\alpha(X,Y), \beta(X,Y))
+\end{array}
+\right.
+\end{equation}
+avec $\alpha(X,Y)$ et $\beta(X,Y)$ vérifiant
+\begin{equation}
+\alpha(X,Y) = \arctan \left[ \dfrac{X}{\sqrt{1+Y^2}} \right] \text{, ainsi que }
+\beta(X,Y) = \arctan \left[ \dfrac{Y}{\sqrt{1+X^2}} \right].
+\end{equation}
+L'application $\varphi$ est continue, $[-1,1]^2$ est connexe donc $\Im (\varphi)$ est connexe. De plus, l'inclusion suivante est vérifiée :
+\begin{equation}
+\Im (\varphi ) \subset \left[ - \dfrac{\pi}{4}, \dfrac{\pi}{4}  \right]^2.
+\end{equation}
+L'application $\varphi$ est surjective par construction. Montrons qu'elle est injective. Supposons qu'il existe $(X_1,Y_1)$ et $(X_2,Y_2)$ dans $[-1,1]^2$ tels que 
+\begin{equation}
+\varphi(X_1,Y_1) = \varphi(X_2,Y_2).
+\end{equation}
+Comme $\arctan$ est bijective de $[-1,1]$ dans $[-\pi/4, \pi/4]$, cette relation est équivalente à
+\begin{eqsys}
+\dfrac{X_1}{\sqrt{1+Y_1^2}} = \dfrac{X_2}{\sqrt{1+Y_2^2}}\\
+\dfrac{Y_1}{\sqrt{1+X_1^2}} = \dfrac{Y_2}{\sqrt{1+X_2^2}}.
+\label{eq:sys1}
+\end{eqsys} 
+On pose $a = \dfrac{X_1}{\sqrt{1+Y_1^2}}$ et $b=\dfrac{Y_1}{\sqrt{1+X_1^2}}$. Le système \eqref{eq:sys1} implique :
+\begin{eqsys}
+X_2^2 - a^2 Y_2^2 = a^2 \\
+-b^2 X_2^2 + Y_2^2 = b^2.
+\label{eq:sys2}
+\end{eqsys}
+Le système \eqref{eq:sys2} est un système linéaire en $(X_2^2, Y_2^2)$. De plus, ce système est inversible, en effet pour que le système ne soit pas inversible, il faudrait que
+\begin{align*}
+0 & = \det \begin{bmatrix}
+1 & - a^2 \\ -b^2 & 1
+\end{bmatrix} \\
+  & = 1 - a^2 b^2.
+\end{align*}
+En remplaçant $a$ et $b$ par leur valeur, cette dernière relation implique
+\begin{equation}
+0 = 1 + X_1^2 + Y_1^2,
+\end{equation}
+ce qui est impossible. Donc le système \eqref{eq:sys2} admet une unique solution et cette dernière est donnée par
+\begin{eqsys}
+X_2^2 = \dfrac{a^2(b^2 +1)}{1 - a^2 b^2} = X_1^2 \\
+Y_2^2 = \dfrac{b^2(a^2 +1)}{1 - a^2 b^2} = Y_1^2.
+\end{eqsys}
+Donc on obtient $X_1 = \pm X_2$ et $Y_1 = \pm Y_2$. Or si $X_1 = - X_2$, on a
+\begin{equation}
+\dfrac{X_1}{\sqrt{1+Y_1^2}} = -\dfrac{X_1}{\sqrt{1+Y_2^2}},
+\end{equation}
+d'où on déduit directement
+\begin{equation}
+\sqrt{1+Y_1^2} = -\sqrt{1+Y_2^2},
+\end{equation}
+ce qui est absurde. Donc on ne peut pas avoir $X_1 = - X_2$. De la même manière, on ne peut pas avoir $Y_1 = - Y_2$. On en déduit que $(X_1,Y_1) = (X_2,Y_2)$ et l'application $\varphi$ est bijective.
 
+Enfin on a vu que $(X,Y)$ est un système de coordonnées admissible par panel donc $(\alpha, \beta)$ est un système de coordonnées admissible par panel.
 \end{proof}
-
-%% ***** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER ********** A CORRIGER *****
 
 
 
@@ -2045,7 +2097,7 @@ Les autres panels $(II)$, $(III)$, $(IV)$, $(V)$, $(VI)$ sont traités de la mê
 \includegraphics[scale=0.3]{fig21.jpg}
 \includegraphics[scale=0.3]{fig22.jpg}
 \end{center}
-\caption{L'ensemble $(I_{\alpha})$ de grands cercles correspond aux isoclines $\eta$ constant du panel I et du panel III.}
+\caption{L'ensemble $(I_{\alpha})$ de grands cercles correspond aux isoclines $\eta$ constant du panel $(I)$ et du panel $(III)$.}
 \end{figure}
 
 
@@ -2088,7 +2140,7 @@ donc :
 \beta_{i_0, j_0} = \arctan \left[ - \tan \eta^F_{j_0} \sin \xi^E_{i_0} \right]
 \label{eq:coord_cross}
 \end{equation}
-Ainsi, le point du panel $(II)$ de coordonnées $(\xi, \beta)$, représentant l'intersection de l'isocline $\eta^F_{j_0}$ du panel $(I)$ avec l'isocline $\xi_{i_0}^E$ du panel $(II)$, est donné par $(\xi^E_{i_0}, \beta_{i_0, j_0})$. En général, il ne s'agit pas d'un point de la Cubed-Sphere. Nous utiliserons une méthode de spline cubique pour obtenir des valeurs $u_{i_0,j}^{II}$ interpolées sur la totalité de $C$.
+Ainsi, le point du panel $(II)$ de coordonnées $(\xi, \beta)$, représentant l'intersection de l'isocline $\eta^F_{j_0}$ du panel $(I)$ avec l'isocline $\xi_{i_0}^E$ du panel $(II)$, est donné par $(\xi^E_{i_0}, \beta_{i_0, j_0})$. En général, il ne s'agit pas d'un point de la Cubed-Sphere. Nous utilisons une méthode de spline cubique pour obtenir des valeurs $u_{i_0,j}^{(II)}$ interpolées sur la totalité de $C$.
 En continuant ce procédé, nous obtenons des valeurs sur le cercle $C$.
 
 
@@ -2112,7 +2164,7 @@ car $\eta \mapsto \alpha$ est constant le long de $C_2$ et $\xi \mapsto \beta$ e
 
 
 
-On peut calculer les vecteurs $\mathbf{g}_{\alpha}$, $\mathbf{g}_{\beta}$, $\mathbf{g}^{\alpha}$ et $\mathbf{g}^{\beta}$. On exprime ces vecteurs en fonction de $\mathbf{g}_{\xi}$, $\mathbf{g}_{\eta}$, $\mathbf{g}^{\xi}$ et $\mathbf{g}^{\eta}$ :
+On calcule les vecteurs $\mathbf{g}_{\alpha}$, $\mathbf{g}_{\beta}$, $\mathbf{g}^{\alpha}$ et $\mathbf{g}^{\beta}$ en fonction de $\mathbf{g}_{\xi}$, $\mathbf{g}_{\eta}$, $\mathbf{g}^{\xi}$ et $\mathbf{g}^{\eta}$ :
 
 \begin{proposition}
 Les expressions suivantes sont vérifiées :
@@ -2217,7 +2269,7 @@ Pour résoudre des problèmes sur la sphère, les harmoniques sphériques jouent
 \end{equation}
 où $P^m_l$ désignent les polynômes de Legendre associés \cite{Atkinson2012, Lagrange1939}. Ils s'expriment grâce à la formule
 \begin{equation}
-P^m_m(x) = \dfrac{1}{2^l l!}(1-x^2)^{m/2} \dfrac{d^l}{dx^l} \left( (x^2-1)^l \right).
+P^m_l(x) = \dfrac{1}{2^l l!}(1-x^2)^{m/2} \dfrac{d^l}{dx^l} \left( (x^2-1)^l \right).
 \end{equation}
 En particulier, on a 
 \begin{equation}
@@ -2391,8 +2443,8 @@ En particulier on a
 \end{equation}
 lorsque
 \begin{itemize}
-\item $m$ impair ou bien
-\item $l$ impair ou bien
+\item $m$ impair ou bien,
+\item $l$ impair ou bien,
 \item $l$ pair et $m \equiv 2 [4]$.
 \end{itemize}
 \label{th:pdtscal_HS}

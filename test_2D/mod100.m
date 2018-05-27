@@ -4,7 +4,7 @@ global gp hp omega coriolis
 global FTR kx ky px py
 
 omega=7.292d-05;
-teta0=pi/2; coriolis=2.*omega.*sin(teta0);
+teta0=pi/2; coriolis=0*2.*omega.*sin(teta0);
 gp=9.80616;
 hp=100;
 
