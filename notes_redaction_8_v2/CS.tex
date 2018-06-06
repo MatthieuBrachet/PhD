@@ -19,7 +19,7 @@ Soit $C$ un grand cercle et $\mathbf{x}_0 \in C$ un point fixé. On choisit l'un
 \begin{equation}
 \longarc(\mathbf{x}_0  \mathbf{x}) = a \alpha
 \end{equation}
-où $\alpha \in [ 0, 2 \pi[$ désigne l'angle $\widehat{\mathbf{x}_0  \mathbf{x}}$ dans le sens choisi (Fig. \ref{fig: grand cercle}). L'angle $\alpha$ est \textit{l'angle géodésique} entre $\mathbf{x}_0$ et $\mathbf{x}$.
+où $\alpha \in [ 0, 2 \pi[$ désigne l'angle $\widehat{\mathbf{x}_0 \mathbf{x}} = (\mathbf{Ox_0}, \mathbf{Ox})$ dans le sens choisi (Fig. \ref{fig: grand cercle}). L'angle $\alpha$ est \textit{l'angle géodésique} entre $\mathbf{x}_0$ et $\mathbf{x}$.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -182,13 +182,13 @@ Alors
 A partir de ces différentes bases, le \textit{gradient} est donné par la définition suivante.
 
 \begin{definition}
-Soit $h : \mathbb{S}_a^2 \rightarrow \mathbb{R}$ une fonction régulière, le gradient de $h$, $\nabla_T h(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}}\mathbb{S}^2_a$, est défini par
+Soit $h : \mathbb{S}_a^2 \rightarrow \mathbb{R}$ une fonction régulière. Le gradient de $h$, $\nabla_T h(\mathbf{x}) \in \mathbb{T}_{\mathbf{x}}\mathbb{S}^2_a$, est défini par
 \begin{equation}
 \nabla_{T} h(\overline{\mathbf{x}}) = \dfrac{\partial}{\partial \alpha} \left( h(\overline{\mathbf{x}}) \right)_{| \mathbf{x} \in C_1} \mathbf{e}^{\alpha}(\overline{\mathbf{x}}) + \dfrac{\partial}{\partial \beta}\left(  h(\overline{\mathbf{x}}) \right)_{| \mathbf{x} \in C_2} \mathbf{e}^{\beta}(\overline{\mathbf{x}}).
 \label{eq: gradient}
 \end{equation}
 \end{definition}
-Pour alléger les notations, nous noterons abusivement les quantités $h$, $\mathbf{e}_{\alpha}$, $\mathbf{e}^{\beta}$ e.t.c. au lieu de $h(\mathbf{x})$, $\mathbf{e}_{\alpha}(\mathbf{x})$, $\mathbf{e}^{\beta}(\mathbf{x})$, e.t.c.
+Pour alléger les notations, nous noterons abusivement les quantités $h$, $\mathbf{e}_{\alpha}$, $\mathbf{e}^{\beta}$ etc. au lieu de $h(\bar{\mathbf{x}})$, $\mathbf{e}_{\alpha}(\bar{\mathbf{x}})$, $\mathbf{e}^{\beta}(\bar{\mathbf{x}})$, etc.
 
 
 \begin{proposition}
@@ -210,7 +210,7 @@ d'une part on a :
 \begin{equation}
 \nabla_T \hat{u} \cdot \mathbf{e}_{\alpha} = \dfrac{\partial \hat{u}}{\partial \alpha}_{| \mathbf{x} \in C_1}= \dfrac{\partial u}{\partial \alpha}_{| \mathbf{x} \in C_1}.
 \end{equation}
-D'autres part, on a :
+D'autre part, on a :
 \begin{equation}
 \left( \nabla_{\mathbb{R}^3} u - \mathbf{n} \left( \mathbf{n} \cdot \nabla_{\mathbb{R}^3} u \right) \right) \cdot \mathbf{e}_{\alpha} = \nabla_{\mathbb{R}^3} u \cdot \mathbf{e}_{\alpha}
 \end{equation}
@@ -229,7 +229,7 @@ Or :
 \begin{equation}
 \nabla_T \hat{u} \cdot \mathbf{n} = 0 
 \end{equation}
-car $\nabla_T \hat{u}$ est tangent à la sphère. D'autres part :
+car $\nabla_T \hat{u}$ est tangent à la sphère. D'autre part :
 \begin{equation}
 \left( \nabla_{\mathbb{R}^3} u - \mathbf{n} \left( \mathbf{n} \cdot \nabla_{\mathbb{R}^3} u \right) \right) \cdot \mathbf{n} = \nabla_{\mathbb{R}^3} u \cdot \mathbf{n}- \mathbf{n} \cdot \nabla_{\mathbb{R}^3} u = 0.
 \end{equation}
@@ -663,7 +663,7 @@ Les lignes de coordonnées $\xi = 0$ et $\eta = 0$ sont les grands cercles équa
 \item $C_0^{(2)}$ est le grand cercle passant par les points $\mathbf{E}$, $\mathbf{F}$ et $\mathbf{W}$.
 \end{enumerate} 
 Les cercles $C_0^{(1)}$ et $C_0^{(2)}$ se coupent orthogonalement en $\mathbf{F}$ et $\mathbf{B}$. La donnée
- $\xi$ est l'angle géodésique mesuré sur $C_0^{(2)}$ et $\eta$ l'angle géodésique mesuré sur $C_0^{(1)}$. La valeur $\xi = 0$ correspond à l'équateur ordinaire et $\eta=0$ correspond à "l'équateur verticale".
+ $\xi$ est l'angle géodésique mesuré sur $C_0^{(2)}$ et $\eta$ l'angle géodésique mesuré sur $C_0^{(1)}$. La valeur $\xi = 0$ correspond à l'équateur ordinaire et $\eta=0$ correspond à "l'équateur vertical".
 \end{definition}
 
 Sur chaque panel, tout $\mathbf{x}$ du panel est localisé par les angles géodésiques $\xi$ et $\eta$  (voir Fig. \ref{fig: panel I xi eta}).
@@ -693,7 +693,7 @@ Dans ce qui suit, nous supposerons $N$ pair. $\Delta \xi$ et $\Delta \eta$ repr�
 
 
 
-Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudinale de $2 \pi$, on peut donc insérer les 4 panels notés $(I)$, $(II)$, $(III)$ et $(IV)$. De même, le long de $C_0^{(1)}$, sont présents les panels $(I)$, $(V)$, $(III)$ et $(VI)$.
+Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudinal de $2 \pi$, on peut donc insérer les 4 panels notés $(I)$, $(II)$, $(III)$ et $(IV)$. De même, le long de $C_0^{(1)}$, sont présents les panels $(I)$, $(V)$, $(III)$ et $(VI)$.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -807,7 +807,7 @@ Le cercle $C_0^{(2)}$ fait le tour de la sphère en formant un angle longitudina
 
 On note $C^{(1)}_i$ le grand cercle obtenu par rotation de $C^{(1)}_0$ d'un angle géodésique $i \Delta \xi$ autour de l'axe $(Oz)$ et $C^{(2)}_j$ le cercle obtenu par rotation de $C^{(2)}_0$ d'angle $j \Delta \eta$ autour de $(Oy)$.
 
-Le maillage associé au panel $(I)$ est constitué des points d'intersections des $N+1$ cercles $( C_i^{(1)} )_{-N/2 \leq i \leq N/2}$ et des $N+1$ cercles $(C_j^{(2)})_{-N/2 \leq j \leq N/2}$ (Voir figure \ref{fig: panel I}) sur le panel $(I)$. Le même procédé est reproduit sur chaque panel, il y a donc $(N+1)^2$ points d'intersections sur un panel.
+Le maillage associé au panel $(I)$ est constitué des points d'intersections des $N+1$ cercles $( C_i^{(1)} )_{-N/2 \leq i \leq N/2}$ et des $N+1$ cercles $(C_j^{(2)})_{-N/2 \leq j \leq N/2}$ (voir Figure \ref{fig: panel I}) sur le panel $(I)$. Le même procédé est reproduit sur chaque panel, il y a donc $(N+1)^2$ points d'intersections sur un panel.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -869,7 +869,7 @@ La Cubed-Sphere est une grille de la sphère $\mathbb{S}_a^2$. La sphère est co
 \begin{equation}
 \left( \xi^{(k)}, \eta^{(k)} \right) \text{, } -\dfrac{\pi}{4} \leq \xi^{(k)}, \eta^{(k)} \leq \dfrac{\pi}{4} \text{, } (I) \leq (k) \leq (VI)
 \end{equation}
-définit précédemment. Les points de la Cubed-Sphere sont notés $\mathbf{x}_{i,j}^{(k)}$. Ils sont définis par leurs coordonnées $\left( \xi_i^{(k)}, \eta_j^{(k)}  \right)$ avec :
+défini précédemment. Les points de la Cubed-Sphere sont notés $\mathbf{x}_{i,j}^{(k)}$. Ils sont définis par leurs coordonnées $\left( \xi_i^{(k)}, \eta_j^{(k)}  \right)$ avec :
 \begin{equation}
 \xi_i^{(k)} = i \Delta \xi \text{, } \eta_j^{(k)} = j \Delta \eta \text{, } -N/2 \leq i, j \leq N/2 \text{ et } (I) \leq (k) \leq (VI),
 \end{equation}
@@ -933,7 +933,7 @@ i, j = \pm \dfrac{N}{2}.
 \section{Coordonnées Gnomoniques}
 \label{sec:gnomonique}
 
-On considère un cube inscrit dans la Sphère $\mathbb{S}_a^2$. Le demi côté de ce cube mesure $R=\frac{\sqrt{3}}{3}a$. Chaque face du cube est donnée par :
+On considère un cube inscrit dans la sphère $\mathbb{S}_a^2$. Le demi côté de ce cube mesure $R=\frac{\sqrt{3}}{3}a$. Chaque face du cube est donnée par :
 \begin{itemize}
 \item la face centrée sur $F'=(R,0,0)$ : 
 \begin{equation}
@@ -978,8 +978,8 @@ On considère un cube inscrit dans la Sphère $\mathbb{S}_a^2$. Le demi côté d
 \end{equation}
 \end{itemize}
 
-Le point $\mathbf{F}$ est la projection gnomonique du point $F'$ sur la sphère $\mathbb{S}_a^2$, $\mathbf{E}$ celle de $E'$, e.t.c.
-Si l'on considère par exemple le panel $(I)$, un point $\mathbf{x}'=(x',y',z')$ de la face centré sur $F'$ est projeté en $\mathbf{x} = (x,y,z)$ un point du panel $(I)$ (Voir Fig. \ref{fig: projection gnomonique}). Chaque panel est la projection de l'une des face du cube.
+Le point $\mathbf{F}$ est la projection gnomonique du point $F'$ sur la sphère $\mathbb{S}_a^2$, $\mathbf{E}$ celle de $E'$, etc.
+Si l'on considère par exemple le panel $(I)$, un point $\mathbf{x}'=(x',y',z')$ de la face centrée sur $F'$ est projeté en $\mathbf{x} = (x,y,z)$ un point du panel $(I)$ (voir Fig. \ref{fig: projection gnomonique}). Chaque panel est la projection de l'une des faces du cube.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1048,7 +1048,7 @@ On a les relations suivantes :
 \begin{equation}
 \tan \xi = \dfrac{y'}{x'} = \dfrac{y}{x} \text{ et } \tan \eta = \dfrac{z'}{x'} = \dfrac{z}{x}
 \end{equation}
-Or $\mathbf{x}'(x',y',z')$ est un point de la face du cube centrée en $F'$, donc $x'=R=\frac{\sqrt{3}}{6}a$ :
+Or $\mathbf{x}'(x',y',z')$ est un point de la face du cube centrée en $F'$, donc $x'=R=\frac{\sqrt{3}}{3}a$ :
 \begin{equation}
 \tan \xi = \dfrac{y'}{R} = \dfrac{y}{x} \text{ et } \tan \eta = \dfrac{z'}{R} = \dfrac{z}{x}
 \end{equation}
@@ -1137,9 +1137,9 @@ On en déduit la base sur le panel $(I)$ : $\left( \mathbf{g}_{\xi}, \mathbf{g}_
 \label{eq: base locale I}
 \end{equation}
 
-Des calculs similaires peuvent être effectuées sur les autres panels. Les résultats sont donnés dans la table \ref{tab: base g_xi g_eta}.
+Des calculs similaires peuvent être effectuées sur les autres panels. Les résultats sont donnés dans la Table \ref{tab: base g_xi g_eta}.
 
-Le couple de vecteur $(\mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ est la base duale de $(\mathbf{g}_{\xi}, \mathbf{g}_{\eta})$. Cette base doit vérifier les relations suivantes :
+Le couple de vecteurs $(\mathbf{g}^{\xi}, \mathbf{g}^{\eta})$ est la base duale de $(\mathbf{g}_{\xi}, \mathbf{g}_{\eta})$. Cette base doit vérifier les relations suivantes :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcccl}
@@ -1201,7 +1201,7 @@ La métrique $\mathbf{G}$ est invariante par changement de panel.
 \end{proposition}
 
 \begin{proof}
-Soit $\mathbf{x}$ est un point d'un panel $(k)$ de la Cubed-Sphère de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ est un point d'un autre panel $(k')$ de la Cubed-Sphère ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer tout point du panel $(k)$ en un point du panel $(k')$ de mêmes coordonnées gnomoniques. De là, il découle :
+Soit $\mathbf{x}$ un point d'un panel $(k)$ de la Cubed-Sphere de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ un point d'un autre panel $(k')$ de la Cubed-Sphere ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer tout point du panel $(k)$ en un point du panel $(k')$ de mêmes coordonnées gnomoniques. De là, il découle :
 \begin{equation}
 \mathbf{x}' = R_f \mathbf{x}.
 \end{equation}
@@ -1393,7 +1393,7 @@ Les symboles de Christoffel $\Gamma_{\kappa,\nu}^{\tau}$ (avec $\kappa$, $\nu$ e
 \end{array}
 \right.
 \end{equation}
-où $\mathbf{n}$ est le vecteur unitaire normale extérieure à la sphère $\mathbb{S}_a^2$:
+où $\mathbf{n}$ est le vecteur unitaire normal extérieur à la sphère $\mathbb{S}_a^2$:
 \begin{equation}
 \mathbf{n}= \dfrac{\mathbf{x}}{a}.
 \end{equation}
@@ -1439,7 +1439,7 @@ Or $\mathbf{g}_{\xi} \cdot \mathbf{g}^{\xi} = 1$ et $\mathbf{g}_{\eta} \cdot \ma
 \begin{equation}
 \Gamma_{\xi,\xi}^{\xi} = \left[ \dfrac{\partial \mathbf{g}_{\xi}}{\partial \xi} \right] \cdot \mathbf{g}^{\xi}.
 \end{equation}
-D'autres part, on a :
+D'autre part, on a :
 \begin{equation}
 \Gamma_{\xi,\xi}^{\xi} = \left[ \dfrac{\partial \mathbf{g}_{\xi}}{\partial \xi} \right] \cdot \mathbf{g}^{\xi} = \dfrac{\partial}{\partial \xi}  \underbrace{\left(\mathbf{g}_{\xi} \cdot \mathbf{g}^{\xi}\right)}_{=1}  - \left[ \dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi}  \right] \cdot \mathbf{g}_{\xi} = - \left[ \dfrac{\partial \mathbf{g}^{\xi}}{\partial \xi}  \right] \cdot \mathbf{g}_{\xi}
 \end{equation}
@@ -1501,7 +1501,7 @@ Les symboles de Christoffel sont invariants par changement de panel.
 \end{proposition}
 
 \begin{proof}
-Soit $\mathbf{x}$ est un point d'un panel $(k)$ de la Cubed-Sphere de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ est un point d'un autre panel $(k')$ de la Cubed-Sphere ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer tout point du panel $(k)$ en un point du panel $(k')$ de mêmes coordonnées gnomoniques :
+Soit $\mathbf{x}$ un point d'un panel $(k)$ de la Cubed-Sphere de coordonnées gnomoniques $(X,Y)$ et $\mathbf{x}'$ un point d'un autre panel $(k')$ de la Cubed-Sphere ayant les mêmes coordonnées gnomoniques $(X,Y)$. Il existe une rotation $R_f$ qui permet de transformer tout point du panel $(k)$ en un point du panel $(k')$ de mêmes coordonnées gnomoniques :
 \begin{equation}
 \mathbf{x}' = R_f \mathbf{x}.
 \end{equation}
@@ -1715,7 +1715,7 @@ On a vu dans la section \ref{sec:gnomonique} que les coordonnées gnomoniques $(
 \mathbf{x}_{i,j}^{(k)} \in C_i^{(1)} \cap C_j^{(2)}.
 \end{equation}
 
-L'angle $\alpha$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(k)}$ et $\mathbf{x}_{0,j}^{(k)}$ le long de $C^{(2)}_j$. L'angle $\beta$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(k)}$ et $\mathbf{x}_{i,0}^{(k)}$ mesuré le long de $C^{(1)}_i$ (Voir Fig. \ref{fig: alpha beta}). Des angles géodésiques $\alpha$ et $\beta$ peuvent être construits sur chaque panel, l'orientation de ces angles est donnée en Figure \ref{fig:patron cs}. Ainsi, chaque panel est construit à partir de sections de grands cercles.
+L'angle $\alpha$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(k)}$ et $\mathbf{x}_{0,j}^{(k)}$ le long de $C^{(2)}_j$. L'angle $\beta$ est l'angle géodésique entre $\mathbf{x}_{i,j}^{(k)}$ et $\mathbf{x}_{i,0}^{(k)}$ mesuré le long de $C^{(1)}_i$ (voir Fig. \ref{fig: alpha beta}). Des angles géodésiques $\alpha$ et $\beta$ peuvent être construits sur chaque panel, l'orientation de ces angles est donnée en Figure \ref{fig:patron cs}. Ainsi, chaque panel est construit à partir de sections de grands cercles.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1853,7 +1853,7 @@ z & = & a \cos \alpha \sin \eta & = & a \sin \beta. \\
 \right.
 \label{eq: panel I xyz xi eta alpha beta}
 \end{equation}
-Des relations similaires existent sur tous les panels (Voir Table \ref{tab: x y z fct de xi eta alfa beta}).
+Des relations similaires existent sur tous les panels (voir Table \ref{tab: x y z fct de xi eta alfa beta}).
 
 \begin{table}[htbp]
 \begin{center}
@@ -2061,7 +2061,7 @@ Chacune des sections de grand cercle peut être complétée en un grand cercle. 
 \begin{equation}
 - \alpha_0 (\eta) \leq \alpha \leq \alpha_0(\eta) \text{ avec } \alpha_0( \eta) = \arctan \left( \dfrac{\sqrt{2}}{2} \tan \eta \right).
 \end{equation}
-Le grand cercle $C_j^{(2)}$ traverse sur les panels $(II)$, $(III)$ et $(IV)$ dans cet ordre. On peut prolonger $\alpha$ comme étant l'angle curviligne le long du grand cercle complet. Sur le panel $(II)$, le grand cercle $C_j^{(2)}$ coupe d'autres grands cercles (ceux permettant de construire le panel $(II)$) en $\mathbf{M}_k$ ($-N/2 \leq k \leq N/2$) de coordonnées $(\xi^E_k = k \Delta \xi, \eta^E_k)$. Il coupe aussi le panel $(III)$ mais correspond au points de maillage par symétrie, soit le grand cercle du panel $(III)$ correspondant à l'isoligne $\eta^B_k = \frac{\pi}{2} - \eta$. Enfin, le grand cercle $C_j^{(2)}$ traverse le panel $(IV)$ aux points de coordonnées $(\xi^W_k = k \Delta \xi, \eta^W_k)$. 
+Le grand cercle $C_j^{(2)}$ traverse sur les panels $(II)$, $(III)$ et $(IV)$ dans cet ordre. On peut prolonger $\alpha$ comme étant l'angle curviligne le long du grand cercle complet. Sur le panel $(II)$, le grand cercle $C_j^{(2)}$ coupe d'autres grands cercles (ceux permettant de construire le panel $(II)$) en $\mathbf{M}_k$ ($-N/2 \leq k \leq N/2$) de coordonnées $(\xi^E_k = k \Delta \xi, \eta^E_k)$. Il coupe aussi le panel $(III)$ mais correspond aux points de maillage par symétrie, soit le grand cercle du panel $(III)$ correspondant à l'isoligne $\eta^B_k = \frac{\pi}{2} - \eta$. Enfin, le grand cercle $C_j^{(2)}$ traverse le panel $(IV)$ aux points de coordonnées $(\xi^W_k = k \Delta \xi, \eta^W_k)$. 
 
 De la même manière, le grand cercle $C_i^{(1)}$ traverse les panels $(V)$, $(III)$ et $(VI)$ dans cet ordre et est paramétré par l'angle $\beta$.
 
@@ -2243,7 +2243,7 @@ d'où le résultat à l'aide de la formule \eqref{eq: gradient}.
 
 \section{Harmoniques Sphériques sur la Cubed-Sphere}
 
-Pour résoudre des problèmes sur la sphère, les harmoniques sphériques jouent un rôle particulièrement important \cite{Atkinson2012, Frye2012}. On les utilise pour décomposer des fonctions de carré intégrable. On note $\mathbf{Y}^l_m$ les harmoniques sphériques avec $l \in \mathbb{N}$ et $|m| \leq l$. Les harmoniques sphériques sur $\mathbb{S}_a^2$ s'expriment en fonction de $(\lambda, \theta)$, les coordonnées longitude-latitude, par
+Pour résoudre des problèmes sur la sphère, les harmoniques sphériques jouent un rôle particulièrement important \cite{Atkinson2012, Frye2012}. On les utilise pour décomposer des fonctions de carré intégrable. On note $\mathbf{Y}^l_m$ les harmoniques sphériques avec $l \in \mathbb{N}$ et $|m| \leq l$, $m \in \mathbb{Z}$. Les harmoniques sphériques sur $\mathbb{S}_a^2$ s'expriment en fonction de $(\lambda, \theta)$, les coordonnées longitude-latitude, par
 \begin{equation}
 \mathbf{Y}_m^l(\mathbf{x}) = \mathbf{Y}_m^l(\lambda, \theta) = \dfrac{(-1)^m}{a} \sqrt{\dfrac{(2l+1)}{4 \pi} \dfrac{(l-|m|)!}{(l+|m|)!}} P^{|m|}_l (\sin (\theta)) \exp \left( i m \lambda \right),
 \label{eq:harmoniques_spheriques}
@@ -2259,7 +2259,7 @@ En particulier, on a
 
 Toute fonction $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x})$ de carré intégrable s'écrit comme combinaison linéaire des harmoniques sphériques. Autrement dit, il existe une famille $(f_{m,l})_{l \in \mathbb{N}, |m| \leq l}$ de $\mathbb{C}$ telle que
 \begin{equation}
-f = \gsum_{l \in \mathbb{N}} \gsum_{m= -l}^l f_{m,n} \mathbf{Y}^l_m.
+f = \gsum_{l \in \mathbb{N}} \gsum_{m= -l}^l f_{m,l} \mathbf{Y}^l_m.
 \end{equation}
 Les harmoniques sphériques $\mathbf{Y}^l_m$ forment une famille orthonormée de $L^2(\mathbb{S}^2_a)$ \cite{Atkinson2012}, c'est à dire
 \begin{equation}
@@ -2298,11 +2298,11 @@ où $(\xi, \eta)$ sont les coordonnées d'un point du panel définies dans la se
 \begin{proof}
 On définit $\psi_{(k)}$ l'application permettant de passer des coordonnées $(\xi, \eta)$ associées au panel $(k)$ aux coordonnées cartésiennes . L'application $\psi_{(k)}$ est bien définie car $(\xi, \eta)$ est un système de coordonnées admissibles sur le panel $(k)$. On a
 \begin{equation}
-\psi_{(k)} : (\xi, \eta) \in \left[ - \dfrac{\pi}{4}, \dfrac{\pi}{4} \right] \mapsto \mathbf{x}(\xi, \eta) \in (k).
+\psi_{(k)} : (\xi, \eta) \in \left[ - \dfrac{\pi}{4}, \dfrac{\pi}{4} \right]^2 \mapsto \mathbf{x}(\xi, \eta) \in (k).
 \end{equation}
 Par exemple, sur le panel $(I)$ on a :
 \begin{equation}
-\psi_{(I)} : (\xi, \eta) \in \left[ - \dfrac{\pi}{4}, \dfrac{\pi}{4} \right] \mapsto \mathbf{x}(\xi, \eta) = (x,y,z) \in (I) \subset \mathbb{R}^3,
+\psi_{(I)} : (\xi, \eta) \in \left[ - \dfrac{\pi}{4}, \dfrac{\pi}{4} \right]^2 \mapsto \mathbf{x}(\xi, \eta) = (x,y,z) \in (I) \subset \mathbb{R}^3,
 \end{equation}
 or les relations suivantes sont vérifiées :
 \begin{eqsys}
@@ -2553,7 +2553,7 @@ $S_b$ est donné par la relation suivante
 S_b = & \Delta \xi \Delta \eta \gsum_{i=1}^{N/2} \gsum_{j=-N/2}^{N/2} \omega_{i,j} (\mathbf{Y}_m^{l,*})_{i,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{i,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{i,j}} \\
 		& + \dfrac{\Delta \xi \Delta \eta}{2} \gsum_{j=-N/2}^{N/2} \omega_{0,j} (\mathbf{Y}_m^{l,*})_{0,j}^{(I)} (\bar{\mathbf{Y}}_{m'}^{l',*})_{0,j}^{(I)} \sqrt{\bar{\mathbf{G}}_{0,j}}.
 \end{align*}
-Les zones attribuées à $S_a$ et $S_b$ sont représentées schématiquement dans la Figure \ref{fig: zones panel V}.
+Les zones attribuées à $S_a$ et $S_b$ sont représentées schématiquement dans la Figure \ref{fig: zones panel V}. De plus, on a le même résultat pour $S_2$.
 
 \begin{figure}
 \begin{center}
@@ -2658,12 +2658,12 @@ Dans le cas où $m+m'$ et $l+l'$ sont pairs, le produit scalaire $<\mathbf{Y}_m^
 
 \subsection{Quadrature sur la sphère}
 
-Les équations que nous allons résoudre sur la sphère sont des relations de conservation. De manière à étudier les propriétés de conservation du schéma utilisé, il est utile de connaître une formule de quadrature adaptée. Dans \cite{Ahrens2009, Fornberg2014}, la méthode de quadrature est conçu pour être adaptée aux harmoniques sphériques, voir aussi \cite{Mclaren1963} ou les livres \cite{Atkinson2012, Hesse2010}. Les méthodes de quadratures considérées visent à approcher l'intégrale
+Les équations que nous allons résoudre sur la sphère sont des relations de conservation. De manière à étudier les propriétés de conservation du schéma utilisé, il est utile de connaître une formule de quadrature adaptée. Dans \cite{Ahrens2009, Fornberg2014}, la méthode de quadrature est conçue pour être adaptée aux harmoniques sphériques, voir aussi \cite{Mclaren1963} ou les livres \cite{Atkinson2012, Hesse2010}. Les méthodes de quadratures considérées visent à approcher l'intégrale
 \begin{equation}
 I(f) = \gint_{\mathbb{S}_a^2} f(\mathbf{x}) d \sigma(\mathbf{x}).
 \label{eq:integrale_sphere}
 \end{equation}
-On note que lorsque $f = \mathbf{Y}_m^l$ est un harmonique sphérique, il s'agit d'un cas particulier de la formule \eqref{eq:HS_perp} avec $m'=l'=0$. Ainsi, on a 
+On note que lorsque $f = \mathbf{Y}_m^l$ est une harmonique sphérique, il s'agit d'un cas particulier de la formule \eqref{eq:HS_perp} avec $m'=l'=0$. Ainsi, on a 
 \begin{equation}
 I(\mathbf{Y}_m^l) = 0
 \end{equation}
@@ -2675,7 +2675,11 @@ Q(f) = \gsum_p \omega_p f(\mathbf{x}_p)
 \end{equation}
 où $f : \mathbf{x} \in \mathbb{S}_a^2 \mapsto f(\mathbf{x}) \in \mathbb{C}$ est une fonction définie sur la sphère. Les points $(\mathbf{x}_p)_p$ représentent un nombre fini de points de $\mathbb{S}_a^2$, les valeurs $(\omega_p)_p$ sont des poids permettant d'approcher \eqref{eq:integrale_sphere}.
 
-Compte tenu de la structure de la Cubed-Sphere, il est possible de construire des méthodes de quadrature par panel. On cherche des formules de quadrature proches du produit scalaire $< \cdot, \cdot >_{\CS}$. On utilise donc des formules de quadrature de la forme
+Compte tenu de la structure de la Cubed-Sphere, il est possible de construire des méthodes de quadrature par panel. On cherche des formules de quadrature proches du produit scalaire $< \cdot, \cdot >_{\CS}$ car si $f : \mathbb{S}_a^2 \mapsto \mathbb{C}$ est une fonction de $L^2(\mathbb{S}_a^2, \mathbb{C})$ alors
+\begin{equation}
+\gint_{\mathbb{S}_a^2} f(\mathbf{x}) d\sigma(\mathbf{x}) = <f,1>_{L^2(\mathbb{S}_a^2, \mathbb{C})}.
+\end{equation}
+On utilise donc des formules de quadrature de la forme
 \begin{equation}
 Q(\mathfrak{f}) = \gsum_{(k) = (I)}^{(VI)} Q^{(k)}(\mathfrak{f})
 \end{equation}
@@ -2745,7 +2749,7 @@ P(b,b) & = & \tf(b,b).
 \end{array}
 \right.
 \end{equation}
-Ce polynôme vérifie, pour tous $(\xi, \eta) \in \mathbb{R}^2$,
+Ce polynôme est égal à, pour tous $(\xi, \eta) \in \mathbb{R}^2$,
 \begin{equation}
 P(\xi, \eta) = \dfrac{\tf(b,b)}{(a-b)^2}(\xi-a)(\eta-a) - \dfrac{\tf(a,b)}{(a-b)^2}(\xi-a)(\eta-b) -\dfrac{\tf(b,a)}{(a-b)^2}(\xi-b)(\eta-a)+ \dfrac{\tf(a,a)}{(a-b)^2}(\xi-b)(\eta-b).
 \end{equation}
@@ -2817,7 +2821,7 @@ en notant que $\Delta \xi = \Delta \eta$ ainsi que $\partial _{\xi} f_{i,j} = \p
 La fonction $\tf$ est régulière sur $[-\pi/4, \pi/4]^2$ comme produit de fonctions régulières.
 La formule d'Euler MacLaurin \cite{Demailly2016, Hardy2000, Monegato1998} permet de donner une estimation de l'intégrale sur $[a,b] \subset \mathbb{R}$ :
 \begin{equation}
-\dfrac{1}{b-a} \gint_a^b \tf(x) dx = \dfrac{\tf(a) + \tf(b)}{2} - - \gsum_{j=1}^n (b-a)^{2j-1} \dfrac{b_{2j}}{(2j)!} \left( \tf^{(2j-1)}(b) - \tf^{(2j-1)}(a)  \right) + \mathcal{O}\left( (b-a)^{2n+2}  \right) 
+\dfrac{1}{b-a} \gint_a^b \tf(x) dx = \dfrac{\tf(a) + \tf(b)}{2} - \gsum_{j=1}^n (b-a)^{2j-1} \dfrac{b_{2j}}{(2j)!} \left( \tf^{(2j-1)}(b) - \tf^{(2j-1)}(a)  \right) + \mathcal{O}\left( (b-a)^{2n+2}  \right) 
 \end{equation}
 avec $(b_{2j})$ les nombres de Bernoulli \cite{Conway2012}. En particulier on note que $b_2 = 1/6$, donc
 \begin{equation}
@@ -3001,7 +3005,7 @@ En particulier, on a
 Q_{\tpz} = Q_{1/4}.
 \end{equation}
 
-La formule ainsi perturbée permet de retrouver des résultats de précision semblables à ceux que $Q_{\tpz}$, en effet
+La formule ainsi perturbée permet de retrouver des résultats de précision semblables à ceux que $Q_{\tpz}$. En effet, on a la proposition suivante :
 \begin{proposition}
 Soit $f: \mathbf{x} \in \mathbb{S}_a^2 \rightarrow f(\mathbf{x}) \in \mathbb{C}$ une fonction régulière alors :
 \begin{equation}
@@ -3057,7 +3061,7 @@ Q_{\alpha}(f^*)-Q_{\tpz}(f) & = 3 \Delta \xi \Delta \eta \left( \alpha - \dfrac{
 donc :
 \begin{align*}
 Q_{\alpha}(f^*) - I(f) & = Q_{\alpha}(f^*) - Q_{\tpz}(f^*) + Q_{\tpz}(f^*) - I(f) \\
-                    & = 24 \Delta \xi \Delta \eta \left( \alpha - \dfrac{1}{4} \right)
+                    & = 24 \Delta \xi \Delta \eta \left( \alpha - \dfrac{1}{4} \right) + \mathcal{O} \left( \Delta \xi^2 \right)
 \end{align*}
 La méthode de quadrature $Q_{\alpha}$ ne peut donc pas être d'un ordre supérieur à 2. 
 \end{proof}
@@ -3242,7 +3246,7 @@ Les taux de convergence observées sont ceux attendus. Pour $Q_{\tpz}$ et $Q_{\a
 
 Nous avons étudié ici différents type de formules de quadrature. Toutes les formules étudiées définissent un produit scalaire possédant de bonnes propriétés d'orthogonalité des harmoniques sphériques.
 
-La formule $Q_{\tpz}$ est basée sur la formule des trapèzes composites, cette formule est consistance avec l'intégrale à l'ordre 2. La formule $Q_{\sps}$ est conçue à partir de la méthode de Simpson, elle est consistante à l'ordre 4 lorsque $N$ est pair. Cette propriété de précision est fausse lorsque $N$ est impair.
+La formule $Q_{\tpz}$ est basée sur la formule des trapèzes composites, cette formule est consistante avec l'intégrale à l'ordre 2. La formule $Q_{\sps}$ est conçue à partir de la méthode de Simpson, elle est consistante à l'ordre 4 lorsque $N$ est pair. Cette propriété de précision est fausse lorsque $N$ est impair.
 Les formules de quadrature $Q_{\alpha}$ sont des perturbations de la formule $Q_{\tpz}$. Le paramètre $\alpha>0$ permet de pondérer les coins de la Cubed-Sphere. Quel que soit le choix de $\alpha$, la formule $Q_{\alpha}$ est consistante avec l'intégrale au moins à l'ordre 2. Lorsque $\alpha = 1/3$, on prouve que la méthode est plus précise pour intégrer les fonctions constantes.
 
 Lors des tests numériques, nous avons pu vérifier les ordres de convergence théoriques. De plus, la formule $Q_{1/3}$ semble particulièrement efficace puisqu'une convergence à l'ordre 4 est observée.

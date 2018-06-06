@@ -19,7 +19,7 @@ make_cs_grid(N);
 % nhs1=1;
 % nhsz=2*nhs1+1;
 kN=6*N^2+2;  
-nhs_max=21;
+nhs_max=9;
 %
 %aa=zeros(nhsz,kN);
 %
@@ -222,7 +222,7 @@ co_cs1=[x_cs1,y_cs1,z_cs1];
 co_cs=co_cs1;
 x_cs=x_cs1;y_cs=y_cs1;z_cs=z_cs1;
 % test number of points CS_N 
-ikomp
+ikomp;
 kN
 %
 % nhs_max=3;
@@ -251,13 +251,15 @@ for ikomp=1:nhs_max+1,
     % size(aan)
     % rank(aan)
     aab=[aab;aan];
+    %disp('size')
     size(aab)
+    %disp('rank')
     rank(aab)
-    % rank(aab,eps)
+    rank(aab,.01)
     rank(aab,0.01)
-    rank(aab'*aab)
+    %rank(aab'*aab)
     % rank(aab'*aab,eps)
-    rank(aab'*aab,eps)
+    rank(aab'*aab,.01)% surement erroné (instab num)
 
 end
 %%%%%%%%%%

@@ -145,7 +145,7 @@ grid on
     plot(x,uex,x,u,'Linewidth',2)
     axis([0 1 -1.2 1.2])
     xlabel('x')
-    title('Filtrage d''ordre 10')
+    title('Filtrage d''ordre 6')
 
 [e1(end) e2(end) ei(end)]
 

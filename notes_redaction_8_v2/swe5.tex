@@ -16,7 +16,7 @@ En l'absence de reliefs, l'équation Shallow Water s'écrit
 \end{equation}
 où $f$ désigne la force de Coriolis.
 
-Pour linéariser le système d'équation \eqref{eq:SWE_without relief} autour de la solution stationnaire $(H, \overline{\mathbf{u}}) = (H,\mathbf{0})$, nous considérons les solutions de la forme :
+Pour linéariser le système d'équations \eqref{eq:SWE_without relief} autour de la solution stationnaire $(H, \overline{\mathbf{u}}) = (H,\mathbf{0})$, nous considérons les solutions de la forme :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -139,7 +139,7 @@ Dans cette section, nous nous intéressons à la résolution numérique de l'éq
 \end{equation}
 où $S_{\mathbf{u}} : (t,\mathbf{x}) \in \mathbb{R}^+ \times \mathbb{S}_a^2 \mapsto S_{\mathbf{u}}(t,\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ et $S_{\eta} : (t,\mathbf{x}) \in \mathbb{R}^+ \times \mathbb{S}_a^2 \mapsto S_{\eta}(t,\mathbf{x}) \in \mathbb{R}$ sont des fonctions données.
 
-Pour résoudre \eqref{eq:lswecf} en utilisant la méthode des lignes, nous définissons la fonction $J_{\Delta}$ agissant sur un couple de fonction de grilles $\bq=(\bu,\bbeta)$ par 
+Pour résoudre \eqref{eq:lswecf} en utilisant la méthode des lignes, nous définissons la fonction $J_{\Delta}$ agissant sur un couple de fonctions de grilles $\bq=(\bu,\bbeta)$ par 
 \begin{equation}
 J_{\Delta}(t,\bq) = J_{\Delta}(t,\bu,\bbeta) = \left( - f^* \mathbf{n}^* \wedge \bu^* - g \nabla_{T,\Delta} \bbeta + S^*_{\mathbf{u}} , - H \nabla_{T,\Delta} \bu + S^*_{\eta} \right).
 \end{equation}
@@ -163,7 +163,7 @@ La résolution en temps est faite en utilisant l'algorithme de Runge-Kutta d'ord
 \end{minipage}
 \end{center} 
 
-L'opérateur de filtrage $\mathcal{F}$ agit sur chaque composante de $\bq^n$, il est défini par la relation \eqref{eq:operateur_filtrage}. Dans les tests effectués, une solution analytique est disponible, nous mesurons l'erreur relative sur $\bbeta$ en normes $\| \cdot \|_1$, $\| \cdot \|_2$ et $\| \cdot \|_{\infty}$ en calculant au temps $t^n$
+L'opérateur de filtrage $\mathcal{F}$ agit sur chaque composante de $\bq^n$, il est défini par la relation \eqref{eq:operateur_filtrage}. Dans les tests effectués, une solution analytique est disponible. Nous mesurons l'erreur relative sur $\bbeta$ en normes $\| \cdot \|_1$, $\| \cdot \|_2$ et $\| \cdot \|_{\infty}$ en calculant au temps $t^n$
 \begin{equation}
 e_{l}^n = \dfrac{\| \bbeta^n - \eta(t^n, \cdot)^* \|_{l}}{\| \eta(t^n, \cdot)^* \|_{l}}, \text{ avec } l \in \left\lbrace 1, 2, \infty \right\rbrace.
 \end{equation}
@@ -205,7 +205,7 @@ avec $c_{\grav} = \sqrt{gH}$ et $c_{\cor} = a \Omega$. La constante $c_{\grav}$ 
 
 \subsection{Solution stationnaire zonale}
 
-Le premier test que nous considérons concerne la conservation d'une solution stationnaire zonale pour l'équation \eqref{eq:lswecf} sans forçage. C'est à dire que l'on a $S_{\eta}$ et $S_{\mathbf{u}}$ des fonctions nulles. Donc le système d'équations considérées est \eqref{eq:lswec}. La masse et l'énergie sont conservées.
+Le premier test que nous considérons concerne la conservation d'une solution stationnaire zonale pour l'équation \eqref{eq:lswecf} sans forçage, c'est à dire que l'on a $S_{\eta}$ et $S_{\mathbf{u}}$ des fonctions nulles. Donc le système d'équations considérées est \eqref{eq:lswec}. La masse et l'énergie sont conservées.
 
 \begin{definition}
 On dit que $\eta$ et $\mathbf{u}$ sont des \textit{solution zonales} de \eqref{eq:lswecf} si $(\mathbf{u},\eta)$ est solution de \eqref{eq:lswecf} et si en coordonnées longitude-latitude $(\lambda, \theta)$, on a
@@ -341,9 +341,9 @@ Le test précédent mesure le comportement d'une solution stationnaire. Nous ét
 \right.
 \label{eq:lswe_solexp}
 \end{equation}
-la fonction $\psi$ est donnée par \eqref{eq:psi_supcompact}, $\sigma>0$ est le paramètre de décroissance. L'équation résolue est \eqref{eq:lswecf}, dans cette dernière $S_{\mathbf{u}}$ et $S_{\eta}$ sont données et calculées pour que \eqref{eq:lswe_solexp} représente le couple de solutions de \eqref{eq:lswecf}.
+la fonction $\psi$ est donnée par \eqref{eq:psi_supcompact}, $\sigma>0$ est le paramètre de décroissance. L'équation résolue est \eqref{eq:lswecf}. Dans cette dernière $S_{\mathbf{u}}$ et $S_{\eta}$ sont données et calculées pour que \eqref{eq:lswe_solexp} représente le couple de solutions de \eqref{eq:lswecf}.
 
-Pour les simulations numériques, les paramètres choisis sont $\theta_0 = - \pi /3$, $\theta_1 = \pi /3$ et $\sigma = 10^{-5}$. On étudie le taux de convergence de la solution jusqu'à $t=1.5$ heures avec une condition sur les pas de discrétisation $\CFL=0.9$ et différents paramètres de grilles. 
+Pour les simulations numériques, les paramètres choisis sont $\theta_0 = - \pi /3$, $\theta_1 = \pi /3$ et $\sigma = 10^{-5} \si{s}^{-1}$. Le temps de demi-vie est $\ln(2)/\sigma \approx 0.8$ jour. On étudie le taux de convergence de la solution jusqu'à $t=1.5$ heures avec une condition sur les pas de discrétisation $\CFL=0.9$ et différents paramètres de grilles. 
 On se limite à un temps court car la décroissance exponentielle vers 0 de la solution rend le calcul d'erreurs délicat sur des temps plus longs. Au bout de 1.5 heure, la solution a diminué d'environ $5\%$.
 Les résultats sont donnés dans la Figure \ref{fig:rate_lswe2} et la Table \ref{tab:rate_lswe2}. Le taux de convergence est supérieur à 4.
 
@@ -380,7 +380,7 @@ $\mathbf{128}$ & $4.7943(-5)$ & $8.7464(-5)$ & $6.2330(-4)$ & $2.8324(-5)$\\
 
 Nous ne mesurons pas l'erreur sur la conservation de la masse ou de l'énergie car ces dernières ne sont pas conservées lorsque $S_{\mathbf{u}}$ et $S_{\eta}$ ne sont pas nulles.
 
-Les tests effectués nous permettent de mesurer la précision et l'ordre de convergence en combinant les opérateurs divergence, gradient pour la discrétisation spatiale ainsi que la discrétisation RK4 couplée à l'opérateur de filtrage. Les ordres de convergence restent proches de 4 pour l'erreur sur $\bbeta$. L'ordre de convergence est supérieur à 3 pour l'erreur sur $\bu$. La convergence des erreurs de conservation sur la masse et l'énergie est excellente.
+Les tests effectués nous permettent de mesurer la précision et l'ordre de convergence en combinant les opérateurs divergence, gradient pour la discrétisation spatiale ainsi que la discrétisation RK4 couplée à l'opérateur de filtrage. Les ordres de convergence restent proches de 4 pour l'erreur sur $\bbeta$. L'ordre de convergence est supérieur à 3 pour l'erreur sur $\bu$.
 
 
 
@@ -443,7 +443,7 @@ où $f$ est la fonction paramétrant la force de Coriolis. Sauf mention contrair
 \begin{equation}
 f(\theta) = 2 \Omega \sin \theta.
 \end{equation}
-Dans les équation, les constantes physiques sont données par
+Dans les équations, les constantes physiques sont données par
 \begin{itemize}
 \item la constante de gravité : $g=9.80616 m \cdot \si{s^{-2}}$,
 \item la vitesse angulaire de rotation de la sphère : $\Omega=7.292 \times 10^{-5} \si{s^{-1}}$,
@@ -464,7 +464,7 @@ Si $(\mathbf{u},h)$ est solution de \eqref{eq:SWEC_vectform} alors les relations
  
 \item Conservation de l'énergie :
 \begin{equation}
-\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \dfrac{1}{2} h^{\star}(t,\mathbf{x}) \mathbf{u}(t,\mathbf{x}).^2 + \dfrac{1}{2} g \left( h^2(t,\mathbf{x}) - h_s^2 \right)d \sigma(\mathbf{x}) = 0,
+\dfrac{d}{dt} \gint_{\mathbb{S}_a^2} \dfrac{1}{2} h^{\star}(t,\mathbf{x}) \mathbf{u}(t,\mathbf{x})^2 + \dfrac{1}{2} g \left( h^2(t,\mathbf{x}) - h_s^2(\mathbf{x}) \right)d \sigma(\mathbf{x}) = 0,
 \label{eq:energy}
 \end{equation}
 
@@ -505,7 +505,7 @@ La conservation de la divergence est immédiate car
 \begin{equation}
 \gint_{\mathbb{S}_a^2} \nabla_T \cdot \mathbf{u}(t,\mathbf{x}) d \sigma(\mathbf{x}) = 0.
 \end{equation}
-On pose $q = \dfrac{\zeta + f}{h^{\star}}$, alors en appliquant $\mathbf{n} \cdot ( \nabla_T \wedge \cdot )$ à l'équation Shallow Water \eqref{eq:SWEC_vectform}, on obtient
+On pose $q = \dfrac{\zeta + f}{h^{\star}}$. En appliquant $\mathbf{n} \cdot ( \nabla_T \wedge \cdot )$ à l'équation Shallow Water \eqref{eq:SWEC_vectform}, on obtient
 \begin{equation}
 \dfrac{\partial \zeta}{\partial t}+\nabla_T \wedge \left( q h^{\star} \mathbf{n} \wedge \mathbf{u} \right) \cdot\mathbf{n} + \underbrace{\nabla_T \wedge \nabla_T \left( gh + \dfrac{1}{2}\mathbf{u}^2 \right) \cdot \mathbf{n}}_{=0} = 0 .
 \end{equation}
@@ -602,7 +602,7 @@ En traitant cette équation composante par composante, on déduit des informatio
 \begin{equation}
 \dfrac{g}{a \cos \theta'} \dfrac{\partial h}{\partial \lambda'} = 0
 \end{equation}
-donc $h$ est indépendant de $\lambda'$. Ce qui était attendu ($h$ est zonale).
+donc $h$ est indépendant de $\lambda'$, ce qui était attendu ($h$ est zonale).
 
 \item \textbf{Composante en} $\mathbf{e}_{\theta'}$ :
 \begin{equation}
@@ -687,7 +687,7 @@ Lorsqu'une solution analytique est disponible, nous mesurons l'erreur
 \begin{equation}
 e_l = \dfrac{\| \bh^n - h(t^n,\cdot)^* \|_l}{\| h(t^n,\cdot)^* \|_l} \text{, avec } l \in \left\lbrace 1, 2, \infty \right\rbrace.
 \end{equation}
-De plus, nous avons vu dans la proposition \ref{prop:swe_cons} que la solution du système \eqref{eq:SWEC_vectform} vérifie des propriétés de conservation. Pour la conservation de la masse, de l'énergie et de l'entrophie potentielle, nous mesurons l'erreur de conservation relative :
+De plus, nous avons vu dans la proposition \ref{prop:swe_cons} que la solution du système \eqref{eq:SWEC_vectform} vérifie des propriétés de conservation. Pour la conservation de la masse, de l'énergie et de l'enstrophie potentielle, nous mesurons l'erreur de conservation relative :
 \begin{equation}
 \dfrac{Q(\bu(t^n,\cdot)^*, h(t^n,\cdot)^*) - Q(\bu^n, \bh^n)}{Q(\bu(t^n,\cdot)^*, h(t^n,\cdot)^*)},
 \end{equation}
@@ -698,7 +698,7 @@ La divergence et la vorticité sont nulles dans le cadre continu, nous ne mesuro
 \end{equation}
 où $Q$ désigne une formule de quadrature sphérique appliquée à la divergence ou à la vorticité.
 
-Dans les simulations numériques effectuées, le pas de temps $\Delta t$ est proportionnel au pas d'espace $\Delta \xi$ par la la relation
+Dans les simulations numériques effectuées, le pas de temps $\Delta t$ est proportionnel au pas d'espace $\Delta \xi$ par la relation
 \begin{equation}
 \CFL = \dfrac{c \Delta t}{a \Delta \xi} = C^{\text{ste}}
 \end{equation}
@@ -761,7 +761,7 @@ h(\lambda, \theta)= h_0 - \dfrac{a}{g} \left( \Omega u_0 + \dfrac{u_0^2}{2} \rig
 \label{eq: williamson 2 initial height}
 \end{equation}
 
-On utilise $h$ et $\mathbf{u}$ comme données initiales avec différentes valeurs de $\alpha$ pour observer l'influence de ce paramètre. D'après la proposition \ref{prop:swe_zonalestat}, cette condition initiale est stationnaire.
+On utilise $h$ et $\mathbf{u}$ comme données initiales avec différentes valeurs de $\alpha$ pour observer l'influence de ce paramètre. D'après la proposition \ref{prop:swe_zonalestat}, cette condition initiale est une solution stationnaire.
 
 Les constantes $h_0$, $u_0$ ainsi que les reliefs sur la sphère sont donnés par 
 \begin{itemize}
@@ -783,7 +783,7 @@ Sur les Figures \ref{fig: williamson 2 conservation alpha=0} et \ref{fig: willia
 \includegraphics[scale=0.5]{ref_7369088145_snapshot_intermediaire598.png}\\
 \includegraphics[scale=0.5]{ref_7369088145_snapshot_err_color.png}
 \end{center}
-\caption{Test stationnaire zonale (test numéro 2 de \cite{Williamson1992}) avec $\alpha=0$, le paramètre de la Cubed-Sphere est $N=32$. Le pas de temps est issu de $\CFL=0.9$. On représente $h$ à $t=6$ jours et l'erreur relative sur $h$. L'erreur n'est pas localisée aux coins de la Cubed-Sphere. De plus les niveaux d'erreur sont très bons.}
+\caption{Test stationnaire zonal (test numéro 2 de \cite{Williamson1992}) avec $\alpha=0$, le paramètre de la Cubed-Sphere est $N=32$. Le pas de temps est issu de $\CFL=0.9$. On représente $h$ à $t=6$ jours et l'erreur relative sur $h$. L'erreur n'est pas localisée aux coins de la Cubed-Sphere. De plus les niveaux d'erreur sont très bons.}
 \label{fig: williamson 2 space alpha=0}
 \end{figure}
 
@@ -792,7 +792,7 @@ Sur les Figures \ref{fig: williamson 2 conservation alpha=0} et \ref{fig: willia
 \includegraphics[scale=0.5]{ref_7369088145_conservationA.png}
 \includegraphics[scale=0.5]{ref_7369088145_conservationB.png}
 \end{center}
-\caption{Test stationnaire zonale (test numéro 2 de \cite{Williamson1992}) avec $\alpha=0$, le paramètre de la Cubed-Sphère est $N=32$. Le pas de temps est donné par $\CFL=0.9$. On représente l'historique de l'erreurs relative sur la conservation de la masse, l'énergie et l'enstrophie (gauche), erreur sur la conservation de la divergence et de la vorticité (droite). Les ordres de grandeurs de ces erreurs sont excellents. La conservation de la vorticité est exacte ce qui est lié aux symétrie de la solution sur la sphère.}
+\caption{Test stationnaire zonal (test numéro 2 de \cite{Williamson1992}) avec $\alpha=0$, le paramètre de la Cubed-Sphère est $N=32$. Le pas de temps est donné par $\CFL=0.9$. On représente l'historique de l'erreur relative sur la conservation de la masse, l'énergie et l'enstrophie (gauche), erreur sur la conservation de la divergence et de la vorticité (droite). Les ordres de grandeurs de ces erreurs sont excellents. La conservation de la vorticité est exacte ce qui est lié aux symétries de la solution sur la sphère.}
 \label{fig: williamson 2 conservation alpha=0}
 \end{figure}
 
@@ -801,7 +801,7 @@ Sur les Figures \ref{fig: williamson 2 conservation alpha=0} et \ref{fig: willia
 \includegraphics[scale=0.5]{ref_7369088270_snapshot_intermediaire598.png}\\
 \includegraphics[scale=0.5]{ref_7369088270_snapshot_err_color.png}
 \end{center}
-\caption{Test stationnaire zonale (test numéro 2 de \cite{Williamson1992}) avec $\alpha=\pi/4$, le paramètre de la Cubed-Sphere est $N=32$. Le pas de temps est issu de $\CFL=0.9$. On représente $h$ à $t=6$ jours et l'erreur relative sur $h$. L'erreur n'est pas localisée aux coins de la Cubed-Sphere. De plus les niveaux d'erreur sont très bons et les symétries de la solutions sont retrouvées.}
+\caption{Test stationnaire zonal (test numéro 2 de \cite{Williamson1992}) avec $\alpha=\pi/4$, le paramètre de la Cubed-Sphere est $N=32$. Le pas de temps est issu de $\CFL=0.9$. On représente $h$ à $t=6$ jours et l'erreur relative sur $h$. L'erreur n'est pas localisée aux coins de la Cubed-Sphere. De plus les niveaux d'erreur sont très bons et les symétries de la solutions sont retrouvées.}
 \label{fig: williamson 2 space alpha=pi/4}
 \end{figure}
 
@@ -810,7 +810,7 @@ Sur les Figures \ref{fig: williamson 2 conservation alpha=0} et \ref{fig: willia
 \includegraphics[scale=0.5]{ref_7369088270_conservationA.png}
 \includegraphics[scale=0.5]{ref_7369088270_conservationB.png}
 \end{center}
-\caption{Test stationnaire zonale (test numéro 2 de \cite{Williamson1992}) avec $\alpha=\pi/4$, le paramètre de la Cubed-Sphère est $N=32$. Le pas de temps est donné par $\CFL=0.9$. On représente l'historique de l'erreurs relative sur la conservation de la masse, l'énergie et l'enstrophie (gauche), erreur sur la conservation de la divergence et de la vorticité (droite). Les ordres de grandeurs de ces erreurs sont excellents. Comme pour $\alpha = 0$, la vorticité est parfaitement conservée grâce aux symétries de la solution et du maillage.}
+\caption{Test stationnaire zonal (test numéro 2 de \cite{Williamson1992}) avec $\alpha=\pi/4$, le paramètre de la Cubed-Sphère est $N=32$. Le pas de temps est donné par $\CFL=0.9$. On représente l'historique de l'erreurs relative sur la conservation de la masse, l'énergie et l'enstrophie (gauche), erreur sur la conservation de la divergence et de la vorticité (droite). Les ordres de grandeurs de ces erreurs sont excellents. Comme pour $\alpha = 0$, la vorticité est parfaitement conservée grâce aux symétries de la solution et du maillage.}
 \label{fig: williamson 2 conservation alpha=pi/4}
 \end{figure}
 
@@ -821,7 +821,7 @@ L'historique de l'erreur au cours du temps est donnée Figure \ref{fig: williams
 \includegraphics[scale=0.5]{ref_7369088145_erreur.png}
 \includegraphics[scale=0.5]{ref_7369088270_erreur.png}
 \end{center}
-\caption{Test stationnaire zonale (second test de \cite{Williamson1992}) avec le paramètre de la Cubed-Sphere $N=32$ ainsi que $CFL=0.9$. On représente l'historique de l'erreur relative au cours du temps $\alpha = 0$ (gauche) et $\alpha = \pi/4$ (droite). Les niveaux d'erreurs sont très faibles.}
+\caption{Test stationnaire zonal (second test de \cite{Williamson1992}) avec le paramètre de la Cubed-Sphere $N=32$ ainsi que $CFL=0.9$. On représente l'historique de l'erreur relative au cours du temps $\alpha = 0$ (gauche) et $\alpha = \pi/4$ (droite). Les niveaux d'erreurs sont très faibles.}
 \label{fig: williamson 2 erreur}
 \end{figure}
 
@@ -845,7 +845,7 @@ $\mathbf{128}$ & $4.4469(-9)$ & $5.4018(-9)$ & $9.5186(-9)$\\
 \hline
 \end{tabular} 
 \end{center}
-\caption{Table de convergence pour le stationnaire zonale de l'équation \eqref{eq:SWEC_vectform}. Le pas de temps est donné par $\CFL=0.9$. On donne $\alpha = 0$. Le temps final est $t=5$ jours. Le taux de convergence est proche de 4 et est excellent. De plus, les niveaux d'erreurs sont très faibles.}
+\caption{Table de convergence pour le test stationnaire zonal de l'équation \eqref{eq:SWEC_vectform}. Le pas de temps est donné par $\CFL=0.9$. On donne $\alpha = 0$. Le temps final est $t=5$ jours. Le taux de convergence est proche de 4 et est excellent. De plus, les niveaux d'erreurs sont très faibles.}
 \label{tab:rate_swe1}
 \end{table}
 
@@ -867,7 +867,7 @@ $\mathbf{128}$ & $2.9487(-9)$ & $4.0672(-9)$ & $1.0858(-8)$\\
 \hline
 \end{tabular} 
 \end{center}
-\caption{Table de convergence pour le stationnaire zonale de l'équation \eqref{eq:SWEC_vectform}. Le pas de temps est donné par la contrainte $\CFL=0.9$. On donne $\alpha = \pi/4$. Le temps final est $t=5$ jours. Les taux d'erreurs sont proches de 4. L'erreur est très faible.}
+\caption{Table de convergence pour le test stationnaire zonal de l'équation \eqref{eq:SWEC_vectform}. Le pas de temps est donné par la contrainte $\CFL=0.9$. On donne $\alpha = \pi/4$. Le temps final est $t=5$ jours. Les taux d'erreurs sont proches de 4. L'erreur est très faible.}
 \label{tab:rate_swe2}
 \end{table}
 
@@ -876,11 +876,11 @@ $\mathbf{128}$ & $2.9487(-9)$ & $4.0672(-9)$ & $1.0858(-8)$\\
 \includegraphics[height=5cm]{rate_W2_0.png}
 \includegraphics[height=5cm]{rate_W2_pi4.png}
 \end{center}
-\caption{Convergence pour le stationnaire zonale de l'équation \eqref{eq:SWEC_vectform} en fonction de $\Delta = a \Delta \xi$. Le pas de temps est donné par la contrainte $\CFL=0.9$. On donne $\alpha = \pi/4$. Le temps final est $t=5$ jours.}
+\caption{Convergence pour le test stationnaire zonal de l'équation \eqref{eq:SWEC_vectform} en fonction de $\Delta = a \Delta \xi$. Le pas de temps est donné par la contrainte $\CFL=0.9$. On donne $\alpha = \pi/4$. Le temps final est $t=5$ jours.}
 \label{fig:rate_swe12}
 \end{figure}
 
-En norme infinie, $e_{\infty}$, les valeurs obtenues au temps $t=5$, sont proche de $2.75 \times 10^{-6}$ et sont comparables à $5.86 \times 10^{-6}$ sur une grille $32 \times 32 \times 6$ obtenue en utilisant un schéma volumes finis d'ordre 4 \cite{Chen2008}. En extrapolant les données, le schéma volume finis utilisé dans \cite{Ullrich2011} donne une erreur en norme infinie proche de $1.47 \times 10^{-6}$ en utilisant le flux numérique de type AUSM+.
+En norme infinie, $e_{\infty}$, les valeurs obtenues au temps $t=5$, sont proches de $2.75 \times 10^{-6}$ et sont comparables à $5.86 \times 10^{-6}$ sur une grille $32 \times 32 \times 6$ obtenue en utilisant un schéma volumes finis d'ordre 4 \cite{Chen2008}. En extrapolant les données, le schéma volumes finis utilisé dans \cite{Ullrich2011} donne une erreur en norme infinie proche de $1.47 \times 10^{-6}$ en utilisant le flux numérique de type AUSM+.
 
 
 
@@ -924,7 +924,7 @@ h_s = h_{s_0} \left( 1 - \dfrac{r}{R} \right)
 où $R= \pi / 9$, $r^2 = min \left[ R^2, \left( \lambda - \lambda_c \right)^2 + \left( \theta - \theta_c \right)^2 \right]$. Le point $(\lambda_c, \theta_c)= (3 \pi / 2, \pi / 6)$ correspondant à la position du sommet de la montagne.
 Il s'agit d'une perturbation importante, puisque la montagne représente environ $33 \%$ de l'épaisseur du fluide.
 
-Pour ce test, aucune solution analytique n'est disponible, nous comparons la solution obtenue aux temps $t=5$ jours, $10$ jours et $15$ jours avec les résultats de la littérature \cite{Ullrich2011, Kuang2016}. Pour un paramètre de Cubed-Sphere $N=32$, on obtient les résultats des figures \ref{fig: williamson 5 space height}. Les résultats sont visuellement très similaires à ceux obtenus par des méthodes de volumes finis \cite{Katta2015, Chen2008} d'ordre élevé ainsi que ceux obtenus par des méthodes de Galerkin Discontinu \cite{Nair2005}. On note en particulier l'absence d'oscillations parasites qui pourraient résulter de la forme conique de la montagne.
+Pour ce test, aucune solution analytique n'est disponible. Nous comparons la solution obtenue aux temps $t=5$ jours, $10$ jours et $15$ jours avec les résultats de la littérature \cite{Ullrich2011, Kuang2016}. Pour un paramètre de Cubed-Sphere $N=32$, on obtient les résultats des figures \ref{fig: williamson 5 space height}. Les résultats sont visuellement très similaires à ceux obtenus par des méthodes de volumes finis \cite{Katta2015, Chen2008} d'ordre élevé ainsi que ceux obtenus par des méthodes de Galerkin Discontinu \cite{Nair2005}. On note en particulier l'absence d'oscillations parasites qui pourraient résulter de la forme conique de la montagne.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -936,9 +936,9 @@ Pour ce test, aucune solution analytique n'est disponible, nous comparons la sol
 \label{fig: williamson 5 space height}
 \end{figure}
 
-Les propriétés de conservation sont analysées sur la Figure \ref{fig: williamson 5 conservation}. Les résultats sont très bons. Au jour 15, l'erreur sur l'enstrophie potentielle est proche de $-0.9 \times 10^{-4}$, valeur comparable à celle de $-1.0 \times 10^{-4}$ obtenu lorsque le paramètre de la Cubed-Sphere est $N=40$ avec un schéma volumes finis d'ordre 4 dans \cite{Ullrich2010}. L'enstrophie potentielle est difficile à conserver, le schéma volumes finis utilisé dans \cite{Chen2008} possède un historique de l'erreur de conservation similaire lorsque $N=32$. Au temps $t=15$ jour, l'erreur finale obtenue par \cite{Chen2008} sur la conservation de l'enstrophie potentielle est de l'ordre de $-1.1 \times 10^{-4}$.
+Les propriétés de conservation sont analysées sur la Figure \ref{fig: williamson 5 conservation}. Les résultats sont très bons. Au jour 15, l'erreur sur l'enstrophie potentielle est proche de $-0.9 \times 10^{-4}$, valeur comparable à celle de $-1.0 \times 10^{-4}$ obtenue lorsque le paramètre de la Cubed-Sphere est $N=40$ avec un schéma volumes finis d'ordre 4 dans \cite{Ullrich2010}. L'enstrophie potentielle est difficile à conserver, le schéma volumes finis utilisé dans \cite{Chen2008} possède un historique de l'erreur de conservation similaire lorsque $N=32$. Au temps $t=15$ jour, l'erreur finale obtenue par \cite{Chen2008} sur la conservation de l'enstrophie potentielle est de l'ordre de $-1.1 \times 10^{-4}$.
 
-On représente sur la Figure \ref{fig: williamson 5 conservation} l'erreur de conservation de la divergence et de la vorticité. Les erreurs sont très faibles, de l'ordre de $2 \times 10^{-11}$ pour la divergence et $3 \times 10^{-11}$ pour la vorticité. La valeur pour la divergence est meilleur que celle obtenue en utilisant des schémas compacts sur une grille longitude-latitude $128 \times 64$ dans \cite{Nihei2003}. En effet, avec ce schéma, l'erreur sur la conservation de la divergence est $-1.1 \times 10^{-9}$, l'erreur de conservation pour la vorticité est en revanche meilleure et proche de $2.2 \times 10^{-17}$. 
+On représente sur la Figure \ref{fig: williamson 5 conservation} l'erreur de conservation de la divergence et de la vorticité. Les erreurs sont très faibles, de l'ordre de $2 \times 10^{-11}$ pour la divergence et $3 \times 10^{-11}$ pour la vorticité. La valeur pour la divergence est meilleure que celle obtenue en utilisant des schémas compacts sur une grille longitude-latitude $128 \times 64$ dans \cite{Nihei2003}. En effet, avec ce schéma, l'erreur sur la conservation de la divergence est $-1.1 \times 10^{-9}$, l'erreur de conservation pour la vorticité est en revanche meilleure et proche de $2.2 \times 10^{-17}$. 
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1011,7 +1011,7 @@ Les constantes de la perturbation sont données par :
 \item $\beta = 1/15$.
 \end{itemize}
 
-Ce test consiste à observer la vorticité au fil du temps, en particulier au bout de $2$ jours, $4$ jours et $6$ jours. La perturbation commence à être visible au bout d'environ 3 jours. Au bout de 6 jours, on compare la forme de la vorticité numérique avec celle donnée dans la littérature \cite{Galewsky2004, Chen2008}. Ce test est particulièrement difficile pour la Cubed-Sphere. En effet, la perturbation est concentrée sur le bord du Panel $(V)$. De plus elle est localisée à l'intersection des panels $(I)$ et $(V)$ (Voir Fig. \ref{fig: initiale et perturbation Galewsky}).
+Ce test consiste à observer la vorticité au fil du temps, en particulier au bout de $2$ jours, $4$ jours et $6$ jours. La perturbation commence à être visible au bout d'environ 3 jours. Au bout de 6 jours, on compare la forme de la vorticité numérique avec celle donnée dans la littérature \cite{Galewsky2004, Chen2008}. Ce test est particulièrement difficile pour la Cubed-Sphere. En effet, la perturbation est concentrée sur le bord du Panel $(V)$. De plus elle est localisée à l'intersection des panels $(I)$ et $(V)$ (voir Fig. \ref{fig: initiale et perturbation Galewsky}).
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1034,14 +1034,14 @@ La vorticité au bout de 2, 4 et 6 jours est donnée en Figure \ref{fig: galewsk
 \label{fig: galewsky 246}
 \end{figure}
 
-La Figure \ref{fig: galewsky compact/explicite} est faite en utilisant le schéma compact à 3 points d'ordre 4 $\delta_{x,4}^H$ et celui d'ordre 4 non compact $\delta_{x,4}$ dans le calcul des opérateurs. On constate une différence sur la forme de la vorticité, en particulier dans la région de la Chine et du Japon sur la carte (intersection des panels $(II)$, $(III)$ et $(V)$). L'utilisation du schéma compact permet une meilleur représentation des hautes fréquences. Ce phénomène est visible ici où les tourbillons sont mieux représentés sur un maillage fixé $86 \times 86 \times 6$.
+La Figure \ref{fig: galewsky compact/explicite} est faite en utilisant le schéma compact à 3 points d'ordre 4 $\delta_{x,4}^H$ et celui d'ordre 4 non compact $\delta_{x,4}$ dans le calcul des opérateurs. On constate une différence sur la forme de la vorticité, en particulier dans la région de la Chine et du Japon sur la carte (intersection des panels $(II)$, $(III)$ et $(V)$). L'utilisation du schéma compact permet une meilleure représentation des hautes fréquences. Ce phénomène est visible ici où les tourbillons sont mieux représentés sur un maillage fixé $86 \times 86 \times 6$. En comparant ces résultats avec la Figure \ref{fig: galewsky convergence}, on constate que le schéma converge plus vite lors de l'utilisation de $\delta_{4,x}^H$ que lors de l'utilisation de $\delta_{4,x}^H$.
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=0.3]{ref_7369105556_snapshot.png}
 \includegraphics[scale=0.3]{ref_7369107124_snapshot.png}
 \end{center}
-\caption{Cas test barotropique instable \cite{Galewsky2004} à 6 jours sur une grille $86 \times 86 \times 6$ avec $\CFL=0.9$. A gauche, utilisation d'un schéma compact d'ordre 4 : $\delta_{4,x}^H$. A droite utilisation d'un schéma explicite d'ordre 4 $\delta_{4,x}$. Les deux solutions ne sont pas identiques, en particulier au niveau du Japon et de la Chine. Le schémas compact $\delta_{4,x}^H$ permet une convergence plus rapide que $\delta_{4,x}$.}
+\caption{Cas test barotropique instable \cite{Galewsky2004} à 6 jours sur une grille $86 \times 86 \times 6$ avec $\CFL=0.9$. On représente la vorticité. A gauche, utilisation d'un schéma compact d'ordre 4 : $\delta_{4,x}^H$. A droite utilisation d'un schéma explicite d'ordre 4 $\delta_{4,x}$. Les deux solutions ne sont pas identiques, en particulier au niveau du Japon et de la Chine.}
 \label{fig: galewsky compact/explicite}
 \end{figure}
 
@@ -1053,11 +1053,11 @@ Sur la Figure \ref{fig: galewsky conservation}, on représente les erreurs sur l
 \includegraphics[height=5cm]{ref_7368306511_enstrophy.png}\\
 \includegraphics[height=5cm]{ref_7368306511_conservationB.png}
 \end{center}
-\caption{Cas test barotropique instable, le paramètre de la Cubed-Sphere est $N=128$, $\CFL=0.9$. Historique des erreurs relatives sur la conservation de la masse, de l'énergie et de l'enstrophie potentielle, erreur sur la conservation de la divergence et de la vorticité. Les niveaux d'erreurs sont très bon mais l'erreur croît autour du jour 4, lorsque l'instabilité devient visible.}
+\caption{Cas test barotropique instable, le paramètre de la Cubed-Sphere est $N=128$, $\CFL=0.9$. Historique des erreurs relatives sur la conservation de la masse, de l'énergie et de l'enstrophie potentielle, erreur sur la conservation de la divergence et de la vorticité. Les niveaux d'erreurs sont très bons mais l'erreur croît autour du jour 4, lorsque l'instabilité devient visible.}
 \label{fig: galewsky conservation}
 \end{figure}
 
-La convergence du schéma est visible en raffinant le maillage. C'est ce que nous représentons sur la Figure \ref{fig: galewsky convergence}. La solution est clairement mal représentée sur la grille $32 \times 32 \times 6$, alors que nous de distinguons pas de différences entre les grilles $96 \times 96\times 6$ et $128 \times 128\times 6$.
+La convergence du schéma est visible en raffinant le maillage. C'est ce que nous représentons sur la Figure \ref{fig: galewsky convergence}. La solution est clairement mal représentée sur la grille $32 \times 32 \times 6$, alors que nous ne distinguons pas de différences entre les grilles $96 \times 96\times 6$ et $128 \times 128\times 6$.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1143,7 +1143,7 @@ R & = & 4.
 
 Il est connu  que cette condition initiale est instable \cite{Thuburn2000}. Le comportement de "déplacement vers l'ouest" attendu est difficilement vérifié sur un temps long et les symétries de la condition initiale peuvent être perdues. C'est pour ces raisons qu'il est intéressant d'observer le comportement en temps long des simulations.
 
-Sur la Figure \ref{fig: rossby 714}, nous présentons la solution obtenue après résolution numérique aux temps $t=7$ jours et $t=14$ jours. Les résultats sont similaires avec ceux obtenus par éléments finies ou volumes finis \cite{Chen2008, Galewsky2004}. Les erreurs relatives de conservation pour la masse, l'énergie et l'enstrophie potentielle, ainsi que les erreurs de conservation pour la divergence et la vorticité sont données en Figure \ref{fig: rossby conservation}.
+Sur la Figure \ref{fig: rossby 714}, nous présentons la solution obtenue après résolution numérique aux temps $t=7$ jours et $t=14$ jours. Les résultats sont similaires avec ceux obtenus par éléments finis ou volumes finis \cite{Chen2008, Galewsky2004}. Les erreurs relatives de conservation pour la masse, l'énergie et l'enstrophie potentielle, ainsi que les erreurs de conservation pour la divergence et la vorticité sont données en Figure \ref{fig: rossby conservation}.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1160,7 +1160,7 @@ Sur la Figure \ref{fig: rossby 714}, nous présentons la solution obtenue après
 \includegraphics[height=5cm]{ref_7369145763_enstrophy.png}
 \includegraphics[height=5cm]{ref_7369145763_conservationB.png}
 \end{center}
-\caption{Cas test des ondes de Rossby-Haurwitz, le paramètre de la Cubed-Sphere est $N=80$, le pas de temps est donné par $\CFL=0.9$. On représente les historiques des relatives sur la conservation de la masse, de l'énergie et de l'enstrophie potentielle (haut). Historique des erreurs sur la conservation de la divergence et de la vorticité (bas). La conservation de la masse et de l'énergie sont excellents, l'enstrophie potentielle est moins bien conservée mais l'erreur est semblables à l'erreur obtenue par la méthode de Galerkin ou par les volumes finis. La divergence et la vorticité sont très biens conservées grâce aux symétries de la solution.}
+\caption{Cas test des ondes de Rossby-Haurwitz, le paramètre de la Cubed-Sphere est $N=80$, le pas de temps est donné par $\CFL=0.9$. On représente les historiques des erreurs relatives sur la conservation de la masse, de l'énergie et de l'enstrophie potentielle (haut). Historique des erreurs sur la conservation de la divergence et de la vorticité (bas). La conservation de la masse et de l'énergie est excellente, l'enstrophie potentielle est moins bien conservée mais l'erreur est semblable à l'erreur obtenue par la méthode de Galerkin ou par les volumes finis. La divergence et la vorticité sont très bien conservées grâce aux symétries de la solution.}
 \label{fig: rossby conservation}
 \end{figure}
 

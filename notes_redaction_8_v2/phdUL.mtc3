@@ -1,13 +1,13 @@
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {3.1}D\IeC {\'e}finition g\IeC {\'e}om\IeC {\'e}trique de la Cubed-Sphere}{\reset@font\mtcSfont 75}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.1.1}La sph\IeC {\`e}re $\mathbb {S}_a^2$}{\reset@font\mtcSSfont 75}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.1.2}D\IeC {\'e}finition de la Cubed-Sphere}{\reset@font\mtcSSfont 77}}
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {3.2}Coordonn\IeC {\'e}es Gnomoniques}{\reset@font\mtcSfont 82}}
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {3.3}Calcul intrins\IeC {\`e}que sur la Cubed-Sphere}{\reset@font\mtcSfont 93}}
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {3.4}Harmoniques Sph\IeC {\'e}riques sur la Cubed-Sphere}{\reset@font\mtcSfont 100}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.1}Produit scalaire discret sur la Cubed-Sphere}{\reset@font\mtcSSfont 100}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.2}Harmoniques sph\IeC {\'e}riques sur la Cubed-Sphere}{\reset@font\mtcSSfont 102}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.3}Quadrature sur la sph\IeC {\`e}re}{\reset@font\mtcSSfont 106}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.4}Formules de quadrature de type trap\IeC {\`e}ze}{\reset@font\mtcSSfont 107}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.5}Formule de quadrature de type Simpson}{\reset@font\mtcSSfont 110}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.6}Formule de quadrature de type $Q_{\alpha }$}{\reset@font\mtcSSfont 111}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.7}R\IeC {\'e}sultats num\IeC {\'e}riques pour les formules de quadratures}{\reset@font\mtcSSfont 115}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {3.1}D\IeC {\'e}finition g\IeC {\'e}om\IeC {\'e}trique de la Cubed-Sphere}{\reset@font\mtcSfont 77}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.1.1}La sph\IeC {\`e}re $\mathbb {S}_a^2$}{\reset@font\mtcSSfont 77}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.1.2}D\IeC {\'e}finition de la Cubed-Sphere}{\reset@font\mtcSSfont 79}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {3.2}Coordonn\IeC {\'e}es Gnomoniques}{\reset@font\mtcSfont 84}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {3.3}Calcul intrins\IeC {\`e}que sur la Cubed-Sphere}{\reset@font\mtcSfont 95}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {3.4}Harmoniques Sph\IeC {\'e}riques sur la Cubed-Sphere}{\reset@font\mtcSfont 102}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.1}Produit scalaire discret sur la Cubed-Sphere}{\reset@font\mtcSSfont 102}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.2}Harmoniques sph\IeC {\'e}riques sur la Cubed-Sphere}{\reset@font\mtcSSfont 104}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.3}Quadrature sur la sph\IeC {\`e}re}{\reset@font\mtcSSfont 108}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.4}Formules de quadrature de type trap\IeC {\`e}ze}{\reset@font\mtcSSfont 109}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.5}Formule de quadrature de type Simpson}{\reset@font\mtcSSfont 112}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.6}Formule de quadrature de type $Q_{\alpha }$}{\reset@font\mtcSSfont 114}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {3.4.7}R\IeC {\'e}sultats num\IeC {\'e}riques pour les formules de quadratures}{\reset@font\mtcSSfont 117}}

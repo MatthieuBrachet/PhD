@@ -24,7 +24,7 @@ if test == 0
     vt(:,:,3)=uu.*elambda_z + vv.*eteta_z;
 
     %% integrale
-    nnn=1000;
+    nnn=10000;
     a=0;
     b=teta;
     h=(b-a)/nnn;

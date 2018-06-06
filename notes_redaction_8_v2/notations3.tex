@@ -118,7 +118,7 @@ Si $A$ est symétrique, l'identité suivante est vérifiée
 \begin{equation}
 |A|_2 = \rho(A) = \max \left\lbrace |\lambda| \text{ tels que } \lambda \in \Sp (A) \right\rbrace,
 \end{equation}
-$\rho(A)$ est le \textit{rayon spectrale} de $A$.
+$\rho(A)$ est le \textit{rayon spectral} de $A$.
 De plus, on note également
 \begin{equation}
 |U|_{\infty} = \max_{1 \leq j \leq N+1} |U_j|.
@@ -140,7 +140,7 @@ u^*_j = u^*(x_j) \text{ pour } 0 \leq j \leq N-1.
 \end{equation}
 \end{enumerate}
 
-Nous distinguons $l^2_h$, l'espace des fonctions de grilles d'une part, et d'autres part l'espace vectoriel $\mathbb{R}^{N+1}$ même si ces deux espaces sont isomorphes.
+Nous distinguons $l^2_h$, l'espace des fonctions de grilles d'une part, et d'autre part l'espace vectoriel $\mathbb{R}^{N+1}$ même si ces deux espaces sont isomorphes.
 
 Cette distinction permet de faire une claire différence entre :
 \begin{itemize}
@@ -335,7 +335,7 @@ pour $-N/+1 \leq k \leq N/2$, les racines $N-$ièmes de l'unité.
 \begin{equation}
 \tau = \gsum_{k = -N/2+1}^{N/2} \omega^k p_k
 \end{equation}
-où $p_k$ est le projecteur orthogonale sur $\Vect (\mathfrak{u}^k)$. Pour tout $\mathfrak{v} \in l^2_{h,\per}$ et $-N/2+1 \leq k \leq N/2$, on a
+où $p_k$ est le projecteur orthogonal sur $\Vect (\mathfrak{u}^k)$. Pour tout $\mathfrak{v} \in l^2_{h,\per}$ et $-N/2+1 \leq k \leq N/2$, on a
 \begin{equation}
 p_k \mathfrak{v} = (\mathfrak{v},\mathfrak{u}^k)_{h,\per}\mathfrak{u}^k.
 \label{eq:projecteurspectrale}
@@ -486,7 +486,7 @@ Dans cette section on s'intéresse à une approximation symétrique de $\partial
 \delta_{2J,x} = \gsum_{p=1}^J a_p \dfrac{\tau_p - \tau_{-p}}{2 p h}
 \label{eq:explicite_dx}
 \end{equation}
-C'est le type d'opérateur dont nous aurons besoin dans la suite pour la calcul approché d'opérateurs sphériques.
+C'est le type d'opérateur dont nous aurons besoin dans la suite pour le calcul approché d'opérateurs sphériques.
 
 Cette question est classique en analyse numérique. Elle est abordée dans des références classiques telles que \cite{Ames2014, Collatz2012, Kopal1955}. En mathématiques, on cite en particulier \cite{Collatz2012, Kopal1955} ou en mécanique des fluides numériques \cite{Hirsch2007}.
 
@@ -537,7 +537,7 @@ et également :
 \begin{equation}
 u(x_j-h) = u(x_j) - h \partial_x u(x_j) + \dfrac{h^2}{2} \partial_x^{(2)} u(x_j) - \dfrac{h^3}{6} \partial_x^{(3)} u(\xi) \text{ avec } \xi \in ]x_{j-1}, x_{j}[.
 \end{equation}
-Alors par différence, on obtiens : 
+Alors par différence, on obtient : 
 \begin{equation}
 \delta_x u^*_j = \partial_x u(x_j) + \dfrac{h^2}{12} \left[ \partial_x^{(3)} u(\xi) + \partial_x^{(3)} u (\eta) \right]  \text{ avec } \xi, \eta \in ]x_{j-1}, x_{j+1}[.
 \end{equation}
@@ -582,7 +582,7 @@ D'une part, par développement de Taylor, on a
 2h \sigma_x f^*_j = 2h f(x_j) + \dfrac{h}{3}\partial_x^{(2)}f(x_j) + \dfrac{h^5}{72} \left( \partial_x^{(4)}f(\xi) + \partial_x^{(4)}f(\eta) \right) 
 \end{equation}
 avec $\xi \in ]x_{j-1}, x_j[$ et $\eta \in ]x_j, x_{j+1}[$.
-D'autres part, au voisinage $]x_{j-1}, x_{j+1}[$ de $x_j$ et en posant $t=x-x_j$, on a 
+D'autre part, au voisinage $]x_{j-1}, x_{j+1}[$ de $x_j$ et en posant $t=x-x_j$, on a 
 \begin{equation}
 f(x) = f(x_j) + t \partial_x f(x_j) + \dfrac{t^2}{2} \partial_x^{(2)} f(x_j) + \dfrac{t^3}{6} \partial_x^{(3)} f(x_j) + \dfrac{t^4}{24} \partial_x^{(4)} f(\omega)
 \end{equation}
@@ -878,7 +878,7 @@ D'une part, d'après le théorème \ref{th:consistance_delta_x_explicite} on a
 \begin{equation}
 (\partial_x u^k)^* - \delta_{2J,x}(u^k)^* = \mathcal{O}(h^{2J}).
 \end{equation}
-D'autres part, on rappelle que la fonction $u^k$ et la fonction de grille $\mathfrak{u}^k$ sont liées par
+D'autre part, on rappelle que la fonction $u^k$ et la fonction de grille $\mathfrak{u}^k$ sont liées par
 \begin{equation}
 u^k = \sqrt{h} \mathfrak{u}^k.
 \end{equation}
@@ -909,7 +909,7 @@ Q_{2J} \left( \exp ( i 0 ) \right) & = \gsum_{p=1}^J a_p \dfrac{\exp ( i p 0 ) -
 ainsi que 
 \begin{align*}
 Q_{2J} \left( \exp ( i \pi ) \right)& = i \sin \pi \gsum_{p=1}^J \dfrac{a_p}{p} U_p (\cos \pi) \\
-	& = i 0 \gsum_{p=1}^J \dfrac{a_p}{p} U_p (1) \\
+	& = i 0 \gsum_{p=1}^J \dfrac{a_p}{p} U_p (-1) \\
 	& = 0,
 \end{align*}
 ce qui conclut la démonstration.
@@ -930,10 +930,10 @@ est $2 \pi -$périodique et impaire. De plus, en tenant compte de la proposition
 
 On s'intéresse à présent à la version matricielle de l'opérateur $\delta_{2J,x}$. On définit $D_{2J} \in \mathbb{M}_N(\mathbb{R})$ la matrice associée à l'opérateur $\delta_{2J,x}$ :
 \begin{equation}
-D_{2J} = \dfrac{1}{h} Q_{2J}(T)
+D_{2J} = \dfrac{1}{h} Q_{2J}(T).
 \label{eq:matrice_explicite}
 \end{equation}
-pour toute fonction de grille $\mathfrak{u} \in l^2_{h,\per}$, la relation suivante est vérifiée
+Pour toute fonction de grille $\mathfrak{u} \in l^2_{h,\per}$, la relation suivante est vérifiée
 \begin{equation}
 \vec(\delta_{2J,x} \mathfrak{u}) = D_{2J} \cdot \vec ( \mathfrak{u} ).
 \end{equation}
@@ -1077,7 +1077,7 @@ avec $\xi \in ]x_j, x_j+ph[$ et $\eta \in ]x_j-ph, x_j[$. En combinant ces deux 
 \dfrac{\tau_p u^*_j - \tau_{-p} u^*_j}{2ph} = \partial_x u(x_j) + \cdots + \dfrac{(ph)^{k-1}(1 - (-1)^k)}{2 \cdot k!} \partial_x^{(k)}u(x_j) + \cdots +\dfrac{(ph)^{2J+2}}{2(2J+3)!} \left( \partial_x^{(2J+3)}u(\xi) + \partial_x^{(2J+3)}u(\eta) \right).
 \label{eq:preuve_herm1}
 \end{equation}
-D'autres part, on a 
+D'autre part, on a 
 \begin{multline}
 (1-2\beta) \partial_x u^*_j + \beta \left( \tau_1 \partial_xu^*_{j} + \tau_{-1} \partial_xu^*_{j} \right) = \\
  \partial_x u^*_j +  \gsum_{k=1}^{2J+1} \beta \dfrac{h^{k}}{k!} \left( 1 + (-1)^k \right) \partial_x^{(k+1)}u(x_j)+ \beta \dfrac{h^{2J+2}}{(2J+2)!} \left(\partial_x^{(2J+3)}u(\varrho_p) + \partial_x^{(2J+3)}u(\sigma_p) \right) 
@@ -1107,7 +1107,7 @@ avec $-N/2+1 \leq k \leq N/2$. L'espace propre associé est $\Vect ( \mathfrak{u
 \begin{proof}
 Il s'agit d'une conséquence de la proposition \ref{prop:eigen_Ptau} appliqué au polynôme $R$.
 \end{proof}
-Dans la suit, nous aurons besoin d'inverser l'opérateur $\sigma_x$. La propriété suivante permet de s'assurer de son inversibilité.
+Dans la suite, nous aurons besoin d'inverser l'opérateur $\sigma_x$. La propriété suivante permet de s'assurer de son inversibilité.
 \begin{corollaire}
 L'opérateur $\sigma_x$ est inversible si
 \begin{equation}
@@ -1187,17 +1187,18 @@ Notons la fraction rationnelle $Q_{2J+2}^H \in \mathbb{R}(X)$ telle que
 Q_{2J+2}^H(X) = \dfrac{Q_{2J}(X)}{R(X)} = \dfrac{\gsum_{p=1}^J \dfrac{a_p}{2p} (X^p - X^{N-p})}{(1-2\beta) + \beta ( X + X^{N-1})}.
 \label{eq:pol_hermitien}
 \end{equation}
+\textbf{Exemples : }
 \begin{itemize}
-\item \textbf{Exemple 1 :} $Q_4^H(X)$ est donné par
+\item $Q_4^H(X)$ est donné par
 \begin{equation}
 Q_4^H(X) = \dfrac{X-X^{N-1}}{\dfrac{4}{3} + \dfrac{1}{3}(X+X^{N-1})},
 \label{eq:polhermi4}
 \end{equation}
-\item \textbf{Exemple 2 :} $Q_6^H(X)$ est donné par
+\item $Q_6^H(X)$ est donné par
 \begin{equation}
 Q_6^H(X) = \dfrac{\dfrac{5}{12}(X-X^{N-1}) + \dfrac{1}{24}(X^2-X^{N-2})}{\dfrac{1}{2} + \dfrac{1}{4}(X+X^{N-1})},
 \end{equation}
-\item \textbf{Exemple 3 :} $Q_8^H(X)$ est donné par
+\item $Q_8^H(X)$ est donné par
 \begin{equation}
 Q_8^H(X) = \dfrac{\dfrac{25}{56}(X-X^{N-1}) + \dfrac{4}{140}(X^2-X^{N-2}) - \dfrac{1}{840}(X^3-X^{N-3})}{\dfrac{4}{7} + \dfrac{3}{14}(X+X^{N-1})}.
 \end{equation}
@@ -1219,7 +1220,7 @@ où $-N/2+1 \leq k \leq N/2$. L'espace propre associé à $\dfrac{1}{h} Q_{2J+2}
 \end{proposition}
 
 \begin{proposition}
-Si les coefficient $(a_p)_{1 \leq p \leq J}$ et $\beta$ sont solutions du système \eqref{eq:hermitian_system}. Alors pour $k \in \mathbb{N}$ fixé et $h=L/N$ on a
+Si les coefficient $(a_p)_{1 \leq p \leq J}$ et $\beta$ sont solutions du système \eqref{eq:hermitian_system}, alors pour $k \in \mathbb{N}$ fixé et $h=L/N$ on a
 \begin{equation}
 \dfrac{2 i \pi k}{N} - Q_{2J+2}^H \left( \exp \left( \dfrac{2 i \pi k}{N} \right) \right) = \mathcal{O}(h^{2J+3}).
 \end{equation}
@@ -1340,7 +1341,7 @@ La matrice $P^{-1}_{\sigma}D_{2J}$ est antisymétrique.
 \begin{proof}
 Par calcul immédiat, on a :
 \begin{equation}
-(P^{-1}_{\sigma}D_{2J})^T = D_{2J}^T P_{\sigma}^{-T} = - D_{2J} P_{\sigma}^{-1} = - P_{\sigma}^{-1} D_{2J}.
+(P^{-1}_{\sigma}D_{2J})^T = D_{2J}^T P_{\sigma}^{-T} = - D_{2J} P_{\sigma}^{-1} = - P_{\sigma}^{-1} D_{2J},
 \end{equation}
 car $D_{2J}$ est antisymétrique et $P_{\sigma}$ est symétrique (donc $P^{-1}_{\sigma}$ aussi). 
 \end{proof}
@@ -1488,7 +1489,7 @@ Pour $\mathfrak{u} \in l^2_{h,\per}$ fonction de grille périodique, on a
 \begin{equation}
 \mathcal{F}_{2J,x} (\mathfrak{u} )_j = \gsum_{p=0}^J a_p \dfrac{\mathfrak{u}_{j+p} + \mathfrak{u}_{j-p}}{2} \text{ avec } 0  \leq j \leq N-1.
 \end{equation}
-Soit $S_{2J} \in \mathbb{R}_{N-1}[X]$ définit par 
+Soit $S_{2J} \in \mathbb{R}_{N-1}[X]$ défini par 
 \begin{equation}
 S_{2J}(X) = \gsum_{p=0}^J a_p \dfrac{X^p + X^{N-p}}{2},
 \label{eq:pol_filtrage}
@@ -1496,11 +1497,11 @@ S_{2J}(X) = \gsum_{p=0}^J a_p \dfrac{X^p + X^{N-p}}{2},
 on a $\mathcal{F}_{2J,x}(\mathfrak{u})_j = S_{2J}(\tau)(\mathfrak{u})_j$ pour tout $0 \leq j \leq N-1$.
 
 L'opérateur $\mathcal{F}_{2J,x}$ est un opérateur d'interpolation au sens de la définition \ref{def:consistance}. C'est à dire qu'il est consistant avec l'identité.
-D'autres part, il joue le rôle d'une dissipation numérique. Cette contrainte se traduit par le fait que $\mathfrak{u}^{N/2}$, qui vérifie
+D'autre part, il joue le rôle d'une dissipation numérique. Cette contrainte se traduit par le fait que $\mathfrak{u}^{N/2}$, qui vérifie
 \begin{equation}
 \mathfrak{u}^{N/2}_j = (-1)^j \text{ pour } 0 \leq j \leq N-1,
 \end{equation}
-est inclus dans le noyaux de $\mathcal{F}_{2J,x}$ : $\mathcal{F}_{2J,x}(\mathfrak{u}^{N/2}) = \mathfrak{0}$. On note que l'on a alors
+est inclus dans le noyau de $\mathcal{F}_{2J,x}$ : $\mathcal{F}_{2J,x}(\mathfrak{u}^{N/2}) = \mathfrak{0}$. On note que l'on a alors
 \begin{equation}
 \ker (\mathcal{F}_{2J,x} ) \subset \ker (\delta_{2J,x} ) \text{ et } \ker (\mathcal{F}_{2J,x} ) \subset \ker (\delta_{2J,x}^H ).
 \end{equation}
@@ -1563,7 +1564,7 @@ L'opérateur $\mathcal{F}_{2J,x}$ est appelé filtre centré s'il s'agit d'un op
 \end{figure}
 
 \begin{proposition}
-Si les $J$ coefficients $(a_p)_{1 \leq p \leq J}$ vérifient \eqref{eq:ftr_consistance}, \eqref{eq:ftr_filtrage} et \eqref{eq:ftr_precision}, c'est a dire
+Si les $J$ coefficients $(a_p)_{1 \leq p \leq J}$ vérifient \eqref{eq:ftr_consistance}, \eqref{eq:ftr_filtrage} et \eqref{eq:ftr_precision}, c'est à dire
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -1640,7 +1641,7 @@ a_0 \\ a_1 \\ a_2 \\ a_3 \\ a_4 \\ \vdots \\ a_J
 \end{bmatrix}
 }_{= b}.
 \end{equation}
-En remplaçant la deuxième ligne par une combinaison de la première et de la deuxième ligne : $L_2 \leftarrow L_1 - L_2$, on obtiens :
+En remplaçant la deuxième ligne par une combinaison de la première et de la deuxième ligne : $L_2 \leftarrow L_1 - L_2$, on obtient :
 \begin{equation}
 \underbrace{\begin{bmatrix}
 1 & 1 & 1 & 1 & \cdots & 1\\
@@ -1754,7 +1755,7 @@ définit un opérateur de filtrage à l'ordre 8,
 définit un opérateur de filtrage à l'ordre 10.
 \end{itemize}
 
-Quelques filtres particuliers sont donnés par la Table \ref{tab:filter} en fonction de leur ordre de précision.
+La Table \ref{tab:filter} résume les valeurs de $a_p$ associées à $\mathcal{F}_{2J,x}$ pour un ordre de précision $2J$ fixé.
 \begin{table}[htbp]
 \begin{center}
 \begin{tabular}{|c||cccccc|}
@@ -1777,7 +1778,7 @@ $10$ & $772/1024$ & $420/1024$ & $-240/1024$ & $90/1024$ & $-20/1024$ & $2/1024$
 \label{tab:filter}
 \end{table}
 
-Les valeurs propres et fonctions propres de $\mathcal{F}_{x,2J}$ sont issus de la proposition \ref{prop:eigen_Ptau} appliqué au polynôme $S_{2J} \in \mathbb{R}_J [X]$ défini par \eqref{eq:pol_filtrage}.
+Les valeurs propres et fonctions propres de $\mathcal{F}_{x,2J}$ sont issues de la proposition \ref{prop:eigen_Ptau} appliquée au polynôme $S_{2J} \in \mathbb{R}_J [X]$ défini par \eqref{eq:pol_filtrage}.
 
 \begin{proposition}
 Les valeurs propres de $\mathcal{F}_{2J,x}$ sont 
@@ -1791,13 +1792,13 @@ où $-N/2+1 \leq k \leq N/2$. L'espace propre associé à $S_{2J} (\omega^k)$ es
 \begin{theoreme}
 Soit $\beta : \theta \in [0, \pi] \mapsto \beta(\theta) = \gsum_{p=0}^J a_p \cos (p \theta)$ le \textit{symbole} de l'opérateur de filtrage $\mathcal{F}_{2J,x}$, alors
 \begin{itemize}
-\item il existe un unique polynome $P \in \mathbb{R}_{J}(X)$ tel que
+\item il existe un unique polynôme $P \in \mathbb{R}_{J}(X)$ tel que
 \begin{equation}
 \beta(\theta) = P(\cos (\theta)),
 \end{equation}
-ce polynome est déterminé par
+ce polynôme est déterminé par
 \begin{equation}
-P(X) = 1 - \dfrac{1}{2^J}(1-X)^J,
+P(X) = 1 - \dfrac{1}{2^J}(1-X)^J.
 \end{equation}
 \item Pour tout $\theta \in [0, \pi]$, on a
 \begin{equation}
@@ -1813,12 +1814,12 @@ P(X) = 1 - \dfrac{1}{2^J}(1-X)^J,
 \begin{equation}
 T_p(\cos (\theta)) = \cos (p \theta).
 \end{equation}
-On a $T_p \in \mathbb{R}_p[X]$ et les $T_p$ forment une suite de polynômes de degrés croissants. Ils forment une base de $\mathbb{R}_p[X]$ et on a
+On a $T_p \in \mathbb{R}_p[X]$ et les polynômes $T_p$ forment une suite de polynômes de degrés croissants. Ils forment une base de $\mathbb{R}_p[X]$ et on a
 \begin{align*}
 \beta(\theta) & = \gsum_{p=0}^J a_p \cos (p \theta) \\
-	& = \gsum_{p=0}^J a_p T_p( \cos (\theta)),
+	& = \gsum_{p=0}^J a_p T_p( \cos (\theta)).
 \end{align*}
-ainsi il existe un polynôme $P = \gsum_{p=0}^J a_p T_p$ de degré $J$ tel que
+Ainsi il existe un polynôme $P = \gsum_{p=0}^J a_p T_p$ de degré $J$ tel que
 \begin{equation}
 \beta(\theta) = P(\cos (\theta)).
 \end{equation}
@@ -1866,7 +1867,7 @@ De plus,
 \begin{align*}
 f(\pi) & = \beta(\pi) - \left( 1-\dfrac{1}{2^J}(1 - \cos (\pi))^J \right) \\
 	& = \gsum_{p=1}^J a_p(-1)^p \\
-	& = 0,
+	& = 0.
 \end{align*}
 Comme $f \in E_J$, il existe $(f_p)_{0 \leq p \leq J}$ tels que
 \begin{equation}
@@ -1918,7 +1919,7 @@ La fonction $\theta \mapsto \beta(\theta)$ permet de considérer le comportement
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[scale=0.7]{freq_filter.png}
+\includegraphics[height=7.5cm]{freq_filter.jpg}
 \end{center}
 \caption{Fonction d'amplification $\theta \mapsto \beta(\theta)$ pour les filtres explicites d'ordre 2, 4, 6, 8 et 10.}
 \label{fig:freq_filter}
@@ -2035,7 +2036,7 @@ y_j & = & a + j h
 \end{array}\right. \text{ avec } 0 \leq i,j \leq N.
 \end{equation}
 
-Les points $(x_i,y_j)_{0 \leq i,j \leq N}$ sont de deux types (voir figure \ref{fig:maillage2D}) :
+Les points $(x_i,y_j)_{0 \leq i,j \leq N}$ sont de deux types (voir Fig. \ref{fig:maillage2D}) :
 \begin{itemize}
 \item Les points de bords $(x_i, y_j)$ avec
 \begin{equation}
@@ -2108,7 +2109,7 @@ u(x+L,y) & = & u(x,y)
 
 Les notions de fonctions de grilles sont analogues à celles vues en dimension 1 :
 \begin{enumerate}
-\item Une \textit{fonction de grille} est une fonction définie aux points de la grille $(x_i,y_j)_{0 \leq i,j \leq N}$. Nous notons les fonctions en fonte gothique comme $\mathfrak{u}$ ou $\mathfrak{v}$. On note :
+\item Une \textit{fonction de grille} est une fonction définie aux points de la grille $(x_i,y_j)_{0 \leq i,j \leq N}$. Nous notons ces fonctions en fonte gothique comme $\mathfrak{u}$ ou $\mathfrak{v}$. On note :
 \begin{equation}
 \mathfrak{u}_{i,j} = \mathfrak{u}(x_i,y_j) \text{ et }  \mathfrak{u} = \left( \mathfrak{u}_{i,j} \right)_{0 \leq i,j \leq N}.
 \end{equation}
@@ -2122,7 +2123,7 @@ De plus, pour $\mathfrak{u}$ fonction de grille, on note
 \end{equation}
 
 
-\item Soit $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$, nous définissons la fonction associée, notée $u^*$ est définie comme la restriction de $u$ à la grille :
+\item Soit $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$, nous définissons la fonction de grille associée, notée $u^*$, comme la restriction de $u$ à la grille :
 \begin{equation}
 u^*_{i,j} = u(x_i, y_j) \text{ pour tous } 0 \leq i,j \leq N.
 \end{equation}
@@ -2168,7 +2169,7 @@ On note ces vecteurs par des lettres capitales.
 %
 \subsection{Opérateurs aux différences en géométrie cartésienne}
 
-On considère dans cette section les fonctions de grille périodiques $u \in L^2_{h,\per}$. Nous définissons les opérateur agissant sur les fonctions de grilles comme suit.
+On considère dans cette section les fonctions de grille périodiques $u \in L^2_{h,\per}$. Nous définissons les opérateurs agissant sur les fonctions de grilles comme suit.
 
 \begin{definition}
 Les opérateurs $\tau_x$ et $\tau_y$ dans les directions $x$ et $y$ sont définis par
@@ -2183,7 +2184,7 @@ Les opérateurs $\tau_x$ et $\tau_y$ dans les directions $x$ et $y$ sont défini
 avec $\mathfrak{u}$ une fonction de grille et $1 \leq i,j \leq N$. Il s'agit d'\textit{opérateurs de translations} dans les directions $x$ et $y$.
 \end{definition}
 
-Les opérateurs obtenus en dimension 1 sont définis en dimension 2 grâce à ces deux opérateurs de translation. Les opérateurs centrés dans les directions $x$ et $y$ par 
+Les opérateurs obtenus en dimension 1 sont définis en dimension 2 grâce à ces deux opérateurs de translation. Les opérateurs centrés permettant d'approcher les dérivées partielles d'ordre 1 sont donnés par 
 \begin{eqsys}
 \delta_{2J,x} = \dfrac{1}{h} Q_{2J}(\tau_x) \\
 \delta_{2J,y} = \dfrac{1}{h} Q_{2J}(\tau_y).
@@ -2201,7 +2202,7 @@ De même, on définit les opérateurs dans chaque direction par
 \end{equation}
 où $R$ est donné par $R(X) = (1-2 \beta) + \beta (X+X^{N-1})$.
 Chacun des opérateurs $\sigma_x$ et $\sigma_y$ est inversible si $|\beta|<1/2$.
-L'opérateur hermitien en dimension 1 : $\delta_x^H$ est étendue en dimension 2 grâce à la relation suivante 
+L'opérateur hermitien en dimension 1 : $\delta_x^H$ est étendu en dimension 2 grâce à la relation suivante 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -2434,10 +2435,10 @@ U_y & = (P_{\sigma} \otimes I_N)^{-1}(D_{2J} \otimes \I_N) U \\
 	& = (P^{-1}_{\sigma} D_{2J} \otimes \I_N^{-1}\I_N) U \\
 	& = (P^{-1}_{\sigma} D_{2J} \otimes \I_N) U.
 \end{align*}
-La seconde égalité est obtenue de la meme manière.
+La seconde égalité est obtenue de la même manière.
 \end{proof}
 
-Les matrices $(Id \otimes P^{-1}D_{2P})$ et $(P^{-1}D_{2P} \otimes Id)$ sont antisymétrique.
+Les matrices $(Id \otimes P^{-1}D_{2P})$ et $(P^{-1}D_{2P} \otimes Id)$ sont antisymétriques.
 
 \begin{proposition}
 Les valeurs propres de $\delta_{2J+2,x}$ et de $\delta_{2J+2,y}$ sont
@@ -2468,7 +2469,7 @@ Dans cette partie, nous utilisons les notations de la section \ref{sec:notation_
 \left\lbrace
 \begin{array}{rcl}
 \mathcal{F}_{2J,x} & = & \gsum_{p=0}^J a_p \dfrac{\tau_x^p + \tau_x^{-p}}{2}  = S_{2J}(\tau_x), \\
-\mathcal{F}_{2J,y} & = & \gsum_{p=0}^J a_p \dfrac{\tau_y^p + \tau_y^{-p}}{2} = S_{2J}(\tau_y).
+\mathcal{F}_{2J,y} & = & \gsum_{p=0}^J a_p \dfrac{\tau_y^p + \tau_y^{-p}}{2} = S_{2J}(\tau_y),
 \end{array}
 \right.
 \end{equation}
@@ -2478,7 +2479,7 @@ Les coefficients $(a_p)_{0 \leq p \leq J}$ vérifient le système \eqref{eq:syst
 \mathcal{F}_{2J,x} \circ \mathcal{F}_{2J,y} = \mathcal{F}_{2J,y} \circ \mathcal{F}_{2J,x}.
 \end{equation}
 La proposition \ref{prop:filter_def} permet de vérifier la consistance des opérateurs de filtrages.
-Si $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$ est fonction de $\mathcal{C}^{2F}$ alors :
+Si $u : (x,y) \in \Omega \mapsto u(x,y) \in \mathbb{R}$ est une fonction de $\mathcal{C}^{2J}$ alors :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -2501,7 +2502,7 @@ Soit $\mathfrak{u} \in L^2_{h,\per}$ une fonction de grille. Alors les opérateu
 \left\lbrace
 \begin{array}{rcl}
 \text{vec} (\mathcal{F}_{2J,x} \mathbf{u}) & = & (\I_N \otimes M_{2J}) \text{vec} (\mathbf{u})\\
-\text{vec} (\mathcal{F}_{2J,y} \mathbf{u}) & = & (M_{2J} \otimes \I_N) \text{vec} (\mathbf{u})\\
+\text{vec} (\mathcal{F}_{2J,y} \mathbf{u}) & = & (M_{2J} \otimes \I_N) \text{vec} (\mathbf{u}).
 \end{array}
 \right.
 \end{equation}

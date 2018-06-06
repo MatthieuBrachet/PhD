@@ -1,6 +1,5 @@
 clc; clear all; close all;
 format long;
-global dxi deta dga;
 global x_fI y_fI z_fI;
 global x_fII y_fII z_fII;
 global x_fIII y_fIII z_fIII;
@@ -8,7 +7,7 @@ global x_fIV y_fIV z_fIV;
 global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
 tol=.01;
-NN=[1 2 3 4 5];
+NN=[1 2 3 4];
 for paramN=1:length(NN)
     N=NN(paramN);
     
@@ -38,7 +37,7 @@ for paramN=1:length(NN)
         end
     end
 
-    rang(paramN)=rank(A,tol);
+    rang(paramN)=rank(A',tol);
     rangmax(paramN)=kN;
 end
 

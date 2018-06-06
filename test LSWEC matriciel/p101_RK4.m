@@ -23,13 +23,13 @@ global opt_ftr test scheme detec
 global hp gp u0 radius omega
 global teta0 teta1
 
-test=1;
+test=0;
 video = 'no';
 sauvegarde = 1;
 opt_ftr='redonnet10';
 type_ftr='symetric';
 scheme='compact4';
-n=255;
+n=63;
 mod101
 
 teta0=-pi/3;
@@ -42,7 +42,7 @@ c=max(cgrav,ccor);
 cfl=0.9;
 ddt=radius*dxi*cfl/c;
 ndaymax=5;
-Tmax=3600*1.5;%ndaymax*3600*24;
+Tmax=ndaymax*3600*24;
 itermax=100000;
 
 %% *** initialisation des données

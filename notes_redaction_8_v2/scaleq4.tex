@@ -3,7 +3,7 @@
 \chapter{Equations d'advection sphériques}
 \label{chap:advection}
 
-\section{Equations d'advection linéaire sur la sphère}
+\section{Equations d'advection linéaires sur la sphère}
 
 Dans cette section, on s'intéresse à l'équation d'advection \eqref{eq:advection_sphere} :
 \begin{equation}
@@ -15,7 +15,7 @@ h(0,\mathbf{x}) & = & h_0(\mathbf{x})
 \right. \text{ pour tout } \mathbf{x} \in \mathbb{S}_a^2 \text{ et } t \geq 0,
 \label{eq:advection_sphere}
 \end{equation}
-sur la sphère $\mathbb{S}_a^2$, le rayon terrestre est $a = 6 371 220 \si{m}$.
+sur la sphère $\mathbb{S}_a^2$. Le rayon terrestre est $a = 6 371 220 \si{m}$.
 La fonction $\mathbf{c} : (t,\mathbf{x}) \in \mathbb{R}^+ \times \mathbb{S}_a^2 \mapsto \mathbf{c}(t,\mathbf{x}) \in \mathbb{T}_{\mathbf{x}} \mathbb{S}_a^2$ désigne un champ de vecteurs tangents à la sphère $\mathbb{S}_a^2$.
 
 \subsection{Résolution numérique}
@@ -58,7 +58,7 @@ où $l \in \left\lbrace 1, 2, \infty \right\rbrace$ et $\| \cdot \|_l$ désigne 
 \begin{equation}
 \| \mathfrak{q} \|_l = \left( Q(|\mathfrak{q}|^l ) \right)^{1/l} \text{ avec } l=1,2
 \end{equation}
-et $Q$ l'un opérateur de quadrature numérique introduit dans \cite{Portelenelle2018}. Pour la norme $\| \cdot \|_{\infty}$, on note
+et $Q$ un opérateur de quadrature numérique introduit dans \cite{Portelenelle2018}, $Q= Q_{1/3}$. Pour la norme $\| \cdot \|_{\infty}$, on note
 \begin{equation}
 \|  \bq \|_{\infty} = \max_{-N/2 \leq i,j \leq N/2} \max_{(k) = (I) ... (VI)} |\mathfrak{q}_{i,j}^{(k)}|,
 \end{equation}
@@ -88,7 +88,7 @@ la valeur de $u_0$ est donnée par le contexte lors du test effectué.
 
 On considère d'abord le test numéro 1 de \cite{Williamson1992}. Il s'agit d'une rotation sans déformation de la condition initiale au cours du temps autour d'un axe incliné.
 
-On considère $(\lambda, \theta)$ les coordonnées longitude-latitude associées au un pôle Nord noté $\mathbf{N}$ et $(\lambda', \theta')$ les coordonnées longitude-latitude associées à un pôle Nord déplacé en $\mathbf{P}$ de coordonnées $(\lambda_P, \theta_P)$. La proposition suivante énonce le lien entre $(\lambda, \theta)$ et $(\lambda', \theta')$ :
+On considère $(\lambda, \theta)$ les coordonnées longitude-latitude associées au pôle Nord noté $\mathbf{N}$ et $(\lambda', \theta')$ les coordonnées longitude-latitude associées à un pôle Nord déplacé en $\mathbf{P}$ de coordonnées $(\lambda_P, \theta_P)$. La proposition suivante énonce le lien entre $(\lambda, \theta)$ et $(\lambda', \theta')$ :
 
 \begin{proposition}
 Le changement de variables $(\lambda, \theta) \mapsto (\lambda', \theta')$ est donné par :
@@ -114,7 +114,7 @@ Le changement de variables inverse $(\lambda', \theta')\mapsto (\lambda, \theta)
 \end{proposition}
 
 \begin{proof}
-Un point $\mathbf{x} \in \mathbb{S}_a^2$ a pour coordonnées $(\lambda, \theta)$ en longitude-latitude associées au pôle Nord et $(\lambda', \theta')$ en coordonnées latitude-longitude associées à un pôle déplacé en $P$. Le lien entre ces coordonnées se fait par rotation successives.
+Un point $\mathbf{x} \in \mathbb{S}_a^2$ a pour coordonnées $(\lambda, \theta)$ en longitude-latitude associées au pôle Nord et $(\lambda', \theta')$ en coordonnées latitude-longitude associées à un pôle déplacé en $P$. Le lien entre ces coordonnées se fait par rotations successives.
 En considérant les rotations liées au changement de pôle Nord, on a
 \begin{align}
 \begin{bmatrix}
@@ -265,7 +265,7 @@ X(0) & = & \mathbf{x}_0 = (\lambda_0, \theta_0).
 \end{equation}
 D'après le théorème de Cauchy-Lipschitz, il existe une telle courbe $X$ solution maximale.
 
-Si $h$ est solution de \eqref{eq:advection_sphere}, $h$ est constante le long de $X$, en effet
+Si $h$ est solution de \eqref{eq:advection_sphere}, $h$ est constante le long de $X$. En effet
 \begin{align*}
 \dfrac{dh}{dt}(X(t),t) & = \dfrac{\partial h}{\partial t} (X(t),t) + \dfrac{d X}{dt}(t) \cdot \nabla_T h(X(t),t) \\
 & = \dfrac{\partial h}{\partial t} (X(t),t) + \mathbf{c}(X(t)) \cdot \nabla_T h(X(t),t) \\
@@ -328,7 +328,7 @@ R_{-t} = \begin{bmatrix}
 0 & 0 & 1
 \end{bmatrix}
 \end{equation}
-et $\mathbf{x}$ est un point de la sphère $\mathbb{S}_a^2$.
+, où $\omega_s = u_0/a$ et $\mathbf{x}$ est un point de la sphère $\mathbb{S}_a^2$.
 \end{theoreme}
 
 \begin{proof}
@@ -366,7 +366,7 @@ h(\mathbf{x},t) & = g(P_{\alpha} \mathbf{x}, t) \\
 ce qui conclut la preuve.
 \end{proof}
 
-Le test numéro 1 présenté dans \cite{Williamson1992} consite à comparer la solution numérique obtenue pour la résolution de \eqref{eq:advection_sphere} avec le champ de vitesse $\mathbf{c}$ donné par \eqref{eq:rot_solide_1} et la donnée initiale donnée par la fonction localisée :
+Le test numéro 1 présenté dans \cite{Williamson1992} consiste à comparer la solution numérique obtenue pour la résolution de \eqref{eq:advection_sphere} avec le champ de vitesse $\mathbf{c}$ donné par \eqref{eq:rot_solide_1} et la donnée initiale donnée par la fonction localisée :
 \begin{equation}
 h_0(\lambda, \theta) = \left\lbrace
 \begin{array}{ccl}
@@ -380,7 +380,7 @@ avec $h_0 = 1000 \si{m}$ et $R=a/3$. La fonction $r$ représente la distance sur
 \begin{equation}
 r = a \arccos \left( \sin \theta_C \sin \theta + \cos \theta_C \cos \theta \cos (\lambda - \lambda_C) \right),
 \end{equation}
-$(\lambda_C, \theta_C) = (3 \pi / 2 , 0)$ est la position initiale du Bump. Il s'agit d'une condition initiale de classe $\mathcal{C}^1$, elle n'est pas de classe $\mathcal{C}^2$. Des tests existent avec des solutions initiales moins régulières (voir \cite{Nair2010}), mais ici, nous nous limitons à \eqref{eq:initial_solid_body}.
+$(\lambda_C, \theta_C) = (3 \pi / 2 , 0)$ est la position initiale du Bump. Dans ce test, on a $\omega_s = u_0/a = 2 \pi/12$ jours$^{-1}$. Il s'agit d'une condition initiale de classe $\mathcal{C}^1$, elle n'est pas de classe $\mathcal{C}^2$. Dans les sections \ref{sec:propag_vortex}, les tests sont consacrés à des solutions plus régulières. Des tests existent avec des solutions initiales moins régulières (voir \cite{Nair2010}), mais ici, nous nous limitons à \eqref{eq:initial_solid_body}.
 
 Les Tables \ref{tab:rate1_bump} et \ref{tab:rate2_bump} donnent l'erreur obtenue sur 12 jours avec différentes tailles de grilles avec $\alpha=0$ et $\alpha = \pi/4$. Le taux de convergence est compris entre $1.5$ et $2.5$. La convergence d'ordre $3$ au moins était attendue en supposant la solution suffisamment régulière ce qui n'est pas le cas ici puisque la solution est seulement de classe $\mathcal{C}^1$.
 
@@ -405,7 +405,7 @@ $150$  & $1.6538 (-3)$ & $1.4917 (-3)$ & $2.2885 (-3)$ \\
 \hline
 \end{tabular}
 \end{center}
-\caption{Erreur et taux de convergence pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = 0$ et $\CFL = 0.7$.}
+\caption{Erreur et taux de convergence pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = 0$ et $\CFL = 0.7$. Le filtre utilisé est le filtre d'ordre 10.}
 \label{tab:rate1_bump}
 \end{table} 
 
@@ -428,7 +428,7 @@ $150$  & $1.4922 (-3)$ & $1.3019 (-3)$ & $1.6341 (-3)$ \\
 \hline
 \end{tabular}
 \end{center}
-\caption{Erreur et taux de convergence pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = \pi / 4$ et $\CFL = 0.7$.}
+\caption{Erreur et taux de convergence pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = \pi / 4$ et $\CFL = 0.7$. Le filtre utilisé est le filtre d'ordre 10.}
 \label{tab:rate2_bump}
 \end{table} 
 
@@ -437,7 +437,7 @@ $150$  & $1.4922 (-3)$ & $1.3019 (-3)$ & $1.6341 (-3)$ \\
 \includegraphics[height=5cm]{rate_bump_0.png}
 \includegraphics[height=5cm]{rate_bump_pi4.png}
 \end{center}
-\caption{Taux de convergence pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en normes $\| \cdot\|_1$, $\| \cdot\|_2$ et $\| \cdot\|_{\infty}$ en fonction de $\Delta = a \Delta \xi$ pour $\alpha = 0$ (gauche) et $\alpha = \pi / 4$ (droite) et $\CFL = 0.7$. Le taux de convergence est quasiment identique pour $\alpha = \pi/4$ et $\alpha=0$.}
+\caption{Taux de convergence pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en normes $\| \cdot\|_1$, $\| \cdot\|_2$ et $\| \cdot\|_{\infty}$ en fonction de $\Delta = a \Delta \xi$ pour $\alpha = 0$ (gauche) et $\alpha = \pi / 4$ (droite) et $\CFL = 0.7$. Le taux de convergence est quasiment identique pour $\alpha = \pi/4$ et $\alpha=0$. Le filtre utilisé est le filtre d'ordre 10.}
 \label{fig:rate_bump}
 \end{figure}
 
@@ -446,7 +446,7 @@ $150$  & $1.4922 (-3)$ & $1.3019 (-3)$ & $1.6341 (-3)$ \\
 \includegraphics[height=5cm]{ref_7371377001_normerreur_test_0.png}
 \includegraphics[height=5cm]{ref_7371377001_erreur_test_0.png}
 \end{center}
-\caption{Erreur relative pour l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = \pi/4$ (gauche) et localisation spatiale de l'erreur au temps $t=12$ jours (droite) avec $\CFL = 0.7$ et $N=40$.}
+\caption{Erreur relative pour l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = \pi/4$ (gauche) et localisation spatiale de l'erreur au temps $t=12$ jours (droite) avec $\CFL = 0.7$ et $N=40$. Le filtre utilisé est le filtre d'ordre 10.}
 \label{fig:erreur_bump}
 \end{figure}
 
@@ -470,11 +470,11 @@ $\CFL$ & $\alpha$ & \cite{Ullrich2010} & Algo. \ref{alg:RK4_transportSa} & \cite
 \hline 
 \end{tabular} 
 \end{center}
-\caption{Erreur relative pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = \pi / 4$ et $\CFL = u_0 \Delta t / a \Delta \xi$. Les résultats obtenus sont pratiquement identiques à ceux obtenus par volumes finis d'ordre 4 dans \cite{Ullrich2010}. Le paramètre de grille est $N=40$.}
+\caption{Erreur relative pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = \pi / 4$ ainsi que $\alpha=0$. Le pas de temps est issu de la condition $\CFL = u_0 \Delta t / a \Delta \xi$. Les résultats obtenus sont pratiquement identiques à ceux obtenus par volumes finis d'ordre 4 dans \cite{Ullrich2010}. Le paramètre de grille est $N=40$.}
 \label{tab:comp_ullrich_bump}
 \end{table} 
 
-Pour analyser l'effet dissipatif de l'opérateur de filtrage, on compare la valeur du maximum de $h_0$ pour différents opérateurs de filtrages. Les résultats sont donnés sur la Table \ref{tab:max_bump} et sur la Figure \ref{fig:max_bump}. On constate qu'un filtre d'ordre 2 est trop dissipatif et ne permet pas de conserver correctement la hauteur de $h$. Le filtre d'ordre 10 donne de bons résultats. On note sur la Figure \ref{fig:parasite_bump} que sans filtrage, des oscillations parasites apparaissent et perturbent le calcul.
+Pour analyser l'effet dissipatif de l'opérateur de filtrage, on compare la valeur du maximum de $h_0$ pour différents opérateurs de filtrage. Les résultats sont donnés sur la Table \ref{tab:max_bump} et sur la Figure \ref{fig:max_bump}. On constate qu'un filtre d'ordre 2 est trop dissipatif et ne permet pas de conserver correctement la hauteur de $h$. Le filtre d'ordre 10 donne de bons résultats. On note sur la Figure \ref{fig:parasite_bump} que sans filtrage, des oscillations parasites apparaissent et perturbent le calcul.
 
 \begin{table}[htbp]
 \begin{center}
@@ -511,7 +511,7 @@ Filtre d'ordre $2$ & $47.52$ & $91.45$ & $170.70$ \\
 \includegraphics[height=5cm]{ref_7371377627_solapprochee_test_0.png}
 \includegraphics[height=5cm]{ref_7371377627_erreur_test_0.png}
 \end{center}
-\caption{Calcul de la solution au temps $t=12$ jours sans opérateur de filtrage avec $N=40$ et $\CFL = 0.7$. Solution obtenue (gauche), erreur $\bh^n - h(t^n,\cdot)^*$ (droite) lorsque $\alpha = \pi/4$. On observe que sans filtrage, des oscillations sont présentes alors qu'elles ne le sont pas lorsque le filtrage est présent (Voir Fig. \ref{fig:erreur_bump}).}
+\caption{Calcul de la solution au temps $t=12$ jours sans opérateur de filtrage avec $N=40$ et $\CFL = 0.7$. Solution obtenue (gauche), erreur $\bh^n - h(t^n,\cdot)^*$ (droite) lorsque $\alpha = \pi/4$. On observe que sans filtrage, des oscillations sont présentes alors qu'elles ne le sont pas lorsque le filtrage est présent (voir Fig. \ref{fig:erreur_bump}).}
 \label{fig:parasite_bump}
 \end{figure}
 
@@ -523,6 +523,7 @@ Filtre d'ordre $2$ & $47.52$ & $91.45$ & $170.70$ \\
 
 
 \subsection{Propagation d'un vortex}
+\label{sec:propag_vortex}
 
 \subsubsection{Vortex statique}
 
@@ -543,7 +544,7 @@ v_r(\lambda, \theta) & = & a \omega_r (\theta') \left[\cos \theta_C \sin (\lambd
 \end{array}
 \right.
 \end{equation}
-où $(\lambda', \theta')$ sont les coordonnées longitude-latitude associées à la au pôle Nord placé en $(\lambda_C, \theta_C)$. On déduit ces valeurs grâce aux équations \eqref{from classic to prime}.
+où $(\lambda', \theta')$ sont les coordonnées longitude-latitude associées au pôle Nord placé en $(\lambda_C, \theta_C)$. On déduit ces valeurs grâce aux équations \eqref{from classic to prime}.
 La vitesse de rotation du vortex est définie par $a \omega_r(\theta')$ avec la fonction $\omega_r$ définie par
 \begin{equation}
 \omega_r(\theta') = \left\lbrace
@@ -583,7 +584,7 @@ $150$  & $1.1105 (-6)$ & $5.7646 (-6)$ & $6.2903 (-5)$ \\
 \hline
 \end{tabular}
 \end{center}
-\caption{Erreur et taux de convergence pour le test du vortex stationnaire sur 12 jours pour l'équation \eqref{eq:advection_sphere} en normes $\| \cdot\|_1$, $\| \cdot\|_2$ et $\| \cdot\|_{\infty}$, $\CFL = 0.7$ \cite{Nair2002}. Le vortex est localisé en $(\lambda_C, \theta_C)=(\pi /4 , \pi /4)$. La convergence se fait à un ordre proche supérieur ou égal à $5$.}
+\caption{Erreur et taux de convergence pour le test du vortex stationnaire sur 12 jours pour l'équation \eqref{eq:advection_sphere} en normes $\| \cdot\|_1$, $\| \cdot\|_2$ et $\| \cdot\|_{\infty}$, $\CFL = 0.7$ \cite{Nair2002}. Le vortex est localisé en $(\lambda_C, \theta_C)=(\pi /4 , \pi /4)$. La convergence se fait à un ordre supérieur ou égal à $5$.}
 \label{tab:rate1_NM}
 \end{table} 
 
@@ -595,14 +596,14 @@ $150$  & $1.1105 (-6)$ & $5.7646 (-6)$ & $6.2903 (-5)$ \\
 \label{fig:rate1_NM}
 \end{figure} 
 
-Sur une grille grossière ($N=36$ correspondant à l'équateur à $\Delta \lambda = 2.5$deg.), on compare l'erreur au cours du temps pour deux pas de temps. Les résultats sont donnés sur la Figure \ref{fig:cfl_NM}. Lorsque $\CFL = u_0 \Delta t / a \Delta \xi = 0.5$, il y a 288 itérations pour arriver au temps finale. Lorsque $\CFL = u_0 \Delta t / a \Delta \xi = 0.05$, il y a 2880 itérations. Les erreurs obtenues sont tout a fait comparables à celles obtenues par la méthode de Galerkin Discontinu \cite{Nair2008}. Avec 288 itérations, les erreurs spatiales et temporelles sont observées simultanément. L'erreur est sensiblement meilleure lorsque 2880 itérations sont utilisées.
+Sur une grille grossière ($N=36$ correspondant à l'équateur à $\Delta \lambda = 2.5$deg.), on compare l'erreur au cours du temps pour deux valeurs différentes du pas de temps $\Delta t$. Les résultats sont donnés sur la Figure \ref{fig:cfl_NM}. Lorsque $\CFL = u_0 \Delta t / a \Delta \xi = 0.5$, il y a 288 pas de temps pour arriver au temps final. Lorsque $\CFL = u_0 \Delta t / a \Delta \xi = 0.05$, il y a 2880 pas de temps. Les erreurs obtenues sont tout a fait comparables à celles obtenues par la méthode de Galerkin Discontinu \cite{Nair2008}. Avec 288 pas de temps, les erreurs spatiales et temporelles sont observées simultanément. L'erreur est sensiblement meilleure lorsque 2880 pas de temps sont utilisés.
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[height=5cm]{ref_7367656360_normerreur_test_1.png}
 \includegraphics[height=5cm]{ref_7367656531_normerreur_test_1.png}
 \end{center}
-\caption{Solution au temps $t=12$ jours pour le cas test du vortex \cite{Nair2002} avec $(\lambda_C, \theta_C) = (\pi/4, \pi/4)$. Les paramètres numériques sont $N=40$, le filtrage utilisé est d'ordre $10$. Le pas de temps est déduit des relations $\CFL = 0.5$ (gauche), et $\CFL = u_0 \Delta t / \Delta \xi = 0.05$ (droite).}
+\caption{Evolution de l'erreur sur $t=12$ jours pour le cas test du vortex \cite{Nair2002} avec $(\lambda_C, \theta_C) = (\pi/4, \pi/4)$. Les paramètres numériques sont $N=40$, le filtrage utilisé est d'ordre $10$. Le pas de temps est déduit des relations $\CFL = 0.5$ (gauche), et $\CFL = u_0 \Delta t / \Delta \xi = 0.05$ (droite).}
 \label{fig:cfl_NM}
 \end{figure}
 
@@ -614,7 +615,7 @@ On vérifie cela sur la Figure \ref{fig:coupe_NM}: on représente, au temps $t=1
 \includegraphics[height=5cm]{ref_7371383883_solapprochee_test_1.png}
 \includegraphics[height=5cm]{ref_7371383883_erreur_test_1.png}
 \end{center}
-\caption{Solution au temps $t=12$ jours pour le vortex \cite{Nair2002} avec $(\lambda_C, \theta_C) = (\pi/4, \pi/4)$. Les paramètres numériques sont $N=40$ et $\CFL = 0.7$, le filtrage utilisé est d'ordre $10$. La solution $\bh^n$ (gauche), erreur spatiale $\bh^n - h(t^n,\cdot)^*$ (droite).}
+\caption{Solution au temps $t=12$ jours pour le vortex statique \cite{Nair2002} avec $(\lambda_C, \theta_C) = (\pi/4, \pi/4)$. Les paramètres numériques sont $N=40$ et $\CFL = 0.7$, le filtrage utilisé est d'ordre $10$. La solution $\bh^n$ (gauche), erreur spatiale $\bh^n - h(t^n,\cdot)^*$ (droite).}
 \label{fig:space_NM}
 \end{figure}
 
@@ -637,7 +638,7 @@ On vérifie cela sur la Figure \ref{fig:coupe_NM}: on représente, au temps $t=1
 \subsubsection{Vortex avec rotation solide}
 
 Une variante du test \cite{Nair2002} consiste à combiner la vitesse de rotation solide $\mathbf{c}_s$ \eqref{eq:rot_solide_1} avec la vitesse de rotation du vortex $\mathbf{c}_r$ \eqref{eq:rotation_vortex}. Il s'agit du test présenté dans \cite{Nair2008}.
-On considère l'équation d'advection \eqref{eq:advection_sphere} muni du champ de vitesse
+On considère l'équation d'advection \eqref{eq:advection_sphere} munie du champ de vitesse
 \begin{equation}
 \mathbf{c}(t,\mathbf{x}) = u \mathbf{e}_{\lambda} + v \mathbf{e}_{\theta}
 \end{equation}
@@ -651,7 +652,7 @@ v(t,\lambda, \theta) & = & - u_0 \sin \lambda \sin \alpha + a \omega_r \left( \c
 \right.
 \label{eq:vitesse_NJ}
 \end{equation}
-La donnée $(\lambda_C(t), \theta_C(t)) \in \mathbb{S}_a^2$ correspond à la position du vortex au fil du temps, cette dernière est donnée dans la base "tournée" d'un angle $\alpha$ par
+La donnée $(\lambda_C(t), \theta_C(t)) \in \mathbb{S}_a^2$ correspond à la position du vortex au fil du temps. Cette dernière est donnée dans la base "tournée" d'un angle $\alpha$ par
 \begin{equation}
 \label{eq:vortexcenter1}
 \left\lbrace
@@ -748,18 +749,18 @@ $150$ & $1.6044 (-5)$ & $7.0918 (-5)$ & $5.9455 (-4)$ \\
 \label{fig:rate1_NJ}
 \end{figure} 
 
-On a vu que le vortex statique est difficile à représenter lorsque $t$ augmente. Le vortex en rotation représente la même fonction se déplaçant sur la sphère. La solution du vortex en rotation est aussi difficile à représenter lorsque $t$ croît. Sur la Figure \ref{fig:NJ24jours}, on représente l'historique de l'erreur relative jusqu'à $t=24$ jours. Le temps final pour ce test est usuellement $t=12$ jours, mais on observe le comportement du schéma sur un temps plus long. Les résultats sont obtenus avec $\CFL = 0.7$, l'obtention de résultats pour 24 jours sont obtenus après 457 itérations. Pour la grille de taille $40 \times 40 \times 6$, l'erreur finale est de $15.95\%$ en norme $\| \cdot \|_{\infty}$, $3.67\%$ pour la norme $\| \cdot \|_{2}$ et $1.36\%$ en norme $\| \cdot \|_{1}$. Pour la grille $80 \times 80 \times 6$, on effectue 914 itérations pour arriver au temps $t=24$ jours. L'erreur finale est de $9.63\%$ en norme $\| \cdot \|_{\infty}$, $1.69\%$ pour la norme $\| \cdot \|_{2}$ et $0.45\%$ en norme $\| \cdot \|_{1}$.
+On a vu que le vortex statique est difficile à représenter lorsque $t$ augmente. Le vortex en rotation représente la même fonction se déplaçant sur la sphère. La solution du vortex en rotation est aussi difficile à représenter lorsque $t$ croît. Sur la Figure \ref{fig:NJ24jours}, on représente l'historique de l'erreur relative jusqu'à $t=24$ jours. Le temps final pour ce test est usuellement $t=12$ jours, mais on observe le comportement du schéma sur un temps plus long. Les résultats sont obtenus avec $\CFL = 0.7$, l'obtention de résultats pour 24 jours sont obtenus après 457 pas de temps. Pour la grille de taille $40 \times 40 \times 6$, l'erreur finale est de $15.95\%$ en norme $\| \cdot \|_{\infty}$, $3.67\%$ pour la norme $\| \cdot \|_{2}$ et $1.36\%$ en norme $\| \cdot \|_{1}$. Pour la grille $80 \times 80 \times 6$, on effectue 914 pas de temps pour arriver au temps $t=24$ jours. L'erreur finale est de $9.63\%$ en norme $\| \cdot \|_{\infty}$, $1.69\%$ pour la norme $\| \cdot \|_{2}$ et $0.45\%$ en norme $\| \cdot \|_{1}$.
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[height=5cm]{ref_7371598961_normerreur_test_2.png}
 \includegraphics[height=5cm]{ref_7371598976_normerreur_test_2.png}
 \end{center}
-\caption{Historique de l'erreur pour le test du vortex avec rotation solide. On représente l'historique de l'erreur pour l'équation \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} en norme $\| \cdot \|_1$, $\| \cdot \|_2$ et $\| \cdot \|_{\infty}$ avec $\CFL = 0.7$. On choisit $\alpha = \pi/4$. Le temps final est $t=24$ jours. La grille est $40 \times 40  \times 6$, 457 itérations (gauche), la grille est $80 \times 80  \times 6$, l'algorithme effectue 914 itérations (droite). Sur la grille $80 \times 80 \times 6$, l'erreur est en dessous de $10 \%$ ce qui demeure acceptable.}
+\caption{Historique de l'erreur pour le test du vortex avec rotation solide. On représente l'historique de l'erreur pour l'équation \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} en norme $\| \cdot \|_1$, $\| \cdot \|_2$ et $\| \cdot \|_{\infty}$ avec $\CFL = 0.7$. On choisit $\alpha = \pi/4$. Le temps final est $t=24$ jours. La grille est $40 \times 40  \times 6$, 457 pas de temps (gauche), la grille est $80 \times 80  \times 6$, l'algorithme effectue 914 pas de temps (droite). Sur la grille $80 \times 80 \times 6$, l'erreur est en dessous de $10 \%$ ce qui demeure acceptable.}
 \label{fig:NJ24jours}
 \end{figure} 
 
-Les erreurs au temps $t=12$ jours sont comparables à celles obtenues par la méthode de Galerkin discontinue \cite{Nair2008}. Nous comparons aussi notre schéma à des schémas de type volumes finis d'ordre élevé \cite{Katta2015}. Nous comparons les résultats au temps $t=12$ jours. Les schémas volumes finis sont nommés WENO5 et KL4 dans \cite{Katta2015}. Nous utilisons toujours $\alpha = \pi/4$. Sur la grille $80 \times 80 \times 6$ et après 750 itérations, le schéma WENO5 donne les erreurs relatives suivantes : $e_1 = 0.0021$, $e_2 = 0.0043$ et $e_{\infty} = 0.0191$. Le schéma KL4 obtient, dans le même contexte, les erreurs $e_1 = 0.0021$, $e_2 = 0.0043$ et $e_{\infty} = 0.0194$. Avec notre schéma, on obtient $e_1 = 1.67(-4)$, $e_2=7.23(-4)$ et $e_{\infty} = 5.75(-3)$. Les niveaux d'erreurs obtenus sont plus faibles que ceux obtenus par les méthodes de volumes finis WENO5 et KL4.
+Les erreurs au temps $t=12$ jours sont comparables à celles obtenues par la méthode de Galerkin discontinue \cite{Nair2008}. Nous comparons aussi notre schéma à des schémas de type volumes finis d'ordre élevé \cite{Katta2015}. Nous comparons les résultats au temps $t=12$ jours. Les schémas volumes finis sont nommés WENO5 et KL4 dans \cite{Katta2015}. Nous utilisons toujours $\alpha = \pi/4$. Sur la grille $80 \times 80 \times 6$ et après 750 pas de temps, le schéma WENO5 donne les erreurs relatives suivantes : $e_1 = 0.0021$, $e_2 = 0.0043$ et $e_{\infty} = 0.0191$. Le schéma KL4 obtient, dans le même contexte, les erreurs $e_1 = 0.0021$, $e_2 = 0.0043$ et $e_{\infty} = 0.0194$. Avec notre schéma, on obtient $e_1 = 1.67(-4)$, $e_2=7.23(-4)$ et $e_{\infty} = 5.75(-3)$. Les niveaux d'erreurs obtenus sont plus faibles que ceux obtenus par les méthodes de volumes finis WENO5 et KL4.
 
 
 
@@ -805,7 +806,7 @@ En particulier, on note que \eqref{eq:advection_sphere_NL} est une loi de conser
 \dfrac{d}{dt} \gint_{\mathbb{S}^2} h(t,\mathbf{x}) d \sigma(\mathbf{x}) = 0.
 \end{equation}
 
-On a vu dans le lemme \ref{lem:n_vect_w} que si $\mathbf{w} : \mathbf{x} \in \mathbb{S}^2 \mapsto \mathbf{w} \in \mathbb{R}^3$ est un champ de vecteur de $\mathbb{R}^3$ et si $\mathbf{n}$ est la normale extérieure à la sphère, alors $\mathbf{F} = \mathbf{n} \wedge \mathbf{w}$ est un champ de vecteurs tangent à la sphère. On considère ici des champs de vecteurs de cette forme avec 
+On a vu dans le lemme \ref{lem:n_vect_w} que si $\mathbf{w} : \mathbf{x} \in \mathbb{S}^2 \mapsto \mathbf{w} \in \mathbb{R}^3$ est un champ de vecteurs de $\mathbb{R}^3$ et si $\mathbf{n}$ est la normale extérieure à la sphère, alors $\mathbf{F} = \mathbf{n} \wedge \mathbf{w}$ est un champ de vecteurs tangent à la sphère. On considère ici des champs de vecteurs de cette forme avec 
 \begin{equation}
 \mathbf{w} = f_1 \mathbf{i} + f_2 \mathbf{j}+ f_3 \mathbf{k} = \begin{bmatrix}
 f_1 \\ f_2 \\ f_3
@@ -831,7 +832,7 @@ Pour résoudre l'équation \eqref{eq:advection_sphere_NL}, on considère l'appli
 \begin{equation}
 J_{\Delta}(t,\bh) = - \nabla_{T,\Delta} F(\bh).
 \end{equation}
-Nous couplons cette opérateur d'approximation spatiale à un algorithme de résolution en temps. L'algorithme permettant la résolution de \eqref{eq:advection_sphere_NL} est analogue à l'algorithme \ref{alg:RK4_transportSa}. Il s'écrit :
+Nous couplons cet opérateur d'approximation spatiale à un algorithme de résolution en temps. L'algorithme permettant la résolution de \eqref{eq:advection_sphere_NL} est analogue à l'algorithme \ref{alg:RK4_transportSa}. Il s'écrit :
 
 \begin{center}
 \begin{minipage}[H]{12cm}
@@ -884,7 +885,7 @@ Pour ce test, inspiré du premier test de \cite{BenArtzi2009}, on considère les
 \begin{equation}
 f_1 = f_2 \equiv 0.
 \end{equation}
-Le champ de vecteur $F$ est alors donné pour toute fonction $h$ par
+Le champ de vecteurs $F$ est alors donné pour toute fonction $h$ par
 \begin{equation}
 F(h) = \begin{bmatrix}
 x \\ y \\z
@@ -952,6 +953,10 @@ Sur la Figure \ref{fig:BenArtzi_equatorial3}, on représente l'historique de l'e
 \begin{equation}
 |Q(\mathfrak{h}^n) - Q(h(t^n, \cdot)^*|.
 \end{equation}
+Nous n'utilisons pas l'erreur relative car pour les conditions initiales utilisées, on a
+\begin{equation}
+\gint_{\mathbb{S}_a^2} h(t,\mathbf{x}) d \sigma(\mathbf{x}) = 0.
+\end{equation}
 L'erreur de conservation est proche de $6.0 (-5)$ lorsque $N=32$ et proche de $1.5 (-5)$ lorsque $N=64$. L'erreur est cependant nettement plus importante au temps d'apparition du choc $t=1/(2\pi) \approx 0.1592$. 
 
 \begin{figure}[htbp]
@@ -959,11 +964,11 @@ L'erreur de conservation est proche de $6.0 (-5)$ lorsque $N=32$ et proche de $1
 \includegraphics[height=5cm]{BenArtzi_equatorial3.png}
 \includegraphics[height=5cm]{BenArtzi_equatorial4.png}
 \end{center}
-\caption{Historique de l'erreur de conservation pour la solution équatoriale périodique. On représente l'erreur de conservation en fonction du temps $t$ pour le test équatorial périodique \eqref{eq:advection_sphere_NL}. La grille Cubed-Sphere a pour paramètres $N=32$ (gauche) et $N=64$ (droite). Le pas de temps est le même dans les deux cas. On a $\Delta t = 0.005$, la simulation est faite en 318 itérations pour le temps final $t=10/(2\pi)$. La masse totale mesurée est très bien conservée.}
+\caption{Historique de l'erreur de conservation pour la solution équatoriale périodique. On représente l'erreur de conservation en fonction du temps $t$ pour le test équatorial périodique \eqref{eq:advection_sphere_NL}. La grille Cubed-Sphere a pour paramètres $N=32$ (gauche) et $N=64$ (droite). Le pas de temps est le même dans les deux cas. On a $\Delta t = 0.005$, la simulation est faite en 318 pas de temps pour le temps final $t=10/(2\pi)$. L'erreur n'est pas relative car la masse totale initiale est nulle. La masse totale mesurée est très bien conservée.}
 \label{fig:BenArtzi_equatorial3}
 \end{figure} 
 
-Ce test permet d'analyser le comportement du schéma numérique de l'algorithme \ref{alg:RK4_transportSa_NL} en présence d'un choc. Les résultats sont satisfaisants. Les oscillations qui apparaissent au delà du temps d'apparition du choc de dégradent pas excessivement le calcul. Le filtrage d'ordre 10 symétrique est suffisant pour assurer un bon déroulement de la simulation. De plus, l'erreur sur la conservation de la masse reste faible au cours du temps.
+Ce test permet d'analyser le comportement du schéma numérique de l'algorithme \ref{alg:RK4_transportSa_NL} en présence d'un choc. Les résultats sont satisfaisants. Les oscillations qui apparaissent au delà du temps d'apparition du choc ne dégradent pas excessivement le calcul. Le filtrage d'ordre 10 symétrique est suffisant pour assurer un bon déroulement de la simulation. De plus, l'erreur sur la conservation de la masse reste faible au cours du temps.
 
 Nous insistons sur le fait que le calcul effectué n'utilise aucun décentrement et aucun traitement de type reconstruction ou limitation de pente. Il n'est donc pas surprenant d'observer des oscillations non linéaires (Fig. \ref{fig:BenArtzi_equatorial1}, droite). On constate que ces oscillations demeurent très limitées et très localisées. Une amélioration de ces résultats fera l'objet d'études ultérieures.
 
@@ -995,7 +1000,7 @@ Dans cette section, on construit une solution stationnaire de \eqref{eq:advectio
 \end{equation}
 alors $h_0$ est une solution stationnaire de \eqref{eq:advection_sphere_NL}.
 
-On considère les fonctions $f_1$, $f_2$ et $f_3$ identiques. C'est à dire :
+On considère les fonctions $f_1$, $f_2$ et $f_3$ identiques, c'est à dire :
 \begin{equation}
 f_1(h) = f_2(h) = f_3(h) = f(h)
 \end{equation}
@@ -1040,7 +1045,7 @@ $\mathbf{128}$ & $8.7856(-9)$ & $5.0291(-9)$ & $4.5510(-9)$ & $8.4850(-12)$ \\
 \hline 
 \end{tabular} 
 \end{center}
-\caption{Erreur pour la solution stationnaire. Table de convergence pour le test stationnaire de l'équation \eqref{eq:advection_sphere_NL}. Le pas de temps est donné par $\Delta t = 0.96 \Delta \xi / \pi$. Le temps final est $t=6$. On mesure aussi l'erreur sur la conservation de la masse. Le taux de convergence est proche de 4. La conservation est excellente.}
+\caption{Erreur pour la solution stationnaire. Table de convergence pour le test stationnaire de l'équation \eqref{eq:advection_sphere_NL}. Le pas de temps est donné par $\Delta t = 0.96 \Delta \xi / \pi$. Le temps final est $t=6$. On mesure aussi l'erreur sur la conservation de la masse. Le taux de convergence est proche de 4. L'erreur de conservation mesurée n'est pas relative car la masse totale initiale est nulle. La conservation est excellente.}
 \label{tab:benartzi_test3}
 \end{table}
 
@@ -1053,14 +1058,14 @@ $\mathbf{128}$ & $8.7856(-9)$ & $5.0291(-9)$ & $4.5510(-9)$ & $8.4850(-12)$ \\
 \end{figure}
 
 Sur la Figure \ref{fig:benartzi_test3_hist}, on représente l'historique de l'erreur lorsque $N=31$ et $\Delta t = 0.96 \Delta \xi / \pi = 0.015$. On observe sur ces figures que l'erreur sur la fonction $h$ est proche de $3 \times 10^{-6}$. L'erreur sur la conservation de la masse est proche de $10^{-8}$. Les résultats sont très satisfaisants pour la conservation d'une solution stationnaire sur une équation non-linéaire. Sur la Figure \ref{fig:benartzi_test3_sol}, on représente la localisation spatiale de l'erreur ainsi que la solution calculée au temps $t=6$.
-Les oscillations observées s'apparentent à des oscillations dispersives. Leur amplitude demeurre très limitée.
+Les oscillations observées s'apparentent à des oscillations dispersives. Leur amplitude demeure très limitée.
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[height=5cm]{erreur_test3.png}
 \includegraphics[height=5cm]{cons_test3.png}
 \end{center}
-\caption{Courbe d'erreur pour la solution stationnaire. L'erreur en norme et l'erreur de conservation est représentée pour le test stationnaire de l'équation \eqref{eq:advection_sphere_NL}. Le pas de temps est donné par $\Delta t = 0.96 \Delta \xi / \pi$. Le temps final est $t=6$. Le paramètre de la Cubed-Sphere est $N=32$. L'erreur sur la conservation est très faible.}
+\caption{Courbe d'erreur pour la solution stationnaire. L'erreur en norme et l'erreur de conservation est représentée pour le test stationnaire de l'équation \eqref{eq:advection_sphere_NL}. Le pas de temps est donné par $\Delta t = 0.96 \Delta \xi / \pi$. Le temps final est $t=6$. Le paramètre de la Cubed-Sphere est $N=32$. L'erreur de conservation mesurée n'est pas relative car la masse totale initiale est nulle. L'erreur sur la conservation est très faible.}
 \label{fig:benartzi_test3_hist}
 \end{figure}
 
