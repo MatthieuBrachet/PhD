@@ -30,9 +30,9 @@ global alpha
 global teta0 teta1
 
 comment='.';
-test=0;
+test=1;
 video = 'no';
-sauvegarde = 0;
+sauvegarde = 1;
 filtre='symetric';
 opt_ftr='redonnet10';
 scheme='compact4';
@@ -40,7 +40,7 @@ snapshot='yes';
 nrm='int';
 
 n=31;
-ndaymax=5;
+ndaymax=15;
 cfl=0.9;
 mod101
 disp('mod101 : ok')
@@ -392,7 +392,7 @@ while t<Tmax && iter<itermax
     end
     
     %% snapshot
-    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(2*ddt))) == 0
+    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(3*ddt))) == 0
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         clf;
         
@@ -416,8 +416,8 @@ while t<Tmax && iter<itermax
             mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
             v=[mm 5050:50:5950 MM];
-            plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
-            title(['Temps : ', num2str(time(end))])
+            plot_cs106(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
+            %title(['Temps : ', num2str(time(end))])
             colorbar
         elseif test == 5
             mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
@@ -724,3 +724,16 @@ timest
 timeend
 
 %% save(['sol_ref_test_' num2str(test) '_N_' num2str(n) '.mat'])
+
+
+
+
+figure(30)
+plot_cs102(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
+plot_reliefs(n,nn);
+colorbar
+
+
+
+
+

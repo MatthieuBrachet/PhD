@@ -417,7 +417,7 @@ L'équation Shallow Water est déduite de l'équation de Navier-Stokes en dimens
 \label{eq:SWEC_new}
 \left\lbrace
 \begin{array}{rcl}
-\dfrac{\partial \mathbf{u}}{\partial t} + \left( \mathbf{u} \cdot \nabla_T \right) \mathbf{u} + f \mathbf{n} \wedge \mathbf{u} + g \nabla h & = & \mathbf{0} \\
+\dfrac{\partial \mathbf{u}}{\partial t} + \left( \mathbf{u} \cdot \nabla_T \right) \mathbf{u} + f \mathbf{n} \wedge \mathbf{u} + g \nabla_T h & = & \mathbf{0} \\
 \dfrac{\partial h^{\star}}{\partial t} + \nabla_T \cdot \left( h^{\star} \mathbf{u} \right) & = & 0
 \end{array}
 \right.
@@ -906,7 +906,7 @@ On considère les données initiales \eqref{eq: williamson 2 initial velocity} e
 \left\lbrace
 \begin{array}{rcl}
 \mathbf{u}(\lambda, \theta) & = & u_0 \cos \theta \mathbf{e}_{\lambda} \\
-h(\lambda, \theta) & = & h_0 - \dfrac{a y_0}{g} \left( \Omega  + \dfrac{u_0}{2} \right) \sin^2 \theta .
+h(\lambda, \theta) & = & h_0 - \dfrac{a h_0}{g} \left( \Omega  + \dfrac{u_0}{2} \right) \sin^2 \theta .
 \end{array}
 \right.
 \end{equation}
@@ -928,11 +928,11 @@ Pour ce test, aucune solution analytique n'est disponible. Nous comparons la sol
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[scale=0.5]{ref_7368974583_snapshot_intermediaire499.png}\\
-\includegraphics[scale=0.5]{ref_7368974583_snapshot_intermediaire999.png}\\
-\includegraphics[scale=0.5]{ref_7368974583_snapshot_intermediaire1499.png}
+\includegraphics[scale=0.5]{ref_7372184434_snapshot_intermediaire499.png}\\
+\includegraphics[scale=0.5]{ref_7372184434_snapshot_intermediaire999.png}\\
+\includegraphics[scale=0.5]{ref_7372184434_snapshot_intermediaire1499.png}
 \end{center}
-\caption{Cas de la montagne isolée \cite{Williamson1992}, le paramètre de la Cubed-Sphere est $N=32$. On choisit $\CFL=0.9$.  On représente $\bh$ aux temps $t=5$, $10$ et $15$ jours (dans cet ordre, de haut en bas).}
+\caption{Cas de la montagne isolée \cite{Williamson1992}, le paramètre de la Cubed-Sphere est $N=32$. On choisit $\CFL=0.9$.  On représente $\bh$ aux temps $t=5$, $10$ et $15$ jours (dans cet ordre, de haut en bas). Le cercle en pointillés désigne la position de la montagne.}
 \label{fig: williamson 5 space height}
 \end{figure}
 
@@ -977,7 +977,7 @@ On représente sur la Figure \ref{fig: williamson 5 conservation} l'erreur de co
 
 
 
-\subsection{Cas test barotropique avec instabilité}
+\subsection{Cas test barotrope avec instabilité}
 
 Introduit dans \cite{Galewsky2004}, ce test est similaire aux tests numéro 2 (Stationnaire zonale) et numéro 5 (Montagne isolée) de \cite{Williamson1992}. La condition initiale est donnée par l'état stationnaire de la proposition \ref{prop:swe_zonalestat} avec $\alpha=0$ que l'on perturbe.
 
@@ -1018,7 +1018,7 @@ Ce test consiste à observer la vorticité au fil du temps, en particulier au bo
 \includegraphics[scale=0.3]{ref_7369146426_solution.png}
 \includegraphics[scale=0.3]{ref_7369146468_solution.png}
 \end{center}
-\caption{Flux barotropique avec instabilité. On représente la condition initiale $h+h'$ (gauche) et perturbation initiale $h'$ (droite) pour le Flux barotropique, \cite{Galewsky2004}. La perturbation est localisée à l'intersection de différents panels.}
+\caption{Flux barotrope avec instabilité. On représente la condition initiale $h+h'$ (gauche) et perturbation initiale $h'$ (droite) pour le Flux barotrope, \cite{Galewsky2004}. La perturbation est localisée à l'intersection de différents panels.}
 \label{fig: initiale et perturbation Galewsky}
 \end{figure}
 
@@ -1030,7 +1030,7 @@ La vorticité au bout de 2, 4 et 6 jours est donnée en Figure \ref{fig: galewsk
 \includegraphics[scale=0.5]{ref_7369437806_snapshot_intermediaire399.png}
 \includegraphics[scale=0.5]{ref_7369437806_snapshot_intermediaire599.png}
 \end{center}
-\caption{Cas test du flux barotropique \cite{Galewsky2004}. Au bout de 2, 4 et 6 jours (dans cet ordre, de haut en bas), on représente la vorticité. Le paramètre de la Cubed-Sphere est $N=128$, le pas de temps est calculé grâce à la relation $\CFL=0.9$. La perturbation apparaît sur la vorticité au temps $t=3$ jours. Au temps $t=6$ jours, on observe le bon nombre de tourbillons ainsi que leur localisation.}
+\caption{Cas test du flux barotrope \cite{Galewsky2004}. Au bout de 2, 4 et 6 jours (dans cet ordre, de haut en bas), on représente la vorticité. Le paramètre de la Cubed-Sphere est $N=128$, le pas de temps est calculé grâce à la relation $\CFL=0.9$. La perturbation apparaît sur la vorticité au temps $t=3$ jours. Au temps $t=6$ jours, on observe le bon nombre de tourbillons ainsi que leur localisation.}
 \label{fig: galewsky 246}
 \end{figure}
 
@@ -1041,7 +1041,7 @@ La Figure \ref{fig: galewsky compact/explicite} est faite en utilisant le schém
 \includegraphics[scale=0.3]{ref_7369105556_snapshot.png}
 \includegraphics[scale=0.3]{ref_7369107124_snapshot.png}
 \end{center}
-\caption{Cas test barotropique instable \cite{Galewsky2004} à 6 jours sur une grille $86 \times 86 \times 6$ avec $\CFL=0.9$. On représente la vorticité. A gauche, utilisation d'un schéma compact d'ordre 4 : $\delta_{4,x}^H$. A droite utilisation d'un schéma explicite d'ordre 4 $\delta_{4,x}$. Les deux solutions ne sont pas identiques, en particulier au niveau du Japon et de la Chine.}
+\caption{Cas test barotrope instable \cite{Galewsky2004} à 6 jours sur une grille $86 \times 86 \times 6$ avec $\CFL=0.9$. On représente la vorticité. A gauche, utilisation d'un schéma compact d'ordre 4 : $\delta_{4,x}^H$. A droite utilisation d'un schéma explicite d'ordre 4 $\delta_{4,x}$. Les deux solutions ne sont pas identiques, en particulier au niveau du Japon et de la Chine.}
 \label{fig: galewsky compact/explicite}
 \end{figure}
 
@@ -1053,7 +1053,7 @@ Sur la Figure \ref{fig: galewsky conservation}, on représente les erreurs sur l
 \includegraphics[height=5cm]{ref_7368306511_enstrophy.png}\\
 \includegraphics[height=5cm]{ref_7368306511_conservationB.png}
 \end{center}
-\caption{Cas test barotropique instable, le paramètre de la Cubed-Sphere est $N=128$, $\CFL=0.9$. Historique des erreurs relatives sur la conservation de la masse, de l'énergie et de l'enstrophie potentielle, erreur sur la conservation de la divergence et de la vorticité. Les niveaux d'erreurs sont très bons mais l'erreur croît autour du jour 4, lorsque l'instabilité devient visible.}
+\caption{Cas test barotrope instable, le paramètre de la Cubed-Sphere est $N=128$, $\CFL=0.9$. Historique des erreurs relatives sur la conservation de la masse, de l'énergie et de l'enstrophie potentielle, erreur sur la conservation de la divergence et de la vorticité. Les niveaux d'erreurs sont très bons mais l'erreur croît autour du jour 4, lorsque l'instabilité devient visible.}
 \label{fig: galewsky conservation}
 \end{figure}
 
@@ -1066,7 +1066,7 @@ La convergence du schéma est visible en raffinant le maillage. C'est ce que nou
 \includegraphics[scale=0.4]{ref_7369444341_snapshot.png}
 \includegraphics[scale=0.4]{ref_7369437806_snapshot.png}
 \end{center}
-\caption{Cas test barotropique avec différentes grilles $N \times N \times 6$. On représente la vorticité avec (de haut en bas) $N=32$, $N=64$, $N=96$ et $N=128$. La valeur de la condition $\CFL$ est $0.9$. Les solutions lorsque $N=96$ et $N=128$ sont pratiquement identiques ce qui confirme la convergence du schéma.}
+\caption{Cas test barotrope avec différentes grilles $N \times N \times 6$. On représente la vorticité avec (de haut en bas) $N=32$, $N=64$, $N=96$ et $N=128$. La valeur de la condition $\CFL$ est $0.9$. Les solutions lorsque $N=96$ et $N=128$ sont pratiquement identiques ce qui confirme la convergence du schéma.}
 \label{fig: galewsky convergence}
 \end{figure}
 
@@ -1098,7 +1098,7 @@ La convergence du schéma est visible en raffinant le maillage. C'est ce que nou
 
 \subsection{Cas test de type ondes de Rossby-Haurwitz}
 
-Les ondes de Rossby-Haurwitz sont des solutions analytiques de l'équation de la vorticité barotropique \cite{Haurwitz1940, Pedlosky2013}. Il s'agit du test 6 de \cite{Williamson1992}. Cependant, ce ne sont pas des solutions analytiques pour le système d'équations Shallow Water. On s'attend à observer un déplacement des ondes d'Ouest en Est.
+Les ondes de Rossby-Haurwitz sont des solutions analytiques de l'équation de la vorticité barotrope \cite{Haurwitz1940, Pedlosky2013}. Il s'agit du test 6 de \cite{Williamson1992}. Cependant, ce ne sont pas des solutions analytiques pour le système d'équations Shallow Water. On s'attend à observer un déplacement des ondes d'Ouest en Est.
 
 Le champ de vitesse $\mathbf{u}$ au temps $t=0$ est donné par :
 \begin{equation}

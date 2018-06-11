@@ -82,13 +82,32 @@ contexte de cette thèse soit la géométrie sphérique, nous considérons ici l
 
 \subsection{Le schéma de Runge-Kutta RK4}
 
-Le schéma de résolution temporelle de référence que nous considérons est le schéma de Runge-Kutta d'ordre 4 (RK4). L'état $q^n$ étant connu, l'état $q^{n+1}$ s'écrit en fonction de $q^n$, et non de $q^n$, $q^{n-1}$, $q^{n-2}$, ..., via une relation de la forme
+Pour résoudre une équation ordinaire de la forme 
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+\dfrac{dq}{dt} & = & J_{\Delta}(q) \\
+q(t=0) & = & q_0,
+\end{array}
+\right.
+\end{equation}
+où $t \in \mathbb{R}^+$, on utilise une méthode de Runge-Kutta à $p \in \mathbb{N}^{\star}$ étapes \cite{Butcher2016, Demailly2016}. Les méthodes de Runge-Kutta sont de la forme
+\begin{equation}
+\left\lbrace
+\begin{array}{rcl}
+K^{(i)} & = & J_{\Delta} \left( q^n + \Delta t \gsum_{j=1}^p A_{i,j} K^{(j)} \right) \text{ pour } 1 \leq i \leq p \\
+q^{n+1} & = & q^n + \Delta t \gsum_{j=1}^p b_j K^{(j)},
+\end{array}
+\right.
+\end{equation}
+on note le pas de temps $\Delta t>0$, et $q^n$ est une approximation de $q(n \Delta t)$. Les coefficients $(A_{i,j})_{1 \leq i,j \leq p}$ et $(b_j)_{1 \leq j \leq p}$ sont des réels donnés. Une méthode de Runge-Kutta est dite explicite si $A_{i,j} = 0$ lorsque $j \geq i$. C'est le cas des méthodes considérées dans ce mémoire. L'état $q^n$ étant connu, l'état $q^{n+1}$ s'écrit en fonction de $q^n$, et non de $q^n$, $q^{n-1}$, $q^{n-2}$, ..., via une relation de la forme
 \begin{equation}
 q^{n+1} = Q(q^n).
 \label{eq:recurrence_rk}
 \end{equation}
-Le schéma de Runge-Kutta d'ordre 4 est le schéma de référence d'ordre 4 pour les problèmes non linéaires convectifs. 
 
+Le schéma de résolution temporelle de référence que nous considérons est le schéma de Runge-Kutta d'ordre 4 (RK4). 
+Le schéma de Runge-Kutta d'ordre 4 est le schéma de référence d'ordre 4 pour les problèmes non linéaires convectifs. 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -104,7 +123,7 @@ K^{(4)} & = & J_{\Delta}\left(q^n + \Delta t K^{(3)}\right)
 q^{n+1} = q^n + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right)
 \label{eq:assemblage_rk4}
 \end{equation}
-Il est pratique de représenter une méthode de Runge-Kutta à l'aide d'un tableau de Butcher \cite{Butcher2016} de la forme de la Table \ref{tab:butcher}. $c \in \mathbb{R}^p$ désigne la position de l'approximation, $A \in \mathbb{M}_p(\mathbb{R})$ représente la dépendance entre l'étape donnée et les autres étapes, $b \in \mathbb{R}^p$ est issue de la règle de quadrature associée à la méthode de Runge-Kutta.
+Il est pratique de représenter une méthode de Runge-Kutta à l'aide d'un tableau de Butcher \cite{Butcher2016} de la forme de la Table \ref{tab:butcher}. Le vecteur $c \in \mathbb{R}^p$ désigne la position de l'approximation, $A \in \mathbb{M}_p(\mathbb{R})$ représente la dépendance entre l'étape donnée et les autres étapes, $b \in \mathbb{R}^p$ est issue de la règle de quadrature associée à la méthode de Runge-Kutta.
 
 \begin{table}[htbp]
 \begin{center}
@@ -117,7 +136,7 @@ $c$ & $A$ \\
 \caption{Tableau de Butcher d'une méthode de Runge-Kutta. $A \in \mathbb{M}_p(\mathbb{R})$, $b,c \in \mathbb{R}^p$.}
 \label{tab:butcher}
 \end{table}
-Pour la méthode de Runge-Kutta d'ordre 4 détaillée ici, le tableau de Butcher prend la forme \ref{tab:butcher_rk4}.
+Pour la méthode de Runge-Kutta d'ordre 4 détaillée ici, le tableau de Butcher prend la forme donnée dans la Table \ref{tab:butcher_rk4}.
 \begin{table}[htbp]
 \begin{center}
 \begin{tabular}{c|cccc}
@@ -209,7 +228,7 @@ ainsi que
 Nous considérons les méthodes de Runge-Kutta explicites donc $A$ est triangulaire inférieure stricte.
 Si l'on note $K = [K^{(1)}, K^{(2)}, ...]^T$. Dans le cadre de l'équation de Dahlquist \eqref{eq:dahlquist} \cite{Hairer2006}, $K$ est lié à $q^n$ par
 \begin{equation}
-K^{(i)} = \lambda \left( q^n + \gsum_{j=1}^{i-1} A_{i,j} K^{(k)} \right)
+K^{(i)} = \lambda \left( q^n + \Delta t \gsum_{j=1}^{i-1} A_{i,j} K^{(k)} \right)
 \end{equation}
 pour tout $i$. Cette égalité s'écrit sous forme matricielle :
 \begin{equation}
@@ -1085,9 +1104,10 @@ $1000$ & $7.1839(-8)$  & $8.1303(-8)$  \\
 L'erreur est tracée au cours du temps dans la Figure \ref{fig:transport1d_test_reg} en $\| \cdot \|_2$ et $\| \cdot \|_{\infty}$.
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[scale=0.7]{erreurf2_reg.eps}
+\includegraphics[height=6cm]{erreurf2_reg.eps}
+\includegraphics[height=6cm]{init_trsp.eps}
 \end{center}
-\caption{Equation de convection avec la condition initiale \eqref{eq:transport1d_test_reg}. Historique de l'erreur de l'algorithme \ref{alg:RK4_transport1d} avec le filtre d'ordre 10 et la condition initiale \eqref{eq:transport1d_test_reg}. On choisit $N=100$ points de grille et $c \Delta t/h = 1.6883$ ($118$ itérations).}
+\caption{Equation de convection avec la condition initiale \eqref{eq:transport1d_test_reg}. A gauche, historique de l'erreur de l'algorithme \ref{alg:RK4_transport1d} avec le filtre d'ordre 10 pour la condition initiale \eqref{eq:transport1d_test_reg}. A droite, la condition initiale \eqref{eq:transport1d_test_reg}. On choisit $N=100$ points de grille et $c \Delta t/h = 1.6883$ ($118$ pas de temps).}
 \label{fig:transport1d_test_reg}
 \end{figure}
 Comme cela a été vu dans la proposition \ref{prop:consistance_h_trsp}, on observe la dépendance linéaire en $t$ de l'erreur.

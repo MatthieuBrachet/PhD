@@ -18,7 +18,7 @@ p(end,1)=1/6; p(1,end)=1/6;
 p=sparse(p);
 
 
-opt_ftr='redonnet6';
+opt_ftr='redonnet10';
 if strcmp(opt_ftr,'redonnet10')==1
     ftr0=772/1024;
     ftr1=420/1024;
@@ -117,35 +117,36 @@ while t+ddt<tmax
     cons=[cons sum(u)*h-int];
 
     
-    pause(0.001)
-    clf
-    figure(1)
-    plot(x,u,'Linewidth',2)
-    axis([0 1 -1.2 1.2])
+%     pause(0.001)
+%     clf
+%     figure(1)
+%     plot(x,u,'Linewidth',2)
+%     axis([0 1 -1.2 1.2])
 end
 time=[1:length(e1)]*ddt;
 
 figure(2)
-semilogy(time, 1.4*10^-4*time,time,e2,time,ei,'Linewidth',2)
+loglog(time, 1.4*10^-4*time,time,e2,time,ei,'Linewidth',2)
 legend('1.4 \times 10^{-4} \times temps','norme 2','norme \infty','Location','SouthEast')
 xlabel('Temps')
 ylabel('Erreur')
 title(['\lambda = ', num2str(cfl)])
 grid on
 
-% figure(3)
-% plot([1:length(e1)]*ddt,cons,'Linewidth',2)
+figure(3)
+plot([1:length(e1)]*ddt,cons,'Linewidth',2)
 
-    figure(4)
-    plot(x,u,'Linewidth',2)
-    axis([0 1 -1.2 1.2])
+figure(4)
+plot(x,u,'Linewidth',2)
+axis([0 1 -1.2 1.2])
+grid on
 
-    uex=fun(x);
-    figure(5)
-    plot(x,uex,x,u,'Linewidth',2)
-    axis([0 1 -1.2 1.2])
-    xlabel('x')
-    title('Filtrage d''ordre 6')
+% uex=fun(x);
+% figure(5)
+% plot(x,uex,x,u,'Linewidth',2)
+% axis([0 1 -1.2 1.2])
+% xlabel('x')
+% title('Filtrage d''ordre 6')
 
 [e1(end) e2(end) ei(end)]
 

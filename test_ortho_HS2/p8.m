@@ -9,7 +9,7 @@ global x_fV y_fV z_fV;
 global x_fVI y_fVI z_fVI;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %figure(1);
-N=7;
+N=2;
 n=N-1;nn=N+1;
 %plot_cs1_mesh(n,nn);
 make_cs_grid(N);
