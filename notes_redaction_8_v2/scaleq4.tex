@@ -470,7 +470,7 @@ $\CFL$ & $\alpha$ & \cite{Ullrich2010} & Algo. \ref{alg:RK4_transportSa} & \cite
 \hline 
 \end{tabular} 
 \end{center}
-\caption{Erreur relative pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = \pi / 4$ ainsi que $\alpha=0$. Le pas de temps est issu de la condition $\CFL = u_0 \Delta t / a \Delta \xi$. Les résultats obtenus sont pratiquement identiques à ceux obtenus par volumes finis d'ordre 4 dans \cite{Ullrich2010}. Le paramètre de grille est $N=40$.}
+\caption{Erreur relative pour la rotation solide sur l'équation \eqref{eq:advection_sphere} en norme $1$, $2$ et $\infty$ pour $\alpha = \pi / 4$ ainsi que $\alpha=0$. Le pas de temps est issu de la condition $\CFL = u_0 \Delta t / a \Delta \xi$, le filtre est d'ordre 10. Les résultats obtenus sont pratiquement identiques à ceux obtenus par volumes finis d'ordre 4 dans \cite{Ullrich2010}. Le paramètre de grille est $N=40$.}
 \label{tab:comp_ullrich_bump}
 \end{table} 
 
@@ -584,7 +584,7 @@ $150$  & $1.1105 (-6)$ & $5.7646 (-6)$ & $6.2903 (-5)$ \\
 \hline
 \end{tabular}
 \end{center}
-\caption{Erreur et taux de convergence pour le test du vortex stationnaire sur 12 jours pour l'équation \eqref{eq:advection_sphere} en normes $\| \cdot\|_1$, $\| \cdot\|_2$ et $\| \cdot\|_{\infty}$, $\CFL = 0.7$ \cite{Nair2002}. Le vortex est localisé en $(\lambda_C, \theta_C)=(\pi /4 , \pi /4)$. La convergence se fait à un ordre supérieur ou égal à $5$.}
+\caption{Erreur et taux de convergence pour le test du vortex stationnaire sur 12 jours pour l'équation \eqref{eq:advection_sphere} en normes $\| \cdot\|_1$, $\| \cdot\|_2$ et $\| \cdot\|_{\infty}$, $\CFL = 0.7$ \cite{Nair2002}, le filtre est d'ordre 10. Le vortex est localisé en $(\lambda_C, \theta_C)=(\pi /4 , \pi /4)$. La convergence se fait à un ordre supérieur ou égal à $5$.}
 \label{tab:rate1_NM}
 \end{table} 
 
@@ -592,7 +592,7 @@ $150$  & $1.1105 (-6)$ & $5.7646 (-6)$ & $6.2903 (-5)$ \\
 \begin{center}
 \includegraphics[height=5cm]{rate_NM1.png}
 \end{center}
-\caption{Erreur et taux de convergence pour le test du vortex stationnaire sur l'équation \eqref{eq:advection_sphere} en normes $\| \cdot\|_1$, $\| \cdot\|_2$ et $\| \cdot\|_{\infty}$ et en fonction de $\Delta = a \Delta \xi$, avec $\CFL = 0.7$ \cite{Nair2002}. Le vortex est localisé en $(\lambda_C, \theta_C)=(\pi /4 , \pi /4)$. L'ordre de convergence est d'environ $5$ pour la norme $\| \cdot \|_{\infty}$ et supérieur pour les normes $\| \cdot \|_{1}$ et $\| \cdot \|_{2}$.}
+\caption{Erreur et taux de convergence pour le test du vortex stationnaire sur l'équation \eqref{eq:advection_sphere} en normes $\| \cdot\|_1$, $\| \cdot\|_2$ et $\| \cdot\|_{\infty}$ et en fonction de $\Delta = a \Delta \xi$, avec $\CFL = 0.7$ \cite{Nair2002}, le filtre est d'ordre 10. Le vortex est localisé en $(\lambda_C, \theta_C)=(\pi /4 , \pi /4)$. L'ordre de convergence est d'environ $5$ pour la norme $\| \cdot \|_{\infty}$ et supérieur pour les normes $\| \cdot \|_{1}$ et $\| \cdot \|_{2}$.}
 \label{fig:rate1_NM}
 \end{figure} 
 
@@ -623,7 +623,7 @@ On vérifie cela sur la Figure \ref{fig:coupe_NM}: on représente, au temps $t=1
 \begin{center}
 \includegraphics[height=5cm]{coupe_NM.png}
 \end{center}
-\caption{Coupe le long de l'équateur de la solution au temps $t=12$ jours pour le cas test du vortex \cite{Nair2002} avec $(\lambda_C, \theta_C) = (3 \pi / 4,0)$. Le pas de temps est issu de $\CFL = 0.7$. La solution sur grille grossière est moins bien représentée que celle sur grille fine.}
+\caption{Coupe le long de l'équateur de la solution au temps $t=12$ jours pour le cas test du vortex \cite{Nair2002} avec $(\lambda_C, \theta_C) = (3 \pi / 4,0)$. Le pas de temps est issu de $\CFL = 0.7$ et filtrage d'ordre 10. La solution sur grille grossière est moins bien représentée que celle sur grille fine.}
 \label{fig:coupe_NM}
 \end{figure}
 
@@ -737,7 +737,7 @@ $150$ & $1.6044 (-5)$ & $7.0918 (-5)$ & $5.9455 (-4)$ \\
 \hline
 \end{tabular}
 \end{center}
-\caption{Erreur pour le test vortex avec rotation solide. On donne différentes erreurs et taux de convergence pour l'équation \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} en norme $1$, $2$ et $\infty$, $\CFL = 0.7$. On choisit $\alpha = \pi/4$ et le temps final $t=12$ jours.}
+\caption{Erreur pour le test vortex avec rotation solide. On donne différentes erreurs et taux de convergence pour l'équation \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} en norme $1$, $2$ et $\infty$, $\CFL = 0.7$. On choisit $\alpha = \pi/4$ et le temps final $t=12$ jours. Nous utilisons l'opérateur de filtrage d'ordre 10.}
 \label{tab:rate1_NJ}
 \end{table} 
 
@@ -745,7 +745,7 @@ $150$ & $1.6044 (-5)$ & $7.0918 (-5)$ & $5.9455 (-4)$ \\
 \begin{center}
 \includegraphics[height=5cm]{rate_NJ1.png}
 \end{center}
-\caption{Erreur pour le vortex avec rotation solide en fonction de $\Delta = a \Delta \xi$. On représente l'erreur et le taux de convergence pour l'équation \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} en norme $1$, $2$ et $\infty$, $\CFL = 0.7$. L'angle $\alpha$ est $\alpha = \pi/4$ et le temps final $t=12$ jours. L'odre de convergence est proche de 4 pour les normes $\| \cdot \|_1$ et $\| \cdot \|_2$. Il est proche de 3.5 pour la norme $\| \cdot \|_{\infty}$.}
+\caption{Erreur pour le vortex avec rotation solide en fonction de $\Delta = a \Delta \xi$. On représente l'erreur et le taux de convergence pour l'équation \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} en norme $1$, $2$ et $\infty$, $\CFL = 0.7$, l'opérateur de filtrage est d'ordre 10. L'angle $\alpha$ est $\alpha = \pi/4$ et le temps final $t=12$ jours. L'odre de convergence est proche de 4 pour les normes $\| \cdot \|_1$ et $\| \cdot \|_2$. Il est proche de 3.5 pour la norme $\| \cdot \|_{\infty}$.}
 \label{fig:rate1_NJ}
 \end{figure} 
 
@@ -756,7 +756,7 @@ On a vu que le vortex statique est difficile à représenter lorsque $t$ augment
 \includegraphics[height=5cm]{ref_7371598961_normerreur_test_2.png}
 \includegraphics[height=5cm]{ref_7371598976_normerreur_test_2.png}
 \end{center}
-\caption{Historique de l'erreur pour le test du vortex avec rotation solide. On représente l'historique de l'erreur pour l'équation \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} en norme $\| \cdot \|_1$, $\| \cdot \|_2$ et $\| \cdot \|_{\infty}$ avec $\CFL = 0.7$. On choisit $\alpha = \pi/4$. Le temps final est $t=24$ jours. La grille est $40 \times 40  \times 6$, 457 pas de temps (gauche), la grille est $80 \times 80  \times 6$, l'algorithme effectue 914 pas de temps (droite). Sur la grille $80 \times 80 \times 6$, l'erreur est en dessous de $10 \%$ ce qui demeure acceptable.}
+\caption{Historique de l'erreur pour le test du vortex avec rotation solide. On représente l'historique de l'erreur pour l'équation \eqref{eq:advection_sphere} avec le champ de vitesse \eqref{eq:vitesse_NJ} en norme $\| \cdot \|_1$, $\| \cdot \|_2$ et $\| \cdot \|_{\infty}$ avec $\CFL = 0.7$, le filtrage est d'ordre 10. On choisit $\alpha = \pi/4$. Le temps final est $t=24$ jours. La grille est $40 \times 40  \times 6$, 457 pas de temps (gauche), la grille est $80 \times 80  \times 6$, l'algorithme effectue 914 pas de temps (droite). Sur la grille $80 \times 80 \times 6$, l'erreur est en dessous de $10 \%$ ce qui demeure acceptable.}
 \label{fig:NJ24jours}
 \end{figure} 
 
@@ -955,7 +955,7 @@ Sur la Figure \ref{fig:BenArtzi_equatorial3}, on représente l'historique de l'e
 \end{equation}
 Nous n'utilisons pas l'erreur relative car pour les conditions initiales utilisées, on a
 \begin{equation}
-\gint_{\mathbb{S}_a^2} h(t,\mathbf{x}) d \sigma(\mathbf{x}) = 0.
+\gint_{\mathbb{S}_a^2} h_0(\mathbf{x}) d \sigma(\mathbf{x}) = 0.
 \end{equation}
 L'erreur de conservation est proche de $6.0 (-5)$ lorsque $N=32$ et proche de $1.5 (-5)$ lorsque $N=64$. L'erreur est cependant nettement plus importante au temps d'apparition du choc $t=1/(2\pi) \approx 0.1592$. 
 

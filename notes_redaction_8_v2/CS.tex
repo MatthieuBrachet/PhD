@@ -6,7 +6,7 @@
 
 \subsection{La sphère $\mathbb{S}_a^2$}
 
-On note $\mathbb{S}_a^2$ \textit{la sphère} de centre $\mathbf{O} (0,0,0) \in \mathbb{R}^3$ et de rayon $a>0$ :
+L'objectif de ce chapitre est de construire le maillage qui sera utilisée pour résoudre des équations aux dérivées partielles sur la Sphère. Pour cela, nous avons besoin de définitions utiles dans la suite. On note $\mathbb{S}_a^2$ \textit{la sphère} de centre $\mathbf{O} (0,0,0) \in \mathbb{R}^3$ et de rayon $a>0$ :
 
 \begin{equation}
 \mathbb{S}_a^2 = \left\lbrace
@@ -121,7 +121,7 @@ Soit $\overline{\mathbf{x}} \in \mathbb{S}_a^2$, alors :
 
 
 \begin{proof}
-Soit $\mathbf{x}$ est un point quelconque de $\mathbb{S}_a^2$. On a $\| \mathbf{x} \|^2 = \mathbf{x} \cdot \mathbf{x} = a^2$ constant. Alors en dérivant par rapport à $\alpha$, on a :
+Soit $\mathbf{x}$ est un point quelconque de $\mathbb{S}_a^2$. Nous adoptons la notation $\| \mathbf{x} \|= \| \mathbf{Ox} \|$. On a $\| \mathbf{x} \|^2 = \mathbf{x} \cdot \mathbf{x} = a^2$ constant. Alors en dérivant par rapport à $\alpha$, on a :
  
 \begin{equation*}
 \begin{array}{rcl}
@@ -3244,7 +3244,7 @@ Cette erreur est mesurée pour différentes grilles Cubed-Sphere de taille $N \t
 
 Les taux de convergence observées sont ceux attendus. Pour $Q_{\tpz}$ et $Q_{\alpha}$ avec $\alpha=1$, le taux de convergence est proche de $2$. Pour la formule de quadrature $Q_{\sps}$, l'ordre de convergence est proche de $4$. La formule de quadrature $Q_{\alpha}$ avec $\alpha = 1/3$ présente de meilleurs résultats que ceux attendus. On observe que la méthode est d'ordre $4$ pour tous les tests effectués.
 
-Nous avons étudié ici différents type de formules de quadrature. Toutes les formules étudiées définissent un produit scalaire possédant de bonnes propriétés d'orthogonalité des harmoniques sphériques.
+Nous avons étudié ici différents type de formules de quadrature sur la grille Cubed-Sphere qui sera utilisée pour la résolution des équations. Toutes les formules étudiées définissent un produit scalaire possédant de bonnes propriétés d'orthogonalité des harmoniques sphériques.
 
 La formule $Q_{\tpz}$ est basée sur la formule des trapèzes composites, cette formule est consistante avec l'intégrale à l'ordre 2. La formule $Q_{\sps}$ est conçue à partir de la méthode de Simpson, elle est consistante à l'ordre 4 lorsque $N$ est pair. Cette propriété de précision est fausse lorsque $N$ est impair.
 Les formules de quadrature $Q_{\alpha}$ sont des perturbations de la formule $Q_{\tpz}$. Le paramètre $\alpha>0$ permet de pondérer les coins de la Cubed-Sphere. Quel que soit le choix de $\alpha$, la formule $Q_{\alpha}$ est consistante avec l'intégrale au moins à l'ordre 2. Lorsque $\alpha = 1/3$, on prouve que la méthode est plus précise pour intégrer les fonctions constantes.

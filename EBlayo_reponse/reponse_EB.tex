@@ -13,55 +13,74 @@
 \author{Brachet Matthieu}
 \title{Réponse à Eric Blayo}
 \begin{document}
-\maketitle
+%\maketitle
 
 \begin{enumerate}
 \item Intro : "La conception d'un schéma pour la résolution des équations Shallow Water sur la sphère est un problème importat en climatologie et océanographie numérique" : pourquoi? étayer...
 
-{\color{blue} réponse ici} 
+{\color{blue} L'introduction a été revue. J'y fait référence à des livres de géophysique tels que le Vallis ou le Cushman-Roisin.} 
 
 \item Chapitre 2 : comme indiqué dans mon rapport, ce serait bien d’être plus précis sur le
 cadre et les objectifs, ne serait-ce que par l’ajout de quelques mots et quelques phrases
 par-ci par-là. Notamment un titre de chapitre plus précis, et des reformulations /
 ajouts au début et à la fin de §2.1.
 
+{\color{blue} J'ai ajouté des commentaires en ce sens dans l'introduction du chapitre.} 
 
 \item §2.2 : Ce serait bien d’avoir au début de ce paragraphe une phrase décrivant ce qu’est
 une méthode de Runge Kutta, de façon générale, avec les notations K (i) ... Sinon on
 passe après du seul exemple RK4 à toutes les méthodes RK, sans avoir défini propre-
 ment les notations.
 
+{\color{blue} Fait.} 
+
 
 \item (2.20)-(2.21) : je ne suis pas. Il n’y a pas un problème de notations, ou une erreur ? $q_n$
 est-il réellement dans (2.20) ? C’est quoi $\mathbf{1}$ ? Ca n’a pas l’air cohérent avec l’expression
 de $K$ donnée juste avant (2.21).
 
+{\color{blue} La définition préalable des méthode de Runge-Kutta permet de mieux comprendre je crois.} 
+
 
 \item juste après (2.21): soit une méthode de RK... : sauf erreur de ma part, on n’a défini nulle part ce qu’est une méthode RK.
+
+{\color{blue} Fait.} 
 
 
 \item (2.35) : c’est bien 720 (6!) et pas 120 (5!) ?
 
+{\color{blue} Fait.} 
 
 \item p48 : les coeffs de Fourier sont notés tantôt avec un chapeau, tantôt sans : harmoniser.
 
+{\color{blue} Fait.} 
 
 
 \item p48 : que veut dire "les modes de $u$ se conservent exactement"? Si je comprend bien ce qui est décrit ici, c'est juste l'énergie globale de $u$ qui est conservé, donc également l'énergie de Fourier. Mais on ne peut rien dire mode par mode avec cette égalité. Ceci dit, vu que $u(t,\cdot)$ est égal à $u_0(\cdot)$ à une translation près, on doit avoir une relation du type $\hat{u}^k = \hat{u}^k_0 \exp (-2i \pi k c /L)$, donc le module de chaque mode demeure en effet inchangé. Mais ce n'est pas Parseval qui le montre.
 
+{\color{blue} Il s'agit d'une seconde démonstration de la conservation de l'énergie. Elle a d'ailleurs été corrigée.} 
+
 
 \item sauf erreur de ma part, (2.64) et la définition $\lambda_k$ juste avant donnent $1/h + \mathcal{O}(h^4)$ en second membre de (2.65), et non pas 1+... Un pb quelque part?
+
+{\color{blue} Une erreur était présente, elle est à présent corrigée.} 
 
 
 \item p51, juste après (2.74) : ce serait plus juste de dire que $g$ admet un minimum $m>0$. Tel que c'est formulé actuellement, n'importe quel minorant positif fait l'affaire donc pas de raison de sortir $m=1.545$. On retrouve la même chose p63.
 
+{\color{blue} Fait.} 
+
 
 \item p51, après (2.75), auquel on ajoute une étape de filtrage : mal dit $\rightarrow$ dans lequel on a ajouté une étape de filtrage au schéma RK4 ?
+
+{\color{blue} Fait.} 
 
 
 \item p52, (2.78) et la phrase qui précède: il faut ajouter l’argument que R est une fonction
 croissante, qui tend vers $+\infty$ quand son argument tend vers $+\infty$. Sinon il n’y a pas
 de raison de quitter forcément le domaine de stabilité, ou de ne pas pouvoir y revenir.
+
+{\color{blue} Fait.} 
 
 
 \item p54 la condition de stabilité est moins restrictive pour un ordre de filtre bas : ajouter
@@ -70,91 +89,137 @@ de modes quand on a un filtre moins sélectif. D’autre part, ce n’est pas fo
 souhaitable pour autant d’utiliser un filtre de bas ordre, puisqu’on atténue des modes
 qu’on ne devrait pas atténuer.
 
+{\color{blue} J'ai ajouté des commentaires.} 
+
 
 \item p58 : ça pourrait être bien d’insérer une figure représentant la condition initiale
 régulière
 
+{\color{blue} Fait.} 
+
 
 \item p59, fig. 2.3 : pourquoi pas en échelle log, comme on fait souvent ?
+
+{\color{blue} Figure fait en échelle log à présent. On voit bien qu'il s'agit de droites à présent.} 
 
 
 
 \item p59, section 2.4 : je suis un peu étonné par le titre. Quand on dit "équation d'ondes 2D", on pense tout de suite à $\partial^2_{tt}U-c^2 \Delta U =0$. Là, il s'agit de shallow water linéarisé autour d'une vitesse nulle. Certes, si on démarre d'une équation d'ondes $\partial^2_{tt}U-gH \Delta U =0$ et qu'on fait le truc classique en posant $u=-U_x$, $v=-U_y$, $\eta = U_t/g$, on retombe presque sur Shallow Water, mais d'une part il n'y a pas de raisons dans ce cas d'introduire Coriolis, et d'autre part c'est tout de même moins évident que de parler directement de shallow water il me semble.
 
+{\color{blue} Il ne s'agit pas de l'équation Shallow Water linéarisée puisque le paramètre de Coriolis est constant. Nous sommes en fait dans le contexte du $f-$plan (c'est ce qui est à présent écrit). J'ai écrit équation des ondes avec paramètres de Coriolis plutôt.} 
+
 
 \item p60, dans la figure : c'est l'ordre 6 je suppose (et pas 10) dans la figure milieu droit?
+
+{\color{blue} Fait.} 
 
 
 \item p63, demo : la fonction $a(\beta)$ est la même que $g(\beta)$ dans la démo de la proposition 2.5. Cf remarque précédente à ce sujet.
 
+{\color{blue} Fait.} 
 
 \item p65, proposition 2.12 : cf ma remarque dans le rapport. Il y a clairement ici l'approximation discrète de la relation de dispersion des ondes d'iniertie gravité $\omega^2 = f^2 + \sqrt{gH}(k^2+l^2)$. C'est discuté dans pas mal de vieux papiers. Voir par exemple mon papier de 2000 au JCP et les références qui y sont citées. Il y a sans doute aussi des papiers plus récents, mais je me suis éloigné de ce sujet. Daniel Le Roux notamment a fait beaucoup de choses là-dessus en éléments finis et en DG.
+
+{\color{blue} Je ne suis pas vraiment rentré dans les détails mais j'ai ajouté des références à E. Blayo et D. Le Roux.} 
 
 
 \item p69, 1ère phrase : ce qui semble bien sûr normal, puisque le filtre est moins sélectif. Ici, comme à plusieurs autres endroits dans le document, ce serait bien je pense d'ajouter quelques commentaires au-delà de la simple constatation, afin de montrer la logique des choses et l'intuition que vous en avez.
 
+{\color{blue} J'ai ajouté, par endroits, des commentaires.} 
+
 
 \item p75 notation $\widehat{\mathbf{x}_0 \mathbf{x}}$ : en toute rigueur, parler d'angle entre 2 poins fait un peu bizarre. Garder cette notation mais bien préciser que c'est un raccourci pour l'angle $(\mathbf{Ox_0}, \mathbf{Ox})$. Idem plus loin où on parle de $\| \mathbf{x} \|$ : c'est en fait $\| \mathbf{Ox} \|$. Donc indiquer qu'on fait l'amalgame point $\mathbf{x}$ - vecteur $\mathbf{Ox}$.
 
+{\color{blue} Fait.} 
 
 \item p100 : quand on introduit la notation $\mathbf{Y}_m^l$, préciser clairement $m \in \mathbb{Z}$.
+
+{\color{blue} Fait.} 
 
 
 \item (3.119) : c'est $f_{m,l}$, pas $f_{m,n}$
 
+{\color{blue} Fait.} 
 
 \item (3.141) : je suppose qu'on a le même résultat pour $S_2$ que pour $S_1$ (la 3ième équation de ce système) ? On en a besoin juste après.
 
+{\color{blue} En effet, c'est à présent précisé.} 
 
 \item p106, juste avant (3.148) : rappeler peut-etre tout de suite que $\int f = <f,1>$, ce qui justifie de chercher une forme analogue au produit scalaire.
 
+{\color{blue} Fait.} 
 
 
 \item p113 : dernière formule de la démonstration de la proposition (3.15) : il manque un $+ \mathcal{O}(\Delta \xi^2)$, non?
 
+{\color{blue} Fait.} 
 
 \item p131 : "L'opérateur divergence discret est une approximation du gradient" $\rightarrow$ "L'opérateur divergence discret est une approximation de la divergence"
+
+{\color{blue} Fait.} 
 
 
 \item p138 "Les fonctions zonales jouent un rôle particulièrement important en climatologie et en océanographie" : est ce si vrai que ça? Justification de cette affirmation?
 
+{\color{blue} Je précise à présent qu'un tel champ représente un écoulement stationnaire zonale sur la sphère..} 
+
 
 \item p153-154 : sauf erreur de ma part, la valeur de $\omega_S$ n'est pas donnée. Je crois comprendre qu'elle vaut $2\pi/12 \text{jour}^{-1}$ d'après ce qui est dit un peu plus loin, mais il faudrait l'indiquer clairement dès le début.
 
+{\color{blue} Fait.} 
+
 
 \item p154 vers le haut : "Des tests existent avec des solution initiales moins régulières (voir [50]), mais ici, nous nous limitons à (5.36)." Si on ne dit que ça, le lecteur est un peu frustré et se dit qu'un test avec une fonction plus régulière aurait permis de voir si on atteignait bien l'ordre théorique de 3, voir sans doute quasiment 4 en pratique $\rightarrow$ indiquer tout de suite que le cas test suivant §5.1.3 permettra de voir ça.
+
+{\color{blue} Fait.} 
 
 
 \item Tables 5.1 et 5.2, figures 5.1 et 5.2 : c’est pour quel filtre ? Ordre 10 je suppose ? Je
 crois que ce n’est pas dit.
 
+{\color{blue} C'est bien l'ordre 10, j'ai précisé.} 
+
 
 \item p155, légende de la table 5.3 : ce n'est pas seulement $\alpha = \pi/4$ mais $\alpha=0$ aussi. 
 
+{\color{blue} C'est à présent écrit.} 
 
 
 \item haut de la page 159 :  "on compare l'erreur au cours du temps pour deux pas de temps" $\rightarrow$ "on compare l'erreur au cours du temps pour 2 valeurs différentes du pas de temps $\Delta t$" (pour éviter une ambiguïté possible) 
 
+{\color{blue} Fait.} 
 
 
-\item Légende de la figure 5.6 : "Solution au temps $t=12$ jours" $\rightarrow$ "Evolution de l'erreur pendant 12 jours"
 
+\item Légende de la figure 5.6 : "Solution au temps $t=12$ jours" $\rightarrow$ "Évolution de l'erreur pendant 12 jours"
+
+{\color{blue} Fait.} 
 
 \item Eq (5.60) et Fig 5.13 : une erreur relative serait plus parlante. Je ne sais pas combien vaut la masse totale.
 
+{\color{blue} La masse totale est nulle donc nous ne pouvons pas utiliser une erreur relative. C'est à présent précisé.} 
 
 \item Idem pour Tab 5.7 et Fig 5.15 : je n'ai pas compris si c'est une erreur absolue ou relative pour la conservation.
+
+{\color{blue} Cf au point précédent.} 
 
 
 \item p176 : $\sigma = 10^{-5}$ : indiquer que se sont des s$^{-1}$, et éventuellement donner le "temps de demi-vie" ln $2/\sigma$, de l'ordre de $0.8$ jour.
 
+{\color{blue} Fait.} 
+
 \item p176 : supprimer la dernière phrase. On vient de dire qu'on ne regarde pas la conservation de la masse et de l'énergie.
+
+{\color{blue} Fait.} 
 
 
 \item Eq (6.32) : manque $(\mathbf{x})$ comme argument de $h_S^2$
 
+{\color{blue} Fait.} 
 
-\item Fig 6.10 : ce serait bien d'indiquer la position de la montagne sur la figure
+\item Fig 6.10 : ce serait bien d'indiquer la position de la montagne sur la figure.
+
+{\color{blue} Fait.} 
 
 
 \item §6.2.5. et partout : on dit barotrope, pas barotropique (même si c’est - très rarement
@@ -164,24 +229,33 @@ ticale. Je suppose que c’est dans le contexte du papier [28], où ils doivent 
 6d’instabilité barotrope dans la mesure où c’est ce que ça déclencherait si on faisait ce
 même genre de tests dans un modèle 3D. Bref, sans doute à préciser un peu.
 
+{\color{blue} C'est en effet dans le contexte du papier. Je ne sais pas comment préciser cela ici, il n'y a pas de détails dans le papier.} 
+
 
 \item légende de la Fig 6.15 : dire qu’on représente la vorticité. Dernière phrase de cette
 légende : on ne peut rien voir sur cette figure en terme de convergence, puisqu’on a un
 et un seul maillage. Réserver cette phrase pour le corps du texte
 
+{\color{blue} Fait.} 
 
 \item §6.2.6, 3ème ligne : d’Est en Ouest, pas le contraire.
 
+{\color{blue} Il s'agit bien d'un déplacement d'Ouest en Est mais le nombre d'images est ici trop faible pour s'en rendre compte.} 
 
 \item Conclusion, 5ème ligne, et dans le résumé : même remarque que précédemment quant
 au terme “équation des ondes”.
 
+{\color{blue} Nous préférons parler d'équation des ondes avec paramètre de Coriolis. Il ne s'agit pas vraiment des équations Shallow Water linéarisée la force de Coriolis étant constante.} 
 
 \item Annexe A : lui donner un titre
+
+{\color{blue} Fait.} 
 
 
 \item ref [4] Ames : c’est un vieux bouquin, la dernière édition date de 1992 je crois. Il a
 peut-être été réédité en 2014, mais c’est un peu trompeur d’indiquer cette date
+
+{\color{blue} Fait.} 
 
 
 
@@ -196,5 +270,6 @@ peut-être été réédité en 2014, mais c’est un peu trompeur d’indiquer c
 
 Cf aussi les typos notées directement sur le document.
 
+{\color{blue} Fait.} 
 
 \end{document}

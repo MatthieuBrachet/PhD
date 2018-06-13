@@ -6,10 +6,10 @@
 
 Dans ce chapitre, nous considérons le cadre général de la procédure d'approximation utilisée à partir du chapitre \ref{chap:3}. On considère des équations aux dérivées partielles d'évolution de la forme
 \begin{equation}
-\dfrac{\partial q}{\partial t} = J(q).
+\dfrac{\partial q}{\partial t} = J(q)
 \label{eq:edp_ref}
 \end{equation}
-Dans l'équation \eqref{eq:edp_ref}, $q$ représente la fonction inconnue et $q \mapsto J(q)$ représente un opérateur différentiel spatial. Les exemples considérés sont
+dans le contexte périodique. Dans l'équation \eqref{eq:edp_ref}, $q$ représente la fonction inconnue et $q \mapsto J(q)$ représente un opérateur différentiel spatial. Les exemples considérés sont
 \begin{enumerate}
 \item L'équation de transport 1D :
 \begin{equation}
@@ -21,7 +21,7 @@ Dans l'équation \eqref{eq:edp_ref}, $q$ représente la fonction inconnue et $q 
 \dfrac{\partial u}{\partial t} + c_x \dfrac{\partial u}{\partial x} + c_y \dfrac{\partial u}{\partial y} = 0 \text{, avec } c_x, c_y \in \mathbb{R},
 \end{equation} 
 
-\item L'équation Shallow Water linéarisée avec force de Coriolis :
+\item L'équation des ondes avec force de Coriolis :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -48,6 +48,7 @@ A chacune de ces équations on ajoute les conditions utiles au caractère bien p
 
 La propriété générale de ces équations est l'hyperbolicité qui garantie l'existence d'un régime de type ondes linéaires et ondes non-linéaires.
 
+Dans ce chapitre, nous étudions les propriétés classiques du schéma utilisé : la consistance, la stabilité, la convergence et la conservation. Bien que ces propriétés soient classiques, nous n'avons pas trouvé ces résultats dans la littérature.
 L'approche envisagée est celle d'une approximation centrée en espace de l'opérateur $J(q)$. On note $J_{\Delta}(q)$ cette approximation spatiale. La situation typique est celle de l'équation de transport 1D périodique dans laquelle on a
 \begin{equation}
 \dfrac{d u}{dt} = J (u)
@@ -100,14 +101,14 @@ q^{n+1} & = & q^n + \Delta t \gsum_{j=1}^p b_j K^{(j)},
 \end{array}
 \right.
 \end{equation}
-on note le pas de temps $\Delta t>0$, et $q^n$ est une approximation de $q(n \Delta t)$. Les coefficients $(A_{i,j})_{1 \leq i,j \leq p}$ et $(b_j)_{1 \leq j \leq p}$ sont des réels donnés. Une méthode de Runge-Kutta est dite explicite si $A_{i,j} = 0$ lorsque $j \geq i$. C'est le cas des méthodes considérées dans ce mémoire. L'état $q^n$ étant connu, l'état $q^{n+1}$ s'écrit en fonction de $q^n$, et non de $q^n$, $q^{n-1}$, $q^{n-2}$, ..., via une relation de la forme
+on note le pas de temps $\Delta t>0$, et $q^n$ est une approximation de $q(n \Delta t)$. Les coefficients $(A_{i,j})_{1 \leq i,j \leq p}$ et $(b_j)_{1 \leq j \leq p}$ sont des réels donnés. Une méthode de Runge-Kutta est dite explicite si $A_{i,j} = 0$ lorsque $j \geq i$. C'est le cas des méthodes considérées dans ce mémoire. L'état $q^n$ étant connu, l'état $q^{n+1}$ s'écrit en fonction de $q^n$, et non de $q^n$, $q^{n-1}$, $q^{n-2}$, etc., via une relation de la forme
 \begin{equation}
 q^{n+1} = Q(q^n).
 \label{eq:recurrence_rk}
 \end{equation}
 
 Le schéma de résolution temporelle de référence que nous considérons est le schéma de Runge-Kutta d'ordre 4 (RK4). 
-Le schéma de Runge-Kutta d'ordre 4 est le schéma de référence d'ordre 4 pour les problèmes non linéaires convectifs. 
+Le schéma de Runge-Kutta d'ordre 4 est le schéma de référence d'ordre 4 pour les problèmes non linéaires convectifs. :
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -120,7 +121,7 @@ K^{(4)} & = & J_{\Delta}\left(q^n + \Delta t K^{(3)}\right)
 \label{eq:k_rk4}
 \end{equation}
 \begin{equation}
-q^{n+1} = q^n + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right)
+q^{n+1} = q^n + \dfrac{\Delta t}{6} \left( K^{(1)} + 2 K^{(2)} + 2 K^{(3)} + K^{(4)} \right).
 \label{eq:assemblage_rk4}
 \end{equation}
 Il est pratique de représenter une méthode de Runge-Kutta à l'aide d'un tableau de Butcher \cite{Butcher2016} de la forme de la Table \ref{tab:butcher}. Le vecteur $c \in \mathbb{R}^p$ désigne la position de l'approximation, $A \in \mathbb{M}_p(\mathbb{R})$ représente la dépendance entre l'étape donnée et les autres étapes, $b \in \mathbb{R}^p$ est issue de la règle de quadrature associée à la méthode de Runge-Kutta.
@@ -459,7 +460,8 @@ Dans cette section, on considère l'équation de transport à vitesse constante 
 \end{equation}
 La donnée initiale est $u(t=0,x)=u_0(x)$. On se place dans le cadre des fonctions $L-$périodiques donc $u(t,0)=u(t,L)$ pour tout $t \geq 0$. La solution exacte de cette équation est
 \begin{equation}
-u(t,x) = u_0(x-ct)  \text{ avec } 0 \leq x \leq L \text{, } t>0.
+u(t,x) = u_0(x-ct)  \text{ avec } x \in \mathbb{R} \text{, } t>0.
+\label{eq:trsp_exact}
 \end{equation}
 On introduit le développement de Fourier de $u_0$. Pour tout $x \in [0,L]$, on a
 \begin{equation}
@@ -472,11 +474,11 @@ avec $(\hat{u}_0^k)_{k \in \mathbb{Z}}$ les coefficients de Fourier donnés par
 Ainsi, le développement en série de Fourier de $u$ est donné par
 \begin{align}
 u(t,x) & = u_0(x-ct)\\
-	& = \gsum_{k \in \mathbb{Z}} \hat{u}_0^k \exp \left( \dfrac{2i \pi k}{L} (x-ct) \right) \\
-	& = \dfrac{1}{L} \gsum_{k \in \mathbb{Z}} \gint_0^L u_0(\tau)  \exp \left( -\dfrac{2i \pi k}{L} \tau \right) d \tau \exp \left( \dfrac{2i \pi k}{L} (x-ct) \right)
+	& = \gsum_{k \in \mathbb{Z}} \exp \left( \dfrac{2i \pi k}{L} (x-ct) \right) \hat{u}_0^k  \\
+	& = \dfrac{1}{L} \gsum_{k \in \mathbb{Z}} \exp \left( \dfrac{2i \pi k}{L} (x-ct) \right) \cdot \left( \gint_0^L u_0(\tau)  \exp \left( -\dfrac{2i \pi k}{L} \tau \right) d \tau \right).
 	\label{eq:trsp_fourier}
 \end{align}
-On se restreint au cas $u_0 \in \mathcal{C}^1(\mathbb{R}) \cap L^{\infty}(\mathbb{R}) \cap L^2(\mathbb{R})$. Quand on multiplie \eqref{eq:transport_1D} par $u$ et qu'on intègre, on obtient
+Par ailleurs, on se s'intéresse à présent à la conservation de l'énergie. On se retreint au cas $u_0 \in \mathcal{C}^1(\mathbb{R}) \cap L^{\infty}(\mathbb{R}) \cap L^2(\mathbb{R})$. Quand on multiplie \eqref{eq:transport_1D} par $u$ et qu'on intègre, on obtient
 \begin{align*}
 \dfrac{d}{dt} \| u (t,\cdot) \|_{L^2}^2 & = \dfrac{d}{dt} \gint_0^L |u(t,x)|^2 dx \\
 	& = 2 \gint_0^L u(t,x) \dfrac{\partial u}{\partial t}(t,x) dx \\
@@ -484,13 +486,36 @@ On se restreint au cas $u_0 \in \mathcal{C}^1(\mathbb{R}) \cap L^{\infty}(\mathb
 	& = - c \gint_0^L \dfrac{\partial}{\partial x} |u(t,x)|^2 dx \\
 	& = 0.
 \end{align*}
-L'énergie $t \in \mathbb{R}^+ \mapsto  \| u (t,\cdot) \|_{L^2}^2$ est conservée au fil du temps. On note $(\hat{u}^k)_{k \in \mathbb{Z}}$ les coefficients de Fourier de $u$. La conservation de l'énergie, via l'égalité de Parseval se transforme en
+Donc l'énergie $t \in \mathbb{R}^+ \mapsto  \| u (t,\cdot) \|_{L^2}^2$ est conservée au fil du temps. Pour interpréter la conservation de l'énergie, on remarque que :
 \begin{align*}
-\gsum_{k \in \mathbb{Z}} |\hat{u}^k(t,\cdot)|^2 & = \| u(t,\cdot) \|_{L^2}^2 \text{ par égalité de Parseval sur } u,\\
-	& = \| u_0 \|_{L^2}^2 \text{ par conservation de l'énergie,}\\
-	& = \gsum_{k \in \mathbb{Z}} |\hat{u}^k_0|^2.
+\hat{u}^k & = \dfrac{1}{L} \gint_0^L u_0(\tau - ct) \exp \left( - \dfrac{2 i \pi k}{L} \tau \right) d \tau \text{ en utilisant \eqref{eq:trsp_exact}}\\
+	& = \dfrac{1}{L} \gint_{0}^{L} u_0(\sigma) \exp \left( - \dfrac{2 i \pi k}{L} \sigma  \right)d \sigma \cdot \exp \left( - \dfrac{2i\pi k}{L} ct \right)  \text{ par } L-\text{périodicité et en posant } \sigma = \tau - ct,\\
+	& = \hat{u}_0^k \exp \left( - \dfrac{2i\pi k}{L} ct \right).
 \end{align*}
-Ainsi l'énergie global et l'énergie de Fourier est exactement conservée.
+En particulier, on note que 
+\begin{equation}
+|\hat{u}^k|^2 = |\hat{u}_0^k|,
+\label{eq:cons_onde}
+\end{equation}
+donc le module de chaque mode est conservé. Cette relation et l'égalité de Parseval permettent d'écrire :
+\begin{align*}
+\| u(t,\cdot) \|^2_{L^2}  & = \gsum_{k \in \mathbb{Z}} |\hat{u}^k(t)|^2 \text{ par égalité de Parseval,}\\ 
+	& = \gsum_{k \in \mathbb{Z}} |\hat{u}_0^k|^2 \text{ par \eqref{eq:cons_onde},}\\
+	& = \| u_0 \|^2_{L^2} \text{ par égalité de Parseval}.
+\end{align*}
+Et cette relation permet d'interpréter la conservation de l'énergie à l'aide des coefficients de Fourier.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -575,7 +600,7 @@ U(t) = V \exp \left[-c \Lambda t \right] \bar{V}^T U_0.
 \end{equation}
 Ainsi, on a
 \begin{equation}
-U_j(t) = \gsum_{k=1}^{N} \gsum_{p=1}^N V_{j,k} \exp \left( - c \Lambda_{k,k}  \right)  \bar{V}_{p,k}(U_0)_p.
+U_j(t) = \gsum_{k=1}^{N} \gsum_{p=1}^N V_{j,k} \exp \left( - c \Lambda_{k,k} t \right)  \bar{V}_{p,k}(U_0)_p.
 \end{equation}
 Comme $\mathfrak{u}(t) = \vec^{-1}(U(t))$, en remplaçant chaque composante par sa valeur, on obtient
 \begin{equation}
@@ -606,7 +631,7 @@ L'erreur entre $u(t,\cdot)^*$ et $\mathfrak{u}(t)$ est donnée pour $t \in [0,T]
 \begin{equation}
 \| \mathfrak{u}(t) - u(t,\cdot)^* \|_{h,\per} \leq \tilde{C} c \sqrt{L} t h^4 \| \partial_x^{(5)} u(t,\cdot) \|_{\infty,[0,T] \times [0,L]}
 \end{equation}
-où $\tilde{C}>0$ est une constante indépendante de $h$ et de $u$. $\tilde{C}$ est estimé à $0.3210$.
+où $\tilde{C}>0$ est une constante indépendante de $h$ et de $u$ avec  $\tilde{C} < 0.3210$.
 \label{prop:consistance_h_trsp}
 \end{proposition}
 
@@ -663,11 +688,11 @@ La fonction $a$ est continue, positive et de plus :
 \begin{equation}
 \lim_{\beta \rightarrow + \infty} a(\beta) = \lim_{\beta \rightarrow 0^+} a(\beta) = + \infty
 \end{equation}
-donc il existe $m > 0$ telle que pour tout $\beta > 0$, on a $a(\beta)>m$. On trouve $m \approx 1.545$. De là, il découle que
+donc $a$ admet un minimum $m>0$. De là, il découle que
 \begin{equation*}
 \|\mathfrak{e}(t)\|_{h,\per}^2 \leq L C^2 m c^2 t^2 h^8  \| \partial_x^{(5)} u(t,\cdot) \|_{\infty,[0,T] \times [0,L]}^2.
 \end{equation*}
-L'estimation est obtenue en prenant la racine carré de cette équation. De plus, on a vu que $C = 1/15$ convient et $m=1.545$, donc $\tilde{C} = \sqrt{mC} \approx 0.3210$.
+L'estimation est obtenue en prenant la racine carré de cette équation. De plus, on a vu que $C = 1/15$ convient. Et p, vérifie que $m<1.545$, donc $\tilde{C} = \sqrt{mC} < \sqrt{\dfrac{1.545}{15}} < 0.3210$.
 \end{proof}
 
 La présence du temps $t$ dans le terme d'erreur permet de mettre en évidence la détérioration linéaire de l'erreur au fil du temps. 
@@ -855,7 +880,7 @@ Ainsi, l'inclusion suivante est vérifiée :
 On conclut en prenant le maximum de cette inclusion.
 \end{proof}
 
-En évaluant numériquement la valeur de $\lambda_{2J}$ par un algorithme de dichotomie, on obtient la Table \ref{tab:cfl_adv1d}. On constate que $\lambda_{2J}$ augmente lorsque $2J$ diminue. La condition de stabilité est moins restrictive pour un ordre de filtre bas.
+En évaluant numériquement la valeur de $\lambda_{2J}$ par un algorithme de dichotomie, on obtient la Table \ref{tab:cfl_adv1d}. On constate que $\lambda_{2J}$ augmente lorsque $2J$ diminue. La condition de stabilité est moins restrictive pour un ordre de filtre bas. Ce résultat était attendu puisqu'un filtre d'ordre bas est plus sélectif qu'un filtre d'ordre élevé cependant les ondes sont plus atténuées qu'avec un filtre d'ordre élevé.
 
 \begin{table}[htbp]
 \begin{center}
@@ -1198,11 +1223,11 @@ Il est bien connu que l'ammélioration du comportement dissipatif d'un schéma c
 
 
 
-\section{Équation hallow Water linéarisée}
+\section{Équation Shallow Water linéarisée avec Coriolis constant}
 
-On considère dans cette partie l'équation Shallow Water linéarisée sur un carré périodique avec un paramètre $f > 0$ constant représentant la force de Coriolis. Cette équation est la linéarisation de l'équation Shallow Water au voisinage d'un état de repos.
+On considère dans cette partie l'équation des ondes avec force de Coriolis sur un carré périodique. Le paramètre $f > 0$ constant représentant la force de Coriolis. Cette équation est la linéarisation de l'équation Shallow Water au voisinage d'un état de repos avec l'hypothèse d'une force de Coriolis constante. On parle généralement de $f-$plan \cite{Blayo2000}. Ce système présente de nombreuses propriétés propre à Shallow Water linéarisée. Il permet aussi de représenter les ondes d'inertie-gravité mais pas les ondes de Rossby \cite{Blayo2000,Golshahy2011}.
 
-Pour $(x,y) \in \Omega = [0,1]^2$ et $t>0$, elle s'écrit 
+Pour $(x,y) \in \Omega = [0,1]^2$ et $t>0$, le problème s'écrit 
 \begin{equation}
 \left\lbrace
 \begin{array}{rcl}
@@ -1392,7 +1417,7 @@ Or, la fonction $a(\beta)$ est continue, positive et
 \begin{equation}
 \lim_{\beta \rightarrow + \infty} a(\beta) = \lim_{\beta \rightarrow 0} a(\beta) = + \infty.
 \end{equation}
-Donc il existe $m>0$ tel que pour tout $\beta>0$, on ait $a(\beta)>m$. On obtient $m \geq 1.545$. Ainsi, on a
+Donc $a$ admet un minimum $m>0$, on vérifie que $m < 1.545$. Ainsi, on a
 \begin{equation}
 E^2(t) \leq g^2 H^2 t^2 m \Upsilon_{\infty} h^8.
 \end{equation}
@@ -1466,7 +1491,7 @@ On note $\Delta t>0$ le pas de temps et $\etafrak^n$, $\mathfrak{u}^n$ et $\math
 \begin{center}
 \begin{minipage}[H]{12cm}
   \begin{algorithm}[H]
-    \caption{: Schémas en temps RK4 avec étape de filtrage pour le système périodique \eqref{eq:ondes_2D_SD}}\label{alg:RK4_ondes2d}
+    \caption{: Schéma en temps RK4 avec étape de filtrage pour le système périodique \eqref{eq:ondes_2D_SD}}\label{alg:RK4_ondes2d}
     \begin{algorithmic}[1]
     \State $\etafrak^0 = \eta_0^*$, $\mathfrak{u}^0 = u_0^*$ et $\mathfrak{v}^0 = v_0^*$ connus,
     \For{$n=0,1, \ldots$}
@@ -1552,8 +1577,7 @@ Les valeurs propres de l'opérateur $gH (\delta_{4,x}^H \circ \delta_{4,x}^H + \
 \begin{equation}
 \dfrac{gH}{h^2} \left( Q_4^H (\omega^{k_1} )^2+Q_4^H (\omega^{k_2} )^2 \right) - f^2
 \end{equation} 
-avec $-N/2+1 \leq k_1, k_2 \leq N/2$.
-Il découle le théorème de stabilité suivant :
+avec $-N/2+1 \leq k_1, k_2 \leq N/2$. On note le lien entre ces valeurs propres et la relation de dispersion liée aux équations \eqref{eq:ondes_2D}. Il s'agit en effet d'une approximation discrète de la relation de dispersion des ondes d'inertie .gravité \cite{Blayo2000,Fox1991,LeRoux2007}. Il découle le théorème de stabilité suivant :
 
 \begin{theoreme}
 En l'absence de filtrage, le schéma énoncé par l'algorithme \ref{alg:RK4_ondes2d} est stable sous la condition
@@ -1663,7 +1687,7 @@ Sur la Figure \ref{fig:waves_solution}, on représente la solution approchée au
 \includegraphics[height=4cm]{waves_t05.eps}
 \includegraphics[height=4cm]{waves_t1.eps}
 \end{center}
-\caption{Solutions numériques pour l'équation des Shallow Water linéarisée \eqref{eq:ondes_2D} aux temps $t=0$, $t=0.5$ et $t=1$, $N=64$, $\Delta t_{\infty} \approx 5.7616\times10^{-4}$. La solution est obtenue par l'algorithme \ref{alg:RK4_ondes2d} avec un filtrage d'ordre 10 pour la condition initiale \eqref{eq:waves_test1}.}
+\caption{Solutions numériques pour l'équation des ondes avec paramètre de Coriolis \eqref{eq:ondes_2D} aux temps $t=0$, $t=0.5$ et $t=1$, $N=64$, $\Delta t_{\infty} \approx 5.7616\times10^{-4}$. La solution est obtenue par l'algorithme \ref{alg:RK4_ondes2d} avec un filtrage d'ordre 10 pour la condition initiale \eqref{eq:waves_test1}.}
 \label{fig:waves_solution}
 \end{figure}
 \begin{figure}[htbp]
@@ -1675,7 +1699,7 @@ Sur la Figure \ref{fig:waves_solution}, on représente la solution approchée au
 \label{fig:waves_conservation}
 \end{figure}
 
-La Table \ref{tab:dt_critique_waves} montre la recherche du pas de temps maximal pour lequel l'algorithme \ref{alg:RK4_ondes2d} est stable pour la donnée initiale \eqref{eq:waves_test1}. Le temps final est $t=2$ et le paramètre de la grille est $N=32$. On constate que plus l'ordre du filtre est bas, plus il est possible de choisir un pas de temps grand. Dans la Table \ref{tab:conservation_waves}, on observe que choisir un filtrage d'ordre trop bas peut avoir des répercussions sur la conservation de l'énergie. Un filtrage d'ordre 2 ne permet pas de conserver l'énergie et un filtrage d'ordre 4 donne une dégradation de l'ordre de convergence sur la conservation. En revanche les filtrages d'ordre 8 et 10 donnent des résultats semblables.
+La Table \ref{tab:dt_critique_waves} montre la recherche du pas de temps maximal pour lequel l'algorithme \ref{alg:RK4_ondes2d} est stable pour la donnée initiale \eqref{eq:waves_test1}. Le temps final est $t=2$ et le paramètre de la grille est $N=32$. On constate que plus l'ordre du filtre est bas, plus il est possible de choisir un pas de temps grand. Dans la Table \ref{tab:conservation_waves}, on observe que choisir un filtrage d'ordre trop bas a des répercussions sur la conservation de l'énergie. Un filtrage d'ordre 2 ne permet pas de conserver l'énergie et un filtrage d'ordre 4 donne une dégradation de l'ordre de convergence sur la conservation. En revanche les filtrages d'ordre 8 et 10 donnent des résultats semblables. On souhaite utiliser un schéma stable pour lequel l'énergie est conservée à un ordre proche de 4. Le filtrage d'ordre 10 est un bon compromis, il atténue les hautes fréquences, ce qui permet une bonne stabilité. De plus, suffisamment de fréquences sont conservées pour permettre une conservation de l'énergie satisfaisante.
 
 \begin{table}[htbp]
 \begin{center}
@@ -1987,12 +2011,7 @@ Sur la Figure \ref{fig:comp_burgers_ftr}, on compare la solution obtenue à l'ai
 \label{fig:comp_burgers_ftr}
 \end{figure}
 
-Le filtrage d'ordre 2 est trop dissipatif. Les filtrages d'ordres plus élevés représentent mieux le choc et permettent au schéma de rester stable jusqu'à $t=10/(2 \pi)$ au minimum.
-
-
-
-
-
+Le filtrage d'ordre 2 est trop dissipatif. Les filtrages d'ordres plus élevés représentent mieux le choc et permettent au schéma de rester stable jusqu'à $t=10/(2 \pi)$ au minimum. Le filtre d'ordre 10 est un bon compromis entre la précision souhaitée, la stabilité, la conservation et la bonne représentation des chocs. En effet, il conserve suffisamment d'ondes pour représenter le choc sans que des ondes parasites rendent le calcul impossible. Comme nous utilisons un schéma centré, des oscillations restent cependant présente mais un tel schéma permet de vérifier exactement la conservation de la masse.
 
 
 

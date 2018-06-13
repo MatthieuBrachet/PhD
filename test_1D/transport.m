@@ -1,12 +1,12 @@
 clc; clear all; close all; format shorte
 
-c=1/5;
+c=.2;
 
 n=100;
 h=1./n;
 x=[h:h:1]';
 
-cfl=1.5;
+cfl=1.6883;
 ddt=cfl*h/c;
 tmax=10;
 
