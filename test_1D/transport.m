@@ -1,12 +1,12 @@
 clc; clear all; close all; format shorte
-
+video='yes'
 c=.2;
 
 n=100;
 h=1./n;
 x=[h:h:1]';
 
-cfl=1.6883;
+cfl=1;
 ddt=cfl*h/c;
 tmax=10;
 
@@ -18,7 +18,7 @@ p(end,1)=1/6; p(1,end)=1/6;
 p=sparse(p);
 
 
-opt_ftr='redonnet10';
+opt_ftr='redonnet100';
 if strcmp(opt_ftr,'redonnet10')==1
     ftr0=772/1024;
     ftr1=420/1024;
@@ -88,6 +88,12 @@ int=sum(u)*h;
 e1=[]; e2=[]; ei=[];
 cons=[];
 t=0;
+if strcmp(video,'yes')==1
+    vidObj=VideoWriter(['creneau'],'Motion JPEG AVI');
+    vidObj.Quality = 100;
+    open(vidObj);
+    set(gca,'nextplot','replacechildren');
+end
 while t+ddt<tmax
      clc; t=t+ddt
     
@@ -116,12 +122,47 @@ while t+ddt<tmax
     ei=[ei norm(u-uex,inf)./norm(uex,inf)];
     cons=[cons sum(u)*h-int];
 
-    
-%     pause(0.001)
-%     clf
-%     figure(1)
-%     plot(x,u,'Linewidth',2)
-%     axis([0 1 -1.2 1.2])
+    if strcmp(video,'yes')==1
+        
+        uex=fun(x-c*t);
+        
+        clf
+        hFig = figure(100);
+        set(gcf,'PaperPositionMode','auto')
+        set(hFig, 'Position', [500 500 800 800])
+        plot(x,uex,'r-',x,u,'b-','Linewidth',2)
+        legend('exacte','approché')
+        axis([0 1 -1.2 1.2]);
+        
+        currFrame = getframe;
+        writeVideo(vidObj,currFrame);
+        
+        clf
+        hFig = figure(100);
+        set(gcf,'PaperPositionMode','auto')
+        set(hFig, 'Position', [500 500 800 800])
+        plot(x,uex,'r-',x,u,'b-','Linewidth',2)
+        legend('exacte','approché')
+        axis([0 1 -1.2 1.2]);
+        
+        currFrame = getframe;
+        writeVideo(vidObj,currFrame);
+%         
+%         clf
+%         hFig = figure(100);
+%         set(gcf,'PaperPositionMode','auto')
+%         set(hFig, 'Position', [500 500 800 800])
+%         plot(x,uex,'r-',x,u,'b-','Linewidth',2)
+%         legend('exacte','approché')
+%         axis([0 1 -1.2 1.2]);
+% 
+%         currFrame = getframe;
+%         writeVideo(vidObj,currFrame);
+        
+    end
+end
+if strcmp(video,'yes') == 1
+    close(vidObj);
 end
 time=[1:length(e1)]*ddt;
 

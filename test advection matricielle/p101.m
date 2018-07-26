@@ -28,7 +28,7 @@ time1=cputime;
 coef = 2;
 % si film = 1 : faire le film,
 %    film = 0 : ne pas faire.
-film = 0;
+film = 1;
 % si save_graph = 1 : enregistrer les graphiques et les données dans TEST_SAVE.txt
 %    save_graph = 0 : ne pas enregistrer
 save_graph = 1;
@@ -37,7 +37,7 @@ save_graph = 1;
 opt_ftr ='redonnet10';
 % snapshot = 0 : pas de snapshot
 %          = 1 : snapshot ( n must be odd. )
-snapshot = 0;
+snapshot = 1;
 % coupe = 0 : pas de coupe le long de l'équateur de la face 2
 %         1 : coupe.
 coupe = 0;
@@ -48,10 +48,10 @@ sauvegarde = 1;
 % choix du schéma aux différences finies
 scheme='compact4'; % compact ou explicite
 %% *** Benchmarks data ****************************************************
- n=79;
+ n=127;
  nn=n+2;
  cfl=.7;
- ndaymax=24;
+ ndaymax=0;
  err=2;
  mm=0;
  MM=1000;
@@ -336,7 +336,9 @@ while ite<itemax & erinfty(end)<10
 
     %% Figure pour film
     if film==1
-        figure(100);
+        hFig=figure(100);
+        set(gcf,'PaperPositionMode','auto')
+        set(hFig, 'Position', [50 50 1000 1000])
         title(['days : ', num2str(xdays(ite))]); hold on
         view([1 -1 1])
         %plot_cs15(n,nn,funfI,funfII,funfIII,funfIV,funfV,funfVI,mm,MM);
@@ -375,7 +377,7 @@ disp(['temps de fonctionnement : ', num2str(time2)])
 
 if film == 1
     mkdir(['./video-' date ])
-    movie2avi(mov, ['./video-' date '/ref_' num2str(ref) '_test_' num2str(coef) '.avi'], 'compression', 'None');
+    videowriter(mov, ['./video-' date '/ref_' num2str(ref) '_test_' num2str(coef) '.avi'], 'compression', 'None');
     
     fid = fopen('AA_VIDEO_SAVE.txt','a');
     fprintf(fid,'%s\n',['date : ', date]);

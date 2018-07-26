@@ -1,0 +1,21 @@
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {4.1}Op\IeC {\'e}rateurs diff\IeC {\'e}rentiels sur la Cubed-sphere}{\reset@font\mtcSfont 121}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.1.1}D\IeC {\'e}finition des op\IeC {\'e}rateurs}{\reset@font\mtcSSfont 121}}
+{\reset@font\mtcSSSfont\mtc@string\contentsline{subsubsection}{\noexpand \leavevmode Op\IeC {\'e}rateur Gradient}{\reset@font\mtcSSSfont 121}}
+{\reset@font\mtcSSSfont\mtc@string\contentsline{subsubsection}{\noexpand \leavevmode Op\IeC {\'e}rateurs divergence et rotationnel}{\reset@font\mtcSSSfont 121}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.1.2}Approximation de d\IeC {\'e}riv\IeC {\'e}es sur les grands cercles}{\reset@font\mtcSSfont 122}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {4.2}Op\IeC {\'e}rateur gradient discret}{\reset@font\mtcSfont 127}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.2.1}Construction et consistance de l'op\IeC {\'e}rateur gradient discret}{\reset@font\mtcSSfont 127}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.2.2}Tests num\IeC {\'e}riques}{\reset@font\mtcSSfont 128}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.2.3}Une variante de l'op\IeC {\'e}rateur de gradient discret}{\reset@font\mtcSSfont 128}}
+{\reset@font\mtcSSSfont\mtc@string\contentsline{subsubsection}{\noexpand \leavevmode Gradient discret utilisant un sch\IeC {\'e}ma compact d'ordre 8}{\reset@font\mtcSSSfont 128}}
+{\reset@font\mtcSSSfont\mtc@string\contentsline{subsubsection}{\noexpand \leavevmode Gradient sans interpolation}{\reset@font\mtcSSSfont 131}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {4.3}Op\IeC {\'e}rateur divergence discret}{\reset@font\mtcSfont 133}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.3.1}Construction et consistance de l'op\IeC {\'e}rateur divergence discret}{\reset@font\mtcSSfont 133}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.3.2}Tests num\IeC {\'e}riques}{\reset@font\mtcSSfont 133}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.3.3}Variante de l'op\IeC {\'e}rateur de divergence discret}{\reset@font\mtcSSfont 136}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {4.4}Op\IeC {\'e}rateur rotationnel discret}{\reset@font\mtcSfont 138}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.4.1}Construction et consistance de l'op\IeC {\'e}rateur rotationnel discret}{\reset@font\mtcSSfont 138}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.4.2}Tests num\IeC {\'e}riques}{\reset@font\mtcSSfont 138}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {4.5}Op\IeC {\'e}rateur de filtrage}{\reset@font\mtcSfont 144}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.5.1}D\IeC {\'e}finition des op\IeC {\'e}rateurs de filtrage}{\reset@font\mtcSSfont 144}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {4.5.2}R\IeC {\'e}sultats num\IeC {\'e}riques pour l'op\IeC {\'e}rateur de filtrage}{\reset@font\mtcSSfont 146}}

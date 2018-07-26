@@ -1,0 +1,40 @@
+date : 23-Jul-2018
+ref. : 7372643695
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 5670
+cfl               : 0.7
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 1
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.016671
+max(er_2)         : 0.010084
+max(er_infty)     : 0.0086482
+***********************************
+  
+  
+date : 23-Jul-2018
+ref. : 7372643700
+***********************************
+test : 0
+---------- numerical data ---------
+number of points  : 31
+time step         : 5670
+cfl               : 0.7
+ordre du filtre   : redonnet10
+-------- mathematical data --------
+ndaymax           : 12
+angle in degree   : 45
+(lambdap,thetap)  : (180,45)
+***********************************
+max(er_1)         : 0.067865
+max(er_2)         : 0.035274
+max(er_infty)     : 0.026293
+***********************************
+  
+  

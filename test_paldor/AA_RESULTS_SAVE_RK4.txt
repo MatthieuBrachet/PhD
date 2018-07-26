@@ -1,0 +1,216 @@
+date : 11-Jul-2018
+ref. : 7372528448
+***********************************
+---------- numerical data ---------
+number of points  : 85
+time step         : 300
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 10
+caracteristic height   : 5000
+coriolis parammter     : 7.2921e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 12-Jul-2018
+ref. : 7372534634
+***********************************
+---------- numerical data ---------
+number of points  : 31
+time step         : 300
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 10
+caracteristic height   : 5000
+coriolis parammter     : 7.2921e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 12-Jul-2018
+ref. : 7372534644
+***********************************
+---------- numerical data ---------
+number of points  : 31
+time step         : 100
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 10
+caracteristic height   : 5000
+coriolis parammter     : 7.2921e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 12-Jul-2018
+ref. : 7372534659
+***********************************
+---------- numerical data ---------
+number of points  : 63
+time step         : 100
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 10
+caracteristic height   : 5000
+coriolis parammter     : 7.2921e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 12-Jul-2018
+ref. : 7372534685
+***********************************
+---------- numerical data ---------
+number of points  : 31
+time step         : 300
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 10
+caracteristic height   : 5000
+coriolis parammter     : 7.2921e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 12-Jul-2018
+ref. : 7372534692
+***********************************
+---------- numerical data ---------
+number of points  : 31
+time step         : 300
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 10
+caracteristic height   : 5000
+coriolis parammter     : 7.2921e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 12-Jul-2018
+ref. : 7372534700
+***********************************
+---------- numerical data ---------
+number of points  : 31
+time step         : 300
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 10
+caracteristic height   : 5000
+coriolis parammter     : 7.2921e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 12-Jul-2018
+ref. : 7372534709
+***********************************
+---------- numerical data ---------
+number of points  : 31
+time step         : 300
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 10
+caracteristic height   : 5000
+coriolis parammter     : 7.2921e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 12-Jul-2018
+ref. : 7372534719
+***********************************
+---------- numerical data ---------
+number of points  : 31
+time step         : 300
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 10
+caracteristic height   : 5000
+coriolis parammter     : 7.2921e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 12-Jul-2018
+ref. : 7372534729
+***********************************
+---------- numerical data ---------
+number of points  : 15
+time step         : 300
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 10
+caracteristic height   : 5000
+coriolis parammter     : 7.2921e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 12-Jul-2018
+ref. : 7372534734
+***********************************
+---------- numerical data ---------
+number of points  : 63
+time step         : 300
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 10
+caracteristic height   : 5000
+coriolis parammter     : 7.2921e-05
+------------ comment --------------
+.
+***********************************
+  
+  
+date : 12-Jul-2018
+ref. : 7372534747
+***********************************
+---------- numerical data ---------
+number of points  : 31
+time step         : 300
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 10
+caracteristic height   : 5000
+coriolis parammter     : 7.2921e-05
+------------ comment --------------
+.
+***********************************
+  
+  

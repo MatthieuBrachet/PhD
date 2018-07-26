@@ -25,23 +25,23 @@ global x_fIV y_fIV z_fIV x_fV y_fV z_fV x_fVI y_fVI z_fVI
 global opt_ftr test scheme nrm detec
 
 comment='.';
-test=0;
-video = 'no';
-sauvegarde =0;
+test=1;
+video = 'yes';
+sauvegarde =1;
 filtre='symetric';
-opt_ftr='redonnet10';
+opt_ftr='redonnet2';
 scheme='compact4';
 snapshot='no';
 nrm='int';
 
 n=31 ; % for snapshot and better spherical integration (B. Portenelle works), n must be odd !
-ndaymax=6;
+ndaymax=10/(2*pi);
 mod101
-ddt=.96/pi*dxi;
+ddt=.005;%.96/pi*dxi;
 disp('mod101 : ok')
 
 %% ************************************************************************
-nper=3;
+nper=1;
 tstart=cputime;
 ref=floor(10000*now);
 jour=date;
@@ -77,7 +77,8 @@ time(1)=t; erri(1)=0; err_int(1)=1;
 %% *** video option *******************************************************
 if strcmp(video,'yes')==1
     mkdir(['./RK4_video-' jour ])
-    vidObj=VideoWriter(['./RK4_video-' jour '/ref_' num2str(ref)]);%.avi
+    vidObj=VideoWriter(['./RK4_video-' jour '/ref_' num2str(ref)],'Motion JPEG AVI');
+    
     open(vidObj);
     set(gca,'nextplot','replacechildren');
 end
@@ -214,15 +215,32 @@ while t<Tmax && iter<itermax
     if strcmp(video,'yes')==1 && mod(iter,nper) == 0
         
         clf
-        hFig = figure(1);
+        hFig=figure(100);
         set(gcf,'PaperPositionMode','auto')
         set(hFig, 'Position', [50 50 1000 500])
-        plot_cs102(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
-        colorbar
+        
+        subplot(121)
+        plot_cs11(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI);
+        title(['Temps = ' num2str(t)])
+        caxis([-1 1])
+        view([-1 0 0])
+        
+        [ lambdae, hte ] = equateur(ht_fI, ht_fII, ht_fIII, ht_fIV,ht_fV, ht_fVI);
+        [x,y] = burgers( 4*(n+1)-1, ddt, t );
+        
+        subplot(122)
+        plot(lambdae,hte,'-o',x,y,'Linewidth',2)
+        xticks([0 pi/2 pi 3*pi/2 2*pi])
+        xticklabels({'0','\pi/2','\pi','3\pi/2','2\pi'})
+        axis([0 2*pi -1.2 1.2])
+        grid minor
+        legend('Coupe équatoriale','Burgers 1D')
+        
 
         hold off
         currFrame = getframe;
         writeVideo(vidObj,currFrame);
+        
         
     end
     

@@ -11,19 +11,13 @@ function [funftI,funftII,funftIII,funftIV,funftV,funftVI]=...
 [funftI2,funftII2,funftIII2,funftIV2,funftV2,funftVI2]=...
     ftr_xi101(funftI,funftII,funftIII,funftIV,funftV,funftVI,n,nn);
 
-% funftI=.5*(funftI1+funftI2);
-% funftII=.5*(funftII1+funftII2);
-% funftIII=.5*(funftIII1+funftIII2);
-% funftIV=.5*(funftIV1+funftIV2);
-% funftV=.5*(funftV1+funftV2);
-% funftVI=.5*(funftVI1+funftVI2);
+funftI=.5*(funftI1+funftI2);
+funftII=.5*(funftII1+funftII2);
+funftIII=.5*(funftIII1+funftIII2);
+funftIV=.5*(funftIV1+funftIV2);
+funftV=.5*(funftV1+funftV2);
+funftVI=.5*(funftVI1+funftVI2);
 
-funftI=funftI1;
-funftII=funftII1;
-funftIII=funftIII1;
-funftIV=funftIV1;
-funftV=funftV1;
-funftVI=funftVI1;
 
 end
 

@@ -1,0 +1,91 @@
+Simuler numériquement la dynamique des fluides atmosphérique et océanographique par des méthodes de haute précision représente un enjeu fondamental pour la prévision climatique à grande échelle. 
+Les questions écologiques, sociales et politiques du réchauffement climatique rendent ce problème central. On renvoi aux ouvrages récents de G. K. Vallis \cite{Vallis2017} de B. Cushman-Roisin et \textit{al.} \cite{Cushman2011} ainsi qu'au livre de M. Ghil et \textit{al.} \cite{Ghil1987}. Il s'agit d'un problème délicat. Ceci est dû en particulier au couplage entre phénomènes convectifs et thermodynamiques présents dans les équations de Navier-Stokes. De plus, le contexte sphérique et la variété des échelles de temps et d'espace rajoutent encore à la complexité.
+
+Notre objectif concerne la résolution des équations Shallow Water sphériques (équations de Saint-Venant). Ces dernières représentent le modèle le plus simple pour les mouvements d'une atmosphère de faible épaisseur sur la sphère en rotation. Bien qu'il s'agisse d'une simplification, ce modèle prend en compte plusieurs difficultés attachées à la propagation atmosphérique. En particulier, il permet d'analyser les principales ondes de propagation (ondes de Poincaré, ondes de Rossby).
+
+Dans ce travail, nous considérons la conception d'un schéma pour la résolution des équations Shallow Water sur la sphère. Ce problème va au delà du cadre plan où il est souvent traité sous différentes hypothèses concernant la force de Coriolis (par exemple, l'hypothèse du $\beta-$plan où la force de Coriolis dépend seulement de la coordonnée $y$). Des références classiques pour les méthodes numériques en dynamique des fluides sont \cite{Augenbaum1985, Durran2013, Zeitlin2007}. 
+
+Dans de nombreux travaux récents, les équations Shallow Water sphériques sont résolues par des méthodes numériques sur grille. Des grilles particulières sont la grille icosaèdrale, la grille Yin-Yang et la grille Cubed-Sphere. Dans \cite{Thuburn2014}, le schéma volumes finis Dynamico utilise une grille icosaèdrale. Un autre méthode de volumes finis utilisant une grille Yin-Yang est introduite dans \cite{Li2008}. Différentes méthodes de Galerkin Discontinu ont également été considérées sur les maillages suivants : maillage icosaèdral \cite{Giraldo2002}, maillage Yin-Yang \cite{Hall2013} et Cubed-Sphere \cite{Lauter2008, Nair2005}. D'autres travaux utilisent la théorie des éléments finis mimétiques \cite{Eldred2015}. Notons également une activité importante utilisant des approximations sans grilles. Les équations SWE sont résolues par méthodes particulaires dans \cite{Bosler2014}. Par ailleurs, une méthode utilisant les fonctions de base radiale est considérée dans \cite{Flyer2011, Fornberg2008}.  
+
+Dans \cite{Croisille2013,Croisille2015} est introduit un schéma aux différences finies pour le calcul du gradient d'un champ scalaire sphérique et de la divergence d'un champ vectoriel sphérique donnés aux points de la Cubed-Sphere \cite{Sadourny1972}. Ce schéma est basé sur une approximation hermitienne le long de grands cercles correspondants à des lignes de coordonnées sur la grille.
+
+Dans cette thèse, nous étudions différents aspects de cette approche. Nous commençons par analyser en détail la grille Cubed-Sphere, en particulier ses propriétés de symétrie. Dans un second temps, nous montrons comment la structure en grands cercles de la grille permet de définir de façon naturelle des opérateurs différentiels discrets. On en déduit un algorithme de référence pour la discrétisation des problèmes sur la sphère. Nous nous sommes attachés à effectuer de nombreux tests de la littérature en climatologie numérique et à étudier les résultats obtenus en détail. Comme nous le verrons dans les chapitres \ref{chap:advection} et \ref{chap:6}, les résultats sont comparables aux meilleurs schémas conservatifs d'ordre 4 disponibles actuellement.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+\newpage
+%\vspace{1.3cm}
+\textbf{Plan de la thèse :}
+
+\textbf{Chapitre 1 : Schémas aux différences.}
+
+L'objectif de ce chapitre est d'introduire les notations et les schémas aux différences finies 1D et 2D qui seront utilisés sur la sphère. Nous détaillons des schémas d'approximations de la dérivée première à l'aide de méthodes de différences finies classiques ou hermitiennes. Nous introduisons aussi les opérateurs de filtrage. Les propriétés spectrales de ces outils sont étudiées.
+
+
+
+
+
+
+
+\vspace{0.7cm}
+\textbf{Chapitre 2 : Analyse numérique.}
+
+La discrétisation d'équations aux dérivées partielles d'évolution est introduite et étudiée. En particulier, nous analysons les propriétés de précision, stabilité et conservation pour l'équation d'advection en dimension 1 et l'équation Shallow Water linéarisée en dimension 2. Des tests sont aussi effectués sur l'équation de Burgers. L'opérateur de filtrage est analysé sur ces problèmes d'évolution.
+
+
+
+
+
+
+
+\vspace{0.7cm}
+\textbf{Chapitre 3 : Grille Cubed-Sphere.}
+
+Nous introduisons le maillage Cubed-Sphere. Ce dernier est construit à partir de grands cercles. Un produit scalaire est analysé sur les fonctions de grille. Il permet d'obtenir l'orthogonalité d'un grand nombre d'harmoniques sphériques sur la grille. Des formules de quadrature issues de ce produit scalaire sont analysées.
+
+
+
+
+
+
+\vspace{0.7cm}
+\textbf{Chapitre 4 : Approximation des opérateurs différentiels sur la Cubed-Sphere.}
+
+On utilise la structure en grands cercles du maillage pour construire des opérateurs gradient, divergence et vorticité discrets sur la Cubed-Sphere. Nous analysons la consistance de ces opérateurs et effectuons des expériences numériques. L'opérateur de filtrage en dimension 1 est étendu à la Cubed-Sphere.
+
+
+
+
+
+
+
+\vspace{0.7cm}
+\textbf{Chapitre 5 : Équations d'advection sphériques.}
+
+Des expériences numériques sont effectuées sur l'équation d'advection sphérique linéaire et non-linéaire. La précision du schéma est analysée ainsi que l'influence du filtrage sur des tests de convection de type rotation solide ou de type tourbillon. Sur l'équation d'advection non linéaire, nous observons le comportement du schéma en présence d'un choc et la conservation d'une solution stationnaire. Nous nous restreignons à un schéma linéaire sans opérateur de capture de chocs.
+
+
+
+
+
+
+
+\vspace{0.7cm}
+\textbf{Chapitre 6 : Équations Shallow Water sphériques.}
+
+Nous évaluons les performances du schéma sur le système d'équations Shallow Water et son linéarisé. Des tests sont faits sur des solutions stationnaires et des problèmes évoluant dans le temps. Ces derniers sont issus de la littérature classique. Nous analysons le comportement de la solution calculée par l'algorithme et les propriétés de conservation observées numériquement.
+

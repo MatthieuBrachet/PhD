@@ -1,0 +1,19 @@
+%% Conclusion générale
+
+Dans cette thèse, nous présentons un nouveau schéma aux différences finies pour la résolution d'équations aux dérivées partielles d'évolution sur la sphère en rotation.
+
+Le schéma est d'abord étudié dans le cadre plan et périodique en dimensions 1 et 2. Notre schéma est centré en espace. L'approximation en temps est effectuée par un schéma de Runge-Kutta RK4. Un opérateur de filtrage est ajouté à chaque pas de temps. D'excellents résultats sont obtenus sur l'équation de transport, sur l'équation des ondes avec paramètre de Coriolis ainsi que sur l'équation de Burgers. On a observé que l'opérateur de filtrage est suffisant pour éviter l'apparition d'oscillations parasites. On observe une excellente conservation numérique de la masse. Le choix de l'ordre de précision est discuté. Un filtrage d'ordre 2, 4 ou 6 donne une importante perte de précision et une dissipation numérique de la solution. Le filtrage d'ordre 10 est un bon compromis entre stabilité, la précision et l'atténuation des oscillations parasites.
+
+Différents types d'opérateurs différentiels discrets ont été mis en œuvre. On montre une convergence à l'ordre 3. Sur les essais numériques effectués, nous observons en pratique une convergence à l'ordre 4. Les niveaux d'erreurs observés sont très faibles. 
+
+
+D'autre part, nous avons utilisé ces opérateurs différentiels pour l'approximation de systèmes d'équations du type Shallow Water sphérique. Les tests effectués sur l'équation Shallow Water linéarisée et l'équation Shallow Water complète donnent des résultats comparables à ceux obtenus par des méthodes de Galerkin ou de volumes finis d'ordre élevé. Les niveaux d'erreurs observés avec notre schéma sont très bons. Bien que le schéma ne soit pas conservatif, les erreurs de conservation sont excellentes. Pour la masse le comportement est très satisfaisant. Pour l'énergie et l'enstrophie potentielle, les erreurs sont similaires à celles obtenues par d'autres méthodes y compris sur des tests difficiles tels que le test de la montagne isolée.
+
+Les perspectives de ce travail sont les suivantes :
+\begin{itemize}
+\item l'utilisation de splines cubiques limite la montée en ordre du schéma. Nous avons observé que les splines cubiques représentent la principale source d'erreur des opérateurs différentiels discrets utilisés. L'utilisation d'harmoniques sphériques pour cette phase d'interpolation pourrait être intéressante.
+\item La conception d'un schéma implicite en temps est indispensable à la résolution des équations sur des temps longs ou la simulation de l’acoustique n'est pas prise en compte. Il s'agit de pouvoir effectuer les itérations en temps en utilisant des pas de temps plus grands. La conception d'un solveur rapide de type FFT serait aussi intéressante.
+\item Des méthodes de type zoom locaux peuvent permettre d'obtenir une excellente résolution pour des phénomènes de type tourbillon.
+\item La résolution de modèle en dimension 3 sur la Cubed-Sphere est également une perspective à moyen terme.
+\end{itemize}
+

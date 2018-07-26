@@ -1,0 +1,18 @@
+date : 11-Jul-2018
+ref. : 7372528448
+***********************************
+---------- numerical data ---------
+number of points  : 85
+time step         : 300
+filter order      : redonnet10
+scheme            : compact4
+quadrature        : int
+---------- physical data ----------
+gravity g              : 10
+caracteristic height   : 5000
+coriolis parammeter    : 7.2921e-05
+------------ comment --------------
+.
+***********************************
+  
+  

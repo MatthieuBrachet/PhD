@@ -1,10 +1,10 @@
 clc; clear all; close all;
 format long;
 
-N=16;
+N=25;
 n=N-1;nn=N+1;
 make_cs_grid(N);
-eps=0.1;
+eps=0.5;
 
 nhs_max=6*N^2+2;
 
@@ -40,7 +40,7 @@ xlabel('nhs')
 ylabel('rang')
 
 figure(2)
-plot(iter,[0 diff(dim)],'x-','Linewidth',2)
+plot(iter,[1 diff(dim)],'x-','Linewidth',2)
 grid on
 ylabel('gain sur le rang')
 xlabel('nhs')

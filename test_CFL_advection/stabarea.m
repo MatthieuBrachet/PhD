@@ -1,6 +1,6 @@
 clc; clear all; close all;
 
-x=-3:0.001:3;
+x=-3:0.1:3;
 [X,Y]=meshgrid(x,x);
 
 L=(X+1i*Y);

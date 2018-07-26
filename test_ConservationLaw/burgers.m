@@ -1,4 +1,5 @@
 function [x,y] = burgers( n, ddt, tmax )
+global opt_ftr
 h=2*pi./n;
 x=[h:h:2*pi]';
 
@@ -9,7 +10,6 @@ p=1/6*diag(ones(n-1,1),1)+1/6*diag(ones(n-1,1),-1)+4/6*eye(n,n);
 p(end,1)=1/6; p(1,end)=1/6;
 p=sparse(p);
 
-opt_ftr='redonnet10';
 if strcmp(opt_ftr,'redonnet10')==1
     ftr0=772/1024;
     ftr1=420/1024;

@@ -40,7 +40,7 @@ snapshot='yes';
 nrm='int';
 
 n=31;
-ndaymax=15;
+ndaymax=500;
 cfl=0.9;
 mod101
 disp('mod101 : ok')
@@ -101,7 +101,7 @@ cvit=u0;
 c=max([cgrav,ccor,cvit]);
 ddt=radius*dxi*cfl/c;
 Tmax=ndaymax*3600*24;
-itermax=200000;
+itermax=2000000;
 
 tstart=cputime;
 ref=floor(10000*now);
@@ -133,7 +133,8 @@ time(1)=t; erri(1)=0; err_int(1)=1;
 %% *** video option *******************************************************
 if strcmp(video,'yes')==1
     mkdir(['./RK4_video-' jour ])
-    vidObj=VideoWriter(['./RK4_video-' jour '/ref_' num2str(ref)]);%.avi
+    vidObj=VideoWriter(['./RK4_video-' jour '/ref_' num2str(ref)],'Motion JPEG AVI');
+    vidObj.Quality = 100;
     open(vidObj);
     set(gca,'nextplot','replacechildren');
 end
@@ -375,13 +376,13 @@ while t<Tmax && iter<itermax
         clf
         hFig = figure(9);
         set(gcf,'PaperPositionMode','auto')
-        set(hFig, 'Position', [50 50 1000 500])
+        set(hFig, 'Position', [500 500 1600 800])
         mm=min(min([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
         MM=max(max([ht_fI ht_fII ht_fIII ht_fIV ht_fV ht_fVI]));
         v=[mm 8100:100:10500 MM];
         plot_cs103(n,nn,ht_fI,ht_fII,ht_fIII,ht_fIV,ht_fV,ht_fVI,v);
         title(['solution at time : ', num2str(time(end))])
-        colorbar
+        %colorbar
         %caxis([-1 1]*10^-6);
         %axis([-2.5 .5 -.5 1.5])
 
@@ -392,7 +393,7 @@ while t<Tmax && iter<itermax
     end
     
     %% snapshot
-    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(3*ddt))) == 0
+    if strcmp(snapshot,'yes') == 1 && mod(iter,floor(Tmax/(40*ddt))) == 0
         mkdir(['./RK4_results-' jour '/' num2str(ref)])
         clf;
         
